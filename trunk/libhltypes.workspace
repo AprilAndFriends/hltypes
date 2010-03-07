@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeLite_Workspace Name="libhltypes" Database="./libhltypes.tags">
+  <Project Name="libhltypes" Path="libhltypes.project" Active="No"/>
+  <Project Name="hltypes_unittest" Path="unittest/hltypes_unittest.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Project Name="libhltypes" ConfigName="Debug"/>
+      <Project Name="hltypes_unittest" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Project Name="libhltypes" ConfigName="Release"/>
+      <Project Name="hltypes_unittest" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
