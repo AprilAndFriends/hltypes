@@ -7,10 +7,10 @@ namespace hltypes
 	{
 	protected:
 		unsigned char* data;
-		int element_size,len;
+		int element_size, len;
 		
-		void _getElement(int index,void* output);
-		void _setElement(int index,void* input);
+		void _getElement(int index, void* output);
+		void _setElement(int index, void* input);
 		void _appendElement(void* input);
 	public:
 		_Array(unsigned int element_size);
@@ -27,13 +27,13 @@ namespace hltypes
 		T operator [](int index)
 		{
 			T element;
-			_getElement(index,&element);
+			this->_getElement(index, &element);
 			return element;
 		}
 		
 		void append(T element)
 		{
-			_appendElement(&element);
+			this->_appendElement(&element);
 		}
 	};
 }
