@@ -7,45 +7,57 @@
 * This program is free software; you can redistribute it and/or modify it under      *
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
-#ifndef HLTYPES_ARRAY_H
-#define HLTYPES_ARRAY_H
+#include "hstring.h"
+#include <string.h>
+#include <stdio.h>
+#include <math.h>
+
+typedef std::basic_string<char> stdstr;
 
 namespace hltypes
 {
-	class _Array
-	{
-	protected:
-		unsigned char* data;
-		int element_size, len;
-		
-		void _getElement(int index, void* output);
-		void _setElement(int index, void* input);
-		void _appendElement(void* input);
-	public:
-		_Array(unsigned int element_size);
-		~_Array();
-		
-	};
 
-	template <class T>
-	class Array : public _Array
+	string::string() : stdstr() {}
+	string::string(const char* s) : stdstr(s) {}
+	string::string(const string& s) : stdstr(s) {}
+
+
+
+	void string::split(const char splitter)
 	{
-	public:
-		Array() : _Array(sizeof(T)) { }
+	}
+
+	void string::split(const char* splitter)
+	{
+	}
+
+	void string::split(const string& splitter)
+	{
+	}
+	
+	string::operator float()
+	{
+		float f;
+		sscanf(this->c_str(),"%f",&f);
 		
-		T operator [](int index)
-		{
-			T element;
-			this->_getElement(index, &element);
-			return element;
-		}
+		return f;
+	}
+	
+	string::operator int()
+	{
 		
-		void append(T element)
-		{
-			this->_appendElement(&element);
-		}
-	};
+	}
+	
+	void string::operator=(const float f)
+	{
+		char s[64];
+		sprintf(s,"%f",f);
+		stdstr::operator=(s);
+	}
+	
+	bool string::operator==(const float f)
+	{
+		return (fabs(float(*this)-f) < 0.01f);
+	}
+
 }
-
-
-#endif

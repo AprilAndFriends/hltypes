@@ -9,12 +9,16 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="src/Array.cpp"/>
+    <File Name="src/hstring.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/hltypes/Array.h"/>
+    <File Name="include/hltypes/hltypesExport.h"/>
+    <File Name="include/hltypes/hstring.h"/>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
+  <Dependencies Name="Linux_Debug"/>
   <Settings Type="Dynamic Library">
     <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g" Required="yes" PreCompiledHeader="">
@@ -110,5 +114,4 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
   </Settings>
-  <Dependencies Name="Linux_Debug"/>
 </CodeLite_Project>

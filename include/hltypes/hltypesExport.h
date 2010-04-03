@@ -7,45 +7,22 @@
 * This program is free software; you can redistribute it and/or modify it under      *
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
-#ifndef HLTYPES_ARRAY_H
-#define HLTYPES_ARRAY_H
+#ifndef HLTYPES_EXPORT_H
+#define HLTYPES_EXPORT_H
 
-namespace hltypes
-{
-	class _Array
-	{
-	protected:
-		unsigned char* data;
-		int element_size, len;
-		
-		void _getElement(int index, void* output);
-		void _setElement(int index, void* input);
-		void _appendElement(void* input);
-	public:
-		_Array(unsigned int element_size);
-		~_Array();
-		
-	};
-
-	template <class T>
-	class Array : public _Array
-	{
-	public:
-		Array() : _Array(sizeof(T)) { }
-		
-		T operator [](int index)
-		{
-			T element;
-			this->_getElement(index, &element);
-			return element;
-		}
-		
-		void append(T element)
-		{
-			this->_appendElement(&element);
-		}
-	};
-}
-
+	#ifdef _STATICLIB
+		#define hltypesExport
+	#else
+		#ifdef _WIN32
+			#ifdef HLTYPES_EXPORTS
+				#define hltypesExport __declspec(dllexport)
+			#else
+				#define hltypesExport __declspec(dllimport)
+			#endif
+		#else
+			#define hltypesExport __attribute__ ((visibility("default")))
+		#endif
+	#endif
 
 #endif
+
