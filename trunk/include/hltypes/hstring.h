@@ -7,45 +7,29 @@
 * This program is free software; you can redistribute it and/or modify it under      *
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
-#ifndef HLTYPES_ARRAY_H
-#define HLTYPES_ARRAY_H
+#include <string>
+#include "hltypesExport.h"
 
 namespace hltypes
 {
-	class _Array
+	class hltypesExport string : public std::basic_string<char>
 	{
-	protected:
-		unsigned char* data;
-		int element_size, len;
-		
-		void _getElement(int index, void* output);
-		void _setElement(int index, void* input);
-		void _appendElement(void* input);
 	public:
-		_Array(unsigned int element_size);
-		~_Array();
+		string();
+		string(const char* s);
+		string(const string& s);
 		
-	};
+		void split(const char splitter);
+		void split(const char* splitter);
+		void split(const string& splitter);
+		
+		operator float();
+		operator int();
+		
+		void operator=(const float f);
+		bool operator==(const float f);
 
-	template <class T>
-	class Array : public _Array
-	{
-	public:
-		Array() : _Array(sizeof(T)) { }
-		
-		T operator [](int index)
-		{
-			T element;
-			this->_getElement(index, &element);
-			return element;
-		}
-		
-		void append(T element)
-		{
-			this->_appendElement(&element);
-		}
 	};
 }
 
-
-#endif
+typedef hltypes::string hstr;

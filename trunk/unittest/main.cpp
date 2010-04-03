@@ -1,4 +1,13 @@
-#include <UnitTest++.h>
+/************************************************************************************\
+* This source file is part of the High Level C++ types library                       *
+* For latest info, see http://libhltypes.sourceforge.net/                            *
+**************************************************************************************
+* Copyright (c) 2010 Kresimir Spes, Boris Mikic, Domagoj Cerjan                      *
+*                                                                                    *
+* This program is free software; you can redistribute it and/or modify it under      *
+* the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
+\************************************************************************************/
+#include <unittest++/UnitTest++.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -55,7 +64,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #include <hltypes/Array.h>
-
+#include <hltypes/hstring.h>
 TEST(Array_Test)
 {
 	hltypes::Array<int> a;
@@ -85,6 +94,15 @@ TEST(Array_Struct_Test)
 }
 
 
+TEST(basic_string)
+{
+	hstr s("5.75");
+	
+	float f1=s;
+	s=6.75f;
+	CHECK(f1 == 5.75f && s == 6.75f);
+
+}
 
 // run all tests
 int main(int argc, char **argv)
