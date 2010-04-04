@@ -10,18 +10,57 @@
 #include <string>
 #include "hltypesExport.h"
 
+namespace std
+{
+	template<typename _Tp> class allocator;
+	template<typename _Tp, typename _Alloc> class vector;
+}
+
 namespace hltypes
 {
+	class string;
+	typedef std::allocator<hltypes::string> _hstring_allocator;
+	typedef std::vector<hltypes::string,_hstring_allocator> string_vector;
+	
 	class hltypesExport string : public std::basic_string<char>
 	{
 	public:
 		string();
 		string(const char* s);
 		string(const string& s);
+		string(const char* s,const int len);
+		string(const string& s,const int len);
 		
-		void split(const char splitter) const;
-		void split(const char* splitter) const;
-		void split(const string& splitter) const;
+		/* TODO:
+		 * joining (as a global function)
+		 * count: counts number of subsbstrings in str
+		 * void operator()(int a,int b) - substring operator similar to python
+		 * reversed
+		 * capitalize
+		 * upper
+		 * lower
+		 * swapcase
+		 * utf8_len
+		 * splitlines
+		 * strip,rstrip
+		 * constructor with printf format style [ string(const char* format,...) ]
+		 * scanf
+		 * +,+= operators
+		 * */
+		
+		void split(const char splitter,string& out_left,string& out_right) const;
+		void split(const char* splitter,string& out_left,string& out_right) const;
+		void split(const string& splitter,string& out_left,string& out_right) const;
+		void rsplit(const char splitter,string& out_left,string& out_right) const;
+		void rsplit(const char* splitter,string& out_left,string& out_right) const;
+		void rsplit(const string& splitter,string& out_left,string& out_right) const;
+		
+		string_vector split(const char splitter,unsigned int n=-1) const;
+		string_vector split(const char* splitter,unsigned int n=-1) const;
+		string_vector split(const string& splitter,unsigned int n=-1) const;
+		string_vector rsplit(const char splitter,unsigned int n=-1) const;
+		string_vector rsplit(const char* splitter,unsigned int n=-1) const;
+		string_vector rsplit(const string& splitter,unsigned int n=-1) const;
 		
 		bool startswith(const char* s) const;
 		bool startswith(const string& s) const;

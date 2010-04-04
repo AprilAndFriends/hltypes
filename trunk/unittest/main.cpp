@@ -10,6 +10,9 @@
 #include <unittest++/UnitTest++.h>
 #include <hltypes/Array.h>
 #include <hltypes/hstring.h>
+#include <vector>
+
+
 TEST(Array_Test)
 {
 	CHECK(1);
@@ -116,7 +119,38 @@ TEST(string_endswith)
 	CHECK(s1.endswith("test") && !s1.endswith("something"));
 }
 
+TEST(string_split1)
+{
+	hstr s="1,2,3,4,5,6,7,8,9",s2="test",splitter="!";
+	std::vector<hstr> v=s.split(",");
+	std::vector<hstr> v2=s.split(",",2);
 
+	CHECK(v.size() == 9 && v[0] == "1" && v[1] == "2" && v[2] == "3" && v[3] == "4" &&
+	      v[4] == "5" && v[5] == "6" && v[6] == "7" && v[7] == "8" && v[8] == "9" &&
+		  s2.split(',')[0] == "test" && s2.split(splitter).size() == 1 &&
+		  v2.size() == 3 && v2[0] == "1" && v2[1] == "2" && v2[2] == "3,4,5,6,7,8,9" &&
+		  s.split("3,4").size() == 2);
+}
+
+TEST(string_rsplit1)
+{
+	hstr s="1,2,3,4,5,6,7,8,9";
+	std::vector<hstr> v=s.rsplit(",");
+
+
+	CHECK(v.size() == 9 && v[0] == "1" && v[1] == "2" && v[2] == "3" && v[3] == "4" &&
+	      v[4] == "5" && v[5] == "6" && v[6] == "7" && v[7] == "8" && v[8] == "9");
+}
+
+TEST(string_rsplit2)
+{
+	hstr s="1,2,3,4,5,6,7,8,9";
+	hstr s2="test",splitter="!";
+	std::vector<hstr> v2=s.rsplit(",",2);
+	std::vector<hstr> v3=s2.rsplit(',');
+	CHECK(v3[0] == "test" && s2.rsplit(splitter).size() == 1 &&
+		  v2.size() == 3 && v2[0] == "1,2,3,4,5,6,7" && v2[1] == "8" && v2[2] == "9");
+}
 
 // run all tests
 int main(int argc, char **argv)
