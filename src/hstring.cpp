@@ -21,8 +21,6 @@ namespace hltypes
 	string::string(const char* s) : stdstr(s) {}
 	string::string(const string& s) : stdstr(s) {}
 
-
-
 	void string::split(const char splitter) const
 	{
 	}
@@ -37,24 +35,48 @@ namespace hltypes
 	
 	bool string::startswith(const char* s) const
 	{
-		return 1;
+		return (strncmp(this->c_str(),s,strlen(s)) == 0);
 	}
 	
 	bool string::startswith(const string& s) const
-	{
-		return 1;
-	}
+	{ return this->startswith(s.c_str()); }
 
 	bool string::endswith(const char* s) const
 	{
-		return 1;
+		const char* thiss=this->c_str();
+		int thislen=this->size(),slen=strlen(s);
+		if (slen > thislen) return 0;
+		
+		return (strcmp(thiss+thislen-slen,s) == 0);
 	}
 	
 	bool string::endswith(const string& s) const
+	{ return this->endswith(s.c_str()); }
+
+	string string::replace(const char* what,const char* with_what) const
 	{
-		return 1;
+		const char *s=this->c_str(),*p;
+		string out;
+		int what_len=strlen(what);
+		if (what_len == 0) return *this;
+		
+		while ((p = strstr(s,what)) != 0)
+		{
+			out.append(s,p-s);
+			out.append(with_what);
+			s=p+what_len;
+		}
+		out.append(s);
+		return out;
 	}
 	
+	string string::replace(const string& what,const char* with_what) const
+	{ return this->replace(what.c_str(),with_what); }
+	string string::replace(const char* what,const string& with_what) const
+	{ return this->replace(what,with_what.c_str()); }
+	string string::replace(const string& what,const string& with_what) const
+	{ return this->replace(what.c_str(),with_what.c_str()); }
+/******* CAST OPERATORS ************************************************/
 	string::operator float() const
 	{
 		float f;
