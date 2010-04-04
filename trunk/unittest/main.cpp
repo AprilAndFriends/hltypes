@@ -53,6 +53,9 @@ TEST(float_string)
 	CHECK(f == 5.75f && float_string == 6.75f);
 }
 
+
+
+/******* STRING ****************************************************************************/
 TEST(int_string)
 {
 	hstr int_string("5");
@@ -89,6 +92,31 @@ TEST(string_cstr_compatibilty)
 	
 	CHECK(s1 == "text1" && s2 == cstr && s2 == "text2");
 }
+
+TEST(string_replace)
+{
+	hstr s1="1 2 3 4 5 6 7 8 9",s2="101101010100011010",s3="test",s4="0";
+	CHECK(s1.replace(" ","") == "123456789" &&
+	      s2.replace(s4,"") == "111111111" &&
+		  s3.replace("a","b") == "test" &&
+		  s3.replace("es","his is a tes") == "this is a test");
+}
+
+TEST(string_startswith)
+{
+	hstr s1="this is a test";
+	
+	CHECK(s1.startswith("this") && !s1.startswith("something"));
+}
+
+TEST(string_endswith)
+{
+	hstr s1="this is a test";
+	
+	CHECK(s1.endswith("test") && !s1.endswith("something"));
+}
+
+
 
 // run all tests
 int main(int argc, char **argv)

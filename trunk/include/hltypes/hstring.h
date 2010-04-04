@@ -28,7 +28,10 @@ namespace hltypes
 		bool endswith(const char* s) const;
 		bool endswith(const string& s) const;
 
-		
+		string replace(const char* what,const char* with_what) const;
+		string replace(const string& what,const char* with_what) const;
+		string replace(const char* what,const string& with_what) const;
+		string replace(const string& what,const string& with_what) const;
 		
 		operator float() const;
 		operator int() const;
