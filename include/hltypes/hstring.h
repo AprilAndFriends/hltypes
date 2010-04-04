@@ -19,17 +19,34 @@ namespace hltypes
 		string(const char* s);
 		string(const string& s);
 		
-		void split(const char splitter);
-		void split(const char* splitter);
-		void split(const string& splitter);
+		void split(const char splitter) const;
+		void split(const char* splitter) const;
+		void split(const string& splitter) const;
 		
-		operator float();
-		operator int();
+		bool startswith(const char* s) const;
+		bool startswith(const string& s) const;
+		bool endswith(const char* s) const;
+		bool endswith(const string& s) const;
+
+		
+		
+		operator float() const;
+		operator int() const;
 		
 		void operator=(const float f);
-		bool operator==(const float f);
+		void operator=(const int i);
+		void operator=(const bool b);
+		void operator=(const std::string& s);
+		void operator=(const char* s);
+
+		bool operator==(const float f) const;
+		bool operator==(const int i) const;
+		bool operator==(const bool b) const;
+		bool operator==(const char* s) const;
+		bool operator==(const std::string& s) const;
 
 	};
 }
 
 typedef hltypes::string hstr;
+typedef const hltypes::string& hcstr;
