@@ -7,6 +7,7 @@
 * This program is free software; you can redistribute it and/or modify it under      *
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
+#define _CRT_SECURE_NO_WARNINGS // damn visual studio warnings
 #include "hstring.h"
 #include <string.h>
 #include <stdio.h>

@@ -1,7 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hltypes", "libhltypes.vcproj", "{72D6EAF0-BC83-47BE-89AA-663C8B3CEF46}"
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhltypes", "libhltypes.vcproj", "{72D6EAF0-BC83-47BE-89AA-663C8B3CEF46}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hltypes_unittest", "unittest\hltypes_unittest.vcproj", "{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}"
+	ProjectSection(ProjectDependencies) = postProject
+		{72D6EAF0-BC83-47BE-89AA-663C8B3CEF46} = {72D6EAF0-BC83-47BE-89AA-663C8B3CEF46}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +18,10 @@ Global
 		{72D6EAF0-BC83-47BE-89AA-663C8B3CEF46}.Debug|Win32.Build.0 = Debug|Win32
 		{72D6EAF0-BC83-47BE-89AA-663C8B3CEF46}.Release|Win32.ActiveCfg = Release|Win32
 		{72D6EAF0-BC83-47BE-89AA-663C8B3CEF46}.Release|Win32.Build.0 = Release|Win32
+		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.Debug|Win32.ActiveCfg = Debug|Win32
+		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.Debug|Win32.Build.0 = Debug|Win32
+		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.Release|Win32.ActiveCfg = Release|Win32
+		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
