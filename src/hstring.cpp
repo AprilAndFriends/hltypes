@@ -11,6 +11,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
+#include <vector>
 
 typedef std::basic_string<char> stdstr;
 
@@ -20,26 +21,55 @@ namespace hltypes
 	string::string() : stdstr() {}
 	string::string(const char* s) : stdstr(s) {}
 	string::string(const string& s) : stdstr(s) {}
+	string::string(const char* s,const int len) : stdstr(s,len) {}
+	string::string(const string& s,const int len) : stdstr(s,len) {}
 
-	void string::split(const char splitter) const
-	{
-	}
 
-	void string::split(const char* splitter) const
+	string_vector string::split(const char* splitter,unsigned int n) const
 	{
-	}
+		string_vector v;
+		const char *s=this->c_str(),*p;
+		int splitter_len=strlen(splitter);
 
-	void string::split(const string& splitter) const
-	{
+		while ((p = strstr(s,splitter)) != 0 && n > 0)
+		{
+			v.push_back(string(s,p-s));
+			s=p+splitter_len; n--;
+		}
+		if (s[0] != 0) v.push_back(string(s));
+		
+		return v;
 	}
 	
+	string_vector string::rsplit(const char* splitter,unsigned int n) const
+	{
+		string_vector v;
+		const char *s=this->c_str(),*p;
+		int splitter_len=strlen(splitter);
+
+		for (p = s+strlen(s)-1;p != s && n > 0;p--)
+		{
+			if (strncmp(p,splitter,splitter_len) == 0) n--;
+		}
+		if (s != p)
+		{
+			v.push_back(string(s,p-s+1));
+			s=p+1+splitter_len;
+		}
+		while ((p = strstr(s,splitter)) != 0)
+		{
+			v.push_back(string(s,p-s));
+			s=p+splitter_len;
+		}
+		if (s[0] != 0) v.push_back(string(s));
+		
+		return v;
+	}
+
 	bool string::startswith(const char* s) const
 	{
 		return (strncmp(this->c_str(),s,strlen(s)) == 0);
 	}
-	
-	bool string::startswith(const string& s) const
-	{ return this->startswith(s.c_str()); }
 
 	bool string::endswith(const char* s) const
 	{
@@ -49,9 +79,6 @@ namespace hltypes
 		
 		return (strcmp(thiss+thislen-slen,s) == 0);
 	}
-	
-	bool string::endswith(const string& s) const
-	{ return this->endswith(s.c_str()); }
 
 	string string::replace(const char* what,const char* with_what) const
 	{
@@ -69,7 +96,31 @@ namespace hltypes
 		out.append(s);
 		return out;
 	}
+/******* TYPE EXTENSION FUNCTIONS **************************************/
+	string_vector string::split(const char splitter,unsigned int n) const
+	{
+		char sp[2]={splitter,0};
+		return this->split(sp,n);
+	}
+
+	string_vector string::split(const string& splitter,unsigned int n) const
+	{ return this->split(splitter.c_str(),n); }
 	
+	string_vector string::rsplit(const char splitter,unsigned int n) const
+	{
+		char sp[2]={splitter,0};
+		return this->rsplit(sp,n);
+	}
+
+	string_vector string::rsplit(const string& splitter,unsigned int n) const
+	{ return this->rsplit(splitter.c_str(),n); }
+	
+	bool string::startswith(const string& s) const
+	{ return this->startswith(s.c_str()); }
+
+	bool string::endswith(const string& s) const
+	{ return this->endswith(s.c_str()); }
+
 	string string::replace(const string& what,const char* with_what) const
 	{ return this->replace(what.c_str(),with_what); }
 	string string::replace(const char* what,const string& with_what) const
