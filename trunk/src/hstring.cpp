@@ -19,6 +19,7 @@ typedef std::basic_string<char> stdstr;
 
 namespace hltypes
 {
+	
 
 	string::string() : stdstr() {}
 	string::string(const char* s) : stdstr(s) {}
