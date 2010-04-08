@@ -115,8 +115,8 @@ namespace hltypes
 typedef hltypes::string hstr;
 typedef const hltypes::string& chstr;
 
-hstr operator+(const char* s1,chstr s2);
-hstr operator+(char* s1,chstr s2);
+hstr hltypesFnExport operator+(const char* s1,chstr s2);
+hstr hltypesFnExport operator+(char* s1,chstr s2);
 
 
 

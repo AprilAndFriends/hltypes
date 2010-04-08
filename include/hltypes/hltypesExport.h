@@ -12,15 +12,19 @@
 
 	#ifdef _STATICLIB
 		#define hltypesExport
+		#define hltypesFnExport
 	#else
 		#ifdef _WIN32
 			#ifdef HLTYPES_EXPORTS
 				#define hltypesExport __declspec(dllexport)
+				#define hltypesFnExport __declspec(dllexport)
 			#else
 				#define hltypesExport __declspec(dllimport)
+				#define hltypesFnExport __declspec(dllimport)
 			#endif
 		#else
 			#define hltypesExport __attribute__ ((visibility("default")))
+			#define hltypesFnExport
 		#endif
 	#endif
 
