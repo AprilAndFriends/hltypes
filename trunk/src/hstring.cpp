@@ -268,7 +268,9 @@ namespace hltypes
 	}
 	
 	string string::operator+(char* s1) const
-	{ return this->operator+(s1); }
+	{ 
+		return this->operator+((const char*) s1);
+	}
 	
 	string string::operator+(const string& s1) const
 	{
