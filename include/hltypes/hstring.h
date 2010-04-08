@@ -10,6 +10,9 @@
 #include <string>
 #include "hltypesExport.h"
 
+#ifndef _HLTYPES_HSTRING
+#define _HLTYPES_HSTRING
+
 namespace std
 {
 	template<typename _Tp> class allocator;
@@ -28,8 +31,11 @@ namespace hltypes
 		string();
 		string(const char* s);
 		string(const string& s);
+		string(const std::string& s);
 		string(const char* s,const int len);
 		string(const string& s,const int len);
+		string(const int i);
+		string(const float f);
 		
 		/* TODO:
 		 * joining (as a global function)
@@ -48,12 +54,12 @@ namespace hltypes
 		 * +,+= operators
 		 * */
 		
-		void split(const char splitter,string& out_left,string& out_right) const;
-		void split(const char* splitter,string& out_left,string& out_right) const;
-		void split(const string& splitter,string& out_left,string& out_right) const;
-		void rsplit(const char splitter,string& out_left,string& out_right) const;
-		void rsplit(const char* splitter,string& out_left,string& out_right) const;
-		void rsplit(const string& splitter,string& out_left,string& out_right) const;
+		bool split(const char splitter,string& out_left,string& out_right) const;
+		bool split(const char* splitter,string& out_left,string& out_right) const;
+		bool split(const string& splitter,string& out_left,string& out_right) const;
+		bool rsplit(const char splitter,string& out_left,string& out_right) const;
+		bool rsplit(const char* splitter,string& out_left,string& out_right) const;
+		bool rsplit(const string& splitter,string& out_left,string& out_right) const;
 		
 		string_vector split(const char splitter,unsigned int n=-1) const;
 		string_vector split(const char* splitter,unsigned int n=-1) const;
@@ -66,11 +72,22 @@ namespace hltypes
 		bool startswith(const string& s) const;
 		bool endswith(const char* s) const;
 		bool endswith(const string& s) const;
+		
+		string lower() const;
+		string upper() const;
+		
 
 		string replace(const char* what,const char* with_what) const;
 		string replace(const string& what,const char* with_what) const;
 		string replace(const char* what,const string& with_what) const;
 		string replace(const string& what,const string& with_what) const;
+		string replace(size_t pos1,size_t n1,const string& str);
+		string replace(size_t pos1,size_t n1,const string& str,size_t pos2,size_t n2);
+		string replace(size_t pos1,size_t n1,const char* s,size_t n2);
+		string replace(size_t pos1,size_t n1,const char* s);
+		string replace(size_t pos1,size_t n1,size_t n2, char c);
+
+		
 		
 		operator float() const;
 		operator int() const;
@@ -80,6 +97,11 @@ namespace hltypes
 		void operator=(const bool b);
 		void operator=(const std::string& s);
 		void operator=(const char* s);
+		
+		string operator+(const char* s1) const;
+		string operator+(char* s1) const;
+		string operator+(const string& s1) const;
+		string operator+(const std::string& s1) const;
 
 		bool operator==(const float f) const;
 		bool operator==(const int i) const;
@@ -91,4 +113,12 @@ namespace hltypes
 }
 
 typedef hltypes::string hstr;
-typedef const hltypes::string& hcstr;
+typedef const hltypes::string& chstr;
+
+hstr operator+(const char* s1,chstr s2);
+hstr operator+(char* s1,chstr s2);
+
+
+
+#endif
+
