@@ -10,42 +10,43 @@
 #ifndef HLTYPES_ARRAY_H
 #define HLTYPES_ARRAY_H
 
+#include <vector>
+
 namespace hltypes
 {
-	class _Array
-	{
-	protected:
-		unsigned char* data;
-		int element_size, len;
-		
-		void _getElement(int index, void* output);
-		void _setElement(int index, void* input);
-		void _appendElement(void* input);
-	public:
-		_Array(unsigned int element_size);
-		~_Array();
-		
-	};
-
-	template <class T>
-	class Array : public _Array
+	template <class T> class Array : std::vector<T>
 	{
 	public:
-		Array() : _Array(sizeof(T)) { }
+		Array();
 		
-		T operator [](int index)
-		{
-			T element;
-			this->_getElement(index, &element);
-			return element;
-		}
+		// operators
+		T& operator[](int index) const;
 		
-		void append(T element)
-		{
-			this->_appendElement(&element);
-		}
+		// HL methods
+		int index_of(const T& element) const;
+		bool contains(const T& element) const;
+		void append(const T& element);
+		void push_front(const T& element);
+		T& pop_front();
+		void insert_at(int index, const T& element);
+		T& remove_at(int index);
+		void reverse();
+		Array<T> reversed();
+		
+		// HL operators
+		//template <class T> void Array<T>::operator<<(const T& element); // same as push_back
+		//template <class T> void Array<T>::operator+=(const T& element); // same as push_back
+		//template <class T> T& Array<T>::operator-=(const T& element); // same as remove
+		//template <class T> void Array<T>::operator+=(other Array<T>); // appends elements of other
+		//template <class T> void Array<T>::operator-=(other Array<T>); // removes elements of other
+		//template <class T> Array<T> Array<T>::operator+(other Array<T>); // merges with other
+		//template <class T> Array<T> Array<T>::operator-(other Array<T>); // difference with other
+		//template <class T> void Array<T>::operator&=(other Array<T>); // intersection with other
+		//template <class T> void Array<T>::operator|=(other Array<T>); // union with other
+		//template <class T> Array<T> Array<T>::operator&(other Array<T>); // intersects with other
+		//template <class T> Array<T> Array<T>::operator|(other Array<T>); // unites with other
+		
 	};
 }
-
 
 #endif
