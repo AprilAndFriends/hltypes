@@ -15,72 +15,71 @@
 
 namespace hltypes
 {
-	template <class T> Array<T>::Array() : std::vector<T>()
-	{
-	}
-	
 /******* OPERATORS *****************************************************/
 	template <class T> T& Array<T>::operator[](int index) const
 	{
 		return std::vector<T>::operator[](index);
 	}
 	
-/******* HL METHODS ****************************************************/
-	template <class T> int Array<T>::index_of(const T& element) const
-	{
-		for (int i = 0; i < this->size(); i++)
+	/******* HL METHODS ****************************************************/
+		template <class T> int Array<T>::index_of(const T& element) const
 		{
-			if (this[i] == element)
+			for (int i = 0; i < this->size(); i++)
 			{
-				return i;
+				if (this[i] == element)
+				{
+					return i;
+				}
 			}
+			return -1;
 		}
-		return -1;
-	}
-	
-	template <class T> bool Array<T>::contains(const T& element) const
-	{
-		return (find(this->begin(), this->end(), element) != this->end());
-	}
-	
-	template <class T> void Array<T>::append(const T& element)
-	{
-		this->push_back(element);
-	}
-	
-	template <class T> void Array<T>::push_front(const T& element)
-	{
-		this->insert(this->begin(), element);
-	}
-	
-	template <class T> T& Array<T>::pop_front()
-	{
-		T& result = this->front();
-		this->erase(this->begin());
-		return result;
-	}
-	
-	template <class T> void Array<T>::insert_at(int index, const T& element)
-	{
-		this->insert(this->begin() + index, element);
-	}
-	
-	template <class T> T& Array<T>::remove_at(int index)
-	{
-		//2DO - how to use an iterator in a derived template class so "begin() + index" isn't there twice
-		T& result = *(this->begin() + index);
-		this->erase(this->begin() + index);
-		return result;
-	}
-	
-	template <class T> void Array<T>::reverse()
-	{
-		reverse(this);
-	}
-	
-	template <class T> Array<T> Array<T>::reversed()
-	{
-		return reverse_copy(this);
-	}
+		
+		template <class T> bool Array<T>::contains(const T& element) const
+		{
+			//std::vector<T>::iterator it = this->begin();
+			iterator it = this->begin();
+			return (find(this->begin(), this->end(), element) != this->end());
+		}
+		
+		template <class T> void Array<T>::append(const T& element)
+		{
+			this->push_back(element);
+		}
+		
+		template <class T> void Array<T>::push_front(const T& element)
+		{
+			this->insert(this->begin(), element);
+		}
+		
+		template <class T> T& Array<T>::pop_front()
+		{
+			T& result = this->front();
+			this->erase(this->begin());
+			return result;
+		}
+		
+		template <class T> void Array<T>::insert_at(int index, const T& element)
+		{
+			this->insert(this->begin() + index, element);
+		}
+		
+		template <class T> T& Array<T>::remove_at(int index)
+		{
+			//2DO - how to use an iterator in a derived template class so "begin() + index" isn't there twice
+			
+			T& result = *(this->begin() + index);
+			this->erase(this->begin() + index);
+			return result;
+		}
+		
+		template <class T> void Array<T>::reverse()
+		{
+			reverse(this);
+		}
+		
+		template <class T> Array<T> Array<T>::reversed()
+		{
+			return reverse_copy(this);
+		}
 	
 }
