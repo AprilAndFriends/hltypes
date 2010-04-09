@@ -8,7 +8,6 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
-    <File Name="src/Array.cpp"/>
     <File Name="src/hstring.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">

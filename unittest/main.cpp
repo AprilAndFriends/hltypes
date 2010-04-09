@@ -18,16 +18,6 @@
 #include <vector>
 
 
-TEST(Array_Test)
-{
-	CHECK(1);
-	/*
-	hltypes::Array<int> a;
-	a.append(5); a.append(6); a.append(7);
-	CHECK(a[0] == 5 && a[1] == 6 && a[2] == 7);
-*/
-}
-
 class test_struct
 {
 public:
@@ -37,20 +27,24 @@ public:
 	bool operator ==(const test_struct& t) { return x==t.x && y==t.y && z==t.z; }
 };
 
-TEST(Array_Struct_Test)
+TEST(Array_Struct_Test_01)
 {
-	CHECK(1);
-	/*
-	hltypes::Array<test_struct> a;
-	a.append(test_struct(0,0,0));
-	a.append(test_struct(1,2,3));
-	a.append(test_struct(6,6,6));
-	CHECK(a[0] == test_struct(0,0,0) &&
-	      a[1] == test_struct(1,2,3) &&
-		  a[2] == test_struct(6,6,6));
-*/
+	harray<int> a;
+	a.insert_at(0, 5);
+	CHECK(0);
+	CHECK(a[0] == 5);
+	CHECK(a.at(0) == 5);
+	CHECK(a.size() == 1);
+	int b = a.pop(0);
+	CHECK(b == 5);
+	CHECK(a.size() == 0);
+	CHECK(a.size() == 1);
 }
 
+TEST(Array_Struct_Test_02)
+{
+	CHECK(1);
+}
 
 TEST(float_string)
 {
