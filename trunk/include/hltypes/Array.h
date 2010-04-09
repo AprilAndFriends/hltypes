@@ -66,7 +66,7 @@ namespace hltypes
 		}
 		
 /******* ITERATOR METHODS **********************************************/
-		T* iter(int start) const
+		T* iter(int start = 0) const
 		{
 			this->index = start - 1;
 			return this->next();
