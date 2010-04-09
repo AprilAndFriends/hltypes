@@ -19,8 +19,6 @@ namespace hltypes
 	template <class T> class hltypesExport Array : public std::vector<T>
 	{
 	public:
-		class hltypesExport iterator : public std::vector<T>::iterator {};
-		
 		// constructors
 		Array() : index(-1), std::vector<T>()
 		{
@@ -28,27 +26,27 @@ namespace hltypes
 		
 		Array(const Array<T>& elements) : index(-1), std::vector<T>()
 		{
-			this->insert(0, elements, 0, elements->size());
+			this->insert_at(0, elements, 0, elements.size());
 		}
 		
 		Array(const Array<T>& elements, const int count) : index(-1), std::vector<T>()
 		{
-			this->insert(0, elements, 0, count);
+			this->insert_at(0, elements, 0, count);
 		}
 		
 		Array(const Array<T>& elements, const int start, const int count) : index(-1), std::vector<T>()
 		{
-			this->insert(0, elements, start, count);
+			this->insert_at(0, elements, start, count);
 		}
 		
 		Array(const T elements[], const int count) : index(-1), std::vector<T>()
 		{
-			this->insert(0, elements, 0, count);
+			this->insert_at(0, elements, 0, count);
 		}
 		
 		Array(const T elements[], const int start, const int count) : index(-1), std::vector<T>()
 		{
-			this->insert(0, elements, start, count);
+			this->insert_at(0, elements, start, count);
 		}
 		
 /******* OPERATORS *****************************************************/
@@ -109,19 +107,17 @@ namespace hltypes
 		
 		void insert_at(const int index, const Array<T>& elements, const int start, const int count)
 		{
-			iterator it = this->begin();
 			for (int i = start; i < start + count; i++)
 			{
-				this->insert(it + index, elements.at(i));
+				this->insert(this->begin() + index, elements.at(i));
 			}
 		}
 		
 		void insert_at(const int index, const T elements[], const int start, const int count)
 		{
-			iterator it = this->begin();
 			for (int i = start; i < start + count; i++)
 			{
-				this->insert(it + index, elements[i]);
+				this->insert(this->begin() + index, elements[i]);
 			}
 		}
 		
@@ -279,6 +275,11 @@ namespace hltypes
 		void append(const T elements[], const int start, const int count)
 		{
 			this->insert_at(this->size(), elements, start, count);
+		}
+		
+		void push_back(const T& element)
+		{
+			this->insert_at(this->size(), element);
 		}
 		
 		void push_back(const Array<T>& elements)
