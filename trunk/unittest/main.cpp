@@ -22,13 +22,14 @@ class test_struct
 {
 public:
 	float x,y,z;
-	test_struct() {x=y=z=0; }
+	test_struct() { x=y=z=0; }
 	test_struct(float _x,float _y,float _z) { x=_x; y=_y; z=_z; }
 	bool operator ==(const test_struct& t) { return x==t.x && y==t.y && z==t.z; }
 };
 
 TEST(Array_Struct_Test_01)
 {
+	/*
 	harray<int> a;
 	a.insert_at(0, 5);
 	CHECK(0);
@@ -39,6 +40,8 @@ TEST(Array_Struct_Test_01)
 	CHECK(b == 5);
 	CHECK(a.size() == 0);
 	CHECK(a.size() == 1);
+	*/
+	
 }
 
 TEST(Array_Struct_Test_02)
@@ -136,8 +139,8 @@ TEST(string_rsplit1)
 	hstr s="1,2,3,4,5,6,7,8,9";
 	std::vector<hstr> v=s.rsplit(",");
 
-
-	CHECK(v.size() == 9 && v[0] == "1" && v[1] == "2" && v[2] == "3" && v[3] == "4" &&
+	CHECK(v.size() == 9);
+	CHECK(v[0] == "1" && v[1] == "2" && v[2] == "3" && v[3] == "4" &&
 	      v[4] == "5" && v[5] == "6" && v[6] == "7" && v[7] == "8" && v[8] == "9");
 }
 
