@@ -66,20 +66,20 @@ namespace hltypes
 		}
 		
 /******* ITERATOR METHODS **********************************************/
-		T* iter(int start = 0) const
+		T* iter(int start = 0)
 		{
 			this->index = start - 1;
 			return this->next();
 		}
 		
-		T* next(int step = 1) const
+		T* next(int step = 1)
 		{
 			this->index += step;
 			if (this->index >= this->size())
 			{
 				return NULL;
 			}
-			return this[this->index];
+			return &this->at(this->index);
 		}
 
 /******* HL METHODS ****************************************************/
