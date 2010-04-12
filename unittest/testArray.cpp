@@ -247,7 +247,7 @@ TEST(Array_operations)
 	CHECK(a.min() == 1);
 	CHECK(b.max() == 5);
 }
-
+#include <stdio.h>
 TEST(Array_iterations)
 {
 	harray<int> a;
@@ -260,6 +260,7 @@ TEST(Array_iterations)
 	{
 		CHECK((*it) == a[i]);
 	}
+	i = 0;
 	for (int* it = a.riterate(); it; it = a.rnext(), i++)
 	{
 		CHECK((*it) == a[a.size() - 1 - i]);
