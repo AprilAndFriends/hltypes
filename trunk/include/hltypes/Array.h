@@ -89,7 +89,7 @@ namespace hltypes
 
 		T* riterate(int start = 0)
 		{
-			this->index = std::vector<T>::size() - start;
+			this->index = start - 1;
 			return this->rnext();
 		}
 		
@@ -100,7 +100,7 @@ namespace hltypes
 			{
 				return NULL;
 			}
-			return &std::vector<T>::at(std::vector<T>::size() - this->index);
+			return &std::vector<T>::at(std::vector<T>::size() - 1 - this->index);
 		}
 
 /******* ITERATOR METHOD ALIASES ***************************************/
