@@ -258,6 +258,11 @@ namespace hltypes
 			std::sort(std::vector<T>::begin(), std::vector<T>::end());
 		}
 		
+		void sort(bool (*compare_function)(T, T))
+		{
+			std::sort(std::vector<T>::begin(), std::vector<T>::end(), compare_function);
+		}
+		
 		Array<T> sorted()
 		{
 			Array<T> result(*this);
