@@ -14,8 +14,8 @@
 #include <unittest++/UnitTest++.h>
 #endif
 
+#include <hltypes/Array.h>
 #include <hltypes/hstring.h>
-#include <vector>
 
 /******* STRING ****************************************************************************/
 
@@ -36,12 +36,12 @@ TEST(int_string)
 	CHECK(f == 5 && int_string == 6);
 }
 
-TEST(bool_string1) { hstr b("1");     CHECK(b == true);   }
-TEST(bool_string2) { hstr b("0");     CHECK(b == false);  }
-TEST(bool_string3) { hstr b("true");  CHECK(b == true);   }
-TEST(bool_string4) { hstr b("false"); CHECK(b == false);  }
-TEST(bool_string5) { hstr b; b=true;  CHECK(b == true);   }
-TEST(bool_string6) { hstr b; b=false; CHECK(b == false);  }
+TEST(bool_string1) { hstr b("1");     CHECK(b == true);  }
+TEST(bool_string2) { hstr b("0");     CHECK(b == false); }
+TEST(bool_string3) { hstr b("true");  CHECK(b == true);  }
+TEST(bool_string4) { hstr b("false"); CHECK(b == false); }
+TEST(bool_string5) { hstr b; b=true;  CHECK(b == true);  }
+TEST(bool_string6) { hstr b; b=false; CHECK(b == false); }
 
 TEST(string_stdstr_compatibility)
 {
@@ -74,25 +74,25 @@ TEST(string_replace)
 		  s3.replace("es","his is a tes") == "this is a test");
 }
 
-TEST(string_startswith)
+TEST(string_starts_with)
 {
 	hstr s1="this is a test";
 	
-	CHECK(s1.startswith("this") && !s1.startswith("something"));
+	CHECK(s1.starts_with("this") && !s1.starts_with("something"));
 }
 
-TEST(string_endswith)
+TEST(string_ends_with)
 {
 	hstr s1="this is a test";
 	
-	CHECK(s1.endswith("test") && !s1.endswith("something"));
+	CHECK(s1.ends_with("test") && !s1.ends_with("something"));
 }
 
 TEST(string_split1)
 {
 	hstr s="1,2,3,4,5,6,7,8,9",s2="test",splitter="!";
-	std::vector<hstr> v=s.split(",");
-	std::vector<hstr> v2=s.split(",",2);
+	harray<hstr> v=s.split(",");
+	harray<hstr> v2=s.split(",",2);
 
 	CHECK(v.size() == 9 && v[0] == "1" && v[1] == "2" && v[2] == "3" && v[3] == "4" &&
 	      v[4] == "5" && v[5] == "6" && v[6] == "7" && v[7] == "8" && v[8] == "9" &&
@@ -104,7 +104,7 @@ TEST(string_split1)
 TEST(string_rsplit1)
 {
 	hstr s="1,2,3,4,5,6,7,8,9";
-	std::vector<hstr> v=s.rsplit(",");
+	harray<hstr> v=s.rsplit(",");
 
 	CHECK(v.size() == 9);
 	CHECK(v[0] == "1" && v[1] == "2" && v[2] == "3" && v[3] == "4" &&
@@ -115,8 +115,8 @@ TEST(string_rsplit2)
 {
 	hstr s="1,2,3,4,5,6,7,8,9";
 	hstr s2="test",splitter="!";
-	std::vector<hstr> v2=s.rsplit(",",2);
-	std::vector<hstr> v3=s2.rsplit(',');
+	harray<hstr> v2=s.rsplit(",",2);
+	harray<hstr> v3=s2.rsplit(',');
 	CHECK(v3[0] == "test" && s2.rsplit(splitter).size() == 1 &&
 		  v2.size() == 3 && v2[0] == "1,2,3,4,5,6,7" && v2[1] == "8" && v2[2] == "9");
 }

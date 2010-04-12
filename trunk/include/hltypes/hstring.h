@@ -21,9 +21,11 @@ namespace std
 
 namespace hltypes
 {
+	template <class T> class Array;
 	class string;
-	typedef std::allocator<hltypes::string> _hstring_allocator;
-	typedef std::vector<hltypes::string,_hstring_allocator> string_vector;
+	
+	class string;
+	typedef hltypes::Array<hltypes::string> harray_hstr;
 	
 	class hltypesExport string : public std::basic_string<char>
 	{
@@ -32,8 +34,8 @@ namespace hltypes
 		string(const char* s);
 		string(const string& s);
 		string(const std::string& s);
-		string(const char* s,const int len);
-		string(const string& s,const int len);
+		string(const char* s, const int len);
+		string(const string& s, const int len);
 		string(const int i);
 		string(const float f);
 		
@@ -61,17 +63,17 @@ namespace hltypes
 		bool rsplit(const char* splitter,string& out_left,string& out_right) const;
 		bool rsplit(const string& splitter,string& out_left,string& out_right) const;
 		
-		string_vector split(const char splitter,unsigned int n=-1) const;
-		string_vector split(const char* splitter,unsigned int n=-1) const;
-		string_vector split(const string& splitter,unsigned int n=-1) const;
-		string_vector rsplit(const char splitter,unsigned int n=-1) const;
-		string_vector rsplit(const char* splitter,unsigned int n=-1) const;
-		string_vector rsplit(const string& splitter,unsigned int n=-1) const;
+		harray_hstr split(const char splitter,unsigned int n=-1) const;
+		harray_hstr split(const char* splitter,unsigned int n=-1) const;
+		harray_hstr split(const string& splitter,unsigned int n=-1) const;
+		harray_hstr rsplit(const char splitter,unsigned int n=-1) const;
+		harray_hstr rsplit(const char* splitter,unsigned int n=-1) const;
+		harray_hstr rsplit(const string& splitter,unsigned int n=-1) const;
 		
-		bool startswith(const char* s) const;
-		bool startswith(const string& s) const;
-		bool endswith(const char* s) const;
-		bool endswith(const string& s) const;
+		bool starts_with(const char* s) const;
+		bool starts_with(const string& s) const;
+		bool ends_with(const char* s) const;
+		bool ends_with(const string& s) const;
 		
 		string lower() const;
 		string upper() const;
@@ -115,8 +117,8 @@ namespace hltypes
 typedef hltypes::string hstr;
 typedef const hltypes::string& chstr;
 
-hstr hltypesFnExport operator+(const char* s1,chstr s2);
-hstr hltypesFnExport operator+(char* s1,chstr s2);
+hstr hltypesFnExport operator+(const char* s1, chstr s2);
+hstr hltypesFnExport operator+(char* s1, chstr s2);
 
 
 
