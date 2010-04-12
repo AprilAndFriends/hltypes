@@ -87,6 +87,12 @@ namespace hltypes
 			return &std::vector<T>::at(this->index);
 		}
 
+/******* ITERATOR METHOD ALIASES ***************************************/
+		T* iter(int start = 0)
+		{
+			return this->iterate(start);
+		}
+		
 /******* HL METHODS ****************************************************/
 		int index_of(T element)
 		{
@@ -100,7 +106,7 @@ namespace hltypes
 			return -1;
 		}
 		
-		bool contains(T element)
+		bool contains(const T& element)
 		{
 			return (this->index_of(element) >= 0);
 		}
@@ -112,23 +118,18 @@ namespace hltypes
 		
 		void insert_at(const int index, const Array<T>& other, const int start, const int count)
 		{
-			for (int i = start; i < start + count; i++)
-			{
-				std::vector<T>::insert(std::vector<T>::begin() + index, other.at(i));
-			}
+			std::vector<T>::insert(std::vector<T>::begin() + index, other.begin() + start,
+				other.begin() + start + count);
 		}
 		
 		void insert_at(const int index, const T other[], const int start, const int count)
 		{
-			for (int i = start; i < start + count; i++)
-			{
-				std::vector<T>::insert(std::vector<T>::begin() + index, other[i]);
-			}
+			std::vector<T>::insert(std::vector<T>::begin() + index, other + start, other + start + count);
 		}
 		
-		T& remove_at(const int index)
+		T remove_at(const int index)
 		{
-			T& result = std::vector<T>::at(index);
+			T result = std::vector<T>::at(index);
 			std::vector<T>::erase(std::vector<T>::begin() + index);
 			return result;
 		}
@@ -148,6 +149,19 @@ namespace hltypes
 		
 		void unite(const Array<T>& other)
 		{
+			this->insert_at((int)std::vector<T>::size(), other, 0, other.size());
+			this->remove_duplicates();
+		}
+		
+		Array<T> united(const Array<T>& other) const
+		{
+			Array<T> result(*this);
+			result.unite(other);
+			return result;
+		}
+		
+		void intersect(const Array<T>& other)
+		{
 			Array<T> result;
 			for (int i = 0; i < other.size(); i++)
 			{
@@ -156,57 +170,108 @@ namespace hltypes
 					result.push_back(other.at(i));
 				}
 			}
-			std::vector<T>::clear();
-			this->insert_at((int)std::vector<T>::size(), result, 0, (int)result.size());
-		}
-		
-		void intersect(const Array<T>& other)
-		{
-			Array<T> result;
-			for (int i = 0; i < other.size(); i++)
-			{
-				if (!this->contains(other.at(i)))
-				{
-					result.push_back(other.at(i));
-				}
-			}
-			this->insert_at((int)std::vector<T>::size(), result, 0, (int)result.size());
-		}
-		
-		void remove_duplicates()
-		{
-			this->unite(this);
-		}
-		
-		Array<T> united(const Array<T>& other) const
-		{
-			Array<T> result;
-			result.insert_at(0, *this, 0, (int)std::vector<T>::size());
-			result.unite(other);
-			return result;
+			std::vector<T>::assign(result.begin(), result.end());
 		}
 		
 		Array<T> intersected(const Array<T>& other) const
 		{
-			Array<T> result;
-			result.insert_at(0, *this, 0, (int)std::vector<T>::size());
+			Array<T> result(*this);
 			result.intersect(other);
 			return result;
 		}
 		
-		Array<T> removed_duplicates()
+		void differenciate(const Array<T>& other)
 		{
-			return this->united(this);
+			Array<T> result;
+			for (int i = 0; i < other.size(); i++)
+			{
+				if (this->contains(other.at(i)))
+				{
+					result.push_back(other.at(i));
+				}
+			}
+			this->remove(result);
+		}
+		
+		Array<T> differenciated(const Array<T>& other) const
+		{
+			Array<T> result(*this);
+			result.differenciate(other);
+			return result;
 		}
 		
 		void reverse()
 		{
-			reverse(this);
+			std::reverse(std::vector<T>::begin(), std::vector<T>::end());
 		}
 		
 		Array<T> reversed()
 		{
-			return reverse_copy(this);
+			Array<T> result(*this);
+			result.reverse();
+			return result;
+		}
+		
+		void remove_duplicates()
+		{
+			Array<T> result;
+			for (int i = 0; i < std::vector<T>::size(); i++)
+			{
+				if (!result.contains(std::vector<T>::at(i)))
+				{
+					result.push_back(std::vector<T>::at(i));
+				}
+			}
+			this->assign(result.begin(), result.end());
+		}
+		
+		Array<T> removed_duplicates()
+		{
+			Array<T> result(*this);
+			result.remove_duplicates();
+			return result;
+		}
+		
+		void sort()
+		{
+			std::sort(std::vector<T>::begin(), std::vector<T>::end());
+		}
+		
+		Array<T> sorted()
+		{
+			Array<T> result(*this);
+			result.sort();
+			return result;
+		}
+		
+		void randomize()
+		{
+			std::random_shuffle(std::vector<T>::begin(), std::vector<T>::end());
+		}
+		
+		Array<T> randomized()
+		{
+			Array<T> result(*this);
+			result.randomize();
+			return result;
+		}
+		
+		T min()
+		{
+			if (std::vector<T>::size() == 0)
+			{
+				return NULL;
+			}
+			return (*std::min_element(std::vector<T>::begin(), std::vector<T>::end()));
+		}
+		
+		T max()
+		{
+			if (std::vector<T>::size() == 0)
+			{
+				return NULL;
+			}
+			return (*std::max_element(std::vector<T>::begin(), std::vector<T>::end()));
 		}
 		
 		bool equals(const Array<T>& other)
@@ -225,25 +290,19 @@ namespace hltypes
 			return true;
 		}
 		
-/******* ITERATOR METHOD ALIASES ***************************************/
-		T* iter(int start = 0)
-		{
-			return this->iterate(start);
-		}
-		
 /******* HL METHOD ALIASES *********************************************/
 
-		void includes(const T& element)
+		bool includes(const T& element)
 		{
 			return this->contains(element);
 		}
 		
-		void has(const T& element)
+		bool has(const T& element)
 		{
 			return this->contains(element);
 		}
 		
-		void has_element(const T& element)
+		bool has_element(const T& element)
 		{
 			return this->contains(element);
 		}
@@ -353,12 +412,17 @@ namespace hltypes
 			this->insert_at(0, other, start, count);
 		}
 		
-		T& pop_front()
+		T pop_front()
 		{
 			return this->remove_at(0);
 		}
 		
-		T& pop(int index)
+		T pop_back()
+		{
+			return this->remove_at((int)std::vector<T>::size() - 1);
+		}
+		
+		T pop(int index)
 		{
 			return this->remove_at(index);
 		}
@@ -385,7 +449,7 @@ namespace hltypes
 			this->insert_at((int)std::vector<T>::size(), other, 0, (int)other.size());
 		}
 		
-		void operator-=(T& element)
+		void operator-=(T element)
 		{
 			this->remove(element);
 		}
@@ -403,6 +467,11 @@ namespace hltypes
 		void operator&=(const Array<T>& other)
 		{
 			this->intersect(other);
+		}
+		
+		void operator/=(const Array<T>& other)
+		{
+			this->differenciate(other);
 		}
 		
 	private:
@@ -450,6 +519,11 @@ template <class T> harray<T> operator|(const harray<T>& a, const harray<T>& b)
 template <class T> harray<T> operator&(const harray<T>& a, const harray<T>& b)
 {
 	return a.intersected(b);
+}
+
+template <class T> harray<T> operator/(const harray<T>& a, const harray<T>& b)
+{
+	return a.differenciated(b);
 }
 
 #endif

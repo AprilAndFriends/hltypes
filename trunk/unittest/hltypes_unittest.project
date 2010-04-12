@@ -8,6 +8,8 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
+    <File Name="testArray.cpp"/>
+    <File Name="testString.cpp"/>
     <File Name="main.cpp"/>
   </VirtualDirectory>
   <Dependencies Name="Debug">
@@ -25,12 +27,12 @@
       </Compiler>
       <Linker Options="" Required="yes">
         <LibraryPath Value="$(UNIT_TEST_PP_SRC_DIR)/Debug"/>
-        <LibraryPath Value="$(UNIT_TEST_PP_SRC_DIR)/bin/Debug"/>
+        <LibraryPath Value="$(IntermediateDirectory)"/>
         <Library Value="libUnitTest++.a"/>
         <Library Value="libhltypes_d.dll"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="../Debug" Command="$(IntermediateDirectory)/$(ProjectName)" CommandArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName).exe" IntermediateDirectory="../bin/Debug" Command="$(IntermediateDirectory)/$(ProjectName).exe" CommandArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes"/>
       <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
         <PostConnectCommands/>
         <StartupCommands/>
