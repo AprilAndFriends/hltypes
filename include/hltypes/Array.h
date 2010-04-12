@@ -87,10 +87,31 @@ namespace hltypes
 			return &std::vector<T>::at(this->index);
 		}
 
+		T* riterate(int start = 0)
+		{
+			this->index = std::vector<T>::size() - start;
+			return this->rnext();
+		}
+		
+		T* rnext(int step = 1)
+		{
+			this->index += step;
+			if (this->index >= std::vector<T>::size())
+			{
+				return NULL;
+			}
+			return &std::vector<T>::at(std::vector<T>::size() - this->index);
+		}
+
 /******* ITERATOR METHOD ALIASES ***************************************/
 		T* iter(int start = 0)
 		{
 			return this->iterate(start);
+		}
+		
+		T* riter(int start = 0)
+		{
+			return this->riterate(start);
 		}
 		
 /******* HL METHODS ****************************************************/
