@@ -260,6 +260,10 @@ TEST(Array_iterations)
 	{
 		CHECK((*it) == a[i]);
 	}
+	for (int* it = a.riterate(); it; it = a.rnext(), i++)
+	{
+		CHECK((*it) == a[a.size() - 1 - i]);
+	}
 }
 
 TEST(Array_construct)
