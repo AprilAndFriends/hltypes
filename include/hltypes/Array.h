@@ -326,7 +326,7 @@ namespace hltypes
 			return true;
 		}
 		
-		hstr join(hstr separator)
+		hstr join(chstr separator)
 		{
 			hstr result;
 			if (stdvector::size() > 0)
