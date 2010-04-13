@@ -12,39 +12,42 @@
 
 #include <vector>
 #include <algorithm>
+#include "hstring.h"
 #include "hltypesExport.h"
 
 namespace hltypes
 {
-	template <class T> class hltypesExport Array : public std::vector<T>
+#define stdvector std::vector<T>
+	
+	template <class T> class hltypesExport Array : public stdvector
 	{
 	public:
 		// constructors
-		Array() : index(-1), std::vector<T>()
+		Array() : index(-1), stdvector()
 		{
 		}
 		
-		Array(const Array<T>& other) : index(-1), std::vector<T>()
+		Array(const Array<T>& other) : index(-1), stdvector()
 		{
 			this->insert_at(0, other, 0, (int)other.size());
 		}
 		
-		Array(const Array<T>& other, const int count) : index(-1), std::vector<T>()
+		Array(const Array<T>& other, const int count) : index(-1), stdvector()
 		{
 			this->insert_at(0, other, 0, count);
 		}
 		
-		Array(const Array<T>& other, const int start, const int count) : index(-1), std::vector<T>()
+		Array(const Array<T>& other, const int start, const int count) : index(-1), stdvector()
 		{
 			this->insert_at(0, other, start, count);
 		}
 		
-		Array(const T other[], const int count) : index(-1), std::vector<T>()
+		Array(const T other[], const int count) : index(-1), stdvector()
 		{
 			this->insert_at(0, other, 0, count);
 		}
 		
-		Array(const T other[], const int start, const int count) : index(-1), std::vector<T>()
+		Array(const T other[], const int start, const int count) : index(-1), stdvector()
 		{
 			this->insert_at(0, other, start, count);
 		}
@@ -55,9 +58,9 @@ namespace hltypes
 		{
 			if (index < 0)
 			{
-				return std::vector<T>::at((int)std::vector<T>::size() - index);
+				return stdvector::at((int)stdvector::size() - index);
 			}
-			return std::vector<T>::at(index);
+			return stdvector::at(index);
 		}
 	
 		bool operator==(const Array<T>& other)
@@ -80,11 +83,11 @@ namespace hltypes
 		T* next(int step = 1)
 		{
 			this->index += step;
-			if (this->index >= std::vector<T>::size())
+			if (this->index >= stdvector::size())
 			{
 				return NULL;
 			}
-			return &std::vector<T>::at(this->index);
+			return &stdvector::at(this->index);
 		}
 
 		T* riterate(int start = 0)
@@ -96,11 +99,11 @@ namespace hltypes
 		T* rnext(int step = 1)
 		{
 			this->index += step;
-			if (this->index >= std::vector<T>::size())
+			if (this->index >= stdvector::size())
 			{
 				return NULL;
 			}
-			return &std::vector<T>::at(std::vector<T>::size() - 1 - this->index);
+			return &stdvector::at(stdvector::size() - 1 - this->index);
 		}
 
 /******* ITERATOR METHOD ALIASES ***************************************/
@@ -117,9 +120,9 @@ namespace hltypes
 /******* HL METHODS ****************************************************/
 		int index_of(T element)
 		{
-			for (int i = 0; i < std::vector<T>::size(); i++)
+			for (int i = 0; i < stdvector::size(); i++)
 			{
-				if (element == std::vector<T>::at(i))
+				if (element == stdvector::at(i))
 				{
 					return i;
 				}
@@ -134,43 +137,43 @@ namespace hltypes
 		
 		void insert_at(const int index, const T& element)
 		{
-			std::vector<T>::insert(std::vector<T>::begin() + index, element);
+			stdvector::insert(stdvector::begin() + index, element);
 		}
 		
 		void insert_at(const int index, const Array<T>& other, const int start, const int count)
 		{
-			std::vector<T>::insert(std::vector<T>::begin() + index, other.begin() + start,
+			stdvector::insert(stdvector::begin() + index, other.begin() + start,
 				other.begin() + start + count);
 		}
 		
 		void insert_at(const int index, const T other[], const int start, const int count)
 		{
-			std::vector<T>::insert(std::vector<T>::begin() + index, other + start, other + start + count);
+			stdvector::insert(stdvector::begin() + index, other + start, other + start + count);
 		}
 		
 		T remove_at(const int index)
 		{
-			T result = std::vector<T>::at(index);
-			std::vector<T>::erase(std::vector<T>::begin() + index);
+			T result = stdvector::at(index);
+			stdvector::erase(stdvector::begin() + index);
 			return result;
 		}
 		
 		void remove(T& element)
 		{
-			std::vector<T>::erase(std::vector<T>::begin() + this->index_of(element));
+			stdvector::erase(stdvector::begin() + this->index_of(element));
 		}
 		
 		void remove(const Array<T>& other)
 		{
 			for (int i = 0; i < other.size(); i++)
 			{
-				std::vector<T>::erase(std::vector<T>::begin() + this->index_of(other.at(i)));
+				stdvector::erase(stdvector::begin() + this->index_of(other.at(i)));
 			}
 		}
 		
 		void unite(const Array<T>& other)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, 0, other.size());
+			this->insert_at((int)stdvector::size(), other, 0, other.size());
 			this->remove_duplicates();
 		}
 		
@@ -191,7 +194,7 @@ namespace hltypes
 					result.push_back(other.at(i));
 				}
 			}
-			std::vector<T>::assign(result.begin(), result.end());
+			stdvector::assign(result.begin(), result.end());
 		}
 		
 		Array<T> intersected(const Array<T>& other) const
@@ -223,7 +226,7 @@ namespace hltypes
 		
 		void reverse()
 		{
-			std::reverse(std::vector<T>::begin(), std::vector<T>::end());
+			std::reverse(stdvector::begin(), stdvector::end());
 		}
 		
 		Array<T> reversed()
@@ -236,11 +239,11 @@ namespace hltypes
 		void remove_duplicates()
 		{
 			Array<T> result;
-			for (int i = 0; i < std::vector<T>::size(); i++)
+			for (int i = 0; i < stdvector::size(); i++)
 			{
-				if (!result.contains(std::vector<T>::at(i)))
+				if (!result.contains(stdvector::at(i)))
 				{
-					result.push_back(std::vector<T>::at(i));
+					result.push_back(stdvector::at(i));
 				}
 			}
 			this->assign(result.begin(), result.end());
@@ -255,12 +258,12 @@ namespace hltypes
 		
 		void sort()
 		{
-			std::stable_sort(std::vector<T>::begin(), std::vector<T>::end());
+			std::stable_sort(stdvector::begin(), stdvector::end());
 		}
 		
 		void sort(bool (*compare_function)(T, T))
 		{
-			std::stable_sort(std::vector<T>::begin(), std::vector<T>::end(), compare_function);
+			std::stable_sort(stdvector::begin(), stdvector::end(), compare_function);
 		}
 		
 		Array<T> sorted()
@@ -279,7 +282,7 @@ namespace hltypes
 		
 		void randomize()
 		{
-			std::random_shuffle(std::vector<T>::begin(), std::vector<T>::end());
+			std::random_shuffle(stdvector::begin(), stdvector::end());
 		}
 		
 		Array<T> randomized()
@@ -291,36 +294,51 @@ namespace hltypes
 		
 		T min()
 		{
-			if (std::vector<T>::size() == 0)
+			if (stdvector::size() == 0)
 			{
 				return NULL;
 			}
-			return (*std::min_element(std::vector<T>::begin(), std::vector<T>::end()));
+			return (*std::min_element(stdvector::begin(), stdvector::end()));
 		}
 		
 		T max()
 		{
-			if (std::vector<T>::size() == 0)
+			if (stdvector::size() == 0)
 			{
 				return NULL;
 			}
-			return (*std::max_element(std::vector<T>::begin(), std::vector<T>::end()));
+			return (*std::max_element(stdvector::begin(), stdvector::end()));
 		}
 		
 		bool equals(const Array<T>& other)
 		{
-			if (std::vector<T>::size() != other.size())
+			if (stdvector::size() != other.size())
 			{
 				return false;
 			}
-			for (int i = 0; i < std::vector<T>::size(); i++)
+			for (int i = 0; i < stdvector::size(); i++)
 			{
-				if (std::vector<T>::at(i) != other.at(i))
+				if (stdvector::at(i) != other.at(i))
 				{
 					return false;
 				}
 			}
 			return true;
+		}
+		
+		hstr join(hstr separator)
+		{
+			hstr result;
+			if (stdvector::size() > 0)
+			{
+				result += stdvector::at(0);
+				for (int i = 1; i < stdvector::size(); i++)
+				{
+					result += separator;
+					result += stdvector::at(i);
+				}
+			}
+			return result;
 		}
 		
 /******* HL METHOD ALIASES *********************************************/
@@ -357,62 +375,62 @@ namespace hltypes
 		
 		void append(const T& element)
 		{
-			this->insert_at((int)std::vector<T>::size(), element);
+			this->insert_at((int)stdvector::size(), element);
 		}
 		
 		void append(const Array<T>& other)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, 0, (int)other.size());
+			this->insert_at((int)stdvector::size(), other, 0, (int)other.size());
 		}
 		
 		void append(const Array<T>& other, const int count)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, 0, count);
+			this->insert_at((int)stdvector::size(), other, 0, count);
 		}
 		
 		void append(const Array<T>& other, const int start, const int count)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, start, count);
+			this->insert_at((int)stdvector::size(), other, start, count);
 		}
 		
 		void append(const T other[], const int count)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, 0, count);
+			this->insert_at((int)stdvector::size(), other, 0, count);
 		}
 		
 		void append(const T other[], const int start, const int count)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, start, count);
+			this->insert_at((int)stdvector::size(), other, start, count);
 		}
 		
 		void push_back(const T& element)
 		{
-			this->insert_at((int)std::vector<T>::size(), element);
+			this->insert_at((int)stdvector::size(), element);
 		}
 		
 		void push_back(const Array<T>& other)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, 0, (int)other.size());
+			this->insert_at((int)stdvector::size(), other, 0, (int)other.size());
 		}
 		
 		void push_back(const Array<T>& other, const int count)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, 0, count);
+			this->insert_at((int)stdvector::size(), other, 0, count);
 		}
 		
 		void push_back(const Array<T>& other, const int start, const int count)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, start, count);
+			this->insert_at((int)stdvector::size(), other, start, count);
 		}
 		
 		void push_back(const T other[], const int count)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, 0, count);
+			this->insert_at((int)stdvector::size(), other, 0, count);
 		}
 		
 		void push_back(const T other[], const int start, const int count)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, start, count);
+			this->insert_at((int)stdvector::size(), other, start, count);
 		}
 		
 		void push_front(const T& element)
@@ -452,7 +470,7 @@ namespace hltypes
 		
 		T pop_back()
 		{
-			return this->remove_at((int)std::vector<T>::size() - 1);
+			return this->remove_at((int)stdvector::size() - 1);
 		}
 		
 		T pop(int index)
@@ -464,22 +482,22 @@ namespace hltypes
 
 		void operator<<(const T& element)
 		{
-			this->insert_at((int)std::vector<T>::size(), element);
+			this->insert_at((int)stdvector::size(), element);
 		}
 		
 		void operator<<(const Array<T>& other)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, 0, (int)other.size());
+			this->insert_at((int)stdvector::size(), other, 0, (int)other.size());
 		}
 		
 		void operator+=(const T& element)
 		{
-			this->insert_at((int)std::vector<T>::size(), element);
+			this->insert_at((int)stdvector::size(), element);
 		}
 		
 		void operator+=(const Array<T>& other)
 		{
-			this->insert_at((int)std::vector<T>::size(), other, 0, (int)other.size());
+			this->insert_at((int)stdvector::size(), other, 0, (int)other.size());
 		}
 		
 		void operator-=(T element)
