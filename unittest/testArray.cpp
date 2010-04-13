@@ -345,3 +345,18 @@ TEST(Array_difference)
 	CHECK(a == c);
 }
 
+TEST(Array_join)
+{
+	harray<int> a;
+	a += 0;
+	a += 1;
+	a += 2;
+	a += 3;
+	hstr b = a.join(",");
+	CHECK(b == "0,1,2,3");
+	b = a.join(2);
+	CHECK(b == "0212223");
+	b = a.join(1.5f);
+	CHECK(b == "01.50000011.50000021.5000003");
+}
+

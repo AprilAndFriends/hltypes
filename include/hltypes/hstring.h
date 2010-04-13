@@ -13,17 +13,9 @@
 #ifndef _HLTYPES_HSTRING
 #define _HLTYPES_HSTRING
 
-namespace std
-{
-	template<typename _Tp> class allocator;
-	template<typename _Tp, typename _Alloc> class vector;
-}
-
 namespace hltypes
 {
 	template <class T> class Array;
-	class string;
-	
 	class string;
 	typedef hltypes::Array<hltypes::string> harray_hstr;
 	
@@ -56,19 +48,19 @@ namespace hltypes
 		 * +,+= operators
 		 * */
 		
-		bool split(const char splitter,string& out_left,string& out_right) const;
-		bool split(const char* splitter,string& out_left,string& out_right) const;
-		bool split(const string& splitter,string& out_left,string& out_right) const;
-		bool rsplit(const char splitter,string& out_left,string& out_right) const;
-		bool rsplit(const char* splitter,string& out_left,string& out_right) const;
-		bool rsplit(const string& splitter,string& out_left,string& out_right) const;
+		bool split(const char splitter, string& out_left, string& out_right) const;
+		bool split(const char* splitter, string& out_left, string& out_right) const;
+		bool split(const string& splitter, string& out_left, string& out_right) const;
+		bool rsplit(const char splitter, string& out_left, string& out_right) const;
+		bool rsplit(const char* splitter, string& out_left, string& out_right) const;
+		bool rsplit(const string& splitter, string& out_left, string& out_right) const;
 		
-		harray_hstr split(const char splitter,unsigned int n=-1) const;
-		harray_hstr split(const char* splitter,unsigned int n=-1) const;
-		harray_hstr split(const string& splitter,unsigned int n=-1) const;
-		harray_hstr rsplit(const char splitter,unsigned int n=-1) const;
-		harray_hstr rsplit(const char* splitter,unsigned int n=-1) const;
-		harray_hstr rsplit(const string& splitter,unsigned int n=-1) const;
+		harray_hstr split(const char splitter, unsigned int n = -1) const;
+		harray_hstr split(const char* splitter, unsigned int n = -1) const;
+		harray_hstr split(const string& splitter, unsigned int n = -1) const;
+		harray_hstr rsplit(const char splitter, unsigned int n = -1) const;
+		harray_hstr rsplit(const char* splitter, unsigned int n = -1) const;
+		harray_hstr rsplit(const string& splitter, unsigned int n = -1) const;
 		
 		bool starts_with(const char* s) const;
 		bool starts_with(const string& s) const;
@@ -77,20 +69,17 @@ namespace hltypes
 		
 		string lower() const;
 		string upper() const;
-		
 
-		string replace(const char* what,const char* with_what) const;
-		string replace(const string& what,const char* with_what) const;
-		string replace(const char* what,const string& with_what) const;
-		string replace(const string& what,const string& with_what) const;
-		string replace(size_t pos1,size_t n1,const string& str);
-		string replace(size_t pos1,size_t n1,const string& str,size_t pos2,size_t n2);
-		string replace(size_t pos1,size_t n1,const char* s,size_t n2);
-		string replace(size_t pos1,size_t n1,const char* s);
-		string replace(size_t pos1,size_t n1,size_t n2, char c);
+		string replace(const char* what, const char* with_what) const;
+		string replace(const string& what, const char* with_what) const;
+		string replace(const char* what, const string& with_what) const;
+		string replace(const string& what, const string& with_what) const;
+		string replace(size_t pos1, size_t n1, const string& str);
+		string replace(size_t pos1, size_t n1, const string& str, size_t pos2, size_t n2);
+		string replace(size_t pos1, size_t n1, const char* s, size_t n2);
+		string replace(size_t pos1, size_t n1, const char* s);
+		string replace(size_t pos1, size_t n1, size_t n2, char c);
 
-		
-		
 		operator float() const;
 		operator int() const;
 		
@@ -99,6 +88,12 @@ namespace hltypes
 		void operator=(const bool b);
 		void operator=(const std::string& s);
 		void operator=(const char* s);
+		
+		void operator+=(const float f);
+		void operator+=(const int i);
+		void operator+=(const bool b);
+		void operator+=(const std::string& s);
+		void operator+=(const char* s);
 		
 		string operator+(const char* s1) const;
 		string operator+(char* s1) const;
@@ -119,8 +114,6 @@ typedef const hltypes::string& chstr;
 
 hstr hltypesFnExport operator+(const char* s1, chstr s2);
 hstr hltypesFnExport operator+(char* s1, chstr s2);
-
-
 
 #endif
 

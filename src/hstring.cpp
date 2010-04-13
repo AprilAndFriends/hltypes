@@ -286,6 +286,34 @@ namespace hltypes
 	{
 		stdstr::operator=(b ? "true" : "false");
 	}
+/******* CONCATENATION OPERATORS ***************************************/
+	void string::operator+=(const float f)
+	{
+		string s = f;
+		stdstr::append(s);
+	}
+	
+	void string::operator+=(const std::string& s)
+	{
+		stdstr::append(s);
+	}
+	
+	void string::operator+=(const char* s)
+	{
+		stdstr::append(s);
+	}
+	
+	void string::operator+=(const int i)
+	{
+		string s = i;
+		stdstr::append(s);
+	}
+	
+	void string::operator+=(const bool b)
+	{
+		string s = (b ? "true" : "false");
+		stdstr::append(s);
+	}
 /******* COMPARISON OPERATORS ******************************************/
 	bool string::operator==(const float f) const
 	{
