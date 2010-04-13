@@ -255,18 +255,25 @@ namespace hltypes
 		
 		void sort()
 		{
-			std::sort(std::vector<T>::begin(), std::vector<T>::end());
+			std::stable_sort(std::vector<T>::begin(), std::vector<T>::end());
 		}
 		
 		void sort(bool (*compare_function)(T, T))
 		{
-			std::sort(std::vector<T>::begin(), std::vector<T>::end(), compare_function);
+			std::stable_sort(std::vector<T>::begin(), std::vector<T>::end(), compare_function);
 		}
 		
 		Array<T> sorted()
 		{
 			Array<T> result(*this);
 			result.sort();
+			return result;
+		}
+		
+		Array<T> sorted(bool (*compare_function)(T, T))
+		{
+			Array<T> result(*this);
+			result.sort(compare_function);
 			return result;
 		}
 		
