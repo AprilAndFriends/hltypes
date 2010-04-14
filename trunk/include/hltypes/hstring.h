@@ -92,10 +92,12 @@ namespace hltypes
 		void operator+=(const float f);
 		void operator+=(const int i);
 		void operator+=(const bool b);
+		void operator+=(const char c);
 		void operator+=(const std::string& s);
 		void operator+=(const char* s);
 		
 		string operator+(const char* s1) const;
+		string operator+(const char c) const;
 		string operator+(char* s1) const;
 		string operator+(const string& s1) const;
 		string operator+(const std::string& s1) const;
