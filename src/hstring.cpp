@@ -314,6 +314,12 @@ namespace hltypes
 		string s = (b ? "true" : "false");
 		stdstr::append(s);
 	}
+	
+	void string::operator+=(const char c)
+	{
+		char chstr[2]={c,0};
+		stdstr::append(chstr);
+	}
 /******* COMPARISON OPERATORS ******************************************/
 	bool string::operator==(const float f) const
 	{
@@ -370,6 +376,13 @@ namespace hltypes
 		return s;
 	}
 	
+	string string::operator+(const char c) const
+	{
+		char chstr[2]={c,0};
+		string s(*this);
+		s.append(chstr);
+		return s;
+	}
 }
 /******* GLOBAL ADDITION OPERATORS *******************************************/
 hstr operator+(const char* s1, chstr s2)
