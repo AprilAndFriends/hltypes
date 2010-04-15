@@ -55,6 +55,10 @@ namespace hltypes
 		bool rsplit(const char* splitter, string& out_left, string& out_right) const;
 		bool rsplit(const string& splitter, string& out_left, string& out_right) const;
 		
+		bool contains(const char* s) const;
+		bool contains(const char c) const;
+		bool contains(const string& s) const;
+		
 		harray_hstr split(const char splitter, unsigned int n = -1) const;
 		harray_hstr split(const char* splitter, unsigned int n = -1) const;
 		harray_hstr split(const string& splitter, unsigned int n = -1) const;
@@ -107,6 +111,9 @@ namespace hltypes
 		bool operator==(const bool b) const;
 		bool operator==(const char* s) const;
 		bool operator==(const std::string& s) const;
+		
+	//	string operator()(int a,int b) const;
+		//string operator()(int a,int b,int step) const;
 
 	};
 }

@@ -149,6 +149,11 @@ namespace hltypes
 		out.append(s);
 		return out;
 	}
+	
+	bool string::contains(const char* s) const
+	{
+		return stdstr::find(s) != stdstr::npos;
+	}
 /******* TYPE EXTENSION FUNCTIONS **************************************/
 	harray_hstr string::split(const char splitter, unsigned int n) const
 	{
@@ -243,6 +248,41 @@ namespace hltypes
 	{
 		return stdstr::replace(pos1, n1, n2, c);
 	}
+	
+	bool string::contains(const char c) const
+	{
+		char st[2]={c,0};
+		return this->contains(st);
+	}
+	
+	bool string::contains(const string& s) const
+	{
+		return this->contains(s.c_str());
+	}
+/******* SUBSTR OPERATORS **********************************************/
+	/*
+	string string::operator()(int a,int b) const
+	{
+		if (a < 0)
+		{
+			int len=size();
+			a=len+a;
+			if (a < 0) a=0;
+		}
+
+		if (b < 0)
+		{
+			int len=size();
+			b=len+b;
+			if (b < 0) b=0;
+		}
+	}
+	
+	string string::operator()(int a,int b,int step) const
+	{
+		
+	}
+	*/
 /******* CAST OPERATORS ************************************************/
 	string::operator float() const
 	{
@@ -257,6 +297,7 @@ namespace hltypes
 		sscanf(this->c_str(), "%d", &i);
 		return i;
 	}
+	
 /******* ASSIGNMENT OPERATORS ******************************************/
 	void string::operator=(const float f)
 	{
