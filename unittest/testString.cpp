@@ -22,8 +22,8 @@
 TEST(float_string)
 {
 	hstr float_string("5.75");
-	float f=float_string;
-	float_string=6.75f;
+	float f = float_string;
+	float_string = 6.75f;
 	
 	CHECK(f == 5.75f && float_string == 6.75f);
 }
@@ -31,8 +31,8 @@ TEST(float_string)
 TEST(int_string)
 {
 	hstr int_string("5");
-	int f=int_string;
-	int_string=6;
+	int f = int_string;
+	int_string = 6;
 	CHECK(f == 5 && int_string == 6);
 }
 
@@ -45,10 +45,10 @@ TEST(bool_string6) { hstr b; b=false; CHECK(b == false); }
 
 TEST(string_stdstr_compatibility)
 {
-	std::string str1,str2="text2";
-	hstr hs1="text1",hs2,hs3("text1");
-	str1=hs1;
-	hs2=str2;
+	std::string str1, str2 = "text2";
+	hstr hs1 = "text1", hs2, hs3("text1");
+	str1 = hs1;
+	hs2 = str2;
 	
 	CHECK(hs1 == str1 && hs1 == "text1" &&
 	      hs2 == str2 && hs2 == "text2" &&
@@ -57,66 +57,93 @@ TEST(string_stdstr_compatibility)
 
 TEST(string_cstr_compatibilty)
 {
-	hstr s1,s2;
-	char cstr[64]="text2";
-	s1="text1";
-	s2=cstr;
+	hstr s1, s2;
+	char cstr[64] = "text2";
+	s1 = "text1";
+	s2 = cstr;
 	
 	CHECK(s1 == "text1" && s2 == cstr && s2 == "text2");
 }
 
 TEST(string_replace)
 {
-	hstr s1="1 2 3 4 5 6 7 8 9",s2="101101010100011010",s3="test",s4="0";
-	CHECK(s1.replace(" ","") == "123456789" &&
-	      s2.replace(s4,"") == "111111111" &&
-		  s3.replace("a","b") == "test" &&
-		  s3.replace("es","his is a tes") == "this is a test");
+	hstr s1 = "1 2 3 4 5 6 7 8 9", s2 = "101101010100011010", s3 = "test", s4 = "0";
+	CHECK(s1.replace(" ", "") == "123456789" &&
+	      s2.replace(s4, "") == "111111111" &&
+		  s3.replace("a", "b") == "test" &&
+		  s3.replace("es", "his is a tes") == "this is a test");
 }
 
 TEST(string_starts_with)
 {
-	hstr s1="this is a test";
+	hstr s1 = "this is a test";
 	
 	CHECK(s1.starts_with("this") && !s1.starts_with("something"));
 }
 
 TEST(string_ends_with)
 {
-	hstr s1="this is a test";
+	hstr s1 = "this is a test";
 	
 	CHECK(s1.ends_with("test") && !s1.ends_with("something"));
 }
 
 TEST(string_split1)
 {
-	hstr s="1,2,3,4,5,6,7,8,9",s2="test",splitter="!";
-	harray<hstr> v=s.split(",");
-	harray<hstr> v2=s.split(",",2);
+	hstr s = "1,2,3,4,5,6,7,8,9", s2 = "test", splitter = "!";
+	harray<hstr> ary1 = s.split(",");
+	harray<hstr> ary2 = s.split(",", 2);
 
-	CHECK(v.size() == 9 && v[0] == "1" && v[1] == "2" && v[2] == "3" && v[3] == "4" &&
-	      v[4] == "5" && v[5] == "6" && v[6] == "7" && v[7] == "8" && v[8] == "9" &&
+	CHECK(ary1.size() == 9 && ary1[0] == "1" && ary1[1] == "2" && ary1[2] == "3" && ary1[3] == "4" &&
+	      ary1[4] == "5" && ary1[5] == "6" && ary1[6] == "7" && ary1[7] == "8" && ary1[8] == "9" &&
 		  s2.split(',')[0] == "test" && s2.split(splitter).size() == 1 &&
-		  v2.size() == 3 && v2[0] == "1" && v2[1] == "2" && v2[2] == "3,4,5,6,7,8,9" &&
+		  ary2.size() == 3 && ary2[0] == "1" && ary2[1] == "2" && ary2[2] == "3,4,5,6,7,8,9" &&
 		  s.split("3,4").size() == 2);
+}
+
+TEST(string_split2)
+{
+	hstr s = "1,2,3";
+	harray<hstr> ary = s.split(",");
+	CHECK(ary.size() == 3 && ary[0] == "1" && ary[1] == "2" && ary[2] == "3");
+	s = "1,2,";
+	ary = s.split(",");
+	CHECK(ary.size() == 3 && ary[0] == "1" && ary[1] == "2" && ary[2] == "");
+	s = "1,,3";
+	ary = s.split(",");
+	CHECK(ary.size() == 3 && ary[0] == "1" && ary[1] == "" && ary[2] == "3");
 }
 
 TEST(string_rsplit1)
 {
-	hstr s="1,2,3,4,5,6,7,8,9";
-	harray<hstr> v=s.rsplit(",");
+	hstr s = "1,2,3,4,5,6,7,8,9";
+	harray<hstr> ary1 = s.rsplit(",");
 
-	CHECK(v.size() == 9);
-	CHECK(v[0] == "1" && v[1] == "2" && v[2] == "3" && v[3] == "4" &&
-	      v[4] == "5" && v[5] == "6" && v[6] == "7" && v[7] == "8" && v[8] == "9");
+	CHECK(ary1.size() == 9);
+	CHECK(ary1[0] == "1" && ary1[1] == "2" && ary1[2] == "3" && ary1[3] == "4" &&
+	      ary1[4] == "5" && ary1[5] == "6" && ary1[6] == "7" && ary1[7] == "8" && ary1[8] == "9");
 }
 
 TEST(string_rsplit2)
 {
-	hstr s="1,2,3,4,5,6,7,8,9";
-	hstr s2="test",splitter="!";
-	harray<hstr> v2=s.rsplit(",",2);
-	harray<hstr> v3=s2.rsplit(',');
-	CHECK(v3[0] == "test" && s2.rsplit(splitter).size() == 1 &&
-		  v2.size() == 3 && v2[0] == "1,2,3,4,5,6,7" && v2[1] == "8" && v2[2] == "9");
+	hstr s = "1,2,3,4,5,6,7,8,9";
+	hstr s2 = "test", splitter="!";
+	harray<hstr> ary1 = s.rsplit(",", 2);
+	harray<hstr> ary2 = s2.rsplit(',');
+	CHECK(ary2[0] == "test" && s2.rsplit(splitter).size() == 1 &&
+		  ary1.size() == 3 && ary1[0] == "1,2,3,4,5,6,7" && ary1[1] == "8" && ary1[2] == "9");
 }
+
+TEST(string_rsplit3)
+{
+	hstr s = "1,2,3";
+	harray<hstr> ary = s.rsplit(",");
+	CHECK(ary.size() == 3 && ary[0] == "1" && ary[1] == "2" && ary[2] == "3");
+	s = "1,2,";
+	ary = s.rsplit(",");
+	CHECK(ary.size() == 3 && ary[0] == "1" && ary[1] == "2" && ary[2] == "");
+	s = "1,,3";
+	ary = s.rsplit(",");
+	CHECK(ary.size() == 3 && ary[0] == "1" && ary[1] == "" && ary[2] == "3");
+}
+
