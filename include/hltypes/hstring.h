@@ -86,6 +86,8 @@ namespace hltypes
 
 		operator float() const;
 		operator int() const;
+		operator unsigned int() const;
+		operator bool() const;
 		
 		void operator=(const float f);
 		void operator=(const int i);

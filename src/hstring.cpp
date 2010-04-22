@@ -298,6 +298,18 @@ namespace hltypes
 		return i;
 	}
 	
+	string::operator unsigned int() const
+	{
+		unsigned int i;
+		sscanf(this->c_str(), "%u", &i);
+		return i;
+	}
+	
+	string::operator bool() const
+	{
+		return (*this == "1") ? true : false;
+	}
+	
 /******* ASSIGNMENT OPERATORS ******************************************/
 	void string::operator=(const float f)
 	{
