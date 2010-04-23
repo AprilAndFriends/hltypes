@@ -13,13 +13,18 @@
 #include <vector>
 #include <algorithm>
 #include "hstring.h"
-#include "hltypesExport.h"
+
+#ifdef _WIN32
+	#undef min
+	#undef max
+#endif
+
 
 namespace hltypes
 {
 #define stdvector std::vector<T>
 	
-	template <class T> class hltypesExport Array : public stdvector
+	template <class T> class Array : public stdvector
 	{
 	public:
 		// constructors
