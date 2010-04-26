@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="include/hltypes"
-				PreprocessorDefinitions="_WIN32;_DEBUG;HLTYPES_EXPORTS"
+				PreprocessorDefinitions="_WIN32;_DEBUG;HLTYPES_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -113,7 +113,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="include/hltypes"
-				PreprocessorDefinitions="_WIN32;NDEBUG;HLTYPES_EXPORTS"
+				PreprocessorDefinitions="_WIN32;NDEBUG;HLTYPES_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -167,6 +167,10 @@
 				RelativePath=".\src\hstring.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\util.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -185,12 +189,10 @@
 				RelativePath=".\include\hltypes\hstring.h"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
+			<File
+				RelativePath=".\include\hltypes\util.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
