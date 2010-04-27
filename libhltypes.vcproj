@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="libhltypes"
-	ProjectGUID="{72D6EAF0-BC83-47BE-89AA-663C8B3CEF46}"
+	ProjectGUID="{5AE7D4CC-55AD-4F4C-8FAA-3EB0F3F40529}"
 	RootNamespace="hltypes"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="win32_Debug|Win32"
-			OutputDirectory="$(ProjectDir)\bin\$(ConfigurationName)"
+			OutputDirectory="bin\$(ConfigurationName)"
 			IntermediateDirectory="bin\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -87,7 +87,7 @@
 		</Configuration>
 		<Configuration
 			Name="win32_Release|Win32"
-			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
+			OutputDirectory="bin\$(ConfigurationName)"
 			IntermediateDirectory="bin\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
