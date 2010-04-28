@@ -14,7 +14,7 @@
 #include <unittest++/UnitTest++.h>
 #endif
 
-#include <hltypes/Array.h>
+#include <hltypes/harray.h>
 #include <hltypes/hstring.h>
 
 /******* STRING ****************************************************************************/
