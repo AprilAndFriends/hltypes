@@ -10,12 +10,14 @@
   <VirtualDirectory Name="src">
     <File Name="src/hstring.cpp"/>
     <File Name="src/util.cpp"/>
+    <File Name="src/hfile.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/hltypes/Array.h"/>
     <File Name="include/hltypes/hltypesExport.h"/>
     <File Name="include/hltypes/hstring.h"/>
     <File Name="include/hltypes/util.h"/>
+    <File Name="include/hltypes/hfile.h"/>
   </VirtualDirectory>
   <Dependencies Name="Release"/>
   <Settings Type="Dynamic Library">
