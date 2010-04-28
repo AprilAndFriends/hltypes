@@ -40,7 +40,7 @@ namespace hltypes
 			s = p + splitter_len;
 			n--;
 		}
-		out.push_back(string(s));
+		if (s[0] != 0) out.push_back(string(s));
 		return out;
 	}
 	
@@ -66,7 +66,7 @@ namespace hltypes
 			out.push_back(string(s, p - s));
 			s = p + splitter_len;
 		}
-		out.push_back(string(s));
+		if (s[0] != 0) out.push_back(string(s));
 		return out;
 	}
 

@@ -7,11 +7,11 @@
 * This program is free software; you can redistribute it and/or modify it under      *
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
-#include <string>
-#include "hltypesExport.h"
-
 #ifndef _HLTYPES_HSTRING
 #define _HLTYPES_HSTRING
+
+#include <string>
+#include "hltypesExport.h"
 
 namespace hltypes
 {
