@@ -7,7 +7,7 @@
 * This program is free software; you can redistribute it and/or modify it under      *
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
-#include "Array.h"
+#include "harray.h"
 #include "hstring.h"
 #include <string.h>
 #include <stdio.h>
