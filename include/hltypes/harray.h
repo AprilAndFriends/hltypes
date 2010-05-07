@@ -140,7 +140,7 @@ namespace hltypes
 			return (this->index_of(element) >= 0);
 		}
 		
-		void contains(const Array<T>& other)
+		bool contains(const Array<T>& other)
 		{
 			for (int i = 0; i < other.size(); i++)
 			{
@@ -152,7 +152,7 @@ namespace hltypes
 			return true;
 		}
 		
-		void contains(const T other[], int count)
+		bool contains(const T other[], int count)
 		{
 			for (int i = 0; i < count; i++)
 			{
