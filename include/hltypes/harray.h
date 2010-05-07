@@ -144,7 +144,7 @@ namespace hltypes
 		{
 			for (int i = 0; i < other.size(); i++)
 			{
-				if (!this->contains(other[i]))
+				if (!this->contains(other.at(i)))
 				{
 					return false;
 				}
