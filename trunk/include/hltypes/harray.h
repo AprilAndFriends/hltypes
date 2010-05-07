@@ -140,6 +140,30 @@ namespace hltypes
 			return (this->index_of(element) >= 0);
 		}
 		
+		void contains(const Array<T>& other)
+		{
+			for (int i = 0; i < other.size(); i++)
+			{
+				if (!this->contains(other[i]))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		void contains(const T other[], int count)
+		{
+			for (int i = 0; i < count; i++)
+			{
+				if (!this->contains(other[i]))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		
 		void insert_at(const int index, const T& element)
 		{
 			stdvector::insert(stdvector::begin() + index, element);
