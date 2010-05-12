@@ -111,6 +111,11 @@ namespace hltypes
 			return &stdvector::at(stdvector::size() - 1 - this->index);
 		}
 
+		int iterator_index()
+		{
+			return this->index;
+		}
+		
 /******* ITERATOR METHOD ALIASES ***************************************/
 		T* iter(int start = 0)
 		{
