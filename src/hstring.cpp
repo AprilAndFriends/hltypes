@@ -41,7 +41,7 @@ namespace hltypes
 			s = p + splitter_len;
 			n--;
 		}
-		if (s[0] != 0) out.push_back(string(s));
+		out.push_back(string(s));
 		return out;
 	}
 	
@@ -67,7 +67,7 @@ namespace hltypes
 			out.push_back(string(s, p - s));
 			s = p + splitter_len;
 		}
-		if (s[0] != 0) out.push_back(string(s));
+		out.push_back(string(s));
 		return out;
 	}
 
