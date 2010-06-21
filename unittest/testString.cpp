@@ -152,5 +152,9 @@ TEST(strin_substr_operator)
 	hstr s = "1234567890";
 	CHECK(s(1, 2) == "23");
 	CHECK(s(6, 4) == "7890");
+	CHECK(s(0, 4, 2) == "13");
+	CHECK(s(1, 5, 2) == "246");
+	CHECK(s(6) == "7");
+	CHECK(s[3] == '4');
 }
 

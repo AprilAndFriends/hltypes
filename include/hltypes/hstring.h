@@ -24,6 +24,7 @@ namespace hltypes
 	{
 	public:
 		string();
+		string(const char c);
 		string(const char* s);
 		string(const string& s);
 		string(const std::string& s);
@@ -116,6 +117,9 @@ namespace hltypes
 		bool operator==(const std::string& s) const;
 		
 		string operator()(int start, int count) const;
+		string operator()(int start, int count, int step) const;
+		string operator()(int index) const;
+		unsigned char operator[](int index) const;
 	//	string operator()(int a,int b) const;
 		//string operator()(int a,int b,int step) const;
 
