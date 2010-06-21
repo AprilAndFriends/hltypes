@@ -22,6 +22,7 @@ typedef std::basic_string<char> stdstr;
 namespace hltypes
 {
 	string::string() : stdstr() {}
+	string::string(const char c) : stdstr(1, c) {}
 	string::string(const char* s) : stdstr(s) {}
 	string::string(const string& s) : stdstr(s) {}
 	string::string(const std::string& s) : stdstr(s) {}
@@ -258,6 +259,30 @@ namespace hltypes
 	string string::operator()(int start, int count) const
 	{
 		return stdstr::substr(start, count);
+	}
+	
+	string string::operator()(int start, int count, int step) const
+	{
+		if (step == 1)
+		{
+			return stdstr::substr(start, count);
+		}
+		hstr result;
+		for (int i = start; i < start + count; i += step)
+		{
+			result += stdstr::at(i);
+		}
+		return result;
+	}
+	
+	string string::operator()(int index) const
+	{
+		return stdstr::at(index);
+	}
+	
+	unsigned char string::operator[](int index) const
+	{
+		return stdstr::at(index);
 	}
 /******* CAST OPERATORS ************************************************/
 	string::operator float() const
