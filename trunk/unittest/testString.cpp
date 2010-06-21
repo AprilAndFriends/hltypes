@@ -147,3 +147,10 @@ TEST(string_rsplit3)
 	CHECK(ary.size() == 3 && ary[0] == "1" && ary[1] == "" && ary[2] == "3");
 }
 
+TEST(strin_substr_operator)
+{
+	hstr s = "1234567890";
+	CHECK(s(1, 2) == "23");
+	CHECK(s(6, 4) == "7890");
+}
+

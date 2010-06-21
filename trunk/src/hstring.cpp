@@ -255,29 +255,10 @@ namespace hltypes
 		return this->contains(s.c_str());
 	}
 /******* SUBSTR OPERATORS **********************************************/
-	/*
-	string string::operator()(int a,int b) const
+	string string::operator()(int start, int count) const
 	{
-		if (a < 0)
-		{
-			int len=size();
-			a=len+a;
-			if (a < 0) a=0;
-		}
-
-		if (b < 0)
-		{
-			int len=size();
-			b=len+b;
-			if (b < 0) b=0;
-		}
+		return stdstr::substr(start, count);
 	}
-	
-	string string::operator()(int a,int b,int step) const
-	{
-		
-	}
-	*/
 /******* CAST OPERATORS ************************************************/
 	string::operator float() const
 	{
