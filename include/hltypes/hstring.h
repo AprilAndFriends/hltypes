@@ -115,6 +115,7 @@ namespace hltypes
 		bool operator==(const char* s) const;
 		bool operator==(const std::string& s) const;
 		
+		string operator()(int start, int count) const;
 	//	string operator()(int a,int b) const;
 		//string operator()(int a,int b,int step) const;
 
