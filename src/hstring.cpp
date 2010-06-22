@@ -79,8 +79,8 @@ namespace hltypes
 		{
 			return false;
 		}
-		out_left = this->substr(0, index);
-		out_right = this->substr(index + strlen(splitter), 1000);
+		out_left = stdstr::substr(0, index);
+		out_right = stdstr::substr(index + strlen(splitter), 1000);
 		return true;
 	}
 	
@@ -91,8 +91,8 @@ namespace hltypes
 		{
 			return false;
 		}
-		out_left = this->substr(0, index);
-		out_right = this->substr(index + strlen(splitter), 1000);
+		out_left = stdstr::substr(0, index);
+		out_right = stdstr::substr(index + strlen(splitter), 1000);
 		return true;
 	}
 
