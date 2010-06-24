@@ -280,7 +280,7 @@ namespace hltypes
 		return stdstr::at(index);
 	}
 	
-	unsigned char string::operator[](int index) const
+	char& string::operator[](int index)
 	{
 		return stdstr::at(index);
 	}
