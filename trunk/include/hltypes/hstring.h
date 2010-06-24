@@ -119,7 +119,7 @@ namespace hltypes
 		string operator()(int start, int count) const;
 		string operator()(int start, int count, int step) const;
 		string operator()(int index) const;
-		unsigned char operator[](int index) const;
+		char& operator[](int index);
 	//	string operator()(int a,int b) const;
 		//string operator()(int a,int b,int step) const;
 
