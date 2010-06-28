@@ -263,6 +263,10 @@ namespace hltypes
 	
 	string string::operator()(int start, int count, int step) const
 	{
+		if (count < 0)
+		{
+			count = stdstr::npos;
+		}
 		if (step == 1)
 		{
 			return stdstr::substr(start, count);
