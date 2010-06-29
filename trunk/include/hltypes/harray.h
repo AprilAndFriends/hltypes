@@ -205,6 +205,37 @@ namespace hltypes
 			}
 		}
 		
+		void remove_all(T& element)
+		{
+			int index = 0;
+			while (true)
+			{
+				index = this->index_of(element);
+				if (index < 0)
+				{
+					break;
+				}
+				stdvector::erase(stdvector::begin() + index);
+			}
+		}
+		
+		void remove_all(const Array<T>& other)
+		{
+			int index = 0;
+			for (int i = 0; i < other.size(); i++)
+			{
+				while (true)
+				{
+					index = this->index_of(other.at(i));
+					if (index < 0)
+					{
+						break;
+					}
+					stdvector::erase(stdvector::begin() + index);
+				}
+			}
+		}
+		
 		void unite(const Array<T>& other)
 		{
 			this->insert_at((int)stdvector::size(), other, 0, other.size());
