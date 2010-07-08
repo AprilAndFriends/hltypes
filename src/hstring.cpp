@@ -312,7 +312,7 @@ namespace hltypes
 	
 	string::operator bool() const
 	{
-		return (*this != "0" && *this != "false") ? true : false;
+		return (*this != "" && *this != "0" && *this != "false") ? true : false;
 	}
 	
 /******* ASSIGNMENT OPERATORS ******************************************/
