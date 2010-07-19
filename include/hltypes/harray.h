@@ -269,7 +269,7 @@ namespace hltypes
 			return result;
 		}
 		
-		void differenciate(const Array<T>& other)
+		void differentiate(const Array<T>& other)
 		{
 			Array<T> result;
 			for (int i = 0; i < other.size(); i++)
@@ -282,10 +282,10 @@ namespace hltypes
 			this->remove(result);
 		}
 		
-		Array<T> differenciated(const Array<T>& other) const
+		Array<T> differentiated(const Array<T>& other) const
 		{
 			Array<T> result(*this);
-			result.differenciate(other);
+			result.differentiate(other);
 			return result;
 		}
 		
@@ -587,7 +587,7 @@ namespace hltypes
 		
 		void operator/=(const Array<T>& other)
 		{
-			this->differenciate(other);
+			this->differentiate(other);
 		}
 		
 	private:
@@ -639,7 +639,7 @@ template <class T> harray<T> operator&(const harray<T>& a, const harray<T>& b)
 
 template <class T> harray<T> operator/(const harray<T>& a, const harray<T>& b)
 {
-	return a.differenciated(b);
+	return a.differentiated(b);
 }
 
 #endif
