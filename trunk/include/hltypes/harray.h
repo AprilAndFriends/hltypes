@@ -68,6 +68,13 @@ namespace hltypes
 			return stdvector::at(index);
 		}
 	
+		Array<T> operator()(int start, int count)
+		{
+			Array<T> result;
+			result.assign(stdvector::begin() + start, stdvector::begin() + start);
+			return result;
+		}
+	
 		bool operator==(const Array<T>& other)
 		{
 			return this->equals(other);
