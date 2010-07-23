@@ -10,35 +10,46 @@
 #ifndef HLTYPES_UTIL_H
 #define HLTYPES_UTIL_H
 
-template <class T> T hmin(T a,T b)
+/******* ITERATOR MACROS ***********************************************/
+#define foreach(type, name, lst) for (type* name = lst.iterate(); name; name = lst.next())
+#define foreach_r(type, name, lst) for (type* name = lst.riterate(); name; name = lst.rnext())
+#define foreach_in_map(type, name, lst) for (std::map<hstr, type>::iterator name = lst.begin(); name != lst.end(); name++)
+#define foreach_in_list(type, name, lst) for (std::list<type>::iterator name = lst.begin(); name != lst.end(); name++)
+
+/******* OTHER MACROS **************************************************/
+#define dsin(degrees) sin(degrees * 0.01745329f)
+#define dcos(degrees) cos(degrees * 0.01745329f)
+
+/******* PROTOTYPES ****************************************************/
+int hrand(int min, int max);
+int hrand(int max);
+int hrand(float min, float max);
+int hrand(float max);
+
+/******* TEMPLATE FUNCTIONS ********************************************/
+template <class T> T hmin(T a, T b)
 {
 	return (a < b) ? a : b;
 }
 
-template <class T> T hmax(T a,T b)
+template <class T> T hmax(T a, T b)
 {
 	return (a > b) ? a : b;
 }
 
-template <class T> T sign(T number)
+template <class T> T hclamp(T value, T min, T max)
 {
-	if (number >= 0) return 1;
-	else             return -1;
+	return (value < min ? min : (value > max ? max : value));
 }
 
-template <class T> T clamp(T value,T min_value,T max_value)
+template <class T> T sgn(T value)
 {
-	if      (value < min_value) value=min_value;
-	else if (value > max_value) value=max_value;
-	return value;
+	return (value >= 0 ? 1 : -1);
 }
 
-#define dsin(degrees) sin(degrees/57.295779513f)
-#define dcos(degrees) cos(degrees/57.295779513f)
-
-#define foreach(type,lst) for (type* it = lst.iter(); it; it = lst.next())
-#define foreach_reverse(type,lst) for (type* it = lst.riter(); it; it = lst.rnext())
-#define foreach_in_map(type,list) for (std::map<hstr,type>::iterator it=list.begin();it != list.end(); it++)
-#define foreach_in_list(type,lst) for (std::list<type>::iterator it=lst.begin();it != lst.end();it++)
+template <class T> bool is_between(T value, T min, T max)
+{
+	return (value >= min && value <= max);
+}
 
 #endif
