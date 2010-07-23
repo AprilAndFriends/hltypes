@@ -19,7 +19,6 @@
 	#undef max
 #endif
 
-
 namespace hltypes
 {
 #define stdvector std::vector<T>
