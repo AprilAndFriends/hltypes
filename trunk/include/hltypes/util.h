@@ -10,6 +10,8 @@
 #ifndef HLTYPES_UTIL_H
 #define HLTYPES_UTIL_H
 
+#include <math.h>
+
 #include "hltypesExport.h"
 
 /******* ITERATOR MACROS ***********************************************/
@@ -19,8 +21,8 @@
 #define foreach_in_list(type, name, lst) for (std::list<type>::iterator name = lst.begin(); name != lst.end(); name++)
 
 /******* OTHER MACROS **************************************************/
-#define dsin(degrees) sin(degrees * 0.01745329f)
-#define dcos(degrees) cos(degrees * 0.01745329f)
+#define dsin(degrees) sin((degrees) * 0.01745329f)
+#define dcos(degrees) cos((degrees) * 0.01745329f)
 
 /******* PROTOTYPES ****************************************************/
 int hltypesFnExport hrand(int min, int max);
