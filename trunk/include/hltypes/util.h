@@ -10,6 +10,8 @@
 #ifndef HLTYPES_UTIL_H
 #define HLTYPES_UTIL_H
 
+#include "hltypesExport.h"
+
 /******* ITERATOR MACROS ***********************************************/
 #define foreach(type, name, lst) for (type* name = lst.iterate(); name; name = lst.next())
 #define foreach_r(type, name, lst) for (type* name = lst.riterate(); name; name = lst.rnext())
@@ -21,10 +23,10 @@
 #define dcos(degrees) cos(degrees * 0.01745329f)
 
 /******* PROTOTYPES ****************************************************/
-int hrand(int min, int max);
-int hrand(int max);
-int hrand(float min, float max);
-int hrand(float max);
+int hltypesFnExport hrand(int min, int max);
+int hltypesFnExport hrand(int max);
+float hltypesFnExport hrand(float min, float max);
+float hltypesFnExport hrand(float max);
 
 /******* TEMPLATE FUNCTIONS ********************************************/
 template <class T> T hmin(T a, T b)
