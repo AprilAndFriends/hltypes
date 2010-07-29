@@ -27,31 +27,31 @@ namespace hltypes
 	{
 	public:
 		// constructors
-		Array() : index(-1), stdvector()
+		Array() : stdvector(), index(-1)
 		{
 		}
 		
-		Array(const Array<T>& other) : index(-1), stdvector()
+		Array(const Array<T>& other) : stdvector(), index(-1)
 		{
 			this->insert_at(0, other, 0, (int)other.size());
 		}
 		
-		Array(const Array<T>& other, const int count) : index(-1), stdvector()
+		Array(const Array<T>& other, const int count) : stdvector(), index(-1)
 		{
 			this->insert_at(0, other, 0, count);
 		}
 		
-		Array(const Array<T>& other, const int start, const int count) : index(-1), stdvector()
+		Array(const Array<T>& other, const int start, const int count) : stdvector(), index(-1)
 		{
 			this->insert_at(0, other, start, count);
 		}
 		
-		Array(const T other[], const int count) : index(-1), stdvector()
+		Array(const T other[], const int count) : stdvector(), index(-1)
 		{
 			this->insert_at(0, other, 0, count);
 		}
 		
-		Array(const T other[], const int start, const int count) : index(-1), stdvector()
+		Array(const T other[], const int start, const int count) : stdvector(), index(-1)
 		{
 			this->insert_at(0, other, start, count);
 		}

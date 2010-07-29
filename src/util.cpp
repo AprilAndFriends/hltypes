@@ -20,12 +20,12 @@ int hrand(int max)
 	return hrand(0, max);
 }
 
-int hrand(float min, float max)
+float hrand(float min, float max)
 {
 	return min + ((float)rand()) / RAND_MAX * max;
 }
 
-int hrand(float max)
+float hrand(float max)
 {
 	return hrand(0.0f, max);
 }
