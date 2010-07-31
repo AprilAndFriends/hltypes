@@ -12,7 +12,7 @@
 
 int hrand(int min, int max)
 {
-	return min + ((float)rand()) / RAND_MAX * max;
+	return min + (int)(((float)rand()) / RAND_MAX * max);
 }
 
 int hrand(int max)
