@@ -46,7 +46,7 @@ template <class T> T hclamp(T value, T min, T max)
 	return (value < min ? min : (value > max ? max : value));
 }
 
-template <class T> T sgn(T value)
+template <class T> int sgn(T value)
 {
 	return (value >= 0 ? 1 : -1);
 }
