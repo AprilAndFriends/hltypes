@@ -7,34 +7,33 @@
 * This program is free software; you can redistribute it and/or modify it under      *
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
-#ifndef _HLTYPES_HFILE
-#define _HLTYPES_HFILE
+#ifndef _HLTYPES_HCONFIGFILE
+#define _HLTYPES_HCONFIGFILE
 
 #include "hltypesExport.h"
 #include "hstring.h"
-#include <stdio.h>
+#include <map>
 
 namespace hltypes
 {
-	class hltypesExport file
+	class hltypesExport config_file
 	{
-		FILE* cfile;
+		string filename;
+		std::map<string,string> entries;
 	public:
-		file(string filename,const char* read_mode="r");
-		file(const char* filename,const char* read_mode="r");
-		~file();
+		config_file(string filename);
+		config_file();
+		~config_file();
 		
-		string read_line();
-		bool eof();
-		void close();
+		void read(string filename);
 		
-		
-		static bool exists(string filename);
-		
+		chstr operator[](const char* var);
+		chstr operator[](chstr var);
+		void set(chstr key,chstr value);
 	};
 }
 
-typedef hltypes::file hfile;
+typedef hltypes::config_file hcfgfile;
 
 
 #endif
