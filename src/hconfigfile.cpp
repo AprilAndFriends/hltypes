@@ -20,13 +20,18 @@ namespace hltypes
 		this->filename=filename;
 		file f(filename);
 
-		string line,key,value;
+		string line,key,value,prefix;
 		while (!f.eof())
 		{
 			line=f.read_line();
+			if (line.starts_with("["))
+			{
+				prefix=line(1,line.find("]")-1)+".";
+				continue;
+			}
 			if (line.starts_with("#") || !line.contains(": ")) continue;
 			line.split(": ",key,value);
-			this->entries[key]=value;
+			this->entries[prefix+key]=value;
 		}
 		f.close();
 	}

@@ -24,6 +24,7 @@ namespace hltypes
 		virtual ~exception();
 		virtual string what();
 	};
+	#define hl_exception(msg) hltypes::exception(msg,__FILE__,__LINE__)
 /*********************************************************************************/
 	class hltypesExport _file_not_found : public exception
 	{

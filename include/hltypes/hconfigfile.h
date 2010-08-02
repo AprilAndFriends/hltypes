@@ -30,6 +30,8 @@ namespace hltypes
 		chstr operator[](const char* var);
 		chstr operator[](chstr var);
 		void set(chstr key,chstr value);
+		
+		std::map<string,string>& _getInternalMap() { return this->entries; }
 	};
 }
 
