@@ -23,6 +23,8 @@ namespace hltypes
 		exception(string message,const char* source_file,int line);
 		virtual ~exception();
 		virtual string what();
+		virtual string getErrorText() { return what(); }
+		virtual string message() { return what(); }
 	};
 	#define hl_exception(msg) hltypes::exception(msg,__FILE__,__LINE__)
 /*********************************************************************************/
