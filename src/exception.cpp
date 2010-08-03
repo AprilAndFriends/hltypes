@@ -16,7 +16,7 @@ namespace hltypes
 		
 	}
 
-	string exception::what()
+	string exception::message()
 	{
 		return this->msg;
 	}
