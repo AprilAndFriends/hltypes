@@ -15,6 +15,10 @@
 		7F42F6A411EB0BAA00B1C1DF /* hltypesExport.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F42F69F11EB0BAA00B1C1DF /* hltypesExport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F42F6A511EB0BAA00B1C1DF /* hstring.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F42F6A011EB0BAA00B1C1DF /* hstring.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F42F6A611EB0BAA00B1C1DF /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F42F6A111EB0BAA00B1C1DF /* util.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F469C7412088BEE009781BB /* exception.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F469C7212088BEE009781BB /* exception.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F469C7512088BEE009781BB /* hconfigfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F469C7312088BEE009781BB /* hconfigfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F469C7812088C00009781BB /* exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F469C7612088C00009781BB /* exception.cpp */; };
+		7F469C7912088C00009781BB /* hconfigfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F469C7712088C00009781BB /* hconfigfile.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +31,10 @@
 		7F42F6A011EB0BAA00B1C1DF /* hstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hstring.h; path = include/hltypes/hstring.h; sourceTree = SOURCE_ROOT; };
 		7F42F6A111EB0BAA00B1C1DF /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = util.h; path = include/hltypes/util.h; sourceTree = SOURCE_ROOT; };
 		7F42F71411EB111E00B1C1DF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7F469C7212088BEE009781BB /* exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = exception.h; path = include/hltypes/exception.h; sourceTree = "<group>"; };
+		7F469C7312088BEE009781BB /* hconfigfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hconfigfile.h; path = include/hltypes/hconfigfile.h; sourceTree = "<group>"; };
+		7F469C7612088C00009781BB /* exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = exception.cpp; path = src/exception.cpp; sourceTree = "<group>"; };
+		7F469C7712088C00009781BB /* hconfigfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hconfigfile.cpp; path = src/hconfigfile.cpp; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* hltypes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hltypes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -95,6 +103,8 @@
 		7F42F69511EB0B8500B1C1DF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7F469C7612088C00009781BB /* exception.cpp */,
+				7F469C7712088C00009781BB /* hconfigfile.cpp */,
 				7F42F69611EB0B9400B1C1DF /* hfile.cpp */,
 				7F42F69711EB0B9500B1C1DF /* hstring.cpp */,
 				7F42F69811EB0B9500B1C1DF /* util.cpp */,
@@ -105,6 +115,8 @@
 		7F42F69C11EB0B9A00B1C1DF /* Includes */ = {
 			isa = PBXGroup;
 			children = (
+				7F469C7212088BEE009781BB /* exception.h */,
+				7F469C7312088BEE009781BB /* hconfigfile.h */,
 				7F42F69D11EB0BAA00B1C1DF /* harray.h */,
 				7F42F69E11EB0BAA00B1C1DF /* hfile.h */,
 				7F42F69F11EB0BAA00B1C1DF /* hltypesExport.h */,
@@ -126,6 +138,8 @@
 				7F42F6A411EB0BAA00B1C1DF /* hltypesExport.h in Headers */,
 				7F42F6A511EB0BAA00B1C1DF /* hstring.h in Headers */,
 				7F42F6A611EB0BAA00B1C1DF /* util.h in Headers */,
+				7F469C7412088BEE009781BB /* exception.h in Headers */,
+				7F469C7512088BEE009781BB /* hconfigfile.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +201,8 @@
 				7F42F69911EB0B9500B1C1DF /* hfile.cpp in Sources */,
 				7F42F69A11EB0B9500B1C1DF /* hstring.cpp in Sources */,
 				7F42F69B11EB0B9500B1C1DF /* util.cpp in Sources */,
+				7F469C7812088C00009781BB /* exception.cpp in Sources */,
+				7F469C7912088C00009781BB /* hconfigfile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +230,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
