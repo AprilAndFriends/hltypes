@@ -165,6 +165,18 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\exception.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\hconfigfile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\hfile.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\hstring.cpp"
 				>
 			</File>
@@ -179,7 +191,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\include\hltypes\exception.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\hltypes\harray.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\hltypes\hconfigfile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\hltypes\hfile.h"
 				>
 			</File>
 			<File
