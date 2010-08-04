@@ -69,7 +69,7 @@ namespace hltypes
 	
 	bool file::eof()
 	{
-		return feof(this->cfile);
+		return (feof(this->cfile) != 0);
 	}
 	
 	void file::close()

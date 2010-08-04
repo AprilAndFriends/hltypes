@@ -58,10 +58,6 @@ namespace hltypes
 		bool rsplit(const char* splitter, string& out_left, string& out_right) const;
 		bool rsplit(const string& splitter, string& out_left, string& out_right) const;
 		
-		bool contains(const char* s) const;
-		bool contains(const char c) const;
-		bool contains(const string& s) const;
-		
 		harray_hstr split(const char splitter, unsigned int n = -1) const;
 		harray_hstr split(const char* splitter, unsigned int n = -1) const;
 		harray_hstr split(const string& splitter, unsigned int n = -1) const;
@@ -86,6 +82,12 @@ namespace hltypes
 		string replace(size_t pos1, size_t n1, const char* s, size_t n2);
 		string replace(size_t pos1, size_t n1, const char* s);
 		string replace(size_t pos1, size_t n1, size_t n2, char c);
+		
+		bool contains(const char* s) const;
+		bool contains(const char c) const;
+		bool contains(const string& s) const;
+		
+		int size() const;
 
 		operator float() const;
 		operator int() const;

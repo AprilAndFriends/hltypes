@@ -15,6 +15,7 @@
 #endif
 
 #include <hltypes/harray.h>
+#include <hltypes/util.h>
 
 /******* ARRAY *****************************************************************************/
 
@@ -268,9 +269,21 @@ TEST(Array_iterations)
 		CHECK((*it) == a[i]);
 	}
 	i = 0;
+	foreach (int, it, a)
+	{
+		CHECK((*it) == a[i]);
+		i++;
+	}
+	i = 0;
 	for (int* it = a.riterate(); it; it = a.rnext(), i++)
 	{
 		CHECK((*it) == a[a.size() - 1 - i]);
+	}
+	i = 0;
+	foreach_r (int, it, a)
+	{
+		CHECK((*it) == a[a.size() - 1 - i]);
+		i++;
 	}
 }
 
@@ -365,5 +378,48 @@ TEST(Array_join)
 	CHECK(b == "0212223");
 	b = a.join(1.5f);
 	CHECK(b == "01.50000011.50000021.5000003");
+}
+
+bool negative(int i) { return (i < 0); }
+bool positive(int i) { return (i >= 0); }
+bool over_9000(int i) { return (i > 9000); }
+
+TEST(Array_match)
+{
+	harray<int> a;
+	a += 0;
+	a += -1;
+	a += 2;
+	a += -3;
+	CHECK(a.matches_any(&positive));
+	CHECK(a.matches_any(&negative));
+	CHECK(!a.matches_all(&negative));
+	CHECK(!a.matches_all(&positive));
+	CHECK(a.find_first(&negative) != NULL);
+	CHECK(*a.find_first(&negative) == -1);
+	CHECK(a.find_first(&positive) != NULL);
+	CHECK(*a.find_first(&positive) == 0);
+	CHECK(a.find_first(&over_9000) == NULL);
+	harray<int> c = a.find_all(&negative);
+	CHECK(c.size() == 2 && c[0] == -1 && c[1] == -3);
+	CHECK(c.matches_any(&negative));
+	CHECK(!c.matches_any(&positive));
+	CHECK(c.matches_all(&negative));
+	CHECK(!c.matches_all(&positive));
+}
+
+TEST(Array_cast)
+{
+	harray<int> a;
+	a += 0;
+	a += -1;
+	a += 2;
+	a += -3;
+	harray<hstr> b = a.cast<hstr>();
+	CHECK(b.size() == 4);
+	CHECK(b[0] == "0");
+	CHECK(b[1] == "-1");
+	CHECK(b[2] == "2");
+	CHECK(b[3] == "-3");
 }
 

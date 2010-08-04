@@ -150,6 +150,11 @@ namespace hltypes
 		return stdstr::find(s) != stdstr::npos;
 	}
 	
+	int string::size() const
+	{
+		return stdstr::size();
+	}
+	
 /******* TYPE EXTENSION FUNCTIONS **************************************/
 	harray_hstr string::split(const char splitter, unsigned int n) const
 	{
