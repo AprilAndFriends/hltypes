@@ -172,6 +172,18 @@
 			RelativePath=".\main.cpp"
 			>
 		</File>
+		<File
+			RelativePath=".\testArray.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\testMap.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\testString.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
