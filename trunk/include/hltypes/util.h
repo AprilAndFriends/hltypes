@@ -17,6 +17,7 @@
 /******* ITERATOR MACROS ***********************************************/
 #define foreach(type, name, lst) for (type* name = lst.iterate(); name; name = lst.next())
 #define foreach_r(type, name, lst) for (type* name = lst.riterate(); name; name = lst.rnext())
+#define foreach_m(type, name, lst) for (hmap<hstr, type>::iterator name = lst.begin(); name != lst.end(); name++)
 #define foreach_in_map(type, name, lst) for (std::map<hstr, type>::iterator name = lst.begin(); name != lst.end(); name++)
 #define foreach_in_list(type, name, lst) for (std::list<type>::iterator name = lst.begin(); name != lst.end(); name++)
 

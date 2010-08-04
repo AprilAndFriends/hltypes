@@ -22,6 +22,7 @@
     <File Name="include/hltypes/harray.h"/>
     <File Name="include/hltypes/hconfigfile.h"/>
     <File Name="include/hltypes/exception.h"/>
+    <File Name="include/hltypes/hmap.h"/>
   </VirtualDirectory>
   <Dependencies Name="Release"/>
   <Dependencies Name="Linux_Debug"/>

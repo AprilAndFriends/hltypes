@@ -211,6 +211,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\hltypes\hmap.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\hltypes\hstring.h"
 				>
 			</File>

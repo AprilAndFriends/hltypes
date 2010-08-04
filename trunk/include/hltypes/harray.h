@@ -62,7 +62,7 @@ namespace hltypes
 		{
 			if (index < 0)
 			{
-				return stdvector::at((int)stdvector::size() - index);
+				return stdvector::at((int)stdvector::size() + index);
 			}
 			return stdvector::at(index);
 		}
