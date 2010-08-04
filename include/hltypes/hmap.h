@@ -7,36 +7,34 @@
 * This program is free software; you can redistribute it and/or modify it under      *
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
-#ifndef _HLTYPES_HFILE
-#define _HLTYPES_HFILE
+#ifndef HLTYPES_MAP_H
+#define HLTYPES_MAP_H
 
-#include <stdio.h>
-
-#include "hltypesExport.h"
+#include <map>
 #include "hstring.h"
 
 namespace hltypes
 {
-	class hltypesExport file
+#define stdmap std::map<K, T>
+	
+	template <class K, class T> class Map : public stdmap
 	{
-		FILE* cfile;
 	public:
-		file(chstr filename, const char* access_mode = "r");
-		file(const char* filename, const char* access_mode = "r");
-		file();
-		~file();
+		// constructors
+		Map() : stdmap()
+		{
+		}
 		
-		void open(const char* filename, const char* access_mode = "r");
-		hstr read_line();
-		bool eof();
-		void close();
-		
-		static bool exists(chstr filename);
-		
+/******* OPERATORS *****************************************************/
+		T& operator[](K key)
+		{
+			return stdmap::operator[](key);
+		}
+	
 	};
+	
 }
 
-typedef hltypes::file hfile;
+#define hmap hltypes::Map
 
 #endif
-

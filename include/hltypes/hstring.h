@@ -12,6 +12,7 @@
 
 #include <stdarg.h>
 #include <string>
+
 #include "hltypesExport.h"
 
 namespace hltypes

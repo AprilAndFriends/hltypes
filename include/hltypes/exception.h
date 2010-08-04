@@ -18,37 +18,35 @@ namespace hltypes
 	class hltypesExport exception
 	{
 	protected:
-		string msg;
+		hstr msg;
 	public:
-		exception(string message,const char* source_file,int line);
+		exception(chstr message, const char* source_file, int line);
 		virtual ~exception();
-		virtual string message();
-		virtual string getErrorText() { return message(); }
+		virtual hstr message();
+		virtual hstr getErrorText() { return message(); }
 	};
-	#define hl_exception(msg) hltypes::exception(msg,__FILE__,__LINE__)
+	#define hl_exception(msg) hltypes::exception(msg, __FILE__, __LINE__)
 /*********************************************************************************/
 	class hltypesExport _file_not_found : public exception
 	{
 	public:
-		_file_not_found(string filename,const char* source_file,int line);
+		_file_not_found(chstr filename, const char* source_file, int line);
 	};
-	#define file_not_found(filename) hltypes::_file_not_found(filename,__FILE__,__LINE__)
+	#define file_not_found(filename) hltypes::_file_not_found(filename, __FILE__, __LINE__)
 /*********************************************************************************/
 	class hltypesExport _key_error : public exception
 	{
 	public:
-		_key_error(string key,string container,const char* source_file,int line);
+		_key_error(chstr key, chstr container, const char* source_file, int line);
 	};
-	#define key_error(filename,container) hltypes::_key_error(filename,container,__FILE__,__LINE__)
+	#define key_error(filename, container) hltypes::_key_error(filename, container, __FILE__, __LINE__)
 /*********************************************************************************/
 	class hltypesExport _resource_error : public exception
 	{
 	public:
-		_resource_error(string type,string name,string container,const char* source_file,int line);
+		_resource_error(chstr type, chstr name, chstr container, const char* source_file, int line);
 	};
-	#define resource_error(type,name,container) hltypes::_resource_error(type,name,container,__FILE__,__LINE__)
+	#define resource_error(type, name, container) hltypes::_resource_error(type, name, container, __FILE__, __LINE__)
 }
-
-//typedef hltypes::config_file hcfgfile;
 
 #endif

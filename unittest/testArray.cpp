@@ -246,8 +246,15 @@ TEST(Array_operations)
 	CHECK(a == b);
 	CHECK(a.min() == 1);
 	CHECK(b.max() == 5);
+	harray<bool> c;
+	c += true;
+	c += false;
+	c += true;
+	CHECK(c.at(0));
+	CHECK(!c.at(1));
+	CHECK(c.at(2));
 }
-#include <stdio.h>
+
 TEST(Array_iterations)
 {
 	harray<int> a;
@@ -336,12 +343,12 @@ TEST(Array_difference)
 	b += 3;
 	b += 4;
 	b += 5;
-	harray<int> c = a.differenciated(b);
+	harray<int> c = a.differentiated(b);
 	CHECK(c.size() == 2);
 	CHECK(c[0] == 0);
 	CHECK(c[1] == 1);
 	CHECK(c == (a / b));
-	a.differenciate(b);
+	a.differentiate(b);
 	CHECK(a == c);
 }
 

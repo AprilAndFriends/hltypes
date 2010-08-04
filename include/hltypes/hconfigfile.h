@@ -10,33 +10,33 @@
 #ifndef _HLTYPES_HCONFIGFILE
 #define _HLTYPES_HCONFIGFILE
 
+#include <map>
+
 #include "hltypesExport.h"
 #include "hstring.h"
-#include <map>
 
 namespace hltypes
 {
 	class hltypesExport config_file
 	{
-		string filename;
-		std::map<string,string> entries;
+		hstr filename;
+		std::map<hstr, hstr> entries;
 	public:
-		config_file(string filename);
+		config_file(chstr filename);
 		config_file();
 		~config_file();
 		
-		void read(string filename);
+		void read(chstr filename);
 		
 		chstr operator[](const char* var);
 		chstr operator[](chstr var);
-		void set(chstr key,chstr value);
+		void set(chstr key, chstr value);
 		
-		std::map<string,string>& _getInternalMap() { return this->entries; }
+		std::map<hstr, hstr>& _getInternalMap() { return this->entries; }
 	};
 }
 
 typedef hltypes::config_file hcfgfile;
-
 
 #endif
 
