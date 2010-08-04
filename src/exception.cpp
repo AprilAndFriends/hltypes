@@ -1,5 +1,6 @@
 #include "exception.h"
 #include "harray.h"
+#include "hstring.h"
 
 namespace hltypes
 {
@@ -7,18 +8,17 @@ namespace hltypes
 	{
 		hstr filename = source_file;
 		int index = filename.rfind("/");
-		if (index == -1) index = filename.rfind("\\");
-		msg = hsprintf("[%s:%s] %s", filename(index + 1, -1).c_str(), line, message.c_str());
+		if (index == -1)
+		{
+			index = filename.rfind("\\");
+		}
+		msg = "[" + filename(index + 1, -1) + ":" + hstr(line) + "] " + message;
 	}
 	
 	exception::~exception()
 	{
 	}
 
-	hstr exception::message()
-	{
-		return this->msg;
-	}
 /*********************************************************************************/
 	_file_not_found::_file_not_found(chstr filename, const char* source_file, int line) :
 	    exception("'" + filename + "' not found!", source_file, line)
