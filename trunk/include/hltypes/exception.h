@@ -22,7 +22,7 @@ namespace hltypes
 	public:
 		exception(chstr message, const char* source_file, int line);
 		virtual ~exception();
-		virtual hstr message();
+		virtual hstr message() { return this->msg; }
 		virtual hstr getErrorText() { return message(); }
 	};
 	#define hl_exception(msg) hltypes::exception(msg, __FILE__, __LINE__)
