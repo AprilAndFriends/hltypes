@@ -157,6 +157,7 @@
 				7FB0C755120ADED7005EA739 /* Headers */,
 				7FB0C756120ADED7005EA739 /* Sources */,
 				7FB0C757120ADED7005EA739 /* Frameworks */,
+				7F33B52312100A92004B5E89 /* Add SDKSettings */,
 			);
 			buildRules = (
 			);
@@ -184,6 +185,25 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7F33B52312100A92004B5E89 /* Add SDKSettings */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$SRCROOT/iOS/${PLATFORM_NAME}.sdk/SDKSettings.plist",
+			);
+			name = "Add SDKSettings";
+			outputPaths = (
+				$DSTROOT/SDKSettings.plist,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#echo IN:     $SRCROOT/iOS/${PLATFORM_NAME}.sdk/SDKSettings.plist\n#echo OUT:    $DSTROOT/SDKSettings.plist\n\nsed -e \"s/%PROJECT%/$PROJECT/g\" \\\n    -e \"s/%VERS%/$VERS/g\" \\\n    -e \"s/%IPHONE_SDK%/$IPHONE_SDK/g\" \\\n    $SRCROOT/iOS/${PLATFORM_NAME}.sdk/SDKSettings.plist > $DSTROOT/SDKSettings.plist || exit 1    \n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7FB0C756120ADED7005EA739 /* Sources */ = {
