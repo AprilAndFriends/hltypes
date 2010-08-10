@@ -14,6 +14,8 @@
 #include <stdarg.h>
 #include <math.h>
 #include <algorithm>
+#include <stdarg.h>
+
 
 #define HL_E_TOLERANCE (0.01f)
 

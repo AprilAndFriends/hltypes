@@ -10,7 +10,6 @@
 #ifndef _HLTYPES_HSTRING
 #define _HLTYPES_HSTRING
 
-#include <stdarg.h>
 #include <string>
 
 #include "hltypesExport.h"
