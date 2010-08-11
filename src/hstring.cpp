@@ -25,6 +25,7 @@ namespace hltypes
 {
 	string::string() : stdstr() {}
 	string::string(const char c) : stdstr(1, c) {}
+	string::string(const char c, const int len) : stdstr(len, c) {}
 	string::string(const char* s) : stdstr(s) {}
 	string::string(const string& s) : stdstr(s) {}
 	string::string(const std::string& s) : stdstr(s) {}
