@@ -25,6 +25,7 @@ namespace hltypes
 	public:
 		string();
 		string(const char c);
+		string(const char c, const int len);
 		string(const char* s);
 		string(const string& s);
 		string(const std::string& s);
