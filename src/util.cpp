@@ -8,6 +8,7 @@
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
 #include <stdlib.h>
+
 #include "util.h"
 
 int hrand(int min, int max)

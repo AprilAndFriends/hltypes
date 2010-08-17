@@ -35,20 +35,14 @@ namespace hltypes
 		string(const float f);
 		
 		/* TODO:
-		 * joining (as a global function)
-		 * count: counts number of subsbstrings in str
-		 * void operator()(int a,int b) - substring operator similar to python
+		 * count: counts number of subsbstrings in str       // why not just split, then use size?
 		 * reversed
 		 * capitalize
-		 * upper
-		 * lower
 		 * swapcase
 		 * utf8_len
 		 * splitlines
-		 * strip,rstrip
 		 * constructor with printf format style [ string(const char* format,...) ]
-		 * scanf
-		 * +,+= operators
+		 * sscanf
 		 * */
 		
 		bool split(const char splitter, string& out_left, string& out_right) const;
