@@ -114,7 +114,7 @@ namespace hltypes
 			{
 				return NULL;
 			}
-			return &stdvector::at(stdvector::size() - 1 - this->index);
+			return &stdvector::at(this->size() - 1 - this->index);
 		}
 
 		int iterator_index()
@@ -141,7 +141,7 @@ namespace hltypes
 		
 		int index_of(T element)
 		{
-			for (int i = 0; i < stdvector::size(); i++)
+			for (int i = 0; i < this->size(); i++)
 			{
 				if (element == stdvector::at(i))
 				{
@@ -315,7 +315,7 @@ namespace hltypes
 		void remove_duplicates()
 		{
 			Array<T> result;
-			for (int i = 0; i < stdvector::size(); i++)
+			for (int i = 0; i < this->size(); i++)
 			{
 				if (!result.contains(stdvector::at(i)))
 				{
@@ -370,7 +370,7 @@ namespace hltypes
 		
 		T min()
 		{
-			if (stdvector::size() == 0)
+			if (this->size() == 0)
 			{
 				return NULL;
 			}
@@ -379,7 +379,7 @@ namespace hltypes
 		
 		T max()
 		{
-			if (stdvector::size() == 0)
+			if (this->size() == 0)
 			{
 				return NULL;
 			}
@@ -388,11 +388,11 @@ namespace hltypes
 		
 		bool equals(const Array<T>& other)
 		{
-			if (stdvector::size() != other.size())
+			if (this->size() != other.size())
 			{
 				return false;
 			}
-			for (int i = 0; i < stdvector::size(); i++)
+			for (int i = 0; i < this->size(); i++)
 			{
 				if (stdvector::at(i) != other.at(i))
 				{
@@ -405,10 +405,10 @@ namespace hltypes
 		hstr join(chstr separator)
 		{
 			hstr result;
-			if (stdvector::size() > 0)
+			if (this->size() > 0)
 			{
 				result += stdvector::at(0);
-				for (int i = 1; i < stdvector::size(); i++)
+				for (int i = 1; i < this->size(); i++)
 				{
 					result += separator;
 					result += stdvector::at(i);
@@ -420,7 +420,7 @@ namespace hltypes
 		Array<T> find_all(bool (*compare_function)(T))
 		{
 			Array<T> result;
-			for (int i = 0; i < stdvector::size(); i++)
+			for (int i = 0; i < this->size(); i++)
 			{
 				if (compare_function(stdvector::at(i)))
 				{
@@ -432,7 +432,7 @@ namespace hltypes
 		
 		T* find_first(bool (*compare_function)(T))
 		{
-			for (int i = 0; i < stdvector::size(); i++)
+			for (int i = 0; i < this->size(); i++)
 			{
 				if (compare_function(stdvector::at(i)))
 				{
@@ -444,7 +444,7 @@ namespace hltypes
 		
 		bool matches_any(bool (*compare_function)(T))
 		{
-			for (int i = 0; i < stdvector::size(); i++)
+			for (int i = 0; i < this->size(); i++)
 			{
 				if (compare_function(stdvector::at(i)))
 				{
@@ -456,7 +456,7 @@ namespace hltypes
 		
 		bool matches_all(bool (*compare_function)(T))
 		{
-			for (int i = 0; i < stdvector::size(); i++)
+			for (int i = 0; i < this->size(); i++)
 			{
 				if (!compare_function(stdvector::at(i)))
 				{
@@ -470,7 +470,7 @@ namespace hltypes
 		Array<S> cast()
 		{
 			Array<S> result;
-			for (int i = 0; i < stdvector::size(); i++)
+			for (int i = 0; i < this->size(); i++)
 			{
 				result += (S)stdvector::at(i);
 			}
