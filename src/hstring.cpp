@@ -202,6 +202,32 @@ namespace hltypes
 	{
 		return this->rsplit(splitter.c_str(), out_left, out_right);
 	}
+    
+    int string::count(const char substr)
+    {
+        char c[2] = {substr, 0};
+        return count(c);
+    }
+    
+    int string::count(const char* substr)
+    {
+        int c = 0;
+        hstr tmp(this->c_str());
+        for(int i = 0; i < size(); ++i)
+        {
+            if(tmp(i, -1).starts_with(substr))
+            {
+                c++;
+                i += (hstr(substr).size() - 1);
+            }
+        }
+        return c;
+    }
+    
+    int string::count(const string& substr)
+    {
+        return count(substr.c_str());
+    }
 
 	bool string::starts_with(const string& s) const
 	{
