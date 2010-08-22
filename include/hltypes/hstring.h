@@ -32,6 +32,7 @@ namespace hltypes
 		string(const char* s, const int len);
 		string(const string& s, const int len);
 		string(const int i);
+		string(const unsigned int i);
 		string(const float f);
 		
 		/* TODO:
@@ -94,12 +95,14 @@ namespace hltypes
 		
 		void operator=(const float f);
 		void operator=(const int i);
+		void operator=(const unsigned int i);
 		void operator=(const bool b);
 		void operator=(const std::string& s);
 		void operator=(const char* s);
 		
 		void operator+=(const float f);
 		void operator+=(const int i);
+		void operator+=(const unsigned int i);
 		void operator+=(const bool b);
 		void operator+=(const char c);
 		void operator+=(const std::string& s);
@@ -113,6 +116,7 @@ namespace hltypes
 
 		bool operator==(const float f) const;
 		bool operator==(const int i) const;
+		bool operator==(const unsigned int i) const;
 		bool operator==(const bool b) const;
 		bool operator==(const char* s) const;
 		bool operator==(const std::string& s) const;

@@ -32,6 +32,7 @@ namespace hltypes
 	string::string(const char* s, const int len) : stdstr(s, len) {}
 	string::string(const string& s, const int len) : stdstr(s, len) {}
 	string::string(const int i) { this->operator=(i); }
+	string::string(const unsigned int i) { this->operator=(i); }
 	string::string(const float f) { this->operator=(f); }
 
 	harray_hstr string::split(const char* splitter, unsigned int n) const
@@ -374,6 +375,13 @@ namespace hltypes
 		stdstr::operator=(s);
 	}
 	
+	void string::operator=(const unsigned int i)
+	{
+		char s[64];
+		sprintf(s, "%u", i);
+		stdstr::operator=(s);
+	}
+	
 	void string::operator=(const bool b)
 	{
 		stdstr::operator=(b ? "true" : "false");
@@ -401,6 +409,12 @@ namespace hltypes
 		stdstr::append(s);
 	}
 	
+	void string::operator+=(const unsigned int i)
+	{
+		string s = i;
+		stdstr::append(s);
+	}
+	
 	void string::operator+=(const bool b)
 	{
 		string s = (b ? "true" : "false");
@@ -421,6 +435,11 @@ namespace hltypes
 	bool string::operator==(const int i) const
 	{
 		return (((int)*this) == i);
+	}
+	
+	bool string::operator==(const unsigned int i) const
+	{
+		return (((unsigned int)*this) == i);
 	}
 	
 	bool string::operator==(const bool b) const
