@@ -39,7 +39,7 @@ namespace hltypes
 	public:
 		_key_error(chstr key, chstr container, const char* source_file, int line);
 	};
-	#define key_error(filename, container) hltypes::_key_error(filename, container, __FILE__, __LINE__)
+	#define key_error(key, container) hltypes::_key_error(key, container, __FILE__, __LINE__)
 /*********************************************************************************/
 	class hltypesExport _resource_error : public exception
 	{
