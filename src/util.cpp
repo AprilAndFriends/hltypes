@@ -13,12 +13,12 @@
 
 int hrand(int min, int max)
 {
-	return min + (int)(((float)rand()) / RAND_MAX * max);
+	return min+rand()%(max-min+1);
 }
 
 int hrand(int max)
 {
-	return hrand(0, max);
+	return rand()%(max+1);
 }
 
 float hrand(float min, float max)
