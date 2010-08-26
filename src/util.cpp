@@ -13,21 +13,21 @@
 
 int hrand(int min, int max)
 {
-	return min+rand()%(max-min+1);
+	return min + rand() * max / RAND_MAX;
 }
 
 int hrand(int max)
 {
-	return rand()%(max+1);
+	return hrand(0, max);
 }
 
-float hrand(float min, float max)
+float hrandf(float min, float max)
 {
-	return min + ((float)rand()) / RAND_MAX * max;
+	return min + rand() * max / RAND_MAX;
 }
 
-float hrand(float max)
+float hrandf(float max)
 {
-	return hrand(0.0f, max);
+	return hrandf(0.0f, max);
 }
 
