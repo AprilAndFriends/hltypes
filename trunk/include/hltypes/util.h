@@ -28,8 +28,8 @@
 /******* PROTOTYPES ****************************************************/
 int hltypesFnExport hrand(int min, int max);
 int hltypesFnExport hrand(int max);
-float hltypesFnExport hrand(float min, float max);
-float hltypesFnExport hrand(float max);
+float hltypesFnExport hrandf(float min, float max);
+float hltypesFnExport hrandf(float max);
 
 /******* TEMPLATE FUNCTIONS ********************************************/
 template <class T> T hmin(T a, T b)
