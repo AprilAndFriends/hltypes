@@ -13,21 +13,29 @@
 
 int hrand(int min, int max)
 {
-	return min + rand() * max / RAND_MAX;
+#ifdef _WIN32
+	return min + rand() * (max - min) / RAND_MAX;
+#else
+	return min + (((double) rand()) / RAND_MAX) * (max - min);
+#endif
 }
 
 int hrand(int max)
 {
-	return hrand(0, max);
+#ifdef _WIN32
+	return rand() * max / RAND_MAX;
+#else
+	return (((double) rand()) / RAND_MAX) * max;
+#endif
 }
 
 float hrandf(float min, float max)
 {
-	return min + rand() * max / RAND_MAX;
+	return min + rand() * (max - min) / RAND_MAX;
 }
 
 float hrandf(float max)
 {
-	return hrandf(0.0f, max);
+	return rand() * max / RAND_MAX;
 }
 
