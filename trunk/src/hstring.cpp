@@ -130,6 +130,13 @@ namespace hltypes
 		return s;
 	}
 
+	string string::reverse() const
+	{
+		hstr s(*this);
+		std::reverse(s.begin(), s.end());
+		return s;
+	}
+
 	string string::replace(const char* what, const char* with_what) const
 	{
 		const char *s = this->c_str(), *p;
