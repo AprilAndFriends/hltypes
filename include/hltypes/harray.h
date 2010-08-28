@@ -70,7 +70,7 @@ namespace hltypes
 		Array<T> operator()(const int start, const int count)
 		{
 			Array<T> result;
-			result.assign(stdvector::begin() + start, stdvector::begin() + start);
+			result.assign(stdvector::begin() + start, stdvector::begin() + start + count);
 			return result;
 		}
 	
