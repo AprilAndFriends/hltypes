@@ -34,6 +34,7 @@ namespace hltypes
 		string(const int i);
 		string(const unsigned int i);
 		string(const float f);
+		string(const float f,int precision);
 		
 		/* TODO:
 		 * count: counts number of subsbstrings in str       // why not just split, then use size?
