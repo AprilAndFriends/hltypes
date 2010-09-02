@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="libhltypes"
-	ProjectGUID="{5AE7D4CC-55AD-4F4C-8FAA-3EB0F3F40529}"
+	ProjectGUID="{E4D373BF-E227-48B9-99E6-84987E8674EC}"
 	RootNamespace="hltypes"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"

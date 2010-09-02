@@ -5,8 +5,11 @@
 #include "hfile.h"
 #include "hstring.h"
 
+#define BUFFER_SIZE (1025)
+
 namespace hltypes
 {
+/******* CONSTRUCT/DESTRUCT ********************************************/
 	file::file(chstr filename, const char* access_mode)
 	{
 		this->open(filename.c_str(), access_mode);
@@ -30,6 +33,7 @@ namespace hltypes
 		}
 	}
 	
+/******* METHODS *******************************************************/
 	void file::open(const char* filename, const char* access_mode)
 	{
 		this->cfile = fopen(filename, access_mode);
@@ -88,5 +92,105 @@ namespace hltypes
 		}
 		return false;
 	}
+	
+/******* SERIALIZATION DUMP ********************************************/
+	void file::dump(unsigned char c)
+	{
+		fwrite(&c, 1, 1, this->cfile);
+	}
+
+	void file::dump(int i)
+	{
+		this->dump((unsigned int)i);
+	}
+
+	void file::dump(unsigned int i)
+	{
+		unsigned char bytes[4] = {0};
+		bytes[0] = i / BYTE0_LIMIT % BYTE_LIMIT;
+		bytes[1] = i / BYTE1_LIMIT % BYTE_LIMIT;
+		bytes[2] = i / BYTE2_LIMIT % BYTE_LIMIT;
+		bytes[3] = i / BYTE3_LIMIT % BYTE_LIMIT;
+		fwrite(bytes, 1, 4, this->cfile);
+	}
+
+	void file::dump(float f)
+	{
+		this->dump((unsigned int)hsprintf("%u", f));
+	}
+
+	void file::dump(bool b)
+	{
+		unsigned char c = (b ? 1 : 0);
+		fwrite(&c, 1, 1, this->cfile);
+	}
+
+	void file::dump(chstr str)
+	{
+		int size = str.size();
+		this->dump(size);
+		if (size > 0)
+		{
+			fwrite(str.c_str(), 1, size, this->cfile);
+		}
+	}
+
+/******* SERIALIZATION LOAD ********************************************/
+	unsigned char file::load_uchar()
+	{
+		unsigned char c;
+		fread(&c, 1, 1, this->cfile);
+		return c;
+	}
+
+	int file::load_int()
+	{
+		return (int)this->load_uint();
+	}
+
+	unsigned int file::load_uint()
+	{
+		unsigned char bytes[4] = {0};
+		fread(bytes, 1, 4, this->cfile);
+		unsigned int i = 0;
+		i += bytes[0] * BYTE0_LIMIT;
+		i += bytes[1] * BYTE1_LIMIT;
+		i += bytes[2] * BYTE2_LIMIT;
+		i += bytes[3] * BYTE3_LIMIT;
+		return i;
+	}
+
+	float file::load_float()
+	{
+		return (float)hsprintf("%f", this->load_uint());
+	}
+
+	bool file::load_bool()
+	{
+		unsigned char c;
+		fread(&c, 1, 1, this->cfile);
+		return (c != 0);
+	}
+
+	hstr file::load_hstr()
+	{
+		int size = this->load_int();
+		hstr str = "";
+		int count = BUFFER_SIZE - 1;
+		while (size > 0)
+		{
+			char c[BUFFER_SIZE] = {'\0'};
+			if (size <= BUFFER_SIZE - 1)
+			{
+				count = size;
+			}
+			fread(c, 1, count, this->cfile);
+			size -= BUFFER_SIZE - 1;
+			str += hstr(c);
+		}
+		return str;
+	}
+
+	
 	
 };
