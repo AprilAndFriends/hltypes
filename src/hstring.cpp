@@ -34,6 +34,13 @@ namespace hltypes
 	string::string(const int i) { this->operator=(i); }
 	string::string(const unsigned int i) { this->operator=(i); }
 	string::string(const float f) { this->operator=(f); }
+	string::string(const float f,int precision)
+	{
+		char fmt[16],s[64];
+		sprintf(fmt,"%%.%df",precision);
+		sprintf(s, fmt, f);
+		stdstr::operator=(s);
+	}
 
 	harray_hstr string::split(const char* splitter, unsigned int n) const
 	{
