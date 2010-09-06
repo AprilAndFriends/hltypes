@@ -107,16 +107,18 @@ namespace hltypes
 	void file::dump(unsigned int i)
 	{
 		unsigned char bytes[4] = {0};
-		bytes[0] = i / BYTE0_LIMIT % BYTE_LIMIT;
-		bytes[1] = i / BYTE1_LIMIT % BYTE_LIMIT;
-		bytes[2] = i / BYTE2_LIMIT % BYTE_LIMIT;
-		bytes[3] = i / BYTE3_LIMIT % BYTE_LIMIT;
+		bytes[0] = i % 256;
+		bytes[1] = (i >> 8) % 256;
+		bytes[2] = (i >> 16) % 256;
+		bytes[3] = (i >> 24) % 256;
 		fwrite(bytes, 1, 4, this->cfile);
 	}
 
 	void file::dump(float f)
 	{
-		this->dump((unsigned int)hsprintf("%u", f));
+		unsigned int i;
+		memcpy(&i, &f, sizeof(f));
+		this->dump(i);
 	}
 
 	void file::dump(bool b)
@@ -153,16 +155,19 @@ namespace hltypes
 		unsigned char bytes[4] = {0};
 		fread(bytes, 1, 4, this->cfile);
 		unsigned int i = 0;
-		i += bytes[0] * BYTE0_LIMIT;
-		i += bytes[1] * BYTE1_LIMIT;
-		i += bytes[2] * BYTE2_LIMIT;
-		i += bytes[3] * BYTE3_LIMIT;
+		i += bytes[0];
+		i += bytes[1] << 8;
+		i += bytes[2] << 16;
+		i += bytes[3] << 24;
 		return i;
 	}
 
 	float file::load_float()
 	{
-		return (float)hsprintf("%f", this->load_uint());
+		unsigned int i = this->load_uint();
+		float f;
+		memcpy(&f, &i, sizeof(f));
+		return f;
 	}
 
 	bool file::load_bool()

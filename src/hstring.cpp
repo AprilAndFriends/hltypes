@@ -527,7 +527,7 @@ hstr hsprintf(const char* format, ...)
 	char c[1024] = {0};
 	va_list args;
 	va_start(args, format);
-	vsnprintf(c, 1023, format, args);
+	_vsnprintf(c, 1023, format, args);
 	va_end(args);
 	return hstr(c);
 }
@@ -537,7 +537,7 @@ hstr hsprintf_s(const char* format, ...) //2DO - possible implementation with dy
 	char c[65536] = {0};
 	va_list args;
 	va_start(args, format);
-	vsnprintf(c, 65535, format, args);
+	_vsnprintf(c, 65535, format, args);
 	va_end(args);
 	return hstr(c);
 }
