@@ -15,12 +15,6 @@
 #include "hltypesExport.h"
 #include "hstring.h"
 
-#define BYTE_LIMIT (256)
-#define BYTE0_LIMIT (16777216)
-#define BYTE1_LIMIT (65536)
-#define BYTE2_LIMIT (256)
-#define BYTE3_LIMIT (1)
-
 namespace hltypes
 {
 	class hltypesExport file
