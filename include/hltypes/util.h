@@ -13,6 +13,7 @@
 #include <math.h>
 
 #include "hltypesExport.h"
+#include "hstring.h"
 
 /******* ITERATOR MACROS ***********************************************/
 #define foreach(type, name, lst) for (type* name = lst.iterate(); name; name = lst.next())
@@ -30,6 +31,7 @@ int hltypesFnExport hrand(int min, int max);
 int hltypesFnExport hrand(int max);
 float hltypesFnExport hrandf(float min, float max);
 float hltypesFnExport hrandf(float max);
+void hltypesFnExport mkdirs(chstr path);
 
 /******* TEMPLATE FUNCTIONS ********************************************/
 template <class T> T hmin(T a, T b)

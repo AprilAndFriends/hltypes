@@ -9,6 +9,15 @@
 \************************************************************************************/
 #include <stdlib.h>
 
+#ifdef _WIN32
+#include <direct.h>
+#elif defined(__APPLE__)
+#include <sys/stat.h>
+#define _mkdir(name) mkdir(name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
+#endif
+
+#include "harray.h"
+#include "hstring.h"
 #include "util.h"
 
 int hrand(int min, int max)
@@ -37,5 +46,19 @@ float hrandf(float min, float max)
 float hrandf(float max)
 {
 	return rand() * max / RAND_MAX;
+}
+
+void mkdirs(chstr path)
+{
+	harray<hstr> folders = path.split("/");
+	if (folders.size() > 0)
+	{
+		hstr path = folders.pop_front();
+		foreach (hstr, it, folders)
+		{
+			path += "/" + (*it);
+			_mkdir(path.c_str());
+		}
+	}
 }
 
