@@ -59,4 +59,12 @@ template <class T> bool is_between(T value, T min, T max)
 	return (value >= min && value <= max);
 }
 
+/******** MACROS FOR HELP IN DEBUGGING ******************************/
+#define HLBREAKPT \
+	printf("HL Breakpoint:\n"); \
+	printf(" -> File: %s\n", __FILE__); \
+	printf(" -> Line: %d\n", __LINE__); \
+	printf(" -> Func: %s\n", __PRETTY_FUNCTION__); \
+	system("pause"); // TODO implement pause in a nicer, xplatform way
+
 #endif
