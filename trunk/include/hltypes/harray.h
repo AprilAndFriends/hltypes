@@ -377,6 +377,15 @@ namespace hltypes
 			return (*std::min_element(stdvector::begin(), stdvector::end()));
 		}
 		
+		T min(bool (*compare_function)(T, T))
+		{
+			if (this->size() == 0)
+			{
+				return NULL;
+			}
+			return (*std::min_element(stdvector::begin(), stdvector::end(), compare_function));
+		}
+		
 		T max()
 		{
 			if (this->size() == 0)
@@ -384,6 +393,15 @@ namespace hltypes
 				return NULL;
 			}
 			return (*std::max_element(stdvector::begin(), stdvector::end()));
+		}
+		
+		T max(bool (*compare_function)(T, T))
+		{
+			if (this->size() == 0)
+			{
+				return NULL;
+			}
+			return (*std::max_element(stdvector::begin(), stdvector::end(), compare_function));
 		}
 		
 		bool equals(const Array<T>& other)
