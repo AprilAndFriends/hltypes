@@ -25,6 +25,11 @@ namespace hltypes
 	{
 	}
 /*********************************************************************************/
+	_file_not_open::_file_not_open(chstr filename, const char* source_file, int line) :
+	    exception("'" + filename + "' is not open!", source_file, line)
+	{
+	}
+/*********************************************************************************/
 	_key_error::_key_error(chstr key, chstr container, const char* source_file, int line) :
 	    exception("key '" + key + "' not found in " + container, source_file, line)
 	{

@@ -47,23 +47,23 @@ namespace hltypes
 		 * sscanf
 		 * */
 		
-		bool split(const char splitter, string& out_left, string& out_right) const;
-		bool split(const char* splitter, string& out_left, string& out_right) const;
-		bool split(const string& splitter, string& out_left, string& out_right) const;
-		bool rsplit(const char splitter, string& out_left, string& out_right) const;
-		bool rsplit(const char* splitter, string& out_left, string& out_right) const;
-		bool rsplit(const string& splitter, string& out_left, string& out_right) const;
+		bool split(const char delimiter, string& out_left, string& out_right) const;
+		bool split(const char* delimiter, string& out_left, string& out_right) const;
+		bool split(const string& delimiter, string& out_left, string& out_right) const;
+		bool rsplit(const char delimiter, string& out_left, string& out_right) const;
+		bool rsplit(const char* delimiter, string& out_left, string& out_right) const;
+		bool rsplit(const string& delimiter, string& out_left, string& out_right) const;
         
         int count(const char substr);
         int count(const char* substr);
         int count(const string& substr);
 		
-		harray_hstr split(const char splitter, unsigned int n = -1) const;
-		harray_hstr split(const char* splitter, unsigned int n = -1) const;
-		harray_hstr split(const string& splitter, unsigned int n = -1) const;
-		harray_hstr rsplit(const char splitter, unsigned int n = -1) const;
-		harray_hstr rsplit(const char* splitter, unsigned int n = -1) const;
-		harray_hstr rsplit(const string& splitter, unsigned int n = -1) const;
+		harray_hstr split(const char delimiter, unsigned int n = -1) const;
+		harray_hstr split(const char* delimiter, unsigned int n = -1) const;
+		harray_hstr split(const string& delimiter, unsigned int n = -1) const;
+		harray_hstr rsplit(const char delimiter, unsigned int n = -1) const;
+		harray_hstr rsplit(const char* delimiter, unsigned int n = -1) const;
+		harray_hstr rsplit(const string& delimiter, unsigned int n = -1) const;
 		
 		bool starts_with(const char* s) const;
 		bool starts_with(const string& s) const;

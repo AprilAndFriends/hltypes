@@ -177,6 +177,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\testFile.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\testMap.cpp"
 			>
 		</File>

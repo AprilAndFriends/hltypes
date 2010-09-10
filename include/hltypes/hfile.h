@@ -13,25 +13,57 @@
 #include <stdio.h>
 
 #include "hltypesExport.h"
+#include "harray.h"
 #include "hstring.h"
 
 namespace hltypes
 {
+	enum AccessMode
+	{
+		READ, // r
+		WRITE, // w
+		APPEND, // a
+		READ_WRITE, // r+
+		READ_WRITE_CREATE, // w+
+		READ_APPEND, // a+
+		READ_BINARY, // rb
+		WRITE_BINARY, // wb
+		APPEND_BINARY, // ab
+		READ_WRITE_BINARY, // r+b
+		READ_WRITE_CREATE_BINARY, // w+b
+		READ_APPEND_BINARY // a+b
+	};
+	
+	enum SeekMode
+	{
+		CURRENT, // SEEK_CUR
+		START, // SEEK_SET
+		END // SEEK_END
+	};
+	
 	class hltypesExport file
 	{
-		FILE* cfile;
 	public:
-		file(chstr filename, const char* access_mode = "r");
-		file(const char* filename, const char* access_mode = "r");
+		file(chstr filename, AccessMode access_mode = READ);
+		file(chstr filename, const char* access_mode) __attribute__((deprecated));
 		file();
 		~file();
 		
-		void open(const char* filename, const char* access_mode = "r");
+		void open(chstr filename, AccessMode access_mode = READ);
+		void open(chstr filename, const char* access_mode) __attribute__((deprecated));
 		hstr read_line();
+		harray<hstr> read_lines();
+		hstr read(chstr delimiter = "");
+		hstr read(int count);
+		void write(chstr text);
+		void write(const char* text);
+		void writef(const char* format, ...);
+		void seek(long offset, SeekMode seek_mode);
+		long position();
+		long size();
+		bool is_open();
 		bool eof();
 		void close();
-		
-		static bool exists(chstr filename);
 		
 		// serialization
 		
@@ -48,6 +80,25 @@ namespace hltypes
 		float load_float();
 		bool load_bool();
 		hstr load_hstr();
+		
+		// static
+		
+		static bool exists(chstr filename);
+		static bool create(chstr filename);
+		static bool empty(chstr filename);
+		//2DO
+		//static bool copy(chstr filename);
+		//static bool move(chstr filename);
+		//static bool rename(chstr filename);
+		//static bool remove(chstr filename);
+		static long hsize(chstr filename);
+		static hstr hread(chstr filename, int count);
+		static hstr hread(chstr filename, chstr delimiter = "");
+		static void hwrite(chstr filename, chstr text);
+		
+	protected:
+		hstr filename;
+		FILE* cfile;
 		
 	};
 }

@@ -7,17 +7,17 @@
 * This program is free software; you can redistribute it and/or modify it under      *
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
+#include <algorithm>
+#include <math.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "harray.h"
 #include "hstring.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <math.h>
-#include <algorithm>
-#include <stdarg.h>
+#include "util.h"
 
-
-#define HL_E_TOLERANCE (0.01f)
+#define BUFFER_SIZE (1025)
 
 typedef std::basic_string<char> stdstr;
 
@@ -34,37 +34,37 @@ namespace hltypes
 	string::string(const int i) { this->operator=(i); }
 	string::string(const unsigned int i) { this->operator=(i); }
 	string::string(const float f) { this->operator=(f); }
-	string::string(const float f,int precision)
+	string::string(const float f, int precision)
 	{
-		char fmt[16],s[64];
-		sprintf(fmt,"%%.%df",precision);
+		char fmt[16], s[64];
+		sprintf(fmt, "%%.%df", precision);
 		sprintf(s, fmt, f);
 		stdstr::operator=(s);
 	}
 
-	harray_hstr string::split(const char* splitter, unsigned int n) const
+	harray_hstr string::split(const char* delimiter, unsigned int n) const
 	{
 		harray_hstr out;
 		const char *s = this->c_str(), *p;
-		int splitter_len = strlen(splitter);
-		while ((p = strstr(s, splitter)) != 0 && n > 0)
+		int delimiter_len = strlen(delimiter);
+		while ((p = strstr(s, delimiter)) != 0 && n > 0)
 		{
 			out.push_back(string(s, p - s));
-			s = p + splitter_len;
+			s = p + delimiter_len;
 			n--;
 		}
 		out.push_back(string(s));
 		return out;
 	}
 	
-	harray_hstr string::rsplit(const char* splitter, unsigned int n) const
+	harray_hstr string::rsplit(const char* delimiter, unsigned int n) const
 	{
 		harray_hstr out;
 		const char *s = this->c_str(), *p;
-		int splitter_len = strlen(splitter);
+		int delimiter_len = strlen(delimiter);
 		for (p = s + strlen(s) - 1; p != s && n > 0; p--)
 		{
-			if (strncmp(p, splitter, splitter_len) == 0)
+			if (strncmp(p, delimiter, delimiter_len) == 0)
 			{
 				n--;
 			}
@@ -72,38 +72,38 @@ namespace hltypes
 		if (s != p)
 		{
 			out.push_back(string(s, p - s + 1));
-			s = p + 1 + splitter_len;
+			s = p + 1 + delimiter_len;
 		}
-		while ((p = strstr(s, splitter)) != 0)
+		while ((p = strstr(s, delimiter)) != 0)
 		{
 			out.push_back(string(s, p - s));
-			s = p + splitter_len;
+			s = p + delimiter_len;
 		}
 		out.push_back(string(s));
 		return out;
 	}
 
-	bool string::split(const char* splitter, string& out_left, string& out_right) const
+	bool string::split(const char* delimiter, string& out_left, string& out_right) const
 	{
-		int index = this->find(splitter);
+		int index = this->find(delimiter);
 		if (index < 0)
 		{
 			return false;
 		}
 		out_left = stdstr::substr(0, index);
-		out_right = stdstr::substr(index + strlen(splitter), 1000);
+		out_right = stdstr::substr(index + strlen(delimiter), 1000);
 		return true;
 	}
 	
-	bool string::rsplit(const char* splitter, string& out_left, string& out_right) const
+	bool string::rsplit(const char* delimiter, string& out_left, string& out_right) const
 	{
-		int index = this->rfind(splitter);
+		int index = this->rfind(delimiter);
 		if (index < 0)
 		{
 			return false;
 		}
 		out_left = stdstr::substr(0, index);
-		out_right = stdstr::substr(index + strlen(splitter), 1000);
+		out_right = stdstr::substr(index + strlen(delimiter), 1000);
 		return true;
 	}
 
@@ -151,7 +151,7 @@ namespace hltypes
 		int what_len = strlen(what);
 		if (what_len == 0)
 		{
-			return *this;	
+			return *this;
 		}
 		while ((p = strstr(s, what)) != 0)
 		{
@@ -174,48 +174,48 @@ namespace hltypes
 	}
 	
 /******* TYPE EXTENSION FUNCTIONS **************************************/
-	harray_hstr string::split(const char splitter, unsigned int n) const
+	harray_hstr string::split(const char delimiter, unsigned int n) const
 	{
-		const char sp[2] = {splitter, 0};
+		const char sp[2] = {delimiter, '\0'};
 		return this->split(sp, n);
 	}
 
-	harray_hstr string::split(const string& splitter, unsigned int n) const
+	harray_hstr string::split(const string& delimiter, unsigned int n) const
 	{
-		return this->split(splitter.c_str(), n);
+		return this->split(delimiter.c_str(), n);
 	}
 	
-	harray_hstr string::rsplit(const char splitter, unsigned int n) const
+	harray_hstr string::rsplit(const char delimiter, unsigned int n) const
 	{
-		const char sp[2] = {splitter, 0};
+		const char sp[2] = {delimiter, '\0'};
 		return this->rsplit(sp, n);
 	}
 
-	harray_hstr string::rsplit(const string& splitter,unsigned int n) const
+	harray_hstr string::rsplit(const string& delimiter, unsigned int n) const
 	{
-		return this->rsplit(splitter.c_str(), n);
+		return this->rsplit(delimiter.c_str(), n);
 	}
 	
-	bool string::split(const char splitter,string& out_left,string& out_right) const
+	bool string::split(const char delimiter, string& out_left,string& out_right) const
 	{
-		const char sp[2] = {splitter, 0};
+		const char sp[2] = {delimiter, '\0'};
 		return this->split(sp, out_left, out_right);
 	}
 		
-	bool string::split(const string& splitter,string& out_left, string& out_right) const
+	bool string::split(const string& delimiter, string& out_left, string& out_right) const
 	{
-		return this->split(splitter.c_str(), out_left, out_right);
+		return this->split(delimiter.c_str(), out_left, out_right);
 	}
 	
-	bool string::rsplit(const char splitter, string& out_left, string& out_right) const
+	bool string::rsplit(const char delimiter, string& out_left, string& out_right) const
 	{
-		const char sp[2] = {splitter, 0};
+		const char sp[2] = {delimiter, '\0'};
 		return this->rsplit(sp, out_left, out_right);
 	}
 	
-	bool string::rsplit(const string& splitter, string& out_left, string& out_right) const
+	bool string::rsplit(const string& delimiter, string& out_left, string& out_right) const
 	{
-		return this->rsplit(splitter.c_str(), out_left, out_right);
+		return this->rsplit(delimiter.c_str(), out_left, out_right);
 	}
     
     int string::count(const char substr)
@@ -228,9 +228,9 @@ namespace hltypes
     {
         int c = 0;
         hstr tmp(this->c_str());
-        for(int i = 0; i < size(); ++i)
+        for (int i = 0; i < size(); ++i)
         {
-            if(tmp(i, -1).starts_with(substr))
+            if (tmp(i, -1).starts_with(substr))
             {
                 c++;
                 i += (hstr(substr).size() - 1);
@@ -296,7 +296,7 @@ namespace hltypes
 	
 	bool string::contains(const char c) const
 	{
-		char st[2]={c,0};
+		char st[2] = {c, '\0'};
 		return this->contains(st);
 	}
 	
@@ -361,7 +361,7 @@ namespace hltypes
 	
 	string::operator bool() const
 	{
-		return (*this != "" && *this != "0" && *this != "false") ? true : false;
+		return (*this != "" && *this != "0" && *this != "false");
 	}
 	
 /******* ASSIGNMENT OPERATORS ******************************************/
@@ -431,13 +431,13 @@ namespace hltypes
 	
 	void string::operator+=(const bool b)
 	{
-		string s = (b ? "true" : "false");
+		string s = b;
 		stdstr::append(s);
 	}
 	
 	void string::operator+=(const char c)
 	{
-		char chstr[2]={c,0};
+		char chstr[2] = {c, '\0'};
 		stdstr::append(chstr);
 	}
 /******* COMPARISON OPERATORS ******************************************/
@@ -503,7 +503,7 @@ namespace hltypes
 	
 	string string::operator+(const char c) const
 	{
-		char chstr[2]={c,0};
+		char chstr[2] = {c, '\0'};
 		string s(*this);
 		s.append(chstr);
 		return s;
@@ -524,10 +524,10 @@ hstr operator+(char* s1, chstr s2)
 
 hstr hsprintf(const char* format, ...)
 {
-	char c[1024] = {0};
+	char c[BUFFER_SIZE] = {'\0'};
 	va_list args;
 	va_start(args, format);
-	vsnprintf(c, 1023, format, args);
+	vsnprintf(c, BUFFER_SIZE - 1, format, args);
 	va_end(args);
 	return hstr(c);
 }

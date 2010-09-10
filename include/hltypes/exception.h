@@ -34,6 +34,13 @@ namespace hltypes
 	};
 	#define file_not_found(filename) hltypes::_file_not_found(filename, __FILE__, __LINE__)
 /*********************************************************************************/
+	class hltypesExport _file_not_open : public exception
+	{
+	public:
+		_file_not_open(chstr filename, const char* source_file, int line);
+	};
+	#define file_not_open(filename) hltypes::_file_not_open(filename, __FILE__, __LINE__)
+/*********************************************************************************/
 	class hltypesExport _key_error : public exception
 	{
 	public:
