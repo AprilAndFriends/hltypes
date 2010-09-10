@@ -12,6 +12,7 @@
     <File Name="testString.cpp"/>
     <File Name="main.cpp"/>
     <File Name="testMap.cpp"/>
+    <File Name="testFile.cpp"/>
   </VirtualDirectory>
   <Dependencies Name="Debug">
     <Project Name="libhltypes"/>

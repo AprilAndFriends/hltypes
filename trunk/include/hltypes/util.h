@@ -25,6 +25,7 @@
 /******* OTHER MACROS **************************************************/
 #define dsin(degrees) sin((degrees) * 0.01745329f)
 #define dcos(degrees) cos((degrees) * 0.01745329f)
+#define HL_E_TOLERANCE (0.01f)
 
 /******* PROTOTYPES ****************************************************/
 int hltypesFnExport hrand(int min, int max);
