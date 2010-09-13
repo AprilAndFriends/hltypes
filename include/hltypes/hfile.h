@@ -45,12 +45,10 @@ namespace hltypes
 	{
 	public:
 		file(chstr filename, AccessMode access_mode = READ);
-		file(chstr filename, const char* access_mode) __attribute__((deprecated));
 		file();
 		~file();
 		
 		void open(chstr filename, AccessMode access_mode = READ);
-		void open(chstr filename, const char* access_mode) __attribute__((deprecated));
 		hstr read_line();
 		harray<hstr> read_lines();
 		hstr read(chstr delimiter = "");
@@ -73,6 +71,7 @@ namespace hltypes
 		void dump(float f);
 		void dump(bool b);
 		void dump(chstr str);
+		void dump(chstr str, int offset);
 		
 		unsigned char load_uchar();
 		int load_int();
@@ -80,6 +79,7 @@ namespace hltypes
 		float load_float();
 		bool load_bool();
 		hstr load_hstr();
+		hstr load_hstr(int offset);
 		
 		// static
 		
