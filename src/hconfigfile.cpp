@@ -1,6 +1,7 @@
 #include "exception.h"
 #include "hconfigfile.h"
 #include "hfile.h"
+#include "util.h"
 
 namespace hltypes
 {
@@ -17,24 +18,22 @@ namespace hltypes
 	{
 		this->entries.clear();
 		this->filename = filename;
-		file f(this->filename);
-		string line, key, value, prefix;
-		while (!f.eof())
+		harray<hstr> lines = hfile::hread(this->filename).split("\n");
+		hstr key, value, prefix;
+		foreach (hstr, it, lines)
 		{
-			line = f.read_line();
-			if (line.starts_with("["))
+			if ((*it).starts_with("["))
 			{
-				prefix = line(1, line.find("]") - 1) + ".";
+				prefix = (*it).replace("[", "").replace("]", "") + ".";
 				continue;
 			}
-			if (line.starts_with("#") || !line.contains(": "))
+			if ((*it).starts_with("#") || !(*it).contains(": "))
 			{
 				continue;
 			}
-			line.split(": ", key, value);
+			(*it).split(": ", key, value);
 			this->entries[prefix + key] = value;
 		}
-		f.close();
 	}
 
 	config_file::~config_file()

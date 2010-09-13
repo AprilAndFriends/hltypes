@@ -40,43 +40,25 @@ namespace hltypes
 			this->close();
 		}
 		this->filename = filename;
-		const char* mode = "r";
+		const char* mode = "rb";
 		switch (access_mode)
 		{
 		case READ:
-			mode = "r";
-			break;
-		case WRITE:
-			mode = "w";
-			break;
-		case APPEND:
-			mode = "a";
-			break;
-		case READ_WRITE:
-			mode = "r+";
-			break;
-		case READ_WRITE_CREATE:
-			mode = "w+";
-			break;
-		case READ_APPEND:
-			mode = "a+";
-			break;
-		case READ_BINARY:
 			mode = "rb";
 			break;
-		case WRITE_BINARY:
+		case WRITE:
 			mode = "wb";
 			break;
-		case APPEND_BINARY:
+		case APPEND:
 			mode = "ab";
 			break;
-		case READ_WRITE_BINARY:
+		case READ_WRITE:
 			mode = "r+b";
 			break;
-		case READ_WRITE_CREATE_BINARY:
+		case READ_WRITE_CREATE:
 			mode = "w+b";
 			break;
-		case READ_APPEND_BINARY:
+		case READ_APPEND:
 			mode = "a+b";
 			break;
 		}
@@ -89,7 +71,7 @@ namespace hltypes
 	
 	hstr file::read_line()
 	{
-		return this->read('\n');
+		return this->read("\n");
 	}
 	
 	harray<hstr> file::read_lines()
@@ -118,10 +100,11 @@ namespace hltypes
 			str = hstr(c);
 			if (delimiter != "")
 			{
-				parts = str.split(delimiter);
+				parts = str.split(delimiter, 1);
 				if (parts.size() > 1)
 				{
 					result += parts[0];
+					this->seek(-parts[1].size(), CURRENT);
 					break;
 				}
 			}
