@@ -26,12 +26,6 @@ namespace hltypes
 		READ_WRITE, // r+
 		READ_WRITE_CREATE, // w+
 		READ_APPEND, // a+
-		READ_BINARY, // rb
-		WRITE_BINARY, // wb
-		APPEND_BINARY, // ab
-		READ_WRITE_BINARY, // r+b
-		READ_WRITE_CREATE_BINARY, // w+b
-		READ_APPEND_BINARY // a+b
 	};
 	
 	enum SeekMode
