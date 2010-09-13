@@ -16,17 +16,7 @@ namespace hltypes
 	file::file(chstr filename, AccessMode access_mode) : cfile(NULL)
 	{
 		this->filename = filename;
-		this->open(filename, access_mode);
-	}
-	
-	file::file(chstr filename, const char* access_mode) : cfile(NULL)
-	{
-		this->filename = filename;
-		this->cfile = fopen(filename.c_str(), access_mode);
-		if (this->cfile == NULL)
-		{
-			throw file_not_found(filename.c_str());
-		}
+		this->open(this->filename, access_mode);
 	}
 	
 	file::file() : filename(""), cfile(NULL)
@@ -295,10 +285,10 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		unsigned char bytes[4] = {0};
-		bytes[0] = i % 256;
-		bytes[1] = (i >> 8) % 256;
-		bytes[2] = (i >> 16) % 256;
-		bytes[3] = (i >> 24) % 256;
+		bytes[0] = (i >> 24) % 256;
+		bytes[1] = (i >> 16) % 256;
+		bytes[2] = (i >> 8) % 256;
+		bytes[3] = i % 256;
 		fwrite(bytes, 1, 4, this->cfile);
 	}
 
@@ -337,6 +327,25 @@ namespace hltypes
 		}
 	}
 
+	void file::dump(chstr str, int offset)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		int size = str.size();
+		this->dump(size);
+		if (size > 0)
+		{
+			const char* string = str.c_str();
+			char c[1024] = {'\0'};
+			for (int i = 0; i < size; i++)
+			{
+				c[i] = string[i] - offset;
+			}
+			fwrite(c, 1, size, this->cfile);
+		}
+	}
 /******* SERIALIZATION LOAD ********************************************/
 
 	unsigned char file::load_uchar()
@@ -368,10 +377,10 @@ namespace hltypes
 		unsigned char bytes[4] = {0};
 		fread(bytes, 1, 4, this->cfile);
 		unsigned int i = 0;
-		i += bytes[0];
-		i += bytes[1] << 8;
-		i += bytes[2] << 16;
-		i += bytes[3] << 24;
+		i += bytes[0] << 24;
+		i += bytes[1] << 16;
+		i += bytes[2] << 8;
+		i += bytes[3];
 		return i;
 	}
 
@@ -415,6 +424,33 @@ namespace hltypes
 				count = size;
 			}
 			fread(c, 1, count, this->cfile);
+			size -= BUFFER_SIZE - 1;
+			str += hstr(c);
+		}
+		return str;
+	}
+
+	hstr file::load_hstr(int offset)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		int size = this->load_int();
+		hstr str;
+		int count = BUFFER_SIZE - 1;
+		while (size > 0)
+		{
+			char c[BUFFER_SIZE] = {'\0'};
+			if (size <= BUFFER_SIZE - 1)
+			{
+				count = size;
+			}
+			fread(c, 1, count, this->cfile);
+			for (int i = 0; i < count; i++)
+			{
+				c[i] += offset;
+			}
 			size -= BUFFER_SIZE - 1;
 			str += hstr(c);
 		}
