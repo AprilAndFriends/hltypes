@@ -66,6 +66,8 @@ namespace hltypes
 		void dump(bool b);
 		void dump(chstr str);
 		void dump(chstr str, int offset);
+		void dump(const char* c);
+		void dump(const char* c, int offset);
 		
 		unsigned char load_uchar();
 		int load_int();
