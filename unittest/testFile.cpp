@@ -77,6 +77,27 @@ TEST(File_SeekPositionSize)
 	CHECK(hfile::hsize(filename) == 21);
 }
 
+TEST(File_Serialization)
+{
+	hstr filename = "test.txt";
+	hfile f(filename, hltypes::WRITE);
+	f.dump(1234);
+	f.dump(hstr("testing"));
+	f.dump(3.14f);
+	f.dump(false);
+	f.close();
+	f.open(filename);
+	int i = f.load_int();
+	hstr str = f.load_hstr();
+	float e = f.load_float();
+	bool b = f.load_bool();
+	f.close();
+	CHECK(i == 1234);
+	CHECK(str == "testing");
+	CHECK(hsprintf("%4.2f", e) == "3.14");
+	CHECK(!b);
+}
+
 /*
 TEST(File_Static)
 {

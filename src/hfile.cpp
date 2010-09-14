@@ -329,6 +329,17 @@ namespace hltypes
 			fwrite(c, 1, size, this->cfile);
 		}
 	}
+	
+	void file::dump(const char* c)
+	{
+		this->dump(hstr(c));
+	}
+
+	void file::dump(const char* c, int offset)
+	{
+		this->dump(hstr(c), offset);
+	}
+
 /******* SERIALIZATION LOAD ********************************************/
 
 	unsigned char file::load_uchar()
