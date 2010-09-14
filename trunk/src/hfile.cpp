@@ -13,13 +13,14 @@ namespace hltypes
 {
 /******* CONSTRUCT/DESTRUCT ********************************************/
 
-	file::file(chstr filename, AccessMode access_mode) : cfile(NULL)
+	file::file(chstr filename, AccessMode access_mode, int encryption_offset) : cfile(NULL)
 	{
 		this->filename = filename;
-		this->open(this->filename, access_mode);
+		this->encryption_offset = encryption_offset;
+		this->open(filename, access_mode, encryption_offset);
 	}
 	
-	file::file() : filename(""), cfile(NULL)
+	file::file() : filename(""), cfile(NULL), encryption_offset(0)
 	{
 	}
 	
@@ -33,13 +34,14 @@ namespace hltypes
 	
 /******* METHODS *******************************************************/
 
-	void file::open(chstr filename, AccessMode access_mode)
+	void file::open(chstr filename, AccessMode access_mode, int encryption_offset)
 	{
 		if (this->is_open())
 		{
 			this->close();
 		}
 		this->filename = filename;
+		this->encryption_offset = encryption_offset;
 		const char* mode = "rb";
 		switch (access_mode)
 		{
@@ -300,9 +302,12 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
+		//this->dump(hstr(f));
+		///*
 		unsigned int i;
 		memcpy(&i, &f, sizeof(f));
 		this->dump(i);
+		//*/
 	}
 
 	void file::dump(bool b)
@@ -325,38 +330,26 @@ namespace hltypes
 		this->dump(size);
 		if (size > 0)
 		{
-			fwrite(str.c_str(), 1, size, this->cfile);
+			if (this->encryption_offset == 0)
+			{
+				fwrite(str.c_str(), 1, size, this->cfile);
+			}
+			else
+			{
+				const char* string = str.c_str();
+				char c[1024] = {'\0'};
+				for (int i = 0; i < size; i++)
+				{
+					c[i] = string[i] - this->encryption_offset;
+				}
+				fwrite(c, 1, size, this->cfile);
+			}
 		}
 	}
 
-	void file::dump(chstr str, int offset)
-	{
-		if (!this->is_open())
-		{
-			throw file_not_open(this->filename.c_str());
-		}
-		int size = str.size();
-		this->dump(size);
-		if (size > 0)
-		{
-			const char* string = str.c_str();
-			char c[1024] = {'\0'};
-			for (int i = 0; i < size; i++)
-			{
-				c[i] = string[i] - offset;
-			}
-			fwrite(c, 1, size, this->cfile);
-		}
-	}
-	
 	void file::dump(const char* c)
 	{
 		this->dump(hstr(c));
-	}
-
-	void file::dump(const char* c, int offset)
-	{
-		this->dump(hstr(c), offset);
 	}
 
 /******* SERIALIZATION LOAD ********************************************/
@@ -432,37 +425,17 @@ namespace hltypes
 		while (size > 0)
 		{
 			char c[BUFFER_SIZE] = {'\0'};
-			if (size <= BUFFER_SIZE - 1)
+			if (size < BUFFER_SIZE - 1)
 			{
 				count = size;
 			}
 			fread(c, 1, count, this->cfile);
-			size -= BUFFER_SIZE - 1;
-			str += hstr(c);
-		}
-		return str;
-	}
-
-	hstr file::load_hstr(int offset)
-	{
-		if (!this->is_open())
-		{
-			throw file_not_open(this->filename.c_str());
-		}
-		int size = this->load_int();
-		hstr str;
-		int count = BUFFER_SIZE - 1;
-		while (size > 0)
-		{
-			char c[BUFFER_SIZE] = {'\0'};
-			if (size <= BUFFER_SIZE - 1)
+			if (this->encryption_offset != 0)
 			{
-				count = size;
-			}
-			fread(c, 1, count, this->cfile);
-			for (int i = 0; i < count; i++)
-			{
-				c[i] += offset;
+				for (int i = 0; i < count; i++)
+				{
+					c[i] += this->encryption_offset;
+				}
 			}
 			size -= BUFFER_SIZE - 1;
 			str += hstr(c);
@@ -485,7 +458,7 @@ namespace hltypes
 	
 	bool file::create(chstr filename)
 	{
-		if (!exists(filename))
+		if (!hfile::exists(filename))
 		{
 			FILE* f = fopen(filename.c_str(), "w");
 			if (f != NULL)
@@ -499,7 +472,7 @@ namespace hltypes
 	
 	bool file::empty(chstr filename)
 	{
-		if (exists(filename))
+		if (hfile::exists(filename))
 		{
 			FILE* f = fopen(filename.c_str(), "w");
 			if (f != NULL)
@@ -514,7 +487,7 @@ namespace hltypes
 	/* //2DO - not working for some odd reason
 	bool file::remove(chstr filename)
 	{
-		if (exists(filename) && remove(filename.c_str()) == 0)
+		if (hfile::exists(filename) && remove(filename.c_str()) == 0)
 		{
 			return true;
 		}
@@ -533,6 +506,11 @@ namespace hltypes
 	}
 	
 	void file::hwrite(chstr filename, chstr text)
+	{
+		hfile(filename, WRITE).write(text);
+	}
+	
+	void file::happend(chstr filename, chstr text)
 	{
 		hfile(filename, APPEND).write(text);
 	}

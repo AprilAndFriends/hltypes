@@ -38,11 +38,11 @@ namespace hltypes
 	class hltypesExport file
 	{
 	public:
-		file(chstr filename, AccessMode access_mode = READ);
+		file(chstr filename, AccessMode access_mode = READ, int encryption_offset = 0);
 		file();
 		~file();
 		
-		void open(chstr filename, AccessMode access_mode = READ);
+		void open(chstr filename, AccessMode access_mode = READ, int encryption_offset = 0);
 		hstr read_line();
 		harray<hstr> read_lines();
 		hstr read(chstr delimiter = "");
@@ -67,9 +67,7 @@ namespace hltypes
 		void dump(float f);
 		void dump(bool b);
 		void dump(chstr str);
-		void dump(chstr str, int offset);
 		void dump(const char* c);
-		void dump(const char* c, int offset);
 		
 		unsigned char load_uchar();
 		int load_int();
@@ -77,7 +75,6 @@ namespace hltypes
 		float load_float();
 		bool load_bool();
 		hstr load_hstr();
-		hstr load_hstr(int offset);
 		
 		// static
 		
@@ -93,10 +90,12 @@ namespace hltypes
 		static hstr hread(chstr filename, int count);
 		static hstr hread(chstr filename, chstr delimiter = "");
 		static void hwrite(chstr filename, chstr text);
+		static void happend(chstr filename, chstr text);
 		
 	protected:
 		hstr filename;
 		FILE* cfile;
+		int encryption_offset;
 		
 	};
 }
