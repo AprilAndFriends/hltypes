@@ -5,16 +5,16 @@
 
 namespace hltypes
 {
-	config_file::config_file(chstr filename)
+	configfile::configfile(chstr filename)
 	{
 		read(filename);
 	}
 
-	config_file::config_file()
+	configfile::configfile()
 	{
 	}
 	
-	void config_file::read(chstr filename)
+	void configfile::read(chstr filename)
 	{
 		this->entries.clear();
 		this->filename = filename;
@@ -36,30 +36,30 @@ namespace hltypes
 		}
 	}
 
-	config_file::~config_file()
+	configfile::~configfile()
 	{
 		this->entries.clear();
 	}
 	
-	chstr config_file::operator[](const char* var)
+	chstr configfile::operator[](const char* var)
 	{
 		if (this->entries.find(var) == this->entries.end())
 		{
-			throw key_error(var, "hltypes::config_file[ " + this->filename + " ]");
+			throw key_error(var, "hltypes::configfile[ " + this->filename + " ]");
 		}
 		return this->entries[var];
 	}
 
-	chstr config_file::operator[](chstr var)
+	chstr configfile::operator[](chstr var)
 	{
 		return this->operator[](var.c_str());
 	}
 	
-	void config_file::set(chstr key, chstr value)
+	void configfile::set(chstr key, chstr value)
 	{
 		if (this->entries.find(key) == this->entries.end())
 		{
-			throw key_error(key, "hltypes::config_file[ " + this->filename + " ]");
+			throw key_error(key, "hltypes::configfile[ " + this->filename + " ]");
 		}
 		this->entries[key] = value;
 	}
