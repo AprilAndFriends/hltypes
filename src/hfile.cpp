@@ -159,6 +159,25 @@ namespace hltypes
 		fwrite(text, 1, strlen(text), this->cfile);
 	}
 	
+	void file::write_line(chstr text)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		fwrite((text + "\n").c_str(), 1, text.size() + 1, this->cfile);
+	}
+	
+	void file::write_line(const char* text)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		fwrite(text, 1, strlen(text), this->cfile);
+		fwrite("\n", 1, 1, this->cfile);
+	}
+	
 	void file::writef(const char* format, ...)
 	{
 		if (!this->is_open())

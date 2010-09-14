@@ -49,6 +49,8 @@ namespace hltypes
 		hstr read(int count);
 		void write(chstr text);
 		void write(const char* text);
+		void write_line(chstr text);
+		void write_line(const char* text);
 		void writef(const char* format, ...);
 		void seek(long offset, SeekMode seek_mode);
 		long position();
