@@ -169,10 +169,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\hconfigfile.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\hfile.cpp"
 				>
 			</File>
@@ -196,10 +192,6 @@
 			</File>
 			<File
 				RelativePath=".\include\hltypes\harray.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\hltypes\hconfigfile.h"
 				>
 			</File>
 			<File

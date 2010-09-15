@@ -16,7 +16,6 @@
 
 #include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
-#include <hltypes/util.h>
 
 /******* MAP *******************************************************************************/
 

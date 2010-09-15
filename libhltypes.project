@@ -11,7 +11,6 @@
     <File Name="src/hstring.cpp"/>
     <File Name="src/util.cpp"/>
     <File Name="src/hfile.cpp"/>
-    <File Name="src/hconfigfile.cpp"/>
     <File Name="src/exception.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
@@ -20,7 +19,6 @@
     <File Name="include/hltypes/util.h"/>
     <File Name="include/hltypes/hfile.h"/>
     <File Name="include/hltypes/harray.h"/>
-    <File Name="include/hltypes/hconfigfile.h"/>
     <File Name="include/hltypes/exception.h"/>
     <File Name="include/hltypes/hmap.h"/>
   </VirtualDirectory>
