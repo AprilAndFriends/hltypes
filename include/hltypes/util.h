@@ -16,7 +16,7 @@
 #include "hstring.h"
 
 /******* ITERATOR MACROS ***********************************************/
-#define foreach_in_list (type, name, lst) for (std::list<type>::iterator name = lst.begin(); name != lst.end(); name++)
+#define foreach_in_list(type, name, lst) for (std::list<type>::iterator name = lst.begin(); name != lst.end(); name++)
 
 /******* OTHER MACROS **************************************************/
 #define dsin(degrees) sin((degrees) * 0.01745329f)
