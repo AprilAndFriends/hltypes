@@ -17,7 +17,6 @@
 #include <hltypes/exception.h>
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
-#include <hltypes/util.h>
 
 /******* FILE ******************************************************************************/
 TEST(File_ReadWrite)
@@ -28,12 +27,14 @@ TEST(File_ReadWrite)
 	f.open(filename, hltypes::READ);
 	hstr text = f.read();
 	CHECK(text == "This is a test.");
-	f.open(filename, hltypes::READ);
+	f.open(filename);
 	text = f.read(6);
 	CHECK(text == "This i");
+	text = f.read(5);
+	CHECK(text == "s a t");
 	text = hfile::hread(filename, 69);
 	CHECK(text == "This is a test.");
-	hfile::hwrite(filename, "22");
+	hfile::happend(filename, "22");
 	text = hfile::hread(filename);
 	CHECK(text == "This is a test.22");
 }
@@ -98,22 +99,49 @@ TEST(File_Serialization)
 	CHECK(!b);
 }
 
-/*
-TEST(File_Static)
+TEST(File_ReadCfg)
+{
+	hstr filename = "test.cfg";
+	hfile f(filename, hltypes::WRITE);
+	f.write_line("A: 1");
+	f.write_line("[test]");
+	f.write_line("B: gvec2");
+	f.write_line("[test2]");
+	f.write_line("C: lol");
+	f.write_line("[]");
+	f.write_line("D: ._.;");
+	f.close();
+	hmap<hstr, hstr> entries = hfile::read_cfg(filename);
+	CHECK(entries["A"] == "1");
+	CHECK(entries["test.B"] == "gvec2");
+	CHECK(entries["test2.C"] == "lol");
+	CHECK(entries["D"] == "._.;");
+	CHECK(entries.size() == 4);
+}
+
+TEST(File_StaticCreateErase)
 {
 	hstr filename = "test2.txt";
-	try
-	{
-		if (hfile::exists(filename))
-		{
-			hfile::remove(filename);
-		}
-	}
-	catch (const char* a) { }
+	hfile::remove(filename);
 	CHECK(!hfile::exists(filename));
 	hfile::create(filename);
 	CHECK(hfile::exists(filename));
 	hfile::remove(filename);
 	CHECK(!hfile::exists(filename));
 }
-*/
+
+TEST(File_StaticRename)
+{
+	hstr old_filename = "./test.txt";
+	hstr new_filename = "../test2.txt";
+	hfile::remove(old_filename);
+	hfile::create(old_filename);
+	hfile::remove(new_filename);
+	CHECK(hfile::exists(old_filename));
+	CHECK(!hfile::exists(new_filename));
+	hfile::rename(old_filename, new_filename);
+	CHECK(!hfile::exists(old_filename));
+	CHECK(hfile::exists(new_filename));
+	//hfile::remove(new_filename);
+}
+

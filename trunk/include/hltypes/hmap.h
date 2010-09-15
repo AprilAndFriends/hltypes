@@ -13,6 +13,8 @@
 #include <map>
 #include "hstring.h"
 
+#define foreach_m(type, name, container) for (std::map<hstr, type>::iterator name = container.begin(); name != container.end(); name++)
+
 namespace hltypes
 {
 #define stdmap std::map<K, T>

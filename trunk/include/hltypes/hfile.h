@@ -14,6 +14,7 @@
 
 #include "hltypesExport.h"
 #include "harray.h"
+#include "hmap.h"
 #include "hstring.h"
 
 namespace hltypes
@@ -84,13 +85,15 @@ namespace hltypes
 		//2DO
 		//static bool copy(chstr filename);
 		//static bool move(chstr filename);
-		//static bool rename(chstr filename);
-		//static bool remove(chstr filename);
+		static bool rename(chstr old_filename, chstr new_filename);
+		static bool remove(chstr filename);
 		static long hsize(chstr filename);
 		static hstr hread(chstr filename, int count);
 		static hstr hread(chstr filename, chstr delimiter = "");
 		static void hwrite(chstr filename, chstr text);
 		static void happend(chstr filename, chstr text);
+		
+		static hmap<hstr, hstr> read_cfg(chstr filename);
 		
 	protected:
 		hstr filename;

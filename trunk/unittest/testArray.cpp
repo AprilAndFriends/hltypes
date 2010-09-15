@@ -15,7 +15,6 @@
 #endif
 
 #include <hltypes/harray.h>
-#include <hltypes/util.h>
 
 /******* ARRAY *****************************************************************************/
 
@@ -264,20 +263,10 @@ TEST(Array_iterations)
 	a += 2;
 	a += 0;
 	int i = 0;
-	for (int* it = a.iterate(); it; it = a.next(), i++)
-	{
-		CHECK((*it) == a[i]);
-	}
-	i = 0;
 	foreach (int, it, a)
 	{
 		CHECK((*it) == a[i]);
 		i++;
-	}
-	i = 0;
-	for (int* it = a.riterate(); it; it = a.rnext(), i++)
-	{
-		CHECK((*it) == a[a.size() - 1 - i]);
 	}
 	i = 0;
 	foreach_r (int, it, a)

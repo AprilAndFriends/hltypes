@@ -2,9 +2,14 @@
 #include <string.h>
 #include <stdarg.h>
 
+// prevents recursive calls of hfile::rename and hfile::remove as these functions are called via these pointers
+int (*c_rename)(const char* old_filename, const char* new_filename) = rename;
+int (*c_remove)(const char* filename) = remove;
+
 #include "exception.h"
 #include "harray.h"
 #include "hfile.h"
+#include "hmap.h"
 #include "hstring.h"
 
 #define BUFFER_SIZE (1025)
@@ -484,16 +489,24 @@ namespace hltypes
 		return false;
 	}
 	
-	/* //2DO - not working for some odd reason
-	bool file::remove(chstr filename)
+	bool file::rename(chstr old_filename, chstr new_filename)
 	{
-		if (hfile::exists(filename) && remove(filename.c_str()) == 0)
+		if (hfile::exists(old_filename) && !hfile::exists(new_filename) &&
+			c_rename(old_filename.c_str(), new_filename.c_str()) == 0)
 		{
 			return true;
 		}
 		return false;
 	}
-	//*/
+	
+	bool file::remove(chstr filename)
+	{
+		if (hfile::exists(filename) && c_remove(filename.c_str()) == 0)
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	hstr file::hread(chstr filename, int count)
 	{
@@ -519,5 +532,30 @@ namespace hltypes
 	{
 		return hfile(filename).size();
 	}
+	
+	hmap<hstr, hstr> file::read_cfg(chstr filename)
+	{
+		hmap<hstr, hstr> result;
+		harray<hstr> lines = file::hread(filename).split("\n");
+		hstr prefix;
+		hstr key;
+		hstr value;
+		foreach (hstr, it, lines)
+		{
+			if ((*it).starts_with("[") && (*it).ends_with("]"))
+			{
+				prefix = ((*it).size() == 2 ? "" : ((*it).replace("[", "").replace("]", "") + "."));
+				continue;
+			}
+			if ((*it).starts_with("#") || !(*it).contains(": "))
+			{
+				continue;
+			}
+			(*it).split(": ", key, value);
+			result[prefix + key] = value;
+		}
+		return result;
+	}
+	
 	
 };
