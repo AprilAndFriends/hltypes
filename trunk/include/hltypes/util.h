@@ -16,7 +16,7 @@
 #include "hstring.h"
 
 /******* ITERATOR MACROS ***********************************************/
-#define foreach_in_list(type, name, lst) for (std::list<type>::iterator name = lst.begin(); name != lst.end(); name++)
+#define foreach_in_list (type, name, lst) for (std::list<type>::iterator name = lst.begin(); name != lst.end(); name++)
 
 /******* OTHER MACROS **************************************************/
 #define dsin(degrees) sin((degrees) * 0.01745329f)
@@ -28,7 +28,9 @@ int hltypesFnExport hrand(int min, int max);
 int hltypesFnExport hrand(int max);
 float hltypesFnExport hrandf(float min, float max);
 float hltypesFnExport hrandf(float max);
-void hltypesFnExport mkdirs(chstr path);
+void hltypesFnExport makedirs(chstr path);
+//2DO - implement
+//void hltypesFnExport removedirs(chstr path);
 
 /******* TEMPLATE FUNCTIONS ********************************************/
 template <class T> T hmin(T a, T b)

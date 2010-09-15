@@ -48,7 +48,7 @@ float hrandf(float max)
 	return rand() * max / RAND_MAX;
 }
 
-void mkdirs(chstr path)
+void makedirs(chstr path)
 {
 	harray<hstr> folders = path.split("/");
 	if (folders.size() > 0)

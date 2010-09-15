@@ -132,8 +132,8 @@ TEST(File_StaticCreateErase)
 
 TEST(File_StaticRename)
 {
-	hstr old_filename = "./test.txt";
-	hstr new_filename = "../test2.txt";
+	hstr old_filename = "test.txt";
+	hstr new_filename = "test2.txt";
 	hfile::remove(old_filename);
 	hfile::create(old_filename);
 	hfile::remove(new_filename);
@@ -142,6 +142,38 @@ TEST(File_StaticRename)
 	hfile::rename(old_filename, new_filename);
 	CHECK(!hfile::exists(old_filename));
 	CHECK(hfile::exists(new_filename));
-	//hfile::remove(new_filename);
+	hfile::remove(new_filename);
+}
+
+TEST(File_StaticCopy)
+{
+	hstr old_filename = "test.txt";
+	hstr new_filename = "test2.txt";
+	hfile::remove(old_filename);
+	hfile::remove(new_filename);
+	hfile::hwrite(old_filename, "This is a copy test.");
+	hfile::copy(old_filename, new_filename);
+	CHECK(hfile::exists(new_filename));
+	hstr text = hfile::hread(new_filename);
+	CHECK(text == "This is a copy test.");
+	hfile f(old_filename, hltypes::WRITE);
+	f.dump(1234);
+	f.dump(hstr("testing"));
+	f.dump(3.14f);
+	f.dump(false);
+	f.close();
+	hfile::remove(new_filename);
+	hfile::copy(old_filename, new_filename);
+	CHECK(hfile::exists(new_filename));
+	f.open(new_filename);
+	int i = f.load_int();
+	hstr str = f.load_hstr();
+	float e = f.load_float();
+	bool b = f.load_bool();
+	f.close();
+	CHECK(i == 1234);
+	CHECK(str == "testing");
+	CHECK(hsprintf("%4.2f", e) == "3.14");
+	CHECK(!b);
 }
 
