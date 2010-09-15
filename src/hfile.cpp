@@ -11,8 +11,9 @@ int (*c_remove)(const char* filename) = remove;
 #include "hfile.h"
 #include "hmap.h"
 #include "hstring.h"
+#include "util.h"
 
-#define BUFFER_SIZE (1025)
+#define BUFFER_SIZE (4096)
 
 namespace hltypes
 {
@@ -98,7 +99,7 @@ namespace hltypes
 		int count;
 		while (!this->eof())
 		{
-			char c[BUFFER_SIZE] = {'\0'};
+			char c[BUFFER_SIZE + 1] = {'\0'};
 			count = fread(c, 1, BUFFER_SIZE, this->cfile);
 			if (count == 0)
 			{
@@ -128,12 +129,12 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		hstr result;
-		int current = BUFFER_SIZE - 1;
+		int current = BUFFER_SIZE;
 		int read;
 		while (count > 0)
 		{
-			char c[BUFFER_SIZE] = {'\0'};
-			if (count <= BUFFER_SIZE - 1)
+			char c[BUFFER_SIZE + 1] = {'\0'};
+			if (count <= BUFFER_SIZE)
 			{
 				current = count;
 			}
@@ -142,7 +143,7 @@ namespace hltypes
 			{
 				break;
 			}
-			count -= BUFFER_SIZE - 1;
+			count -= BUFFER_SIZE;
 			result += hstr(c);
 		}
 		return result;
@@ -191,10 +192,10 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		char c[BUFFER_SIZE] = {'\0'};
+		char c[BUFFER_SIZE + 1] = {'\0'};
 		va_list args;
 		va_start(args, format);
-		vsnprintf(c, BUFFER_SIZE - 1, format, args);
+		vsnprintf(c, BUFFER_SIZE, format, args);
 		va_end(args);
 		this->write(c);
 	}
@@ -307,12 +308,9 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		//this->dump(hstr(f));
-		///*
 		unsigned int i;
 		memcpy(&i, &f, sizeof(f));
 		this->dump(i);
-		//*/
 	}
 
 	void file::dump(bool b)
@@ -426,11 +424,11 @@ namespace hltypes
 		}
 		int size = this->load_int();
 		hstr str;
-		int count = BUFFER_SIZE - 1;
+		int count = BUFFER_SIZE;
 		while (size > 0)
 		{
-			char c[BUFFER_SIZE] = {'\0'};
-			if (size < BUFFER_SIZE - 1)
+			char c[BUFFER_SIZE + 1] = {'\0'};
+			if (size < BUFFER_SIZE)
 			{
 				count = size;
 			}
@@ -442,7 +440,7 @@ namespace hltypes
 					c[i] += this->encryption_offset;
 				}
 			}
-			size -= BUFFER_SIZE - 1;
+			size -= BUFFER_SIZE;
 			str += hstr(c);
 		}
 		return str;
@@ -465,6 +463,7 @@ namespace hltypes
 	{
 		if (!hfile::exists(filename))
 		{
+			makedirs(filename);
 			FILE* f = fopen(filename.c_str(), "w");
 			if (f != NULL)
 			{
@@ -499,10 +498,33 @@ namespace hltypes
 		return false;
 	}
 	
+	bool file::move(chstr filename, chstr path)
+	{
+		return hfile::rename(filename, path + "/" + filename.rsplit("/", 1).pop_back());
+	}
+	
 	bool file::remove(chstr filename)
 	{
 		if (hfile::exists(filename) && c_remove(filename.c_str()) == 0)
 		{
+			return true;
+		}
+		return false;
+	}
+	
+	bool file::copy(chstr old_filename, chstr new_filename)
+	{
+		if (hfile::exists(old_filename) && !hfile::exists(new_filename))
+		{
+			hfile old_file(old_filename);
+			hfile new_file(new_filename, hltypes::WRITE);
+			int count;
+			char c[BUFFER_SIZE] = {'\0'}; // literal buffer, not a string buffer that requires \0 at the end
+			while (!old_file.eof())
+			{
+				count = fread(c, 1, BUFFER_SIZE, old_file.cfile);
+				fwrite(c, 1, count, new_file.cfile);
+			}
 			return true;
 		}
 		return false;
