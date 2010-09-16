@@ -19,7 +19,7 @@
 
 /******* STRING ****************************************************************************/
 
-TEST(float_string)
+TEST(String_float)
 {
 	hstr float_string("5.75");
 	float f = float_string;
@@ -28,7 +28,7 @@ TEST(float_string)
 	CHECK(f == 5.75f && float_string == 6.75f);
 }
 
-TEST(int_string)
+TEST(String_int)
 {
 	hstr int_string("5");
 	int f = int_string;
@@ -36,14 +36,14 @@ TEST(int_string)
 	CHECK(f == 5 && int_string == 6);
 }
 
-TEST(bool_string1) { hstr b("1");     CHECK(b == true);  }
-TEST(bool_string2) { hstr b("0");     CHECK(b == false); }
-TEST(bool_string3) { hstr b("true");  CHECK(b == true);  }
-TEST(bool_string4) { hstr b("false"); CHECK(b == false); }
-TEST(bool_string5) { hstr b; b=true;  CHECK(b == true);  }
-TEST(bool_string6) { hstr b; b=false; CHECK(b == false); }
+TEST(String_bool1) { hstr b("1");     CHECK(b == true);  }
+TEST(String_bool2) { hstr b("0");     CHECK(b == false); }
+TEST(String_bool3) { hstr b("true");  CHECK(b == true);  }
+TEST(String_bool4) { hstr b("false"); CHECK(b == false); }
+TEST(String_bool5) { hstr b; b=true;  CHECK(b == true);  }
+TEST(String_bool6) { hstr b; b=false; CHECK(b == false); }
 
-TEST(string_stdstr_compatibility)
+TEST(String_stdstr_compatibility)
 {
 	std::string str1, str2 = "text2";
 	hstr hs1 = "text1", hs2, hs3("text1");
@@ -55,7 +55,7 @@ TEST(string_stdstr_compatibility)
 		  hs1 != hs2 && hs1 == hs3);
 }
 
-TEST(string_cstr_compatibilty)
+TEST(String_cstr_compatibilty)
 {
 	hstr s1, s2;
 	char cstr[64] = "text2";
@@ -65,7 +65,7 @@ TEST(string_cstr_compatibilty)
 	CHECK(s1 == "text1" && s2 == cstr && s2 == "text2");
 }
 
-TEST(string_replace)
+TEST(String_replace)
 {
 	hstr s1 = "1 2 3 4 5 6 7 8 9", s2 = "101101010100011010", s3 = "test", s4 = "0";
 	CHECK(s1.replace(" ", "") == "123456789" &&
@@ -74,21 +74,21 @@ TEST(string_replace)
 		  s3.replace("es", "his is a tes") == "this is a test");
 }
 
-TEST(string_starts_with)
+TEST(String_starts_with)
 {
 	hstr s1 = "this is a test";
 	
 	CHECK(s1.starts_with("this") && !s1.starts_with("something"));
 }
 
-TEST(string_ends_with)
+TEST(String_ends_with)
 {
 	hstr s1 = "this is a test";
 	
 	CHECK(s1.ends_with("test") && !s1.ends_with("something"));
 }
 
-TEST(string_split1)
+TEST(String_split1)
 {
 	hstr s = "1,2,3,4,5,6,7,8,9", s2 = "test", splitter = "!";
 	harray<hstr> ary1 = s.split(",");
@@ -101,7 +101,7 @@ TEST(string_split1)
 		  s.split("3,4").size() == 2);
 }
 
-TEST(string_split2)
+TEST(String_split2)
 {
 	hstr s = "1,2,3";
 	harray<hstr> ary = s.split(",");
@@ -114,7 +114,7 @@ TEST(string_split2)
 	CHECK(ary.size() == 3 && ary[0] == "1" && ary[1] == "" && ary[2] == "3");
 }
 
-TEST(string_rsplit1)
+TEST(String_rsplit1)
 {
 	hstr s = "1,2,3,4,5,6,7,8,9";
 	harray<hstr> ary1 = s.rsplit(",");
@@ -124,7 +124,7 @@ TEST(string_rsplit1)
 	      ary1[4] == "5" && ary1[5] == "6" && ary1[6] == "7" && ary1[7] == "8" && ary1[8] == "9");
 }
 
-TEST(string_rsplit2)
+TEST(String_rsplit2)
 {
 	hstr s = "1,2,3,4,5,6,7,8,9";
 	hstr s2 = "test", splitter="!";
@@ -134,7 +134,7 @@ TEST(string_rsplit2)
 		  ary1.size() == 3 && ary1[0] == "1,2,3,4,5,6,7" && ary1[1] == "8" && ary1[2] == "9");
 }
 
-TEST(string_rsplit3)
+TEST(String_rsplit3)
 {
 	hstr s = "1,2,3";
 	harray<hstr> ary = s.rsplit(",");
@@ -147,7 +147,7 @@ TEST(string_rsplit3)
 	CHECK(ary.size() == 3 && ary[0] == "1" && ary[1] == "" && ary[2] == "3");
 }
 
-TEST(strin_substr_operator)
+TEST(String_substr_operator)
 {
 	hstr s = "1234567890";
 	CHECK(s(1, 2) == "23");
