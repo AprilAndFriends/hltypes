@@ -9,14 +9,12 @@
 /* Begin PBXBuildFile section */
 		7FB0C791120AE0A3005EA739 /* hmap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB0C74F120ADEA0005EA739 /* hmap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB0C792120AE0A3005EA739 /* exception.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F469C7212088BEE009781BB /* exception.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7FB0C793120AE0A3005EA739 /* hconfigfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F469C7312088BEE009781BB /* hconfigfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB0C794120AE0A3005EA739 /* harray.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F42F69D11EB0BAA00B1C1DF /* harray.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB0C795120AE0A3005EA739 /* hfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F42F69E11EB0BAA00B1C1DF /* hfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB0C796120AE0A3005EA739 /* hltypesExport.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F42F69F11EB0BAA00B1C1DF /* hltypesExport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB0C797120AE0A3005EA739 /* hstring.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F42F6A011EB0BAA00B1C1DF /* hstring.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB0C798120AE0A3005EA739 /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F42F6A111EB0BAA00B1C1DF /* util.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB0C799120AE0AB005EA739 /* exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F469C7612088C00009781BB /* exception.cpp */; };
-		7FB0C79A120AE0AB005EA739 /* hconfigfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F469C7712088C00009781BB /* hconfigfile.cpp */; };
 		7FB0C79B120AE0AB005EA739 /* hfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69611EB0B9400B1C1DF /* hfile.cpp */; };
 		7FB0C79C120AE0AB005EA739 /* hstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69711EB0B9500B1C1DF /* hstring.cpp */; };
 		7FB0C79D120AE0AB005EA739 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69811EB0B9500B1C1DF /* util.cpp */; };
@@ -33,9 +31,7 @@
 		7F42F6A111EB0BAA00B1C1DF /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = util.h; path = include/hltypes/util.h; sourceTree = SOURCE_ROOT; };
 		7F42F71411EB111E00B1C1DF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F469C7212088BEE009781BB /* exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = exception.h; path = include/hltypes/exception.h; sourceTree = "<group>"; };
-		7F469C7312088BEE009781BB /* hconfigfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hconfigfile.h; path = include/hltypes/hconfigfile.h; sourceTree = "<group>"; };
 		7F469C7612088C00009781BB /* exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = exception.cpp; path = src/exception.cpp; sourceTree = "<group>"; };
-		7F469C7712088C00009781BB /* hconfigfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hconfigfile.cpp; path = src/hconfigfile.cpp; sourceTree = "<group>"; };
 		7FB0C74F120ADEA0005EA739 /* hmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hmap.h; path = include/hltypes/hmap.h; sourceTree = "<group>"; };
 		7FB0C759120ADED7005EA739 /* libhltypes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhltypes.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -106,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				7F469C7612088C00009781BB /* exception.cpp */,
-				7F469C7712088C00009781BB /* hconfigfile.cpp */,
 				7F42F69611EB0B9400B1C1DF /* hfile.cpp */,
 				7F42F69711EB0B9500B1C1DF /* hstring.cpp */,
 				7F42F69811EB0B9500B1C1DF /* util.cpp */,
@@ -119,7 +114,6 @@
 			children = (
 				7FB0C74F120ADEA0005EA739 /* hmap.h */,
 				7F469C7212088BEE009781BB /* exception.h */,
-				7F469C7312088BEE009781BB /* hconfigfile.h */,
 				7F42F69D11EB0BAA00B1C1DF /* harray.h */,
 				7F42F69E11EB0BAA00B1C1DF /* hfile.h */,
 				7F42F69F11EB0BAA00B1C1DF /* hltypesExport.h */,
@@ -138,7 +132,6 @@
 			files = (
 				7FB0C791120AE0A3005EA739 /* hmap.h in Headers */,
 				7FB0C792120AE0A3005EA739 /* exception.h in Headers */,
-				7FB0C793120AE0A3005EA739 /* hconfigfile.h in Headers */,
 				7FB0C794120AE0A3005EA739 /* harray.h in Headers */,
 				7FB0C795120AE0A3005EA739 /* hfile.h in Headers */,
 				7FB0C796120AE0A3005EA739 /* hltypesExport.h in Headers */,
@@ -158,6 +151,7 @@
 				7FB0C756120ADED7005EA739 /* Sources */,
 				7FB0C757120ADED7005EA739 /* Frameworks */,
 				7F33B52312100A92004B5E89 /* Add SDKSettings */,
+				7FA1A9C112422414004689AE /* Deploy to HOME-Library-SDKs */,
 			);
 			buildRules = (
 			);
@@ -175,7 +169,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "libhltypes-ios" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* libhltypes */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
@@ -203,6 +204,20 @@
 			shellPath = /bin/sh;
 			shellScript = "#echo IN:     $SRCROOT/iOS/${PLATFORM_NAME}.sdk/SDKSettings.plist\n#echo OUT:    $DSTROOT/SDKSettings.plist\n\nsed -e \"s/%PROJECT%/$PROJECT/g\" \\\n    -e \"s/%VERS%/$VERS/g\" \\\n    -e \"s/%IPHONE_SDK%/$IPHONE_SDK/g\" \\\n    $SRCROOT/iOS/${PLATFORM_NAME}.sdk/SDKSettings.plist > $DSTROOT/SDKSettings.plist || exit 1    \n";
 		};
+		7FA1A9C112422414004689AE /* Deploy to HOME-Library-SDKs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Deploy to HOME-Library-SDKs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p \"${USER_LIBRARY_DIR}/SDKs/${PRODUCT_NAME}SDK/\"\nrm -rf \"${USER_LIBRARY_DIR}/SDKs/${PRODUCT_NAME}SDK/${PLATFORM_NAME}.sdk\"\n\ncp -R \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}SDK/${PLATFORM_NAME}.sdk\" \"${USER_LIBRARY_DIR}/SDKs/${PRODUCT_NAME}SDK/\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -211,7 +226,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FB0C799120AE0AB005EA739 /* exception.cpp in Sources */,
-				7FB0C79A120AE0AB005EA739 /* hconfigfile.cpp in Sources */,
 				7FB0C79B120AE0AB005EA739 /* hfile.cpp in Sources */,
 				7FB0C79C120AE0AB005EA739 /* hstring.cpp in Sources */,
 				7FB0C79D120AE0AB005EA739 /* util.cpp in Sources */,
@@ -229,11 +243,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = hltypes;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};
@@ -244,10 +259,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = hltypes;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Release;
 		};
