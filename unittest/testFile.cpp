@@ -19,7 +19,7 @@
 #include <hltypes/hstring.h>
 
 /******* FILE ******************************************************************************/
-TEST(File_ReadWrite)
+TEST(File_read_write)
 {
 	hstr filename = "test.txt";
 	hfile f(filename, hltypes::WRITE);
@@ -39,7 +39,7 @@ TEST(File_ReadWrite)
 	CHECK(text == "This is a test.22");
 }
 
-TEST(File_Writef)
+TEST(File_writef)
 {
 	hstr filename = "test.txt";
 	hfile f(filename, hltypes::WRITE);
@@ -49,7 +49,7 @@ TEST(File_Writef)
 	CHECK(text == "This is a 0 formatted 3.14 file.");
 }
 
-TEST(File_SeekPositionSize)
+TEST(File_seek_position_size)
 {
 	hstr filename = "test.txt";
 	hfile f;
@@ -78,7 +78,7 @@ TEST(File_SeekPositionSize)
 	CHECK(hfile::hsize(filename) == 21);
 }
 
-TEST(File_Serialization)
+TEST(File_serialization)
 {
 	hstr filename = "test.txt";
 	hfile f(filename, hltypes::WRITE);
@@ -99,7 +99,7 @@ TEST(File_Serialization)
 	CHECK(!b);
 }
 
-TEST(File_ReadCfg)
+TEST(File_read_cfg)
 {
 	hstr filename = "test.cfg";
 	hfile f(filename, hltypes::WRITE);
@@ -119,7 +119,7 @@ TEST(File_ReadCfg)
 	CHECK(entries.size() == 4);
 }
 
-TEST(File_StaticCreateErase)
+TEST(File_static_create_remove)
 {
 	hstr filename = "test2.txt";
 	hfile::remove(filename);
@@ -130,7 +130,7 @@ TEST(File_StaticCreateErase)
 	CHECK(!hfile::exists(filename));
 }
 
-TEST(File_StaticRename)
+TEST(File_static_rename)
 {
 	hstr old_filename = "test.txt";
 	hstr new_filename = "test2.txt";
@@ -145,7 +145,7 @@ TEST(File_StaticRename)
 	hfile::remove(new_filename);
 }
 
-TEST(File_StaticCopy)
+TEST(File_static_copy)
 {
 	hstr old_filename = "test.txt";
 	hstr new_filename = "test2.txt";

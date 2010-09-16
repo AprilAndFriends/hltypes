@@ -30,6 +30,16 @@ namespace hltypes
 	{
 	}
 /*********************************************************************************/
+	_index_error::_index_error(int index, const char* source_file, int line) :
+	    exception("index '" + hstr(index) + "' out of range", source_file, line)
+	{
+	}
+/*********************************************************************************/
+	_range_error::_range_error(int start, int count, const char* source_file, int line) :
+	    exception("range '" + hstr(start) + " by " + hstr(count) + "' out of range", source_file, line)
+	{
+	}
+/*********************************************************************************/
 	_key_error::_key_error(chstr key, chstr container, const char* source_file, int line) :
 	    exception("key '" + key + "' not found in " + container, source_file, line)
 	{

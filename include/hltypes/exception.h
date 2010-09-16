@@ -41,6 +41,20 @@ namespace hltypes
 	};
 	#define file_not_open(filename) hltypes::_file_not_open(filename, __FILE__, __LINE__)
 /*********************************************************************************/
+	class hltypesExport _index_error : public exception
+	{
+	public:
+		_index_error(int index, const char* source_file, int line);
+	};
+	#define index_error(index) hltypes::_index_error(index, __FILE__, __LINE__)
+/*********************************************************************************/
+	class hltypesExport _range_error : public exception
+	{
+	public:
+		_range_error(int start, int count, const char* source_file, int line);
+	};
+	#define range_error(start, count) hltypes::_range_error(start, count, __FILE__, __LINE__)
+/*********************************************************************************/
 	class hltypesExport _key_error : public exception
 	{
 	public:

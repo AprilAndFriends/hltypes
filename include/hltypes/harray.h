@@ -12,6 +12,7 @@
 
 #include <vector>
 #include <algorithm>
+
 #include "hstring.h"
 
 #ifdef _WIN32
@@ -22,10 +23,10 @@
 #define foreach(type, name, container) for (std::vector<type>::iterator name = container.begin(); name != container.end(); name++)
 #define foreach_r(type, name, container) for (std::vector<type>::reverse_iterator name = container.rbegin(); name != container.rend(); name++)
 
+#define stdvector std::vector<T>
+
 namespace hltypes
 {
-#define stdvector std::vector<T>
-	
 	template <class T> class Array : public stdvector
 	{
 	public:
@@ -136,10 +137,27 @@ namespace hltypes
 			return this->riterate(start);
 		}
 		
-/******* HL METHODS ****************************************************/
+/******* BASIC METHODS *************************************************/
+
 		int size() const
 		{
 			return stdvector::size();
+		}
+		
+		bool equals(const Array<T>& other)
+		{
+			if (this->size() != other.size())
+			{
+				return false;
+			}
+			for (int i = 0; i < this->size(); i++)
+			{
+				if (stdvector::at(i) != other.at(i))
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 		
 		int index_of(T element)
@@ -199,6 +217,21 @@ namespace hltypes
 			stdvector::insert(stdvector::begin() + index, other + start, other + start + count);
 		}
 		
+		void insert_at(const int index, const Array<T>& other)
+		{
+			this->insert_at(index, other, 0, other.size());
+		}
+		
+		void insert_at(const int index, const Array<T>& other, const int count)
+		{
+			this->insert_at(index, other, 0, count);
+		}
+		
+		void insert_at(const int index, const T other[], const int count)
+		{
+			this->insert_at(index, other, 0, count);
+		}
+		
 		T remove_at(const int index)
 		{
 			T result = stdvector::at(index);
@@ -206,7 +239,7 @@ namespace hltypes
 			return result;
 		}
 		
-		void remove(T& element)
+		void remove(T element)
 		{
 			stdvector::erase(stdvector::begin() + this->index_of(element));
 		}
@@ -250,6 +283,83 @@ namespace hltypes
 			}
 		}
 		
+		void push_back(const T& element)
+		{
+			this->insert_at(this->size(), element);
+		}
+		
+		void push_back(const Array<T>& other)
+		{
+			this->insert_at(this->size(), other, 0, other.size());
+		}
+		
+		void push_back(const Array<T>& other, const int count)
+		{
+			this->insert_at(this->size(), other, 0, count);
+		}
+		
+		void push_back(const Array<T>& other, const int start, const int count)
+		{
+			this->insert_at(this->size(), other, start, count);
+		}
+		
+		void push_back(const T other[], const int count)
+		{
+			this->insert_at(this->size(), other, 0, count);
+		}
+		
+		void push_back(const T other[], const int start, const int count)
+		{
+			this->insert_at(this->size(), other, start, count);
+		}
+		
+		void push_front(const T& element)
+		{
+			this->insert_at(0, element);
+		}
+		
+		void push_front(const Array<T>& other)
+		{
+			this->insert_at(0, other);
+		}
+		
+		void push_front(const Array<T>& other, const int count)
+		{
+			this->insert_at(0, other, 0, count);
+		}
+		
+		void push_front(const Array<T>& other, const int start, const int count)
+		{
+			this->insert_at(0, other, start, count);
+		}
+		
+		void push_front(const T other[], const int count)
+		{
+			this->insert_at(0, other, 0, count);
+		}
+		
+		void push_front(const T other[], const int start, const int count)
+		{
+			this->insert_at(0, other, start, count);
+		}
+		
+		T pop_front()
+		{
+			return this->remove_at(0);
+		}
+		
+		T pop_back()
+		{
+			return this->remove_at(this->size() - 1);
+		}
+		
+		T pop(int index)
+		{
+			return this->remove_at(index);
+		}
+		
+/******* HL METHODS ****************************************************/
+
 		void unite(const Array<T>& other)
 		{
 			this->insert_at(this->size(), other, 0, other.size());
@@ -407,22 +517,6 @@ namespace hltypes
 			return (*std::max_element(stdvector::begin(), stdvector::end(), compare_function));
 		}
 		
-		bool equals(const Array<T>& other)
-		{
-			if (this->size() != other.size())
-			{
-				return false;
-			}
-			for (int i = 0; i < this->size(); i++)
-			{
-				if (stdvector::at(i) != other.at(i))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		
 		hstr join(chstr separator)
 		{
 			hstr result;
@@ -438,6 +532,8 @@ namespace hltypes
 			return result;
 		}
 		
+/******* HL FILTERS ****************************************************/
+
 		Array<T> find_all(bool (*compare_function)(T))
 		{
 			Array<T> result;
@@ -505,9 +601,29 @@ namespace hltypes
 			return this->contains(element);
 		}
 		
+		bool includes(const Array<T>& other)
+		{
+			return this->contains(other);
+		}
+		
+		bool includes(const T other[], int count)
+		{
+			return this->contains(other, count);
+		}
+		
 		bool has(const T& element)
 		{
 			return this->contains(element);
+		}
+		
+		bool has(const Array<T>& other)
+		{
+			return this->contains(other);
+		}
+		
+		bool has(const T other[], int count)
+		{
+			return this->contains(other, count);
 		}
 		
 		bool has_element(const T& element)
@@ -515,19 +631,14 @@ namespace hltypes
 			return this->contains(element);
 		}
 		
-		void insert_at(const int index, const Array<T>& other)
+		bool has_element(const Array<T>& other)
 		{
-			this->insert_at(index, other, 0, other.size());
+			return this->contains(other);
 		}
 		
-		void insert_at(const int index, const Array<T>& other, const int count)
+		bool has_element(const T other[], int count)
 		{
-			this->insert_at(index, other, 0, count);
-		}
-		
-		void insert_at(const int index, const T other[], const int count)
-		{
-			this->insert_at(index, other, 0, count);
+			return this->contains(other, count);
 		}
 		
 		void append(const T& element)
@@ -558,81 +669,6 @@ namespace hltypes
 		void append(const T other[], const int start, const int count)
 		{
 			this->insert_at(this->size(), other, start, count);
-		}
-		
-		void push_back(const T& element)
-		{
-			this->insert_at(this->size(), element);
-		}
-		
-		void push_back(const Array<T>& other)
-		{
-			this->insert_at(this->size(), other, 0, other.size());
-		}
-		
-		void push_back(const Array<T>& other, const int count)
-		{
-			this->insert_at(this->size(), other, 0, count);
-		}
-		
-		void push_back(const Array<T>& other, const int start, const int count)
-		{
-			this->insert_at(this->size(), other, start, count);
-		}
-		
-		void push_back(const T other[], const int count)
-		{
-			this->insert_at(this->size(), other, 0, count);
-		}
-		
-		void push_back(const T other[], const int start, const int count)
-		{
-			this->insert_at(this->size(), other, start, count);
-		}
-		
-		void push_front(const T& element)
-		{
-			this->insert_at(0, element);
-		}
-		
-		void push_front(const Array<T>& other)
-		{
-			this->insert_at(0, other);
-		}
-		
-		void push_front(const Array<T>& other, const int count)
-		{
-			this->insert_at(0, other, 0, count);
-		}
-		
-		void push_front(const Array<T>& other, const int start, const int count)
-		{
-			this->insert_at(0, other, start, count);
-		}
-		
-		void push_front(const T other[], const int count)
-		{
-			this->insert_at(0, other, 0, count);
-		}
-		
-		void push_front(const T other[], const int start, const int count)
-		{
-			this->insert_at(0, other, start, count);
-		}
-		
-		T pop_front()
-		{
-			return this->remove_at(0);
-		}
-		
-		T pop_back()
-		{
-			return this->remove_at(this->size() - 1);
-		}
-		
-		T pop(int index)
-		{
-			return this->remove_at(index);
 		}
 		
 /******* HL OPERATORS **************************************************/
@@ -682,7 +718,7 @@ namespace hltypes
 			this->differentiate(other);
 		}
 		
-	private:
+	protected:
 		int index;
 		
 	};

@@ -380,10 +380,10 @@ TEST(Array_match)
 	a += -1;
 	a += 2;
 	a += -3;
-	CHECK(a.matches_any(&positive));
-	CHECK(a.matches_any(&negative));
-	CHECK(!a.matches_all(&negative));
-	CHECK(!a.matches_all(&positive));
+	CHECK(a.matches_any(&positive) == true);
+	CHECK(a.matches_any(&negative) == true);
+	CHECK(a.matches_all(&negative) == false);
+	CHECK(a.matches_all(&positive) == false);
 	CHECK(a.find_first(&negative) != NULL);
 	CHECK(*a.find_first(&negative) == -1);
 	CHECK(a.find_first(&positive) != NULL);
@@ -391,10 +391,10 @@ TEST(Array_match)
 	CHECK(a.find_first(&over_9000) == NULL);
 	harray<int> c = a.find_all(&negative);
 	CHECK(c.size() == 2 && c[0] == -1 && c[1] == -3);
-	CHECK(c.matches_any(&negative));
-	CHECK(!c.matches_any(&positive));
-	CHECK(c.matches_all(&negative));
-	CHECK(!c.matches_all(&positive));
+	CHECK(c.matches_any(&negative) == true);
+	CHECK(c.matches_any(&positive) == false);
+	CHECK(c.matches_all(&negative) == true);
+	CHECK(c.matches_all(&positive) == false);
 }
 
 TEST(Array_cast)
