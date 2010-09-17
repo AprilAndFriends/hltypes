@@ -463,7 +463,11 @@ namespace hltypes
 	{
 		if (!hfile::exists(filename))
 		{
-			makedirs(filename);
+			hstr path = filename.rsplit("/", 1).pop_front();
+			if (path != "")
+			{
+				makedirs(path);
+			}
 			FILE* f = fopen(filename.c_str(), "w");
 			if (f != NULL)
 			{
