@@ -31,31 +31,30 @@ namespace hltypes
 	{
 	public:
 		// constructors
-		Array() : stdvector(), index(-1)
+		Array() : stdvector()
 		{
 		}
 		
-		Array(const Array<T>& other) : stdvector(), index(-1)
+		Array(const Array<T>& other) : stdvector(other)
 		{
-			this->insert_at(0, other, 0, other.size());
 		}
 		
-		Array(const Array<T>& other, const int count) : stdvector(), index(-1)
+		Array(const Array<T>& other, const int count) : stdvector()
 		{
 			this->insert_at(0, other, 0, count);
 		}
 		
-		Array(const Array<T>& other, const int start, const int count) : stdvector(), index(-1)
+		Array(const Array<T>& other, const int start, const int count) : stdvector()
 		{
 			this->insert_at(0, other, start, count);
 		}
 		
-		Array(const T other[], const int count) : stdvector(), index(-1)
+		Array(const T other[], const int count) : stdvector()
 		{
 			this->insert_at(0, other, 0, count);
 		}
 		
-		Array(const T other[], const int start, const int count) : stdvector(), index(-1)
+		Array(const T other[], const int start, const int count) : stdvector()
 		{
 			this->insert_at(0, other, start, count);
 		}
@@ -86,55 +85,6 @@ namespace hltypes
 		bool operator!=(const Array<T>& other)
 		{
 			return (!this->equals(other));
-		}
-		
-/******* ITERATOR METHODS **********************************************/
-		T* iterate(const int start = 0)
-		{
-			this->index = start - 1;
-			return this->next();
-		}
-		
-		T* next(const int step = 1)
-		{
-			this->index += step;
-			if (this->index >= this->size())
-			{
-				return NULL;
-			}
-			return &stdvector::at(this->index);
-		}
-
-		T* riterate(const int start = 0)
-		{
-			this->index = start - 1;
-			return this->rnext();
-		}
-		
-		T* rnext(const int step = 1)
-		{
-			this->index += step;
-			if (this->index >= this->size())
-			{
-				return NULL;
-			}
-			return &stdvector::at(this->size() - 1 - this->index);
-		}
-
-		int iterator_index()
-		{
-			return this->index;
-		}
-		
-/******* ITERATOR METHOD ALIASES ***************************************/
-		T* iter(const int start = 0)
-		{
-			return this->iterate(start);
-		}
-		
-		T* riter(const int start = 0)
-		{
-			return this->riterate(start);
 		}
 		
 /******* BASIC METHODS *************************************************/
@@ -717,9 +667,6 @@ namespace hltypes
 		{
 			this->differentiate(other);
 		}
-		
-	protected:
-		int index;
 		
 	};
 	
