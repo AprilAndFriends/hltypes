@@ -31,12 +31,8 @@ namespace hltypes
 		{
 		}
 		
-		Map(const Map<K, T>& other) : stdmap()
+		Map(const Map<K, T>& other) : stdmap(other)
 		{
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
-			{
-				this->operator[](it->first) = it->second;
-			}
 		}
 		
 /******* OPERATORS *****************************************************/
