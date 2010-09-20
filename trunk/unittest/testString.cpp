@@ -158,3 +158,30 @@ TEST(String_substr_operator)
 	CHECK(s[3] == '4');
 }
 
+TEST(String_trim)
+{
+	hstr s1 = "123 456 789 0";
+	CHECK(s1.rtrim() == "123 456 789 0");
+	CHECK(s1.ltrim() == "123 456 789 0");
+	CHECK(s1.trim() == "123 456 789 0");
+	CHECK(s1.trim('0') == "123 456 789 ");
+	
+	hstr s2 = "   123 456 789 0";
+	CHECK(s2.rtrim() == "   123 456 789 0");
+	CHECK(s2.ltrim() == "123 456 789 0");
+	CHECK(s2.trim() == "123 456 789 0");
+	CHECK(s2.trim('0') == "   123 456 789 ");
+	
+	hstr s3 = "123 456 789 0   ";
+	CHECK(s3.rtrim() == "123 456 789 0");
+	CHECK(s3.ltrim() == "123 456 789 0   ");
+	CHECK(s3.trim() == "123 456 789 0");
+	CHECK(s3.trim('0') == "123 456 789 0   ");
+	
+	hstr s4 = "   123 456 789 0   ";
+	CHECK(s4.rtrim() == "   123 456 789 0");
+	CHECK(s4.ltrim() == "123 456 789 0   ");
+	CHECK(s4.trim() == "123 456 789 0");
+	CHECK(s4.trim('0') == "   123 456 789 0   ");
+}
+
