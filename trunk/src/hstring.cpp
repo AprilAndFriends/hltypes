@@ -144,6 +144,23 @@ namespace hltypes
 		return s;
 	}
 
+	string string::trim() const
+	{
+		return this->ltrim().rtrim();
+	}
+
+	string string::ltrim() const
+	{
+		int index = stdstr::find_first_not_of(' ');
+		return this->operator()(index, this->size() - index);
+	}
+
+	string string::rtrim() const
+	{
+		int index = stdstr::find_last_not_of(' ');
+		return this->operator()(0, this->size() - index + 1);
+	}
+
 	string string::replace(const char* what, const char* with_what) const
 	{
 		const char *s = this->c_str(), *p;

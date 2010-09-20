@@ -74,6 +74,10 @@ namespace hltypes
 		string upper() const;
 		string reverse() const;
 
+		string trim() const;
+		string ltrim() const;
+		string rtrim() const;
+		
 		string replace(const char* what, const char* with_what) const;
 		string replace(const string& what, const char* with_what) const;
 		string replace(const char* what, const string& with_what) const;
