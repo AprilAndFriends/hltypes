@@ -81,6 +81,7 @@ namespace hltypes
 		
 		static bool exists(chstr filename);
 		static bool create(chstr filename);
+		static bool create_new(chstr filename);
 		static bool empty(chstr filename);
 		static bool rename(chstr old_filename, chstr new_filename);
 		static bool move(chstr filename, chstr path);

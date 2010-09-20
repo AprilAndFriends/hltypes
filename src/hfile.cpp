@@ -468,12 +468,28 @@ namespace hltypes
 			{
 				makedirs(path);
 			}
-			FILE* f = fopen(filename.c_str(), "w");
+			FILE* f = fopen(filename.c_str(), "wb");
 			if (f != NULL)
 			{
 				fclose(f);
 				return true;
 			}
+		}
+		return false;
+	}
+	
+	bool file::create_new(chstr filename)
+	{
+		hstr path = filename.rsplit("/", 1).pop_front();
+		if (path != "")
+		{
+			makedirs(path);
+		}
+		FILE* f = fopen(filename.c_str(), "wb");
+		if (f != NULL)
+		{
+			fclose(f);
+			return true;
 		}
 		return false;
 	}
