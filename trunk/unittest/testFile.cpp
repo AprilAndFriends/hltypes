@@ -49,6 +49,29 @@ TEST(File_writef)
 	CHECK(text == "This is a 0 formatted 3.14 file.");
 }
 
+TEST(File_read_write_raw)
+{
+	hstr filename = "raw.txt";
+	hfile f(filename, hltypes::WRITE);
+	unsigned char a[10] = {'\0'};
+	a[0] = 'R';
+	a[1] = 'a';
+	a[2] = 'w';
+	a[3] = ' ';
+	a[4] = 't';
+	a[5] = 'e';
+	a[6] = 's';
+	a[7] = 't';
+	a[8] = '.';
+	f.write_raw(a, 5);
+	f.close();
+	f.open(filename, hltypes::READ);
+	unsigned char b[6] = {'\0'};
+	f.read_raw(b, 5);
+	hstr str = hstr((char*)b);
+	CHECK(str == "Raw t");
+}
+
 TEST(File_seek_position_size)
 {
 	hstr filename = "test.txt";

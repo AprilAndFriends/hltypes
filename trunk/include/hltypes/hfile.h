@@ -53,6 +53,8 @@ namespace hltypes
 		void write_line(chstr text);
 		void write_line(const char* text);
 		void writef(const char* format, ...);
+		void read_raw(unsigned char* buffer, int count);
+		void write_raw(unsigned char* buffer, int count);
 		void seek(long offset, SeekMode seek_mode);
 		long position();
 		long size();
