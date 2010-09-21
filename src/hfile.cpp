@@ -200,6 +200,24 @@ namespace hltypes
 		this->write(c);
 	}
 
+	void file::read_raw(unsigned char* buffer, int count)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		fread(buffer, 1, count, this->cfile);
+	}
+	
+	void file::write_raw(unsigned char* buffer, int count)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		fwrite(buffer, 1, count, this->cfile);
+	}
+		
 	void file::seek(long offset, SeekMode seek_mode)
 	{
 		if (!this->is_open())
