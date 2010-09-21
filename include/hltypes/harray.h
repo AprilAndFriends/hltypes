@@ -20,8 +20,8 @@
 	#undef max
 #endif
 
-#define foreach(type, name, container) for (std::vector<type>::iterator name = container.begin(); name != container.end(); name++)
-#define foreach_r(type, name, container) for (std::vector<type>::reverse_iterator name = container.rbegin(); name != container.rend(); name++)
+#define foreach(type, name, container) for (std::vector<type>::iterator name = (container).begin(); name != (container).end(); name++)
+#define foreach_r(type, name, container) for (std::vector<type>::reverse_iterator name = (container).rbegin(); name != (container).rend(); name++)
 
 #define stdvector std::vector<T>
 
