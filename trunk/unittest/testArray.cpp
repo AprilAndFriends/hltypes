@@ -131,6 +131,10 @@ TEST(Array_removing_01)
 	a += 4;
 	a += 5;
 	a += 6;
+	a += 7;
+	a += 8;
+	a += 9;
+	a += 10;
 	int b = a.remove_at(2);
 	CHECK(b == 2);
 	b = a.pop(1);
@@ -138,10 +142,21 @@ TEST(Array_removing_01)
 	b = a.pop_front();
 	CHECK(b == 0);
 	b = a.pop_back();
-	CHECK(b == 6);
-	CHECK(a.size() == 3);
+	CHECK(b == 10);
+	CHECK(a.size() == 7);
 	a -= 4;
-	CHECK(a.size() == 2);
+	CHECK(a.size() == 6);
+	harray<int> c = a.pop_front(2);
+	CHECK(a.size() == 4);
+	CHECK(c.size() == 2);
+	CHECK(c[0] == 3);
+	CHECK(c[1] == 5);
+	c = a.pop_back(3);
+	CHECK(a.size() == 1);
+	CHECK(c.size() == 3);
+	CHECK(c[0] == 7);
+	CHECK(c[1] == 8);
+	CHECK(c[2] == 9);
 }
 
 TEST(Array_removing_02)
