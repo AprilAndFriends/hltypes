@@ -308,6 +308,22 @@ namespace hltypes
 			return this->remove_at(index);
 		}
 		
+		Array<T> pop_front(int count)
+		{
+			Array<T> result;
+			result.assign(stdvector::begin(), stdvector::begin() + count);
+			stdvector::erase(stdvector::begin(), stdvector::begin() + count);
+			return result;
+		}
+		
+		Array<T> pop_back(int count)
+		{
+			Array<T> result;
+			result.assign(stdvector::end() - count, stdvector::end());
+			stdvector::erase(stdvector::end() - count, stdvector::end());
+			return result;
+		}
+		
 /******* HL METHODS ****************************************************/
 
 		void unite(const Array<T>& other)
