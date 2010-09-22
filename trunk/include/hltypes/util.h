@@ -35,12 +35,12 @@ void hltypesFnExport makedirs(chstr path);
 /******* TEMPLATE FUNCTIONS ********************************************/
 template <class T> T hmin(T a, T b)
 {
-	return (a < b) ? a : b;
+	return (a < b ? a : b);
 }
 
 template <class T> T hmax(T a, T b)
 {
-	return (a > b) ? a : b;
+	return (a > b ? a : b);
 }
 
 template <class T> T hclamp(T value, T min, T max)
