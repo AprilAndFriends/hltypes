@@ -320,33 +320,6 @@ namespace hltypes
 		fwrite(bytes, 1, 4, this->cfile);
 	}
 
-	void file::dump(long l)
-	{
-		if (!this->is_open())
-		{
-			throw file_not_open(this->filename.c_str());
-		}
-		this->dump((unsigned long)l);
-	}
-
-	void file::dump(unsigned long l)
-	{
-		if (!this->is_open())
-		{
-			throw file_not_open(this->filename.c_str());
-		}
-		unsigned char bytes[8] = {0};
-		bytes[0] = (l >> 56) % 256;
-		bytes[1] = (l >> 48) % 256;
-		bytes[2] = (l >> 40) % 256;
-		bytes[3] = (l >> 32) % 256;
-		bytes[4] = (l >> 24) % 256;
-		bytes[5] = (l >> 16) % 256;
-		bytes[6] = (l >> 8) % 256;
-		bytes[7] = l % 256;
-		fwrite(bytes, 1, 8, this->cfile);
-	}
-
 	void file::dump(float f)
 	{
 		if (!this->is_open())
@@ -364,9 +337,12 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		unsigned long l;
-		memcpy(&l, &d, sizeof(d));
-		this->dump(l);
+		int halfSize = sizeof(d) / 2;
+		unsigned int i;
+		memcpy(&i, &d, halfSize);
+		this->dump(i);
+		memcpy(&i, (unsigned char*)&d + halfSize, halfSize);
+		this->dump(i);
 	}
 
 	void file::dump(bool b)
@@ -449,35 +425,6 @@ namespace hltypes
 		return i;
 	}
 
-	long file::load_long()
-	{
-		if (!this->is_open())
-		{
-			throw file_not_open(this->filename.c_str());
-		}
-		return (long)this->load_uint();
-	}
-
-	unsigned long file::load_ulong()
-	{
-		if (!this->is_open())
-		{
-			throw file_not_open(this->filename.c_str());
-		}
-		unsigned char bytes[8] = {0};
-		fread(bytes, 1, 8, this->cfile);
-		unsigned long l = 0;
-		l += bytes[0] << 56;
-		l += bytes[1] << 48;
-		l += bytes[2] << 40;
-		l += bytes[3] << 32;
-		l += bytes[4] << 24;
-		l += bytes[5] << 16;
-		l += bytes[6] << 8;
-		l += bytes[7];
-		return l;
-	}
-
 	float file::load_float()
 	{
 		if (!this->is_open())
@@ -496,9 +443,12 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		unsigned long l = this->load_ulong();
 		double d;
-		memcpy(&d, &l, sizeof(d));
+		int halfSize = sizeof(d) / 2;
+		unsigned int i = this->load_uint();
+		memcpy(&d, &i, halfSize);
+		i = this->load_uint();
+		memcpy((unsigned char*)&d + halfSize, &i, halfSize);
 		return d;
 	}
 
