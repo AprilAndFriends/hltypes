@@ -67,7 +67,10 @@ namespace hltypes
 		void dump(unsigned char c);
 		void dump(int i);
 		void dump(unsigned int i);
+		void dump(long l);
+		void dump(unsigned long l);
 		void dump(float f);
+		void dump(double d);
 		void dump(bool b);
 		void dump(chstr str);
 		void dump(const char* c);
@@ -75,7 +78,10 @@ namespace hltypes
 		unsigned char load_uchar();
 		int load_int();
 		unsigned int load_uint();
+		long load_long();
+		unsigned long load_ulong();
 		float load_float();
+		double load_double();
 		bool load_bool();
 		hstr load_hstr();
 		
