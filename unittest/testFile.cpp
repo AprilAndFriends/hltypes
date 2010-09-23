@@ -183,6 +183,7 @@ TEST(File_static_copy)
 	f.dump(1234);
 	f.dump(hstr("testing"));
 	f.dump(3.14f);
+	f.dump(1.23456789999999);
 	f.dump(false);
 	f.close();
 	hfile::remove(new_filename);
@@ -192,11 +193,13 @@ TEST(File_static_copy)
 	int i = f.load_int();
 	hstr str = f.load_hstr();
 	float e = f.load_float();
+	double d = f.load_double();
 	bool b = f.load_bool();
 	f.close();
 	CHECK(i == 1234);
 	CHECK(str == "testing");
-	CHECK(hsprintf("%4.2f", e) == "3.14");
+	CHECK(e == 3.14f);
+	CHECK(d == 1.23456789999999);
 	CHECK(!b);
 }
 
