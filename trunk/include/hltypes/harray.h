@@ -151,9 +151,9 @@ namespace hltypes
 			return true;
 		}
 		
-		void insert_at(const int index, const T& element)
+		void insert_at(const int index, const T& element, int times = 1)
 		{
-			stdvector::insert(stdvector::begin() + index, element);
+			stdvector::insert(stdvector::begin() + index, times, element);
 		}
 		
 		void insert_at(const int index, const Array<T>& other, const int start, const int count)
@@ -233,9 +233,9 @@ namespace hltypes
 			}
 		}
 		
-		void push_back(const T& element)
+		void push_back(const T& element, int times = 1)
 		{
-			this->insert_at(this->size(), element);
+			this->insert_at(this->size(), element, times);
 		}
 		
 		void push_back(const Array<T>& other)
@@ -263,9 +263,9 @@ namespace hltypes
 			this->insert_at(this->size(), other, start, count);
 		}
 		
-		void push_front(const T& element)
+		void push_front(const T& element, int times = 1)
 		{
-			this->insert_at(0, element);
+			this->insert_at(0, element, times);
 		}
 		
 		void push_front(const Array<T>& other)
