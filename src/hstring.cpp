@@ -146,20 +146,26 @@ namespace hltypes
 
 	string string::trim(char c) const
 	{
-		int first = stdstr::find_first_not_of(c);
-		int last = stdstr::find_last_not_of(c);
-		return stdstr::substr(first, last + 1 - first);
+		return this->ltrim(c).rtrim(c);
 	}
 
 	string string::ltrim(char c) const
 	{
 		int index = stdstr::find_first_not_of(c);
+		if (index < 0)
+		{
+			return *this;
+		}
 		return stdstr::substr(index, this->size() - index);
 	}
 
 	string string::rtrim(char c) const
 	{
 		int index = stdstr::find_last_not_of(c);
+		if (index < 0)
+		{
+			return *this;
+		}
 		return stdstr::substr(0, index + 1);
 	}
 
