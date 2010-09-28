@@ -143,9 +143,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DC2EF4F0486A6940098B216 /* hltypes */ = {
+		8DC2EF4F0486A6940098B216 /* libhltypes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "hltypes" */;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "libhltypes" */;
 			buildPhases = (
 				8DC2EF500486A6940098B216 /* Headers */,
 				8DC2EF520486A6940098B216 /* Resources */,
@@ -156,7 +156,7 @@
 			);
 			dependencies = (
 			);
-			name = hltypes;
+			name = libhltypes;
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = libhltypes;
 			productReference = 8DC2EF5B0486A6940098B216 /* hltypes.framework */;
@@ -182,7 +182,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* hltypes */,
+				8DC2EF4F0486A6940098B216 /* libhltypes */,
 			);
 		};
 /* End PBXProject section */
@@ -217,6 +217,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -283,7 +285,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "hltypes" */ = {
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "libhltypes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91AE08733DA50010E9CD /* Debug */,
