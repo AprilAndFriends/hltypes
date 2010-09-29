@@ -354,19 +354,33 @@ TEST(Array_difference)
 	a += 0;
 	a += 1;
 	a += 2;
+	a += 2;
 	a += 3;
+	a += 3;
+	a += 4;
 	harray<int> b;
+	b += 2;
 	b += 2;
 	b += 3;
 	b += 4;
+	b += 4;
 	b += 5;
 	harray<int> c = a.differentiated(b);
-	CHECK(c.size() == 2);
+	CHECK(c.size() == 3);
 	CHECK(c[0] == 0);
 	CHECK(c[1] == 1);
+	CHECK(c[2] == 3);
 	CHECK(c == (a / b));
 	a.differentiate(b);
 	CHECK(a == c);
+	harray<hstr> a1;
+	a1 += "a";
+	a1 += "a";
+	harray<hstr> a2;
+	a2 += "a";
+	a2 += "a";
+	CHECK(a1 == a2);
+	CHECK((a1 / a2).size() == 0);
 }
 
 TEST(Array_join)
