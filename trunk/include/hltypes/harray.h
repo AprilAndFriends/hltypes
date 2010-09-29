@@ -401,7 +401,7 @@ namespace hltypes
 					result.push_back(stdvector::at(i));
 				}
 			}
-			this->assign(result.begin(), result.end());
+			stdvector::assign(result.begin(), result.end());
 		}
 		
 		Array<T> removed_duplicates()
