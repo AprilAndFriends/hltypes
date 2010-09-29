@@ -361,15 +361,15 @@ namespace hltypes
 		
 		void differentiate(const Array<T>& other)
 		{
-			Array<T> result;
+			int index;
 			for (int i = 0; i < other.size(); i++)
 			{
-				if (this->contains(other.at(i)))
+				index = this->index_of(other.at(i));
+				if (index >= 0)
 				{
-					result.push_back(other.at(i));
+					stdvector::erase(stdvector::begin() + index);
 				}
 			}
-			this->remove(result);
 		}
 		
 		Array<T> differentiated(const Array<T>& other) const
