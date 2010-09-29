@@ -122,26 +122,6 @@ TEST(File_serialization)
 	CHECK(!b);
 }
 
-TEST(File_read_cfg)
-{
-	hstr filename = "test.cfg";
-	hfile f(filename, hltypes::WRITE);
-	f.write_line("A: 1");
-	f.write_line("[test]");
-	f.write_line("B: gvec2");
-	f.write_line("[test2]");
-	f.write_line("C: lol");
-	f.write_line("[]");
-	f.write_line("D: ._.;");
-	f.close();
-	hmap<hstr, hstr> entries = hfile::read_cfg(filename);
-	CHECK(entries["A"] == "1");
-	CHECK(entries["test.B"] == "gvec2");
-	CHECK(entries["test2.C"] == "lol");
-	CHECK(entries["D"] == "._.;");
-	CHECK(entries.size() == 4);
-}
-
 TEST(File_static_create_remove)
 {
 	hstr filename = "test2.txt";

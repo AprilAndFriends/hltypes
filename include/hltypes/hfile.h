@@ -17,6 +17,10 @@
 #include "hmap.h"
 #include "hstring.h"
 
+#ifdef __APPLE__
+#define _BIG_ENDIAN
+#endif
+
 namespace hltypes
 {
 	enum AccessMode
@@ -67,8 +71,8 @@ namespace hltypes
 		void dump(unsigned char c);
 		void dump(int i);
 		void dump(unsigned int i);
-		void dump(long l);
-		void dump(unsigned long l);
+		void dump(short s);
+		void dump(unsigned short s);
 		void dump(float f);
 		void dump(double d);
 		void dump(bool b);
@@ -78,8 +82,8 @@ namespace hltypes
 		unsigned char load_uchar();
 		int load_int();
 		unsigned int load_uint();
-		long load_long();
-		unsigned long load_ulong();
+		short load_short();
+		unsigned short load_ushort();
 		float load_float();
 		double load_double();
 		bool load_bool();
@@ -100,8 +104,6 @@ namespace hltypes
 		static hstr hread(chstr filename, chstr delimiter = "");
 		static void hwrite(chstr filename, chstr text);
 		static void happend(chstr filename, chstr text);
-		
-		static hmap<hstr, hstr> read_cfg(chstr filename);
 		
 	protected:
 		hstr filename;

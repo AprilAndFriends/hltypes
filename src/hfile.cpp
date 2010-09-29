@@ -312,12 +312,41 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
+#ifndef _BIG_ENDIAN
+		fwrite(&i, 1, 4, this->cfile);
+#else
 		unsigned char bytes[4] = {0};
 		bytes[0] = (i >> 24) % 256;
 		bytes[1] = (i >> 16) % 256;
 		bytes[2] = (i >> 8) % 256;
 		bytes[3] = i % 256;
 		fwrite(bytes, 1, 4, this->cfile);
+#endif
+	}
+
+	void file::dump(short s)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		this->dump((unsigned short)s);
+	}
+
+	void file::dump(unsigned short s)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+#ifndef _BIG_ENDIAN
+		fwrite(&s, 1, 2, this->cfile);
+#else
+		unsigned char bytes[2] = {0};
+		bytes[0] = (i >> 8) % 256;
+		bytes[1] = i % 256;
+		fwrite(bytes, 1, 2, this->cfile);
+#endif
 	}
 
 	void file::dump(float f)
@@ -326,9 +355,13 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
+#ifndef _BIG_ENDIAN
+		fwrite((unsigned char*)&f, 1, 4, this->cfile);
+#else
 		unsigned int i;
 		memcpy(&i, &f, sizeof(f));
 		this->dump(i);
+#endif
 	}
 
 	void file::dump(double d)
@@ -337,12 +370,16 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
+#ifndef _BIG_ENDIAN
+		fwrite((unsigned char*)&d, 1, 8, this->cfile);
+#else
 		int halfSize = sizeof(d) / 2;
 		unsigned int i;
 		memcpy(&i, &d, halfSize);
 		this->dump(i);
 		memcpy(&i, (unsigned char*)&d + halfSize, halfSize);
 		this->dump(i);
+#endif
 	}
 
 	void file::dump(bool b)
@@ -415,14 +452,45 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
+		unsigned int i = 0;
+#ifndef _BIG_ENDIAN
+		fread((unsigned char*)&i, 1, 4, this->cfile);
+#else
 		unsigned char bytes[4] = {0};
 		fread(bytes, 1, 4, this->cfile);
-		unsigned int i = 0;
 		i += bytes[0] << 24;
 		i += bytes[1] << 16;
 		i += bytes[2] << 8;
 		i += bytes[3];
+#endif
 		return i;
+	}
+
+	short file::load_short()
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		return (int)this->load_ushort();
+	}
+
+	unsigned short file::load_ushort()
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		unsigned short s = 0;
+#ifndef _BIG_ENDIAN
+		fread((unsigned char*)&s, 1, 2, this->cfile);
+#else
+		unsigned char bytes[4] = {0};
+		fread(bytes, 1, 2, this->cfile);
+		s += bytes[0] << 8;
+		s += bytes[1];
+#endif
+		return s;
 	}
 
 	float file::load_float()
@@ -431,9 +499,13 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		unsigned int i = this->load_uint();
 		float f;
+#ifndef _BIG_ENDIAN
+		fread((unsigned char*)&f, 1, 4, this->cfile);
+#else
+		unsigned int i = this->load_uint();
 		memcpy(&f, &i, sizeof(f));
+#endif
 		return f;
 	}
 
@@ -444,11 +516,15 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		double d;
+#ifndef _BIG_ENDIAN
+		fread((unsigned char*)&d, 1, 8, this->cfile);
+#else
 		int halfSize = sizeof(d) / 2;
 		unsigned int i = this->load_uint();
-		memcpy(&d, &i, halfSize);
+		memcpy((unsigned char*)&d, &i, halfSize);
 		i = this->load_uint();
 		memcpy((unsigned char*)&d + halfSize, &i, halfSize);
+#endif
 		return d;
 	}
 
@@ -621,30 +697,5 @@ namespace hltypes
 	{
 		return hfile(filename).size();
 	}
-	
-	hmap<hstr, hstr> file::read_cfg(chstr filename)
-	{
-		hmap<hstr, hstr> result;
-		harray<hstr> lines = file::hread(filename).split("\n");
-		hstr prefix;
-		hstr key;
-		hstr value;
-		foreach (hstr, it, lines)
-		{
-			if ((*it).starts_with("[") && (*it).ends_with("]"))
-			{
-				prefix = ((*it).size() == 2 ? "" : ((*it).replace("[", "").replace("]", "") + "."));
-				continue;
-			}
-			if ((*it).starts_with("#") || !(*it).contains(": "))
-			{
-				continue;
-			}
-			(*it).split(": ", key, value);
-			result[prefix + key] = value;
-		}
-		return result;
-	}
-	
 	
 };
