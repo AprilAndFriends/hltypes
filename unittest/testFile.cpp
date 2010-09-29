@@ -106,19 +106,25 @@ TEST(File_serialization)
 	hstr filename = "test.txt";
 	hfile f(filename, hltypes::WRITE);
 	f.dump(1234);
+	f.dump((short)4321);
 	f.dump(hstr("testing"));
 	f.dump(3.14f);
+	f.dump(1.23456789999999);
 	f.dump(false);
 	f.close();
 	f.open(filename);
 	int i = f.load_int();
+	short s = f.load_short();
 	hstr str = f.load_hstr();
 	float e = f.load_float();
+	double d = f.load_double();
 	bool b = f.load_bool();
 	f.close();
 	CHECK(i == 1234);
+	CHECK(s == 4321);
 	CHECK(str == "testing");
-	CHECK(hsprintf("%4.2f", e) == "3.14");
+	CHECK(e == 3.14f);
+	CHECK(d == 1.23456789999999);
 	CHECK(!b);
 }
 
@@ -161,6 +167,7 @@ TEST(File_static_copy)
 	CHECK(text == "This is a copy test.");
 	hfile f(old_filename, hltypes::WRITE);
 	f.dump(1234);
+	f.dump((short)4321);
 	f.dump(hstr("testing"));
 	f.dump(3.14f);
 	f.dump(1.23456789999999);
@@ -171,12 +178,14 @@ TEST(File_static_copy)
 	CHECK(hfile::exists(new_filename));
 	f.open(new_filename);
 	int i = f.load_int();
+	short s = f.load_short();
 	hstr str = f.load_hstr();
 	float e = f.load_float();
 	double d = f.load_double();
 	bool b = f.load_bool();
 	f.close();
 	CHECK(i == 1234);
+	CHECK(s == 4321);
 	CHECK(str == "testing");
 	CHECK(e == 3.14f);
 	CHECK(d == 1.23456789999999);

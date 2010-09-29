@@ -337,6 +337,7 @@ namespace hltypes
 	{
 		if (!this->is_open())
 		{
+
 			throw file_not_open(this->filename.c_str());
 		}
 #ifndef _BIG_ENDIAN
