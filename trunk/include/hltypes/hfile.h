@@ -17,7 +17,7 @@
 #include "hmap.h"
 #include "hstring.h"
 
-#ifdef __APPLE__
+#ifdef __BIG_ENDIAN__
 #define _BIG_ENDIAN
 #endif
 
