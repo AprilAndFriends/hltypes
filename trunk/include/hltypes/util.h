@@ -21,6 +21,8 @@
 /******* OTHER MACROS **************************************************/
 #define dsin(degrees) sin((degrees) * 0.01745329f)
 #define dcos(degrees) cos((degrees) * 0.01745329f)
+#define dasin(value) (asin(value) * 57.295779513082323f)
+#define dacos(value) (acos(value) * 57.295779513082323f)
 #define HL_E_TOLERANCE (0.01f)
 
 /******* PROTOTYPES ****************************************************/
