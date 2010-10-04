@@ -17,10 +17,6 @@
 #include "hmap.h"
 #include "hstring.h"
 
-#ifdef __BIG_ENDIAN__
-#define _BIG_ENDIAN
-#endif
-
 namespace hltypes
 {
 	enum AccessMode

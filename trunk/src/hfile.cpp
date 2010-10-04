@@ -312,7 +312,7 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-#ifndef _BIG_ENDIAN
+#ifndef __BIG_ENDIAN__
 		fwrite(&i, 1, 4, this->cfile);
 #else
 		unsigned char bytes[4] = {0};
@@ -340,7 +340,7 @@ namespace hltypes
 
 			throw file_not_open(this->filename.c_str());
 		}
-#ifndef _BIG_ENDIAN
+#ifndef __BIG_ENDIAN__
 		fwrite(&s, 1, 2, this->cfile);
 #else
 		unsigned char bytes[2] = {0};
@@ -356,7 +356,7 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-#ifndef _BIG_ENDIAN
+#ifndef __BIG_ENDIAN__
 		fwrite((unsigned char*)&f, 1, 4, this->cfile);
 #else
 		unsigned int i;
@@ -371,7 +371,7 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-#ifndef _BIG_ENDIAN
+#ifndef __BIG_ENDIAN__
 		fwrite((unsigned char*)&d, 1, 8, this->cfile);
 #else
 		int halfSize = sizeof(d) / 2;
@@ -454,7 +454,7 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		unsigned int i = 0;
-#ifndef _BIG_ENDIAN
+#ifndef __BIG_ENDIAN__
 		fread((unsigned char*)&i, 1, 4, this->cfile);
 #else
 		unsigned char bytes[4] = {0};
@@ -483,7 +483,7 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		unsigned short s = 0;
-#ifndef _BIG_ENDIAN
+#ifndef __BIG_ENDIAN__
 		fread((unsigned char*)&s, 1, 2, this->cfile);
 #else
 		unsigned char bytes[4] = {0};
@@ -501,7 +501,7 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		float f;
-#ifndef _BIG_ENDIAN
+#ifndef __BIG_ENDIAN__
 		fread((unsigned char*)&f, 1, 4, this->cfile);
 #else
 		unsigned int i = this->load_uint();
@@ -517,7 +517,7 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		double d;
-#ifndef _BIG_ENDIAN
+#ifndef __BIG_ENDIAN__
 		fread((unsigned char*)&d, 1, 8, this->cfile);
 #else
 		int halfSize = sizeof(d) / 2;
