@@ -18,6 +18,8 @@
 		7F42F6A611EB0BAA00B1C1DF /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F42F6A111EB0BAA00B1C1DF /* util.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F469C7412088BEE009781BB /* exception.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F469C7212088BEE009781BB /* exception.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F469C7812088C00009781BB /* exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F469C7612088C00009781BB /* exception.cpp */; };
+		7F79A510125CB34400B22DA2 /* hdir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F79A50F125CB34400B22DA2 /* hdir.cpp */; };
+		7F79A512125CB34F00B22DA2 /* hdir.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F79A511125CB34F00B22DA2 /* hdir.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		7F42F71411EB111E00B1C1DF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F469C7212088BEE009781BB /* exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = exception.h; path = include/hltypes/exception.h; sourceTree = "<group>"; };
 		7F469C7612088C00009781BB /* exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = exception.cpp; path = src/exception.cpp; sourceTree = "<group>"; };
+		7F79A50F125CB34400B22DA2 /* hdir.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hdir.cpp; path = src/hdir.cpp; sourceTree = "<group>"; };
+		7F79A511125CB34F00B22DA2 /* hdir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdir.h; path = include/hltypes/hdir.h; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* hltypes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hltypes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -101,6 +105,7 @@
 		7F42F69511EB0B8500B1C1DF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7F79A50F125CB34400B22DA2 /* hdir.cpp */,
 				7F469C7612088C00009781BB /* exception.cpp */,
 				7F42F69611EB0B9400B1C1DF /* hfile.cpp */,
 				7F42F69711EB0B9500B1C1DF /* hstring.cpp */,
@@ -112,6 +117,7 @@
 		7F42F69C11EB0B9A00B1C1DF /* Includes */ = {
 			isa = PBXGroup;
 			children = (
+				7F79A511125CB34F00B22DA2 /* hdir.h */,
 				7F340ECF120AE72900F01926 /* hmap.h */,
 				7F469C7212088BEE009781BB /* exception.h */,
 				7F42F69D11EB0BAA00B1C1DF /* harray.h */,
@@ -137,6 +143,7 @@
 				7F42F6A611EB0BAA00B1C1DF /* util.h in Headers */,
 				7F469C7412088BEE009781BB /* exception.h in Headers */,
 				7F340ED0120AE72900F01926 /* hmap.h in Headers */,
+				7F79A512125CB34F00B22DA2 /* hdir.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +213,7 @@
 				7F42F69A11EB0B9500B1C1DF /* hstring.cpp in Sources */,
 				7F42F69B11EB0B9500B1C1DF /* util.cpp in Sources */,
 				7F469C7812088C00009781BB /* exception.cpp in Sources */,
+				7F79A510125CB34400B22DA2 /* hdir.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
