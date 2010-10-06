@@ -5,8 +5,8 @@
 #define _mkdir(name) mkdir(name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
 #endif
 
-#include "hdir.h"
 #include "harray.h"
+#include "hdir.h"
 
 namespace hltypes
 {
