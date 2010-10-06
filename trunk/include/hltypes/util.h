@@ -15,14 +15,17 @@
 #include "hltypesExport.h"
 #include "hstring.h"
 
+#define HL_RAD_TO_DEG_RATIO 57.295779513082320876798154814105
+#define HL_DEG_TO_RAD_RATIO 0.01745329251994329576923690768489
+
 /******* ITERATOR MACROS ***********************************************/
 #define foreach_in_list(type, name, lst) for (std::list<type>::iterator name = lst.begin(); name != lst.end(); name++)
 
 /******* OTHER MACROS **************************************************/
-#define dsin(degrees) sin((degrees) * 0.01745329f)
-#define dcos(degrees) cos((degrees) * 0.01745329f)
-#define dasin(value) (asin(value) * 57.295779513082323f)
-#define dacos(value) (acos(value) * 57.295779513082323f)
+#define dsin(degrees) sin((degrees) * HL_DEG_TO_RAD_RATIO)
+#define dcos(degrees) cos((degrees) * HL_DEG_TO_RAD_RATIO)
+#define dasin(value) (asin(value) * HL_RAD_TO_DEG_RATIO)
+#define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
 #define HL_E_TOLERANCE (0.01f)
 
 /******* PROTOTYPES ****************************************************/
