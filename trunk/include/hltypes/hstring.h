@@ -131,6 +131,7 @@ namespace hltypes
 		string operator()(int start, int count, int step) const;
 		string operator()(int index) const;
 		char& operator[](int index);
+		const char& operator[](int index) const;
 
 	};
 }
