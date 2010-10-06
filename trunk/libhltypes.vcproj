@@ -169,6 +169,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\hdir.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\hfile.cpp"
 				>
 			</File>
@@ -192,6 +196,10 @@
 			</File>
 			<File
 				RelativePath=".\include\hltypes\harray.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\hltypes\hdir.h"
 				>
 			</File>
 			<File

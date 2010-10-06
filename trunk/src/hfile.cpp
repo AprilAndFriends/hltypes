@@ -8,6 +8,7 @@ int (*c_remove)(const char* filename) = remove;
 
 #include "exception.h"
 #include "harray.h"
+#include "hdir.h"
 #include "hfile.h"
 #include "hmap.h"
 #include "hstring.h"
@@ -590,7 +591,7 @@ namespace hltypes
 			hstr path = filename.rsplit("/", 1).pop_front();
 			if (path != "")
 			{
-				makedirs(path);
+				hdir::makedirs(path);
 			}
 			FILE* f = fopen(filename.c_str(), "wb");
 			if (f != NULL)
@@ -607,7 +608,7 @@ namespace hltypes
 		hstr path = filename.rsplit("/", 1).pop_front();
 		if (path != "")
 		{
-			makedirs(path);
+			hdir::makedirs(path);
 		}
 		FILE* f = fopen(filename.c_str(), "wb");
 		if (f != NULL)
@@ -699,4 +700,4 @@ namespace hltypes
 		return hfile(filename).size();
 	}
 	
-};
+}

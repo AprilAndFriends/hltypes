@@ -7,8 +7,8 @@
 * This program is free software; you can redistribute it and/or modify it under      *
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
-#ifndef _HLTYPES_HFILE
-#define _HLTYPES_HFILE
+#ifndef HLTYPES_HFILE_H
+#define HLTYPES_HFILE_H
 
 #include <stdio.h>
 

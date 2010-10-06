@@ -33,7 +33,6 @@ int hltypesFnExport hrand(int min, int max);
 int hltypesFnExport hrand(int max);
 float hltypesFnExport hrandf(float min, float max);
 float hltypesFnExport hrandf(float max);
-void hltypesFnExport makedirs(chstr path);
 //2DO - implement
 //void hltypesFnExport removedirs(chstr path);
 
