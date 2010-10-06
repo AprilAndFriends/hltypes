@@ -362,6 +362,11 @@ namespace hltypes
 	{
 		return stdstr::at(index);
 	}
+	
+	const char& string::operator[](int index) const
+	{
+		return stdstr::at(index);
+	}
 /******* CAST OPERATORS ************************************************/
 	string::operator float() const
 	{
