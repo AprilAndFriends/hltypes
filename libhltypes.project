@@ -12,6 +12,7 @@
     <File Name="src/util.cpp"/>
     <File Name="src/hfile.cpp"/>
     <File Name="src/exception.cpp"/>
+    <File Name="src/hdir.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/hltypes/hltypesExport.h"/>
@@ -21,6 +22,7 @@
     <File Name="include/hltypes/harray.h"/>
     <File Name="include/hltypes/exception.h"/>
     <File Name="include/hltypes/hmap.h"/>
+    <File Name="include/hltypes/hdir.h"/>
   </VirtualDirectory>
   <Dependencies Name="Release"/>
   <Dependencies Name="Linux_Debug"/>
