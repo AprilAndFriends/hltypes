@@ -200,15 +200,12 @@ namespace hltypes
 			}
 		}
 		
-		T remove_key(const K& key)
+		void remove_key(const K& key)
 		{
-			if (!this->has_key(key))
+			if (this->has_key(key))
 			{
-				return NULL;
+				stdmap::erase(key);
 			}
-			T result = this->operator[](key);
-			stdmap::erase(key);
-			return result;
 		}
 		
 		void remove_keys(const harray<K>& keys)
@@ -222,15 +219,13 @@ namespace hltypes
 			}
 		}
 		
-		K remove_value(const T& value)
+		void remove_value(const T& value)
 		{
-			if (!this->has_value(value))
+			if (this->has_value(value))
 			{
-				return NULL;
+				K result = this->key_of(value);
+				stdmap::erase(result);
 			}
-			K result = this->key_of(value);
-			stdmap::erase(result);
-			return result;
 		}
 		
 		void remove_values(const harray<T>& values)
