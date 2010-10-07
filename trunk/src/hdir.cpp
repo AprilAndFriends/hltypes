@@ -144,8 +144,14 @@ namespace hltypes
 		harray<hstr> parts = path.rsplit("/", 1);
 		return (parts.size() > 1 && hdir::create(parts[0]));
 	}
+    
+    void prepend_directory(harray<hstr>& entries,chstr dirname)
+    {
+        hstr name=!dirname.ends_with("/") && !dirname.ends_with("\\") ? dirname+"/" : dirname;
+        foreach(hstr,it,entries) *it=name+*it;
+    }
 	
-	harray<hstr> dir::entries(chstr dirname)
+	harray<hstr> dir::entries(chstr dirname,bool prepend_dir)
 	{
 		harray<hstr> result;
 		if (hdir::exists(dirname))
@@ -158,20 +164,25 @@ namespace hltypes
 			}
 			closedir(dir);
 		}
+        
+        if (prepend_dir) prepend_directory(result,dirname);
+        
 		return result;
 	}
 	
-	harray<hstr> dir::contents(chstr dirname)
+	harray<hstr> dir::contents(chstr dirname,bool prepend_dir)
 	{
-		harray<hstr> result = dir::entries(dirname);
-		result.remove(".");
-		result.remove("..");
+		harray<hstr> result = dir::entries(dirname, false);
+		if (result.contains(".")) result.remove(".");
+		if (result.contains("..")) result.remove("..");
+        if (prepend_dir) prepend_directory(result,dirname);
+
 		return result;
 	}
 	
-	harray<hstr> dir::directories(chstr dirname)
+	harray<hstr> dir::directories(chstr dirname,bool prepend_dir)
 	{
-		harray<hstr> contents = dir::contents(dirname);
+		harray<hstr> contents = dir::contents(dirname, false);
 		harray<hstr> result;
 		foreach (hstr, it, contents)
 		{
@@ -180,12 +191,14 @@ namespace hltypes
 				result += (*it);
 			}
 		}
+        if (prepend_dir) prepend_directory(result,dirname);
+
 		return result;
 	}
 	
-	harray<hstr> dir::files(chstr dirname)
+	harray<hstr> dir::files(chstr dirname,bool prepend_dir)
 	{
-		harray<hstr> contents = dir::contents(dirname);
+		harray<hstr> contents = dir::contents(dirname, false);
 		harray<hstr> result;
 		foreach (hstr, it, contents)
 		{
@@ -194,6 +207,8 @@ namespace hltypes
 				result += (*it);
 			}
 		}
+        if (prepend_dir) prepend_directory(result,dirname);
+
 		return result;
 	}
 	
