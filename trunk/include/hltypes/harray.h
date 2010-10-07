@@ -233,34 +233,57 @@ namespace hltypes
 			}
 		}
 		
-		void push_back(const T& element, int times = 1)
+		void push_back(const T& element, int times)
 		{
-			this->insert_at(this->size(), element, times);
+			for (int i = 0; i < times; i++)
+			{
+				stdvector::push_back(element);
+			}
+		}
+		
+		void push_back(const T& element)
+		{
+			stdvector::push_back(element);
 		}
 		
 		void push_back(const Array<T>& other)
 		{
-			this->insert_at(this->size(), other, 0, other.size());
+			for (int i = 0; i < other.size(); i++)
+			{
+				stdvector::push_back(other.at(i));
+			}
 		}
 		
 		void push_back(const Array<T>& other, const int count)
 		{
-			this->insert_at(this->size(), other, 0, count);
+			for (int i = 0; i < count; i++)
+			{
+				stdvector::push_back(other.at(i));
+			}
 		}
 		
 		void push_back(const Array<T>& other, const int start, const int count)
 		{
-			this->insert_at(this->size(), other, start, count);
+			for (int i = 0; i < count; i++)
+			{
+				stdvector::push_back(other.at(start + i));
+			}
 		}
 		
 		void push_back(const T other[], const int count)
 		{
-			this->insert_at(this->size(), other, 0, count);
+			for (int i = 0; i < count; i++)
+			{
+				stdvector::push_back(other[i]);
+			}
 		}
 		
 		void push_back(const T other[], const int start, const int count)
 		{
-			this->insert_at(this->size(), other, start, count);
+			for (int i = 0; i < count; i++)
+			{
+				stdvector::push_back(other[start + i]);
+			}
 		}
 		
 		void push_front(const T& element, int times = 1)
@@ -300,7 +323,9 @@ namespace hltypes
 		
 		T pop_back()
 		{
-			return this->remove_at(this->size() - 1);
+			T element = stdvector::back();
+			stdvector::pop_back();
+			return element;
 		}
 		
 		T pop(int index)
@@ -562,101 +587,54 @@ namespace hltypes
 		
 /******* HL METHOD ALIASES *********************************************/
 
-		bool includes(const T& element)
-		{
-			return this->contains(element);
-		}
+		bool includes(const T& element)				{ return this->contains(element); }
+		bool includes(const Array<T>& other)		{ return this->contains(other); }
+		bool includes(const T other[], int count)	{ return this->contains(other, count); }
 		
-		bool includes(const Array<T>& other)
-		{
-			return this->contains(other);
-		}
+		bool has(const T& element)				{ return this->contains(element); }
+		bool has(const Array<T>& other)			{ return this->contains(other); }
+		bool has(const T other[], int count)	{ return this->contains(other, count); }
 		
-		bool includes(const T other[], int count)
-		{
-			return this->contains(other, count);
-		}
+		bool has_element(const T& element)				{ return this->contains(element); }
+		bool has_element(const Array<T>& other)			{ return this->contains(other); }
+		bool has_element(const T other[], int count)	{ return this->contains(other, count); }
 		
-		bool has(const T& element)
-		{
-			return this->contains(element);
-		}
+		void add(const T& element)											{ this->push_back(element); }
+		void add(const T& element, int times)								{ this->push_back(element, times); }
+		void add(const Array<T>& other)										{ this->push_back(other); }
+		void add(const Array<T>& other, const int count)					{ this->push_back(other, count); }
+		void add(const Array<T>& other, const int start, const int count)	{ this->push_back(other, start, count); }
+		void add(const T other[], const int count)							{ this->push_back(other, count); }
+		void add(const T other[], const int start, const int count)			{ this->push_back(other, start, count); }
 		
-		bool has(const Array<T>& other)
-		{
-			return this->contains(other);
-		}
-		
-		bool has(const T other[], int count)
-		{
-			return this->contains(other, count);
-		}
-		
-		bool has_element(const T& element)
-		{
-			return this->contains(element);
-		}
-		
-		bool has_element(const Array<T>& other)
-		{
-			return this->contains(other);
-		}
-		
-		bool has_element(const T other[], int count)
-		{
-			return this->contains(other, count);
-		}
-		
-		void append(const T& element)
-		{
-			this->insert_at(this->size(), element);
-		}
-		
-		void append(const Array<T>& other)
-		{
-			this->insert_at(this->size(), other, 0, other.size());
-		}
-		
-		void append(const Array<T>& other, const int count)
-		{
-			this->insert_at(this->size(), other, 0, count);
-		}
-		
-		void append(const Array<T>& other, const int start, const int count)
-		{
-			this->insert_at(this->size(), other, start, count);
-		}
-		
-		void append(const T other[], const int count)
-		{
-			this->insert_at(this->size(), other, 0, count);
-		}
-		
-		void append(const T other[], const int start, const int count)
-		{
-			this->insert_at(this->size(), other, start, count);
-		}
+		void append(const T& element)											{ this->push_back(element); }
+		void append(const T& element, int times)								{ this->push_back(element, times); }
+		void append(const Array<T>& other)										{ this->push_back(other); }
+		void append(const Array<T>& other, const int count)						{ this->push_back(other, count); }
+		void append(const Array<T>& other, const int start, const int count)	{ this->push_back(other, start, count); }
+		void append(const T other[], const int count)							{ this->push_back(other, count); }
+		void append(const T other[], const int start, const int count)			{ this->push_back(other, start, count); }
 		
 /******* HL OPERATORS **************************************************/
 
 		void operator<<(const T& element)
 		{
-			this->insert_at(this->size(), element);
+			this->push_back(element);
 		}
 		
 		void operator<<(const Array<T>& other)
 		{
-			this->insert_at(this->size(), other, 0, other.size());
+			this->push_back(other);
 		}
 		
 		void operator+=(const T& element)
 		{
-			this->insert_at(this->size(), element);
+			this->push_back(element);
 		}
 		
 		void operator+=(const Array<T>& other)
 		{
-			this->insert_at(this->size(), other, 0, other.size());
+			this->push_back(other);
 		}
 		
 		void operator-=(T element)

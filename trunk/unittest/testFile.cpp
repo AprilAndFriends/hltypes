@@ -70,6 +70,8 @@ TEST(File_read_write_raw)
 	f.read_raw(b, 5);
 	hstr str = hstr((char*)b);
 	CHECK(str == "Raw t");
+	f.close();
+	hfile::remove(filename);
 }
 
 TEST(File_seek_position_size)
@@ -131,19 +133,27 @@ TEST(File_serialization)
 TEST(File_static_create_remove)
 {
 	hstr filename = "test2.txt";
-	hfile::remove(filename);
-	CHECK(!hfile::exists(filename));
 	hfile::create(filename);
 	CHECK(hfile::exists(filename));
 	hfile::remove(filename);
 	CHECK(!hfile::exists(filename));
 }
 
+TEST(File_static_clear)
+{
+	hstr filename = "test.txt";
+	hfile::hwrite(filename, "This is a clearing test.");
+	hstr text = hfile::hread(filename);
+	CHECK(text == "This is a clearing test.");
+	hfile::clear(filename);
+	text = hfile::hread(filename);
+	CHECK(text == "");
+}
+
 TEST(File_static_rename)
 {
 	hstr old_filename = "test.txt";
 	hstr new_filename = "test2.txt";
-	hfile::remove(old_filename);
 	hfile::create(old_filename);
 	hfile::remove(new_filename);
 	CHECK(hfile::exists(old_filename));
@@ -152,6 +162,20 @@ TEST(File_static_rename)
 	CHECK(!hfile::exists(old_filename));
 	CHECK(hfile::exists(new_filename));
 	hfile::remove(new_filename);
+}
+
+TEST(File_static_move)
+{
+	hstr filename = "test.txt";
+	hstr path = "..";
+	hfile::create(filename);
+	hfile::remove(path + "/" + filename);
+	CHECK(hfile::exists(filename));
+	CHECK(!hfile::exists(path + "/" + filename));
+	hfile::move(filename, path);
+	CHECK(!hfile::exists(filename));
+	CHECK(hfile::exists(path + "/" + filename));
+	hfile::remove(path + "/" + filename);
 }
 
 TEST(File_static_copy)
@@ -184,6 +208,8 @@ TEST(File_static_copy)
 	double d = f.load_double();
 	bool b = f.load_bool();
 	f.close();
+	hfile::remove(old_filename);
+	hfile::remove(new_filename);
 	CHECK(i == 1234);
 	CHECK(s == 4321);
 	CHECK(str == "testing");
