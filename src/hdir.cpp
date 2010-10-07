@@ -14,6 +14,7 @@
 #elif defined(__APPLE__)
 #include <sys/stat.h>
 #define _mkdir(name) mkdir(name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
+#define _rmdir(name) rmdir(name)
 #endif
 
 // prevents recursive calls of hdir::rename as this function is called via this pointer
