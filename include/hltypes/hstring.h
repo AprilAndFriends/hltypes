@@ -142,7 +142,7 @@ typedef const hltypes::string& chstr;
 hstr hltypesFnExport operator+(const char* s1, chstr s2);
 hstr hltypesFnExport operator+(char* s1, chstr s2);
 hstr hltypesFnExport hsprintf(const char* format, ...);
-hstr hltypesFnExport hsprintf_s(const char* format, ...);
+hstr hltypesFnExport hsprintf(chstr format, ...);
 
 #endif
 

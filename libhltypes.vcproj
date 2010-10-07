@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="include/hltypes"
+				AdditionalIncludeDirectories=".;./include/hltypes"
 				PreprocessorDefinitions="_WIN32;_DEBUG;HLTYPES_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -113,7 +113,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="include/hltypes"
+				AdditionalIncludeDirectories=".;./include/hltypes"
 				PreprocessorDefinitions="_WIN32;NDEBUG;HLTYPES_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"

@@ -25,21 +25,24 @@ TEST(Array_adding_01)
 	a.push_front(0);
 	a.insert_at(1, 2);
 	a.append(5);
+	a.add(15);
 	a += 7;
 	a << 20;
 	CHECK(a[0] == 0);
 	CHECK(a[1] == 2);
 	CHECK(a[2] == 1);
 	CHECK(a[3] == 5);
-	CHECK(a[4] == 7);
-	CHECK(a[5] == 20);
+	CHECK(a[4] == 15);
+	CHECK(a[5] == 7);
+	CHECK(a[6] == 20);
 	CHECK(a.at(0) == 0);
 	CHECK(a.at(1) == 2);
 	CHECK(a.at(2) == 1);
 	CHECK(a.at(3) == 5);
-	CHECK(a.at(4) == 7);
-	CHECK(a.at(5) == 20);
-	CHECK(a.size() == 6);
+	CHECK(a.at(4) == 15);
+	CHECK(a.at(5) == 7);
+	CHECK(a.at(6) == 20);
+	CHECK(a.size() == 7);
 }
 
 TEST(Array_adding_02)

@@ -11,6 +11,7 @@
 #define HLTYPES_HDIR_H
 
 #include "hltypesExport.h"
+#include "harray.h"
 #include "hstring.h"
 
 namespace hltypes
@@ -18,12 +19,26 @@ namespace hltypes
 	class hltypesExport dir
 	{
 	public:
-		dir();
-		~dir();
-		
 		// static
 		
-		static void makedirs(chstr path);
+		static bool create(chstr dirname);
+		static bool create_new(chstr dirname);
+		static bool remove(chstr dirname);
+		static bool exists(chstr dirname);
+		static bool clear(chstr dirname);
+		static bool rename(chstr old_dirname, chstr new_dirname);
+		static bool move(chstr dirname, chstr path);
+		static bool copy(chstr old_dirname, chstr new_dirname);
+		static bool create_path(chstr path);
+		
+		static harray<hstr> entries(chstr dirname); // all entries including . and ..
+		static harray<hstr> contents(chstr dirname); // all contents
+		static harray<hstr> directories(chstr dirname); // directories only
+		static harray<hstr> files(chstr dirname); // files only
+		
+	private:
+		dir() { }
+		~dir() { }
 		
 	};
 }

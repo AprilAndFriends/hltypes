@@ -1,10 +1,19 @@
+/************************************************************************************\
+* This source file is part of the High Level C++ types library                       *
+* For latest info, see http://libhltypes.sourceforge.net/                            *
+**************************************************************************************
+* Copyright (c) 2010 Kresimir Spes, Boris Mikic, Domagoj Cerjan                      *
+*                                                                                    *
+* This program is free software; you can redistribute it and/or modify it under      *
+* the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
+\************************************************************************************/
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 
 // prevents recursive calls of hfile::rename and hfile::remove as these functions are called via these pointers
-int (*c_rename)(const char* old_filename, const char* new_filename) = rename;
-int (*c_remove)(const char* filename) = remove;
+int (*f_rename)(const char* old_name, const char* new_name) = rename;
+int (*f_remove)(const char* filename) = remove;
 
 #include "exception.h"
 #include "harray.h"
@@ -573,26 +582,11 @@ namespace hltypes
 
 /******* STATIC ********************************************************/
 
-	bool file::exists(chstr filename)
-	{
-		FILE* f = fopen(filename.c_str(), "r");
-		if (f != NULL)
-		{
-			fclose(f);
-			return true;
-		}
-		return false;
-	}
-	
 	bool file::create(chstr filename)
 	{
 		if (!hfile::exists(filename))
 		{
-			hstr path = filename.rsplit("/", 1).pop_front();
-			if (path != "")
-			{
-				hdir::makedirs(path);
-			}
+			hdir::create_path(filename);
 			FILE* f = fopen(filename.c_str(), "wb");
 			if (f != NULL)
 			{
@@ -605,12 +599,17 @@ namespace hltypes
 	
 	bool file::create_new(chstr filename)
 	{
-		hstr path = filename.rsplit("/", 1).pop_front();
-		if (path != "")
-		{
-			hdir::makedirs(path);
-		}
-		FILE* f = fopen(filename.c_str(), "wb");
+		return (hfile::create(filename) || hfile::clear(filename));
+	}
+	
+	bool file::remove(chstr filename)
+	{
+		return (f_remove(filename.c_str()) == 0);
+	}
+	
+	bool file::exists(chstr filename)
+	{
+		FILE* f = fopen(filename.c_str(), "r");
 		if (f != NULL)
 		{
 			fclose(f);
@@ -619,11 +618,11 @@ namespace hltypes
 		return false;
 	}
 	
-	bool file::empty(chstr filename)
+	bool file::clear(chstr filename)
 	{
 		if (hfile::exists(filename))
 		{
-			FILE* f = fopen(filename.c_str(), "w");
+			FILE* f = fopen(filename.c_str(), "wb");
 			if (f != NULL)
 			{
 				fclose(f);
@@ -635,12 +634,12 @@ namespace hltypes
 	
 	bool file::rename(chstr old_filename, chstr new_filename)
 	{
-		if (hfile::exists(old_filename) && !hfile::exists(new_filename) &&
-			c_rename(old_filename.c_str(), new_filename.c_str()) == 0)
+		if (!hfile::exists(old_filename) || hfile::exists(new_filename))
 		{
-			return true;
+			return false;
 		}
-		return false;
+		hdir::create_path(new_filename);
+		return (f_rename(old_filename.c_str(), new_filename.c_str()) == 0);
 	}
 	
 	bool file::move(chstr filename, chstr path)
@@ -648,33 +647,27 @@ namespace hltypes
 		return hfile::rename(filename, path + "/" + filename.rsplit("/", 1).pop_back());
 	}
 	
-	bool file::remove(chstr filename)
-	{
-		if (hfile::exists(filename) && c_remove(filename.c_str()) == 0)
-		{
-			return true;
-		}
-		return false;
-	}
-	
 	bool file::copy(chstr old_filename, chstr new_filename)
 	{
-		if (hfile::exists(old_filename) && !hfile::exists(new_filename))
+		if (!hfile::exists(old_filename) || hfile::exists(new_filename))
 		{
-			hfile old_file(old_filename);
-			hfile new_file(new_filename, hltypes::WRITE);
-			int count;
-			char c[BUFFER_SIZE] = {'\0'}; // literal buffer, not a string buffer that requires \0 at the end
-			while (!old_file.eof())
-			{
-				count = fread(c, 1, BUFFER_SIZE, old_file.cfile);
-				fwrite(c, 1, count, new_file.cfile);
-			}
-			return true;
+			return false;
 		}
-		return false;
+		hdir::create_path(new_filename);
+		hfile old_file(old_filename);
+		hfile new_file(new_filename, hltypes::WRITE);
+		int count;
+		char c[BUFFER_SIZE] = {'\0'}; // literal buffer, not a string buffer that requires \0 at the end
+		while (!old_file.eof())
+		{
+			count = fread(c, 1, BUFFER_SIZE, old_file.cfile);
+			fwrite(c, 1, count, new_file.cfile);
+		}
+		return true;
 	}
 	
+/******* QUICK READ/WRITE **********************************************/
+
 	hstr file::hread(chstr filename, int count)
 	{
 		return hfile(filename).read(count);

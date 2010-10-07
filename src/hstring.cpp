@@ -17,20 +17,18 @@
 #include "hstring.h"
 #include "util.h"
 
-#define BUFFER_SIZE (1025)
-
 typedef std::basic_string<char> stdstr;
 
 namespace hltypes
 {
-	string::string() : stdstr() {}
-	string::string(const char c) : stdstr(1, c) {}
-	string::string(const char c, const int len) : stdstr(len, c) {}
-	string::string(const char* s) : stdstr(s) {}
-	string::string(const string& s) : stdstr(s) {}
-	string::string(const std::string& s) : stdstr(s) {}
-	string::string(const char* s, const int len) : stdstr(s, len) {}
-	string::string(const string& s, const int len) : stdstr(s, len) {}
+	string::string() : stdstr() { }
+	string::string(const char c) : stdstr(1, c) { }
+	string::string(const char c, const int len) : stdstr(len, c) { }
+	string::string(const char* s) : stdstr(s) { }
+	string::string(const string& s) : stdstr(s) { }
+	string::string(const std::string& s) : stdstr(s) { }
+	string::string(const char* s, const int len) : stdstr(s, len) { }
+	string::string(const string& s, const int len) : stdstr(s, len) { }
 	string::string(const int i) { this->operator=(i); }
 	string::string(const unsigned int i) { this->operator=(i); }
 	string::string(const float f) { this->operator=(f); }
@@ -45,22 +43,22 @@ namespace hltypes
 	harray_hstr string::split(const char* delimiter, unsigned int n) const
 	{
 		harray_hstr out;
-		const char *s = this->c_str(), *p;
+		const char *s = stdstr::c_str(), *p;
 		int delimiter_len = strlen(delimiter);
 		while ((p = strstr(s, delimiter)) != 0 && n > 0)
 		{
-			out.push_back(string(s, p - s));
+			out += string(s, p - s);
 			s = p + delimiter_len;
 			n--;
 		}
-		out.push_back(string(s));
+		out += string(s);
 		return out;
 	}
 	
 	harray_hstr string::rsplit(const char* delimiter, unsigned int n) const
 	{
 		harray_hstr out;
-		const char *s = this->c_str(), *p;
+		const char *s = stdstr::c_str(), *p;
 		int delimiter_len = strlen(delimiter);
 		for (p = s + strlen(s) - 1; p != s && n > 0; p--)
 		{
@@ -71,15 +69,15 @@ namespace hltypes
 		}
 		if (s != p)
 		{
-			out.push_back(string(s, p - s + 1));
+			out += string(s, p - s + 1);
 			s = p + 1 + delimiter_len;
 		}
 		while ((p = strstr(s, delimiter)) != 0)
 		{
-			out.push_back(string(s, p - s));
+			out += string(s, p - s);
 			s = p + delimiter_len;
 		}
-		out.push_back(string(s));
+		out += string(s);
 		return out;
 	}
 
@@ -109,12 +107,12 @@ namespace hltypes
 
 	bool string::starts_with(const char* s) const
 	{
-		return (strncmp(this->c_str(), s, strlen(s)) == 0);
+		return (strncmp(stdstr::c_str(), s, strlen(s)) == 0);
 	}
 
 	bool string::ends_with(const char* s) const
 	{
-		const char* thiss = this->c_str();
+		const char* thiss = stdstr::c_str();
 		int thislen = this->size(), slen = strlen(s);
 		if (slen > thislen)
 		{
@@ -171,7 +169,7 @@ namespace hltypes
 
 	string string::replace(const char* what, const char* with_what) const
 	{
-		const char *s = this->c_str(), *p;
+		const char *s = stdstr::c_str(), *p;
 		string out;
 		int what_len = strlen(what);
 		if (what_len == 0)
@@ -252,13 +250,13 @@ namespace hltypes
     int string::count(const char* substr)
     {
         int c = 0;
-        hstr tmp(this->c_str());
+        hstr tmp(stdstr::c_str());
         for (int i = 0; i < size(); ++i)
         {
             if (tmp(i, -1).starts_with(substr))
             {
                 c++;
-                i += (hstr(substr).size() - 1);
+                i += strlen(substr) - 1;
             }
         }
         return c;
@@ -345,7 +343,7 @@ namespace hltypes
 		{
 			return stdstr::substr(start, count);
 		}
-		hstr result;
+		string result;
 		for (int i = start; i < start + count; i += step)
 		{
 			result += stdstr::at(i);
@@ -371,21 +369,21 @@ namespace hltypes
 	string::operator float() const
 	{
 		float f;
-		sscanf(this->c_str(), "%f", &f);
+		sscanf(stdstr::c_str(), "%f", &f);
 		return f;
 	}
 	
 	string::operator int() const
 	{
 		int i;
-		sscanf(this->c_str(), "%d", &i);
+		sscanf(stdstr::c_str(), "%d", &i);
 		return i;
 	}
 	
 	string::operator unsigned int() const
 	{
 		unsigned int i;
-		sscanf(this->c_str(), "%u", &i);
+		sscanf(stdstr::c_str(), "%u", &i);
 		return i;
 	}
 	
@@ -488,7 +486,7 @@ namespace hltypes
 	
 	bool string::operator==(const bool b) const
 	{
-		const char* cstr = this->c_str();
+		const char* cstr = stdstr::c_str();
 		return (strcmp(cstr, "1") == 0 && b ||
 				strcmp(cstr, "0") == 0 && !b ||
 				strcmp(cstr, "true") == 0 && b ||
@@ -497,12 +495,12 @@ namespace hltypes
 
 	bool string::operator==(const char* s) const
 	{
-		return (strcmp(this->c_str(), s) == 0);
+		return (strcmp(stdstr::c_str(), s) == 0);
 	}
 	
 	bool string::operator==(const std::string& s) const
 	{
-		return (strcmp(this->c_str(), s.c_str()) == 0);
+		return (strcmp(stdstr::c_str(), s.c_str()) == 0);
 	}
 /******* ADDITION OPERATORS *********************************************/
 	string string::operator+(const char* s1) const
@@ -533,42 +531,59 @@ namespace hltypes
 	
 	string string::operator+(const char c) const
 	{
-		char chstr[2] = {c, '\0'};
 		string s(*this);
-		s.append(chstr);
+		s.append(1, c);
 		return s;
 	}
 }
 /******* GLOBAL ADDITION OPERATORS *******************************************/
 hstr operator+(const char* s1, chstr s2)
 {
-	hstr s(s1);
-	return (s + s2);
+	return (hstr(s1) + s2);
 }
 
 hstr operator+(char* s1, chstr s2)
 {
-	hstr s(s1);
-	return (s + s2);
+	return (hstr(s1) + s2);
+}
+
+hstr operator+(char s1, chstr s2)
+{
+	return (hstr(s1) + s2);
 }
 
 hstr hsprintf(const char* format, ...)
 {
-	char c[BUFFER_SIZE] = {'\0'};
+	char* c = new char[2];
 	va_list args;
 	va_start(args, format);
-	vsnprintf(c, BUFFER_SIZE - 1, format, args);
+	int count = vsnprintf(c, 2, format, args);
+	if (count > 2)
+	{
+		delete c;
+		c = new char[count + 1];
+		vsnprintf(c, count + 1, format, args);
+	}
 	va_end(args);
-	return hstr(c);
+	hstr result = c;
+	delete c;
+	return result;
 }
 
-hstr hsprintf_s(const char* format, ...) //2DO - possible implementation with dynamic buffer
+hstr hsprintf(chstr format, ...)
 {
-	char c[65536] = {0};
+	char* c = new char[2];
 	va_list args;
 	va_start(args, format);
-	vsnprintf(c, 65535, format, args);
+	int count = vsnprintf(c, 2, format.c_str(), args);
+	if (count > 2)
+	{
+		delete c;
+		c = new char[count + 1];
+		vsnprintf(c, count + 1, format.c_str(), args);
+	}
 	va_end(args);
-	return hstr(c);
+	hstr result = c;
+	delete c;
+	return result;
 }
-
