@@ -237,10 +237,7 @@ TEST(String_trim)
 
 TEST(String_hsprintf)
 {
-	hstr format = "This is a %d %s %4.2f %s.";
-	hstr text = hsprintf(format.c_str(), 15, "formatted", 3.14f, "file");
-	CHECK(text == "This is a 15 formatted 3.14 file.");
-	text = hsprintf(format, 15, "formatted", 3.14f, "file");
+	hstr text = hsprintf("This is a %d %s %4.2f %s.", 15, "formatted", 3.14f, "file");
 	CHECK(text == "This is a 15 formatted 3.14 file.");
 }
 
