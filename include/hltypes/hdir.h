@@ -31,10 +31,10 @@ namespace hltypes
 		static bool copy(chstr old_dirname, chstr new_dirname);
 		static bool create_path(chstr path);
 		
-		static harray<hstr> entries(chstr dirname); // all entries including . and ..
-		static harray<hstr> contents(chstr dirname); // all contents
-		static harray<hstr> directories(chstr dirname); // directories only
-		static harray<hstr> files(chstr dirname); // files only
+		static harray<hstr> entries(chstr dirname,bool prepend_dir = false); // all entries including . and ..
+		static harray<hstr> contents(chstr dirname,bool prepend_dir = false); // all contents
+		static harray<hstr> directories(chstr dirname,bool prepend_dir = false); // directories only
+		static harray<hstr> files(chstr dirname,bool prepend_dir = false); // files only
 		
 	private:
 		dir() { }
