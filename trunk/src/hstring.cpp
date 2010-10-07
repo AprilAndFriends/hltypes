@@ -554,36 +554,32 @@ hstr operator+(char s1, chstr s2)
 
 hstr hsprintf(const char* format, ...)
 {
-	char* c = new char[2];
+	int size = 2;
+	char* c = new char[size + 1];
 	va_list args;
 	va_start(args, format);
-	int count = vsnprintf(c, 2, format, args);
-	if (count > 2)
+	int count = 0;
+	for (int i = 0; i < 8; i++)
 	{
+		count = vsnprintf(c, size + 1, format, args);
+		if (count == 0)
+		{
+			break;
+		}
+		if (count > 0)
+		{
+			delete c;
+			c = new char[count + 1];
+			vsnprintf(c, count + 1, format, args);
+			break;
+		}
+		// VS compiler
 		delete c;
-		c = new char[count + 1];
-		vsnprintf(c, count + 1, format, args);
+		size *= 2;
+		c = new char[size + 1];
 	}
 	va_end(args);
-	hstr result = c;
-	delete c;
-	return result;
-}
-
-hstr hsprintf(chstr format, ...)
-{
-	char* c = new char[2];
-	va_list args;
-	va_start(args, format);
-	int count = vsnprintf(c, 2, format.c_str(), args);
-	if (count > 2)
-	{
-		delete c;
-		c = new char[count + 1];
-		vsnprintf(c, count + 1, format.c_str(), args);
-	}
-	va_end(args);
-	hstr result = c;
+	hstr result(c);
 	delete c;
 	return result;
 }
