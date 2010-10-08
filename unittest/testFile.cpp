@@ -105,7 +105,7 @@ TEST(File_seek_position_size)
 
 TEST(File_serialization)
 {
-	hstr filename = "test.txt";
+	hstr filename = "test.txt/";
 	hfile f(filename, hltypes::WRITE);
 	f.dump(1234);
 	f.dump((short)4321);
@@ -174,7 +174,7 @@ TEST(File_static_move)
 	CHECK(!hfile::exists(path + "/" + filename));
 	hfile::move(filename, path);
 	CHECK(!hfile::exists(filename));
-	CHECK(hfile::exists(path + "/" + filename));
+	CHECK(hfile::exists(path + "\\" + filename));
 	hfile::remove(path + "/" + filename);
 }
 

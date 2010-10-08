@@ -105,7 +105,7 @@ TEST(Dir_static_move)
 	CHECK(hdir::exists(dirname + "/" + dirname2));
 	hstr newdir = "..";
 	hdir::remove(newdir + "/" + dirname);
-	hdir::move(dirname, newdir);
+	hdir::move(dirname, newdir + "/");
 	CHECK(!hdir::exists(dirname));
 	CHECK(!hdir::exists(dirname + "/" + dirname2));
 	CHECK(hdir::exists(newdir + "/" + dirname));
@@ -117,12 +117,12 @@ TEST(Dir_static_copy)
 {
 	hstr dirname = "testdir";
 	hstr dirname2 = "testdir2/testdir3";
-	hdir::create(dirname + "/" + dirname2);
+	hdir::create(dirname + "/" + dirname2 + "/");
 	hfile::create(dirname + "/testdir2/test.txt");
 	hfile::create(dirname + "/" + dirname2 + "/test.txt");
 	CHECK(hdir::exists(dirname + "/" + dirname2));
 	hstr newdir = "dir";
-	hdir::remove(newdir + "/" + dirname);
+	hdir::remove(newdir + "/" + dirname + "/");
 	hdir::copy(dirname, newdir + "/" + dirname);
 	CHECK(hdir::exists(dirname));
 	CHECK(hdir::exists(dirname + "/" + dirname2));

@@ -60,6 +60,8 @@ template <class T> bool is_between(T value, T min, T max)
 	return (value >= min && value <= max);
 }
 
+hstr normalize_path(chstr path);
+
 /******** MACROS FOR HELP IN DEBUGGING ******************************/
 #define HLBREAKPT \
 	printf("HL Breakpoint:\n"); \
