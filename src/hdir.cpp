@@ -8,10 +8,11 @@
 * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
 \************************************************************************************/
 #include <stdio.h>
-#include <dirent.h>
 #ifdef _WIN32
+#include "msvc_dirent.h"
 #include <direct.h>
-#elif defined(__APPLE__)
+#else
+#include <dirent.h>
 #include <sys/stat.h>
 #define _mkdir(name) mkdir(name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
 #define _rmdir(name) rmdir(name)
