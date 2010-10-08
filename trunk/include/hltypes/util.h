@@ -33,8 +33,6 @@ int hltypesFnExport hrand(int min, int max);
 int hltypesFnExport hrand(int max);
 float hltypesFnExport hrandf(float min, float max);
 float hltypesFnExport hrandf(float max);
-//2DO - implement
-//void hltypesFnExport removedirs(chstr path);
 
 /******* TEMPLATE FUNCTIONS ********************************************/
 template <class T> T hmin(T a, T b)
