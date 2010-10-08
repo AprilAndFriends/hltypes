@@ -56,7 +56,7 @@ namespace hltypes
 		{
 			this->close();
 		}
-		this->filename = filename;
+		this->filename = normalize_path(filename);
 		this->encryption_offset = encryption_offset;
 		const char* mode = "rb";
 		switch (access_mode)
@@ -584,10 +584,11 @@ namespace hltypes
 
 	bool file::create(chstr filename)
 	{
-		if (!hfile::exists(filename))
+		hstr name = normalize_path(filename);
+		if (!hfile::exists(name))
 		{
-			hdir::create_path(filename);
-			FILE* f = fopen(filename.c_str(), "wb");
+			hdir::create_path(name);
+			FILE* f = fopen(name.c_str(), "wb");
 			if (f != NULL)
 			{
 				fclose(f);
@@ -604,12 +605,14 @@ namespace hltypes
 	
 	bool file::remove(chstr filename)
 	{
-		return (f_remove(filename.c_str()) == 0);
+		hstr name = normalize_path(filename);
+		return (f_remove(name.c_str()) == 0);
 	}
 	
 	bool file::exists(chstr filename)
 	{
-		FILE* f = fopen(filename.c_str(), "r");
+		hstr name = normalize_path(filename);
+		FILE* f = fopen(name.c_str(), "r");
 		if (f != NULL)
 		{
 			fclose(f);
@@ -620,9 +623,10 @@ namespace hltypes
 	
 	bool file::clear(chstr filename)
 	{
-		if (hfile::exists(filename))
+		hstr name = normalize_path(filename);
+		if (hfile::exists(name))
 		{
-			FILE* f = fopen(filename.c_str(), "wb");
+			FILE* f = fopen(name.c_str(), "wb");
 			if (f != NULL)
 			{
 				fclose(f);
@@ -634,28 +638,33 @@ namespace hltypes
 	
 	bool file::rename(chstr old_filename, chstr new_filename)
 	{
-		if (!hfile::exists(old_filename) || hfile::exists(new_filename))
+		hstr old_name = normalize_path(old_filename);
+		hstr new_name = normalize_path(new_filename);
+		if (!hfile::exists(old_name) || hfile::exists(new_name))
 		{
 			return false;
 		}
-		hdir::create_path(new_filename);
-		return (f_rename(old_filename.c_str(), new_filename.c_str()) == 0);
+		hdir::create_path(new_name);
+		return (f_rename(old_name.c_str(), new_name.c_str()) == 0);
 	}
 	
 	bool file::move(chstr filename, chstr path)
 	{
-		return hfile::rename(filename, path + "/" + filename.rsplit("/", 1).pop_back());
+		hstr name = normalize_path(filename);
+		return hfile::rename(name, path + "/" + name.rsplit("/", 1).pop_back());
 	}
 	
 	bool file::copy(chstr old_filename, chstr new_filename)
 	{
-		if (!hfile::exists(old_filename) || hfile::exists(new_filename))
+		hstr old_name = normalize_path(old_filename);
+		hstr new_name = normalize_path(new_filename);
+		if (!hfile::exists(old_name) || hfile::exists(new_name))
 		{
 			return false;
 		}
-		hdir::create_path(new_filename);
-		hfile old_file(old_filename);
-		hfile new_file(new_filename, hltypes::WRITE);
+		hdir::create_path(new_name);
+		hfile old_file(old_name);
+		hfile new_file(new_name, hltypes::WRITE);
 		int count;
 		char c[BUFFER_SIZE] = {'\0'}; // literal buffer, not a string buffer that requires \0 at the end
 		while (!old_file.eof())
@@ -670,27 +679,32 @@ namespace hltypes
 
 	hstr file::hread(chstr filename, int count)
 	{
-		return hfile(filename).read(count);
+		hstr name = normalize_path(filename);
+		return hfile(name).read(count);
 	}
 	
 	hstr file::hread(chstr filename, chstr delimiter)
 	{
-		return hfile(filename).read(delimiter);
+		hstr name = normalize_path(filename);
+		return hfile(name).read(delimiter);
 	}
 	
 	void file::hwrite(chstr filename, chstr text)
 	{
-		hfile(filename, WRITE).write(text);
+		hstr name = normalize_path(filename);
+		hfile(name, WRITE).write(text);
 	}
 	
 	void file::happend(chstr filename, chstr text)
 	{
-		hfile(filename, APPEND).write(text);
+		hstr name = normalize_path(filename);
+		hfile(name, APPEND).write(text);
 	}
 	
 	long file::hsize(chstr filename)
 	{
-		return hfile(filename).size();
+		hstr name = normalize_path(filename);
+		return hfile(name).size();
 	}
 	
 }

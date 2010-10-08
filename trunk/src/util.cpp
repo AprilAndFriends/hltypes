@@ -39,3 +39,9 @@ float hrandf(float max)
 	return rand() * max / RAND_MAX;
 }
 
+hstr normalize_path(chstr path)
+{
+	return path.replace('\\', '/').rtrim('/');
+}
+
+
