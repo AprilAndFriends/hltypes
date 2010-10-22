@@ -552,12 +552,11 @@ hstr operator+(char s1, chstr s2)
 	return (hstr(s1) + s2);
 }
 
-hstr hsprintf(const char* format, ...)
+
+hstr hvsprintf(const char* format, va_list args)
 {
 	int size = 2;
 	char* c = new char[size + 1];
-	va_list args;
-	va_start(args, format);
 	int count = 0;
 	for (int i = 0; i < 8; i++)
 	{
@@ -578,8 +577,17 @@ hstr hsprintf(const char* format, ...)
 		size *= 2;
 		c = new char[size + 1];
 	}
-	va_end(args);
 	hstr result(c);
 	delete c;
+	return result;
+}
+
+
+hstr hsprintf(const char* format, ...)
+{
+	va_list args;
+	va_start(args, format);
+	hstr result(hvsprintf(format, args));
+	va_end(args);
 	return result;
 }
