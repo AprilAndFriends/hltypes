@@ -141,6 +141,7 @@ typedef const hltypes::string& chstr;
 
 hstr hltypesFnExport operator+(const char* s1, chstr s2);
 hstr hltypesFnExport operator+(char* s1, chstr s2);
+hstr hltypesFnExport hvsprintf(const char* format, va_list args);
 hstr hltypesFnExport hsprintf(const char* format, ...);
 
 #endif
