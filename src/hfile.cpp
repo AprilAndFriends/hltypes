@@ -210,7 +210,7 @@ namespace hltypes
 		this->write(c);
 	}
 
-	void file::read_raw(unsigned char* buffer, int count)
+	void file::read_raw(void* buffer, int count)
 	{
 		if (!this->is_open())
 		{
@@ -219,7 +219,7 @@ namespace hltypes
 		fread(buffer, 1, count, this->cfile);
 	}
 	
-	void file::write_raw(unsigned char* buffer, int count)
+	void file::write_raw(void* buffer, int count)
 	{
 		if (!this->is_open())
 		{
@@ -468,11 +468,11 @@ namespace hltypes
 		fread((unsigned char*)&i, 1, 4, this->cfile);
 #else
 		unsigned char bytes[4] = {0};
-		fread(bytes, 1, 4, this->cfile);
-		i += bytes[0] << 24;
-		i += bytes[1] << 16;
-		i += bytes[2] << 8;
-		i += bytes[3];
+		fread(bytes, 4, 1, this->cfile);
+		i += bytes[3] << 24;
+		i += bytes[2] << 16;
+		i += bytes[1] << 8;
+		i += bytes[0];
 #endif
 		return i;
 	}
@@ -498,8 +498,8 @@ namespace hltypes
 #else
 		unsigned char bytes[4] = {0};
 		fread(bytes, 1, 2, this->cfile);
-		s += bytes[0] << 8;
-		s += bytes[1];
+		s += bytes[1] << 8;
+		s += bytes[0];
 #endif
 		return s;
 	}
