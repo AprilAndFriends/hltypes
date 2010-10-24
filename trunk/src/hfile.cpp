@@ -354,8 +354,8 @@ namespace hltypes
 		fwrite(&s, 1, 2, this->cfile);
 #else
 		unsigned char bytes[2] = {0};
-		bytes[0] = (s >> 8) % 256;
-		bytes[1] = s % 256;
+		bytes[1] = (s >> 8) % 256;
+		bytes[0] = s % 256;
 		fwrite(bytes, 1, 2, this->cfile);
 #endif
 	}
