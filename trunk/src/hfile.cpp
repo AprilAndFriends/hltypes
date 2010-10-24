@@ -326,10 +326,10 @@ namespace hltypes
 		fwrite(&i, 1, 4, this->cfile);
 #else
 		unsigned char bytes[4] = {0};
-		bytes[0] = (i >> 24) % 256;
-		bytes[1] = (i >> 16) % 256;
-		bytes[2] = (i >> 8) % 256;
-		bytes[3] = i % 256;
+		bytes[0] = (i >> 24) & 0xFF;
+		bytes[1] = (i >> 16) & 0xFF;
+		bytes[2] = (i >> 8) & 0xFF;
+		bytes[3] = i & 0xFF;
 		fwrite(bytes, 1, 4, this->cfile);
 #endif
 	}
@@ -354,8 +354,8 @@ namespace hltypes
 		fwrite(&s, 1, 2, this->cfile);
 #else
 		unsigned char bytes[2] = {0};
-		bytes[1] = (s >> 8) % 256;
-		bytes[0] = s % 256;
+		bytes[1] = (s >> 8) & 0xFF;
+		bytes[0] = s & 0xFF;
 		fwrite(bytes, 1, 2, this->cfile);
 #endif
 	}
@@ -469,10 +469,10 @@ namespace hltypes
 #else
 		unsigned char bytes[4] = {0};
 		fread(bytes, 4, 1, this->cfile);
-		i += bytes[3] << 24;
-		i += bytes[2] << 16;
-		i += bytes[1] << 8;
-		i += bytes[0];
+		i |= bytes[3] << 24;
+		i |= bytes[2] << 16;
+		i |= bytes[1] << 8;
+		i |= bytes[0];
 #endif
 		return i;
 	}
@@ -498,8 +498,8 @@ namespace hltypes
 #else
 		unsigned char bytes[4] = {0};
 		fread(bytes, 1, 2, this->cfile);
-		s += bytes[1] << 8;
-		s += bytes[0];
+		s |= bytes[1] << 8;
+		s |= bytes[0];
 #endif
 		return s;
 	}
