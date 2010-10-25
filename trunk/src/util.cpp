@@ -14,29 +14,29 @@
 int hrand(int min, int max)
 {
 #ifdef _WIN32
-	return min + rand() * (max - min) / RAND_MAX;
+	return min + rand() * (max - min) / (RAND_MAX + 1);
 #else
-	return min + (((double) rand()) / RAND_MAX) * (max - min);
+	return min + (((double) rand()) / (RAND_MAX + 1) * (max - min);
 #endif
 }
 
 int hrand(int max)
 {
 #ifdef _WIN32
-	return rand() * max / RAND_MAX;
+	return rand() * max / (RAND_MAX + 1);
 #else
-	return (((double) rand()) / RAND_MAX) * max;
+	return (((double) rand()) / (RAND_MAX + 1)) * max;
 #endif
 }
 
 float hrandf(float min, float max)
 {
-	return min + rand() * (max - min) / RAND_MAX;
+	return min + rand() * (max - min) / (RAND_MAX + 1);
 }
 
 float hrandf(float max)
 {
-	return rand() * max / RAND_MAX;
+	return rand() * max / (RAND_MAX + 1);
 }
 
 hstr normalize_path(chstr path)
