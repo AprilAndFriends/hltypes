@@ -16,7 +16,7 @@ int hrand(int min, int max)
 #ifdef _WIN32
 	return min + rand() * (max - min) / (RAND_MAX + 1);
 #else
-	return min + ((double) rand()) / (RAND_MAX + 1) * (max - min);
+	return min + ((double) rand()) / ((double) RAND_MAX + 1) * (max - min);
 #endif
 }
 
@@ -25,18 +25,26 @@ int hrand(int max)
 #ifdef _WIN32
 	return rand() * max / (RAND_MAX + 1);
 #else
-	return (((double) rand()) / (RAND_MAX + 1)) * max;
+	return (((double) rand()) / ((double) RAND_MAX + 1)) * max;
 #endif
 }
 
 float hrandf(float min, float max)
 {
+#ifdef _WIN32
 	return min + rand() * (max - min) / (RAND_MAX + 1);
+#else
+	return min + ((double) rand()) / ((double) RAND_MAX + 1) * (max - min);
+#endif
 }
 
 float hrandf(float max)
 {
+#ifdef _WIN32
 	return rand() * max / (RAND_MAX + 1);
+#else
+	return (((double) rand()) / ((double) RAND_MAX + 1)) * max;
+#endif
 }
 
 hstr normalize_path(chstr path)
