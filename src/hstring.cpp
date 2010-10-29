@@ -241,13 +241,13 @@ namespace hltypes
 		return this->rsplit(delimiter.c_str(), out_left, out_right);
 	}
     
-    int string::count(const char substr)
+    int string::count(const char substr) const
     {
         char c[2] = {substr, 0};
         return count(c);
     }
     
-    int string::count(const char* substr)
+    int string::count(const char* substr) const
     {
         int c = 0;
         hstr tmp(stdstr::c_str());
@@ -262,7 +262,7 @@ namespace hltypes
         return c;
     }
     
-    int string::count(const string& substr)
+    int string::count(const string& substr) const
     {
         return count(substr.c_str());
     }
