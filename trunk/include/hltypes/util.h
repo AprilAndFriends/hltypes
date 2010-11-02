@@ -33,6 +33,7 @@ int hltypesFnExport hrand(int min, int max);
 int hltypesFnExport hrand(int max);
 float hltypesFnExport hrandf(float min, float max);
 float hltypesFnExport hrandf(float max);
+hstr hltypesFnExport normalize_path(chstr path);
 
 /******* TEMPLATE FUNCTIONS ********************************************/
 template <class T> T hmin(T a, T b)
@@ -59,8 +60,6 @@ template <class T> bool is_between(T value, T min, T max)
 {
 	return (value >= min && value <= max);
 }
-
-hstr normalize_path(chstr path);
 
 /******** MACROS FOR HELP IN DEBUGGING ******************************/
 #define HLBREAKPT \

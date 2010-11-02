@@ -49,7 +49,36 @@ float hrandf(float max)
 
 hstr normalize_path(chstr path)
 {
-	return path.replace('\\', '/').rtrim('/');
+	harray<hstr> directories = path.replace('\\', '/').rtrim('/').split('/');
+	harray<hstr> result;
+	while (directories.size() > 0)
+	{
+		if (directories.front() == ".")
+		{
+			directories.pop_front();
+		}
+		else if (directories.front() == "..")
+		{
+			if (result.size() == 0)
+			{
+				result += directories.pop_front();
+			}
+			else if (result.back() == "..")
+			{
+				result += directories.pop_front();
+			}
+			else
+			{
+				result.pop_back();
+				directories.pop_front();
+			}
+		}
+		else
+		{
+			result += directories.pop_front();
+		}
+	}
+	return result.join('/');
 }
 
 
