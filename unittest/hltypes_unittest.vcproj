@@ -192,6 +192,10 @@
 			RelativePath=".\testString.cpp"
 			>
 		</File>
+		<File
+			RelativePath=".\testUtil.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
