@@ -160,9 +160,12 @@ namespace hltypes
     
     void prepend_directory(chstr dirname, harray<hstr>& entries)
     {
-        foreach(hstr, it, entries)
+		if (dirname != "")
 		{
-			(*it) = dirname + "/" + (*it);
+			foreach(hstr, it, entries)
+			{
+				(*it) = dirname + "/" + (*it);
+			}
 		}
     }
 	

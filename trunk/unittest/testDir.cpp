@@ -37,7 +37,7 @@ TEST(Dir_static_create_remove)
 
 TEST(Dir_static_entries)
 {
-	hstr dirname = "testdir" ;
+	hstr dirname = "testdir";
 	hdir::create(dirname + "/dir1");
 	hdir::create(dirname + "/dir2");
 	hfile::create(dirname + "/file1.txt");
@@ -50,16 +50,38 @@ TEST(Dir_static_entries)
 	CHECK(data.contains("dir2"));
 	CHECK(data.contains("file1.txt"));
 	CHECK(data.contains("file2.txt"));
+	data = hdir::entries(dirname, true);
+	CHECK(data.size() == 6);
+	CHECK(data.contains(dirname + "/."));
+	CHECK(data.contains(dirname + "/.."));
+	CHECK(data.contains(dirname + "/dir1"));
+	CHECK(data.contains(dirname + "/dir2"));
+	CHECK(data.contains(dirname + "/file1.txt"));
+	CHECK(data.contains(dirname + "/file2.txt"));
 	data = hdir::contents(dirname);
 	CHECK(data.size() == 4);
 	CHECK(data.contains("dir1"));
 	CHECK(data.contains("dir2"));
 	CHECK(data.contains("file1.txt"));
 	CHECK(data.contains("file2.txt"));
+	data = hdir::contents(dirname, true);
+	CHECK(data.size() == 4);
+	CHECK(data.contains(dirname + "/dir1"));
+	CHECK(data.contains(dirname + "/dir2"));
+	CHECK(data.contains(dirname + "/file1.txt"));
+	CHECK(data.contains(dirname + "/file2.txt"));
 	data = hdir::directories(dirname);
 	CHECK(data.size() == 2);
 	CHECK(data.contains("dir1"));
 	CHECK(data.contains("dir2"));
+	data = hdir::directories(dirname, true);
+	CHECK(data.size() == 2);
+	CHECK(data.contains(dirname + "/dir1"));
+	CHECK(data.contains(dirname + "/dir2"));
+	data = hdir::files(dirname, true);
+	CHECK(data.size() == 2);
+	CHECK(data.contains(dirname + "/file1.txt"));
+	CHECK(data.contains(dirname + "/file2.txt"));
 	data = hdir::files(dirname);
 	CHECK(data.size() == 2);
 	CHECK(data.contains("file1.txt"));
