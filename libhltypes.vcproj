@@ -181,6 +181,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\hmutex.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\hthread.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\util.cpp"
 				>
 			</File>
@@ -216,6 +224,14 @@
 			</File>
 			<File
 				RelativePath=".\include\hltypes\hstring.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\hltypes\hmutex.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\hltypes\hthread.h"
 				>
 			</File>
 			<File

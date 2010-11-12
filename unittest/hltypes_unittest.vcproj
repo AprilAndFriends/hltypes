@@ -193,6 +193,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\testThreading.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\testUtil.cpp"
 			>
 		</File>

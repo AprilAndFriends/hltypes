@@ -15,6 +15,7 @@
     <File Name="testFile.cpp"/>
     <File Name="testDir.cpp"/>
     <File Name="testUtil.cpp"/>
+    <File Name="testThreading.cpp"/>
   </VirtualDirectory>
   <Dependencies Name="Debug">
     <Project Name="libhltypes"/>
