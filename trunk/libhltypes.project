@@ -13,6 +13,8 @@
     <File Name="src/hfile.cpp"/>
     <File Name="src/exception.cpp"/>
     <File Name="src/hdir.cpp"/>
+    <File Name="src/hmutex.cpp"/>
+    <File Name="src/hthread.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/hltypes/hltypesExport.h"/>
@@ -23,6 +25,8 @@
     <File Name="include/hltypes/exception.h"/>
     <File Name="include/hltypes/hmap.h"/>
     <File Name="include/hltypes/hdir.h"/>
+    <File Name="include/hltypes/hmutex.h"/>
+    <File Name="include/hltypes/hthread.h"/>
   </VirtualDirectory>
   <Dependencies Name="Release"/>
   <Dependencies Name="Linux_Debug"/>
