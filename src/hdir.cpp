@@ -162,7 +162,7 @@ namespace hltypes
     {
 		if (dirname != "")
 		{
-			foreach(hstr, it, entries)
+			foreach (hstr, it, entries)
 			{
 				(*it) = dirname + "/" + (*it);
 			}
