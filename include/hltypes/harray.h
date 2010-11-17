@@ -617,98 +617,109 @@ namespace hltypes
 		
 /******* HL OPERATORS **************************************************/
 
-		void operator<<(const T& element)
+		Array<T>& operator<<(const T& element)
 		{
 			this->push_back(element);
+			return *this;
 		}
 		
-		void operator<<(const Array<T>& other)
+		Array<T>& operator<<(const Array<T>& other)
 		{
 			this->push_back(other);
+			return *this;
 		}
 		
-		void operator+=(const T& element)
+		Array<T>& operator+=(const T& element)
 		{
 			this->push_back(element);
+			return *this;
 		}
 		
-		void operator+=(const Array<T>& other)
+		Array<T>& operator+=(const Array<T>& other)
 		{
 			this->push_back(other);
+			return *this;
 		}
 		
-		void operator-=(T element)
+		Array<T>& operator-=(T element)
 		{
 			this->remove(element);
+			return *this;
 		}
 		
-		void operator-=(const Array<T>& other)
+		Array<T>& operator-=(const Array<T>& other)
 		{
 			this->remove(other);
+			return *this;
 		}
 		
-		void operator|=(const Array<T>& other)
+		Array<T>& operator|=(const Array<T>& other)
 		{
 			this->unite(other);
+			return *this;
 		}
 		
-		void operator&=(const Array<T>& other)
+		Array<T>& operator&=(const Array<T>& other)
 		{
 			this->intersect(other);
+			return *this;
 		}
 		
-		void operator/=(const Array<T>& other)
+		Array<T>& operator/=(const Array<T>& other)
 		{
 			this->differentiate(other);
+			return *this;
 		}
+		
+/******* HL NONMODIFYINGOPERATORS *****************************************/
+
+		Array<T> operator+(const Array<T>& other) const
+		{
+			Array<T> result(*this);
+			result += other;
+			return result;
+		}
+		
+		Array<T> operator+(const T& other) const
+		{
+			Array<T> result(*this);
+			result += other;
+			return result;
+		}
+		
+		Array<T> operator-(const Array<T>& other) const
+		{
+			Array<T> result(*this);
+			result -= other;
+			return result;
+		}
+		
+		Array<T> operator-(const T& other) const
+		{
+			Array<T> result(*this);
+			result -= other;
+			return result;
+		}
+		
+		Array<T> operator|(const Array<T>& other) const
+		{
+			return united(other);
+		}
+		Array<T> operator&(const Array<T>& other) const
+		{
+			return intersected(other);
+		}
+		Array<T> operator/(const Array<T>& other) const
+		{
+			return differentiated(other);
+		}
+		
+		
 		
 	};
 	
 }
 
 #define harray hltypes::Array
-
-template <class T> harray<T> operator+(const harray<T>& a, const harray<T>& b)
-{
-	harray<T> result(a);
-	result += b;
-	return result;
-}
-
-template <class T> harray<T> operator+(const harray<T>& a, T b)
-{
-	harray<T> result(a);
-	result += b;
-	return result;
-}
-
-template <class T> harray<T> operator-(const harray<T>& a, const harray<T>& b)
-{
-	harray<T> result(a);
-	result -= b;
-	return result;
-}
-
-template <class T> harray<T> operator-(const harray<T>& a, T b)
-{
-	harray<T> result(a);
-	result -= b;
-	return result;
-}
-
-template <class T> harray<T> operator|(const harray<T>& a, const harray<T>& b)
-{
-	return a.united(b);
-}
-
-template <class T> harray<T> operator&(const harray<T>& a, const harray<T>& b)
-{
-	return a.intersected(b);
-}
-
-template <class T> harray<T> operator/(const harray<T>& a, const harray<T>& b)
-{
-	return a.differentiated(b);
-}
 
 #endif
