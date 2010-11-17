@@ -51,6 +51,13 @@ template <class T> T hclamp(T value, T min, T max)
 	return (value < min ? min : (value > max ? max : value));
 }
 
+template <class T> void hswap(T& a, T& b)
+{
+	T temp = a;
+	a = b;
+	b = temp;
+}
+
 template <class T> int sgn(T value)
 {
 	return (value >= 0 ? 1 : -1);
