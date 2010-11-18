@@ -31,6 +31,36 @@ namespace hltypes
 {
 /******* STATIC ********************************************************/
 	
+	static bool hmkdir(chstr path)
+	{
+		/*
+		wchar_t wpath[1025] = {'\0'};
+		utf8_to_unicode(path, wpath);
+		_wmkdir(wpath);
+		*/
+		_mkdir(path.c_str());
+	}
+	
+	static bool hremove(chstr dirname)
+	{
+		/*
+		wchar_t wdirname[1025] = {'\0'};
+		utf8_to_unicode(dirname, wdirname);
+		_wremove(wdirname);
+		*/
+		remove(dirname.c_str());
+	}
+	
+	static bool hrmdir(chstr dirname)
+	{
+		/*
+		wchar_t wdirname[1025] = {'\0'};
+		utf8_to_unicode(dirname, wdirname);
+		_wrmdir(wdirname);
+		*/
+		_rmdir(dirname.c_str());
+	}
+	
 	bool dir::create(chstr dirname)
 	{
 		hstr name = normalize_path(dirname);
@@ -42,11 +72,11 @@ namespace hltypes
 		if (folders.size() > 0)
 		{
 			hstr path = folders.pop_front();
-			_mkdir(path.c_str());
+			hmkdir(path);
 			foreach (hstr, it, folders)
 			{
 				path += "/" + (*it);
-				_mkdir(path.c_str());
+				hmkdir(path);
 			}
 		}
 		return hdir::exists(dirname);
@@ -74,7 +104,7 @@ namespace hltypes
 		{
 			hfile::remove(name + "/" + (*it));
 		}
-		_rmdir(name.c_str());
+		hrmdir(name);
 		return !dir::exists(name);
 	}
 	

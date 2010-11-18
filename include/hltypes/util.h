@@ -29,12 +29,14 @@
 #define HL_E_TOLERANCE (0.01f)
 
 /******* PROTOTYPES ****************************************************/
-int hltypesFnExport hrand(int min, int max);
-int hltypesFnExport hrand(int max);
-float hltypesFnExport hrandf(float min, float max);
-float hltypesFnExport hrandf(float max);
-hstr hltypesFnExport normalize_path(chstr path);
-hstr hltypesFnExport unicode_to_utf8(unsigned int value);
+hltypesFnExport int hrand(int min, int max);
+hltypesFnExport int hrand(int max);
+hltypesFnExport float hrandf(float min, float max);
+hltypesFnExport float hrandf(float max);
+hltypesFnExport hstr normalize_path(chstr path);
+hltypesFnExport hstr unicode_to_utf8(wchar_t value);
+hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
+hltypesFnExport void utf8_to_unicode(chstr input, wchar_t* result);
 
 /******* TEMPLATE FUNCTIONS ********************************************/
 template <class T> T hmin(T a, T b)
