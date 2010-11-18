@@ -81,4 +81,27 @@ hstr normalize_path(chstr path)
 	return result.join('/');
 }
 
-
+int unicode_to_utf8(unsigned int value, char* result)
+{
+	int length = 0;
+	if (value < 0x80)
+	{
+		result[0] = value;
+		length = 1;
+	}
+	else if (value < 0x800)
+	{
+		result[0] = (0xC0 | (value >> 6));
+		result[1] = (0x80 | (value & 0x3F));
+		length = 2;
+	}
+	else
+	{
+		result[0] = (0xE0 | (value >> 12));
+		result[1] = (0x80 | ((value >> 12) & 0x3F));
+		result[2] = (0x80 | (value & 0x3F));
+		length = 3;
+	}
+	result[length] = 0;
+    return length;
+}
