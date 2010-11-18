@@ -34,6 +34,7 @@ int hltypesFnExport hrand(int max);
 float hltypesFnExport hrandf(float min, float max);
 float hltypesFnExport hrandf(float max);
 hstr hltypesFnExport normalize_path(chstr path);
+int hltypesFnExport unicode_to_utf8(unsigned int value, char* result); // result must be char[7] or larger!
 
 /******* TEMPLATE FUNCTIONS ********************************************/
 template <class T> T hmin(T a, T b)
