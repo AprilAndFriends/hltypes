@@ -36,9 +36,9 @@ namespace hltypes
 		/*
 		wchar_t wpath[1025] = {'\0'};
 		utf8_to_unicode(path, wpath);
-		_wmkdir(wpath);
+		return _wmkdir(wpath);
 		*/
-		_mkdir(path.c_str());
+		return _mkdir(path.c_str());
 	}
 	
 	static bool hremove(chstr dirname)
@@ -46,9 +46,9 @@ namespace hltypes
 		/*
 		wchar_t wdirname[1025] = {'\0'};
 		utf8_to_unicode(dirname, wdirname);
-		_wremove(wdirname);
+		return _wremove(wdirname);
 		*/
-		remove(dirname.c_str());
+		return remove(dirname.c_str());
 	}
 	
 	static bool hrmdir(chstr dirname)
@@ -56,9 +56,9 @@ namespace hltypes
 		/*
 		wchar_t wdirname[1025] = {'\0'};
 		utf8_to_unicode(dirname, wdirname);
-		_wrmdir(wdirname);
+		return _wrmdir(wdirname);
 		*/
-		_rmdir(dirname.c_str());
+		return _rmdir(dirname.c_str());
 	}
 	
 	bool dir::create(chstr dirname)
