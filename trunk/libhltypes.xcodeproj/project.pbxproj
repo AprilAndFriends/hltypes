@@ -260,7 +260,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
@@ -270,7 +269,6 @@
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				SDKROOT = macosx10.6;
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -308,7 +306,7 @@
 			};
 			name = Release;
 		};
-		7FC8A8CF1296C797003D3931 /* App Store */ = {
+		7F7A5603129D435000E0ED12 /* App Store */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = i386;
@@ -323,11 +321,10 @@
 			};
 			name = "App Store";
 		};
-		7FC8A8D01296C797003D3931 /* App Store */ = {
+		7F7A5604129D435000E0ED12 /* App Store */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
@@ -337,7 +334,6 @@
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				SDKROOT = macosx10.6;
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -351,7 +347,7 @@
 			buildConfigurations = (
 				1DEB91AE08733DA50010E9CD /* Debug */,
 				1DEB91AF08733DA50010E9CD /* Release */,
-				7FC8A8D01296C797003D3931 /* App Store */,
+				7F7A5604129D435000E0ED12 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -361,7 +357,7 @@
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Debug */,
 				1DEB91B308733DA50010E9CD /* Release */,
-				7FC8A8CF1296C797003D3931 /* App Store */,
+				7F7A5603129D435000E0ED12 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
