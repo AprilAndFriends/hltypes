@@ -127,7 +127,7 @@ namespace hltypes
 #endif
 	}
 	
-	void thread::sleep(int miliseconds)
+	void thread::sleep(float miliseconds)
 	{
 #ifdef _WIN32
 		Sleep(miliseconds);
