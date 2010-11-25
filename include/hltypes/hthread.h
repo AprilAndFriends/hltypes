@@ -34,7 +34,7 @@ namespace hltypes
 		void leaveCritical();
 		virtual void execute();
 		void join();
-		static void sleep(int miliseconds);
+		static void sleep(float miliseconds);
 		
 		//static thread* getCurrentThread();
 

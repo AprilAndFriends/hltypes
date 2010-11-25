@@ -38,7 +38,7 @@ namespace hltypes
 		utf8_to_unicode(path, wpath);
 		return _wmkdir(wpath);
 		*/
-		return _mkdir(path.c_str());
+		return (_mkdir(path.c_str()) != 0);
 	}
 	
 	static bool hremove(chstr dirname)
@@ -48,7 +48,7 @@ namespace hltypes
 		utf8_to_unicode(dirname, wdirname);
 		return _wremove(wdirname);
 		*/
-		return remove(dirname.c_str());
+		return (remove(dirname.c_str()) != 0);
 	}
 	
 	static bool hrmdir(chstr dirname)
@@ -58,7 +58,7 @@ namespace hltypes
 		utf8_to_unicode(dirname, wdirname);
 		return _wrmdir(wdirname);
 		*/
-		return _rmdir(dirname.c_str());
+		return (_rmdir(dirname.c_str()) != 0);
 	}
 	
 	bool dir::create(chstr dirname)
