@@ -130,7 +130,7 @@ namespace hltypes
 	void thread::sleep(float miliseconds)
 	{
 #ifdef _WIN32
-		Sleep(miliseconds);
+		Sleep((int)miliseconds);
 #else
 		usleep(miliseconds * 1000);
 #endif
