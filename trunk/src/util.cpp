@@ -93,12 +93,13 @@ hstr unicode_to_utf8(wchar_t value)
 		result += (char)(0xC0 | (value >> 6));
 		result += (char)(0x80 | (value & 0x3F));
 	}
-	else if (value < 0x10000)
+	else// if (value < 0x10000)
 	{
 		result += (char)(0xE0 | (value >> 12));
 		result += (char)(0x80 | ((value >> 6) & 0x3F));
 		result += (char)(0x80 | (value & 0x3F));
 	}
+	/*
 	else
 	{
 		result += (char)(0xF0 | (value >> 18));
@@ -106,6 +107,7 @@ hstr unicode_to_utf8(wchar_t value)
 		result += (char)(0x80 | ((value >> 6) & 0x3F));
 		result += (char)(0x80 | (value & 0x3F));
 	}
+	*/
 	return result;
 }
 
