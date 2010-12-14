@@ -69,20 +69,28 @@ namespace hltypes
 			}
 			return stdvector::at(index);
 		}
+		const T& operator[](const int index) const
+		{
+			if (index < 0)
+			{
+				return stdvector::at(this->size() + index);
+			}
+			return stdvector::at(index);
+		}
 	
-		Array<T> operator()(const int start, const int count)
+		Array<T> operator()(const int start, const int count) const
 		{
 			Array<T> result;
 			result.assign(stdvector::begin() + start, stdvector::begin() + start + count);
 			return result;
 		}
 	
-		bool operator==(const Array<T>& other)
+		bool operator==(const Array<T>& other) const
 		{
 			return this->equals(other);
 		}
 		
-		bool operator!=(const Array<T>& other)
+		bool operator!=(const Array<T>& other) const
 		{
 			return (!this->equals(other));
 		}
