@@ -468,6 +468,7 @@ namespace hltypes
 		char chstr[2] = {c, '\0'};
 		stdstr::append(chstr);
 	}
+	
 /******* COMPARISON OPERATORS ******************************************/
 	bool string::operator==(const float f) const
 	{
