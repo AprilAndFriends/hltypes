@@ -161,7 +161,7 @@ namespace hltypes
 		
 		int count(T element)
 		{
-			int result
+			int result = 0;
 			for (int i = 0; i < this->size(); i++)
 			{
 				if (element == stdvector::at(i))
