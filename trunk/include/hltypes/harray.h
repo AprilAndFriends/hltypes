@@ -159,6 +159,19 @@ namespace hltypes
 			return true;
 		}
 		
+		int count(T element)
+		{
+			int result
+			for (int i = 0; i < this->size(); i++)
+			{
+				if (element == stdvector::at(i))
+				{
+					result++;
+				}
+			}
+			return result;
+		}
+		
 		void insert_at(const int index, const T& element, int times = 1)
 		{
 			stdvector::insert(stdvector::begin() + index, times, element);
