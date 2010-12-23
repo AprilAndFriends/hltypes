@@ -553,16 +553,14 @@ hstr operator+(char s1, chstr s2)
 	return (hstr(s1) + s2);
 }
 
-
 hstr hvsprintf(const char* format, va_list args)
 {
 	int size = 2;
 	char* c = new char[size + 1];
-	memset(c, 0, size + 1); // VS compiler requires this
 	int count = 0;
 	for (int i = 0; i < 8; i++)
 	{
-		count = vsnprintf(c, size, format, args);
+		count = vsnprintf(c, size + 1, format, args);
 		if (count == 0)
 		{
 			break;
@@ -571,14 +569,12 @@ hstr hvsprintf(const char* format, va_list args)
 		{
 			delete c;
 			c = new char[count + 1];
-			memset(c, 0, count + 1); // VS compiler requires this
-			vsnprintf(c, count, format, args);
+			vsnprintf(c, count + 1, format, args);
 			break;
 		}
 		size *= 2;
 		delete c;
 		c = new char[size + 1];
-		memset(c, 0, size + 1); // VS compiler requires this
 	}
 	hstr result(c);
 	delete c;
