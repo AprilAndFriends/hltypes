@@ -558,10 +558,11 @@ hstr hvsprintf(const char* format, va_list args)
 {
 	int size = 2;
 	char* c = new char[size + 1];
+	memset(c, 0, size + 1); // VS compiler requires this
 	int count = 0;
 	for (int i = 0; i < 8; i++)
 	{
-		count = vsnprintf(c, size + 1, format, args);
+		count = vsnprintf(c, size, format, args);
 		if (count == 0)
 		{
 			break;
@@ -570,13 +571,14 @@ hstr hvsprintf(const char* format, va_list args)
 		{
 			delete c;
 			c = new char[count + 1];
-			vsnprintf(c, count + 1, format, args);
+			memset(c, 0, count + 1); // VS compiler requires this
+			vsnprintf(c, count, format, args);
 			break;
 		}
-		// VS compiler
-		delete c;
 		size *= 2;
+		delete c;
 		c = new char[size + 1];
+		memset(c, 0, size + 1); // VS compiler requires this
 	}
 	hstr result(c);
 	delete c;
