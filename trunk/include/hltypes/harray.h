@@ -459,12 +459,18 @@ namespace hltypes
 		
 		void sort()
 		{
-			std::stable_sort(stdvector::begin(), stdvector::end());
+			if (this->size() > 0)
+			{
+				std::stable_sort(stdvector::begin(), stdvector::end());
+			}
 		}
 		
 		void sort(bool (*compare_function)(T, T))
 		{
-			std::stable_sort(stdvector::begin(), stdvector::end(), compare_function);
+			if (this->size() > 0)
+			{
+				std::stable_sort(stdvector::begin(), stdvector::end(), compare_function);
+			}
 		}
 		
 		Array<T> sorted()
