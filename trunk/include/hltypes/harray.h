@@ -702,6 +702,7 @@ namespace hltypes
 
 		Array<T> operator+(const Array<T>& other) const
 		{
+			
 			Array<T> result(*this);
 			result += other;
 			return result;
@@ -730,18 +731,18 @@ namespace hltypes
 		
 		Array<T> operator|(const Array<T>& other) const
 		{
-			return united(other);
+			return this->united(other);
 		}
+		
 		Array<T> operator&(const Array<T>& other) const
 		{
-			return intersected(other);
+			return this->intersected(other);
 		}
+		
 		Array<T> operator/(const Array<T>& other) const
 		{
-			return differentiated(other);
+			return this->differentiated(other);
 		}
-		
-		
 		
 	};
 	
