@@ -102,7 +102,7 @@ namespace hltypes
 			return stdvector::size();
 		}
 		
-		bool equals(const Array<T>& other)
+		bool equals(const Array<T>& other) const
 		{
 			if (this->size() != other.size())
 			{

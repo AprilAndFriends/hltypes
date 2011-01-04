@@ -107,6 +107,17 @@ TEST(Util_hrand)
 	}
 }
 
+TEST(Util_hswap)
+{
+	int a = 0;
+	int b = 1;
+	hswap(a, b);
+	CHECK(a == 1 && b == 0);
+	int fs[2] = {0, 1};
+	hswap(fs[0], fs[1]);
+	CHECK(fs[0] == 1 && fs[1] == 0);
+}
+
 TEST(Util_normalize_path)
 {
 	hstr path = "../..\\test\\test2\\";
