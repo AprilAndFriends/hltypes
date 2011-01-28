@@ -288,6 +288,14 @@ namespace hltypes
 					result += entry->d_name;
 				}
 			}
+			if (result.contains("."))
+			{
+				result.remove(".");
+			}
+			if (result.contains(".."))
+			{
+				result.remove("..");
+			}
 			closedir(dir);
 		}
         if (prepend_dir)
