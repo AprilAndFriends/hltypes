@@ -69,6 +69,7 @@ namespace hltypes
 			}
 			return stdvector::at(index);
 		}
+		
 		const T& operator[](const int index) const
 		{
 			if (index < 0)
