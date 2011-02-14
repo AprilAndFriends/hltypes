@@ -351,7 +351,9 @@ namespace hltypes
 		 */
 		T remove_at(const int index)
 		{
-			return this->remove_at(index);
+			T result = stdvector::at(index);
+			stdvector::erase(stdvector::begin() + index);
+			return result;
 		}
 		/**
 		 * @brief Removes n elements at given index of Array.
