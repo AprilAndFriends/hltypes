@@ -1,12 +1,18 @@
-/************************************************************************************\
-This source file is part of the KS(X) audio library                                  *
-For latest info, see http://code.google.com/p/libxal/                                *
-**************************************************************************************
-Copyright (c) 2010 Kresimir Spes, Boris Mikic                                        *
-*                                                                                    *
-* This program is free software; you can redistribute it and/or modify it under      *
-* the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
-\************************************************************************************/
+/**
+ * @file
+ * @author  Kresimir Spes
+ * @author  Boris Mikic
+ * @version 1.0
+ *
+ * @section LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+ *
+ * @section DESCRIPTION
+ *
+ * Provides functionality of a Mutex for multithreading.
+ */
 #ifndef HLTYPES_MUTEX_H
 #define HLTYPES_MUTEX_H
 
@@ -18,14 +24,32 @@ Copyright (c) 2010 Kresimir Spes, Boris Mikic                                   
 
 namespace hltypes
 {
+	/**
+	 * @brief Provides functionality of a Mutex for multithreading.
+	 * @author Kresimir Spes
+	 * @author Boris Mikic
+	 * @todo Finish the class and fix remaining problems.
+	 */
 	class hltypesExport mutex
 	{
 	public:
+		/**
+		 * @brief Basic constructor.
+		 */
 		mutex();
+		/**
+		 * @brief Destructor.
+		 */
 		~mutex();
-		//! Lock the mutex. If another thread has lock, the caller thread will wait until the previous thread unlocks it
+		/**
+		 * @brief Locks the Mutex.
+		 * @note If another thread has lock, the caller thread will wait until the previous thread unlocks it.
+		 */
 		void lock();
-		//! Unlock the mutex. Use this when you're done with thread-safe sections of your code
+		/**
+		 * @brief Unlocks the Mutex.
+		 * @note Use this when you're done with thread-safe sections of your code.
+		 */
 		void unlock();
 		
 	protected:
@@ -38,6 +62,9 @@ namespace hltypes
 	};
 }
 
+/**
+ * @brief Alias for simpler code.
+ */
 typedef hltypes::mutex hmutex;
 
 #endif
