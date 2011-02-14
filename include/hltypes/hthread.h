@@ -1,12 +1,18 @@
-/************************************************************************************\
-This source file is part of the KS(X) audio library                                  *
-For latest info, see http://code.google.com/p/libxal/                                *
-**************************************************************************************
-Copyright (c) 2010 Kresimir Spes, Boris Mikic                                        *
-*                                                                                    *
-* This program is free software; you can redistribute it and/or modify it under      *
-* the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
-\************************************************************************************/
+/**
+ * @file
+ * @author  Kresimir Spes
+ * @author  Boris Mikic
+ * @version 1.0
+ *
+ * @section LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+ *
+ * @section DESCRIPTION
+ *
+ * Provides functionality of a Thread for multithreading.
+ */
 #ifndef HLTYPES_THREAD_H
 #define HLTYPES_THREAD_H
 
@@ -18,40 +24,97 @@ Copyright (c) 2010 Kresimir Spes, Boris Mikic                                   
 
 namespace hltypes
 {
+	/**
+	 * @brief Provides functionality of a Thread for multithreading.
+	 * @author Kresimir Spes
+	 * @author Boris Mikic
+	 * @todo Finish the class and fix remaining problems.
+	 */
 	class hltypesExport thread
 	{
 	public:
+		/**
+		 * @brief Basic constructor.
+		 * @param function Function pointer for the callback.
+		 */
 		thread(void (*function)());
+		/**
+		 * @brief Destructor.
+		 */
 		~thread();
+		/**
+		 * @brief Sets function.
+		 * @param value New function.
+		 */
 		void setFunction(void (*value)()) { this->function = value; }
-	
+		/**
+		 * @brief Starts the thread processing.
+		 */
 		void start();
+		/**
+		 * @brief Stops the thread processing.
+		 */
 		void stop();
+		/**
+		 * @brief Resumes the thread processing.
+		 */
 		void resume();
+		/**
+		 * @brief Pauses the thread processing.
+		 */
 		void pause();
-		
+		/**
+		 * @brief Enters a criticals section.
+		 */
 		void enterCritical();
+		/**
+		 * @brief Leaves a criticals section.
+		 */
 		void leaveCritical();
+		/**
+		 * @brief Executes the thread's function.
+		 */
 		virtual void execute();
+		/**
+		 * @brief Joins thread.
+		 */
 		void join();
+		/**
+		 * @brief Puts current thread to sleep.
+		 * @param miliseconds How long to sleep in miliseconds.
+		 */
 		static void sleep(float miliseconds);
 		
 		//static thread* getCurrentThread();
 
 	protected:
+		/**
+		 * @brief The callback function of the thread.
+		 */
 		void (*function)();
+		/**
+		 * @brief The internal OS handle ID for the thread.
+		 */
 #ifdef _WIN32
 		void* id;
+		/**
+		 * @brief Void pointer to critical section.
+		 */
 		static void* criticalSection;
 #else
 		pthread_t id;
 #endif
+		/**
+		 * @brief Flag that determines whether the thread is running or not.
+		 */
 		volatile bool running;
-		
 		
 	};
 }
 
+/**
+ * @brief Alias for simpler code.
+ */
 typedef hltypes::thread hthread;
 
 #endif
