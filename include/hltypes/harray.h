@@ -968,8 +968,8 @@ namespace hltypes
 			return true;
 		}
 		/**
-		 * @brief Returns a new Array with all elements casted into type S.
-		 * @return A new Array with all elements casted into type S.
+		 * @brief Returns a new Array with all elements cast into type S.
+		 * @return A new Array with all elements cast into type S.
 		 * @note Make sure all elements in the Array can be cast into S.
 		 */
 		template <class S>
