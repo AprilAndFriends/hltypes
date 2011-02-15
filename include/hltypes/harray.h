@@ -406,7 +406,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes all occurences of each element in another Array from this one.
-		 * @param[in] element Array of elements to remove.
+		 * @param[in] other Array of elements to remove.
 		 */
 		void remove_all(const Array<T>& other)
 		{
