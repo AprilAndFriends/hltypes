@@ -49,14 +49,14 @@ namespace hltypes
 		}
 		/**
 		 * @brief Copy constructor.
-		 * @param other Map to copy.
+		 * @param[in] other Map to copy.
 		 */
 		Map(const Map<K, T>& other) : stdmap(other)
 		{
 		}
 		/**
 		 * @brief Returns value with specified key.
-		 * @param index Key of the value.
+		 * @param[in] index Key of the value.
 		 * @return Value with specified key.
 		 */
 		T& operator[](const K& key)
@@ -123,7 +123,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Compares the contents of two Maps for being equal.
-		 * @param other Another Map.
+		 * @param[in] other Another Map.
 		 * @return True if number of keys and values are equal and all pairs of keys and values are equal.
 		 */
 		bool equals(const Map<K, T>& other)
@@ -149,7 +149,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Compares the contents of two Maps for being not equal.
-		 * @param other Another Map.
+		 * @param[in] other Another Map.
 		 * @return True if number of keys and values are not equal or at least one pair of keys and values is not equal.
 		 */
 		bool nequals(const Map<K, T>& other)
@@ -175,7 +175,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Returns key of specified value.
-		 * @param index Value with the given key.
+		 * @param[in] index Value with the given key.
 		 * @return Key of specified value.
 		 */
 		K key_of(const T& value)
@@ -191,7 +191,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks for existence of a key.
-		 * @param key Key to check.
+		 * @param[in] key Key to check.
 		 * @return True if key is present.
 		 */
 		bool has_key(const K& key)
@@ -200,7 +200,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks for existence of all keys.
-		 * @param keys hltypes::Array of keys to check.
+		 * @param[in] keys Array of keys to check.
 		 * @return True if all keys are present.
 		 */
 		bool has_keys(const harray<K>& keys)
@@ -216,8 +216,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks for existence of all keys.
-		 * @param keys C-type array of keys to check.
-		 * @param count Number of keys to check.
+		 * @param[in] keys C-type array of keys to check.
+		 * @param[in] count Number of keys to check.
 		 * @return True if all keys are present.
 		 */
 		bool has_keys(const K keys[], const int count)
@@ -233,7 +233,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks for existence of a value.
-		 * @param value Value to check.
+		 * @param[in] value Value to check.
 		 * @return True if value is present.
 		 */
 		bool has_value(const T& value)
@@ -249,7 +249,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks for existence of all values.
-		 * @param values hltypes::Array of values to check.
+		 * @param[in] values Array of values to check.
 		 * @return True if all values are present.
 		 */
 		bool has_values(const harray<T>& values)
@@ -265,8 +265,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks for existence of all values.
-		 * @param values C-type array of values to check.
-		 * @param count Number of values to check.
+		 * @param[in] values C-type array of values to check.
+		 * @param[in] count Number of values to check.
 		 * @return True if all values are present.
 		 */
 		bool has_values(const T values[], const int count)
@@ -282,8 +282,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds a new pair of key and value into the Map.
-		 * @param key Key of the entry.
-		 * @param value Value of the entry.
+		 * @param[in] key Key of the entry.
+		 * @param[in] value Value of the entry.
 		 */
 		void insert(const K& key, const T& value)
 		{
@@ -291,7 +291,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all pairs of keys and values from another Map into this one.
-		 * @param other Another Map.
+		 * @param[in] other Another Map.
 		 * @note Entries with already existing keys will not be overwritten.
 		 */
 		void insert(const Map<K, T>& other)
@@ -300,7 +300,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all pairs of keys and values from another Map into this one.
-		 * @param other Another Map.
+		 * @param[in] other Another Map.
 		 * @note Entries with already existing keys will be overwritten.
 		 */
 		void inject(const Map<K, T>& other)
@@ -312,7 +312,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes a pair of key and value specified by a key.
-		 * @param key Key of the entry.
+		 * @param[in] key Key of the entry.
 		 */
 		void remove_key(const K& key)
 		{
@@ -323,7 +323,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes all pairs of key and value specified by an Array of keys.
-		 * @param keys hltypes::Array of keys.
+		 * @param[in] keys Array of keys.
 		 */
 		void remove_keys(const harray<K>& keys)
 		{
@@ -337,7 +337,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes a pair of key and value specified by a value.
-		 * @param value Value of the entry.
+		 * @param[in] value Value of the entry.
 		 */
 		void remove_value(const T& value)
 		{
@@ -349,7 +349,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes all pairs of key and value specified by an Array of values.
-		 * @param values hltypes::Array of values.
+		 * @param[in] values Array of values.
 		 */
 		void remove_values(const harray<T>& values)
 		{
@@ -367,7 +367,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Finds and returns new Map with entries that match the condition.
-		 * @param condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
+		 * @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
 		 * @return New Map with all matching elements.
 		 */
 		Map<K, T> find_all(bool (*compare_function)(K, T))
@@ -384,7 +384,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks if at least one entry matches the condition.
-		 * @param condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
+		 * @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
 		 * @return True if at least one entry matches the condition.
 		 */
 		bool matches_any(bool (*compare_function)(K, T))
@@ -400,7 +400,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks if all entries match the condition.
-		 * @param condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
+		 * @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
 		 * @return True if all entries match the condition.
 		 */
 		bool matches_all(bool (*compare_function)(K, T))
