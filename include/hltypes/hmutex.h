@@ -11,7 +11,7 @@
  *
  * @section DESCRIPTION
  *
- * Provides functionality of a Mutex for multithreading.
+ * Provides functionality of a mutex for multithreading.
  */
 #ifndef HLTYPES_MUTEX_H
 #define HLTYPES_MUTEX_H
@@ -30,17 +30,17 @@ namespace hltypes
 	 * @author Boris Mikic
 	 * @todo Finish the class and fix remaining problems.
 	 */
-	class hltypesExport mutex
+	class hltypesExport Mutex
 	{
 	public:
 		/**
 		 * @brief Basic constructor.
 		 */
-		mutex();
+		Mutex();
 		/**
 		 * @brief Destructor.
 		 */
-		~mutex();
+		~Mutex();
 		/**
 		 * @brief Locks the Mutex.
 		 * @note If another thread has lock, the caller thread will wait until the previous thread unlocks it.
@@ -53,6 +53,9 @@ namespace hltypes
 		void unlock();
 		
 	protected:
+		/**
+		 * @brief Mutex OS handle.
+		 */
 #ifdef _WIN32
 		void* handle;
 #else
@@ -65,6 +68,6 @@ namespace hltypes
 /**
  * @brief Alias for simpler code.
  */
-typedef hltypes::mutex hmutex;
+typedef hltypes::Mutex hmutex;
 
 #endif

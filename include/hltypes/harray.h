@@ -117,7 +117,7 @@ namespace hltypes
 		/**
 		 * @brief Returns element at specified position.
 		 * @param[in] index Index of the element.
-		 * @return Const element at specified position.
+		 * @return Element at specified position.
 		 * @note Does not work with bool as T, use Array::at directly instead.
 		 */
 		const T& operator[](const int index) const
@@ -133,7 +133,6 @@ namespace hltypes
 		 * @param[in] start Start index of the elements to copy.
 		 * @param[in] count Number of elements to copy.
 		 * @return Subarray created from the current Array.
-		 * @note Original Array stays unchanged.
 		 */
 		Array<T> operator()(const int start, const int count) const
 		{
@@ -640,7 +639,6 @@ namespace hltypes
 		/**
 		 * @brief Unites elements of this Array with another one.
 		 * @param[in] other Array to unite with.
-		 * @note The other Array stays unchanged.
 		 */
 		void unite(const Array<T>& other)
 		{
@@ -651,7 +649,6 @@ namespace hltypes
 		 * @brief Creates a new Array as union of this Array with another one.
 		 * @param[in] other Array to unite with.
 		 * @return A new Array.
-		 * @note Both Arrays stay unchanged.
 		 */
 		Array<T> united(const Array<T>& other) const
 		{
@@ -662,7 +659,6 @@ namespace hltypes
 		/**
 		 * @brief Intersects elements of this Array with another one.
 		 * @param[in] other Array to intersect with.
-		 * @note The other Array stays unchanged.
 		 */
 		void intersect(const Array<T>& other)
 		{
@@ -680,7 +676,6 @@ namespace hltypes
 		 * @brief Creates a new Array as intersection of this Array with another one.
 		 * @param[in] other Array to intersect with.
 		 * @return A new Array.
-		 * @note Both Arrays stay unchanged.
 		 */
 		Array<T> intersected(const Array<T>& other) const
 		{
@@ -691,7 +686,6 @@ namespace hltypes
 		/**
 		 * @brief Differentiates elements of this Array with another one.
 		 * @param[in] other Array to differentiate with.
-		 * @note The other Array stays unchanged.
 		 * @note Unlike remove, this method ignore elements of other Array that are not in this one.
 		 */
 		void differentiate(const Array<T>& other)
@@ -710,7 +704,6 @@ namespace hltypes
 		 * @brief Creates a new Array as difference of this Array with another one.
 		 * @param[in] other Array to differentiate with.
 		 * @return A new Array.
-		 * @note Both Arrays stay unchanged.
 		 * @note Unlike remove, this method ignore elements of other Array that are not in this one.
 		 */
 		Array<T> differentiated(const Array<T>& other) const
@@ -729,9 +722,8 @@ namespace hltypes
 		/**
 		 * @brief Creates new Array with reversed order of elements.
 		 * @return A new Array.
-		 * @note Orignal Array stays unchanged.
 		 */
-		Array<T> reversed()
+		Array<T> reversed() const
 		{
 			Array<T> result(*this);
 			result.reverse();
@@ -755,9 +747,8 @@ namespace hltypes
 		/**
 		 * @brief Creates new Array without duplicates.
 		 * @return A new Array.
-		 * @note Orignal Array stays unchanged.
 		 */
-		Array<T> removed_duplicates()
+		Array<T> removed_duplicates() const
 		{
 			Array<T> result(*this);
 			result.remove_duplicates();
@@ -791,9 +782,8 @@ namespace hltypes
 		 * @brief Creates new sorted Array.
 		 * @return A new Array.
 		 * @note The sorting order is ascending.
-		 * @note Orignal Array stays unchanged.
 		 */
-		Array<T> sorted()
+		Array<T> sorted() const
 		{
 			Array<T> result(*this);
 			result.sort();
@@ -805,9 +795,8 @@ namespace hltypes
 		 * @return A new Array.
 		 * @note The sorting order is ascending.
 		 * @note compare_function should return true if first element is less than the second element.
-		 * @note Orignal Array stays unchanged.
 		 */
-		Array<T> sorted(bool (*compare_function)(T, T))
+		Array<T> sorted(bool (*compare_function)(T, T)) const
 		{
 			Array<T> result(*this);
 			result.sort(compare_function);
@@ -823,9 +812,8 @@ namespace hltypes
 		/**
 		 * @brief Creates a new Array with randomized order of elements.
 		 * @return A new Array.
-		 * @note Orignal Array stays unchanged.
 		 */
-		Array<T> randomized()
+		Array<T> randomized() const
 		{
 			Array<T> result(*this);
 			result.randomize();
@@ -887,7 +875,7 @@ namespace hltypes
 		 * @brief Joins all elements into a string.
 		 * @param[in] separator Separator string between elements.
 		 * @return String or joined elements separater by separator string.
-		 * @note Make sure your elements can be cast into hltypes::string or are already hltypes::string.
+		 * @note Make sure your elements can be cast into String or are already String.
 		 */
 		hstr join(chstr separator)
 		{
@@ -970,7 +958,7 @@ namespace hltypes
 		/**
 		 * @brief Returns a new Array with all elements cast into type S.
 		 * @return A new Array with all elements cast into type S.
-		 * @note Make sure all elements in the Array can be cast into S.
+		 * @note Make sure all elements in the Array can be cast into type S.
 		 */
 		template <class S>
 		Array<S> cast()
@@ -1251,7 +1239,6 @@ namespace hltypes
 		 * @brief Merges two Arrays.
 		 * @param[in] other Second Array to merge with.
 		 * @return New Array with elements of second Array added at the end of first Array.
-		 * @note Both Arrays stay unchanged.
 		 */
 		Array<T> operator+(const Array<T>& other) const
 		{
@@ -1263,7 +1250,6 @@ namespace hltypes
 		 * @brief Merges an Array with an element.
 		 * @param[in] element Element to merge with.
 		 * @return New Array with element added at the end of Array.
-		 * @note Original Array stays unchanged.
 		 */
 		Array<T> operator+(const T& element) const
 		{
@@ -1275,7 +1261,6 @@ namespace hltypes
 		 * @brief Removes second Array from first Array.
 		 * @param[in] other Array to remove.
 		 * @return New Array with elements of first Array without the elements of second Array.
-		 * @note Both Arrays stay unchanged.
 		 */
 		Array<T> operator-(const Array<T>& other) const
 		{
@@ -1287,7 +1272,6 @@ namespace hltypes
 		 * @brief Removes element from Array.
 		 * @param[in] element Element to remove.
 		 * @return New Array with elements of first Array without given element.
-		 * @note Original Array stays unchanged.
 		 */
 		Array<T> operator-(const T& element) const
 		{

@@ -11,7 +11,7 @@
  *
  * @section DESCRIPTION
  *
- * Provides functionality of a Thread for multithreading.
+ * Provides functionality of a thread for multithreading.
  */
 #ifndef HLTYPES_THREAD_H
 #define HLTYPES_THREAD_H
@@ -30,18 +30,18 @@ namespace hltypes
 	 * @author Boris Mikic
 	 * @todo Finish the class and fix remaining problems.
 	 */
-	class hltypesExport thread
+	class hltypesExport Thread
 	{
 	public:
 		/**
 		 * @brief Basic constructor.
 		 * @param[in] function Function pointer for the callback.
 		 */
-		thread(void (*function)());
+		Thread(void (*function)());
 		/**
 		 * @brief Destructor.
 		 */
-		~thread();
+		~Thread();
 		/**
 		 * @brief Sets function.
 		 * @param[in] value New function.
@@ -85,7 +85,7 @@ namespace hltypes
 		 */
 		static void sleep(float miliseconds);
 		
-		//static thread* getCurrentThread();
+		//static Thread* getCurrentThread();
 
 	protected:
 		/**
@@ -115,6 +115,6 @@ namespace hltypes
 /**
  * @brief Alias for simpler code.
  */
-typedef hltypes::thread hthread;
+typedef hltypes::Thread hthread;
 
 #endif

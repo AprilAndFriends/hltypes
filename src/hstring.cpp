@@ -21,18 +21,18 @@ typedef std::basic_string<char> stdstr;
 
 namespace hltypes
 {
-	string::string() : stdstr() { }
-	string::string(const char c) : stdstr(1, c) { }
-	string::string(const char c, const int len) : stdstr(len, c) { }
-	string::string(const char* s) : stdstr(s) { }
-	string::string(const string& s) : stdstr(s) { }
-	string::string(const std::string& s) : stdstr(s) { }
-	string::string(const char* s, const int len) : stdstr(s, len) { }
-	string::string(const string& s, const int len) : stdstr(s, len) { }
-	string::string(const int i) { this->operator=(i); }
-	string::string(const unsigned int i) { this->operator=(i); }
-	string::string(const float f) { this->operator=(f); }
-	string::string(const float f, int precision)
+	String::String() : stdstr() { }
+	String::String(const char c) : stdstr(1, c) { }
+	String::String(const char c, const int times) : stdstr(times, c) { }
+	String::String(const char* s) : stdstr(s) { }
+	String::String(const String& s) : stdstr(s) { }
+	String::String(const std::string& s) : stdstr(s) { }
+	String::String(const char* s, const int length) : stdstr(s, length) { }
+	String::String(const String& s, const int length) : stdstr(s, length) { }
+	String::String(const int i) { this->operator=(i); }
+	String::String(const unsigned int i) { this->operator=(i); }
+	String::String(const float f) { this->operator=(f); }
+	String::String(const float f, int precision)
 	{
 		char fmt[16], s[64];
 		sprintf(fmt, "%%.%df", precision);
@@ -40,24 +40,35 @@ namespace hltypes
 		stdstr::operator=(s);
 	}
 
-	harray_hstr string::split(const char* delimiter, unsigned int n) const
+	Array<String> String::split(const char* delimiter, unsigned int n) const
 	{
-		harray_hstr out;
+		Array<String> out;
 		const char *s = stdstr::c_str(), *p;
 		int delimiter_len = strlen(delimiter);
 		while ((p = strstr(s, delimiter)) != 0 && n > 0)
 		{
-			out += string(s, p - s);
+			out += String(s, p - s);
 			s = p + delimiter_len;
 			n--;
 		}
-		out += string(s);
+		out += String(s);
 		return out;
 	}
 	
-	harray_hstr string::rsplit(const char* delimiter, unsigned int n) const
+	Array<String> String::split(const char delimiter, unsigned int n) const
 	{
-		harray_hstr out;
+		const char sp[2] = {delimiter, '\0'};
+		return this->split(sp, n);
+	}
+
+	Array<String> String::split(const String& delimiter, unsigned int n) const
+	{
+		return this->split(delimiter.c_str(), n);
+	}
+	
+	Array<String> String::rsplit(const char* delimiter, unsigned int n) const
+	{
+		Array<String> out;
 		const char *s = stdstr::c_str(), *p;
 		int delimiter_len = strlen(delimiter);
 		for (p = s + strlen(s) - 1; p != s && n > 0; p--)
@@ -69,19 +80,30 @@ namespace hltypes
 		}
 		if (s != p)
 		{
-			out += string(s, p - s + 1);
+			out += String(s, p - s + 1);
 			s = p + 1 + delimiter_len;
 		}
 		while ((p = strstr(s, delimiter)) != 0)
 		{
-			out += string(s, p - s);
+			out += String(s, p - s);
 			s = p + delimiter_len;
 		}
-		out += string(s);
+		out += String(s);
 		return out;
 	}
 
-	bool string::split(const char* delimiter, string& out_left, string& out_right) const
+	Array<String> String::rsplit(const char delimiter, unsigned int n) const
+	{
+		const char sp[2] = {delimiter, '\0'};
+		return this->rsplit(sp, n);
+	}
+
+	Array<String> String::rsplit(const String& delimiter, unsigned int n) const
+	{
+		return this->rsplit(delimiter.c_str(), n);
+	}
+	
+	bool String::split(const char* delimiter, String& out_left, String& out_right) const
 	{
 		int index = this->find(delimiter);
 		if (index < 0)
@@ -93,7 +115,7 @@ namespace hltypes
 		return true;
 	}
 	
-	bool string::rsplit(const char* delimiter, string& out_left, string& out_right) const
+	bool String::rsplit(const char* delimiter, String& out_left, String& out_right) const
 	{
 		int index = this->rfind(delimiter);
 		if (index < 0)
@@ -105,12 +127,12 @@ namespace hltypes
 		return true;
 	}
 
-	bool string::starts_with(const char* s) const
+	bool String::starts_with(const char* s) const
 	{
 		return (strncmp(stdstr::c_str(), s, strlen(s)) == 0);
 	}
 
-	bool string::ends_with(const char* s) const
+	bool String::ends_with(const char* s) const
 	{
 		const char* thiss = stdstr::c_str();
 		int thislen = this->size(), slen = strlen(s);
@@ -121,33 +143,33 @@ namespace hltypes
 		return (strcmp(thiss + thislen - slen, s) == 0);
 	}
 	
-	string string::lower() const
+	String String::lower() const
 	{
 		hstr s(*this);
 		std::transform(s.begin(), s.end(), s.begin(), tolower);
 		return s;
 	}
 	
-	string string::upper() const
+	String String::upper() const
 	{
 		hstr s(*this);
 		std::transform(s.begin(), s.end(), s.begin(), toupper);
 		return s;
 	}
 
-	string string::reverse() const
+	String String::reverse() const
 	{
 		hstr s(*this);
 		std::reverse(s.begin(), s.end());
 		return s;
 	}
 
-	string string::trim(char c) const
+	String String::trim(char c) const
 	{
 		return this->ltrim(c).rtrim(c);
 	}
 
-	string string::ltrim(char c) const
+	String String::ltrim(char c) const
 	{
 		int index = stdstr::find_first_not_of(c);
 		if (index < 0)
@@ -157,7 +179,7 @@ namespace hltypes
 		return stdstr::substr(index, this->size() - index);
 	}
 
-	string string::rtrim(char c) const
+	String String::rtrim(char c) const
 	{
 		int index = stdstr::find_last_not_of(c);
 		if (index < 0)
@@ -167,10 +189,10 @@ namespace hltypes
 		return stdstr::substr(0, index + 1);
 	}
 
-	string string::replace(const char* what, const char* with_what) const
+	String String::replace(const char* what, const char* with_what) const
 	{
 		const char *s = stdstr::c_str(), *p;
-		string out;
+		String out;
 		int what_len = strlen(what);
 		if (what_len == 0)
 		{
@@ -186,68 +208,46 @@ namespace hltypes
 		return out;
 	}
 	
-	bool string::contains(const char* s) const
+	int String::size() const
 	{
-		return stdstr::find(s) != stdstr::npos;
+		return stdstr::size();
 	}
 	
-	int string::size() const
+	int String::length() const
 	{
 		return stdstr::size();
 	}
 	
 /******* TYPE EXTENSION FUNCTIONS **************************************/
-	harray_hstr string::split(const char delimiter, unsigned int n) const
-	{
-		const char sp[2] = {delimiter, '\0'};
-		return this->split(sp, n);
-	}
-
-	harray_hstr string::split(const string& delimiter, unsigned int n) const
-	{
-		return this->split(delimiter.c_str(), n);
-	}
-	
-	harray_hstr string::rsplit(const char delimiter, unsigned int n) const
-	{
-		const char sp[2] = {delimiter, '\0'};
-		return this->rsplit(sp, n);
-	}
-
-	harray_hstr string::rsplit(const string& delimiter, unsigned int n) const
-	{
-		return this->rsplit(delimiter.c_str(), n);
-	}
-	
-	bool string::split(const char delimiter, string& out_left,string& out_right) const
+	bool String::split(const char delimiter, String& out_left,String& out_right) const
 	{
 		const char sp[2] = {delimiter, '\0'};
 		return this->split(sp, out_left, out_right);
 	}
 		
-	bool string::split(const string& delimiter, string& out_left, string& out_right) const
+	bool String::split(const String& delimiter, String& out_left, String& out_right) const
 	{
 		return this->split(delimiter.c_str(), out_left, out_right);
 	}
 	
-	bool string::rsplit(const char delimiter, string& out_left, string& out_right) const
+	bool String::rsplit(const char delimiter, String& out_left, String& out_right) const
 	{
 		const char sp[2] = {delimiter, '\0'};
 		return this->rsplit(sp, out_left, out_right);
 	}
 	
-	bool string::rsplit(const string& delimiter, string& out_left, string& out_right) const
+	bool String::rsplit(const String& delimiter, String& out_left, String& out_right) const
 	{
 		return this->rsplit(delimiter.c_str(), out_left, out_right);
 	}
     
-    int string::count(const char substr) const
+    int String::count(const char substr) const
     {
         char c[2] = {substr, 0};
         return count(c);
     }
     
-    int string::count(const char* substr) const
+    int String::count(const char* substr) const
     {
         int c = 0;
         hstr tmp(stdstr::c_str());
@@ -262,78 +262,83 @@ namespace hltypes
         return c;
     }
     
-    int string::count(const string& substr) const
+    int String::count(const String& substr) const
     {
         return count(substr.c_str());
     }
 
-	bool string::starts_with(const string& s) const
+	bool String::starts_with(const String& s) const
 	{
 		return this->starts_with(s.c_str());
 	}
 
-	bool string::ends_with(const string& s) const
+	bool String::ends_with(const String& s) const
 	{
 		return this->ends_with(s.c_str());
 	}
 
-	string string::replace(const string& what, const char* with_what) const
+	String String::replace(const String& what, const char* with_what) const
 	{
 		return this->replace(what.c_str(), with_what);
 	}
 	
-	string string::replace(const char* what, const string& with_what) const
+	String String::replace(const char* what, const String& with_what) const
 	{
 		return this->replace(what, with_what.c_str());
 	}
 	
-	string string::replace(const string& what, const string& with_what) const
+	String String::replace(const String& what, const String& with_what) const
 	{
 		return this->replace(what.c_str(), with_what.c_str());
 	}
 	
-	string string::replace(size_t pos1, size_t n1, const string& str)
+	String String::replace(int pos1, int n1, const String& str)
 	{
 		return stdstr::replace(pos1, n1, str);
 	}
 	
-	string string::replace(size_t pos1, size_t n1, const string& str, size_t pos2, size_t n2)
+	String String::replace(int pos1, int n1, const String& str, int pos2, int n2)
 	{
 		return stdstr::replace(pos1, n1, str, pos2, n2);
 	}
 	
-	string string::replace(size_t pos1, size_t n1, const char* s, size_t n2)
-	{
-		return stdstr::replace(pos1, n1, s, n2);
-	}
-	
-	string string::replace(size_t pos1, size_t n1, const char* s)
+	String String::replace(int pos1, int n1, const char* s)
 	{
 		return stdstr::replace(pos1, n1, s);
 	}
 	
-	string string::replace(size_t pos1, size_t n1, size_t n2, char c)
+	String String::replace(int pos1, int n1, const char* s, int n2)
+	{
+		return stdstr::replace(pos1, n1, s, n2);
+	}
+	
+	String String::replace(int pos1, int n1, char c, int n2)
 	{
 		return stdstr::replace(pos1, n1, n2, c);
 	}
 	
-	bool string::contains(const char c) const
+	bool String::contains(const char c) const
 	{
 		char st[2] = {c, '\0'};
 		return this->contains(st);
 	}
 	
-	bool string::contains(const string& s) const
+	bool String::contains(const char* s) const
+	{
+		return (stdstr::find(s) != stdstr::npos);
+	}
+	
+	bool String::contains(const String& s) const
 	{
 		return this->contains(s.c_str());
 	}
 /******* SUBSTR OPERATORS **********************************************/
-	string string::operator()(int start, int count) const
+	String String::operator()(int start, int count) const
 	{
 		return stdstr::substr(start, count);
 	}
 	
-	string string::operator()(int start, int count, int step) const
+	String String::operator()(int start, int count, int step) const
 	{
 		if (count < 0)
 		{
@@ -343,7 +348,7 @@ namespace hltypes
 		{
 			return stdstr::substr(start, count);
 		}
-		string result;
+		String result;
 		for (int i = start; i < start + count; i += step)
 		{
 			result += stdstr::at(i);
@@ -351,141 +356,141 @@ namespace hltypes
 		return result;
 	}
 	
-	string string::operator()(int index) const
+	String String::operator()(int index) const
 	{
 		return stdstr::at(index);
 	}
 	
-	char& string::operator[](int index)
+	char& String::operator[](int index)
 	{
 		return stdstr::at(index);
 	}
 	
-	const char& string::operator[](int index) const
+	const char& String::operator[](int index) const
 	{
 		return stdstr::at(index);
 	}
 /******* CAST OPERATORS ************************************************/
-	string::operator float() const
+	String::operator float() const
 	{
 		float f;
 		sscanf(stdstr::c_str(), "%f", &f);
 		return f;
 	}
 	
-	string::operator int() const
+	String::operator int() const
 	{
 		int i;
 		sscanf(stdstr::c_str(), "%d", &i);
 		return i;
 	}
 	
-	string::operator unsigned int() const
+	String::operator unsigned int() const
 	{
 		unsigned int i;
 		sscanf(stdstr::c_str(), "%u", &i);
 		return i;
 	}
 	
-	string::operator bool() const
+	String::operator bool() const
 	{
 		return (*this != "" && *this != "0" && *this != "false");
 	}
 	
 /******* ASSIGNMENT OPERATORS ******************************************/
-	void string::operator=(const float f)
+	void String::operator=(const float f)
 	{
 		char s[64];
 		sprintf(s, "%f", f);
 		stdstr::operator=(s);
 	}
 	
-	void string::operator=(const std::string& s)
+	void String::operator=(const std::string& s)
 	{
 		stdstr::operator=(s);
 	}
 	
-	void string::operator=(const char* s)
+	void String::operator=(const char* s)
 	{
 		stdstr::operator=(s);
 	}
 	
-	void string::operator=(const int i)
+	void String::operator=(const int i)
 	{
 		char s[64];
 		sprintf(s, "%d", i);
 		stdstr::operator=(s);
 	}
 	
-	void string::operator=(const unsigned int i)
+	void String::operator=(const unsigned int i)
 	{
 		char s[64];
 		sprintf(s, "%u", i);
 		stdstr::operator=(s);
 	}
 	
-	void string::operator=(const bool b)
+	void String::operator=(const bool b)
 	{
 		stdstr::operator=(b ? "true" : "false");
 	}
 /******* CONCATENATION OPERATORS ***************************************/
-	void string::operator+=(const float f)
+	void String::operator+=(const float f)
 	{
-		string s = f;
+		String s = f;
 		stdstr::append(s);
 	}
 	
-	void string::operator+=(const std::string& s)
-	{
-		stdstr::append(s);
-	}
-	
-	void string::operator+=(const char* s)
+	void String::operator+=(const std::string& s)
 	{
 		stdstr::append(s);
 	}
 	
-	void string::operator+=(const int i)
+	void String::operator+=(const char* s)
 	{
-		string s = i;
 		stdstr::append(s);
 	}
 	
-	void string::operator+=(const unsigned int i)
+	void String::operator+=(const int i)
 	{
-		string s = i;
+		String s = i;
 		stdstr::append(s);
 	}
 	
-	void string::operator+=(const bool b)
+	void String::operator+=(const unsigned int i)
 	{
-		string s = b;
+		String s = i;
 		stdstr::append(s);
 	}
 	
-	void string::operator+=(const char c)
+	void String::operator+=(const bool b)
+	{
+		String s = b;
+		stdstr::append(s);
+	}
+	
+	void String::operator+=(const char c)
 	{
 		char chstr[2] = {c, '\0'};
 		stdstr::append(chstr);
 	}
 	
 /******* COMPARISON OPERATORS ******************************************/
-	bool string::operator==(const float f) const
+	bool String::operator==(const float f) const
 	{
 		return (fabs(((float)*this) - f) < HL_E_TOLERANCE);
 	}
 	
-	bool string::operator==(const int i) const
+	bool String::operator==(const int i) const
 	{
 		return (((int)*this) == i);
 	}
 	
-	bool string::operator==(const unsigned int i) const
+	bool String::operator==(const unsigned int i) const
 	{
 		return (((unsigned int)*this) == i);
 	}
 	
-	bool string::operator==(const bool b) const
+	bool String::operator==(const bool b) const
 	{
 		const char* cstr = stdstr::c_str();
 		return (strcmp(cstr, "1") == 0 && b ||
@@ -494,47 +499,47 @@ namespace hltypes
 				strcmp(cstr, "false") == 0 && !b);
 	}
 
-	bool string::operator==(const char* s) const
+	bool String::operator==(const char* s) const
 	{
 		return (strcmp(stdstr::c_str(), s) == 0);
 	}
 	
-	bool string::operator==(const std::string& s) const
+	bool String::operator==(const std::string& s) const
 	{
 		return (strcmp(stdstr::c_str(), s.c_str()) == 0);
 	}
 /******* ADDITION OPERATORS *********************************************/
-	string string::operator+(const char* s1) const
+	String String::operator+(const char* s) const
 	{
-		string s(*this);
-		s.append(s1);
-		return s;
+		String result(*this);
+		result.append(s);
+		return result;
 	}
 	
-	string string::operator+(char* s1) const
+	String String::operator+(char* s) const
 	{ 
-		return this->operator+((const char*) s1);
+		return this->operator+((const char*)s);
 	}
 	
-	string string::operator+(const string& s1) const
+	String String::operator+(const String& s) const
 	{
-		string s(*this);
-		s.append(s1);
-		return s;
+		String result(*this);
+		result.append(s);
+		return result;
 	}
 	
-	string string::operator+(const std::string& s1) const
+	String String::operator+(const std::string& s) const
 	{
-		string s(*this);
-		s.append(s1);
-		return s;
+		String result(*this);
+		result.append(s);
+		return result;
 	}
 	
-	string string::operator+(const char c) const
+	String String::operator+(const char c) const
 	{
-		string s(*this);
-		s.append(1, c);
-		return s;
+		String result(*this);
+		result.append(1, c);
+		return result;
 	}
 }
 /******* GLOBAL ADDITION OPERATORS *******************************************/

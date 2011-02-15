@@ -50,13 +50,13 @@
 #define dcos(degrees) cos((degrees) * HL_DEG_TO_RAD_RATIO)
 /**
  * @brief Calculates asin in degrees.
- * @param[in] degrees sin value.
+ * @param[in] value sin value.
  * @return asin in degrees.
  */
 #define dasin(value) (asin(value) * HL_RAD_TO_DEG_RATIO)
 /**
  * @brief Calculates acos in degrees.
- * @param[in] degrees cos value.
+ * @param[in] value cos value.
  * @return acos in degrees.
  */
 #define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
