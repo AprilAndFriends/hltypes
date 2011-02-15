@@ -15,6 +15,14 @@
 #ifndef HLTYPES_EXPORT_H
 #define HLTYPES_EXPORT_H
 
+	/**
+	 * @def hltypesExport
+	 * @brief Macro for DLL exports/imports.
+	 */
+	/**
+	 * @def hltypesFnExport
+	 * @brief Macro for function DLL exports/imports.
+	 */
 	#ifdef _STATICLIB
 		#define hltypesExport
 		#define hltypesFnExport
