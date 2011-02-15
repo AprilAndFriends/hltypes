@@ -26,7 +26,7 @@ namespace hltypes
 	void *asyncCall(void* param)
 	{
 #endif
-		thread* t = (thread*)param;
+		Thread* t = (Thread*)param;
 		t->execute();
 #ifdef _WIN32
 		return 0;
@@ -35,12 +35,12 @@ namespace hltypes
 #endif
 	}
 	
-	thread::thread(void (*function)()) : running(false), id(0)
+	Thread::Thread(void (*function)()) : running(false), id(0)
 	{
 		this->function = function;
 	}
 
-	thread::~thread()
+	Thread::~Thread()
 	{
 		if (this->running)
 		{
@@ -54,7 +54,7 @@ namespace hltypes
 #endif
 	}
 
-	void thread::start()
+	void Thread::start()
 	{
 		this->running = true;
 #ifdef _WIN32
@@ -64,7 +64,7 @@ namespace hltypes
 #endif
 	}
 	
-	void thread::execute()
+	void Thread::execute()
 	{
 		if (this->function != NULL)
 		{
@@ -74,7 +74,7 @@ namespace hltypes
 		}
 	}
 
-	void thread::join()
+	void Thread::join()
 	{
 		this->running = false;
 #ifdef _WIN32
@@ -89,21 +89,21 @@ namespace hltypes
 #endif
 	}
 	
-	void thread::resume()
+	void Thread::resume()
 	{
 #ifdef _WIN32
 		ResumeThread(this->id);
 #endif
 	}
 	
-	void thread::pause()
+	void Thread::pause()
 	{
 #ifdef _WIN32
 		SuspendThread(this->id);
 #endif
 	}
 	
-	void thread::stop()
+	void Thread::stop()
 	{
 		if (this->running)
 		{
@@ -115,19 +115,19 @@ namespace hltypes
 		}
 	}
 	
-	void thread::enterCritical()
+	void Thread::enterCritical()
 	{
 #ifdef _WIN32
 #endif
 	}
 	
-	void thread::leaveCritical()
+	void Thread::leaveCritical()
 	{
 #ifdef _WIN32
 #endif
 	}
 	
-	void thread::sleep(float miliseconds)
+	void Thread::sleep(float miliseconds)
 	{
 #ifdef _WIN32
 		Sleep((int)miliseconds);

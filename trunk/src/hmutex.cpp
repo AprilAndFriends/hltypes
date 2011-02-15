@@ -16,7 +16,7 @@ Copyright (c) 2010 Kresimir Spes, Boris Mikic                                   
 
 namespace hltypes
 {
-	mutex::mutex()
+	Mutex::Mutex()
 	{
 #ifdef _WIN32
 		this->handle = 0;
@@ -25,7 +25,7 @@ namespace hltypes
 #endif
 	}
 
-	mutex::~mutex()
+	Mutex::~Mutex()
 	{
 #ifdef _WIN32
 		if (this->handle)
@@ -37,7 +37,7 @@ namespace hltypes
 #endif
 	}
 
-	void mutex::lock()
+	void Mutex::lock()
 	{
 #ifdef _WIN32
 		if (!this->handle)
@@ -50,7 +50,7 @@ namespace hltypes
 #endif
 	}
 
-	void mutex::unlock()
+	void Mutex::unlock()
 	{
 #ifdef _WIN32
 		ReleaseMutex(this->handle);

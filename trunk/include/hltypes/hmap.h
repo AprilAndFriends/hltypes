@@ -56,7 +56,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Returns value with specified key.
-		 * @param[in] index Key of the value.
+		 * @param[in] key Key of the value.
 		 * @return Value with specified key.
 		 */
 		T& operator[](const K& key)
@@ -175,7 +175,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Returns key of specified value.
-		 * @param[in] index Value with the given key.
+		 * @param[in] value Value with the given key.
 		 * @return Key of specified value.
 		 */
 		K key_of(const T& value)
@@ -370,12 +370,12 @@ namespace hltypes
 		 * @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
 		 * @return New Map with all matching elements.
 		 */
-		Map<K, T> find_all(bool (*compare_function)(K, T))
+		Map<K, T> find_all(bool (*condition_function)(K, T))
 		{
 			Map<K, T> result;
 			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
-				if (compare_function(it->first, it->second))
+				if (condition_function(it->first, it->second))
 				{
 					result[it->first] = it->second;
 				}
@@ -387,11 +387,11 @@ namespace hltypes
 		 * @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
 		 * @return True if at least one entry matches the condition.
 		 */
-		bool matches_any(bool (*compare_function)(K, T))
+		bool matches_any(bool (*condition_function)(K, T))
 		{
 			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
-				if (compare_function(it->first, it->second))
+				if (condition_function(it->first, it->second))
 				{
 					return true;
 				}
@@ -403,11 +403,11 @@ namespace hltypes
 		 * @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
 		 * @return True if all entries match the condition.
 		 */
-		bool matches_all(bool (*compare_function)(K, T))
+		bool matches_all(bool (*condition_function)(K, T))
 		{
 			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
-				if (!compare_function(it->first, it->second))
+				if (!condition_function(it->first, it->second))
 				{
 					return false;
 				}
