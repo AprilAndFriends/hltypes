@@ -57,15 +57,15 @@ namespace hltypes
 		}
 		/**
 		 * @brief Copy constructor.
-		 * @param other Array to copy.
+		 * @param[in] other Array to copy.
 		 */
 		Array(const Array<T>& other) : stdvector(other)
 		{
 		}
 		/**
 		 * @brief Copy constructor.
-		 * @param other Array to copy.
-		 * @param count Number of elements to copy.
+		 * @param[in] other Array to copy.
+		 * @param[in] count Number of elements to copy.
 		 */
 		Array(const Array<T>& other, const int count) : stdvector()
 		{
@@ -73,9 +73,9 @@ namespace hltypes
 		}
 		/**
 		 * @brief Copy constructor.
-		 * @param other Array to copy.
-		 * @param start Start index of elements to copy.
-		 * @param count Number of elements to copy.
+		 * @param[in] other Array to copy.
+		 * @param[in] start Start index of elements to copy.
+		 * @param[in] count Number of elements to copy.
 		 */
 		Array(const Array<T>& other, const int start, const int count) : stdvector()
 		{
@@ -83,8 +83,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Constructor from C-type array.
-		 * @param other C-type array to copy.
-		 * @param count Number of elements to copy.
+		 * @param[in] other C-type array to copy.
+		 * @param[in] count Number of elements to copy.
 		 */
 		Array(const T other[], const int count) : stdvector()
 		{
@@ -92,9 +92,9 @@ namespace hltypes
 		}
 		/**
 		 * @brief Constructor from C-type array.
-		 * @param other C-type array to copy.
-		 * @param start Start index of elements to copy.
-		 * @param count Number of elements to copy.
+		 * @param[in] other C-type array to copy.
+		 * @param[in] start Start index of elements to copy.
+		 * @param[in] count Number of elements to copy.
 		 */
 		Array(const T other[], const int start, const int count) : stdvector()
 		{
@@ -102,7 +102,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Returns element at specified position.
-		 * @param index Index of the element.
+		 * @param[in] index Index of the element.
 		 * @return Element at specified position.
 		 * @note Does not work with bool as T, use Array::at directly instead.
 		 */
@@ -116,7 +116,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Returns element at specified position.
-		 * @param index Index of the element.
+		 * @param[in] index Index of the element.
 		 * @return Const element at specified position.
 		 * @note Does not work with bool as T, use Array::at directly instead.
 		 */
@@ -130,8 +130,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Returns a subarray.
-		 * @param start Start index of the elements to copy.
-		 * @param count Number of elements to copy.
+		 * @param[in] start Start index of the elements to copy.
+		 * @param[in] count Number of elements to copy.
 		 * @return Subarray created from the current Array.
 		 * @note Original Array stays unchanged.
 		 */
@@ -167,7 +167,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Compares the contents of two Arrays for being equal.
-		 * @param other Another Array.
+		 * @param[in] other Another Array.
 		 * @return True if number of elements are equal and all pairs of elements at the same positions are equal.
 		 */
 		bool equals(const Array<T>& other) const
@@ -188,7 +188,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Compares the contents of two Arrays for being not equal.
-		 * @param other Another Array.
+		 * @param[in] other Another Array.
 		 * @return True if number of elements are not equal or at least one pair of elements at the same positions is not equal.
 		 */
 		bool nequals(const Array<T>& other) const
@@ -209,7 +209,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Gets index of the given element.
-		 * @param element Element to search for.
+		 * @param[in] element Element to search for.
 		 * @return Index of the given element or -1 if element could not be found.
 		 */
 		int index_of(T element)
@@ -225,7 +225,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks existence of element in Array.
-		 * @param element Element to search for.
+		 * @param[in] element Element to search for.
 		 * @return True if element is in Array.
 		 */
 		bool contains(const T& element)
@@ -234,7 +234,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks existence of elements in Array.
-		 * @param other Array with elements to search for.
+		 * @param[in] other Array with elements to search for.
 		 * @return True if all elements are in Array.
 		 */
 		bool contains(const Array<T>& other)
@@ -250,8 +250,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks existence of elements in Array.
-		 * @param other C-type array with elements to search for.
-		 * @param count How many elements the C-type array has.
+		 * @param[in] other C-type array with elements to search for.
+		 * @param[in] count How many elements the C-type array has.
 		 * @return True if all elements are in Array.
 		 */
 		bool contains(const T other[], int count)
@@ -267,7 +267,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Counts occurences of element in Array.
-		 * @param element Element to search for.
+		 * @param[in] element Element to search for.
 		 * @return Number of occurences of given element.
 		 */
 		int count(T element)
@@ -284,9 +284,9 @@ namespace hltypes
 		}
 		/**
 		 * @brief Inserts new element at specified position n times.
-		 * @param index Position where to insert the new element.
-		 * @param element Element to insert.
-		 * @param times Number of times to insert element.
+		 * @param[in] index Position where to insert the new element.
+		 * @param[in] element Element to insert.
+		 * @param[in] times Number of times to insert element.
 		 */
 		void insert_at(const int index, const T& element, const int times = 1)
 		{
@@ -294,8 +294,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Inserts all elements of another Array into this one.
-		 * @param index Position where to insert the new elements.
-		 * @param other Array of elements to insert.
+		 * @param[in] index Position where to insert the new elements.
+		 * @param[in] other Array of elements to insert.
 		 */
 		void insert_at(const int index, const Array<T>& other)
 		{
@@ -303,9 +303,9 @@ namespace hltypes
 		}
 		/**
 		 * @brief Inserts all elements of another Array into this one.
-		 * @param index Position where to insert the new elements.
-		 * @param other Array of elements to insert.
-		 * @param count Number of elements to insert.
+		 * @param[in] index Position where to insert the new elements.
+		 * @param[in] other Array of elements to insert.
+		 * @param[in] count Number of elements to insert.
 		 */
 		void insert_at(const int index, const Array<T>& other, const int count)
 		{
@@ -313,10 +313,10 @@ namespace hltypes
 		}
 		/**
 		 * @brief Inserts all elements of another Array into this one.
-		 * @param index Position where to insert the new elements.
-		 * @param other Array of elements to insert.
-		 * @param start Start index of the elements to insert.
-		 * @param count Number of elements to insert.
+		 * @param[in] index Position where to insert the new elements.
+		 * @param[in] other Array of elements to insert.
+		 * @param[in] start Start index of the elements to insert.
+		 * @param[in] count Number of elements to insert.
 		 */
 		void insert_at(const int index, const Array<T>& other, const int start, const int count)
 		{
@@ -325,9 +325,9 @@ namespace hltypes
 		}
 		/**
 		 * @brief Inserts all elements of a C-type array into this Array.
-		 * @param index Position where to insert the new elements.
-		 * @param other C-type array of elements to insert.
-		 * @param count Number of elements to insert.
+		 * @param[in] index Position where to insert the new elements.
+		 * @param[in] other C-type array of elements to insert.
+		 * @param[in] count Number of elements to insert.
 		 */
 		void insert_at(const int index, const T other[], const int count)
 		{
@@ -335,10 +335,10 @@ namespace hltypes
 		}
 		/**
 		 * @brief Inserts all elements of a C-type array into this Array.
-		 * @param index Position where to insert the new elements.
-		 * @param other C-type array of elements to insert.
-		 * @param start Start index of the elements to insert.
-		 * @param count Number of elements to insert.
+		 * @param[in] index Position where to insert the new elements.
+		 * @param[in] other C-type array of elements to insert.
+		 * @param[in] start Start index of the elements to insert.
+		 * @param[in] count Number of elements to insert.
 		 */
 		void insert_at(const int index, const T other[], const int start, const int count)
 		{
@@ -346,7 +346,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes element at given index.
-		 * @param index Index of element to remove.
+		 * @param[in] index Index of element to remove.
 		 * @return The removed element.
 		 */
 		T remove_at(const int index)
@@ -357,8 +357,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes n elements at given index of Array.
-		 * @param index Start index of elements to remove.
-		 * @param count Number of elements to remove.
+		 * @param[in] index Start index of elements to remove.
+		 * @param[in] count Number of elements to remove.
 		 * @return Array of all removed elements.
 		 * @note Elements in the returned Array are in the same order as in the orignal Array.
 		 */
@@ -371,7 +371,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes first occurence of element in Array.
-		 * @param element Element to remove.
+		 * @param[in] element Element to remove.
 		 */
 		void remove(T element)
 		{
@@ -379,7 +379,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes first occurence of each element in another Array from this one.
-		 * @param other Array of elements to remove.
+		 * @param[in] other Array of elements to remove.
 		 */
 		void remove(const Array<T>& other)
 		{
@@ -390,7 +390,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes all occurences of element in Array.
-		 * @param element Element to remove.
+		 * @param[in] element Element to remove.
 		 */
 		void remove_all(T& element)
 		{
@@ -407,7 +407,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes all occurences of each element in another Array from this one.
-		 * @param element Array of elements to remove.
+		 * @param[in] element Array of elements to remove.
 		 */
 		void remove_all(const Array<T>& other)
 		{
@@ -427,7 +427,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds element at the end of Array.
-		 * @param element Element to add.
+		 * @param[in] element Element to add.
 		 */
 		void push_back(const T& element)
 		{
@@ -435,8 +435,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds element at the end of Array n times.
-		 * @param element Element to add.
-		 * @param times Number of times to add the element.
+		 * @param[in] element Element to add.
+		 * @param[in] times Number of times to add the element.
 		 */
 		void push_back(const T& element, int times)
 		{
@@ -447,7 +447,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all elements from another Array at the end of this one.
-		 * @param other Array of elements to add.
+		 * @param[in] other Array of elements to add.
 		 */
 		void push_back(const Array<T>& other)
 		{
@@ -458,8 +458,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all elements from another Array at the end of this one.
-		 * @param other Array of elements to add.
-		 * @param count Number of elements to add.
+		 * @param[in] other Array of elements to add.
+		 * @param[in] count Number of elements to add.
 		 */
 		void push_back(const Array<T>& other, const int count)
 		{
@@ -470,9 +470,9 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all elements from another Array at the end of this one.
-		 * @param other Array of elements to add.
-		 * @param start Start index of the elements to add.
-		 * @param count Number of elements to add.
+		 * @param[in] other Array of elements to add.
+		 * @param[in] start Start index of the elements to add.
+		 * @param[in] count Number of elements to add.
 		 */
 		void push_back(const Array<T>& other, const int start, const int count)
 		{
@@ -483,8 +483,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all elements from a C-type array at the end of Array.
-		 * @param other C-type array of elements to add.
-		 * @param count Number of elements to add.
+		 * @param[in] other C-type array of elements to add.
+		 * @param[in] count Number of elements to add.
 		 */
 		void push_back(const T other[], const int count)
 		{
@@ -495,9 +495,9 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all elements from a C-type array at the end of Array.
-		 * @param other C-type array of elements to add.
-		 * @param start Start index of the elements to add.
-		 * @param count Number of elements to add.
+		 * @param[in] other C-type array of elements to add.
+		 * @param[in] start Start index of the elements to add.
+		 * @param[in] count Number of elements to add.
 		 */
 		void push_back(const T other[], const int start, const int count)
 		{
@@ -508,8 +508,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds element at the beginning of Array n times.
-		 * @param element Element to add.
-		 * @param times Number of times to add the element.
+		 * @param[in] element Element to add.
+		 * @param[in] times Number of times to add the element.
 		 */
 		void push_front(const T& element, int times = 1)
 		{
@@ -517,7 +517,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all elements from another Array at the beginning of this one.
-		 * @param other Array of elements to add.
+		 * @param[in] other Array of elements to add.
 		 */
 		void push_front(const Array<T>& other)
 		{
@@ -525,8 +525,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all elements from another Array at the beginning of this one.
-		 * @param other Array of elements to add.
-		 * @param count Number of elements to add.
+		 * @param[in] other Array of elements to add.
+		 * @param[in] count Number of elements to add.
 		 */
 		void push_front(const Array<T>& other, const int count)
 		{
@@ -534,9 +534,9 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all elements from another Array at the beginning of this one.
-		 * @param other Array of elements to add.
-		 * @param start Start index of the elements to add.
-		 * @param count Number of elements to add.
+		 * @param[in] other Array of elements to add.
+		 * @param[in] start Start index of the elements to add.
+		 * @param[in] count Number of elements to add.
 		 */
 		void push_front(const Array<T>& other, const int start, const int count)
 		{
@@ -544,8 +544,8 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all elements from a C-type array at the beginning of Array.
-		 * @param other C-type array of elements to add.
-		 * @param count Number of elements to add.
+		 * @param[in] other C-type array of elements to add.
+		 * @param[in] count Number of elements to add.
 		 */
 		void push_front(const T other[], const int count)
 		{
@@ -553,9 +553,9 @@ namespace hltypes
 		}
 		/**
 		 * @brief Adds all elements from a C-type array at the beginning of Array.
-		 * @param other C-type array of elements to add.
-		 * @param start Start index of the elements to add.
-		 * @param count Number of elements to add.
+		 * @param[in] other C-type array of elements to add.
+		 * @param[in] start Start index of the elements to add.
+		 * @param[in] count Number of elements to add.
 		 */
 		void push_front(const T other[], const int start, const int count)
 		{
@@ -571,7 +571,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes n elements from the beginning of Array.
-		 * @param count Number of elements to remove.
+		 * @param[in] count Number of elements to remove.
 		 * @return Array of all removed elements.
 		 * @note Elements in the returned Array are in the same order as in the orignal Array.
 		 */
@@ -594,7 +594,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes n elements from the end of Array.
-		 * @param count Number of elements to remove.
+		 * @param[in] count Number of elements to remove.
 		 * @return Array of all removed elements.
 		 * @note Elements in the returned Array are in the same order as in the orignal Array.
 		 */
@@ -639,7 +639,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Unites elements of this Array with another one.
-		 * @param other Array to unite with.
+		 * @param[in] other Array to unite with.
 		 * @note The other Array stays unchanged.
 		 */
 		void unite(const Array<T>& other)
@@ -649,7 +649,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Creates a new Array as union of this Array with another one.
-		 * @param other Array to unite with.
+		 * @param[in] other Array to unite with.
 		 * @return A new Array.
 		 * @note Both Arrays stay unchanged.
 		 */
@@ -661,7 +661,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Intersects elements of this Array with another one.
-		 * @param other Array to intersect with.
+		 * @param[in] other Array to intersect with.
 		 * @note The other Array stays unchanged.
 		 */
 		void intersect(const Array<T>& other)
@@ -678,7 +678,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Creates a new Array as intersection of this Array with another one.
-		 * @param other Array to intersect with.
+		 * @param[in] other Array to intersect with.
 		 * @return A new Array.
 		 * @note Both Arrays stay unchanged.
 		 */
@@ -690,7 +690,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Differentiates elements of this Array with another one.
-		 * @param other Array to differentiate with.
+		 * @param[in] other Array to differentiate with.
 		 * @note The other Array stays unchanged.
 		 * @note Unlike remove, this method ignore elements of other Array that are not in this one.
 		 */
@@ -708,7 +708,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Creates a new Array as difference of this Array with another one.
-		 * @param other Array to differentiate with.
+		 * @param[in] other Array to differentiate with.
 		 * @return A new Array.
 		 * @note Both Arrays stay unchanged.
 		 * @note Unlike remove, this method ignore elements of other Array that are not in this one.
@@ -776,7 +776,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Sorts elements in Array.
-		 * @param compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
+		 * @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
 		 * @note The sorting order is ascending.
 		 * @note compare_function should return true if first element is less than the second element.
 		 */
@@ -801,7 +801,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Creates new sorted Array.
-		 * @param compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
+		 * @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
 		 * @return A new Array.
 		 * @note The sorting order is ascending.
 		 * @note compare_function should return true if first element is less than the second element.
@@ -845,7 +845,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Finds minimum element in Array.
-		 * @param compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
+		 * @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
 		 * @return Minimum Element or NULL if Array is empty.
 		 * @note compare_function should return true if first element is less than second element.
 		 */
@@ -871,7 +871,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Finds maximum element in Array.
-		 * @param compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
+		 * @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
 		 * @return Maximum Element or NULL if Array is empty.
 		 * @note compare_function should return true if first element is greater than second element.
 		 */
@@ -885,7 +885,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Joins all elements into a string.
-		 * @param separator Separator string between elements.
+		 * @param[in] separator Separator string between elements.
 		 * @return String or joined elements separater by separator string.
 		 * @note Make sure your elements can be cast into hltypes::string or are already hltypes::string.
 		 */
@@ -904,7 +904,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Finds and returns new Array of elements that match the condition.
-		 * @param condition_function Function pointer with condition function that takes one element of type T and returns bool.
+		 * @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
 		 * @return New Array with all matching elements.
 		 */
 		Array<T> find_all(bool (*condition_function)(T))
@@ -921,7 +921,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Finds and returns first occurence of element that matches the condition.
-		 * @param condition_function Function pointer with condition function that takes one element of type T and returns bool.
+		 * @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
 		 * @return Pointer to element that matches the condition or NULL if no element was found.
 		 */
 		T* find_first(bool (*condition_function)(T))
@@ -937,7 +937,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks if at least one element matches the condition.
-		 * @param condition_function Function pointer with condition function that takes one element of type T and returns bool.
+		 * @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
 		 * @return True if at least one element matches the condition.
 		 */
 		bool matches_any(bool (*condition_function)(T))
@@ -953,7 +953,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Checks if all elements match the condition.
-		 * @param condition_function Function pointer with condition function that takes one element of type T and returns bool.
+		 * @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
 		 * @return True if all elements match the condition.
 		 */
 		bool matches_all(bool (*condition_function)(T))
@@ -1249,7 +1249,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Merges two Arrays.
-		 * @param other Second Array to merge with.
+		 * @param[in] other Second Array to merge with.
 		 * @return New Array with elements of second Array added at the end of first Array.
 		 * @note Both Arrays stay unchanged.
 		 */
@@ -1261,7 +1261,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Merges an Array with an element.
-		 * @param element Element to merge with.
+		 * @param[in] element Element to merge with.
 		 * @return New Array with element added at the end of Array.
 		 * @note Original Array stays unchanged.
 		 */
@@ -1273,7 +1273,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes second Array from first Array.
-		 * @param other Array to remove.
+		 * @param[in] other Array to remove.
 		 * @return New Array with elements of first Array without the elements of second Array.
 		 * @note Both Arrays stay unchanged.
 		 */
@@ -1285,7 +1285,7 @@ namespace hltypes
 		}
 		/**
 		 * @brief Removes element from Array.
-		 * @param element Element to remove.
+		 * @param[in] element Element to remove.
 		 * @return New Array with elements of first Array without given element.
 		 * @note Original Array stays unchanged.
 		 */

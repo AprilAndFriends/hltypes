@@ -35,7 +35,7 @@ namespace hltypes
 	public:
 		/**
 		 * @brief Basic constructor.
-		 * @param function Function pointer for the callback.
+		 * @param[in] function Function pointer for the callback.
 		 */
 		thread(void (*function)());
 		/**
@@ -44,7 +44,7 @@ namespace hltypes
 		~thread();
 		/**
 		 * @brief Sets function.
-		 * @param value New function.
+		 * @param[in] value New function.
 		 */
 		void setFunction(void (*value)()) { this->function = value; }
 		/**
@@ -81,7 +81,7 @@ namespace hltypes
 		void join();
 		/**
 		 * @brief Puts current thread to sleep.
-		 * @param miliseconds How long to sleep in miliseconds.
+		 * @param[in] miliseconds How long to sleep in miliseconds.
 		 */
 		static void sleep(float miliseconds);
 		
