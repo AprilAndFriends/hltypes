@@ -596,7 +596,7 @@ hstr hltypesFnExport hvsprintf(const char* format, va_list args);
 /**
  * @brief Applies formatting to a string.
  * @param[in] format C-type string containing format.
- * @param[in] ... Formatting Arguments.
+ * @param[in] ... Formatting arguments.
  * @return Formatted String.
  */
 hstr hltypesFnExport hsprintf(const char* format, ...);
