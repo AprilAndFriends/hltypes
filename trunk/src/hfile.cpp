@@ -211,22 +211,22 @@ namespace hltypes
 		this->write(c);
 	}
 
-	void File::read_raw(void* buffer, int count)
+	int File::read_raw(void* buffer, int count)
 	{
 		if (!this->is_open())
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		fread(buffer, 1, count, this->cfile);
+		return fread(buffer, 1, count, this->cfile);
 	}
 	
-	void File::write_raw(void* buffer, int count)
+	int File::write_raw(void* buffer, int count)
 	{
 		if (!this->is_open())
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		fwrite(buffer, 1, count, this->cfile);
+		return fwrite(buffer, 1, count, this->cfile);
 	}
 		
 	void File::seek(long offset, SeekMode seek_mode)
