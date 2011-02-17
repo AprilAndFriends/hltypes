@@ -64,5 +64,8 @@
     <ClInclude Include="include\hltypes\util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\hltypes\hlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

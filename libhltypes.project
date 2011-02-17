@@ -27,6 +27,7 @@
     <File Name="include/hltypes/hdir.h"/>
     <File Name="include/hltypes/hmutex.h"/>
     <File Name="include/hltypes/hthread.h"/>
+    <File Name="include/hltypes/hlist.h"/>
   </VirtualDirectory>
   <Dependencies Name="Release"/>
   <Dependencies Name="Release_Win32"/>
