@@ -664,7 +664,7 @@ namespace hltypes
 		}
 		hdir::create_path(new_name);
 		hfile old_file(old_name);
-		hfile new_file(new_name, hltypes::WRITE);
+		hfile new_file(new_name, hfile::WRITE);
 		int count;
 		char c[BUFFER_SIZE] = {'\0'}; // literal buffer, not a string buffer that requires \0 at the end
 		while (!old_file.eof())
