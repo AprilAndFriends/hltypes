@@ -508,7 +508,7 @@ namespace hltypes
 	{
 		return (strcmp(stdstr::c_str(), s.c_str()) == 0);
 	}
-/******* ADDITION OPERATORS *********************************************/
+/******* ADDITION OPERATORS ********************************************/
 	String String::operator+(const char* s) const
 	{
 		String result(*this);
@@ -542,7 +542,7 @@ namespace hltypes
 		return result;
 	}
 }
-/******* GLOBAL ADDITION OPERATORS *******************************************/
+/******* GLOBAL ADDITION OPERATORS **************************************/
 hstr operator+(const char* s1, chstr s2)
 {
 	return (hstr(s1) + s2);
