@@ -678,6 +678,12 @@ namespace hltypes
 	
 /******* QUICK READ/WRITE **********************************************/
 
+	long File::hsize(chstr filename)
+	{
+		hstr name = normalize_path(filename);
+		return hfile(name).size();
+	}
+	
 	hstr File::hread(chstr filename, int count)
 	{
 		hstr name = normalize_path(filename);
@@ -700,12 +706,6 @@ namespace hltypes
 	{
 		hstr name = normalize_path(filename);
 		hfile(name, APPEND).write(text);
-	}
-	
-	long File::hsize(chstr filename)
-	{
-		hstr name = normalize_path(filename);
-		return hfile(name).size();
 	}
 	
 }
