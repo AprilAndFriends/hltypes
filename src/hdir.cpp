@@ -61,7 +61,7 @@ namespace hltypes
 		return (_rmdir(dirname.c_str()) != 0);
 	}
 	
-	bool dir::create(chstr dirname)
+	bool Dir::create(chstr dirname)
 	{
 		hstr name = normalize_path(dirname);
 		if (name == "" || hdir::exists(name))
@@ -82,15 +82,15 @@ namespace hltypes
 		return hdir::exists(dirname);
 	}
 	
-	bool dir::create_new(chstr dirname)
+	bool Dir::create_new(chstr dirname)
 	{
 		return (hdir::create(dirname) || hdir::clear(dirname));
 	}
 	
-	bool dir::remove(chstr dirname)
+	bool Dir::remove(chstr dirname)
 	{
 		hstr name = normalize_path(dirname);
-		if (name == "" || !dir::exists(name))
+		if (name == "" || !hdir::exists(name))
 		{
 			return false;
 		}
@@ -105,10 +105,10 @@ namespace hltypes
 			hfile::remove(name + "/" + (*it));
 		}
 		hrmdir(name);
-		return !dir::exists(name);
+		return hdir::exists(name);
 	}
 	
-	bool dir::exists(chstr dirname)
+	bool Dir::exists(chstr dirname)
 	{
 		hstr name = normalize_path(dirname);
 		DIR* dir = opendir(name.c_str());
@@ -120,10 +120,10 @@ namespace hltypes
 		return false;
 	}
 	
-	bool dir::clear(chstr dirname)
+	bool Dir::clear(chstr dirname)
 	{
 		hstr name = normalize_path(dirname);
-		if (name == "" || !dir::exists(name))
+		if (name == "" || !hdir::exists(name))
 		{
 			return false;
 		}
@@ -140,7 +140,7 @@ namespace hltypes
 		return (directories.size() > 0 || files.size() > 0);
 	}
 	
-	bool dir::rename(chstr old_dirname, chstr new_dirname)
+	bool Dir::rename(chstr old_dirname, chstr new_dirname)
 	{
 		hstr old_name = normalize_path(old_dirname);
 		hstr new_name = normalize_path(new_dirname);
@@ -152,14 +152,14 @@ namespace hltypes
 		return (d_rename(old_name.c_str(), new_name.c_str()) == 0);
 	}
 	
-	bool dir::move(chstr dirname, chstr path)
+	bool Dir::move(chstr dirname, chstr path)
 	{
 		hstr name = normalize_path(dirname);
 		hstr path_name = normalize_path(path);
 		return hdir::rename(name, path_name + "/" + name.rsplit("/", 1).pop_back());
 	}
 	
-	bool dir::copy(chstr old_dirname, chstr new_dirname)
+	bool Dir::copy(chstr old_dirname, chstr new_dirname)
 	{
 		hstr old_name = normalize_path(old_dirname);
 		hstr new_name = normalize_path(new_dirname);
@@ -181,7 +181,7 @@ namespace hltypes
 		return true;
 	}
 	
-	bool dir::create_path(chstr path)
+	bool Dir::create_path(chstr path)
 	{
 		hstr path_name = normalize_path(path);
 		harray<hstr> parts = path_name.rsplit("/", 1);
@@ -199,7 +199,7 @@ namespace hltypes
 		}
     }
 	
-	harray<hstr> dir::entries(chstr dirname, bool prepend_dir)
+	harray<hstr> Dir::entries(chstr dirname, bool prepend_dir)
 	{
 		hstr name = normalize_path(dirname);
 		harray<hstr> result;
@@ -220,7 +220,7 @@ namespace hltypes
 		return result;
 	}
 	
-	harray<hstr> dir::contents(chstr dirname, bool prepend_dir)
+	harray<hstr> Dir::contents(chstr dirname, bool prepend_dir)
 	{
 		hstr name = normalize_path(dirname);
 		harray<hstr> result;
@@ -243,7 +243,7 @@ namespace hltypes
 		return result;
 	}
 	
-	harray<hstr> dir::directories(chstr dirname, bool prepend_dir)
+	harray<hstr> Dir::directories(chstr dirname, bool prepend_dir)
 	{
 		hstr name = normalize_path(dirname);
 		hstr current;
@@ -271,7 +271,7 @@ namespace hltypes
 		return result;
 	}
 	
-	harray<hstr> dir::files(chstr dirname, bool prepend_dir)
+	harray<hstr> Dir::files(chstr dirname, bool prepend_dir)
 	{
 		hstr name = normalize_path(dirname);
 		hstr current;

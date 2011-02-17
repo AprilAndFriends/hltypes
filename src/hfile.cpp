@@ -29,18 +29,18 @@ namespace hltypes
 {
 /******* CONSTRUCT/DESTRUCT ********************************************/
 
-	file::file(chstr filename, AccessMode access_mode, int encryption_offset) : cfile(NULL)
+	File::File(chstr filename, AccessMode access_mode, int encryption_offset) : cfile(NULL)
 	{
 		this->filename = filename;
 		this->encryption_offset = encryption_offset;
 		this->open(filename, access_mode, encryption_offset);
 	}
 	
-	file::file() : filename(""), cfile(NULL), encryption_offset(0)
+	File::File() : filename(""), cfile(NULL), encryption_offset(0)
 	{
 	}
 	
-	file::~file()
+	File::~File()
 	{
 		if (this->is_open())
 		{
@@ -50,7 +50,7 @@ namespace hltypes
 	
 /******* METHODS *******************************************************/
 
-	void file::open(chstr filename, AccessMode access_mode, int encryption_offset)
+	void File::open(chstr filename, AccessMode access_mode, int encryption_offset)
 	{
 		if (this->is_open())
 		{
@@ -87,17 +87,17 @@ namespace hltypes
 		}
 	}
 	
-	hstr file::read_line()
+	hstr File::read_line()
 	{
 		return this->read("\n");
 	}
 	
-	harray<hstr> file::read_lines()
+	harray<hstr> File::read_lines()
 	{
 		return this->read().split("\n");
 	}
 	
-	hstr file::read(chstr delimiter)
+	hstr File::read(chstr delimiter)
 	{
 		if (!this->is_open())
 		{
@@ -132,7 +132,7 @@ namespace hltypes
 		return result;
 	}
 	
-	hstr file::read(int count)
+	hstr File::read(int count)
 	{
 		if (!this->is_open())
 		{
@@ -159,7 +159,7 @@ namespace hltypes
 		return result;
 	}
 
-	void file::write(chstr text)
+	void File::write(chstr text)
 	{
 		if (!this->is_open())
 		{
@@ -168,7 +168,7 @@ namespace hltypes
 		fwrite(text.c_str(), 1, text.size(), this->cfile);
 	}
 	
-	void file::write(const char* text)
+	void File::write(const char* text)
 	{
 		if (!this->is_open())
 		{
@@ -177,7 +177,7 @@ namespace hltypes
 		fwrite(text, 1, strlen(text), this->cfile);
 	}
 	
-	void file::write_line(chstr text)
+	void File::write_line(chstr text)
 	{
 		if (!this->is_open())
 		{
@@ -186,7 +186,7 @@ namespace hltypes
 		fwrite((text + "\n").c_str(), 1, text.size() + 1, this->cfile);
 	}
 	
-	void file::write_line(const char* text)
+	void File::write_line(const char* text)
 	{
 		if (!this->is_open())
 		{
@@ -196,7 +196,7 @@ namespace hltypes
 		fwrite("\n", 1, 1, this->cfile);
 	}
 	
-	void file::writef(const char* format, ...)
+	void File::writef(const char* format, ...)
 	{
 		if (!this->is_open())
 		{
@@ -210,7 +210,7 @@ namespace hltypes
 		this->write(c);
 	}
 
-	void file::read_raw(void* buffer, int count)
+	void File::read_raw(void* buffer, int count)
 	{
 		if (!this->is_open())
 		{
@@ -219,7 +219,7 @@ namespace hltypes
 		fread(buffer, 1, count, this->cfile);
 	}
 	
-	void file::write_raw(void* buffer, int count)
+	void File::write_raw(void* buffer, int count)
 	{
 		if (!this->is_open())
 		{
@@ -228,7 +228,7 @@ namespace hltypes
 		fwrite(buffer, 1, count, this->cfile);
 	}
 		
-	void file::seek(long offset, SeekMode seek_mode)
+	void File::seek(long offset, SeekMode seek_mode)
 	{
 		if (!this->is_open())
 		{
@@ -250,7 +250,7 @@ namespace hltypes
 		fseek(this->cfile, offset, mode);
 	}
 	
-	long file::position()
+	long File::position()
 	{
 		if (!this->is_open())
 		{
@@ -259,7 +259,7 @@ namespace hltypes
 		return ftell(this->cfile);
 	}
 	
-	long file::size()
+	long File::size()
 	{
 		if (!this->is_open())
 		{
@@ -272,12 +272,12 @@ namespace hltypes
 		return size;
 	}
 	
-	bool file::is_open()
+	bool File::is_open()
 	{
 		return (this->cfile != NULL);
 	}
 	
-	bool file::eof()
+	bool File::eof()
 	{
 		if (!this->is_open())
 		{
@@ -286,7 +286,7 @@ namespace hltypes
 		return (feof(this->cfile) != 0);
 	}
 	
-	void file::close()
+	void File::close()
 	{
 		if (!this->is_open())
 		{
@@ -298,7 +298,7 @@ namespace hltypes
 	
 /******* SERIALIZATION DUMP ********************************************/
 
-	void file::dump(unsigned char c)
+	void File::dump(unsigned char c)
 	{
 		if (!this->is_open())
 		{
@@ -307,7 +307,7 @@ namespace hltypes
 		fwrite(&c, 1, 1, this->cfile);
 	}
 
-	void file::dump(int i)
+	void File::dump(int i)
 	{
 		if (!this->is_open())
 		{
@@ -316,7 +316,7 @@ namespace hltypes
 		this->dump((unsigned int)i);
 	}
 
-	void file::dump(unsigned int i)
+	void File::dump(unsigned int i)
 	{
 		if (!this->is_open())
 		{
@@ -334,7 +334,7 @@ namespace hltypes
 #endif
 	}
 
-	void file::dump(short s)
+	void File::dump(short s)
 	{
 		if (!this->is_open())
 		{
@@ -343,7 +343,7 @@ namespace hltypes
 		this->dump((unsigned short)s);
 	}
 
-	void file::dump(unsigned short s)
+	void File::dump(unsigned short s)
 	{
 		if (!this->is_open())
 		{
@@ -360,7 +360,7 @@ namespace hltypes
 #endif
 	}
 
-	void file::dump(float f)
+	void File::dump(float f)
 	{
 		if (!this->is_open())
 		{
@@ -375,7 +375,7 @@ namespace hltypes
 #endif
 	}
 
-	void file::dump(double d)
+	void File::dump(double d)
 	{
 		if (!this->is_open())
 		{
@@ -393,7 +393,7 @@ namespace hltypes
 #endif
 	}
 
-	void file::dump(bool b)
+	void File::dump(bool b)
 	{
 		if (!this->is_open())
 		{
@@ -403,7 +403,7 @@ namespace hltypes
 		fwrite(&c, 1, 1, this->cfile);
 	}
 
-	void file::dump(chstr str)
+	void File::dump(chstr str)
 	{
 		if (!this->is_open())
 		{
@@ -430,14 +430,14 @@ namespace hltypes
 		}
 	}
 
-	void file::dump(const char* c)
+	void File::dump(const char* c)
 	{
 		this->dump(hstr(c));
 	}
 
 /******* SERIALIZATION LOAD ********************************************/
 
-	unsigned char file::load_uchar()
+	unsigned char File::load_uchar()
 	{
 		if (!this->is_open())
 		{
@@ -448,7 +448,7 @@ namespace hltypes
 		return c;
 	}
 
-	int file::load_int()
+	int File::load_int()
 	{
 		if (!this->is_open())
 		{
@@ -457,7 +457,7 @@ namespace hltypes
 		return (int)this->load_uint();
 	}
 
-	unsigned int file::load_uint()
+	unsigned int File::load_uint()
 	{
 		if (!this->is_open())
 		{
@@ -477,7 +477,7 @@ namespace hltypes
 		return i;
 	}
 
-	short file::load_short()
+	short File::load_short()
 	{
 		if (!this->is_open())
 		{
@@ -486,7 +486,7 @@ namespace hltypes
 		return (int)this->load_ushort();
 	}
 
-	unsigned short file::load_ushort()
+	unsigned short File::load_ushort()
 	{
 		if (!this->is_open())
 		{
@@ -504,7 +504,7 @@ namespace hltypes
 		return s;
 	}
 
-	float file::load_float()
+	float File::load_float()
 	{
 		if (!this->is_open())
 		{
@@ -520,7 +520,7 @@ namespace hltypes
 		return f;
 	}
 
-	double file::load_double()
+	double File::load_double()
 	{
 		if (!this->is_open())
 		{
@@ -539,7 +539,7 @@ namespace hltypes
 		return d;
 	}
 
-	bool file::load_bool()
+	bool File::load_bool()
 	{
 		if (!this->is_open())
 		{
@@ -550,7 +550,7 @@ namespace hltypes
 		return (c != 0);
 	}
 
-	hstr file::load_hstr()
+	hstr File::load_hstr()
 	{
 		if (!this->is_open())
 		{
@@ -582,7 +582,7 @@ namespace hltypes
 
 /******* STATIC ********************************************************/
 
-	bool file::create(chstr filename)
+	bool File::create(chstr filename)
 	{
 		hstr name = normalize_path(filename);
 		if (!hfile::exists(name))
@@ -598,18 +598,18 @@ namespace hltypes
 		return false;
 	}
 	
-	bool file::create_new(chstr filename)
+	bool File::create_new(chstr filename)
 	{
 		return (hfile::create(filename) || hfile::clear(filename));
 	}
 	
-	bool file::remove(chstr filename)
+	bool File::remove(chstr filename)
 	{
 		hstr name = normalize_path(filename);
 		return (f_remove(name.c_str()) == 0);
 	}
 	
-	bool file::exists(chstr filename)
+	bool File::exists(chstr filename)
 	{
 		hstr name = normalize_path(filename);
 		FILE* f = fopen(name.c_str(), "r");
@@ -621,7 +621,7 @@ namespace hltypes
 		return false;
 	}
 	
-	bool file::clear(chstr filename)
+	bool File::clear(chstr filename)
 	{
 		hstr name = normalize_path(filename);
 		if (hfile::exists(name))
@@ -636,7 +636,7 @@ namespace hltypes
 		return false;
 	}
 	
-	bool file::rename(chstr old_filename, chstr new_filename)
+	bool File::rename(chstr old_filename, chstr new_filename)
 	{
 		hstr old_name = normalize_path(old_filename);
 		hstr new_name = normalize_path(new_filename);
@@ -648,13 +648,13 @@ namespace hltypes
 		return (f_rename(old_name.c_str(), new_name.c_str()) == 0);
 	}
 	
-	bool file::move(chstr filename, chstr path)
+	bool File::move(chstr filename, chstr path)
 	{
 		hstr name = normalize_path(filename);
 		return hfile::rename(name, path + "/" + name.rsplit("/", 1).pop_back());
 	}
 	
-	bool file::copy(chstr old_filename, chstr new_filename)
+	bool File::copy(chstr old_filename, chstr new_filename)
 	{
 		hstr old_name = normalize_path(old_filename);
 		hstr new_name = normalize_path(new_filename);
@@ -677,31 +677,31 @@ namespace hltypes
 	
 /******* QUICK READ/WRITE **********************************************/
 
-	hstr file::hread(chstr filename, int count)
+	hstr File::hread(chstr filename, int count)
 	{
 		hstr name = normalize_path(filename);
 		return hfile(name).read(count);
 	}
 	
-	hstr file::hread(chstr filename, chstr delimiter)
+	hstr File::hread(chstr filename, chstr delimiter)
 	{
 		hstr name = normalize_path(filename);
 		return hfile(name).read(delimiter);
 	}
 	
-	void file::hwrite(chstr filename, chstr text)
+	void File::hwrite(chstr filename, chstr text)
 	{
 		hstr name = normalize_path(filename);
 		hfile(name, WRITE).write(text);
 	}
 	
-	void file::happend(chstr filename, chstr text)
+	void File::happend(chstr filename, chstr text)
 	{
 		hstr name = normalize_path(filename);
 		hfile(name, APPEND).write(text);
 	}
 	
-	long file::hsize(chstr filename)
+	long File::hsize(chstr filename)
 	{
 		hstr name = normalize_path(filename);
 		return hfile(name).size();

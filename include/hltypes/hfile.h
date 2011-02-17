@@ -1,14 +1,21 @@
-/************************************************************************************\
-* This source file is part of the High Level C++ types library                       *
-* For latest info, see http://libhltypes.sourceforge.net/                            *
-**************************************************************************************
-* Copyright (c) 2010 Kresimir Spes, Boris Mikic, Domagoj Cerjan                      *
-*                                                                                    *
-* This program is free software; you can redistribute it and/or modify it under      *
-* the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php   *
-\************************************************************************************/
-#ifndef HLTYPES_HFILE_H
-#define HLTYPES_HFILE_H
+/**
+ * @file
+ * @author  Kresimir Spes
+ * @author  Boris Mikic
+ * @author  Ivan Vucica
+ * @version 1.0
+ *
+ * @section LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+ *
+ * @section DESCRIPTION
+ *
+ * Provides high level file handling.
+ */
+#ifndef HLTYPES_FILE_H
+#define HLTYPES_FILE_H
 
 #include <stdio.h>
 
@@ -36,12 +43,12 @@ namespace hltypes
 		END // SEEK_END
 	};
 	
-	class hltypesExport file
+	class hltypesExport File
 	{
 	public:
-		file(chstr filename, AccessMode access_mode = READ, int encryption_offset = 0);
-		file();
-		~file();
+		File(chstr filename, AccessMode access_mode = READ, int encryption_offset = 0);
+		File();
+		~File();
 		
 		void open(chstr filename, AccessMode access_mode = READ, int encryption_offset = 0);
 		hstr read_line();
@@ -110,7 +117,10 @@ namespace hltypes
 	};
 }
 
-typedef hltypes::file hfile;
+/**
+ * @brief Alias for simpler code.
+ */
+typedef hltypes::File hfile;
 
 #endif
 
