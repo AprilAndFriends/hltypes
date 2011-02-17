@@ -147,19 +147,19 @@ namespace hltypes
 		 */
 		void write(const char* text);
 		/**
-		 * @brief Writes string to the file and append \\n at the end.
+		 * @brief Writes string to the file and appends \\n at the end.
 		 * @param[in] text String to write.
 		 */
 		void write_line(chstr text);
 		/**
-		 * @brief Writes string to the file and append \\n at the end.
+		 * @brief Writes string to the file and appends \\n at the end.
 		 * @param[in] text C-type string to write.
 		 */
 		void write_line(const char* text);
 		/**
 		 * @brief Writes formatted string to the file.
 		 * @param[in] format C-type string containing format.
-		 * @param[in] ... Formatting Arguments.
+		 * @param[in] ... Formatting arguments.
 		 */
 		void writef(const char* format, ...);
 		/**
