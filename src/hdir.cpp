@@ -68,7 +68,7 @@ namespace hltypes
 		{
 			return false;
 		}
-		Array<String> folders = name.split("/");
+		Array<hstr> folders = name.split("/");
 		if (folders.size() > 0)
 		{
 			hstr path = folders.pop_front();
@@ -94,12 +94,12 @@ namespace hltypes
 		{
 			return false;
 		}
-		Array<String> directories = hdir::directories(name);
+		Array<hstr> directories = hdir::directories(name);
 		foreach (hstr, it, directories)
 		{
 			hdir::remove(name + "/" + (*it));
 		}
-		Array<String> files = hdir::files(name);
+		Array<hstr> files = hdir::files(name);
 		foreach (hstr, it, files)
 		{
 			hfile::remove(name + "/" + (*it));
@@ -127,12 +127,12 @@ namespace hltypes
 		{
 			return false;
 		}
-		Array<String> directories = hdir::directories(name);
+		Array<hstr> directories = hdir::directories(name);
 		foreach (hstr, it, directories)
 		{
 			hdir::remove(name + "/" + (*it));
 		}
-		Array<String> files = hdir::files(name);
+		Array<hstr> files = hdir::files(name);
 		foreach (hstr, it, files)
 		{
 			hfile::remove(name + "/" + (*it));
@@ -168,12 +168,12 @@ namespace hltypes
 			return false;
 		}
 		hdir::create(new_name);
-		Array<String> directories = hdir::directories(old_name);
+		Array<hstr> directories = hdir::directories(old_name);
 		foreach (hstr, it, directories)
 		{
 			hdir::copy(old_name + "/" + (*it), new_name + "/" + (*it));
 		}
-		Array<String> files = hdir::files(old_name);
+		Array<hstr> files = hdir::files(old_name);
 		foreach (hstr, it, files)
 		{
 			hfile::copy(old_name + "/" + (*it), new_name + "/" + (*it));
@@ -184,11 +184,11 @@ namespace hltypes
 	bool Dir::create_path(chstr path)
 	{
 		hstr path_name = normalize_path(path);
-		Array<String> parts = path_name.rsplit("/", 1);
+		Array<hstr> parts = path_name.rsplit("/", 1);
 		return (parts.size() > 1 && hdir::create(parts[0]));
 	}
     
-    void prepend_directory(chstr dirname, Array<String>& entries)
+    void prepend_directory(chstr dirname, Array<hstr>& entries)
     {
 		if (dirname != "")
 		{
@@ -199,10 +199,10 @@ namespace hltypes
 		}
     }
 	
-	Array<String> Dir::entries(chstr dirname, bool prepend_dir)
+	Array<hstr> Dir::entries(chstr dirname, bool prepend_dir)
 	{
 		hstr name = normalize_path(dirname);
-		Array<String> result;
+		Array<hstr> result;
 		if (hdir::exists(name))
 		{
 			DIR* dir = opendir(name.c_str());
@@ -220,10 +220,10 @@ namespace hltypes
 		return result;
 	}
 	
-	Array<String> Dir::contents(chstr dirname, bool prepend_dir)
+	Array<hstr> Dir::contents(chstr dirname, bool prepend_dir)
 	{
 		hstr name = normalize_path(dirname);
-		Array<String> result;
+		Array<hstr> result;
 		if (hdir::exists(name))
 		{
 			DIR* dir = opendir(name.c_str());
@@ -243,11 +243,11 @@ namespace hltypes
 		return result;
 	}
 	
-	Array<String> Dir::directories(chstr dirname, bool prepend_dir)
+	Array<hstr> Dir::directories(chstr dirname, bool prepend_dir)
 	{
 		hstr name = normalize_path(dirname);
 		hstr current;
-		Array<String> result;
+		Array<hstr> result;
 		if (hdir::exists(name))
 		{
 			DIR* dir = opendir(name.c_str());
@@ -271,11 +271,11 @@ namespace hltypes
 		return result;
 	}
 	
-	Array<String> Dir::files(chstr dirname, bool prepend_dir)
+	Array<hstr> Dir::files(chstr dirname, bool prepend_dir)
 	{
 		hstr name = normalize_path(dirname);
 		hstr current;
-		Array<String> result;
+		Array<hstr> result;
 		if (hdir::exists(name))
 		{
 			DIR* dir = opendir(name.c_str());

@@ -29,7 +29,7 @@ namespace hltypes
 {
 /******* CONSTRUCT/DESTRUCT ********************************************/
 
-	File::File(chstr filename, AccessMode access_mode, int encryption_offset) : cfile(NULL)
+	File::File(chstr filename, AccessMode access_mode, unsigned char encryption_offset) : cfile(NULL)
 	{
 		this->filename = filename;
 		this->encryption_offset = encryption_offset;
@@ -50,7 +50,7 @@ namespace hltypes
 	
 /******* METHODS *******************************************************/
 
-	void File::open(chstr filename, AccessMode access_mode, int encryption_offset)
+	void File::open(chstr filename, AccessMode access_mode, unsigned char encryption_offset)
 	{
 		if (this->is_open())
 		{
@@ -87,16 +87,6 @@ namespace hltypes
 		}
 	}
 	
-	hstr File::read_line()
-	{
-		return this->read("\n");
-	}
-	
-	Array<hstr> File::read_lines()
-	{
-		return this->read().split("\n");
-	}
-	
 	hstr File::read(chstr delimiter)
 	{
 		if (!this->is_open())
@@ -107,6 +97,7 @@ namespace hltypes
 		hstr str;
 		harray<hstr> parts;
 		int count;
+		int index;
 		while (!this->eof())
 		{
 			char c[BUFFER_SIZE + 1] = {'\0'};
@@ -116,17 +107,17 @@ namespace hltypes
 				break;
 			}
 			str = hstr(c);
+			result += str;
 			if (delimiter != "")
 			{
-				parts = str.split(delimiter, 1);
-				if (parts.size() > 1)
+				index = result.find(delimiter);
+				if (index >= 0)
 				{
-					result += parts[0];
-					this->seek(-parts[1].size(), CURRENT);
+					this->seek(index - result.size(), CURRENT);
+					result = result(0, index);
 					break;
 				}
 			}
-			result += str;
 		}
 		result = result.replace("\r", "");
 		return result;
@@ -159,6 +150,16 @@ namespace hltypes
 		return result;
 	}
 
+	hstr File::read_line()
+	{
+		return this->read("\n");
+	}
+	
+	Array<hstr> File::read_lines()
+	{
+		return this->read().split("\n");
+	}
+	
 	void File::write(chstr text)
 	{
 		if (!this->is_open())

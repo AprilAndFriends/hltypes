@@ -82,6 +82,7 @@ TEST(Map_structure_03)
 	a["C"] = 7;
 	hmap<hstr, int> b = a;
 	CHECK(a == b);
+	CHECK(!(a != b));
 }
 
 TEST(Map_iteration)

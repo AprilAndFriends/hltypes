@@ -31,37 +31,39 @@ namespace hltypes
 	 * @author Kresimir Spes
 	 * @author Boris Mikic
 	 * @author Ivan Vucica
+	 * @note When writing, \\r may be used, but \\r will be removed during read.
 	 */
 	class hltypesExport File
 	{
 	public:
 		/**
 		 * @brief Defines file access modes.
+		 * @note Windows text read/write modes are not used because they do not work properly in multiplatform environments.
 		 */
 		enum AccessMode
 		{
 			/**
-			 * @brief Read-only file mode. ("r")
+			 * @brief Read-only file mode. ("rb")
 			 */
 			READ,
 			/**
-			 * @brief Write-only file mode. ("w")
+			 * @brief Write-only file mode. ("wb")
 			 */
 			WRITE,
 			/**
-			 * @brief Write and append file mode. ("a")
+			 * @brief Write and append file mode. ("ab")
 			 */
 			APPEND,
 			/**
-			 * @brief Read and write file mode. ("r+")
+			 * @brief Read and write file mode. ("r+b")
 			 */
 			READ_WRITE,
 			/**
-			 * @brief Read, write and create file mode. ("w+")
+			 * @brief Read, write and create file mode. ("w+b")
 			 */
 			READ_WRITE_CREATE,
 			/**
-			 * @brief Read and append file mode. ("a+")
+			 * @brief Read and append file mode. ("a+b")
 			 */
 			READ_APPEND
 		};
@@ -85,15 +87,42 @@ namespace hltypes
 			END
 		};
 		
-		File(chstr filename, AccessMode access_mode = READ, int encryption_offset = 0);
+		/**
+		 * @brief Constructor that immediately opens a file.
+		 * @param[in] filename Name of the file.
+		 * @param[in] access_mode File access mode.
+		 * @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
+		 */
+		File(chstr filename, AccessMode access_mode = READ, unsigned char encryption_offset = 0);
+		/**
+		 * @brief Basic constructor.
+		 */
 		File();
+		/**
+		 * @brief Basic destructor.
+		 */
 		~File();
-		
-		void open(chstr filename, AccessMode access_mode = READ, int encryption_offset = 0);
-		hstr read_line();
-		Array<hstr> read_lines();
+		/**
+		 * @brief Opens a file.
+		 * @param[in] filename Name of the file.
+		 * @param[in] access_mode File access mode.
+		 * @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
+		 * @note If this instance is already working with an opened file handle, that file handle will be closed.
+		 */
+		void open(chstr filename, AccessMode access_mode = READ, unsigned char encryption_offset = 0);
+		/**
+		 * @brief Reads from a file until delimiter character is read.
+		 * @param[in] filename Name of the file.
+		 * @param[in] access_mode File access mode.
+		 * @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
+		 * @return The read line.
+		 * @note Delimiter character is not
+		 * @note When 
+		 */
 		hstr read(chstr delimiter = "");
 		hstr read(int count);
+		hstr read_line();
+		Array<hstr> read_lines();
 		void write(chstr text);
 		void write(const char* text);
 		void write_line(chstr text);
@@ -151,7 +180,7 @@ namespace hltypes
 	protected:
 		hstr filename;
 		FILE* cfile;
-		int encryption_offset;
+		unsigned char encryption_offset;
 		
 	};
 }

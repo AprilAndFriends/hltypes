@@ -98,7 +98,7 @@ namespace hltypes
 		 * @result Array of all directory entries.
 		 * @note Entries include "." and "..".
 		 */
-		static Array<String> entries(chstr dirname, bool prepend_dir = false);
+		static Array<hstr> entries(chstr dirname, bool prepend_dir = false);
 		/**
 		 * @brief Gets all physical directory contents in the given directory.
 		 * @param[in] dirname Name of the directory.
@@ -106,21 +106,21 @@ namespace hltypes
 		 * @result Array of all directory contents.
 		 * @note Contents do not include "." and "..".
 		 */
-		static Array<String> contents(chstr dirname, bool prepend_dir = false);
+		static Array<hstr> contents(chstr dirname, bool prepend_dir = false);
 		/**
 		 * @brief Gets all directories in the given directory.
 		 * @param[in] dirname Name of the directory.
 		 * @param[in] prepend_dir Whether the same parent path should be appended to the directory paths.
 		 * @result Array of all directories.
 		 */
-		static Array<String> directories(chstr dirname, bool prepend_dir = false);
+		static Array<hstr> directories(chstr dirname, bool prepend_dir = false);
 		/**
 		 * @brief Gets all files in the given directory.
 		 * @param[in] dirname Name of the directory.
 		 * @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
 		 * @result Array of all files.
 		 */
-		static Array<String> files(chstr dirname, bool prepend_dir = false);
+		static Array<hstr> files(chstr dirname, bool prepend_dir = false);
 		
 	};
 }
