@@ -167,7 +167,7 @@ namespace hltypes
 		 * @param[in] buffer Pointer to raw data buffer.
 		 * @param[in] count Number of bytes to read.
 		 * @return Number of bytes read.
-		 * @note If number of read bytes differs from parameter count, it can indicate a reading error or that EOF has been reached.
+		 * @note If return value differs from parameter count, it can indicate a reading error or that end of file has been reached.
 		 */
 		int read_raw(void* buffer, int count);
 		/**
@@ -175,7 +175,7 @@ namespace hltypes
 		 * @param[out] buffer Pointer to raw data buffer.
 		 * @param[in] count Number of bytes to write.
 		 * @return Number of bytes written.
-		 * @note If number of written bytes differs from parameter count, it can indicate a writing error.
+		 * @note If return value differs from parameter count, it can indicate a writing error.
 		 */
 		int write_raw(void* buffer, int count);
 		/**
@@ -359,7 +359,6 @@ namespace hltypes
 		 * @note If path does not exist, it will be created.
 		 */
 		static bool copy(chstr old_filename, chstr new_filename);
-		
 		/**
 		 * @brief Opens file, gets size and closes file.
 		 * @see size
