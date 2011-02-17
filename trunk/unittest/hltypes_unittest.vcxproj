@@ -90,6 +90,7 @@
     <ClCompile Include="testArray.cpp" />
     <ClCompile Include="testDir.cpp" />
     <ClCompile Include="testFile.cpp" />
+    <ClCompile Include="testList.cpp" />
     <ClCompile Include="testMap.cpp" />
     <ClCompile Include="testString.cpp" />
     <ClCompile Include="testThreading.cpp" />

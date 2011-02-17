@@ -177,11 +177,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\hstring.cpp"
+				RelativePath=".\src\hmutex.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\hmutex.cpp"
+				RelativePath=".\src\hstring.cpp"
 				>
 			</File>
 			<File
@@ -215,6 +215,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\hltypes\hlist.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\hltypes\hltypesExport.h"
 				>
 			</File>
@@ -223,11 +227,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\hltypes\hstring.h"
+				RelativePath=".\include\hltypes\hmutex.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\hltypes\hmutex.h"
+				RelativePath=".\include\hltypes\hstring.h"
 				>
 			</File>
 			<File

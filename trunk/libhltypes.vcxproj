@@ -88,6 +88,7 @@
     <ClInclude Include="include\hltypes\harray.h" />
     <ClInclude Include="include\hltypes\hdir.h" />
     <ClInclude Include="include\hltypes\hfile.h" />
+    <ClInclude Include="include\hltypes\hlist.h" />
     <ClInclude Include="include\hltypes\hltypesExport.h" />
     <ClInclude Include="include\hltypes\hmap.h" />
     <ClInclude Include="include\hltypes\hstring.h" />
