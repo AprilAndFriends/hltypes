@@ -17,7 +17,6 @@
 #define HLTYPES_DIR_H
 
 #include "hstring.h"
-
 #include "hltypesExport.h"
 
 namespace hltypes
