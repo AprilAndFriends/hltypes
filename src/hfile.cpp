@@ -92,7 +92,7 @@ namespace hltypes
 		return this->read("\n");
 	}
 	
-	harray<hstr> File::read_lines()
+	Array<hstr> File::read_lines()
 	{
 		return this->read().split("\n");
 	}

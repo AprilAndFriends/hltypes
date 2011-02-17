@@ -19,15 +19,15 @@
 
 #include <stdio.h>
 
-#include "harray.h"
-#include "hmap.h"
 #include "hstring.h"
+
 #include "hltypesExport.h"
 
 namespace hltypes
 {
+	template <class T> class Array;
 	/**
-	 * @brief Provides high level directory handling.
+	 * @brief Provides high level file handling.
 	 * @author Kresimir Spes
 	 * @author Boris Mikic
 	 * @author Ivan Vucica
@@ -40,12 +40,30 @@ namespace hltypes
 		 */
 		enum AccessMode
 		{
-			READ, // r
-			WRITE, // w
-			APPEND, // a
-			READ_WRITE, // r+
-			READ_WRITE_CREATE, // w+
-			READ_APPEND, // a+
+			/**
+			 * @brief Read-only file mode. ("r")
+			 */
+			READ,
+			/**
+			 * @brief Write-only file mode. ("w")
+			 */
+			WRITE,
+			/**
+			 * @brief Write and append file mode. ("a")
+			 */
+			APPEND,
+			/**
+			 * @brief Read and write file mode. ("r+")
+			 */
+			READ_WRITE,
+			/**
+			 * @brief Read, write and create file mode. ("w+")
+			 */
+			READ_WRITE_CREATE,
+			/**
+			 * @brief Read and append file mode. ("a+")
+			 */
+			READ_APPEND
 		};
 		
 		/**
@@ -53,9 +71,18 @@ namespace hltypes
 		 */
 		enum SeekMode
 		{
-			CURRENT, // SEEK_CUR
-			START, // SEEK_SET
-			END // SEEK_END
+			/**
+			 * @brief Seek from current position. (SEEK_CUR)
+			 */
+			CURRENT,
+			/**
+			 * @brief Seek from start position. (SEEK_SET)
+			 */
+			START,
+			/**
+			 * @brief Seek from current position. (SEEK_END)
+			 */
+			END
 		};
 		
 		File(chstr filename, AccessMode access_mode = READ, int encryption_offset = 0);
@@ -64,7 +91,7 @@ namespace hltypes
 		
 		void open(chstr filename, AccessMode access_mode = READ, int encryption_offset = 0);
 		hstr read_line();
-		harray<hstr> read_lines();
+		Array<hstr> read_lines();
 		hstr read(chstr delimiter = "");
 		hstr read(int count);
 		void write(chstr text);
