@@ -15,6 +15,7 @@
 #endif
 
 #include <hltypes/exception.h>
+#include <hltypes/harray.h>
 #include <hltypes/hdir.h>
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>

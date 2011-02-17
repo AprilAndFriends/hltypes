@@ -140,7 +140,7 @@ namespace hltypes
 			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				// making sure operator== is used, not !=
-				if ((stdmap::at(it->first) == other.at(it->first)))
+				if (!(stdmap::at(it->first) == other.at(it->first)))
 				{
 					return false;
 				}
