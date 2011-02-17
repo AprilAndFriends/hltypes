@@ -16,13 +16,13 @@
 #ifndef HLTYPES_DIR_H
 #define HLTYPES_DIR_H
 
-#include "harray.h"
 #include "hstring.h"
 
 #include "hltypesExport.h"
 
 namespace hltypes
 {
+	template <class T> class Array;
 	/**
 	 * @brief Provides high level directory handling.
 	 * @author Boris Mikic
@@ -98,7 +98,7 @@ namespace hltypes
 		 * @param[in] prepend_dir Whether the same parent path should be appended to the entries.
 		 * @result Array of all directory entries.
 		 */
-		static harray<hstr> entries(chstr dirname, bool prepend_dir = false); // all entries including . and ..
+		static Array<String> entries(chstr dirname, bool prepend_dir = false); // all entries including . and ..
 		/**
 		 * @brief Gets all physical directory contents in the given directory.
 		 * @param[in] dirname Name of the directory.
@@ -106,21 +106,21 @@ namespace hltypes
 		 * @result Array of all directory contents.
 		 * @note Contents do not include "." and "..".
 		 */
-		static harray<hstr> contents(chstr dirname, bool prepend_dir = false); // all contents
+		static Array<String> contents(chstr dirname, bool prepend_dir = false); // all contents
 		/**
 		 * @brief Gets all directories in the given directory.
 		 * @param[in] dirname Name of the directory.
 		 * @param[in] prepend_dir Whether the same parent path should be appended to the directory paths.
 		 * @result Array of all directories.
 		 */
-		static harray<hstr> directories(chstr dirname, bool prepend_dir = false); // directories only
+		static Array<String> directories(chstr dirname, bool prepend_dir = false); // directories only
 		/**
 		 * @brief Gets all files in the given directory.
 		 * @param[in] dirname Name of the directory.
 		 * @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
 		 * @result Array of all files.
 		 */
-		static harray<hstr> files(chstr dirname, bool prepend_dir = false); // files only
+		static Array<String> files(chstr dirname, bool prepend_dir = false); // files only
 		
 	private:
 		/**
