@@ -15,6 +15,7 @@
 #endif
 
 #include <hltypes/exception.h>
+#include <hltypes/harray.h>
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
 
@@ -37,6 +38,28 @@ TEST(File_read_write)
 	hfile::happend(filename, "22");
 	text = hfile::hread(filename);
 	CHECK(text == "This is a test.22");
+}
+
+TEST(File_read_line)
+{
+	hstr filename = "test.txt";
+	hfile f(filename, hfile::WRITE);
+	f.write_line("This is a test.");
+	f.write_line("This is also a test.");
+	f.write_line("This is another test.");
+	f.open(filename, hfile::READ);
+	hstr text = f.read();
+	CHECK(text == "This is a test.\nThis is also a test.\nThis is another test.\n");
+	f.open(filename, hfile::READ);
+	text = f.read_line();
+	CHECK(text == "This is a test.");
+	text = f.read_line();
+	CHECK(text == "This is also a test.");
+	text = f.read_line();
+	CHECK(text == "This is another test.");
+	f.open(filename, hfile::READ);
+	harray<hstr> lines = f.read_lines();
+	CHECK(lines[0] == "This is a test." && lines[1] == "This is also a test." && lines[2] == "This is another test.");
 }
 
 TEST(File_read_delimiter)
