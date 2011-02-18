@@ -94,7 +94,6 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		hstr result;
-		hstr str;
 		harray<hstr> parts;
 		int count;
 		int index;
@@ -106,14 +105,13 @@ namespace hltypes
 			{
 				break;
 			}
-			str = hstr(c);
-			result += str;
+			result += c;
 			if (delimiter != "")
 			{
 				index = result.find(delimiter);
 				if (index >= 0)
 				{
-					this->seek(index - result.size(), CURRENT);
+					this->seek(index - result.size() + delimiter.size(), CURRENT);
 					result = result(0, index);
 					break;
 				}
