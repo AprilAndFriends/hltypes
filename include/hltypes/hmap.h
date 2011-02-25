@@ -20,6 +20,8 @@
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a Map.
+#define foreach_map(type_key, type_value, name, container) for (std::map<type_key, type_value>::iterator name = container.begin(); name != container.end(); name++)
+/// @brief Provides a simpler syntax to iterate through a Map with String as key.
 #define foreach_m(type, name, container) for (std::map<hstr, type>::iterator name = container.begin(); name != container.end(); name++)
 /// @brief Alias for simpler code.
 #define stdmap std::map<K, T>
