@@ -30,8 +30,7 @@ const std::string::size_type std::string::npos = size_t(-1);
 namespace hltypes
 {
 	template <class T> class Array;
-	class String;
-
+	
 	/// @brief Encapsulates std::string and adds high level methods.
 	/// @author Kresimir Spes
 	/// @author Boris Mikic
