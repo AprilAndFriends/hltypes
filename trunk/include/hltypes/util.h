@@ -26,9 +26,6 @@
 /// @brief Used for optimized and quick calculation from DEG to RAD.
 #define HL_DEG_TO_RAD_RATIO 0.01745329251994329576923690768489
 
-/// @brief Provides a simpler syntax to iterate through a List.
-#define foreach_in_list(type, name, lst) for (std::list<type>::iterator name = lst.begin(); name != lst.end(); name++)
-
 /// @brief Calculates sin from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
 /// @return sin(degrees).
