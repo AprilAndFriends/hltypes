@@ -79,6 +79,10 @@ hstr normalize_path(chstr path)
 			result += directories.pop_front();
 		}
 	}
+	if (result.size() == 0)
+	{
+		return ".";
+	}
 	return result.join('/');
 }
 
