@@ -367,6 +367,21 @@ namespace hltypes
 			return result;
 		}
 		
+        /// @brief Finds and returns value stored at key; in case no value is found, returns default.
+		/// @param[in] key Key which we want to retrieve
+        /// @param[in] def Default value to return if key does not exist
+		/// @return Value stored at key, or default
+        T& try_get_by_key(K key, T def)
+        {
+            if (this->has_key(key)) 
+            {
+                return stdmap::operator[](key);
+            }
+            else
+            {
+                return def;
+            }
+        }
 	};
 	
 }
