@@ -62,7 +62,7 @@ namespace hltypes
 #ifdef _WIN32
 		this->id = CreateThread(0, 0, &asyncCall, this, 0, 0);
 #else
-		int ret = pthread_create(&this->id, NULL, &asyncCall, this);
+		pthread_create(&this->id, NULL, &asyncCall, this);
 #endif
 	}
 	

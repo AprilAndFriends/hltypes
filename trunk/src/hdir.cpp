@@ -208,7 +208,7 @@ namespace hltypes
 		{
 			DIR* dir = opendir(name.c_str());
 			struct dirent* entry;
-			while (entry = readdir(dir))
+			while ((entry = readdir(dir)))
 			{
 				result += entry->d_name;
 			}
@@ -229,7 +229,7 @@ namespace hltypes
 		{
 			DIR* dir = opendir(name.c_str());
 			struct dirent* entry;
-			while (entry = readdir(dir))
+			while ((entry = readdir(dir)))
 			{
 				result += entry->d_name;
 			}
@@ -253,7 +253,7 @@ namespace hltypes
 		{
 			DIR* dir = opendir(name.c_str());
 			struct dirent* entry;
-			while (entry = readdir(dir))
+			while ((entry = readdir(dir)))
 			{
 				current = name + "/" + entry->d_name;
 				if (hdir::exists(current))
@@ -281,7 +281,7 @@ namespace hltypes
 		{
 			DIR* dir = opendir(name.c_str());
 			struct dirent* entry;
-			while (entry = readdir(dir))
+			while ((entry = readdir(dir)))
 			{
 				current = name + "/" + entry->d_name;
 				if (hfile::exists(current))
