@@ -21,12 +21,18 @@
 #include "hltypesExport.h"
 #include "hstring.h"
 
-/// @brief rounds x to the nearest integer value
-hltypesFnExport double hroundd(double x);
-/// @brief rounds x to the nearest integer value
-hltypesFnExport float hroundf(float x);
-/// @brief rounds x to the nearest integer value
-hltypesFnExport int hround(double x);
+/// @brief Rounds a double value to the nearest integer value.
+/// @param[in] value The value to be rounded.
+/// @return Rounded value as double.
+hltypesFnExport double hroundd(double value);
+/// @brief Rounds a double value to the nearest integer value.
+/// @param[in] value The value to be rounded.
+/// @return Rounded value as float.
+hltypesFnExport float hroundf(float value);
+/// @brief Rounds a double value to the nearest integer value.
+/// @param[in] value The value to be rounded.
+/// @return Rounded value as integer.
+hltypesFnExport int hround(double value);
 /// @brief Used for optimized and quick calculation from RAD to DEG.
 #define HL_RAD_TO_DEG_RATIO 57.295779513082320876798154814105
 /// @brief Used for optimized and quick calculation from DEG to RAD.
