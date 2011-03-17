@@ -12,7 +12,7 @@
 #include "hstring.h"
 #include "util.h"
 
-double hround(double x)
+double hroundd(double x)
 {
 	return floor(x + 0.5);
 }
@@ -22,7 +22,7 @@ float hroundf(float x)
 	return floor(x + 0.5f);
 }
 
-long hroundl(double x)
+int hround(double x)
 {
 	return static_cast<long>(floor(x + 0.5));
 }
