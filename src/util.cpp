@@ -12,19 +12,19 @@
 #include "hstring.h"
 #include "util.h"
 
-double hroundd(double x)
+double hroundd(double value)
 {
-	return floor(x + 0.5);
+	return floor(value + 0.5);
 }
 
-float hroundf(float x)
+float hroundf(float value)
 {
-	return floor(x + 0.5f);
+	return floor(value + 0.5f);
 }
 
-int hround(double x)
+int hround(double value)
 {
-	return static_cast<long>(floor(x + 0.5));
+	return (int)(floor(value + 0.5));
 }
 
 int hrand(int min, int max)
