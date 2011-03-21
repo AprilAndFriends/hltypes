@@ -370,7 +370,7 @@ namespace hltypes
 		/// @param[in] key Key which we want to retrieve.
         /// @param[in] def Default value to return if key does not exist.
 		/// @return Value stored at key or given default value.
-        T& try_get_by_key(K key, T def)
+        T try_get_by_key(K key, T def)
         {
             if (this->has_key(key)) 
             {
