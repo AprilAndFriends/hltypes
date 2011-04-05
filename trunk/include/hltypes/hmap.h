@@ -374,7 +374,7 @@ namespace hltypes
         {
             if (this->has_key(key)) 
             {
-                return stdmap::operator[](key);
+                return operator[](key);
             }
 			return def;
         }
