@@ -220,6 +220,15 @@ namespace hltypes
 	{
 		return stdstr::size();
 	}
+
+	wchar_t* String::w_str()
+	{
+		wchar_t* result = new wchar_t[stdstr::size() * 4];
+		memset(result, 0, stdstr::size() * 4);
+		mbstowcs(result, stdstr::c_str(), stdstr::size());
+		return result;
+	}
+
 	
 /******* TYPE EXTENSION FUNCTIONS **************************************/
 	bool String::split(const char delimiter, String& out_left,String& out_right) const
