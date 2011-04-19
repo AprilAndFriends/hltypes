@@ -197,3 +197,4 @@ void utf8_to_unicode(chstr input, wchar_t* result)
 	}
 	result[j] = 0;
 }
+
