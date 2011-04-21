@@ -284,7 +284,9 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		return (feof(this->cfile) != 0);
+		// TODO - test why feof doesn't work
+		return (this->position() >= this->size());
+		//return (feof(this->cfile) != 0);
 	}
 	
 	void File::close()
