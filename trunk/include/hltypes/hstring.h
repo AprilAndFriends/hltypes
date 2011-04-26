@@ -184,7 +184,9 @@ namespace hltypes
 		String upper() const;
 		/// @brief Reverses String.
 		/// @return Reversed String.
-		String reverse() const;
+		String reverse() const;        
+        /// @brief Checks if all elements of the string contain only digits '0'-'9'
+        bool is_digit() const;
 		/// @brief Left-trims and right-trims String from a specific character.
 		/// @param[in] c Character to trim.
 		/// @return Trimmed String.
