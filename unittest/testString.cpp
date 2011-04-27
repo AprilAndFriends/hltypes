@@ -241,3 +241,11 @@ TEST(String_hsprintf)
 	CHECK(text == "This is a 15 formatted 3.14 file.");
 }
 
+TEST(String_is_digit)
+{
+	hstr text1 = "1234567890";
+	CHECK(text1.is_digit());
+	hstr text2 = "12345h67890";
+	CHECK(!text2.is_digit());
+}
+

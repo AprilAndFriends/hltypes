@@ -166,15 +166,20 @@ namespace hltypes
 		std::reverse(s.begin(), s.end());
 		return s;
 	}
-    
-    bool String::is_digit() const
-    {
-        const char* s = this->c_str();
-        int len = this->size();
-        for (int i = 0; i < len; i++, s++)
-            if (*s < '0' || *s > '9') return 0;
-        return 1;
-    }
+	
+	bool String::is_digit() const
+	{
+		const char* s = this->c_str();
+		int len = this->size();
+		for (int i = 0; i < len; i++, s++)
+		{
+			if (!isdigit(*s))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 
 	String String::trim(char c) const
 	{
