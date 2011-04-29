@@ -310,6 +310,44 @@ namespace hltypes
 				}
 			}
 		}
+		/// @brief Gets a random element in Map.
+		/// @param[out] value Value of selected random entry.
+		/// @return Random element or NULL if Map is empty.
+		K random(T* value = NULL)
+		{
+			if (this->size() == 0)
+			{
+				return NULL;
+			}
+			K key = this->keys()[hrand(this->size)];
+			if (value != NULL)
+			{
+				value = stdmap::operator[](key);
+			}
+			return key;
+		}
+		/// @brief Gets a Map of random elements selected from this one.
+		/// @param[in] count Number of random elements.
+		/// @return Map of random elements selected from this one.
+		Map<K, T> random(int count)
+		{
+			if (count >= this->size())
+			{
+				return Map<K, T>(*this);
+			}
+			Map<K, T> result;
+			if (count > 0)
+			{
+				Array<K> keys = this->keys();
+				K key;
+				for (int i = 0; i < count; i++)
+				{
+					key = keys.remove_at(hrand(this->size));
+					result[key] = stdmap::operator[](key);
+				}
+			}
+			return result;
+		}
 		/// @brief Finds and returns new Map with entries that match the condition.
 		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
 		/// @return New Map with all matching elements.

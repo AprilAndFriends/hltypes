@@ -116,6 +116,25 @@ TEST(Map_comparison)
 	CHECK(a != d);
 }
 
+TEST(Map_random)
+{
+	hmap<int, int> a;
+	a[0] = 10;
+	a[1] = 11;
+	a[2] = 12;
+	a[3] = 13;
+	int value;
+	int key = a.random(&value);
+	CHECK(a.has_key(key));
+	CHECK(a.has_value(value));
+	hmap<int, int> b = a.random(2);
+	CHECK(b.size() == 2);
+	CHECK(a.has_keys(b.keys()));
+	CHECK(a.has_values(b.values()));
+	CHECK(!b.has_keys(a.keys());
+	CHECK(!b.has_values(a.values()));
+}
+
 bool negative_keys(hstr key, int value) { return ((int)key < 0); }
 bool positive_values(hstr key, int value) { return (value >= 0); }
 bool over_9000_keys_values(hstr key, int value) { return ((int)key > 9000 && value > 9000); }
