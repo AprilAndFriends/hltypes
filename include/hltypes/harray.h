@@ -19,6 +19,7 @@
 #include <algorithm>
 
 #include "hstring.h"
+#include "util.h"
 
 #ifdef _WIN32
 	#undef min
@@ -717,6 +718,48 @@ namespace hltypes
 				return NULL;
 			}
 			return (*std::max_element(stdvector::begin(), stdvector::end(), compare_function));
+		}
+		/// @brief Gets a random element in Array.
+		/// @return Random element or NULL if Array is empty.
+		T random()
+		{
+			if (this->size() == 0)
+			{
+				return NULL;
+			}
+			return stdvector::at(hrand(this->size));
+		}
+		/// @brief Gets an Array of random elements selected from this one.
+		/// @param[in] count Number of random elements.
+		/// @param[in] unique Whether to force all random values to be unique.
+		/// @return Array of random elements selected from this one.
+		Array<T> random(int count, bool unique = false)
+		{
+			Array<T> result;
+			if (unique)
+			{
+				for (int i = 0; i < count; i++)
+				{
+					result += stdvector::at(hrand(this->size));
+				}
+			}
+			else if (count > 0)
+			{
+				if (count >= this->size())
+				{
+					return this->randomized();
+				}
+				Array<int> indexes;
+				for (int i = 0; i < this->size(); i++)
+				{
+					indexes += i;
+				}
+				for (int i = 0; i < count; i++)
+				{
+					result += stdvector::at(indexes.remove_at(hrand(indexes.size())));
+				}
+			}
+			return result;
 		}
 		/// @brief Joins all elements into a string.
 		/// @param[in] separator Separator string between elements.

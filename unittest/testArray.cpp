@@ -386,6 +386,21 @@ TEST(Array_difference)
 	CHECK((a1 / a2).size() == 0);
 }
 
+TEST(Array_random)
+{
+	harray<int> a;
+	a += 0;
+	a += 1;
+	a += 2;
+	a += 3;
+	int i = a.random();
+	CHECK(a.contains(i));
+	harray<int> b = a.random(2);
+	CHECK(b.size() == 2);
+	CHECK(a.contains(b));
+	CHECK(!b.contains(a));
+}
+
 TEST(Array_join)
 {
 	harray<int> a;
