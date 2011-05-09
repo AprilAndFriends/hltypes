@@ -1,9 +1,10 @@
-# autoconf configuration
-AC_PREREQ(2.61)
-AC_CONFIG_SRCDIR(src/exception.cpp)
 
 # initialize autoconf
+AC_PREREQ(2.61)
 AC_INIT(libhltypes, 1.2, ivan@vucica.net)
+
+# autoconf configuration
+AC_CONFIG_SRCDIR(src/exception.cpp)
 
 # libtool configuration
 #  LT_VERSION has nothing to do with VERSION.
@@ -28,8 +29,9 @@ AC_LANG(C++)
 AM_INIT_AUTOMAKE([foreign])
 
 # more libtool setup
-LT_PREREQ([2.2])
-LT_INIT #([disable-shared])
+AC_PROG_LIBTOOL # for pre-2.2 libtool
+#LT_PREREQ([2.2]) # for post-2.2 libtool
+#LT_INIT #([disable-shared])
 AC_SUBST([LIBTOOL_DEPS])
 
 # begin checks
