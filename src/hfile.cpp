@@ -329,10 +329,10 @@ namespace hltypes
 		fwrite(&i, 1, 4, this->cfile);
 #else
 		unsigned char bytes[4] = {0};
-		bytes[0] = (i >> 24) & 0xFF;
-		bytes[1] = (i >> 16) & 0xFF;
-		bytes[2] = (i >> 8) & 0xFF;
-		bytes[3] = i & 0xFF;
+		bytes[3] = (i >> 24) & 0xFF;
+		bytes[2] = (i >> 16) & 0xFF;
+		bytes[1] = (i >> 8) & 0xFF;
+		bytes[0] = i & 0xFF;
 		fwrite(bytes, 1, 4, this->cfile);
 #endif
 	}
