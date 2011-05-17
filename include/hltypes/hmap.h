@@ -404,6 +404,62 @@ namespace hltypes
 			}
 			return result;
 		}
+		/// @brief Returns a new Map with all keys and values dynamically cast into the type L and S.
+		/// @return A new Map with all keys and values cast into the type L and S.
+		/// @note If dynamic casting fails, it won't be included in the result.
+		template <class L, class S>
+		Map<L, S> dyn_cast()
+		{
+			Map<L, S> result;
+			L key;
+			S value;
+			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			{
+				key = dynamic_cast<L>(it->first);
+				value = dynamic_cast<S>(it->second);
+				if (key != NULL && value != NULL)
+				{
+					result[key] = value;
+				}
+			}
+			return result;
+		}
+		/// @brief Returns a new Map with all keys and values dynamically cast into the type L and non-dynamically into S.
+		/// @return A new Map with all keys and values cast into the type L and S.
+		/// @note If dynamic casting fails, it won't be included in the result.
+		template <class L, class S>
+		Map<L, S> dyn_cast_key()
+		{
+			Map<L, S> result;
+			L key;
+			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			{
+				key = dynamic_cast<L>(it->first);
+				if (key != NULL)
+				{
+					result[key] = (S)it->second;
+				}
+			}
+			return result;
+		}
+		/// @brief Returns a new Map with all keys and values cast into the type L and dynamically into S.
+		/// @return A new Map with all keys and values cast into the type L and S.
+		/// @note If dynamic casting fails, it won't be included in the result.
+		template <class L, class S>
+		Map<L, S> dyn_cast_value()
+		{
+			Map<L, S> result;
+			S value;
+			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			{
+				value = dynamic_cast<S>(it->second);
+				if (value != NULL)
+				{
+					result[(L)it->first] = value;
+				}
+			}
+			return result;
+		}
         /// @brief Finds and returns value stored at key. In case no value is found, returns default.
 		/// @param[in] key Key which we want to retrieve.
         /// @param[in] def Default value to return if key does not exist.
