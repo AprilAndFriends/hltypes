@@ -848,6 +848,24 @@ namespace hltypes
 			}
 			return result;
 		}
+		/// @brief Returns a new Array with all elements dynamically cast into type S.
+		/// @return A new Array with all elements cast into type S.
+		/// @note If dynamic casting fails, it won't be included in the result.
+		template <class S>
+		Array<S> dyn_cast()
+		{
+			Array<S> result;
+			S value;
+			for (int i = 0; i < this->size(); i++)
+			{
+				value = dynamic_cast<S>(stdvector::at(i));
+				if (value != NULL)
+				{
+					result += value;
+				}
+			}
+			return result;
+		}
 		/// @brief Same as contains.
 		/// @see contains(const T& element)
 		bool includes(const T& element)
