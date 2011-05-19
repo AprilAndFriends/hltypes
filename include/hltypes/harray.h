@@ -323,7 +323,7 @@ namespace hltypes
 		}
 		/// @brief Removes all occurences of element in Array.
 		/// @param[in] element Element to remove.
-		void remove_all(T& element)
+		void remove_all(const T& element)
 		{
 			int index = 0;
 			while (true)
