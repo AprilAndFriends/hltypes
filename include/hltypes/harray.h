@@ -727,7 +727,7 @@ namespace hltypes
 			{
 				return NULL;
 			}
-			return stdvector::at(hrand(this->size));
+			return stdvector::at(hrand(this->size()));
 		}
 		/// @brief Gets an Array of random elements selected from this one.
 		/// @param[in] count Number of random elements.
