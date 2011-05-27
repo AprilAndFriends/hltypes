@@ -141,27 +141,34 @@ hstr unicode_to_utf8(const wchar_t* string)
 	return result;
 }
 
-unsigned int getCharUtf8(const char* s, int* char_len_out)
+unsigned int utf8_to_uint(const char* input, int* character_length)
 {
-	if (*s < 0)
+	unsigned int result = 0;
+	if (result < 128)
 	{
-		const unsigned char* u = (const unsigned char*)s;
-		const unsigned char first = *u;
-		if ((first & 0xE0) == 0xC0)
-		{
-			*char_len_out = 2;
-			return ((first & 0x1F) << 6) | (u[1] & 0x3F);
-		}
-		if ((first & 0xF0) == 0xE0)
-		{
-			*char_len_out = 3;
-			return ((((first & 0xF) << 6) | (u[1] & 0x3F) ) << 6) | (u[2] & 0x3F);
-		}
-		*char_len_out = 4;
-		return ((((((first & 7) << 6) | (u[1] & 0x3F) ) << 6) | (u[2] & 0x3F)) << 6) | (u[3] & 0x3F);
+		*character_length = 1;
+		result = (unsigned int)(*input);
 	}
-	*char_len_out = 1;
-	return *s;
+	else
+	{
+		const unsigned char* u = (const unsigned char*)input;
+		if ((u[0] & 0xE0) == 0xC0)
+		{
+			*character_length = 2;
+			result = ((u[0] & 0x1F) << 6) | (u[1] & 0x3F);
+		}
+		else if ((u[0] & 0xF0) == 0xE0)
+		{
+			*character_length = 3;
+			result = ((((u[0] & 0xF) << 6) | (u[1] & 0x3F)) << 6) | (u[2] & 0x3F);
+		}
+		else
+		{
+			*character_length = 4;
+			result = ((((((u[0] & 0x7) << 6) | (u[1] & 0x3F)) << 6) | (u[2] & 0x3F)) << 6) | (u[3] & 0x3F);
+		}
+	}
+	return result;
 }
 
 void utf8_to_unicode(chstr input, wchar_t* result)
