@@ -87,6 +87,11 @@ hltypesFnExport hstr unicode_to_utf8(wchar_t value);
 /// @param[in] string The wchar string.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
+/// @brief Converts a UTF8 character into the corresponding character code.
+/// @param[in] input The UTF8 character as C string.
+/// @param[out] character_length Length of character in bytes.
+/// @return Charcter code.
+hltypesFnExport unsigned int utf8_to_uint(const char* input, int* character_length);
 /// @brief Converts a UTF8 string into a unicode wchar string.
 /// @param[in] input The UTF8 string.
 /// @param[out] result The wchar string.
