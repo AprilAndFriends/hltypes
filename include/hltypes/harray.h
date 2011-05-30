@@ -740,7 +740,7 @@ namespace hltypes
 			{
 				for (int i = 0; i < count; i++)
 				{
-					result += stdvector::at(hrand(this->size));
+					result += stdvector::at(hrand(this->size()));
 				}
 			}
 			else if (count > 0)

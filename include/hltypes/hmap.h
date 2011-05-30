@@ -319,10 +319,10 @@ namespace hltypes
 			{
 				return NULL;
 			}
-			K key = this->keys()[hrand(this->size)];
+			K key = this->keys()[hrand(this->size())];
 			if (value != NULL)
 			{
-				value = stdmap::operator[](key);
+				*value = stdmap::operator[](key);
 			}
 			return key;
 		}
@@ -342,7 +342,7 @@ namespace hltypes
 				K key;
 				for (int i = 0; i < count; i++)
 				{
-					key = keys.remove_at(hrand(this->size));
+					key = keys.remove_at(hrand(keys.size()));
 					result[key] = stdmap::operator[](key);
 				}
 			}

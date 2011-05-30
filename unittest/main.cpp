@@ -8,7 +8,7 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #ifdef _WIN32
-#include <UnitTest++.h>
+#include <C:\Program Files\UnitTest++-1.3\src\UnitTest++.h>
 #else
 #include <unittest++/UnitTest++.h>
 #endif
