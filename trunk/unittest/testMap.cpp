@@ -116,7 +116,7 @@ TEST(Map_comparison)
 	d["abc2"] = 2;
 	CHECK(a != d);
 }
-
+#include <stdio.h>
 TEST(Map_random)
 {
 	hmap<int, int> a;
@@ -132,7 +132,7 @@ TEST(Map_random)
 	CHECK(b.size() == 2);
 	CHECK(a.has_keys(b.keys()));
 	CHECK(a.has_values(b.values()));
-	CHECK(!b.has_keys(a.keys());
+	CHECK(!b.has_keys(a.keys()));
 	CHECK(!b.has_values(a.values()));
 }
 
