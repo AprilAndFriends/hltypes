@@ -35,9 +35,11 @@ namespace hltypes
 	static bool hmkdir(chstr path)
 	{
 		/*
-		wchar_t wpath[1025] = {'\0'};
-		utf8_to_unicode(path, wpath);
-		return _wmkdir(wpath);
+		wchar_t* wpath = utf8_to_unicode(path);
+		bool result =_wmkdir(wpath)
+		delete wpath;
+		return result;
+
 		*/
 		return (_mkdir(path.c_str()) != 0);
 	}
@@ -45,9 +47,10 @@ namespace hltypes
 	static bool hremove(chstr dirname)
 	{
 		/*
-		wchar_t wdirname[1025] = {'\0'};
-		utf8_to_unicode(dirname, wdirname);
-		return _wremove(wdirname);
+		wchar_t* wdirname = utf8_to_unicode(dirname);
+		bool result =_wremove(wdirname)
+		delete wdirname;
+		return result;
 		*/
 		return (remove(dirname.c_str()) != 0);
 	}
@@ -55,9 +58,9 @@ namespace hltypes
 	static bool hrmdir(chstr dirname)
 	{
 		/*
-		wchar_t wdirname[1025] = {'\0'};
-		utf8_to_unicode(dirname, wdirname);
-		return _wrmdir(wdirname);
+		wchar_t* wdirname = utf8_to_unicode(dirname);
+		bool result = _wrmdir(wdirname);
+		return result;
 		*/
 		return (_rmdir(dirname.c_str()) != 0);
 	}

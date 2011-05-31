@@ -101,6 +101,52 @@ hstr normalize_path(chstr path)
 	return result.join('/');
 }
 
+hstr unicode_to_utf8(unsigned int value)
+{
+	/*
+	 7	U+7F		0xxxxxxx
+	11	U+7FF		110xxxxx	10xxxxxx
+	16	U+FFFF		1110xxxx	10xxxxxx	10xxxxxx
+	21	U+1FFFFF	11110xxx	10xxxxxx	10xxxxxx	10xxxxxx
+	26	U+3FFFFFF	111110xx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
+	31	U+7FFFFFFF	1111110x	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
+	*/
+	hstr result;
+	if (value < 0x80)
+	{
+		result += (char)value;
+	}
+	else if (value < 0x800)
+	{
+		result += (char)(0xC0 | (value >> 6));
+		result += (char)(0x80 | (value & 0x3F));
+	}
+	else if (value < 0x10000)
+	{
+		result += (char)(0xE0 | (value >> 12));
+		result += (char)(0x80 | ((value >> 6) & 0x3F));
+		result += (char)(0x80 | (value & 0x3F));
+	}
+	else// if (value < 0x200000)
+	{
+		result += (char)(0xF0 | (value >> 18));
+		result += (char)(0x80 | ((value >> 12) & 0x3F));
+		result += (char)(0x80 | ((value >> 6) & 0x3F));
+		result += (char)(0x80 | (value & 0x3F));
+	}
+	/*
+	else if (value < 0x4000000)
+	{
+		// TODO
+	}
+	else if (value < 0x80000000)
+	{
+		// TODO
+	}
+	*/
+	return result;
+}
+
 hstr unicode_to_utf8(wchar_t value)
 {
 	hstr result;
@@ -113,21 +159,12 @@ hstr unicode_to_utf8(wchar_t value)
 		result += (char)(0xC0 | (value >> 6));
 		result += (char)(0x80 | (value & 0x3F));
 	}
-	else// if (value < 0x10000)
+	else
 	{
 		result += (char)(0xE0 | (value >> 12));
 		result += (char)(0x80 | ((value >> 6) & 0x3F));
 		result += (char)(0x80 | (value & 0x3F));
 	}
-	/*
-	else
-	{
-		result += (char)(0xF0 | (value >> 18));
-		result += (char)(0x80 | ((value >> 12) & 0x3F));
-		result += (char)(0x80 | ((value >> 6) & 0x3F));
-		result += (char)(0x80 | (value & 0x3F));
-	}
-	*/
 	return result;
 }
 
@@ -144,35 +181,34 @@ hstr unicode_to_utf8(const wchar_t* string)
 unsigned int utf8_to_uint(const char* input, int* character_length)
 {
 	unsigned int result = 0;
-	if (result < 128)
+	const unsigned char* u = (const unsigned char*)input;
+	if (u[0] < 0x80)
 	{
 		*character_length = 1;
-		result = (unsigned int)(*input);
+		result = u[0];
+	}
+	else if ((u[0] & 0xE0) == 0xC0)
+	{
+		*character_length = 2;
+		result = ((u[0] & 0x1F) << 6) | (u[1] & 0x3F);
+	}
+	else if ((u[0] & 0xF0) == 0xE0)
+	{
+		*character_length = 3;
+		result = ((((u[0] & 0xF) << 6) | (u[1] & 0x3F)) << 6) | (u[2] & 0x3F);
 	}
 	else
 	{
-		const unsigned char* u = (const unsigned char*)input;
-		if ((u[0] & 0xE0) == 0xC0)
-		{
-			*character_length = 2;
-			result = ((u[0] & 0x1F) << 6) | (u[1] & 0x3F);
-		}
-		else if ((u[0] & 0xF0) == 0xE0)
-		{
-			*character_length = 3;
-			result = ((((u[0] & 0xF) << 6) | (u[1] & 0x3F)) << 6) | (u[2] & 0x3F);
-		}
-		else
-		{
-			*character_length = 4;
-			result = ((((((u[0] & 0x7) << 6) | (u[1] & 0x3F)) << 6) | (u[2] & 0x3F)) << 6) | (u[3] & 0x3F);
-		}
+		*character_length = 4;
+		result = ((((((u[0] & 0x7) << 6) | (u[1] & 0x3F)) << 6) | (u[2] & 0x3F)) << 6) | (u[3] & 0x3F);
 	}
 	return result;
 }
 
-void utf8_to_unicode(chstr input, wchar_t* result)
+unsigned int* utf8_to_unicode(chstr input)
 {
+	unsigned int* result = new unsigned int[input.size() + 1];
+	memset(result, 0, (input.size() + 1) * sizeof(unsigned int));
 	const unsigned char* str = (const unsigned char*)input.c_str();
 	int i = 0;
 	int j = 0;
@@ -202,6 +238,6 @@ void utf8_to_unicode(chstr input, wchar_t* result)
 		i += length;
 		j++;
 	}
-	result[j] = 0;
+	return result;
 }
 
