@@ -79,6 +79,10 @@ hltypesFnExport float hrandf(float max);
 /// @param[in] path The path.
 /// @return Normalized filepath.
 hltypesFnExport hstr normalize_path(chstr path);
+/// @brief Converts a unicode unsigned int to a UTF8 string.
+/// @param[in] value The unsigned int value.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(unsigned int value);
 /// @brief Converts a unicode wchar to a UTF8 string.
 /// @param[in] value The wchar value.
 /// @return UTF8 string.
@@ -94,8 +98,9 @@ hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
 hltypesFnExport unsigned int utf8_to_uint(const char* input, int* character_length);
 /// @brief Converts a UTF8 string into a unicode wchar string.
 /// @param[in] input The UTF8 string.
-/// @param[out] result The wchar string.
-hltypesFnExport void utf8_to_unicode(chstr input, wchar_t* result);
+/// @return The unsiend int string.
+/// @note Make sure to use "delete []" on the result to prevent memory leaks.
+hltypesFnExport unsigned int* utf8_to_unicode(chstr input);
 
 /// @brief Returns the lesser of two elements.
 /// @param[in] a First element.
