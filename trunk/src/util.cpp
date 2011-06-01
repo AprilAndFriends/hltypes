@@ -157,6 +157,16 @@ hstr unicode_to_utf8(const unsigned int* string)
 	return result;
 }
 
+hstr unicode_to_utf8(harray<unsigned int> chars)
+{
+	hstr result;
+	foreach (unsigned int, it, chars)
+	{
+		result += unicode_to_utf8(*it);
+	}
+	return result;
+}
+
 hstr unicode_to_utf8(wchar_t value)
 {
 	hstr result;
@@ -184,6 +194,16 @@ hstr unicode_to_utf8(const wchar_t* string)
 	for (int i = 0; string[i] != 0; i++)
 	{
 		result += unicode_to_utf8(string[i]);
+	}
+	return result;
+}
+
+hstr unicode_to_utf8(harray<wchar_t> chars)
+{
+	hstr result;
+	foreach (wchar_t, it, chars)
+	{
+		result += unicode_to_utf8(*it);
 	}
 	return result;
 }

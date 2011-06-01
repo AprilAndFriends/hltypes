@@ -21,6 +21,11 @@
 #include "hltypesExport.h"
 #include "hstring.h"
 
+namespace hltypes
+{
+	template <class T> class Array;
+}
+
 /// @brief Rounds a double value to the nearest integer value.
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as double.
@@ -87,6 +92,10 @@ hltypesFnExport hstr unicode_to_utf8(unsigned int value);
 /// @param[in] string The unsigned int string.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
+/// @brief Converts a unicode unsigned int Array to a UTF8 string.
+/// @param[in] string The unsigned int characters.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
 /// @brief Converts a unicode wchar to a UTF8 string.
 /// @param[in] value The wchar value.
 /// @return UTF8 string.
@@ -95,6 +104,10 @@ hltypesFnExport hstr unicode_to_utf8(wchar_t value);
 /// @param[in] string The wchar string.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
+/// @brief Converts a unicode wchar Array to a UTF8 string.
+/// @param[in] string The wchar characters.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
 /// @brief Converts a UTF8 character into the corresponding character code.
 /// @param[in] input The UTF8 character as C string.
 /// @param[out] character_length Length of character in bytes.
