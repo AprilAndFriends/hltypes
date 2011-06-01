@@ -83,6 +83,10 @@ hltypesFnExport hstr normalize_path(chstr path);
 /// @param[in] value The unsigned int value.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(unsigned int value);
+/// @brief Converts a unicode unsigned int string to a UTF8 string.
+/// @param[in] string The unsigned int string.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
 /// @brief Converts a unicode wchar to a UTF8 string.
 /// @param[in] value The wchar value.
 /// @return UTF8 string.
@@ -95,12 +99,13 @@ hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
 /// @param[in] input The UTF8 character as C string.
 /// @param[out] character_length Length of character in bytes.
 /// @return Charcter code.
-hltypesFnExport unsigned int utf8_to_uint(const char* input, int* character_length);
+hltypesFnExport unsigned int utf8_to_uint(chstr input, int* character_length = NULL);
 /// @brief Converts a UTF8 string into a unicode wchar string.
 /// @param[in] input The UTF8 string.
+/// @param[out] lenght Length of the string.
 /// @return The unsiend int string.
 /// @note Make sure to use "delete []" on the result to prevent memory leaks.
-hltypesFnExport unsigned int* utf8_to_unicode(chstr input);
+hltypesFnExport unsigned int* utf8_to_unicode(chstr input, int* length = NULL);
 
 /// @brief Returns the lesser of two elements.
 /// @param[in] a First element.
