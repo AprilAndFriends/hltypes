@@ -147,6 +147,16 @@ hstr unicode_to_utf8(unsigned int value)
 	return result;
 }
 
+hstr unicode_to_utf8(const unsigned int* string)
+{
+	hstr result;
+	for (int i = 0; string[i] != 0; i++)
+	{
+		result += unicode_to_utf8(string[i]);
+	}
+	return result;
+}
+
 hstr unicode_to_utf8(wchar_t value)
 {
 	hstr result;
@@ -178,65 +188,72 @@ hstr unicode_to_utf8(const wchar_t* string)
 	return result;
 }
 
-unsigned int utf8_to_uint(const char* input, int* character_length)
+unsigned int utf8_to_uint(chstr input, int* character_length)
 {
 	unsigned int result = 0;
-	const unsigned char* u = (const unsigned char*)input;
+	const unsigned char* u = (const unsigned char*)input.c_str();
+	int length = 0;
 	if (u[0] < 0x80)
 	{
-		*character_length = 1;
 		result = u[0];
+		length = 1;
 	}
 	else if ((u[0] & 0xE0) == 0xC0)
 	{
-		*character_length = 2;
 		result = ((u[0] & 0x1F) << 6) | (u[1] & 0x3F);
+		length = 2;
 	}
 	else if ((u[0] & 0xF0) == 0xE0)
 	{
-		*character_length = 3;
 		result = ((((u[0] & 0xF) << 6) | (u[1] & 0x3F)) << 6) | (u[2] & 0x3F);
+		length = 3;
 	}
 	else
 	{
-		*character_length = 4;
 		result = ((((((u[0] & 0x7) << 6) | (u[1] & 0x3F)) << 6) | (u[2] & 0x3F)) << 6) | (u[3] & 0x3F);
+		length = 4;
+	}
+	if (character_length != NULL)
+	{
+		*character_length = length;
 	}
 	return result;
 }
 
-unsigned int* utf8_to_unicode(chstr input)
+unsigned int* utf8_to_unicode(chstr input, int* length)
 {
 	unsigned int* result = new unsigned int[input.size() + 1];
 	memset(result, 0, (input.size() + 1) * sizeof(unsigned int));
 	const unsigned char* str = (const unsigned char*)input.c_str();
 	int i = 0;
 	int j = 0;
-	int length = 1;
 	while (str[i] != 0)
 	{
 		if (str[i] < 0x80)
 		{
 			result[j] = str[i];
-			length = 1;
+			i += 1;
 		}
 		else if ((str[i] & 0xE0) == 0xC0)
 		{
 			result[j] = ((str[i] & 0x1F) << 6) | (str[i + 1] & 0x3F);
-			length = 2;
+			i += 2;
 		}
 		else if ((str[i] & 0xF0) == 0xE0)
 		{
 			result[j] = ((((str[i] & 0xF) << 6) | (str[i + 1] & 0x3F) ) << 6) | (str[i + 2] & 0x3F);
-			length = 3;
+			i += 3;
 		}
 		else
 		{
 			result[j] = ((((((str[i] & 0x7) << 6) | (str[i + 1] & 0x3F)) << 6) | (str[i + 2] & 0x3F)) << 6) | (str[i + 3] & 0x3F);
-			length = 4;
+			i += 4;
 		}
-		i += length;
 		j++;
+	}
+	if (length != NULL)
+	{
+		*length = j;
 	}
 	return result;
 }
