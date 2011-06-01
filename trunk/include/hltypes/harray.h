@@ -110,10 +110,6 @@ namespace hltypes
 		/// @return Subarray created from the current Array.
 		Array<T> operator()(const int start, const int count) const
 		{
-			if (count <= 0)
-			{
-				return Array<T>();
-			}
 			Array<T> result;
 			result.assign(stdvector::begin() + start, stdvector::begin() + start + count);
 			return result;
