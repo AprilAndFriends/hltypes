@@ -169,10 +169,23 @@ namespace hltypes
 	
 	bool String::is_digit() const
 	{
+        if (this->size() != 1) return 0;
+        return isdigit(c_str()[0]);
+	}
+    
+	bool String::is_number() const
+	{
 		const char* s = this->c_str();
-		int len = this->size();
-		for (int i = 0; i < len; i++, s++)
+		int dotcnt = 0;
+        if (s[0] == '-') s++;
+		for (; *s != 0 ; s++)
 		{
+            if (s[0] == '.')
+            {
+                if (dotcnt > 0) return false;
+                dotcnt = 1;
+                continue;
+            }
 			if (!isdigit(*s))
 			{
 				return false;
