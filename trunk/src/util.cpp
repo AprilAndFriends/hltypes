@@ -8,6 +8,10 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
+#ifndef _MSC_VER // required for memset on non-MSVC compilers
+#include <string.h>
+#endif
+
 #include "harray.h"
 #include "hstring.h"
 #include "util.h"
