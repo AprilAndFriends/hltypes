@@ -13,6 +13,7 @@
 #include <windows.h>
 #endif
 
+#include "exception.h"
 #include "hmutex.h"
 
 namespace hltypes
@@ -20,7 +21,11 @@ namespace hltypes
 	Mutex::Mutex()
 	{
 #ifdef _WIN32
-		this->handle = 0;
+		this->handle = CreateMutex(0, 0, 0);
+		if (this->handle == 0)
+		{
+			throw hl_exception("Could not create mutex");
+		}
 #else
 		pthread_mutex_init(&this->handle, 0);
 #endif
@@ -29,10 +34,7 @@ namespace hltypes
 	Mutex::~Mutex()
 	{
 #ifdef _WIN32
-		if (this->handle)
-		{
-			CloseHandle(this->handle);
-		}
+		CloseHandle(this->handle);
 #else
 		pthread_mutex_destroy(&this->handle);
 #endif
@@ -41,10 +43,6 @@ namespace hltypes
 	void Mutex::lock()
 	{
 #ifdef _WIN32
-		if (!this->handle)
-		{
-			this->handle = CreateMutex(0, 0, 0);
-		}
 		WaitForSingleObject(this->handle, INFINITE);
 #else
 		pthread_mutex_lock(&this->handle);
