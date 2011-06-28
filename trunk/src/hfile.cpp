@@ -301,6 +301,15 @@ namespace hltypes
 	
 /******* SERIALIZATION DUMP ********************************************/
 
+	void File::dump(char c)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		fwrite(&c, 1, 1, this->cfile);
+	}
+
 	void File::dump(unsigned char c)
 	{
 		if (!this->is_open())
@@ -483,6 +492,17 @@ namespace hltypes
 	}
 
 /******* SERIALIZATION LOAD ********************************************/
+
+	char File::load_char()
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		char c;
+		fread(&c, 1, 1, this->cfile);
+		return c;
+	}
 
 	unsigned char File::load_uchar()
 	{

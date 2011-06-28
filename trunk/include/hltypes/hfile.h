@@ -143,6 +143,9 @@ namespace hltypes
 		void close();
 		
 		/// @brief Dumps data to file in a platform-aware format.
+		/// @param c Character to dump.
+		void dump(char c);
+		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c Unsigned character to dump.
 		void dump(unsigned char c);
 		/// @brief Dumps data to file in a platform-aware format.
@@ -178,6 +181,10 @@ namespace hltypes
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c C-type string to dump.
 		void dump(const char* c);
+
+		/// @brief Loads data from file in a platform-aware format.
+		/// @return Loaded character.
+		char load_char();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded unsigned character.
 		unsigned char load_uchar();
