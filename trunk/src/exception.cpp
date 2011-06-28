@@ -39,6 +39,11 @@ namespace hltypes
 	{
 	}
 /************************************************************************************/
+	_file_long_error::_file_long_error(chstr filename, const char* source_file, int line) :
+	    exception("'" + filename + "' tried to dump/load long that is not 8 or 4 bytes!", source_file, line)
+	{
+	}
+/************************************************************************************/
 	_index_error::_index_error(int index, const char* source_file, int line) :
 	    exception("index '" + hstr(index) + "' out of range", source_file, line)
 	{

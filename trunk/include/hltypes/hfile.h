@@ -152,6 +152,12 @@ namespace hltypes
 		/// @param i Unsigned int to dump.
 		void dump(unsigned int i);
 		/// @brief Dumps data to file in a platform-aware format.
+		/// @param l Long to dump.
+		void dump(long l);
+		/// @brief Dumps data to file in a platform-aware format.
+		/// @param l Unsigned long to dump.
+		void dump(unsigned long l);
+		/// @brief Dumps data to file in a platform-aware format.
 		/// @param s Short int to dump.
 		void dump(short s);
 		/// @brief Dumps data to file in a platform-aware format.
@@ -181,6 +187,12 @@ namespace hltypes
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded unsigned int.
 		unsigned int load_uint();
+		/// @brief Loads data from file in a platform-aware format.
+		/// @return Loaded long.
+		long load_long();
+		/// @brief Loads data from file in a platform-aware format.
+		/// @return Loaded unsigned long.
+		unsigned long load_ulong();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded short int.
 		short load_short();

@@ -337,6 +337,50 @@ namespace hltypes
 #endif
 	}
 
+	void File::dump(long l)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		this->dump((unsigned long)l);
+	}
+
+	void File::dump(unsigned long l)
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+#ifndef __BIG_ENDIAN__
+		if (sizeof(unsigned long) == 8) // long should be 8 bytes
+		{
+			fwrite(&l, 1, 8, this->cfile);
+		}
+		else if (sizeof(unsigned long) == 4) // will work with 4 bytes as well
+		{
+			fwrite(&l, 1, 4, this->cfile);
+			unsigned char bytes[4] = {0};
+			fwrite(bytes, 1, 4, this->cfile);
+		}
+		else // other sizes are unacceptable
+		{
+			throw file_long_error(this->filename.c_str());
+		}
+#else
+		unsigned char bytes[8] = {0};
+		bytes[7] = (l >> 56) & 0xFF;
+		bytes[6] = (l >> 48) & 0xFF;
+		bytes[5] = (l >> 40) & 0xFF;
+		bytes[4] = (l >> 32) & 0xFF;
+		bytes[3] = (l >> 24) & 0xFF;
+		bytes[2] = (l >> 16) & 0xFF;
+		bytes[1] = (l >> 8) & 0xFF;
+		bytes[0] = l & 0xFF;
+		fwrite(bytes, 1, 8, this->cfile);
+#endif
+	}
+
 	void File::dump(short s)
 	{
 		if (!this->is_open())
@@ -480,6 +524,52 @@ namespace hltypes
 		return i;
 	}
 
+	long File::load_long()
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		return (long)this->load_ulong();
+	}
+
+	unsigned long File::load_ulong()
+	{
+		if (!this->is_open())
+		{
+			throw file_not_open(this->filename.c_str());
+		}
+		unsigned long l = 0;
+#ifndef __BIG_ENDIAN__
+		if (sizeof(unsigned long) == 8) // long should be 8 bytes
+		{
+			fread((unsigned char*)&l, 1, 8, this->cfile);
+		}
+		else if (sizeof(unsigned long) == 4) // will work with 4 bytes as well
+		{
+			fread((unsigned char*)&l, 1, 4, this->cfile);
+			unsigned char bytes[4] = {0};
+			fread(bytes, 1, 4, this->cfile);
+		}
+		else // other sizes are unacceptable
+		{
+			throw file_long_error(this->filename.c_str());
+		}
+#else
+		unsigned char bytes[8] = {0};
+		fread(bytes, 8, 1, this->cfile);
+		l |= bytes[7] << 56;
+		l |= bytes[6] << 48;
+		l |= bytes[5] << 40;
+		l |= bytes[4] << 32;
+		l |= bytes[3] << 24;
+		l |= bytes[2] << 16;
+		l |= bytes[1] << 8;
+		l |= bytes[0];
+#endif
+		return l;
+	}
+
 	short File::load_short()
 	{
 		if (!this->is_open())
@@ -499,7 +589,7 @@ namespace hltypes
 #ifndef __BIG_ENDIAN__
 		fread((unsigned char*)&s, 1, 2, this->cfile);
 #else
-		unsigned char bytes[4] = {0};
+		unsigned char bytes[2] = {0};
 		fread(bytes, 1, 2, this->cfile);
 		s |= bytes[1] << 8;
 		s |= bytes[0];
