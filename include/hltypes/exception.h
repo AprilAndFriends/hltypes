@@ -75,6 +75,20 @@ namespace hltypes
 	/// @brief Alias for simpler code.
 	#define file_not_open(filename) hltypes::_file_not_open(filename, __FILE__, __LINE__)
 	
+	/// @brief Defines a file-long-error exception.
+	class hltypesExport _file_long_error : public exception
+	{
+	public:
+		/// @brief Basic constructor.
+		/// @param[in] filename Name of the file.
+		/// @param[in] source_file Name of the source file.
+		/// @param[in] line Number of the line.
+		_file_long_error(chstr filename, const char* source_file, int line);
+		
+	};
+	/// @brief Alias for simpler code.
+	#define file_long_error(filename) hltypes::_file_long_error(filename, __FILE__, __LINE__)
+	
 	/// @brief Defines an index-error exception.
 	class hltypesExport _index_error : public exception
 	{
