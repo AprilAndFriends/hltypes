@@ -79,6 +79,15 @@ hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
 /// @param[in] input The UTF8 string.
 /// @param[out] result The wchar string.
 hltypesFnExport void utf8_to_unicode(chstr input, wchar_t* result);
+/// @brief Calculates CRC32 from a byte stream.
+/// @param[in] data Data stream.
+/// @param[in] size Size of the data stream.
+/// @return CRC32 value of the stream.
+hltypesFnExport unsigned int calc_crc32(unsigned char* data, int size);
+/// @brief Calculates CRC32 from a byte stream.
+/// @param[in] filename Filename of the file to calculate the CRC32 from.
+/// @return CRC32 value of the file.
+hltypesFnExport unsigned int calc_crc32(chstr filename);
 
 /// @brief Returns the lesser of two elements.
 /// @param[in] a First element.

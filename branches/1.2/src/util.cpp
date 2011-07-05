@@ -9,6 +9,7 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #include "harray.h"
+#include "hfile.h"
 #include "hstring.h"
 #include "util.h"
 
@@ -85,6 +86,8 @@ hstr normalize_path(chstr path)
 	}
 	return result.join('/');
 }
+
+// Unicode stuff
 
 hstr unicode_to_utf8(wchar_t value)
 {
@@ -182,3 +185,63 @@ void utf8_to_unicode(chstr input, wchar_t* result)
 	}
 	result[j] = 0;
 }
+
+// CRC32 stuff
+
+unsigned int crc32_table[256];
+bool crc32_table_created = false;
+void create_crc32_table()
+{
+	if (crc32_table_created)
+	{
+		return;
+	}
+	unsigned int polynome = 0xEDB88320;
+	unsigned int sum;
+	for (int i = 0; i < 256; i++)
+	{
+		sum = i;
+		for (int j = 8; j > 0; j--)
+		{
+			if ((sum & 1) != 0)
+			{
+				sum = (sum >> 1) ^ polynome;
+			}
+			else
+			{
+				sum >>= 1;
+			}
+		}
+		crc32_table[i] = sum;
+	}
+	crc32_table_created = true;
+}
+
+unsigned int calc_crc32(unsigned char* data, int size)
+{
+	create_crc32_table();
+	unsigned int crc = 0xFFFFFFFF;
+	for (int i = 0; i < size; i++)
+	{
+		crc = ((crc >> 8) & 0x00FFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
+	}
+	return (crc ^ 0xFFFFFFFF);
+}
+
+unsigned int calc_crc32(chstr filename)
+{
+	create_crc32_table();
+	hfile f(filename);
+	int size = f.size();
+	unsigned char* data = new unsigned char[size];
+	f.read_raw(data, size);
+	f.close();
+	unsigned int crc = 0xFFFFFFFF;
+	for (int i = 0; i < size; i++)
+	{
+		crc = ((crc >> 8) & 0x00FFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
+	}
+	delete data;
+	return (crc ^ 0xFFFFFFFF);
+}
+
