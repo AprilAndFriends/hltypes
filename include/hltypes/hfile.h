@@ -254,6 +254,18 @@ namespace hltypes
 		/// @see write
 		static void happend(chstr filename, chstr text);
 		
+		/// @brief Defines the number of repeated attempts to access a file.
+		static int repeats;
+		/// @brief Defines the timeout in miliseconds between repeated attempts to access a file.
+		static float timeout;
+
+		/// @brief Sets the number of repeated attempts to access a file.
+		/// @param[in] value New value.
+		static void setRepeats(int value) { repeats = value; }
+		/// @brief Sets the timeout in miliseconds between repeated attempts to access a file.
+		/// @param[in] value New value.
+		static void setTimeout(float value) { timeout = value; }
+
 	protected:
 		/// @brief Current filename.
 		hstr filename;
