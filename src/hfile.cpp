@@ -94,7 +94,7 @@ namespace hltypes
 				break;
 			}
 			attempts--;
-			Thread::sleep(File::timeout);
+			if (attempts) Thread::sleep(File::timeout);
 		};
 		if (this->cfile == NULL)
 		{
@@ -636,7 +636,7 @@ namespace hltypes
 				return true;
 			}
 			attempts--;
-			Thread::sleep(File::timeout);
+			if (attempts) Thread::sleep(File::timeout);
 		}
 		return false;
 	}
