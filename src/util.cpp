@@ -114,14 +114,6 @@ hstr get_basedir(chstr filename)
 
 hstr unicode_to_utf8(unsigned int value)
 {
-	/*
-	 7	U+7F		0xxxxxxx
-	11	U+7FF		110xxxxx	10xxxxxx
-	16	U+FFFF		1110xxxx	10xxxxxx	10xxxxxx
-	21	U+1FFFFF	11110xxx	10xxxxxx	10xxxxxx	10xxxxxx
-	26	U+3FFFFFF	111110xx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
-	31	U+7FFFFFFF	1111110x	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
-	*/
 	hstr result;
 	if (value < 0x80)
 	{
@@ -138,23 +130,30 @@ hstr unicode_to_utf8(unsigned int value)
 		result += (char)(0x80 | ((value >> 6) & 0x3F));
 		result += (char)(0x80 | (value & 0x3F));
 	}
-	else// if (value < 0x200000)
+	else if (value < 0x200000)
 	{
 		result += (char)(0xF0 | (value >> 18));
 		result += (char)(0x80 | ((value >> 12) & 0x3F));
 		result += (char)(0x80 | ((value >> 6) & 0x3F));
 		result += (char)(0x80 | (value & 0x3F));
 	}
-	/*
 	else if (value < 0x4000000)
 	{
-		// TODO
+		result += (char)(0xF8 | (value >> 24));
+		result += (char)(0x80 | ((value >> 18) & 0x3F));
+		result += (char)(0x80 | ((value >> 12) & 0x3F));
+		result += (char)(0x80 | ((value >> 6) & 0x3F));
+		result += (char)(0x80 | (value & 0x3F));
 	}
 	else if (value < 0x80000000)
 	{
-		// TODO
+		result += (char)(0xFC | (value >> 30));
+		result += (char)(0x80 | ((value >> 24) & 0x3F));
+		result += (char)(0x80 | ((value >> 18) & 0x3F));
+		result += (char)(0x80 | ((value >> 12) & 0x3F));
+		result += (char)(0x80 | ((value >> 6) & 0x3F));
+		result += (char)(0x80 | (value & 0x3F));
 	}
-	*/
 	return result;
 }
 
@@ -181,6 +180,14 @@ hstr unicode_to_utf8(harray<unsigned int> chars)
 hstr unicode_to_utf8(wchar_t value)
 {
 	hstr result;
+	/*
+	 7	U+7F		0xxxxxxx
+	11	U+7FF		110xxxxx	10xxxxxx
+	16	U+FFFF		1110xxxx	10xxxxxx	10xxxxxx
+	21	U+1FFFFF	11110xxx	10xxxxxx	10xxxxxx	10xxxxxx
+	26	U+3FFFFFF	111110xx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
+	31	U+7FFFFFFF	1111110x	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
+	*/
 	if (value < 0x80)
 	{
 		result += (char)value;
@@ -190,9 +197,33 @@ hstr unicode_to_utf8(wchar_t value)
 		result += (char)(0xC0 | (value >> 6));
 		result += (char)(0x80 | (value & 0x3F));
 	}
-	else
+	else if (value < 0x10000)
 	{
 		result += (char)(0xE0 | (value >> 12));
+		result += (char)(0x80 | ((value >> 6) & 0x3F));
+		result += (char)(0x80 | (value & 0x3F));
+	}
+	else if (value < 0x200000)
+	{
+		result += (char)(0xF0 | (value >> 18));
+		result += (char)(0x80 | ((value >> 12) & 0x3F));
+		result += (char)(0x80 | ((value >> 6) & 0x3F));
+		result += (char)(0x80 | (value & 0x3F));
+	}
+	else if (value < 0x4000000)
+	{
+		result += (char)(0xF8 | (value >> 24));
+		result += (char)(0x80 | ((value >> 18) & 0x3F));
+		result += (char)(0x80 | ((value >> 12) & 0x3F));
+		result += (char)(0x80 | ((value >> 6) & 0x3F));
+		result += (char)(0x80 | (value & 0x3F));
+	}
+	else if (value < 0x80000000)
+	{
+		result += (char)(0xFC | (value >> 30));
+		result += (char)(0x80 | ((value >> 24) & 0x3F));
+		result += (char)(0x80 | ((value >> 18) & 0x3F));
+		result += (char)(0x80 | ((value >> 12) & 0x3F));
 		result += (char)(0x80 | ((value >> 6) & 0x3F));
 		result += (char)(0x80 | (value & 0x3F));
 	}
