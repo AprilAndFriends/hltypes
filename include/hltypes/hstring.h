@@ -45,6 +45,9 @@ namespace hltypes
 	public:
 		/// @brief Empty constructor.
 		String();
+		/// @brief destructor.
+		~String();
+		
 		/// @brief Basic constructor.
 		/// @param[in] c A character.
 		String(const char c);
