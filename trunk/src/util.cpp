@@ -203,30 +203,6 @@ hstr unicode_to_utf8(wchar_t value)
 		result += (char)(0x80 | ((value >> 6) & 0x3F));
 		result += (char)(0x80 | (value & 0x3F));
 	}
-	else if (value < 0x200000)
-	{
-		result += (char)(0xF0 | (value >> 18));
-		result += (char)(0x80 | ((value >> 12) & 0x3F));
-		result += (char)(0x80 | ((value >> 6) & 0x3F));
-		result += (char)(0x80 | (value & 0x3F));
-	}
-	else if (value < 0x4000000)
-	{
-		result += (char)(0xF8 | (value >> 24));
-		result += (char)(0x80 | ((value >> 18) & 0x3F));
-		result += (char)(0x80 | ((value >> 12) & 0x3F));
-		result += (char)(0x80 | ((value >> 6) & 0x3F));
-		result += (char)(0x80 | (value & 0x3F));
-	}
-	else if (value < 0x80000000)
-	{
-		result += (char)(0xFC | (value >> 30));
-		result += (char)(0x80 | ((value >> 24) & 0x3F));
-		result += (char)(0x80 | ((value >> 18) & 0x3F));
-		result += (char)(0x80 | ((value >> 12) & 0x3F));
-		result += (char)(0x80 | ((value >> 6) & 0x3F));
-		result += (char)(0x80 | (value & 0x3F));
-	}
 	return result;
 }
 
