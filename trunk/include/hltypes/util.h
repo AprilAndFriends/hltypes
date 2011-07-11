@@ -84,6 +84,10 @@ hltypesFnExport float hrandf(float max);
 /// @param[in] path The path.
 /// @return Normalized filepath.
 hltypesFnExport hstr normalize_path(chstr path);
+/// @brief Gets the base directory of a filename.
+/// @param[in] filename The filename.
+/// @return Base directory of the file.
+hltypesFnExport hstr get_basedir(chstr filename);
 /// @brief Converts a unicode unsigned int to a UTF8 string.
 /// @param[in] value The unsigned int value.
 /// @return UTF8 string.

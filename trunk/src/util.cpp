@@ -105,6 +105,13 @@ hstr normalize_path(chstr path)
 	return result.join('/');
 }
 
+hstr get_basedir(chstr filename)
+{
+	harray<hstr> directories = filename.replace('\\', '/').rtrim('/').split('/');
+	directories.pop_back();
+	return directories.join("/");
+}
+
 hstr unicode_to_utf8(unsigned int value)
 {
 	/*
