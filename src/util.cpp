@@ -180,14 +180,6 @@ hstr unicode_to_utf8(harray<unsigned int> chars)
 hstr unicode_to_utf8(wchar_t value)
 {
 	hstr result;
-	/*
-	 7	U+7F		0xxxxxxx
-	11	U+7FF		110xxxxx	10xxxxxx
-	16	U+FFFF		1110xxxx	10xxxxxx	10xxxxxx
-	21	U+1FFFFF	11110xxx	10xxxxxx	10xxxxxx	10xxxxxx
-	26	U+3FFFFFF	111110xx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
-	31	U+7FFFFFFF	1111110x	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
-	*/
 	if (value < 0x80)
 	{
 		result += (char)value;
@@ -228,6 +220,14 @@ hstr unicode_to_utf8(harray<wchar_t> chars)
 
 unsigned int utf8_to_uint(chstr input, int* character_length)
 {
+	/*
+	 7	U+7F		0xxxxxxx
+	11	U+7FF		110xxxxx	10xxxxxx
+	16	U+FFFF		1110xxxx	10xxxxxx	10xxxxxx
+	21	U+1FFFFF	11110xxx	10xxxxxx	10xxxxxx	10xxxxxx
+	26	U+3FFFFFF	111110xx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
+	31	U+7FFFFFFF	1111110x	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
+	*/
 	unsigned int result = 0;
 	const unsigned char* u = (const unsigned char*)input.c_str();
 	int length = 0;
