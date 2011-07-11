@@ -25,6 +25,7 @@ typedef std::basic_string<char> stdstr;
 namespace hltypes
 {
 	String::String() : stdstr() { }
+	String::~String() { }
 	String::String(const char c) : stdstr(1, c) { }
 	String::String(const char c, const int times) : stdstr(times, c) { }
 	String::String(const char* s) : stdstr(s) { }
