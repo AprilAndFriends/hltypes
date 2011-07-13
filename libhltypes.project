@@ -15,6 +15,7 @@
     <File Name="src/hdir.cpp"/>
     <File Name="src/hmutex.cpp"/>
     <File Name="src/hthread.cpp"/>
+    <File Name="fileproperties.rc"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/hltypes/hltypesExport.h"/>
