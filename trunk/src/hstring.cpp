@@ -42,6 +42,7 @@ namespace hltypes
 		sprintf(s, fmt, f);
 		stdstr::operator=(s);
 	}
+	String::~String() { }
 
 	Array<String> String::split(const char* delimiter, unsigned int n) const
 	{

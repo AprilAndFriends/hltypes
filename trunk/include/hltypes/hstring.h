@@ -87,6 +87,8 @@ namespace hltypes
 		/// @param[out] out_left First portion of the split String.
 		/// @param[out] out_right Second portion of the split String.
 		/// @return True if String was split.
+		/// @brief Basic destructor.
+		~String();
 		bool split(const char delimiter, String& out_left, String& out_right) const;
 		/// @brief Splits the String with the delimiter once.
 		/// @param[in] delimiter The C-type string acting as splitting delimiter.
