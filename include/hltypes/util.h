@@ -123,6 +123,15 @@ hltypesFnExport unsigned int utf8_to_uint(chstr input, int* character_length = N
 /// @return The unsiend int string.
 /// @note Make sure to use "delete []" on the result to prevent memory leaks.
 hltypesFnExport unsigned int* utf8_to_unicode(chstr input, int* length = NULL);
+/// @brief Calculates CRC32 from a byte stream.
+/// @param[in] data Data stream.
+/// @param[in] size Size of the data stream.
+/// @return CRC32 value of the stream.
+hltypesFnExport unsigned int calc_crc32(unsigned char* data, int size);
+/// @brief Calculates CRC32 from a byte stream.
+/// @param[in] filename Filename of the file to calculate the CRC32 from.
+/// @return CRC32 value of the file.
+hltypesFnExport unsigned int calc_crc32(chstr filename);
 
 /// @brief Returns the lesser of two elements.
 /// @param[in] a First element.
