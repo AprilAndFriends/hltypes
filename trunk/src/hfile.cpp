@@ -23,12 +23,15 @@ int (*f_remove)(const char* filename) = remove;
 #include "hfile.h"
 #include "hmap.h"
 #include "hstring.h"
+#include "hthread.h"
 #include "util.h"
 
 #define BUFFER_SIZE (4096)
 
 namespace hltypes
 {
+	float File::timeout = 100.0f;
+	int File::repeats = 0;
 /******* CONSTRUCT/DESTRUCT ********************************************/
 
 	File::File(chstr filename, AccessMode access_mode, unsigned char encryption_offset) : cfile(NULL)
@@ -82,7 +85,21 @@ namespace hltypes
 			mode = "a+b";
 			break;
 		}
-		this->cfile = fopen(this->filename.c_str(), mode);
+		int attempts = File::repeats + 1;
+		while (true)
+		{
+			this->cfile = fopen(this->filename.c_str(), mode);
+			if (this->cfile != NULL)
+			{
+				break;
+			}
+			attempts--;
+			if (attempts <= 0)
+			{
+				break;
+			}
+			Thread::sleep(File::timeout);
+		};
 		if (this->cfile == NULL)
 		{
 			throw file_not_found(this->filename.c_str());
@@ -698,16 +715,22 @@ namespace hltypes
 	bool File::create(chstr filename)
 	{
 		hstr name = normalize_path(filename);
-		if (!hfile::exists(name))
+		int attempts = File::repeats + 1;
+		while (true)
 		{
-			hdir::create_path(name);
-			FILE* f = fopen(name.c_str(), "wb");
+			FILE* f = fopen(name.c_str(), "r");
 			if (f != NULL)
 			{
 				fclose(f);
 				return true;
 			}
-		}
+			attempts--;
+			if (attempts <= 0)
+			{
+				break;
+			}
+			Thread::sleep(File::timeout);
+		};
 		return false;
 	}
 	

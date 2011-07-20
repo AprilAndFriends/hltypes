@@ -82,13 +82,15 @@ namespace hltypes
 		/// @param[in] f Float to create String of.
 		/// @param[in] precision The floating point precision to use.
 		String(const float f, int precision);
+		/// @brief Destructor.
+		~String();
+
 		/// @brief Splits the String with the delimiter once.
 		/// @param[in] delimiter The character acting as splitting delimiter.
 		/// @param[out] out_left First portion of the split String.
 		/// @param[out] out_right Second portion of the split String.
 		/// @return True if String was split.
 		/// @brief Basic destructor.
-		~String();
 		bool split(const char delimiter, String& out_left, String& out_right) const;
 		/// @brief Splits the String with the delimiter once.
 		/// @param[in] delimiter The C-type string acting as splitting delimiter.
@@ -278,6 +280,7 @@ namespace hltypes
 		/// @brief Creates a wchar string.
 		/// @note The wchar string has to be manually destroyed using delete [].
 		wchar_t* w_str();
+
 		/// @brief Casts String into float.
 		operator float() const;
 		/// @brief Casts String into int.
