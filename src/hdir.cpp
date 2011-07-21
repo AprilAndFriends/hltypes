@@ -187,9 +187,8 @@ namespace hltypes
 	
 	bool Dir::create_path(chstr path)
 	{
-		hstr path_name = normalize_path(path);
-		Array<hstr> parts = path_name.rsplit("/", 1);
-		return (parts.size() > 1 && hdir::create(parts[0]));
+		hstr dir = get_basedir(path);
+		return (dir != "." && hdir::create(dir));
 	}
     
     void prepend_directory(chstr dirname, Array<hstr>& entries)
