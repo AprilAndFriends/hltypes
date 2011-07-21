@@ -715,22 +715,26 @@ namespace hltypes
 	bool File::create(chstr filename)
 	{
 		hstr name = normalize_path(filename);
-		int attempts = File::repeats + 1;
-		while (true)
+		if (!hfile::exists(name))
 		{
-			FILE* f = fopen(name.c_str(), "r");
-			if (f != NULL)
+			hdir::create_path(name);
+			int attempts = File::repeats + 1;
+			while (true)
 			{
-				fclose(f);
-				return true;
+				FILE* f = fopen(name.c_str(), "wb");
+				if (f != NULL)
+				{
+					fclose(f);
+					return true;
+				}
+				attempts--;
+				if (attempts <= 0)
+				{
+					break;
+				}
+				Thread::sleep(File::timeout);
 			}
-			attempts--;
-			if (attempts <= 0)
-			{
-				break;
-			}
-			Thread::sleep(File::timeout);
-		};
+		}
 		return false;
 	}
 	
