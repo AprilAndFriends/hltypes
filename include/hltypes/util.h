@@ -80,6 +80,11 @@ hltypesFnExport float hrandf(float min, float max);
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between 0.0 inclusively and max exclusively.
 hltypesFnExport float hrandf(float max);
+/// @brief Compares 2 float values within using a tolerance factor.
+/// @param[in] a First float value.
+/// @param[in] b Second float value.
+/// @return True if comparison matches within boundary limits.
+hltypesFnExport bool cmpf(float a, float b);
 /// @brief Normalizes a file path by converting all platform specific characters into / and proper removal of "." and ".." where necessary.
 /// @param[in] path The path.
 /// @return Normalized filepath.

@@ -68,6 +68,11 @@ float hrandf(float max)
 #endif
 }
 
+bool cmpf(float a, float b)
+{
+	return (fabs(a - b) < HL_E_TOLERANCE);
+}
+
 hstr normalize_path(chstr path)
 {
 	harray<hstr> directories = path.replace('\\', '/').rtrim('/').split('/');
