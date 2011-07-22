@@ -1,0 +1,24 @@
+option lib
+
+subproject hltypes
+
+define _STATICLIB
+
+options
+{
+	enable-exceptions
+}
+
+files
+{
+	(src)
+	hfile.cpp
+	exception.cpp
+	hdir.cpp
+	hmutex.cpp
+	hstring.cpp
+	hthread.cpp
+	util.cpp
+	
+}
+

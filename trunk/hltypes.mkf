@@ -1,0 +1,23 @@
+includepath include/hltypes
+
+library
+{
+	".,hltypes"
+}
+
+files
+{
+	(include/hltypes)
+	hltypesExport.h
+	exception.h
+	harray.h
+	hdir.h
+	hfile.h
+	hlist.h
+	hmap.h
+	hmutex.h
+	hstring.h
+	hthread.h
+	msvc_dirent.h
+	util.h
+}
