@@ -60,7 +60,7 @@ hltypesFnExport int hround(double value);
 /// @return acos in degrees.
 #define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
-#define HL_E_TOLERANCE (0.01f)
+#define HL_E_TOLERANCE 0.01f
 
 /// @brief Returns a random int number.
 /// @param[in] min Inclusive lower boundary.
@@ -84,7 +84,12 @@ hltypesFnExport float hrandf(float max);
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
 /// @return True if comparison matches within boundary limits.
-hltypesFnExport bool cmpf(float a, float b);
+hltypesFnExport bool heqf(float a, float b, float tolerance = HL_E_TOLERANCE);
+/// @brief Uses a cmp-like comparison of 2 float values.
+/// @param[in] a First float value.
+/// @param[in] b Second float value.
+/// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
+hltypesFnExport int hcmpf(float a, float b, float tolerance = HL_E_TOLERANCE);
 /// @brief Normalizes a file path by converting all platform specific characters into / and proper removal of "." and ".." where necessary.
 /// @param[in] path The path.
 /// @return Normalized filepath.

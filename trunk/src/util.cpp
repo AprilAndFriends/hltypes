@@ -68,9 +68,14 @@ float hrandf(float max)
 #endif
 }
 
-bool cmpf(float a, float b)
+bool heqf(float a, float b, float tolerance)
 {
-	return (fabs(a - b) < HL_E_TOLERANCE);
+	return (fabs(a - b) < tolerance);
+}
+
+int hcmpf(float a, float b, float tolerance)
+{
+	return (heqf(a, b, tolerance) ? 0 : (a > b ? 1 : -1));
 }
 
 hstr normalize_path(chstr path)
