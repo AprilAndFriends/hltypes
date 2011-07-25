@@ -1,4 +1,8 @@
-includepath include/hltypes
+includepaths
+{
+	include
+	include/hltypes
+}
 
 library
 {
