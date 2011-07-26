@@ -12,28 +12,28 @@
 /// 
 /// Defines macros for DLL exports/imports.
 
-#ifndef HLTYPES_EXPORT_H
-#define HLTYPES_EXPORT_H
+#ifndef HLXML_EXPORT_H
+#define HLXML_EXPORT_H
 
-	/// @def hltypesExport
+	/// @def hlxmlExport
 	/// @brief Macro for DLL exports/imports.
-	/// @def hltypesFnExport
+	/// @def hlxmlFnExport
 	/// @brief Macro for function DLL exports/imports.
 	#ifdef _STATICLIB
-		#define hltypesExport
-		#define hltypesFnExport
+		#define hlxmlExport
+		#define hlxmlFnExport
 	#else
 		#ifdef _WIN32
-			#ifdef HLTYPES_EXPORTS
-				#define hltypesExport __declspec(dllexport)
-				#define hltypesFnExport __declspec(dllexport)
+			#ifdef HLXML_EXPORTS
+				#define hlxmlExport __declspec(dllexport)
+				#define hlxmlFnExport __declspec(dllexport)
 			#else
-				#define hltypesExport __declspec(dllimport)
-				#define hltypesFnExport __declspec(dllimport)
+				#define hlxmlExport __declspec(dllimport)
+				#define hlxmlFnExport __declspec(dllimport)
 			#endif
 		#else
-			#define hltypesExport __attribute__ ((visibility("default")))
-			#define hltypesFnExport
+			#define hlxmlExport __attribute__ ((visibility("default")))
+			#define hlxmlFnExport
 		#endif
 	#endif
 	#ifndef DEPRECATED_ATTRIBUTE

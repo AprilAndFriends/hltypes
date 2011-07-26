@@ -2,18 +2,22 @@
 <CodeLite_Workspace Name="libhltypes" Database="./libhltypes.tags">
   <Project Name="libhltypes" Path="libhltypes.project" Active="No"/>
   <Project Name="hltypes_unittest" Path="unittest/hltypes_unittest.project" Active="Yes"/>
+  <Project Name="libhlxml" Path="hlxml/libhlxml.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Project Name="libhltypes" ConfigName="Debug"/>
       <Project Name="hltypes_unittest" ConfigName="Debug"/>
+      <Project Name="libhlxml" ConfigName="Debug"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="Release" Selected="no">
+    <WorkspaceConfiguration Name="Release" Selected="yes">
       <Project Name="libhltypes" ConfigName="Release"/>
       <Project Name="hltypes_unittest" ConfigName="Release"/>
+      <Project Name="libhlxml" ConfigName="Debug"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="Linux_Debug" Selected="no">
+    <WorkspaceConfiguration Name="Linux_Debug" Selected="yes">
       <Project Name="libhltypes" ConfigName="Linux_Debug"/>
       <Project Name="hltypes_unittest" ConfigName="Linux_Debug"/>
+      <Project Name="libhlxml" ConfigName="Debug"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
