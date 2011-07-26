@@ -16,11 +16,12 @@
 #define HLXML_NODE_H
 
 #include <libxml/xmlmemory.h>
-#include <libxml/parser.h>
 
 #include <hltypes/hstring.h>
 
 #include "hlxmlExport.h"
+
+#define foreach_xmlnode(nodeName, rootName) for (hlxml::Node* nodeName = rootName->iterChildren(); nodeName != NULL; nodeName = nodeName->next())
 
 namespace hlxml
 {
@@ -37,13 +38,15 @@ namespace hlxml
 		float pfloat(chstr propertyName, float defaultValue);
 		hstr pstr(chstr propertyName);
 		hstr pstr(chstr propertyName, chstr defaultValue);
-	
+		
 		bool pexists(chstr propertyName);
 	
 		Node* next();
 		Node* iterChildren();
 		Property* iterProperties();
 	
+		bool operator==(const char* name);
+		bool operator!=(const char* name);
 		bool operator==(chstr name);
 		bool operator!=(chstr name);
 	
