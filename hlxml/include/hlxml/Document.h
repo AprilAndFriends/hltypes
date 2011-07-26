@@ -16,7 +16,6 @@
 #define HLXML_DOCUMENT_H
 
 #include <libxml/xmlmemory.h>
-#include <libxml/parser.h>
 
 #include <hltypes/hstring.h>
 
@@ -34,7 +33,7 @@ namespace hlxml
 		Node* root(chstr rootElementQuery = "");
 	
 	protected:
-		xmlDocPtr doc;
+		xmlDocPtr xmlDocument;
 		Node* rootNode;
 	
 	};

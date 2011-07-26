@@ -93,6 +93,16 @@ namespace hlxml
 		return (Property*)this->properties;
 	}
 
+	bool Node::operator==(const char* name)
+	{
+		return (xmlStrcmp(this->name, (const xmlChar*)name) == 0);
+	}
+
+	bool Node::operator!=(const char* name)
+	{
+		return (xmlStrcmp(this->name, (const xmlChar*)name) != 0);
+	}
+
 	bool Node::operator==(chstr name)
 	{
 		return (xmlStrcmp(this->name, (const xmlChar*)name.c_str()) == 0);

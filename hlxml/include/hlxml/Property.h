@@ -21,6 +21,8 @@
 
 #include "hlxmlExport.h"
 
+#define foreach_xmlproperty(propertyName, nodeName) for (hlxml::Property* propertyName = nodeName->iterProperties(); propertyName != NULL; propertyName = propertyName->next())
+
 namespace hlxml
 {
 	struct hlxmlExport Property : public _xmlAttr
