@@ -40,7 +40,8 @@ namespace hlxml
 		hstr pstr(chstr propertyName, chstr defaultValue);
 		
 		bool pexists(chstr propertyName);
-	
+		
+		void setProperty(chstr name, chstr value);
 		Node* next();
 		Node* iterChildren();
 		Property* iterProperties();
