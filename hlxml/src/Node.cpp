@@ -8,6 +8,8 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
+#include <libxml/xmlmemory.h>
+
 #include "Exception.h"
 #include "Node.h"
 
@@ -15,11 +17,11 @@ namespace hlxml
 {
 	const char* Node::findProperty(chstr propertyName, bool ignoreError)
 	{
-		for (_xmlAttr* a = this->properties; a != NULL; a = a->next)
+		for (_xmlAttr* attr = this->properties; attr != NULL; attr = attr->next)
 		{
-			if (xmlStrcmp(a->name, (const xmlChar*)propertyName.c_str()) == 0)
+			if (xmlStrcmp(attr->name, (const xmlChar*)propertyName.c_str()) == 0)
 			{
-				return (const char*)a->children->content;
+				return (const char*)attr->children->content;
 			}
 		}
 		if (!ignoreError)
@@ -76,6 +78,11 @@ namespace hlxml
 	bool Node::pexists(chstr propertyName)
 	{
 		return (this->findProperty(propertyName, true) != NULL);
+	}
+
+	void Node::setProperty(chstr name, chstr value)
+	{
+		xmlSetProp(this, (xmlChar*)name.c_str(), (xmlChar*)value.c_str());
 	}
 
 	Node* Node::next()

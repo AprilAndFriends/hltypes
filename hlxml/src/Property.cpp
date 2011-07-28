@@ -8,6 +8,8 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
+#include <libxml/xmlmemory.h>
+
 #include "Exception.h"
 #include "Property.h"
 
