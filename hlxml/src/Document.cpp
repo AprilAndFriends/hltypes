@@ -22,7 +22,7 @@ namespace hlxml
 		this->xmlDocument = xmlParseFile((filename).c_str());
 		if (this->xmlDocument == NULL)
 		{
-			throw XMLException("Unable to parse xml file '" + filename + "', xmlDocumentument does not exist or is invalid", NULL);
+			throw XMLException("Unable to parse xml file '" + filename + "', document does not exist or is invalid", NULL);
 		}
 	}
 
