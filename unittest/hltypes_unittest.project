@@ -17,6 +17,7 @@
     <File Name="testUtil.cpp"/>
     <File Name="testThreading.cpp"/>
     <File Name="testList.cpp"/>
+    <File Name="testDeque.cpp"/>
   </VirtualDirectory>
   <Dependencies Name="Debug">
     <Project Name="libhltypes"/>

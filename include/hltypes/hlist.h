@@ -39,7 +39,17 @@ namespace hltypes
 		List(const List<T>& other) : stdlist(other)
 		{
 		}
-		
+		/// @brief Destructor.
+		~List()
+		{
+		}
+		/// @brief Returns the number of elements in the List.
+		/// @return The number of elements in the List.
+		int size() const
+		{
+			return (int)stdlist::size();
+		}
+
 	};
 	
 }

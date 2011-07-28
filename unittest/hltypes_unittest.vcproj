@@ -177,6 +177,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\testDeque.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\testDir.cpp"
 			>
 		</File>

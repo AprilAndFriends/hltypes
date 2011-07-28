@@ -18,8 +18,6 @@
 #include <hltypes/harray.h>
 #include <hltypes/hstring.h>
 
-/******* STRING ****************************************************************************/
-
 TEST(String_float)
 {
 	hstr float_string("5.75");

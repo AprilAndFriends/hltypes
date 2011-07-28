@@ -45,6 +45,10 @@ namespace hltypes
 		Map(const Map<K, T>& other) : stdmap(other)
 		{
 		}
+		/// @brief Destructor.
+		~Map()
+		{
+		}
 		/// @brief Returns value with specified key.
 		/// @param[in] key Key of the value.
 		/// @return Value with specified key.

@@ -16,8 +16,6 @@
 
 #include <hltypes/harray.h>
 
-/******* ARRAY *****************************************************************************/
-
 TEST(Array_adding_01)
 {
 	harray<int> a;

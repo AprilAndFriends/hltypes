@@ -80,12 +80,10 @@ namespace hltypes
 		{
 			this->insert_at(0, other, start, count);
 		}
-		
+		/// @brief Destructor
 		~Array()
 		{
-		
-		} 
-		
+		}
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
 		/// @return Element at specified position.
