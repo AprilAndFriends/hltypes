@@ -88,6 +88,7 @@
   <ItemGroup>
     <ClInclude Include="include\hltypes\exception.h" />
     <ClInclude Include="include\hltypes\harray.h" />
+    <ClInclude Include="include\hltypes\hdeque.h" />
     <ClInclude Include="include\hltypes\hdir.h" />
     <ClInclude Include="include\hltypes\hfile.h" />
     <ClInclude Include="include\hltypes\hlist.h" />

@@ -13,9 +13,9 @@
 #include <unittest++/UnitTest++.h>
 #endif
 
-#include <hltypes/hlist.h>
+#include <hltypes/hdeque.h>
 
-TEST(List_adding)
+TEST(Deque_adding)
 {
 	CHECK(true);
 }

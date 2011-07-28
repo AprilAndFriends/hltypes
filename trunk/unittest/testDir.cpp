@@ -19,7 +19,6 @@
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
 
-/******* DIR *******************************************************************************/
 TEST(Dir_static_create_remove)
 {
 	hstr dirname = "testdir";

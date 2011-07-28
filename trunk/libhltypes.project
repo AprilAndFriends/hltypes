@@ -22,6 +22,7 @@
     <File Name="include/hltypes/hstring.h"/>
     <File Name="include/hltypes/util.h"/>
     <File Name="include/hltypes/hfile.h"/>
+    <File Name="include/hltypes/hdeque.h"/>
     <File Name="include/hltypes/harray.h"/>
     <File Name="include/hltypes/exception.h"/>
     <File Name="include/hltypes/hmap.h"/>

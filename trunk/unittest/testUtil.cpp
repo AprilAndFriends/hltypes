@@ -20,7 +20,6 @@
 #include <hltypes/hstring.h>
 #include <hltypes/util.h>
 
-/******* UTIL ******************************************************************************/
 TEST(Util_sgn)
 {
 	CHECK(sgn(-2) == -1);

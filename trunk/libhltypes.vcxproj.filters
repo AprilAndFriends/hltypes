@@ -70,6 +70,9 @@
     <ClInclude Include="include\hltypes\hlist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\hltypes\hdeque.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="fileproperties.rc">

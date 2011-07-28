@@ -209,6 +209,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\hltypes\hdeque.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\hltypes\hdir.h"
 				>
 			</File>

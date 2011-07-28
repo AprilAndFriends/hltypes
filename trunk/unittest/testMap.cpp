@@ -18,8 +18,6 @@
 #include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
 
-/******* MAP *******************************************************************************/
-
 TEST(Map_structure_01)
 {
 	hmap<hstr, int> a;

@@ -18,7 +18,6 @@
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
 
-/******* FILE ******************************************************************************/
 TEST(File_read_write)
 {
 	hstr filename = "test.txt";
