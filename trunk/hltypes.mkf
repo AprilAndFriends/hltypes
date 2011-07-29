@@ -19,9 +19,7 @@ files
 	hfile.h
 	hlist.h
 	hmap.h
-	hmutex.h
 	hstring.h
-	hthread.h
 	msvc_dirent.h
 	util.h
 }
