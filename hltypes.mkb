@@ -2,6 +2,7 @@ option lib
 
 subproject hltypes
 
+define HAVE_MARMELADE
 define _STATICLIB
 
 options
@@ -15,9 +16,7 @@ files
 	hfile.cpp
 	exception.cpp
 	hdir.cpp
-	hmutex.cpp
 	hstring.cpp
-	hthread.cpp
 	util.cpp
 	
 }
