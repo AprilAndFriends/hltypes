@@ -420,7 +420,6 @@ namespace hltypes
 	{
 		if (!this->is_open())
 		{
-
 			throw file_not_open(this->filename.c_str());
 		}
 #ifndef __BIG_ENDIAN__
@@ -493,12 +492,14 @@ namespace hltypes
 			else
 			{
 				const char* string = str.c_str();
-				char c[1024] = {'\0'};
+				char* c = new char[size];
+				memset(c, 0, size * sizeof(char));
 				for (int i = 0; i < size; i++)
 				{
 					c[i] = string[i] - this->encryption_offset;
 				}
 				fwrite(c, 1, size, this->cfile);
+				delete c;
 			}
 		}
 	}
