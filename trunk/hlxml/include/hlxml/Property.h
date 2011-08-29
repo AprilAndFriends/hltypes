@@ -15,7 +15,12 @@
 #ifndef HLXML_PROPERTY_H
 #define HLXML_PROPERTY_H
 
+#ifdef USE_TINYXML
+#include <tinyxml.h>
+#define _xmlAttr TiXmlAttribute
+#else
 #include <libxml/xmlmemory.h>
+#endif
 
 #include <hltypes/hstring.h>
 
@@ -25,7 +30,11 @@
 
 namespace hlxml
 {
+#ifdef USE_TINYXML
+	struct hlxmlExport Property : public TiXmlAttribute
+#else
 	struct hlxmlExport Property : public _xmlAttr
+#endif
 	{
 	public:
 		Property* next();

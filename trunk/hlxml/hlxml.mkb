@@ -1,0 +1,30 @@
+option lib
+
+subproject hlxml
+
+packages
+{
+	tinyxml
+}
+
+options
+{
+	lib
+	enable-exceptions
+}
+
+subprojects
+{
+	tinyxml
+	
+	hltypes
+}
+
+files
+{
+	(src)
+	Node.cpp
+	Exception.cpp
+	Document.cpp
+	Property.cpp
+}
