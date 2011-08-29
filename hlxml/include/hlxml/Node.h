@@ -15,7 +15,13 @@
 #ifndef HLXML_NODE_H
 #define HLXML_NODE_H
 
+
+#ifdef USE_TINYXML
+#include <tinyxml.h>
+#define _xmlAttr TiXmlAttribute
+#else
 #include <libxml/xmlmemory.h>
+#endif
 
 #include <hltypes/hstring.h>
 
@@ -27,7 +33,11 @@ namespace hlxml
 {
 	struct Property;
 
+#ifdef USE_TINYXML
+	struct hlxmlExport Node : public TiXmlNode
+#else
 	struct hlxmlExport Node : public _xmlNode
+#endif
 	{
 	public:
 		bool pbool(chstr propertyName);

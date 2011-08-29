@@ -19,7 +19,11 @@ namespace hlxml
 		this->msg += msg;
 		if (node != NULL)
 		{
+#ifdef USE_TINYXML
+			this->msg += ", in file " + hstr((char*)node->ToDocument()->Value()) + ", line " + hstr(node->Row());
+#else
 			this->msg += ", in file " + hstr((char*)node->doc->URL) + ", line " + hstr(node->line);
+#endif
 		}
 	}
 }

@@ -15,7 +15,13 @@
 #ifndef HLXML_DOCUMENT_H
 #define HLXML_DOCUMENT_H
 
+
+#ifdef USE_TINYXML
+#include <tinyxml.h>
+#define _xmlAttr TiXmlAttribute
+#else
 #include <libxml/xmlmemory.h>
+#endif
 
 #include <hltypes/hstring.h>
 
@@ -25,7 +31,12 @@ namespace hlxml
 {
 	struct Node;
 
+
+#ifdef USE_TINYXML
+	struct hlxmlExport Document : public TiXmlDocument
+#else
 	struct hlxmlExport Document
+#endif
 	{
 	public:
 		Document(chstr filename);
@@ -33,7 +44,11 @@ namespace hlxml
 		Node* root(chstr rootElementQuery = "");
 	
 	protected:
+#ifdef USE_TINYXML
+		TiXmlDocument* xmlDocument;
+#else
 		xmlDocPtr xmlDocument;
+#endif
 		Node* rootNode;
 	
 	};
