@@ -24,16 +24,16 @@
 /// @brief Provides a simpler syntax to iterate through a Map with String as key.
 #define foreach_m(type, name, container) for (std::map<hstr, type>::iterator name = container.begin(); name != container.end(); name++)
 /// @brief Alias for simpler code.
-#define stdmap std::map<K, T>
+#define stdmap std::map<K, V>
 
 namespace hltypes
 {
 	/// @brief Encapsulates std::map and adds high level methods.
 	/// @author Boris Mikic
-	template <class K, class T> class Map : public stdmap
+	template <class K, class V> class Map : public stdmap
 	{
 	private:
-        typedef typename std::map<K, T>::const_iterator iterator_t;
+        typedef typename std::map<K, V>::const_iterator iterator_t;
 		
 	public:
 		/// @brief Empty constructor.
@@ -42,7 +42,7 @@ namespace hltypes
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Map to copy.
-		Map(const Map<K, T>& other) : stdmap(other)
+		Map(const Map<K, V>& other) : stdmap(other)
 		{
 		}
 		/// @brief Destructor.
@@ -52,25 +52,25 @@ namespace hltypes
 		/// @brief Returns value with specified key.
 		/// @param[in] key Key of the value.
 		/// @return Value with specified key.
-		T& operator[](const K& key)
+		V& operator[](const K& key)
 		{
 			return stdmap::operator[](key);
 		}
 		/// @brief Same as key_of.
 		/// @see key_of
-		K& operator()(const T& value) const
+		K& operator()(const V& value) const
 		{
 			return this->key_of(value);
 		}
 		/// @brief Same as equals.
 		/// @see equals
-		bool operator==(const Map<K, T>& other)
+		bool operator==(const Map<K, V>& other)
 		{
 			return this->equals(other);
 		}
 		/// @brief Same as nequals.
 		/// @see nequals
-		bool operator!=(const Map<K, T>& other)
+		bool operator!=(const Map<K, V>& other)
 		{
 			return this->nequals(other);
 		}
@@ -93,19 +93,30 @@ namespace hltypes
 		}
 		/// @brief Returns an Array with all values.
 		/// @return An Array with all values.
-		harray<T> values() const
+		harray<V> values() const
 		{
-			harray<T> result;
+			harray<V> result;
 			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				result += it->second;
 			}
 			return result;
 		}
+		/// @brief Returns an Array with all values in the same order as the given corresponding keys.
+		/// @return An Array with all values in the same order as the given corresponding keys.
+		harray<V> values(harray<K> keys) const
+		{
+			harray<V> result;
+			foreach (K, it, keys)
+			{
+				result += stdmap::at(*it);
+			}
+			return result;
+		}
 		/// @brief Compares the contents of two Maps for being equal.
 		/// @param[in] other Another Map.
 		/// @return True if number of keys and values are equal and all pairs of keys and values are equal.
-		bool equals(const Map<K, T>& other)
+		bool equals(const Map<K, V>& other)
 		{
 			if (this->size() != other.size())
 			{
@@ -129,7 +140,7 @@ namespace hltypes
 		/// @brief Compares the contents of two Maps for being not equal.
 		/// @param[in] other Another Map.
 		/// @return True if number of keys and values are not equal or at least one pair of keys and values is not equal.
-		bool nequals(const Map<K, T>& other)
+		bool nequals(const Map<K, V>& other)
 		{
 			if (this->size() != other.size())
 			{
@@ -153,7 +164,7 @@ namespace hltypes
 		/// @brief Returns key of specified value.
 		/// @param[in] value Value with the given key.
 		/// @return Key of specified value.
-		K key_of(const T& value)
+		K key_of(const V& value)
 		{
 			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
@@ -203,7 +214,7 @@ namespace hltypes
 		/// @brief Checks for existence of a value.
 		/// @param[in] value Value to check.
 		/// @return True if value is present.
-		bool has_value(const T& value)
+		bool has_value(const V& value)
 		{
 			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
@@ -217,7 +228,7 @@ namespace hltypes
 		/// @brief Checks for existence of all values.
 		/// @param[in] values Array of values to check.
 		/// @return True if all values are present.
-		bool has_values(const harray<T>& values)
+		bool has_values(const harray<V>& values)
 		{
 			for (int i = 0; i < values.size(); i++)
 			{
@@ -232,7 +243,7 @@ namespace hltypes
 		/// @param[in] values C-type array of values to check.
 		/// @param[in] count Number of values to check.
 		/// @return True if all values are present.
-		bool has_values(const T values[], const int count)
+		bool has_values(const V values[], const int count)
 		{
 			for (int i = 0; i < count; i++)
 			{
@@ -246,21 +257,21 @@ namespace hltypes
 		/// @brief Adds a new pair of key and value into the Map.
 		/// @param[in] key Key of the entry.
 		/// @param[in] value Value of the entry.
-		void insert(const K& key, const T& value)
+		void insert(const K& key, const V& value)
 		{
 			stdmap::operator[](key) = value;
 		}
 		/// @brief Adds all pairs of keys and values from another Map into this one.
 		/// @param[in] other Another Map.
 		/// @note Entries with already existing keys will not be overwritten.
-		void insert(const Map<K, T>& other)
+		void insert(const Map<K, V>& other)
 		{
 			stdmap::insert(other.begin, other.end());
 		}
 		/// @brief Adds all pairs of keys and values from another Map into this one.
 		/// @param[in] other Another Map.
 		/// @note Entries with already existing keys will be overwritten.
-		void inject(const Map<K, T>& other)
+		void inject(const Map<K, V>& other)
 		{
 			for (iterator_t it = other.begin(); it != other.end(); it++)
 			{
@@ -290,7 +301,7 @@ namespace hltypes
 		}
 		/// @brief Removes a pair of key and value specified by a value.
 		/// @param[in] value Value of the entry.
-		void remove_value(const T& value)
+		void remove_value(const V& value)
 		{
 			if (this->has_value(value))
 			{
@@ -300,7 +311,7 @@ namespace hltypes
 		}
 		/// @brief Removes all pairs of key and value specified by an Array of values.
 		/// @param[in] values Array of values.
-		void remove_values(const harray<T>& values)
+		void remove_values(const harray<V>& values)
 		{
 			for (int i = 0; i < values.size(); i++)
 			{
@@ -317,7 +328,7 @@ namespace hltypes
 		/// @brief Gets a random element in Map.
 		/// @param[out] value Value of selected random entry.
 		/// @return Random element or NULL if Map is empty.
-		K random(T* value = NULL)
+		K random(V* value = NULL)
 		{
 			if (this->size() == 0)
 			{
@@ -333,13 +344,13 @@ namespace hltypes
 		/// @brief Gets a Map of random elements selected from this one.
 		/// @param[in] count Number of random elements.
 		/// @return Map of random elements selected from this one.
-		Map<K, T> random(int count)
+		Map<K, V> random(int count)
 		{
 			if (count >= this->size())
 			{
-				return Map<K, T>(*this);
+				return Map<K, V>(*this);
 			}
-			Map<K, T> result;
+			Map<K, V> result;
 			if (count > 0)
 			{
 				Array<K> keys = this->keys();
@@ -353,11 +364,11 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Finds and returns new Map with entries that match the condition.
-		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
+		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return New Map with all matching elements.
-		Map<K, T> find_all(bool (*condition_function)(K, T))
+		Map<K, V> find_all(bool (*condition_function)(K, V))
 		{
-			Map<K, T> result;
+			Map<K, V> result;
 			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				if (condition_function(it->first, it->second))
@@ -368,9 +379,9 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Checks if at least one entry matches the condition.
-		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
+		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return True if at least one entry matches the condition.
-		bool matches_any(bool (*condition_function)(K, T))
+		bool matches_any(bool (*condition_function)(K, V))
 		{
 			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
@@ -382,9 +393,9 @@ namespace hltypes
 			return false;
 		}
 		/// @brief Checks if all entries match the condition.
-		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type T and returns bool.
+		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return True if all entries match the condition.
-		bool matches_all(bool (*condition_function)(K, T))
+		bool matches_all(bool (*condition_function)(K, V))
 		{
 			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
@@ -468,7 +479,7 @@ namespace hltypes
 		/// @param[in] key Key which we want to retrieve.
         /// @param[in] def Default value to return if key does not exist.
 		/// @return Value stored at key or given default value.
-        T try_get_by_key(K key, T def)
+        V try_get_by_key(K key, V def)
         {
             if (this->has_key(key)) 
             {
