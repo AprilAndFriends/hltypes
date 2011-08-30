@@ -33,8 +33,8 @@ namespace hltypes
 	template <class K, class V> class Map : public stdmap
 	{
 	private:
-        typedef typename std::map<K, V>::const_iterator iterator_t;
-		
+        typedef typename std::map<K, V>::const_iterator iterator_map_t;
+        typedef typename std::vector<K>::const_iterator iterator_map_key_t;
 	public:
 		/// @brief Empty constructor.
 		Map() : stdmap()
@@ -85,7 +85,7 @@ namespace hltypes
 		harray<K> keys() const
 		{
 			harray<K> result;
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				result += it->first;
 			}
@@ -96,7 +96,7 @@ namespace hltypes
 		harray<V> values() const
 		{
 			harray<V> result;
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				result += it->second;
 			}
@@ -107,7 +107,7 @@ namespace hltypes
 		harray<V> values(harray<K> keys) const
 		{
 			harray<V> result;
-			foreach (K, it, keys)
+			for (iterator_map_key_t it = keys.begin(); it != keys.end(); it++)
 			{
 				result += stdmap::at(*it);
 			}
@@ -127,7 +127,7 @@ namespace hltypes
 			{
 				return false;
 			}
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				// making sure operator== is used, not !=
 				if (!(stdmap::at(it->first) == other.at(it->first)))
@@ -151,7 +151,7 @@ namespace hltypes
 			{
 				return true;
 			}
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				// making sure operator!= is used, not ==
 				if (stdmap::at(it->first) != other.at(it->first))
@@ -166,7 +166,7 @@ namespace hltypes
 		/// @return Key of specified value.
 		K key_of(const V& value)
 		{
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				if (it->second == value)
 				{
@@ -216,7 +216,7 @@ namespace hltypes
 		/// @return True if value is present.
 		bool has_value(const V& value)
 		{
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				if (it->second == value)
 				{
@@ -273,7 +273,7 @@ namespace hltypes
 		/// @note Entries with already existing keys will be overwritten.
 		void inject(const Map<K, V>& other)
 		{
-			for (iterator_t it = other.begin(); it != other.end(); it++)
+			for (iterator_map_t it = other.begin(); it != other.end(); it++)
 			{
 				stdmap::operator[](it->first) = it->second;
 			}
@@ -315,7 +315,7 @@ namespace hltypes
 		{
 			for (int i = 0; i < values.size(); i++)
 			{
-				for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+				for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 				{
 					if (it->second == values.at(i))
 					{
@@ -369,7 +369,7 @@ namespace hltypes
 		Map<K, V> find_all(bool (*condition_function)(K, V))
 		{
 			Map<K, V> result;
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				if (condition_function(it->first, it->second))
 				{
@@ -383,7 +383,7 @@ namespace hltypes
 		/// @return True if at least one entry matches the condition.
 		bool matches_any(bool (*condition_function)(K, V))
 		{
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				if (condition_function(it->first, it->second))
 				{
@@ -397,7 +397,7 @@ namespace hltypes
 		/// @return True if all entries match the condition.
 		bool matches_all(bool (*condition_function)(K, V))
 		{
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				if (!condition_function(it->first, it->second))
 				{
@@ -413,7 +413,7 @@ namespace hltypes
 		Map<L, S> cast()
 		{
 			Map<L, S> result;
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				result[(L)it->first] = (S)it->second;
 			}
@@ -428,7 +428,7 @@ namespace hltypes
 			Map<L, S> result;
 			L key;
 			S value;
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				key = dynamic_cast<L>(it->first);
 				value = dynamic_cast<S>(it->second);
@@ -447,7 +447,7 @@ namespace hltypes
 		{
 			Map<L, S> result;
 			L key;
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				key = dynamic_cast<L>(it->first);
 				if (key != NULL)
@@ -465,7 +465,7 @@ namespace hltypes
 		{
 			Map<L, S> result;
 			S value;
-			for (iterator_t it = stdmap::begin(); it != stdmap::end(); it++)
+			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				value = dynamic_cast<S>(it->second);
 				if (value != NULL)
