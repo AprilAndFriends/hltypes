@@ -711,6 +711,11 @@ namespace hltypes
 		return str;
 	}
 
+	hstr File::load_string()
+	{
+		return this->load_hstr();
+	}
+
 /******* STATIC ********************************************************/
 
 	bool File::create(chstr filename)
