@@ -31,7 +31,7 @@
 
 namespace hlxml
 {
-	struct Property;
+	class Property;
 
 #ifdef USE_TINYXML
 	struct hlxmlExport Node : public TiXmlNode

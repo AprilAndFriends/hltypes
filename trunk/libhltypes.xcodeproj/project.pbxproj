@@ -22,8 +22,10 @@
 		7F79A512125CB34F00B22DA2 /* hdir.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F79A511125CB34F00B22DA2 /* hdir.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FAB23551291377B0035EDF5 /* hthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23531291377B0035EDF5 /* hthread.cpp */; };
 		7FAB23561291377B0035EDF5 /* hmutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23541291377B0035EDF5 /* hmutex.cpp */; };
-		7FAB23591291378A0035EDF5 /* hthread.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FAB23571291378A0035EDF5 /* hthread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FAB235A1291378A0035EDF5 /* hmutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FAB23581291378A0035EDF5 /* hmutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1E1DD59140E579C00499A97 /* hdeque.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD56140E579C00499A97 /* hdeque.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1E1DD5A140E579D00499A97 /* hlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD57140E579C00499A97 /* hlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1E1DD5B140E579D00499A97 /* hthread.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD58140E579C00499A97 /* hthread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,9 +45,11 @@
 		7F79A511125CB34F00B22DA2 /* hdir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdir.h; path = include/hltypes/hdir.h; sourceTree = "<group>"; };
 		7FAB23531291377B0035EDF5 /* hthread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hthread.cpp; path = src/hthread.cpp; sourceTree = "<group>"; };
 		7FAB23541291377B0035EDF5 /* hmutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hmutex.cpp; path = src/hmutex.cpp; sourceTree = "<group>"; };
-		7FAB23571291378A0035EDF5 /* hthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hthread.h; path = include/hltypes/hthread.h; sourceTree = "<group>"; };
 		7FAB23581291378A0035EDF5 /* hmutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hmutex.h; path = include/hltypes/hmutex.h; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* hltypes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hltypes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1E1DD56140E579C00499A97 /* hdeque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdeque.h; path = include/hltypes/hdeque.h; sourceTree = "<group>"; };
+		D1E1DD57140E579C00499A97 /* hlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hlist.h; path = include/hltypes/hlist.h; sourceTree = "<group>"; };
+		D1E1DD58140E579C00499A97 /* hthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hthread.h; path = include/hltypes/hthread.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +131,9 @@
 		7F42F69C11EB0B9A00B1C1DF /* Includes */ = {
 			isa = PBXGroup;
 			children = (
-				7FAB23571291378A0035EDF5 /* hthread.h */,
+				D1E1DD56140E579C00499A97 /* hdeque.h */,
+				D1E1DD57140E579C00499A97 /* hlist.h */,
+				D1E1DD58140E579C00499A97 /* hthread.h */,
 				7FAB23581291378A0035EDF5 /* hmutex.h */,
 				7F79A511125CB34F00B22DA2 /* hdir.h */,
 				7F340ECF120AE72900F01926 /* hmap.h */,
@@ -148,6 +154,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1E1DD59140E579C00499A97 /* hdeque.h in Headers */,
+				D1E1DD5A140E579D00499A97 /* hlist.h in Headers */,
+				D1E1DD5B140E579D00499A97 /* hthread.h in Headers */,
 				7F42F6A211EB0BAA00B1C1DF /* harray.h in Headers */,
 				7F42F6A311EB0BAA00B1C1DF /* hfile.h in Headers */,
 				7F42F6A411EB0BAA00B1C1DF /* hltypesExport.h in Headers */,
@@ -156,7 +165,6 @@
 				7F469C7412088BEE009781BB /* exception.h in Headers */,
 				7F340ED0120AE72900F01926 /* hmap.h in Headers */,
 				7F79A512125CB34F00B22DA2 /* hdir.h in Headers */,
-				7FAB23591291378A0035EDF5 /* hthread.h in Headers */,
 				7FAB235A1291378A0035EDF5 /* hmutex.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

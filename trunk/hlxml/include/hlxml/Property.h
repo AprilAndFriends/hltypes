@@ -31,9 +31,9 @@
 namespace hlxml
 {
 #ifdef USE_TINYXML
-	struct hlxmlExport Property : public TiXmlAttribute
+	class hlxmlExport Property : public TiXmlAttribute
 #else
-	struct hlxmlExport Property : public _xmlAttr
+	class hlxmlExport Property : public _xmlAttr
 #endif
 	{
 	public:
