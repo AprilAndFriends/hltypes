@@ -30,6 +30,9 @@ namespace hlxml
 #endif
 		if (this->xmlDocument == NULL)
 		{
+#ifdef _DEBUG_OUTPUT
+			fprintf(stderr, "Unable to parse xml file '%s', the document does not exist or is invalid", filename.c_str());
+#endif
 			throw XMLException("Unable to parse xml file '" + filename + "', document does not exist or is invalid", NULL);
 		}
 	}
@@ -55,12 +58,18 @@ namespace hlxml
 		{
 			hstr docname = (char*)this->xmlDocument->Value();
 			delete this->xmlDocument;
+#ifdef _DEBUG_OUTPUT
+			fprintf(stderr, "No root node found in xml file '%s'", docname.c_str());
+#endif
 			throw XMLException("No root node found in xml file '" + docname + "'", NULL);
 		}
-		if (rootElementQuery != "" && *this->rootNode != rootElementQuery)
+		if (rootElementQuery != "" && this->rootNode->Value() != rootElementQuery)
 		{
 			hstr docname = (char*)this->xmlDocument->Value();
 			delete this->xmlDocument;
+#ifdef _DEBUG_OUTPUT
+			fprintf(stderr, "xml root node type is not '%s' in xml file '%s'", rootElementQuery.c_str(), docname.c_str());
+#endif
 			throw XMLException("xml root node type is not '" + rootElementQuery + "' in xml file '" + docname + "'", NULL);
 		}
 		return this->rootNode;

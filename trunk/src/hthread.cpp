@@ -28,6 +28,7 @@ namespace hltypes
 	void *asyncCall(void* param)
 	{
 #endif
+#ifndef NO_THREADING
 		Thread* t = (Thread*)param;
 		t->execute();
 #ifdef _WIN32
@@ -35,15 +36,22 @@ namespace hltypes
 #else
 		pthread_exit(NULL);
 #endif
+#endif
+#ifdef NO_THREADING
+		return NULL;
+#endif
 	}
 	
 	Thread::Thread(void (*function)()) : running(false), id(0)
 	{
+#ifndef NO_THREADING
 		this->function = function;
+#endif
 	}
 
 	Thread::~Thread()
 	{
+#ifndef NO_THREADING
 		if (this->running)
 		{
 			this->stop();
@@ -54,30 +62,36 @@ namespace hltypes
 			CloseHandle(this->id);
 		}
 #endif
+#endif
 	}
 
 	void Thread::start()
 	{
+#ifndef NO_THREADING
 		this->running = true;
 #ifdef _WIN32
 		this->id = CreateThread(0, 0, &asyncCall, this, 0, 0);
 #else
 		pthread_create(&this->id, NULL, &asyncCall, this);
 #endif
+#endif
 	}
 	
 	void Thread::execute()
 	{
+#ifndef NO_THREADING
 		if (this->function != NULL)
 		{
 			this->running = true;
 			(*function)();
 			this->running = false;
 		}
+#endif
 	}
 
 	void Thread::join()
 	{
+#ifndef NO_THREADING
 		this->running = false;
 #ifdef _WIN32
 		WaitForSingleObject(this->id, INFINITE);
@@ -89,24 +103,30 @@ namespace hltypes
 #else
 		pthread_join(this->id, 0);
 #endif
+#endif
 	}
 	
 	void Thread::resume()
 	{
+#ifndef NO_THREADING
 #ifdef _WIN32
 		ResumeThread(this->id);
+#endif
 #endif
 	}
 	
 	void Thread::pause()
 	{
+#ifndef NO_THREADING
 #ifdef _WIN32
 		SuspendThread(this->id);
+#endif
 #endif
 	}
 	
 	void Thread::stop()
 	{
+#ifndef NO_THREADING
 		if (this->running)
 		{
 #ifdef _WIN32
@@ -115,26 +135,33 @@ namespace hltypes
 			this->running = false;
 			this->id = 0;
 		}
+#endif
 	}
 	
 	void Thread::enterCritical()
 	{
+#ifndef NO_THREADING
 #ifdef _WIN32
+#endif
 #endif
 	}
 	
 	void Thread::leaveCritical()
 	{
+#ifndef NO_THREADING
 #ifdef _WIN32
+#endif
 #endif
 	}
 	
 	void Thread::sleep(float miliseconds)
 	{
+#ifndef NO_THREADING
 #ifdef _WIN32
 		Sleep((int)miliseconds);
 #else
 		usleep(miliseconds * 1000);
+#endif
 #endif
 	}
 }

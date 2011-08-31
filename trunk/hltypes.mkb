@@ -10,11 +10,12 @@ options
 files
 {
 	(src)
-	hfile.cpp
 	exception.cpp
 	hdir.cpp
+	hfile.cpp
+	hmutex.cpp
 	hstring.cpp
+	hthread.cpp
 	util.cpp
-	
 }
 
