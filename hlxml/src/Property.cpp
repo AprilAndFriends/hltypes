@@ -24,7 +24,7 @@ namespace hlxml
 	Property* Property::next()
 	{
 #ifdef USE_TINYXML
-		return (Property*)_xmlAttr::Next();
+		return (Property*)this->Next();
 #else
 		return (Property*)_xmlAttr::next;
 #endif
@@ -33,7 +33,7 @@ namespace hlxml
 	hstr Property::name()
 	{
 #ifdef USE_TINYXML
-		return hstr((const char*)_xmlAttr::Name());
+		return hstr((const char*)this->Name());
 #else
 		return hstr((const char*)_xmlAttr::name);
 #endif
