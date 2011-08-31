@@ -54,7 +54,7 @@ namespace hlxml
 			return this->rootNode;
 		}
 #ifdef USE_TINYXML
-		this->rootNode = (Node *)xmlDocument;
+		this->rootNode = (Node *)xmlDocument->FirstChildElement();
 
 		if (this->rootNode == NULL)
 		{
