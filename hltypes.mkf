@@ -1,5 +1,6 @@
 define HAVE_MARMELADE
 define _STATICLIB
+define NO_THREADING
 
 includepaths
 {
@@ -15,14 +16,16 @@ library
 files
 {
 	(include/hltypes)
-	hltypesExport.h
 	exception.h
 	harray.h
+	hdeque.h
 	hdir.h
 	hfile.h
 	hlist.h
+	hltypesExport.h
 	hmap.h
+	hmutex.h
 	hstring.h
-	msvc_dirent.h
+	hthread.h
 	util.h
 }
