@@ -110,7 +110,7 @@ namespace hlxml
 	Node* Node::next()
 	{
 #ifdef USE_TINYXML
-		return (Node*)this->NextSibling();
+		return (Node *)this->NextSiblingElement();
 #else
 		return (Node*)_xmlNode::next;
 #endif
@@ -119,7 +119,7 @@ namespace hlxml
 	Node* Node::iterChildren()
 	{
 #ifdef USE_TINYXML
-		return (Node*)this->FirstChild();
+		return (Node *)this->FirstChildElement();
 #else
 		return (Node*)this->children;
 #endif
@@ -128,6 +128,8 @@ namespace hlxml
 	Property* Node::iterProperties()
 	{
 #ifdef USE_TINYXML
+		if(this->Type() == TINYXML_DOCUMENT)
+			return NULL;
 		return (Property*)this->ToElement()->FirstAttribute();
 #else
 		return (Property*)this->properties;

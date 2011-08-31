@@ -25,6 +25,7 @@ namespace hlxml
 	{
 #ifdef USE_TINYXML
 		this->xmlDocument = new TiXmlDocument(filename.c_str());
+		this->xmlDocument->LoadFile();
 #else
 		this->xmlDocument = xmlParseFile((filename).c_str());
 #endif
@@ -53,7 +54,8 @@ namespace hlxml
 			return this->rootNode;
 		}
 #ifdef USE_TINYXML
-		this->rootNode = (Node *)xmlDocument->FirstChildElement();
+		this->rootNode = (Node *)xmlDocument;
+
 		if (this->rootNode == NULL)
 		{
 			hstr docname = (char*)this->xmlDocument->Value();
