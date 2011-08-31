@@ -218,6 +218,9 @@ namespace hltypes
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded String.
 		hstr load_hstr();
+		/// @brief Loads data from file in a platform-aware format.
+		/// @return Loaded String.
+		hstr load_string();
 		
 		/// @brief Creates a file.
 		/// @param[in] filename Name of the file.
