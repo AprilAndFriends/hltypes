@@ -539,10 +539,10 @@ namespace hltypes
 	bool String::operator==(const bool b) const
 	{
 		const char* cstr = stdstr::c_str();
-		return (strcmp(cstr, "1") == 0 && b ||
-				strcmp(cstr, "0") == 0 && !b ||
-				strcmp(cstr, "true") == 0 && b ||
-				strcmp(cstr, "false") == 0 && !b);
+		return ((strcmp(cstr, "1")     == 0 &&  b) ||
+				(strcmp(cstr, "0")     == 0 && !b) ||
+				(strcmp(cstr, "true")  == 0 &&  b) ||
+				(strcmp(cstr, "false") == 0 && !b));
 	}
 
 	bool String::operator==(const char* s) const
