@@ -24,7 +24,12 @@ namespace hlxml
 	Document::Document(chstr filename) : rootNode(NULL)
 	{
 #ifdef USE_TINYXML
-		this->xmlDocument = new TiXmlDocument(filename.c_str());
+#ifdef HAVE_MARMELADE
+		hstr newname(filename.replace("/","_"));
+#else
+		hstr newname(filename);
+#endif
+		this->xmlDocument = new TiXmlDocument(newname.c_str());
 		this->xmlDocument->LoadFile();
 #else
 		this->xmlDocument = xmlParseFile((filename).c_str());
