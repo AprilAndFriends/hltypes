@@ -41,7 +41,11 @@ namespace hltypes
 		return result;
 
 		*/
+#ifdef HAVE_MARMELADE
+		return true;
+#else
 		return (_mkdir(path.c_str()) != 0);
+#endif
 	}
 	
 	static bool hremove(chstr dirname)
@@ -52,7 +56,11 @@ namespace hltypes
 		delete wdirname;
 		return result;
 		*/
+#ifdef HAVE_MARMELADE
+		return true;
+#else
 		return (remove(dirname.c_str()) != 0);
+#endif
 	}
 	
 	static bool hrmdir(chstr dirname)
@@ -62,11 +70,18 @@ namespace hltypes
 		bool result = _wrmdir(wdirname);
 		return result;
 		*/
+#ifdef HAVE_MARMELADE
+		return true;
+#else
 		return (_rmdir(dirname.c_str()) != 0);
+#endif
 	}
 	
 	bool Dir::create(chstr dirname)
 	{
+#ifdef HAVE_MARMELADE
+		return true;
+#else
 		hstr name = normalize_path(dirname);
 		if (name == "" || hdir::exists(name))
 		{
@@ -84,15 +99,24 @@ namespace hltypes
 			}
 		}
 		return hdir::exists(dirname);
+#endif
 	}
 	
 	bool Dir::create_new(chstr dirname)
 	{
+#ifdef HAVE_MARMELADE
+		return true;
+#else
 		return (hdir::create(dirname) || hdir::clear(dirname));
+#endif
 	}
 	
 	bool Dir::remove(chstr dirname)
 	{
+#ifdef HAVE_MARMELADE
+		// TODO delete all files starting with dirname where all '/' are replaced by '-'
+		return true;
+#else
 		hstr name = normalize_path(dirname);
 		if (name == "" || !hdir::exists(name))
 		{
@@ -110,10 +134,15 @@ namespace hltypes
 		}
 		hrmdir(name);
 		return hdir::exists(name);
+#endif
 	}
 	
 	bool Dir::exists(chstr dirname)
 	{
+#ifdef HAVE_MARMELADE
+		// TODO return true if there are any files starting with dirname with replaced '/' for '_'
+		return false;
+#else
 		hstr name = normalize_path(dirname);
 		DIR* dir = opendir(name.c_str());
 		if (dir != NULL)
@@ -122,10 +151,14 @@ namespace hltypes
 			return true;
 		}
 		return false;
+#endif
 	}
 	
 	bool Dir::clear(chstr dirname)
 	{
+#ifdef HAVE_MARMELADE
+		return true;
+#else
 		hstr name = normalize_path(dirname);
 		if (name == "" || !hdir::exists(name))
 		{
@@ -142,10 +175,15 @@ namespace hltypes
 			hfile::remove(name + "/" + (*it));
 		}
 		return (directories.size() > 0 || files.size() > 0);
+#endif
 	}
 	
 	bool Dir::rename(chstr old_dirname, chstr new_dirname)
 	{
+#ifdef HAVE_MARMELADE
+		// TODO rename all files that have old_dirname in them with new_dirname
+		return true;
+#else
 		hstr old_name = normalize_path(old_dirname);
 		hstr new_name = normalize_path(new_dirname);
 		if (!hdir::exists(old_name) || hdir::exists(new_name))
@@ -154,17 +192,25 @@ namespace hltypes
 		}
 		hdir::create_path(new_name);
 		return (d_rename(old_name.c_str(), new_name.c_str()) == 0);
+#endif
 	}
 	
 	bool Dir::move(chstr dirname, chstr path)
 	{
+#ifdef HAVE_MARMELADE
+		return true
+#else
 		hstr name = normalize_path(dirname);
 		hstr path_name = normalize_path(path);
 		return hdir::rename(name, path_name + "/" + name.rsplit("/", 1).pop_back());
+#endif
 	}
 	
 	bool Dir::copy(chstr old_dirname, chstr new_dirname)
 	{
+#ifdef HAVE_MARMELADE
+		return true;
+#else
 		hstr old_name = normalize_path(old_dirname);
 		hstr new_name = normalize_path(new_dirname);
 		if (!hdir::exists(old_name) || hdir::exists(new_name))
@@ -183,16 +229,23 @@ namespace hltypes
 			hfile::copy(old_name + "/" + (*it), new_name + "/" + (*it));
 		}
 		return true;
+#endif
 	}
 	
 	bool Dir::create_path(chstr path)
 	{
+#ifdef HAVE_MARMELADE
+		return true;
+#else
 		hstr dir = get_basedir(path);
 		return (dir != "." && hdir::create(dir));
+#endif
 	}
     
     void prepend_directory(chstr dirname, Array<hstr>& entries)
     {
+#ifdef HAVE_MARMELADE
+#else
 		if (dirname != "")
 		{
 			foreach (hstr, it, entries)
@@ -200,10 +253,15 @@ namespace hltypes
 				(*it) = dirname + "/" + (*it);
 			}
 		}
+#endif
     }
 	
 	Array<hstr> Dir::entries(chstr dirname, bool prepend_dir)
 	{
+#ifdef HAVE_MARMELADE
+		Array<hstr> result;
+		return result;
+#else
 		hstr name = normalize_path(dirname);
 		Array<hstr> result;
 		if (hdir::exists(name))
@@ -221,10 +279,15 @@ namespace hltypes
 			prepend_directory(name, result);
 		}
 		return result;
+#endif
 	}
 	
 	Array<hstr> Dir::contents(chstr dirname, bool prepend_dir)
 	{
+#ifdef HAVE_MARMELADE
+		Array<hstr> result;
+		return result;
+#else
 		hstr name = normalize_path(dirname);
 		Array<hstr> result;
 		if (hdir::exists(name))
@@ -244,10 +307,15 @@ namespace hltypes
 			prepend_directory(name, result);
 		}
 		return result;
+#endif
 	}
 	
 	Array<hstr> Dir::directories(chstr dirname, bool prepend_dir)
 	{
+#ifdef HAVE_MARMELADE
+		Array<hstr> result;
+		return result;
+#else
 		hstr name = normalize_path(dirname);
 		hstr current;
 		Array<hstr> result;
@@ -272,10 +340,15 @@ namespace hltypes
 			prepend_directory(name, result);
 		}
 		return result;
+#endif
 	}
 	
 	Array<hstr> Dir::files(chstr dirname, bool prepend_dir)
 	{
+#ifdef HAVE_MARMELADE
+		Array<hstr> result;
+		return result;
+#else
 		hstr name = normalize_path(dirname);
 		hstr current;
 		Array<hstr> result;
@@ -306,6 +379,7 @@ namespace hltypes
 			prepend_directory(name, result);
 		}
 		return result;
+#endif
 	}
 	
 }
