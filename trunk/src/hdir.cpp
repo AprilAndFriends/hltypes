@@ -85,7 +85,7 @@ namespace hltypes
 		{
 			return false;
 		}
-		Array<hstr> folders = name.split("/", -1, true);
+		Array<hstr> folders = name.split("/", -1, false);
 		if (folders.size() > 0)
 		{
 			hstr path = folders.pop_front();

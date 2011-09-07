@@ -180,7 +180,7 @@ namespace hltypes
 	
 	Array<hstr> File::read_lines()
 	{
-		return this->read().split("\n", -1, true);
+		return this->read().split("\n", -1, false);
 	}
 	
 	void File::write(chstr text)
@@ -822,7 +822,7 @@ namespace hltypes
 #ifdef NO_FS_TREE
 		name = name.replace("/", "_");
 #endif
-		return hfile::rename(name, path + "/" + name.rsplit("/", 1, true).pop_back());
+		return hfile::rename(name, path + "/" + name.rsplit("/", 1, false).pop_back());
 	}
 	
 	bool File::copy(chstr old_filename, chstr new_filename)

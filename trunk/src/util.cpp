@@ -80,7 +80,7 @@ int hcmpf(float a, float b, float tolerance)
 
 hstr normalize_path(chstr path)
 {
-	harray<hstr> directories = path.replace('\\', '/').rtrim('/').split('/', -1, true);
+	harray<hstr> directories = path.replace('\\', '/').rtrim('/').split('/', -1, false);
 	harray<hstr> result;
 	while (directories.size() > 0)
 	{
@@ -127,7 +127,7 @@ hstr systemize_path(chstr path)
 
 hstr get_basedir(chstr filename)
 {
-	harray<hstr> result = filename.replace('\\', '/').rtrim('/').split('/', -1, true);
+	harray<hstr> result = filename.replace('\\', '/').rtrim('/').split('/', -1, false);
 	if (result.size() < 2)
 	{
 		return ".";
