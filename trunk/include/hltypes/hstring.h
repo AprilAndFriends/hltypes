@@ -22,7 +22,7 @@
 
 #include "hltypesExport.h"
 
-#if defined(_MSC_VER) && _MSC_VER == 1600 && !defined(_MSC_FIX_NPOS)
+#if defined(_MSC_VER) && _MSC_VER == 1600 && !defined(_NO_MSC_FIX_NPOS)
 /// @brief Circumvents a compilation problem in VS2010
 const std::string::size_type std::string::npos = size_t(-1);
 #endif
