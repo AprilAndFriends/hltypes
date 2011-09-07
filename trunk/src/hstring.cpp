@@ -45,7 +45,7 @@ namespace hltypes
 	}
 	String::~String() { }
 
-	Array<String> String::split(const char* delimiter, unsigned int n) const
+	Array<String> String::split(const char* delimiter, unsigned int n, bool remove_empty) const
 	{
 		Array<String> out;
 		const char *s = stdstr::c_str(), *p;
@@ -57,21 +57,30 @@ namespace hltypes
 			n--;
 		}
 		out += String(s);
+		if (remove_empty)
+		{
+			int index = out.index_of("");
+			while (index >= 0)
+			{
+				out.remove_at(index);
+				index = out.index_of("");
+			}
+		}
 		return out;
 	}
 	
-	Array<String> String::split(const char delimiter, unsigned int n) const
+	Array<String> String::split(const char delimiter, unsigned int n, bool remove_empty) const
 	{
 		const char sp[2] = {delimiter, '\0'};
-		return this->split(sp, n);
+		return this->split(sp, n, remove_empty);
 	}
 
-	Array<String> String::split(const String& delimiter, unsigned int n) const
+	Array<String> String::split(const String& delimiter, unsigned int n, bool remove_empty) const
 	{
-		return this->split(delimiter.c_str(), n);
+		return this->split(delimiter.c_str(), n, remove_empty);
 	}
 	
-	Array<String> String::rsplit(const char* delimiter, unsigned int n) const
+	Array<String> String::rsplit(const char* delimiter, unsigned int n, bool remove_empty) const
 	{
 		Array<String> out;
 		const char *s = stdstr::c_str(), *p;
@@ -94,18 +103,27 @@ namespace hltypes
 			s = p + delimiter_len;
 		}
 		out += String(s);
+		if (remove_empty)
+		{
+			int index = out.index_of("");
+			while (index >= 0)
+			{
+				out.remove_at(index);
+				index = out.index_of("");
+			}
+		}
 		return out;
 	}
 
-	Array<String> String::rsplit(const char delimiter, unsigned int n) const
+	Array<String> String::rsplit(const char delimiter, unsigned int n, bool remove_empty) const
 	{
 		const char sp[2] = {delimiter, '\0'};
-		return this->rsplit(sp, n);
+		return this->rsplit(sp, n, remove_empty);
 	}
 
-	Array<String> String::rsplit(const String& delimiter, unsigned int n) const
+	Array<String> String::rsplit(const String& delimiter, unsigned int n, bool remove_empty) const
 	{
-		return this->rsplit(delimiter.c_str(), n);
+		return this->rsplit(delimiter.c_str(), n, remove_empty);
 	}
 	
 	bool String::split(const char* delimiter, String& out_left, String& out_right) const
