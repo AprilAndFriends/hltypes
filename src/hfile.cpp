@@ -36,11 +36,9 @@ namespace hltypes
 
 	File::File(chstr filename, AccessMode access_mode, unsigned char encryption_offset) : cfile(NULL)
 	{
-#ifdef HAVE_MARMELADE
 		this->filename = normalize_path(filename);
-		this->filename = this->filename.replace("/","_");
-#else
-		this->filename = normalize_path(filename);
+#ifdef NO_FS_TREE
+		this->filename = this->filename.replace("/", "_");
 #endif
 		this->encryption_offset = encryption_offset;
 		this->open(filename, access_mode, encryption_offset);
@@ -66,11 +64,9 @@ namespace hltypes
 		{
 			this->close();
 		}
-#ifdef HAVE_MARMELADE
 		this->filename = normalize_path(filename);
-		this->filename = this->filename.replace("/","_");
-#else
-		this->filename = normalize_path(filename);
+#ifdef NO_FS_TREE
+		this->filename = this->filename.replace("/", "_");
 #endif
 		this->encryption_offset = encryption_offset;
 		const char* mode = "rb";
@@ -184,7 +180,7 @@ namespace hltypes
 	
 	Array<hstr> File::read_lines()
 	{
-		return this->read().split("\n");
+		return this->read().split("\n", -1, true);
 	}
 	
 	void File::write(chstr text)
@@ -730,11 +726,9 @@ namespace hltypes
 
 	bool File::create(chstr filename)
 	{
-#ifdef HAVE_MARMELADE
 		hstr name = normalize_path(filename);
-		name = name.replace("/","_");
-#else
-		hstr name = normalize_path(filename);
+#ifdef NO_FS_TREE
+		name = name.replace("/", "_");
 #endif
 		if (!hfile::exists(name))
 		{
@@ -766,22 +760,18 @@ namespace hltypes
 	
 	bool File::remove(chstr filename)
 	{
-#ifdef HAVE_MARMELADE
 		hstr name = normalize_path(filename);
-		name = name.replace("/","_");
-#else
-		hstr name = normalize_path(filename);
+#ifdef NO_FS_TREE
+		name = name.replace("/", "_");
 #endif
 		return (f_remove(name.c_str()) == 0);
 	}
 	
 	bool File::exists(chstr filename)
 	{
-#ifdef HAVE_MARMELADE
 		hstr name = normalize_path(filename);
-		name = name.replace("/","_");
-#else
-		hstr name = normalize_path(filename);
+#ifdef NO_FS_TREE
+		name = name.replace("/", "_");
 #endif
 		FILE* f = fopen(name.c_str(), "r");
 		if (f != NULL)
@@ -794,11 +784,9 @@ namespace hltypes
 	
 	bool File::clear(chstr filename)
 	{
-#ifdef HAVE_MARMELADE
 		hstr name = normalize_path(filename);
-		name = name.replace("/","_");
-#else
-		hstr name = normalize_path(filename);
+#ifdef NO_FS_TREE
+		name = name.replace("/", "_");
 #endif
 		if (hfile::exists(name))
 		{
@@ -814,14 +802,11 @@ namespace hltypes
 	
 	bool File::rename(chstr old_filename, chstr new_filename)
 	{
-#ifdef HAVE_MARMELADE
 		hstr old_name = normalize_path(old_filename);
 		hstr new_name = normalize_path(new_filename);
-		old_name = old_name.replace("/","_");
-		new_name = new_name.replace("/","_");
-#else
-		hstr old_name = normalize_path(old_filename);
-		hstr new_name = normalize_path(new_filename);
+#ifdef NO_FS_TREE
+		old_name = old_name.replace("/", "_");
+		new_name = new_name.replace("/", "_");
 #endif
 		if (!hfile::exists(old_name) || hfile::exists(new_name))
 		{
@@ -833,26 +818,20 @@ namespace hltypes
 	
 	bool File::move(chstr filename, chstr path)
 	{
-#ifdef HAVE_MARMELADE
 		hstr name = normalize_path(filename);
-		name = name.replace("/","_");
-#else
-		hstr name = normalize_path(filename);
+#ifdef NO_FS_TREE
+		name = name.replace("/", "_");
 #endif
-		
-		return hfile::rename(name, path + "/" + name.rsplit("/", 1).pop_back());
+		return hfile::rename(name, path + "/" + name.rsplit("/", 1, true).pop_back());
 	}
 	
 	bool File::copy(chstr old_filename, chstr new_filename)
 	{
-#ifdef HAVE_MARMELADE
 		hstr old_name = normalize_path(old_filename);
 		hstr new_name = normalize_path(new_filename);
-		old_name = old_name.replace("/","_");
-		new_name = new_name.replace("/","_");
-#else
-		hstr old_name = normalize_path(old_filename);
-		hstr new_name = normalize_path(new_filename);
+#ifdef NO_FS_TREE
+		old_name = old_name.replace("/", "_");
+		new_name = new_name.replace("/", "_");
 #endif
 		if (!hfile::exists(old_name) || hfile::exists(new_name))
 		{
@@ -881,44 +860,36 @@ namespace hltypes
 	
 	hstr File::hread(chstr filename, int count)
 	{
-#ifdef HAVE_MARMELADE
 		hstr name = normalize_path(filename);
-		name = name.replace("/","_");
-#else
-		hstr name = normalize_path(filename);
+#ifdef NO_FS_TREE
+		name = name.replace("/", "_");
 #endif
 		return hfile(name).read(count);
 	}
 	
 	hstr File::hread(chstr filename, chstr delimiter)
 	{
-#ifdef HAVE_MARMELADE
 		hstr name = normalize_path(filename);
-		name = name.replace("/","_");
-#else
-		hstr name = normalize_path(filename);
+#ifdef NO_FS_TREE
+		name = name.replace("/", "_");
 #endif
 		return hfile(name).read(delimiter);
 	}
 	
 	void File::hwrite(chstr filename, chstr text)
 	{
-#ifdef HAVE_MARMELADE
 		hstr name = normalize_path(filename);
-		name = name.replace("/","_");
-#else
-		hstr name = normalize_path(filename);
+#ifdef NO_FS_TREE
+		name = name.replace("/", "_");
 #endif
 		hfile(name, WRITE).write(text);
 	}
 	
 	void File::happend(chstr filename, chstr text)
 	{
-#ifdef HAVE_MARMELADE
 		hstr name = normalize_path(filename);
-		name = name.replace("/","_");
-#else
-		hstr name = normalize_path(filename);
+#ifdef NO_FS_TREE
+		name = name.replace("/", "_");
 #endif
 		hfile(name, APPEND).write(text);
 	}

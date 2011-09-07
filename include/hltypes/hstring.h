@@ -22,7 +22,7 @@
 
 #include "hltypesExport.h"
 
-#if defined(_MSC_VER) && _MSC_VER == 1600 && !defined(HAVE_MARMELADE)
+#if defined(_MSC_VER) && _MSC_VER == 1600 && !defined(_MSC_FIX_NPOS)
 /// @brief Circumvents a compilation problem in VS2010
 const std::string::size_type std::string::npos = size_t(-1);
 #endif
@@ -137,33 +137,39 @@ namespace hltypes
 		/// @brief Splits the String with the delimiter.
 		/// @param[in] delimiter The character acting as splitting delimiter.
 		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] remove_empty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		Array<String> split(const char delimiter, unsigned int n = -1) const;
+		Array<String> split(const char delimiter, unsigned int n = -1, bool remove_empty = false) const;
 		/// @brief Splits the String with the delimiter.
 		/// @param[in] delimiter The C-type string acting as splitting delimiter.
 		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] remove_empty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		Array<String> split(const char* delimiter, unsigned int n = -1) const;
+		Array<String> split(const char* delimiter, unsigned int n = -1, bool remove_empty = false) const;
 		/// @brief Splits the String with the delimiter.
 		/// @param[in] delimiter The String acting as splitting delimiter.
 		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] remove_empty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		Array<String> split(const String& delimiter, unsigned int n = -1) const;
+		Array<String> split(const String& delimiter, unsigned int n = -1, bool remove_empty = false) const;
 		/// @brief Reverse splits the String with the delimiter.
 		/// @param[in] delimiter The character acting as splitting delimiter.
 		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] remove_empty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		Array<String> rsplit(const char delimiter, unsigned int n = -1) const;
+		Array<String> rsplit(const char delimiter, unsigned int n = -1, bool remove_empty = false) const;
 		/// @brief Reverse splits the String with the delimiter.
 		/// @param[in] delimiter The C-type string acting as splitting delimiter.
 		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] remove_empty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		Array<String> rsplit(const char* delimiter, unsigned int n = -1) const;
+		Array<String> rsplit(const char* delimiter, unsigned int n = -1, bool remove_empty = false) const;
 		/// @brief Reverse splits the String with the delimiter.
 		/// @param[in] delimiter The String acting as splitting delimiter.
 		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] remove_empty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		Array<String> rsplit(const String& delimiter, unsigned int n = -1) const;
+		Array<String> rsplit(const String& delimiter, unsigned int n = -1, bool remove_empty = false) const;
 		/// @brief Checks if the string starts with a specific string.
 		/// @param[in] s The C-type string to check.
 		/// @return True if String starts with s.
