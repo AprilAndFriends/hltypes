@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="libhlxml"
-	ProjectGUID="{2D053CDA-686C-4B36-80EB-1DA5F0CEF8F9}"
+	ProjectGUID="{877B2D1A-DE16-457B-9146-423FE0026E07}"
 	RootNamespace="libhlxml"
 	TargetFrameworkVersion="196613"
 	>
