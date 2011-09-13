@@ -249,10 +249,6 @@
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Strix-avprgfkxwbppfxhiluxmiwiuhmgi/Build/Products/Debug-LLVM\"",
-				);
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -279,10 +275,6 @@
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Strix-avprgfkxwbppfxhiluxmiwiuhmgi/Build/Products/Debug-LLVM\"",
-				);
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -351,10 +343,6 @@
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Strix-avprgfkxwbppfxhiluxmiwiuhmgi/Build/Products/Debug-LLVM\"",
-				);
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -392,10 +380,6 @@
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Strix-avprgfkxwbppfxhiluxmiwiuhmgi/Build/Products/Debug-LLVM\"",
-				);
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -435,10 +419,6 @@
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Strix-avprgfkxwbppfxhiluxmiwiuhmgi/Build/Products/Debug-LLVM\"",
-				);
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
