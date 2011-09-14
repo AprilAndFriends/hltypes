@@ -122,17 +122,17 @@ namespace hltypes
 		/// @param[out] out_right Second portion of the split String.
 		/// @return True if String was split.
 		bool rsplit(const String& delimiter, String& out_left, String& out_right) const;
-		/// @brief Counts the occurences of a substring.
+		/// @brief Counts the occurrences of a substring.
 		/// @param[in] substr The character to look for.
-		/// @return Number of occurences of the substring.
+		/// @return Number of occurrences of the substring.
         int count(const char substr) const;
-		/// @brief Counts the occurences of a substring.
+		/// @brief Counts the occurrences of a substring.
 		/// @param[in] substr The C-type string to look for.
-		/// @return Number of occurences of the substring.
+		/// @return Number of occurrences of the substring.
         int count(const char* substr) const;
-		/// @brief Counts the occurences of a substring.
+		/// @brief Counts the occurrences of a substring.
 		/// @param[in] substr The String to look for.
-		/// @return Number of occurences of the substring.
+		/// @return Number of occurrences of the substring.
         int count(const String& substr) const;
 		/// @brief Splits the String with the delimiter.
 		/// @param[in] delimiter The character acting as splitting delimiter.
@@ -211,22 +211,22 @@ namespace hltypes
 		/// @param[in] c Character to trim.
 		/// @return Right-trimmed String.
 		String rtrim(char c = ' ') const;
-		/// @brief Replaces occurences of a substring with another substring.
+		/// @brief Replaces occurrences of a substring with another substring.
 		/// @param[in] what C-type substring.
 		/// @param[in] with_what C-type substitution.
 		/// @return New String.
 		String replace(const char* what, const char* with_what) const;
-		/// @brief Replaces occurences of a substring with another substring.
+		/// @brief Replaces occurrences of a substring with another substring.
 		/// @param[in] what String substring.
 		/// @param[in] with_what C-type substitution.
 		/// @return New String.
 		String replace(const String& what, const char* with_what) const;
-		/// @brief Replaces occurences of a substring with another substring.
+		/// @brief Replaces occurrences of a substring with another substring.
 		/// @param[in] what C-type substring.
 		/// @param[in] with_what String substitution.
 		/// @return New String.
 		String replace(const char* what, const String& with_what) const;
-		/// @brief Replaces occurences of a substring with another substring.
+		/// @brief Replaces occurrences of a substring with another substring.
 		/// @param[in] what String substring.
 		/// @param[in] with_what String substitution.
 		/// @return New String.

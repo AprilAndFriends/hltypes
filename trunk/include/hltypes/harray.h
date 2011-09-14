@@ -224,9 +224,9 @@ namespace hltypes
 			}
 			return true;
 		}
-		/// @brief Counts occurences of element in Array.
+		/// @brief Counts occurrences of element in Array.
 		/// @param[in] element Element to search for.
-		/// @return Number of occurences of given element.
+		/// @return Number of occurrences of given element.
 		int count(T element)
 		{
 			int result = 0;
@@ -310,13 +310,13 @@ namespace hltypes
 			stdvector::erase(stdvector::begin() + index, stdvector::begin() + index + count);
 			return result;
 		}
-		/// @brief Removes first occurence of element in Array.
+		/// @brief Removes first occurrence of element in Array.
 		/// @param[in] element Element to remove.
 		void remove(T element)
 		{
 			stdvector::erase(stdvector::begin() + this->index_of(element));
 		}
-		/// @brief Removes first occurence of each element in another Array from this one.
+		/// @brief Removes first occurrence of each element in another Array from this one.
 		/// @param[in] other Array of elements to remove.
 		void remove(const Array<T>& other)
 		{
@@ -325,7 +325,7 @@ namespace hltypes
 				stdvector::erase(stdvector::begin() + this->index_of(other.at(i)));
 			}
 		}
-		/// @brief Removes all occurences of element in Array.
+		/// @brief Removes all occurrences of element in Array.
 		/// @param[in] element Element to remove.
 		void remove_all(const T& element)
 		{
@@ -340,7 +340,7 @@ namespace hltypes
 				stdvector::erase(stdvector::begin() + index);
 			}
 		}
-		/// @brief Removes all occurences of each element in another Array from this one.
+		/// @brief Removes all occurrences of each element in another Array from this one.
 		/// @param[in] other Array of elements to remove.
 		void remove_all(const Array<T>& other)
 		{
@@ -797,7 +797,7 @@ namespace hltypes
 			}
 			return result;
 		}
-		/// @brief Finds and returns first occurence of element that matches the condition.
+		/// @brief Finds and returns first occurrence of element that matches the condition.
 		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return Pointer to element that matches the condition or NULL if no element was found.
 		T* find_first(bool (*condition_function)(T))
