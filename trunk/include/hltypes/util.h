@@ -90,6 +90,11 @@ hltypesFnExport bool heqf(float a, float b, float tolerance = HL_E_TOLERANCE);
 /// @param[in] b Second float value.
 /// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
 hltypesFnExport int hcmpf(float a, float b, float tolerance = HL_E_TOLERANCE);
+/// @brief Gets the always-positive value of f mod m.
+/// @param[in] f Float value.
+/// @param[in] m Modulo value.
+/// @return The always-positive value of f mod m.
+hltypesFnExport float hmodf(float f, float m);
 /// @brief Normalizes a file path by converting all platform specific characters into / and proper removal of "." and ".." where necessary.
 /// @param[in] path The path.
 /// @return Normalized filepath.
