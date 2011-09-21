@@ -1,6 +1,7 @@
 define HAVE_MARMELADE
 define _STATICLIB
 define NO_THREADING
+define NO_FS_TREE
 
 includepaths
 {
