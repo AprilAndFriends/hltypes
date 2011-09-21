@@ -128,8 +128,6 @@ namespace hlxml
 	Property* Node::iterProperties()
 	{
 #ifdef USE_TINYXML
-		if(this->Type() == TINYXML_DOCUMENT)
-			return NULL;
 		return (Property*)this->ToElement()->FirstAttribute();
 #else
 		return (Property*)this->properties;
