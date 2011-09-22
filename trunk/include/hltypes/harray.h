@@ -862,6 +862,7 @@ namespace hltypes
 			S value;
 			for (int i = 0; i < this->size(); i++)
 			{
+				// when seeing "dynamic_cast", I always think of fireballs
 				value = dynamic_cast<S>(stdvector::at(i));
 				if (value != NULL)
 				{
