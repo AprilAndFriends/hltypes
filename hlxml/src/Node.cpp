@@ -42,7 +42,7 @@ namespace hlxml
 			}
 		}
 #endif
-		if (!ignoreError)
+		if (!ignoreError) // only villians use ignoreError
 		{
 			throw XMLPropertyNotExistsException(propertyName, this);
 		}

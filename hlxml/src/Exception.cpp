@@ -14,7 +14,7 @@
 namespace hlxml
 {
 	_XMLException::_XMLException(chstr msg, Node* node, chstr type, const char* file, int line) :
-				   hltypes::exception("", file, line)
+		hltypes::exception("", file, line)
 	{
 		this->msg += msg;
 		if (node != NULL)

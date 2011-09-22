@@ -8,7 +8,6 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
-
 #ifdef USE_TINYXML
 #include <tinyxml.h>
 #define _xmlAttr TiXmlAttribute
