@@ -270,7 +270,7 @@ namespace hltypes
 		}
 		/// @brief Adds all pairs of keys and values from another Map into this one.
 		/// @param[in] other Another Map.
-		/// @note Entries with already existing keys will be overwritten.
+		/// @note Entries with already existing keys will be overwritten. In comparison to insert, this function is doing a barrel roll.
 		void inject(const Map<K, V>& other)
 		{
 			for (iterator_map_t it = other.begin(); it != other.end(); it++)

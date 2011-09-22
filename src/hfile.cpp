@@ -307,9 +307,8 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		// TODO - test why feof doesn't work
+		// feof doesn't really work if you use a write mode
 		return (this->position() >= this->size());
-		//return (feof(this->cfile) != 0);
 	}
 	
 	void File::close()
@@ -447,9 +446,8 @@ namespace hltypes
 #ifndef __BIG_ENDIAN__
 		fwrite((unsigned char*)&f, 1, 4, this->cfile);
 #else
-		unsigned int i;
-		memcpy(&i, &f, sizeof(f));
-		this->dump(i);
+		// some data voodoo magic
+		this->dump(*((unsigned int*)&f));
 #endif
 	}
 
@@ -462,6 +460,7 @@ namespace hltypes
 #ifndef __BIG_ENDIAN__
 		fwrite((unsigned char*)&d, 1, 8, this->cfile);
 #else
+		// some more data voodoo magic, but this time we make 100% sure it uses 8 bytes
 		int halfSize = sizeof(d) / 2;
 		unsigned int i;
 		memcpy(&i, &d, halfSize);
@@ -651,8 +650,9 @@ namespace hltypes
 #ifndef __BIG_ENDIAN__
 		fread((unsigned char*)&f, 1, 4, this->cfile);
 #else
+		// data voodoo magic, the float was stored as uint
 		unsigned int i = this->load_uint();
-		memcpy(&f, &i, sizeof(f));
+		f = *((float*)&i);
 #endif
 		return f;
 	}
@@ -667,6 +667,7 @@ namespace hltypes
 #ifndef __BIG_ENDIAN__
 		fread((unsigned char*)&d, 1, 8, this->cfile);
 #else
+		// some more data voodoo magic, the double was stored as 2 uints
 		int halfSize = sizeof(d) / 2;
 		unsigned int i = this->load_uint();
 		memcpy((unsigned char*)&d, &i, halfSize);
