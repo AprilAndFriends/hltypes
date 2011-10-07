@@ -18,6 +18,7 @@
 #include <vector>
 #include <algorithm>
 
+#include "exception.h"
 #include "hstring.h"
 #include "util.h"
 
@@ -729,7 +730,9 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				return NULL;
+				// TODO - implement _random_error
+				//throw _index_error("There are no elements in the array!");
+				throw "There are no elements in the array!";
 			}
 			return stdvector::at(hrand(this->size()));
 		}
