@@ -192,7 +192,25 @@ namespace hltypes
         return (this->size() == 1 && isdigit(stdstr::c_str()[0]));
 	}
     
-	bool String::is_number() const
+	bool String::is_int() const
+	{
+		const char* s = stdstr::c_str();
+		int i = 0;
+        if (s[i] == '-')
+		{
+			i++;
+		}
+		for (; s[i] != '\0'; i++)
+		{
+            if (!isdigit(s[i]))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	bool String::is_float(bool require_dot) const
 	{
 		const char* s = stdstr::c_str();
 		bool foundDot = false;
@@ -212,6 +230,24 @@ namespace hltypes
 				foundDot = true;
             }
 			else if (!isdigit(s[i]))
+			{
+				return false;
+			}
+		}
+		return (!require_dot || foundDot);
+	}
+
+	bool String::is_number() const
+	{
+		return this->is_float(false);
+	}
+
+	bool String::is_hex() const
+	{
+		const char* s = stdstr::c_str();
+		for (int i = 0; s[i] != '\0'; i++)
+		{
+            if (!isxdigit(s[i]))
 			{
 				return false;
 			}
