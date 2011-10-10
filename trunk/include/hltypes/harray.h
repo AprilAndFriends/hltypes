@@ -41,6 +41,8 @@ namespace hltypes
 	/// @author Ivan Vucica
 	template <class T> class Array : public stdvector
 	{
+	private:
+		typedef typename std::vector<T>::const_iterator iterator_t;
 	public:
 		/// @brief Empty constructor.
 		Array() : stdvector()
@@ -116,7 +118,8 @@ namespace hltypes
 		Array<T> operator()(const int start, const int count) const
 		{
 			Array<T> result;
-			result.assign(stdvector::begin() + start, stdvector::begin() + start + count);
+			iterator_t it = stdvector::begin() + start;
+			result.assign(it, it + count);
 			return result;
 		}
 		/// @brief Same as equals.
@@ -270,8 +273,8 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const Array<T>& other, const int start, const int count)
 		{
-			stdvector::insert(stdvector::begin() + index, other.begin() + start,
-				other.begin() + start + count);
+			iterator_t it = other.begin() + start;
+			stdvector::insert(stdvector::begin() + index, it, it + count);
 		}
 		/// @brief Inserts all elements of a C-type array into this Array.
 		/// @param[in] index Position where to insert the new elements.
@@ -307,8 +310,9 @@ namespace hltypes
 		Array<T> remove_at(const int index, const int count)
 		{
 			Array<T> result;
-			result.assign(stdvector::begin() + index, stdvector::begin() + index + count);
-			stdvector::erase(stdvector::begin() + index, stdvector::begin() + index + count);
+			iterator_t it = stdvector::begin() + index;
+			result.assign(it, it + count);
+			stdvector::erase(it, it + count);
 			return result;
 		}
 		/// @brief Removes first occurrence of element in Array.
@@ -321,9 +325,10 @@ namespace hltypes
 		/// @param[in] other Array of elements to remove.
 		void remove(const Array<T>& other)
 		{
+			iterator_t it = stdvector::begin();
 			for (int i = 0; i < other.size(); i++)
 			{
-				stdvector::erase(stdvector::begin() + this->index_of(other.at(i)));
+				stdvector::erase(it + this->index_of(other.at(i)));
 			}
 		}
 		/// @brief Removes all occurrences of element in Array.
@@ -331,6 +336,7 @@ namespace hltypes
 		void remove_all(const T& element)
 		{
 			int index = 0;
+			iterator_t it = stdvector::begin();
 			while (true)
 			{
 				index = this->index_of(element);
@@ -338,7 +344,7 @@ namespace hltypes
 				{
 					break;
 				}
-				stdvector::erase(stdvector::begin() + index);
+				stdvector::erase(it + index);
 			}
 		}
 		/// @brief Removes all occurrences of each element in another Array from this one.
@@ -346,6 +352,7 @@ namespace hltypes
 		void remove_all(const Array<T>& other)
 		{
 			int index = 0;
+			iterator_t it = stdvector::begin();
 			for (int i = 0; i < other.size(); i++)
 			{
 				while (true)
@@ -355,7 +362,7 @@ namespace hltypes
 					{
 						break;
 					}
-					stdvector::erase(stdvector::begin() + index);
+					stdvector::erase(it + index);
 				}
 			}
 		}
@@ -482,8 +489,9 @@ namespace hltypes
 		Array<T> pop_front(const int count)
 		{
 			Array<T> result;
-			result.assign(stdvector::begin(), stdvector::begin() + count);
-			stdvector::erase(stdvector::begin(), stdvector::begin() + count);
+			iterator_t it = stdvector::begin();
+			result.assign(it, it + count);
+			stdvector::erase(it, it + count);
 			return result;
 		}
 		/// @brief Removes last element of Array.
@@ -501,8 +509,9 @@ namespace hltypes
 		Array<T> pop_back(const int count)
 		{
 			Array<T> result;
-			result.assign(stdvector::end() - count, stdvector::end());
-			stdvector::erase(stdvector::end() - count, stdvector::end());
+			iterator_t it = stdvector::end();
+			result.assign(it - count, it);
+			stdvector::erase(it - count, it);
 			return result;
 		}
 		/// @brief Same as remove_at.
@@ -574,12 +583,13 @@ namespace hltypes
 		void differentiate(const Array<T>& other)
 		{
 			int index;
+			iterator_t it = stdvector::begin();
 			for (int i = 0; i < other.size(); i++)
 			{
 				index = this->index_of(other.at(i));
 				if (index >= 0)
 				{
-					stdvector::erase(stdvector::begin() + index);
+					stdvector::erase(it + index);
 				}
 			}
 		}
@@ -596,7 +606,10 @@ namespace hltypes
 		/// @brief Reverses order of elements.
 		void reverse()
 		{
-			std::reverse(stdvector::begin(), stdvector::end());
+			if (this->size() > 0)
+			{
+				std::reverse(stdvector::begin(), stdvector::end());
+			}
 		}
 		/// @brief Creates new Array with reversed order of elements.
 		/// @return A new Array.
@@ -854,10 +867,11 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Returns a new Array with all elements dynamically cast into type S.
+		/// @brief include_nulls Whether to include NULLs that failed to cast.
 		/// @return A new Array with all elements cast into type S.
-		/// @note If dynamic casting fails, it won't be included in the result.
+		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class S>
-		Array<S> dyn_cast()
+		Array<S> dyn_cast(bool include_nulls = false)
 		{
 			Array<S> result;
 			S value;
@@ -865,7 +879,7 @@ namespace hltypes
 			{
 				// when seeing "dynamic_cast", I always think of fireballs
 				value = dynamic_cast<S>(stdvector::at(i));
-				if (value != NULL)
+				if (include_null || value != NULL)
 				{
 					result += value;
 				}
