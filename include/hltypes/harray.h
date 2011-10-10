@@ -119,8 +119,8 @@ namespace hltypes
 		Array<T> operator()(const int start, const int count) const
 		{
 			Array<T> result;
-			const_iterator_t it = stdvector::begin() + start;
-			result.assign(it, it + count);
+			const_iterator_t it = stdvector::begin();
+			result.assign(it + start, it + (start + count));
 			return result;
 		}
 		/// @brief Same as equals.
@@ -274,8 +274,8 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const Array<T>& other, const int start, const int count)
 		{
-			const_iterator_t it = other.begin() + start;
-			stdvector::insert(stdvector::begin() + index, it, it + count);
+			const_iterator_t it = other.begin();
+			stdvector::insert(stdvector::begin() + index, it + start, it + (start + count));
 		}
 		/// @brief Inserts all elements of a C-type array into this Array.
 		/// @param[in] index Position where to insert the new elements.
@@ -311,9 +311,11 @@ namespace hltypes
 		Array<T> remove_at(const int index, const int count)
 		{
 			Array<T> result;
-			const_iterator_t it = stdvector::begin() + index;
-			result.assign(it, it + count);
-			stdvector::erase(it, it + count);
+			const_iterator_t it = stdvector::begin();
+			const_iterator_t begin = it + index;
+			const_iterator_t end = it + (index + count);
+			result.assign(begin, end);
+			stdvector::erase(begin, end);
 			return result;
 		}
 		/// @brief Removes first occurrence of element in Array.
@@ -326,10 +328,9 @@ namespace hltypes
 		/// @param[in] other Array of elements to remove.
 		void remove(const Array<T>& other)
 		{
-			iterator_t it = stdvector::begin();
 			for (int i = 0; i < other.size(); i++)
 			{
-				stdvector::erase(it + this->index_of(other.at(i)));
+				stdvector::erase(stdvector::begin() + this->index_of(other.at(i)));
 			}
 		}
 		/// @brief Removes all occurrences of element in Array.
@@ -337,7 +338,6 @@ namespace hltypes
 		void remove_all(const T& element)
 		{
 			int index = 0;
-			const_iterator_t it = stdvector::begin();
 			while (true)
 			{
 				index = this->index_of(element);
@@ -345,7 +345,7 @@ namespace hltypes
 				{
 					break;
 				}
-				stdvector::erase(it + index);
+				stdvector::erase(stdvector::begin() + index);
 			}
 		}
 		/// @brief Removes all occurrences of each element in another Array from this one.
@@ -353,7 +353,6 @@ namespace hltypes
 		void remove_all(const Array<T>& other)
 		{
 			int index = 0;
-			const_iterator_t it = stdvector::begin();
 			for (int i = 0; i < other.size(); i++)
 			{
 				while (true)
@@ -363,7 +362,7 @@ namespace hltypes
 					{
 						break;
 					}
-					stdvector::erase(it + index);
+					stdvector::erase(stdvector::begin() + index);
 				}
 			}
 		}
@@ -490,9 +489,10 @@ namespace hltypes
 		Array<T> pop_front(const int count)
 		{
 			Array<T> result;
-			iterator_t it = stdvector::begin();
-			result.assign(it, it + count);
-			stdvector::erase(it, it + count);
+			iterator_t begin = stdvector::begin();
+			iterator_t end = begin + count;
+			result.assign(begin, end);
+			stdvector::erase(begin, end);
 			return result;
 		}
 		/// @brief Removes last element of Array.
@@ -510,9 +510,10 @@ namespace hltypes
 		Array<T> pop_back(const int count)
 		{
 			Array<T> result;
-			iterator_t it = stdvector::end();
-			result.assign(it - count, it);
-			stdvector::erase(it - count, it);
+			iterator_t end = stdvector::end();
+			iterator_t begin = end - count;
+			result.assign(begin, end);
+			stdvector::erase(begin, end);
 			return result;
 		}
 		/// @brief Same as remove_at.
@@ -584,13 +585,12 @@ namespace hltypes
 		void differentiate(const Array<T>& other)
 		{
 			int index;
-			iterator_t it = stdvector::begin();
 			for (int i = 0; i < other.size(); i++)
 			{
 				index = this->index_of(other.at(i));
 				if (index >= 0)
 				{
-					stdvector::erase(it + index);
+					stdvector::erase(stdvector::begin() + index);
 				}
 			}
 		}
