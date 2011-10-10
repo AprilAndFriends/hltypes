@@ -195,10 +195,24 @@ namespace hltypes
 		/// @brief Reverses String.
 		/// @return Reversed String.
 		String reverse() const;        
-        /// @brief Checks if all elements of the string contain only one digit '0'-'9'
+        /// @brief Checks if all elements of the string contain only one digit '0'-'9'.
+        /// @return True if string is a digit.
         bool is_digit() const;
-        /// @brief Checks if the string is a number, positive or negative interger or float
+        /// @brief Checks if the string is an integer.
+        /// @return True if string is a number.
+        bool is_int() const;
+        /// @brief Checks if the string is a float.
+		/// @param[in] require_dot If this parameter is false, then a decimal point is not required to designate a float value.
+        /// @return True if string is a number.
+        bool is_float(bool require_dot = true) const;
+        /// @brief Checks if the string is a number, positive or negative integer or float.
+        /// @return True if string is a number.
         bool is_number() const;
+        /// @brief Checks if the string is a hexadecimal number, case ignore.
+        /// @return True if string is a hex number.
+		/// @note This method is case insensitive.
+		/// @note Hex numbers cannot be negative in this context.
+        bool is_hex() const;
 		/// @brief Left-trims and right-trims String from a specific character.
 		/// @param[in] c Character to trim.
 		/// @return Trimmed String.

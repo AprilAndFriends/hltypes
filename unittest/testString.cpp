@@ -240,11 +240,43 @@ TEST(String_hsprintf)
 	CHECK(text == "This is a 15 formatted 3.14 file.");
 }
 
-TEST(String_is_digit)
+TEST(String_is_numeric)
 {
-	hstr text1 = "1234567890";
+	hstr text1 = "7";
 	CHECK(text1.is_digit());
-	hstr text2 = "12345h67890";
+	CHECK(text1.is_int());
+	CHECK(!text1.is_float());
+	CHECK(text1.is_number());
+	CHECK(text1.is_hex());
+	hstr text2 = "1234567890";
 	CHECK(!text2.is_digit());
+	CHECK(text2.is_int());
+	CHECK(!text2.is_float());
+	CHECK(text2.is_number());
+	CHECK(text2.is_hex());
+	hstr text3 = "12345h67890";
+	CHECK(!text3.is_digit());
+	CHECK(!text3.is_int());
+	CHECK(!text3.is_float());
+	CHECK(!text3.is_number());
+	CHECK(!text3.is_hex());
+	hstr text4 = "1.234";
+	CHECK(!text4.is_digit());
+	CHECK(!text4.is_int());
+	CHECK(text4.is_float());
+	CHECK(text4.is_number());
+	CHECK(!text4.is_hex());
+	hstr text5 = "1.234.5";
+	CHECK(!text5.is_digit());
+	CHECK(!text5.is_int());
+	CHECK(!text5.is_float());
+	CHECK(!text5.is_number());
+	CHECK(!text5.is_hex());
+	hstr text6 = "CAFEbabe1234567890";
+	CHECK(!text6.is_digit());
+	CHECK(!text6.is_int());
+	CHECK(!text6.is_float());
+	CHECK(!text6.is_number());
+	CHECK(text6.is_hex());
 }
 

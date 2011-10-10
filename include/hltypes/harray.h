@@ -42,7 +42,8 @@ namespace hltypes
 	template <class T> class Array : public stdvector
 	{
 	private:
-		typedef typename std::vector<T>::const_iterator iterator_t;
+		typedef typename std::vector<T>::iterator iterator_t;
+		typedef typename std::vector<T>::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
 		Array() : stdvector()
@@ -118,7 +119,7 @@ namespace hltypes
 		Array<T> operator()(const int start, const int count) const
 		{
 			Array<T> result;
-			iterator_t it = stdvector::begin() + start;
+			const_iterator_t it = stdvector::begin() + start;
 			result.assign(it, it + count);
 			return result;
 		}
@@ -273,7 +274,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const Array<T>& other, const int start, const int count)
 		{
-			iterator_t it = other.begin() + start;
+			const_iterator_t it = other.begin() + start;
 			stdvector::insert(stdvector::begin() + index, it, it + count);
 		}
 		/// @brief Inserts all elements of a C-type array into this Array.
@@ -310,7 +311,7 @@ namespace hltypes
 		Array<T> remove_at(const int index, const int count)
 		{
 			Array<T> result;
-			iterator_t it = stdvector::begin() + index;
+			const_iterator_t it = stdvector::begin() + index;
 			result.assign(it, it + count);
 			stdvector::erase(it, it + count);
 			return result;
@@ -336,7 +337,7 @@ namespace hltypes
 		void remove_all(const T& element)
 		{
 			int index = 0;
-			iterator_t it = stdvector::begin();
+			const_iterator_t it = stdvector::begin();
 			while (true)
 			{
 				index = this->index_of(element);
@@ -352,7 +353,7 @@ namespace hltypes
 		void remove_all(const Array<T>& other)
 		{
 			int index = 0;
-			iterator_t it = stdvector::begin();
+			const_iterator_t it = stdvector::begin();
 			for (int i = 0; i < other.size(); i++)
 			{
 				while (true)
