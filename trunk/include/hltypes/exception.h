@@ -103,6 +103,20 @@ namespace hltypes
 	/// @brief Alias for simpler code.
 	#define index_error(index) hltypes::_index_error(index, __FILE__, __LINE__)
 	
+	/// @brief Defines a random-error exception.
+	class hltypesExport _size_error : public exception
+	{
+	public:
+		/// @brief Basic constructor.
+		/// @param[in] function_name Name of the function.
+		/// @param[in] source_file Name of the source file.
+		/// @param[in] line Number of the line.
+		_size_error(chstr function_name, const char* source_file, int line);
+		
+	};
+	/// @brief Alias for simpler code.
+	#define size_error(function_name) hltypes::_size_error(function_name, __FILE__, __LINE__)
+	
 	/// @brief Defines a range-error exception.
 	class hltypesExport _range_error : public exception
 	{

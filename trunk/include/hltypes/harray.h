@@ -686,7 +686,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				return NULL;
+				throw size_error("min()");
 			}
 			return (*std::min_element(stdvector::begin(), stdvector::end()));
 		}
@@ -698,7 +698,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				return NULL;
+				throw size_error("min()");
 			}
 			return (*std::min_element(stdvector::begin(), stdvector::end(), compare_function));
 		}
@@ -708,7 +708,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				return NULL;
+				throw size_error("max()");
 			}
 			return (*std::max_element(stdvector::begin(), stdvector::end()));
 		}
@@ -720,7 +720,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				return NULL;
+				throw size_error("max()");
 			}
 			return (*std::max_element(stdvector::begin(), stdvector::end(), compare_function));
 		}
@@ -730,9 +730,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				// TODO - implement _random_error
-				//throw _index_error("There are no elements in the array!");
-				throw "There are no elements in the array!";
+				throw size_error("random()");
 			}
 			return stdvector::at(hrand(this->size()));
 		}
@@ -743,7 +741,7 @@ namespace hltypes
 		Array<T> random(int count, bool unique = false)
 		{
 			Array<T> result;
-			if (unique)
+			if (!unique)
 			{
 				for (int i = 0; i < count; i++)
 				{

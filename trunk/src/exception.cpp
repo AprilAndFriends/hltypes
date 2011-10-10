@@ -49,6 +49,11 @@ namespace hltypes
 	{
 	}
 /************************************************************************************/
+	_size_error::_size_error(chstr function_name, const char* source_file, int line) :
+	    exception(function_name + " cannot be used on a harray with size = 0", source_file, line)
+	{
+	}
+/************************************************************************************/
 	_range_error::_range_error(int start, int count, const char* source_file, int line) :
 	    exception("range '" + hstr(start) + " by " + hstr(count) + "' out of range", source_file, line)
 	{
