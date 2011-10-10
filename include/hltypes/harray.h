@@ -879,7 +879,7 @@ namespace hltypes
 			{
 				// when seeing "dynamic_cast", I always think of fireballs
 				value = dynamic_cast<S>(stdvector::at(i));
-				if (include_null || value != NULL)
+				if (include_nulls || value != NULL)
 				{
 					result += value;
 				}
