@@ -309,7 +309,7 @@ namespace hltypes
 		return stdstr::size();
 	}
 
-	wchar_t* String::w_str()
+	wchar_t* String::w_str() const
 	{
 		wchar_t* result = new wchar_t[stdstr::size() * 4];
 		memset(result, 0, stdstr::size() * 4);
