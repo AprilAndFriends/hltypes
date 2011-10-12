@@ -182,7 +182,7 @@ namespace hltypes
 		/// @brief Gets index of the given element.
 		/// @param[in] element Element to search for.
 		/// @return Index of the given element or -1 if element could not be found.
-		int index_of(T element)
+		int index_of(T element) const
 		{
 			for (int i = 0; i < this->size(); i++)
 			{
@@ -196,14 +196,14 @@ namespace hltypes
 		/// @brief Checks existence of element in Array.
 		/// @param[in] element Element to search for.
 		/// @return True if element is in Array.
-		bool contains(const T& element)
+		bool contains(const T& element) const
 		{
 			return (this->index_of(element) >= 0);
 		}
 		/// @brief Checks existence of elements in Array.
 		/// @param[in] other Array with elements to search for.
 		/// @return True if all elements are in Array.
-		bool contains(const Array<T>& other)
+		bool contains(const Array<T>& other) const
 		{
 			for (int i = 0; i < other.size(); i++)
 			{
@@ -218,7 +218,7 @@ namespace hltypes
 		/// @param[in] other C-type array with elements to search for.
 		/// @param[in] count How many elements the C-type array has.
 		/// @return True if all elements are in Array.
-		bool contains(const T other[], int count)
+		bool contains(const T other[], int count) const
 		{
 			for (int i = 0; i < count; i++)
 			{
@@ -232,7 +232,7 @@ namespace hltypes
 		/// @brief Counts occurrences of element in Array.
 		/// @param[in] element Element to search for.
 		/// @return Number of occurrences of given element.
-		int count(T element)
+		int count(T element) const
 		{
 			int result = 0;
 			for (int i = 0; i < this->size(); i++)
@@ -561,11 +561,11 @@ namespace hltypes
 		void intersect(const Array<T>& other)
 		{
 			Array<T> result;
-			for (int i = 0; i < other.size(); i++)
+			for (int i = 0; i < this->size(); i++)
 			{
-				if (this->contains(other.at(i)))
+				if (other.contains(stdvector::at(i)))
 				{
-					result.push_back(other.at(i));
+					result.push_back(stdvector::at(i));
 				}
 			}
 			stdvector::assign(result.begin(), result.end());
@@ -696,7 +696,7 @@ namespace hltypes
 		}
 		/// @brief Finds minimum element in Array.
 		/// @return Minimum Element or NULL if Array is empty.
-		T min()
+		T min() const
 		{
 			if (this->size() == 0)
 			{
@@ -708,7 +708,7 @@ namespace hltypes
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
 		/// @return Minimum Element or NULL if Array is empty.
 		/// @note compare_function should return true if first element is less than second element.
-		T min(bool (*compare_function)(T, T))
+		T min(bool (*compare_function)(T, T)) const
 		{
 			if (this->size() == 0)
 			{
@@ -718,7 +718,7 @@ namespace hltypes
 		}
 		/// @brief Finds maximum element in Array.
 		/// @return Maximum Element or NULL if Array is empty.
-		T max()
+		T max() const
 		{
 			if (this->size() == 0)
 			{
@@ -730,7 +730,7 @@ namespace hltypes
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
 		/// @return Maximum Element or NULL if Array is empty.
 		/// @note compare_function should return true if first element is greater than second element.
-		T max(bool (*compare_function)(T, T))
+		T max(bool (*compare_function)(T, T)) const
 		{
 			if (this->size() == 0)
 			{
@@ -740,7 +740,7 @@ namespace hltypes
 		}
 		/// @brief Gets a random element in Array.
 		/// @return Random element or NULL if Array is empty.
-		T random()
+		T random() const
 		{
 			if (this->size() == 0)
 			{
@@ -752,7 +752,7 @@ namespace hltypes
 		/// @param[in] count Number of random elements.
 		/// @param[in] unique Whether to force all random values to be unique.
 		/// @return Array of random elements selected from this one.
-		Array<T> random(int count, bool unique = false)
+		Array<T> random(int count, bool unique = false) const
 		{
 			Array<T> result;
 			if (!unique)
@@ -784,7 +784,7 @@ namespace hltypes
 		/// @param[in] separator Separator string between elements.
 		/// @return String or joined elements separater by separator string.
 		/// @note Make sure your elements can be cast into String or are already String.
-		hstr join(chstr separator)
+		hstr join(chstr separator) const
 		{
 			hstr result;
 			if (this->size() > 0)
@@ -889,55 +889,55 @@ namespace hltypes
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T& element)
-		bool includes(const T& element)
+		bool includes(const T& element) const
 		{
 			return this->contains(element);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const Array<T>& other)
-		bool includes(const Array<T>& other)
+		bool includes(const Array<T>& other) const
 		{
 			return this->contains(other);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T other[], int count)
-		bool includes(const T other[], int count)
+		bool includes(const T other[], int count) const
 		{
 			return this->contains(other, count);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T& element)
-		bool has(const T& element)
+		bool has(const T& element) const
 		{
 			return this->contains(element);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const Array<T>& other)
-		bool has(const Array<T>& other)
+		bool has(const Array<T>& other) const
 		{
 			return this->contains(other);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T other[], int count)
-		bool has(const T other[], int count)
+		bool has(const T other[], int count) const
 		{
 			return this->contains(other, count);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T& element)
-		bool has_element(const T& element)
+		bool has_element(const T& element) const
 		{
 			return this->contains(element);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const Array<T>& other)
-		bool has_element(const Array<T>& other)
+		bool has_element(const Array<T>& other) const
 		{
 			return this->contains(other);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T other[], int count)
-		bool has_element(const T other[], int count)
+		bool has_element(const T other[], int count) const
 		{
 			return this->contains(other, count);
 		}
