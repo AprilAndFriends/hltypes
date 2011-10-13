@@ -193,6 +193,21 @@ namespace hltypes
 			}
 			return -1;
 		}
+		/// @brief Gets all indexes of the given element.
+		/// @param[in] element Element to search for.
+		/// @return Index of the given element or -1 if element could not be found.
+		Array<int> indexes_of(T element) const
+		{
+			Array<int> result;
+			for (int i = 0; i < this->size(); i++)
+			{
+				if (element == stdvector::at(i))
+				{
+					result.push_back(i);
+				}
+			}
+			return result;
+		}
 		/// @brief Checks existence of element in Array.
 		/// @param[in] element Element to search for.
 		/// @return True if element is in Array.
@@ -205,9 +220,11 @@ namespace hltypes
 		/// @return True if all elements are in Array.
 		bool contains(const Array<T>& other) const
 		{
+			int index;
 			for (int i = 0; i < other.size(); i++)
 			{
-				if (!this->contains(other.at(i)))
+				index = this->index_of(other.at(i));
+				if (index < 0)
 				{
 					return false;
 				}
@@ -220,9 +237,11 @@ namespace hltypes
 		/// @return True if all elements are in Array.
 		bool contains(const T other[], int count) const
 		{
+			int index;
 			for (int i = 0; i < count; i++)
 			{
-				if (!this->contains(other[i]))
+				index = this->index_of(other[i]);
+				if (index < 0)
 				{
 					return false;
 				}
@@ -257,7 +276,7 @@ namespace hltypes
 		/// @param[in] other Array of elements to insert.
 		void insert_at(const int index, const Array<T>& other)
 		{
-			this->insert_at(index, other, 0, other.size());
+			stdvector::insert(stdvector::begin() + index, other.begin(), other.end());
 		}
 		/// @brief Inserts all elements of another Array into this one.
 		/// @param[in] index Position where to insert the new elements.
@@ -265,7 +284,8 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const Array<T>& other, const int count)
 		{
-			this->insert_at(index, other, 0, count);
+			const_iterator_t it = other.begin();
+			stdvector::insert(stdvector::begin() + index, it, it + count);
 		}
 		/// @brief Inserts all elements of another Array into this one.
 		/// @param[in] index Position where to insert the new elements.
@@ -283,7 +303,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const T other[], const int count)
 		{
-			this->insert_at(index, other, 0, count);
+			stdvector::insert(stdvector::begin() + index, other, other + count);
 		}
 		/// @brief Inserts all elements of a C-type array into this Array.
 		/// @param[in] index Position where to insert the new elements.
@@ -292,13 +312,17 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const T other[], const int start, const int count)
 		{
-			stdvector::insert(stdvector::begin() + index, other + start, other + start + count);
+			stdvector::insert(stdvector::begin() + index, other + start, other + (start + count));
 		}
 		/// @brief Removes element at given index.
 		/// @param[in] index Index of element to remove.
 		/// @return The removed element.
 		T remove_at(const int index)
 		{
+			if (index >= this->size())
+			{
+				throw index_error(index);
+			}
 			T result = stdvector::at(index);
 			stdvector::erase(stdvector::begin() + index);
 			return result;
@@ -310,6 +334,10 @@ namespace hltypes
 		/// @note Elements in the returned Array are in the same order as in the orignal Array.
 		Array<T> remove_at(const int index, const int count)
 		{
+			if (index >= this->size() || index + count > this->size())
+			{
+				throw range_error(index, count);
+			}
 			Array<T> result;
 			const_iterator_t it = stdvector::begin();
 			const_iterator_t begin = it + index;
@@ -322,49 +350,60 @@ namespace hltypes
 		/// @param[in] element Element to remove.
 		void remove(T element)
 		{
-			stdvector::erase(stdvector::begin() + this->index_of(element));
+			int index = this->index_of(element);
+			if (index < 0)
+			{
+				throw element_not_found_error();
+			}
+			stdvector::erase(stdvector::begin() + index);
 		}
 		/// @brief Removes first occurrence of each element in another Array from this one.
 		/// @param[in] other Array of elements to remove.
 		void remove(const Array<T>& other)
 		{
+			int index;
 			for (int i = 0; i < other.size(); i++)
 			{
-				stdvector::erase(stdvector::begin() + this->index_of(other.at(i)));
-			}
-		}
-		/// @brief Removes all occurrences of element in Array.
-		/// @param[in] element Element to remove.
-		void remove_all(const T& element)
-		{
-			int index = 0;
-			while (true)
-			{
-				index = this->index_of(element);
+				index = this->index_of(other.at(i));
 				if (index < 0)
 				{
-					break;
+					throw element_not_found_error();
 				}
 				stdvector::erase(stdvector::begin() + index);
 			}
 		}
+		/// @brief Removes all occurrences of element in Array.
+		/// @param[in] element Element to remove.
+		/// @return Number of elements removed.
+		int remove_all(const T& element)
+		{
+			Array<int> indexes = this->indexes_of(element);
+			iterator_t it = stdvector::begin();
+			for (int i = indexes.size() - 1; i >= 0; i--)
+			{
+				stdvector::erase(it + indexes[i]);
+			}
+			return indexes.size();
+		}
 		/// @brief Removes all occurrences of each element in another Array from this one.
 		/// @param[in] other Array of elements to remove.
-		void remove_all(const Array<T>& other)
+		/// @return Number of elements removed.
+		int remove_all(const Array<T>& other)
 		{
-			int index = 0;
+			Array<int> indexes;
+			iterator_t it;
+			int count;
 			for (int i = 0; i < other.size(); i++)
 			{
-				while (true)
+				Array<int> indexes = this->indexes_of(other.at(i));
+				iterator_t it = stdvector::begin();
+				for (int j = indexes.size() - 1; j >= 0; j--)
 				{
-					index = this->index_of(other.at(i));
-					if (index < 0)
-					{
-						break;
-					}
-					stdvector::erase(stdvector::begin() + index);
+					stdvector::erase(it + indexes[j]);
 				}
+				count += indexes.size();
 			}
+			return count;
 		}
 		/// @brief Adds element at the end of Array.
 		/// @param[in] element Element to add.
@@ -377,29 +416,20 @@ namespace hltypes
 		/// @param[in] times Number of times to add the element.
 		void push_back(const T& element, int times)
 		{
-			for (int i = 0; i < times; i++)
-			{
-				stdvector::push_back(element);
-			}
+			this->insert_at(this->size(), element, times);
 		}
 		/// @brief Adds all elements from another Array at the end of this one.
 		/// @param[in] other Array of elements to add.
 		void push_back(const Array<T>& other)
 		{
-			for (int i = 0; i < other.size(); i++)
-			{
-				stdvector::push_back(other.at(i));
-			}
+			this->insert_at(this->size(), other);
 		}
 		/// @brief Adds all elements from another Array at the end of this one.
 		/// @param[in] other Array of elements to add.
 		/// @param[in] count Number of elements to add.
 		void push_back(const Array<T>& other, const int count)
 		{
-			for (int i = 0; i < count; i++)
-			{
-				stdvector::push_back(other.at(i));
-			}
+			this->insert_at(this->size(), other, count);
 		}
 		/// @brief Adds all elements from another Array at the end of this one.
 		/// @param[in] other Array of elements to add.
@@ -407,20 +437,14 @@ namespace hltypes
 		/// @param[in] count Number of elements to add.
 		void push_back(const Array<T>& other, const int start, const int count)
 		{
-			for (int i = 0; i < count; i++)
-			{
-				stdvector::push_back(other.at(start + i));
-			}
+			this->insert_at(this->size(), other, start, count);
 		}
 		/// @brief Adds all elements from a C-type array at the end of Array.
 		/// @param[in] other C-type array of elements to add.
 		/// @param[in] count Number of elements to add.
 		void push_back(const T other[], const int count)
 		{
-			for (int i = 0; i < count; i++)
-			{
-				stdvector::push_back(other[i]);
-			}
+			this->insert_at(this->size(), other, count);
 		}
 		/// @brief Adds all elements from a C-type array at the end of Array.
 		/// @param[in] other C-type array of elements to add.
@@ -428,10 +452,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to add.
 		void push_back(const T other[], const int start, const int count)
 		{
-			for (int i = 0; i < count; i++)
-			{
-				stdvector::push_back(other[start + i]);
-			}
+			this->insert_at(this->size(), other, start, count);
 		}
 		/// @brief Adds element at the beginning of Array n times.
 		/// @param[in] element Element to add.
@@ -451,7 +472,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to add.
 		void push_front(const Array<T>& other, const int count)
 		{
-			this->insert_at(0, other, 0, count);
+			this->insert_at(0, other, count);
 		}
 		/// @brief Adds all elements from another Array at the beginning of this one.
 		/// @param[in] other Array of elements to add.
@@ -466,7 +487,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to add.
 		void push_front(const T other[], const int count)
 		{
-			this->insert_at(0, other, 0, count);
+			this->insert_at(0, other, count);
 		}
 		/// @brief Adds all elements from a C-type array at the beginning of Array.
 		/// @param[in] other C-type array of elements to add.
@@ -480,6 +501,10 @@ namespace hltypes
 		/// @return The removed element.
 		T pop_front()
 		{
+			if (this->size() == 0)
+			{
+				throw index_error(0);
+			}
 			return this->remove_at(0);
 		}
 		/// @brief Removes n elements from the beginning of Array.
@@ -488,6 +513,10 @@ namespace hltypes
 		/// @note Elements in the returned Array are in the same order as in the orignal Array.
 		Array<T> pop_front(const int count)
 		{
+			if (count > this->size())
+			{
+				throw index_error(count);
+			}
 			Array<T> result;
 			iterator_t begin = stdvector::begin();
 			iterator_t end = begin + count;
@@ -499,6 +528,10 @@ namespace hltypes
 		/// @return The removed element.
 		T pop_back()
 		{
+			if (this->size() == 0)
+			{
+				throw index_error(0);
+			}
 			T element = stdvector::back();
 			stdvector::pop_back();
 			return element;
@@ -509,6 +542,10 @@ namespace hltypes
 		/// @note Elements in the returned Array are in the same order as in the orignal Array.
 		Array<T> pop_back(const int count)
 		{
+			if (count > this->size())
+			{
+				throw index_error(count);
+			}
 			Array<T> result;
 			iterator_t end = stdvector::end();
 			iterator_t begin = end - count;
@@ -516,35 +553,11 @@ namespace hltypes
 			stdvector::erase(begin, end);
 			return result;
 		}
-		/// @brief Same as remove_at.
-		/// @see remove_at(const int index)
-		T pop(const int index)
-		{
-			return this->remove_at(index);
-		}
-		/// @brief Same as remove_at.
-		/// @see remove_at(const int index, const int count)
-		Array<T> pop(const int index, const int count)
-		{
-			return this->remove_at(index, count);
-		}
-		/// @brief Same as remove_all.
-		/// @see remove_all(T& element)
-		void pop_all(T& element)
-		{
-			this->remove_all(element);
-		}
-		/// @brief Same as remove_all.
-		/// @see remove_all(const Array<T>& other)
-		void pop_all(const Array<T>& other)
-		{
-			this->remove_all(other);
-		}
 		/// @brief Unites elements of this Array with another one.
 		/// @param[in] other Array to unite with.
 		void unite(const Array<T>& other)
 		{
-			this->insert_at(this->size(), other, 0, other.size());
+			this->insert_at(this->size(), other);
 			this->remove_duplicates();
 		}
 		/// @brief Creates a new Array as union of this Array with another one.
@@ -623,15 +636,16 @@ namespace hltypes
 		/// @brief Removes duplicates in Array.
 		void remove_duplicates()
 		{
-			Array<T> result;
+			Array<int> indexes;
+			iterator_t it = stdvector::begin();
 			for (int i = 0; i < this->size(); i++)
 			{
-				if (!result.contains(stdvector::at(i)))
+				indexes = this->indexes_of(stdvector::at(i));
+				for (int j = indexes.size() - 1; j > 0; j--)
 				{
-					result.push_back(stdvector::at(i));
+					stdvector::erase(it + indexes[j]);
 				}
 			}
-			stdvector::assign(result.begin(), result.end());
 		}
 		/// @brief Creates new Array without duplicates.
 		/// @return A new Array.
@@ -695,7 +709,7 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Finds minimum element in Array.
-		/// @return Minimum Element or NULL if Array is empty.
+		/// @return Minimum Element.
 		T min() const
 		{
 			if (this->size() == 0)
@@ -706,7 +720,7 @@ namespace hltypes
 		}
 		/// @brief Finds minimum element in Array.
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
-		/// @return Minimum Element or NULL if Array is empty.
+		/// @return Minimum Element.
 		/// @note compare_function should return true if first element is less than second element.
 		T min(bool (*compare_function)(T, T)) const
 		{
@@ -717,7 +731,7 @@ namespace hltypes
 			return (*std::min_element(stdvector::begin(), stdvector::end(), compare_function));
 		}
 		/// @brief Finds maximum element in Array.
-		/// @return Maximum Element or NULL if Array is empty.
+		/// @return Maximum Element.
 		T max() const
 		{
 			if (this->size() == 0)
@@ -728,7 +742,7 @@ namespace hltypes
 		}
 		/// @brief Finds maximum element in Array.
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
-		/// @return Maximum Element or NULL if Array is empty.
+		/// @return Maximum Element.
 		/// @note compare_function should return true if first element is greater than second element.
 		T max(bool (*compare_function)(T, T)) const
 		{
@@ -739,7 +753,7 @@ namespace hltypes
 			return (*std::max_element(stdvector::begin(), stdvector::end(), compare_function));
 		}
 		/// @brief Gets a random element in Array.
-		/// @return Random element or NULL if Array is empty.
+		/// @return Random element.
 		T random() const
 		{
 			if (this->size() == 0)
@@ -759,7 +773,7 @@ namespace hltypes
 			{
 				for (int i = 0; i < count; i++)
 				{
-					result += stdvector::at(hrand(this->size()));
+					result.push_back(stdvector::at(hrand(this->size())));
 				}
 			}
 			else if (count > 0)
@@ -771,11 +785,11 @@ namespace hltypes
 				Array<int> indexes;
 				for (int i = 0; i < this->size(); i++)
 				{
-					indexes += i;
+					indexes.push_back(i);
 				}
 				for (int i = 0; i < count; i++)
 				{
-					result += stdvector::at(indexes.remove_at(hrand(indexes.size())));
+					result.push_back(stdvector::at(indexes.remove_at(hrand(indexes.size()))));
 				}
 			}
 			return result;
@@ -807,7 +821,7 @@ namespace hltypes
 			{
 				if (condition_function(stdvector::at(i)))
 				{
-					result += stdvector::at(i);
+					result.push_back(stdvector::at(i));
 				}
 			}
 			return result;
@@ -863,7 +877,7 @@ namespace hltypes
 			Array<S> result;
 			for (int i = 0; i < this->size(); i++)
 			{
-				result += (S)stdvector::at(i);
+				result.push_back((S)stdvector::at(i));
 			}
 			return result;
 		}
@@ -880,12 +894,24 @@ namespace hltypes
 			{
 				// when seeing "dynamic_cast", I always think of fireballs
 				value = dynamic_cast<S>(stdvector::at(i));
-				if (include_nulls || value != NULL)
+				if (value != NULL || include_nulls)
 				{
-					result += value;
+					result.push_back(value);
 				}
 			}
 			return result;
+		}
+		/// @brief Accesses first element of Array.
+		/// @return The first element.
+		T& first()
+		{
+			return stdvector::front();
+		}
+		/// @brief Accesses last element of Array.
+		/// @return The last element.
+		T& last()
+		{
+			return stdvector::back();
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T& element)
@@ -1026,67 +1052,253 @@ namespace hltypes
 			this->push_back(other, start, count);
 		}
 		/// @brief Same as push_back.
+		/// @see push_back(const T& element).
+		void push_last(const T& element)
+		{
+			this->push_back(element);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const T& element, int times).
+		void push_last(const T& element, int times)
+		{
+			this->push_back(element, times);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const Array<T>& other).
+		void push_last(const Array<T>& other)
+		{
+			this->push_back(other);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const Array<T>& other, const int count).
+		void push_last(const Array<T>& other, const int count)
+		{
+			this->push_back(other, count);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const Array<T>& other, const int start, const int count).
+		void push_last(const Array<T>& other, const int start, const int count)
+		{
+			this->push_back(other, start, count);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const T other[], const int count).
+		void push_last(const T other[], const int count)
+		{
+			this->push_back(other, count);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const T other[], const int start, const int count).
+		void push_last(const T other[], const int start, const int count)
+		{
+			this->push_back(other, start, count);
+		}
+		/// @brief Same as push_front.
+		/// @see push_front(const T& element, int times).
+		void push_first(const T& element, int times = 1)
+		{
+			this->push_front(element, times);
+		}
+		/// @brief Same as push_front.
+		/// @see push_front(const Array<T>& other).
+		void push_first(const Array<T>& other)
+		{
+			this->push_front(other);
+		}
+		/// @brief Same as push_front.
+		/// @see push_front(const Array<T>& other, const int count).
+		void push_first(const Array<T>& other, const int count)
+		{
+			this->push_front(other, count);
+		}
+		/// @brief Same as push_front.
+		/// @see push_front(const Array<T>& other, const int start, const int count).
+		void push_first(const Array<T>& other, const int start, const int count)
+		{
+			this->push_front(other, start, count);
+		}
+		/// @brief Same as push_front.
+		/// @see push_front(const T other[], const int count).
+		void push_first(const T other[], const int count)
+		{
+			this->push_front(other, count);
+		}
+		/// @brief Same as push_front.
+		/// @see push_front(const T other[], const int start, const int count).
+		void push_first(const T other[], const int start, const int count)
+		{
+			this->push_front(other, start, count);
+		}
+		/// @brief Same as pop_front.
+		/// @see pop_front().
+		T pop_first()
+		{
+			return this->pop_front();
+		}
+		/// @brief Same as pop_front.
+		/// @see pop_front(const int count).
+		Array<T> pop_first(const int count)
+		{
+			return this->pop_front(count);
+		}
+		/// @brief Same as pop_back.
+		/// @see pop_back().
+		T pop_last()
+		{
+			return this->pop_back();
+		}
+		/// @brief Same as pop_back.
+		/// @see pop_back(const int count).
+		Array<T> pop_last(const int count)
+		{
+			return this->pop_back(count);
+		}
+		/// @brief Same as pop_front.
+		/// @see remove_front().
+		T remove_front()
+		{
+			return this->pop_front();
+		}
+		/// @brief Same as pop_front.
+		/// @see remove_front(const int count).
+		Array<T> remove_front(const int count)
+		{
+			return this->pop_front(count);
+		}
+		/// @brief Same as pop_back.
+		/// @see remove_back().
+		T remove_back()
+		{
+			return this->pop_back();
+		}
+		/// @brief Same as pop_back.
+		/// @see remove_back(const int count).
+		Array<T> remove_back(const int count)
+		{
+			return this->pop_back(count);
+		}
+		/// @brief Same as pop_front.
+		/// @see remove_front().
+		T remove_first()
+		{
+			return this->pop_front();
+		}
+		/// @brief Same as pop_front.
+		/// @see remove_front(const int count).
+		Array<T> remove_first(const int count)
+		{
+			return this->pop_front(count);
+		}
+		/// @brief Same as pop_back.
+		/// @see remove_back().
+		T remove_last()
+		{
+			return this->pop_back();
+		}
+		/// @brief Same as pop_back.
+		/// @see remove_back(const int count).
+		Array<T> remove_last(const int count)
+		{
+			return this->pop_back(count);
+		}
+		/// @brief Same as remove_at.
+		/// @see remove_at(const int index)
+		T pop(const int index)
+		{
+			return this->remove_at(index);
+		}
+		/// @brief Same as remove_at.
+		/// @see remove_at(const int index, const int count)
+		Array<T> pop(const int index, const int count)
+		{
+			return this->remove_at(index, count);
+		}
+		/// @brief Same as remove_at.
+		/// @see remove_at(const int index)
+		T pop_at(const int index)
+		{
+			return this->remove_at(index);
+		}
+		/// @brief Same as remove_at.
+		/// @see remove_at(const int index, const int count)
+		Array<T> pop_at(const int index, const int count)
+		{
+			return this->remove_at(index, count);
+		}
+		/// @brief Same as remove_all.
+		/// @see remove_all(T& element)
+		int pop_all(T& element)
+		{
+			return this->remove_all(element);
+		}
+		/// @brief Same as remove_all.
+		/// @see remove_all(const Array<T>& other)
+		int pop_all(const Array<T>& other)
+		{
+			return this->remove_all(other);
+		}
+		/// @brief Same as push_back.
 		/// @see push_back(const T& element)
 		Array<T>& operator<<(const T& element)
 		{
 			this->push_back(element);
-			return *this;
+			return (*this);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const Array<T>& other)
 		Array<T>& operator<<(const Array<T>& other)
 		{
 			this->push_back(other);
-			return *this;
+			return (*this);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T& element)
 		Array<T>& operator+=(const T& element)
 		{
 			this->push_back(element);
-			return *this;
+			return (*this);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const Array<T>& other)
 		Array<T>& operator+=(const Array<T>& other)
 		{
 			this->push_back(other);
-			return *this;
+			return (*this);
 		}
 		/// @brief Same as remove.
 		/// @see remove(T element)
 		Array<T>& operator-=(T element)
 		{
 			this->remove(element);
-			return *this;
+			return (*this);
 		}
 		/// @brief Same as remove.
 		/// @see remove(const Array<T>& other)
 		Array<T>& operator-=(const Array<T>& other)
 		{
 			this->remove(other);
-			return *this;
+			return (*this);
 		}
 		/// @brief Same as unite.
 		/// @see unite
 		Array<T>& operator|=(const Array<T>& other)
 		{
 			this->unite(other);
-			return *this;
+			return (*this);
 		}
 		/// @brief Same as intersect.
 		/// @see intersect
 		Array<T>& operator&=(const Array<T>& other)
 		{
 			this->intersect(other);
-			return *this;
+			return (*this);
 		}
 		/// @brief Same as differentiate.
 		/// @see differentiate
 		Array<T>& operator/=(const Array<T>& other)
 		{
 			this->differentiate(other);
-			return *this;
+			return (*this);
 		}
 		/// @brief Merges two Arrays.
 		/// @param[in] other Second Array to merge with.

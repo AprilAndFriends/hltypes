@@ -117,6 +117,19 @@ namespace hltypes
 	/// @brief Alias for simpler code.
 	#define size_error(function_name) hltypes::_size_error(function_name, __FILE__, __LINE__)
 	
+	/// @brief Defines an element-error exception.
+	class hltypesExport _element_not_found_error : public exception
+	{
+	public:
+		/// @brief Basic constructor.
+		/// @param[in] source_file Name of the source file.
+		/// @param[in] line Number of the line.
+		_element_not_found_error(const char* source_file, int line);
+		
+	};
+	/// @brief Alias for simpler code.
+	#define element_not_found_error() hltypes::_element_not_found_error(__FILE__, __LINE__)
+	
 	/// @brief Defines a range-error exception.
 	class hltypesExport _range_error : public exception
 	{
