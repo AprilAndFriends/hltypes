@@ -54,6 +54,11 @@ namespace hltypes
 	{
 	}
 /************************************************************************************/
+	_element_not_found_error::_element_not_found_error(const char* source_file, int line) :
+	    exception("element not found in array", source_file, line)
+	{
+	}
+/************************************************************************************/
 	_range_error::_range_error(int start, int count, const char* source_file, int line) :
 	    exception("range '" + hstr(start) + " by " + hstr(count) + "' out of range", source_file, line)
 	{
