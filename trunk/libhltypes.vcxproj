@@ -60,6 +60,11 @@
       <OutputFile>$(OutDir)$(ProjectName)$(TargetExt)</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir $(SolutionDir)bin\lib\msvc100
+copy bin\$(Configuration)\*.dll $(SolutionDir)bin\lib\msvc100
+copy bin\$(Configuration)\*.lib $(SolutionDir)bin\lib\msvc100</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">
     <ClCompile>
@@ -75,6 +80,11 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir $(SolutionDir)bin\lib\msvc100
+copy bin\$(Configuration)\*.dll $(SolutionDir)bin\lib\msvc100
+copy bin\$(Configuration)\*.lib $(SolutionDir)bin\lib\msvc100</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\exception.cpp" />

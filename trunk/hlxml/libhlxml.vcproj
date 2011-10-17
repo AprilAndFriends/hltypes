@@ -62,7 +62,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="libhltypes_d.lib libxml2.lib"
 				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
-				AdditionalLibraryDirectories="../../lib/msvc90;../bin/$(ConfigurationName)"
+				AdditionalLibraryDirectories="../../lib/msvc90;$(SolutionDir)bin/lib/msvc90"
 				GenerateDebugInformation="true"
 			/>
 			<Tool
@@ -85,7 +85,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				CommandLine="mkdir $(SolutionDir)bin\lib\msvc90&#x0D;&#x0A;copy ..\bin\hlxml\$(ConfigurationName)\*.dll $(SolutionDir)bin\lib\msvc90&#x0D;&#x0A;copy ..\bin\hlxml\$(ConfigurationName)\*.lib $(SolutionDir)bin\lib\msvc90"
 			/>
 		</Configuration>
 		<Configuration
@@ -135,7 +135,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libhltypes.lib libxml2.lib"
-				AdditionalLibraryDirectories="../../lib/msvc90;../bin/$(ConfigurationName)"
+				AdditionalLibraryDirectories="../../lib/msvc90;$(SolutionDir)bin/lib/msvc90"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -157,7 +157,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				CommandLine="mkdir $(SolutionDir)bin\lib\msvc90&#x0D;&#x0A;copy ..\bin\hlxml\$(ConfigurationName)\*.dll $(SolutionDir)bin\lib\msvc90&#x0D;&#x0A;copy ..\bin\hlxml\$(ConfigurationName)\*.lib $(SolutionDir)bin\lib\msvc90"
 			/>
 		</Configuration>
 	</Configurations>

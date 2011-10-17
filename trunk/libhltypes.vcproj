@@ -85,6 +85,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="mkdir $(SolutionDir)bin\lib\msvc90&#x0D;&#x0A;copy bin\$(ConfigurationName)\*.dll $(SolutionDir)bin\lib\msvc90&#x0D;&#x0A;copy bin\$(ConfigurationName)\*.lib $(SolutionDir)bin\lib\msvc90"
 			/>
 		</Configuration>
 		<Configuration
@@ -155,6 +156,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="mkdir $(SolutionDir)bin\lib\msvc90&#x0D;&#x0A;copy bin\$(ConfigurationName)\*.dll $(SolutionDir)bin\lib\msvc90&#x0D;&#x0A;copy bin\$(ConfigurationName)\*.lib $(SolutionDir)bin\lib\msvc90"
 			/>
 		</Configuration>
 	</Configurations>

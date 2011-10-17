@@ -56,12 +56,14 @@
     <Link>
       <AdditionalDependencies>libhltypes.lib;libxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>../../lib/msvc100;../bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\lib\msvc100;$(SolutionDir)bin\lib\msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>mkdir $(SolutionDir)bin\lib\msvc100
+copy ..\bin\hlxml\$(Configuration)\*.dll $(SolutionDir)bin\lib\msvc100
+copy ..\bin\hlxml\$(Configuration)\*.lib $(SolutionDir)bin\lib\msvc100
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">
@@ -78,11 +80,13 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>libhltypes.lib;libxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/msvc100;../bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\lib\msvc100;$(SolutionDir)bin\lib\msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>mkdir $(SolutionDir)bin\lib\msvc100
+copy ..\bin\hlxml\$(Configuration)\*.dll $(SolutionDir)bin\lib\msvc100
+copy ..\bin\hlxml\$(Configuration)\*.lib $(SolutionDir)bin\lib\msvc100
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
