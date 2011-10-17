@@ -38,7 +38,7 @@ namespace hltypes
 	{
 		this->filename = normalize_path(filename);
 #ifdef NO_FS_TREE
-		this->filename = this->filename.replace("/", "_");
+		this->filename = this->filename.replace("/", "___");
 #endif
 		this->encryption_offset = encryption_offset;
 		this->open(filename, access_mode, encryption_offset);
@@ -66,7 +66,7 @@ namespace hltypes
 		}
 		this->filename = normalize_path(filename);
 #ifdef NO_FS_TREE
-		this->filename = this->filename.replace("/", "_");
+		this->filename = this->filename.replace("/", "___");
 #endif
 		this->encryption_offset = encryption_offset;
 		const char* mode = "rb";
@@ -729,7 +729,7 @@ namespace hltypes
 	{
 		hstr name = normalize_path(filename);
 #ifdef NO_FS_TREE
-		name = name.replace("/", "_");
+		name = name.replace("/", "___");
 #endif
 		if (!hfile::exists(name))
 		{
@@ -763,7 +763,7 @@ namespace hltypes
 	{
 		hstr name = normalize_path(filename);
 #ifdef NO_FS_TREE
-		name = name.replace("/", "_");
+		name = name.replace("/", "___");
 #endif
 		return (f_remove(name.c_str()) == 0);
 	}
@@ -772,7 +772,7 @@ namespace hltypes
 	{
 		hstr name = normalize_path(filename);
 #ifdef NO_FS_TREE
-		name = name.replace("/", "_");
+		name = name.replace("/", "___");
 #endif
 		FILE* f = fopen(name.c_str(), "r");
 		if (f != NULL)
@@ -787,7 +787,7 @@ namespace hltypes
 	{
 		hstr name = normalize_path(filename);
 #ifdef NO_FS_TREE
-		name = name.replace("/", "_");
+		name = name.replace("/", "___");
 #endif
 		if (hfile::exists(name))
 		{
@@ -806,8 +806,8 @@ namespace hltypes
 		hstr old_name = normalize_path(old_filename);
 		hstr new_name = normalize_path(new_filename);
 #ifdef NO_FS_TREE
-		old_name = old_name.replace("/", "_");
-		new_name = new_name.replace("/", "_");
+		old_name = old_name.replace("/", "___");
+		new_name = new_name.replace("/", "___");
 #endif
 		if (!hfile::exists(old_name) || hfile::exists(new_name))
 		{
@@ -821,7 +821,7 @@ namespace hltypes
 	{
 		hstr name = normalize_path(filename);
 #ifdef NO_FS_TREE
-		name = name.replace("/", "_");
+		name = name.replace("/", "___");
 #endif
 		return hfile::rename(name, path + "/" + name.rsplit("/", 1, false).pop_back());
 	}
@@ -831,8 +831,8 @@ namespace hltypes
 		hstr old_name = normalize_path(old_filename);
 		hstr new_name = normalize_path(new_filename);
 #ifdef NO_FS_TREE
-		old_name = old_name.replace("/", "_");
-		new_name = new_name.replace("/", "_");
+		old_name = old_name.replace("/", "___");
+		new_name = new_name.replace("/", "___");
 #endif
 		if (!hfile::exists(old_name) || hfile::exists(new_name))
 		{
@@ -863,7 +863,7 @@ namespace hltypes
 	{
 		hstr name = normalize_path(filename);
 #ifdef NO_FS_TREE
-		name = name.replace("/", "_");
+		name = name.replace("/", "___");
 #endif
 		return hfile(name).read(count);
 	}
@@ -872,7 +872,7 @@ namespace hltypes
 	{
 		hstr name = normalize_path(filename);
 #ifdef NO_FS_TREE
-		name = name.replace("/", "_");
+		name = name.replace("/", "___");
 #endif
 		return hfile(name).read(delimiter);
 	}
@@ -881,7 +881,7 @@ namespace hltypes
 	{
 		hstr name = normalize_path(filename);
 #ifdef NO_FS_TREE
-		name = name.replace("/", "_");
+		name = name.replace("/", "___");
 #endif
 		hfile(name, WRITE).write(text);
 	}
@@ -890,7 +890,7 @@ namespace hltypes
 	{
 		hstr name = normalize_path(filename);
 #ifdef NO_FS_TREE
-		name = name.replace("/", "_");
+		name = name.replace("/", "___");
 #endif
 		hfile(name, APPEND).write(text);
 	}

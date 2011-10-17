@@ -125,7 +125,7 @@ hstr systemize_path(chstr path)
 {
 	hstr result = normalize_path(path);
 #ifdef NO_FS_TREE
-	result = result.replace("/", "_");
+	result = result.replace("/", "___");
 #endif
 	return result;
 }

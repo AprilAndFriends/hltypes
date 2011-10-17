@@ -19,14 +19,18 @@
 #include "Exception.h"
 #include "Node.h"
 
+#include "hltypes/util.h"
+
 namespace hlxml
 {
 	Document::Document(chstr filename) : rootNode(NULL)
 	{
 #ifdef USE_TINYXML
 		hstr newname = filename;
+		normalize_path(newname);
 #ifdef NO_FS_TREE
-		newname = newname.replace("/", "_");
+		newname = newname.replace("/", "___");
+		printf("[HLXML] XML Document filename : %s\n", newname.c_str());
 #endif
 		this->xmlDocument = new TiXmlDocument(newname.c_str());
 		this->xmlDocument->LoadFile();
@@ -45,7 +49,8 @@ namespace hlxml
 	Document::~Document()
 	{
 #ifdef USE_TINYXML
-		delete this->xmlDocument;
+		if(this->xmlDocument)
+			delete this->xmlDocument;
 #else
 		xmlFreeDoc(this->xmlDocument);
 #endif
