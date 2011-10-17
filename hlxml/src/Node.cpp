@@ -137,6 +137,7 @@ namespace hlxml
 	bool Node::operator==(const char* name)
 	{
 #ifdef USE_TINYXML
+		printf("this->Value() %s :: name %s\n", this->Value(), name);
 		return chstr(this->Value()) == chstr(name);
 #else
 		return (xmlStrcmp(this->name, (const xmlChar*)name) == 0);
@@ -146,6 +147,7 @@ namespace hlxml
 	bool Node::operator!=(const char* name)
 	{
 #ifdef USE_TINYXML
+		printf("this->Value() %s :: name %s\n", this->Value(), name);
 		return chstr(this->Value()) != chstr(name);
 #else
 		return (xmlStrcmp(this->name, (const xmlChar*)name) != 0);
@@ -155,6 +157,7 @@ namespace hlxml
 	bool Node::operator==(chstr name)
 	{
 #ifdef USE_TINYXML
+		printf("this->Value() %s :: name %s\n", this->Value(), name.c_str());
 		return chstr(this->Value()) == name;
 #else
 		return (xmlStrcmp(this->name, (const xmlChar*)name.c_str()) == 0);
@@ -164,6 +167,7 @@ namespace hlxml
 	bool Node::operator!=(chstr name)
 	{
 #ifdef USE_TINYXML
+		printf("this->Value() %s :: name %s\n", this->Value(), name.c_str());
 		return chstr(this->Value()) != name;
 #else
 		return (xmlStrcmp(this->name, (const xmlChar*)name.c_str()) != 0);

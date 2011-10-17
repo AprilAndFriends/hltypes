@@ -132,7 +132,7 @@ namespace hltypes
 		hrmdir(name);
 		return hdir::exists(name);
 #else
-		// TODO delete all files starting with dirname where all '/' are replaced by '-'
+		// TODO delete all files starting with dirname where all '/' are replaced by '___'
 		return true;
 #endif
 	}
@@ -149,7 +149,7 @@ namespace hltypes
 		}
 		return false;
 #else
-		// TODO return true if there are any files starting with dirname with replaced '/' for '_'
+		// TODO return true if there are any files starting with dirname with replaced '/' for '___'
 		return false;
 #endif
 	}
@@ -253,6 +253,13 @@ namespace hltypes
 			}
 		}
 #else
+		if(dirname != "")
+		{
+			foreach(hstr, it, entries)
+			{
+				(*it) = dirname.replace("/", "___") + "___" + (*it);
+			}
+		}
 #endif
     }
 	
@@ -378,6 +385,23 @@ namespace hltypes
 		return result;
 #else
 		Array<hstr> result;
+		DIR *dir = opendir("./");
+		struct dirent *entry;
+		hstr tmp;
+		hstr name = normalize_path(dirname);
+		name = name.replace("/","___");
+		while((entry = readdir(dir)))
+		{
+			tmp = hstr(entry->d_name);
+			if(tmp.starts_with(name))
+			{
+				printf("%s\n", entry->d_name);
+				if(!prepend_dir)
+					tmp = tmp.split("___")[-1];
+				result += tmp;
+			}
+		}
+		closedir(dir);
 		return result;
 #endif
 	}
