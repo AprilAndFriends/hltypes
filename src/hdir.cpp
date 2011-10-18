@@ -399,12 +399,12 @@ namespace hltypes
 			}
 		}
 		name = name.replace("___", "/");
+		closedir(dir);
 #endif
 		if (prepend_dir)
 		{
 			prepend_directory(name, result);
 		}
-		closedir(dir);
 		return result;
 	}
 	
