@@ -76,7 +76,9 @@ namespace hlxml
 		}
 		if (rootElementQuery != "" && this->rootNode->Value() != rootElementQuery)
 		{
+#ifdef _DEBUG_OUTPUT
 			printf("this->rootNode->Value() = %s\n", this->rootNode->Value());
+#endif
 			hstr docname = (char*)this->xmlDocument->Value();
 			delete this->xmlDocument;
 #ifdef _DEBUG_OUTPUT

@@ -253,11 +253,11 @@ namespace hltypes
 			}
 		}
 #else
-		if(dirname != "")
+		if (dirname != "")
 		{
-			foreach(hstr, it, entries)
+			foreach (hstr, it, entries)
 			{
-				(*it) = dirname.replace("/", "___") + "___" + (*it);
+				(*it) = dirname + "/" + (*it);
 			}
 		}
 #endif
@@ -284,6 +284,7 @@ namespace hltypes
 		}
 		return result;
 #else
+		//2do
 		Array<hstr> result;
 		return result;
 #endif
@@ -312,6 +313,7 @@ namespace hltypes
 		}
 		return result;
 #else
+		//2do
 		Array<hstr> result;
 		return result;
 #endif
@@ -345,6 +347,7 @@ namespace hltypes
 		}
 		return result;
 #else
+		//2do
 		Array<hstr> result;
 		return result;
 #endif
@@ -378,11 +381,6 @@ namespace hltypes
 			}
 			closedir(dir);
 		}
-        if (prepend_dir)
-		{
-			prepend_directory(name, result);
-		}
-		return result;
 #else
 		Array<hstr> result;
 		DIR *dir = opendir("./");
@@ -390,20 +388,24 @@ namespace hltypes
 		hstr tmp;
 		hstr name = normalize_path(dirname);
 		name = name.replace("/","___");
-		while((entry = readdir(dir)))
+		while ((entry = readdir(dir)))
 		{
 			tmp = hstr(entry->d_name);
-			if(tmp.starts_with(name))
+			if (tmp.starts_with(name))
 			{
 				printf("%s\n", entry->d_name);
-				if(!prepend_dir)
-					tmp = tmp.split("___")[-1];
+				tmp = tmp.split("___")[-1];
 				result += tmp;
 			}
 		}
+		name = name.replace("___", "/");
+#endif
+		if (prepend_dir)
+		{
+			prepend_directory(name, result);
+		}
 		closedir(dir);
 		return result;
-#endif
 	}
 	
 }
