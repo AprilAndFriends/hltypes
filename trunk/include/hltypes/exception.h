@@ -56,6 +56,7 @@ namespace hltypes
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line Number of the line.
 		_file_not_found(chstr filename, const char* source_file, int line);
+		~_file_not_found();
 		
 	};
 	/// @brief Alias for simpler code.
@@ -70,6 +71,7 @@ namespace hltypes
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line Number of the line.
 		_file_not_open(chstr filename, const char* source_file, int line);
+		~_file_not_open();
 		
 	};
 	/// @brief Alias for simpler code.
@@ -84,6 +86,7 @@ namespace hltypes
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line Number of the line.
 		_file_long_error(chstr filename, const char* source_file, int line);
+		~_file_long_error();
 		
 	};
 	/// @brief Alias for simpler code.
@@ -98,6 +101,7 @@ namespace hltypes
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line Number of the line.
 		_index_error(int index, const char* source_file, int line);
+		~_index_error();
 		
 	};
 	/// @brief Alias for simpler code.
@@ -112,6 +116,7 @@ namespace hltypes
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line Number of the line.
 		_size_error(chstr function_name, const char* source_file, int line);
+		~_size_error();
 		
 	};
 	/// @brief Alias for simpler code.
@@ -125,6 +130,7 @@ namespace hltypes
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line Number of the line.
 		_element_not_found_error(const char* source_file, int line);
+		~_element_not_found_error();
 		
 	};
 	/// @brief Alias for simpler code.
@@ -140,6 +146,7 @@ namespace hltypes
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line Number of the line.
 		_range_error(int start, int count, const char* source_file, int line);
+		~_range_error();
 		
 	};
 	/// @brief Alias for simpler code.
@@ -155,6 +162,7 @@ namespace hltypes
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line Number of the line.
 		_key_error(chstr key, chstr container, const char* source_file, int line);
+		~_key_error();
 		
 	};
 	/// @brief Alias for simpler code.
@@ -171,6 +179,7 @@ namespace hltypes
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line Number of the line.
 		_resource_error(chstr type, chstr name, chstr container, const char* source_file, int line);
+		~_resource_error();
 		
 	};
 	/// @brief Alias for simpler code.
