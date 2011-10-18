@@ -104,12 +104,12 @@ namespace hltypes
 		}
 		/// @brief Returns an Array with all values in the same order as the given corresponding keys.
 		/// @return An Array with all values in the same order as the given corresponding keys.
-		harray<V> values(harray<K> keys) const
+		harray<V> values(harray<K> keys)
 		{
 			harray<V> result;
 			for (iterator_map_key_t it = keys.begin(); it != keys.end(); it++)
 			{
-				result += stdmap::at(*it);
+				result += stdmap::operator[](*it);
 			}
 			return result;
 		}
@@ -130,7 +130,7 @@ namespace hltypes
 			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				// making sure operator== is used, not !=
-				if (!(stdmap::at(it->first) == other.at(it->first)))
+				if (!(stdmap::::operator[](it->first) == other[it->first]))
 				{
 					return false;
 				}
@@ -154,7 +154,7 @@ namespace hltypes
 			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				// making sure operator!= is used, not ==
-				if (stdmap::at(it->first) != other.at(it->first))
+				if (stdmap::operator[](it->first) != other[it->first])
 				{
 					return true;
 				}
