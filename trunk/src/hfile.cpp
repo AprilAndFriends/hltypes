@@ -823,7 +823,7 @@ namespace hltypes
 #ifdef NO_FS_TREE
 		name = name.replace("/", "___");
 #endif
-		return hfile::rename(name, path + "/" + name.rsplit("/", 1, false).pop_back());
+		return hfile::rename(name, path + "/" + name.rsplit("/", 1, false).pop_last());
 	}
 	
 	bool File::copy(chstr old_filename, chstr new_filename)

@@ -88,7 +88,7 @@ namespace hltypes
 		Array<hstr> folders = name.split("/", -1, false);
 		if (folders.size() > 0)
 		{
-			hstr path = folders.pop_front();
+			hstr path = folders.pop_first();
 			hmkdir(path);
 			foreach (hstr, it, folders)
 			{
@@ -200,7 +200,7 @@ namespace hltypes
 #ifndef NO_FS_TREE
 		hstr name = normalize_path(dirname);
 		hstr path_name = normalize_path(path);
-		return hdir::rename(name, path_name + "/" + name.rsplit("/", 1, false).pop_back());
+		return hdir::rename(name, path_name + "/" + name.rsplit("/", 1, false).pop_last());
 #else
 		return true;
 #endif
