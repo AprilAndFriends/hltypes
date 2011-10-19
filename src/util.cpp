@@ -89,29 +89,29 @@ hstr normalize_path(chstr path)
 	harray<hstr> result;
 	while (directories.size() > 0)
 	{
-		if (directories.front() == ".")
+		if (directories.first() == ".")
 		{
-			directories.pop_front();
+			directories.pop_first();
 		}
-		else if (directories.front() == "..")
+		else if (directories.first() == "..")
 		{
 			if (result.size() == 0)
 			{
-				result += directories.pop_front();
+				result += directories.pop_first();
 			}
-			else if (result.back() == "..")
+			else if (result.last() == "..")
 			{
-				result += directories.pop_front();
+				result += directories.pop_first();
 			}
 			else
 			{
-				result.pop_back();
-				directories.pop_front();
+				result.pop_last();
+				directories.pop_first();
 			}
 		}
 		else
 		{
-			result += directories.pop_front();
+			result += directories.pop_first();
 		}
 	}
 	if (result.size() == 0)
@@ -137,7 +137,7 @@ hstr get_basedir(chstr filename)
 	{
 		return ".";
 	}
-	result.pop_back();
+	result.pop_last();
 	return result.join("/");
 }
 
