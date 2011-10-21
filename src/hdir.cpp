@@ -32,6 +32,17 @@ namespace hltypes
 {
 /******* STATIC ********************************************************/
 	
+	static hstr convert_to_native_path(hstr path)
+	{
+#ifndef NO_FS_TREE
+		return path;
+#else
+		hstr npath = path.ltrim('.').ltrim('.').ltrim('/');
+		npath = npath.replace("/","___");
+		return npath;
+#endif
+	}
+
 	static bool hmkdir(chstr path)
 	{
 		/*
@@ -174,6 +185,7 @@ namespace hltypes
 		}
 		return (directories.size() > 0 || files.size() > 0);
 #else
+		// TODO
 		return true;
 #endif
 	}
@@ -202,6 +214,7 @@ namespace hltypes
 		hstr path_name = normalize_path(path);
 		return hdir::rename(name, path_name + "/" + name.rsplit("/", 1, false).pop_last());
 #else
+		// TODO
 		return true;
 #endif
 	}
@@ -244,7 +257,6 @@ namespace hltypes
     
     void prepend_directory(chstr dirname, Array<hstr>& entries)
     {
-#ifndef NO_FS_TREE
 		if (dirname != "")
 		{
 			foreach (hstr, it, entries)
@@ -252,15 +264,6 @@ namespace hltypes
 				(*it) = dirname + "/" + (*it);
 			}
 		}
-#else
-		if (dirname != "")
-		{
-			foreach (hstr, it, entries)
-			{
-				(*it) = dirname + "/" + (*it);
-			}
-		}
-#endif
     }
 	
 	Array<hstr> Dir::entries(chstr dirname, bool prepend_dir)
