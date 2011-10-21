@@ -20,6 +20,7 @@
 #include "Node.h"
 
 #include "hltypes/util.h"
+#include "hdir.h"
 
 namespace hlxml
 {
@@ -28,10 +29,10 @@ namespace hlxml
 #ifdef USE_TINYXML
 		hstr newname = filename;
 		normalize_path(newname);
-#ifdef NO_FS_TREE
-		newname = newname.replace("/", "___");
+
+		newname = hdir::convert_to_native_path(newname);
 		printf("[HLXML] XML Document filename : %s\n", newname.c_str());
-#endif
+
 		this->xmlDocument = new TiXmlDocument(newname.c_str());
 		this->xmlDocument->LoadFile();
 #else

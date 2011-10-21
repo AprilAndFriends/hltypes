@@ -27,6 +27,10 @@ namespace hltypes
 	class hltypesExport Dir
 	{
 	public:
+		/// @brief 2DO
+		/// @param[in] filepath of the file.
+		/// @result 2DO
+		static hstr convert_to_native_path(hstr path);
 		/// @brief Creates a directory.
 		/// @param[in] dirname Name of the directory.
 		/// @result True if a new directory was created. False if directory could not be created or already exists.
