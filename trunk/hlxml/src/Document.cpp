@@ -20,7 +20,7 @@
 #include "Node.h"
 
 #include "hltypes/util.h"
-#include "hdir.h"
+#include "hltypes/hdir.h"
 
 namespace hlxml
 {
