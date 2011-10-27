@@ -130,7 +130,7 @@ namespace hltypes
 			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				// making sure operator== is used, not !=
-				if (!(stdmap::operator[](it->first) == other[it->first]))
+				if (!(it->second == other.find(it->first)->second))
 				{
 					return false;
 				}
@@ -154,7 +154,7 @@ namespace hltypes
 			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				// making sure operator!= is used, not ==
-				if (stdmap::operator[](it->first) != other[it->first])
+				if (it->second != other.find(it->first)->second)
 				{
 					return true;
 				}
