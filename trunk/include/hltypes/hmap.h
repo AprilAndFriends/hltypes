@@ -484,7 +484,7 @@ namespace hltypes
 		/// @return Value stored at key or given default value.
         V try_get_by_key(K key, V defaultValue) const
         {
-            return (this->has_key(key) ? return stdmap::find(key) : defaultValue);
+            return (this->has_key(key) ? stdmap::find(key)->second : defaultValue);
         }
 
 	};
