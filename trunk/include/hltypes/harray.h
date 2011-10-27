@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.0
+/// @version 1.4
 /// 
 /// @section LICENSE
 /// 
@@ -882,7 +882,7 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Returns a new Array with all elements dynamically cast into type S.
-		/// @brief include_nulls Whether to include NULLs that failed to cast.
+		/// @param[in] include_nulls Whether to include NULLs that failed to cast.
 		/// @return A new Array with all elements cast into type S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class S>
@@ -1154,49 +1154,49 @@ namespace hltypes
 			return this->pop_back(count);
 		}
 		/// @brief Same as pop_front.
-		/// @see remove_front().
+		/// @see pop_front().
 		T remove_front()
 		{
 			return this->pop_front();
 		}
 		/// @brief Same as pop_front.
-		/// @see remove_front(const int count).
+		/// @see pop_front(const int count).
 		Array<T> remove_front(const int count)
 		{
 			return this->pop_front(count);
 		}
 		/// @brief Same as pop_back.
-		/// @see remove_back().
+		/// @see pop_back().
 		T remove_back()
 		{
 			return this->pop_back();
 		}
 		/// @brief Same as pop_back.
-		/// @see remove_back(const int count).
+		/// @see pop_back(const int count).
 		Array<T> remove_back(const int count)
 		{
 			return this->pop_back(count);
 		}
 		/// @brief Same as pop_front.
-		/// @see remove_front().
+		/// @see pop_front().
 		T remove_first()
 		{
 			return this->pop_front();
 		}
 		/// @brief Same as pop_front.
-		/// @see remove_front(const int count).
+		/// @see pop_front(const int count).
 		Array<T> remove_first(const int count)
 		{
 			return this->pop_front(count);
 		}
 		/// @brief Same as pop_back.
-		/// @see remove_back().
+		/// @see pop_back().
 		T remove_last()
 		{
 			return this->pop_back();
 		}
 		/// @brief Same as pop_back.
-		/// @see remove_back(const int count).
+		/// @see pop_back(const int count).
 		Array<T> remove_last(const int count)
 		{
 			return this->pop_back(count);

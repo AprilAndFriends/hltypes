@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.0
+/// @version 1.4
 /// 
 /// @section LICENSE
 /// 
@@ -328,23 +328,23 @@ namespace hltypes
 		/// @brief Gets a random element in Map.
 		/// @param[out] value Value of selected random entry.
 		/// @return Random element or NULL if Map is empty.
-		K random(V* value = NULL) 
+		K random(V* value = NULL) const
 		{
 			if (this->size() == 0)
 			{
-				return NULL;
+				throw size_error("random()");
 			}
 			K key = this->keys()[hrand(this->size())];
 			if (value != NULL)
 			{
-				*value = stdmap::operator[](key);
+				*value = stdmap::find(key);
 			}
 			return key;
 		}
 		/// @brief Gets a Map of random elements selected from this one.
 		/// @param[in] count Number of random elements.
 		/// @return Map of random elements selected from this one.
-		Map<K, V> random(int count)
+		Map<K, V> random(int count) const
 		{
 			if (count >= this->size())
 			{
@@ -358,7 +358,7 @@ namespace hltypes
 				for (int i = 0; i < count; i++)
 				{
 					key = keys.remove_at(hrand(keys.size()));
-					result[key] = stdmap::operator[](key);
+					result[key] = stdmap::find(key);
 				}
 			}
 			return result;
@@ -420,10 +420,11 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Returns a new Map with all keys and values dynamically cast into the type L and S.
+		/// @param[in] include_nulls Whether to include value NULLs that failed to cast.
 		/// @return A new Map with all keys and values cast into the type L and S.
-		/// @note If dynamic casting fails, it won't be included in the result.
+		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class L, class S>
-		Map<L, S> dyn_cast() const
+		Map<L, S> dyn_cast(bool include_nulls = false) const
 		{
 			Map<L, S> result;
 			L key;
@@ -432,7 +433,7 @@ namespace hltypes
 			{
 				key = dynamic_cast<L>(it->first);
 				value = dynamic_cast<S>(it->second);
-				if (key != NULL && value != NULL)
+				if (key != NULL && (value != NULL || include_nulls))
 				{
 					result[key] = value;
 				}
@@ -442,6 +443,7 @@ namespace hltypes
 		/// @brief Returns a new Map with all keys and values dynamically cast into the type L and non-dynamically into S.
 		/// @return A new Map with all keys and values cast into the type L and S.
 		/// @note If dynamic casting fails, it won't be included in the result.
+		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class L, class S>
 		Map<L, S> dyn_cast_key() const
 		{
@@ -458,35 +460,33 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Returns a new Map with all keys and values cast into the type L and dynamically into S.
+		/// @param[in] include_nulls Whether to include value NULLs that failed to cast.
 		/// @return A new Map with all keys and values cast into the type L and S.
-		/// @note If dynamic casting fails, it won't be included in the result.
+		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class L, class S>
-		Map<L, S> dyn_cast_value() const
+		Map<L, S> dyn_cast_value(bool include_nulls = false) const
 		{
 			Map<L, S> result;
 			S value;
 			for (iterator_map_t it = stdmap::begin(); it != stdmap::end(); it++)
 			{
 				value = dynamic_cast<S>(it->second);
-				if (value != NULL)
+				if (value != NULL || include_nulls)
 				{
 					result[(L)it->first] = value;
 				}
 			}
 			return result;
 		}
-        /// @brief Finds and returns value stored at key. In case no value is found, returns default.
-		/// @param[in] key Key which we want to retrieve.
-        /// @param[in] def Default value to return if key does not exist.
+        /// @brief Finds and returns value stored at key. In case no value is found, returns the given default value.
+		/// @param[in] key Key to retrieve the value of.
+        /// @param[in] defaultValue Default value to return if key does not exist.
 		/// @return Value stored at key or given default value.
-        V try_get_by_key(K key, V def)
+        V try_get_by_key(K key, V defaultValue) const
         {
-            if (this->has_key(key)) 
-            {
-                return operator[](key);
-            }
-			return def;
+            return (this->has_key(key) ? return stdmap::find(key) : defaultValue);
         }
+
 	};
 	
 }
