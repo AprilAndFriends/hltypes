@@ -193,14 +193,41 @@ template <class T> int sgn(T value)
 {
 	return (value >= 0 ? 1 : -1);
 }
-/// @brief Checks whether an element is within the range of two other elements.
-/// @param[in] value The element to clamp.
+/// @brief Checks whether an element is within the range of two other elements, inclusively.
+/// @param[in] value The element to check.
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is between minimum and maximum.
 template <class T> bool is_between(T value, T min, T max)
 {
 	return (value >= min && value <= max);
+}
+/// @brief Checks whether an element is within the range of two other elements, exclusively.
+/// @param[in] value The element to check.
+/// @param[in] min Minimum exclusive boundary.
+/// @param[in] max Maximum exclusive boundary.
+/// @return True if element is between minimum and maximum.
+template <class T> bool is_within(T value, T min, T max)
+{
+	return (value > min && value < max);
+}
+/// @brief Checks whether an element is within inclusive minimum and exclusive maximum of two other elements.
+/// @param[in] value The element to check.
+/// @param[in] min Minimum inclusive boundary.
+/// @param[in] max Maximum exclusive boundary.
+/// @return True if element is inside of minimum and maximum.
+template <class T> bool is_in_range(T value, T min, T max) // I'd like to be inside
+{
+	return (value >= min && value < max);
+}
+/// @brief Checks whether an element is within exclusive minimum and inclusive maximum of two other elements.
+/// @param[in] value The element to check.
+/// @param[in] min Minimum exclusive boundary.
+/// @param[in] max Maximum inclusive boundary.
+/// @return True if element is inside of minimum and maximum.
+template <class T> bool is_inside(T value, T min, T max)
+{
+	return (value > min && value <= max);
 }
 
 /// @brief Debug macro.

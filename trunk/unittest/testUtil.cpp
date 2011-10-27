@@ -33,6 +33,7 @@ TEST(Util_sgn)
 
 TEST(Util_is_between)
 {
+	// is_between
 	CHECK(is_between(6, 0, 22));
 	CHECK(is_between(0, 0, 22));
 	CHECK(is_between(22, 0, 22));
@@ -43,6 +44,39 @@ TEST(Util_is_between)
 	CHECK(is_between(10.0f, 5.0f, 10.0f));
 	CHECK(!is_between(3.0f, 5.0f, 10.0f));
 	CHECK(!is_between(10.0001f, -5.0f, 10.0f));
+	// is_within
+	CHECK(is_within(6, 0, 22));
+	CHECK(!is_within(0, 0, 22));
+	CHECK(!is_within(22, 0, 22));
+	CHECK(!is_within(23, 0, 22));
+	CHECK(!is_within(-1, 0, 22));
+	CHECK(is_within(6.7f, 5.0f, 10.0f));
+	CHECK(!is_within(5.0f, 5.0f, 10.0f));
+	CHECK(!is_within(10.0f, 5.0f, 10.0f));
+	CHECK(!is_within(3.0f, 5.0f, 10.0f));
+	CHECK(!is_within(10.0001f, -5.0f, 10.0f));
+	// is_in_range
+	CHECK(is_in_range(6, 0, 22));
+	CHECK(is_in_range(0, 0, 22));
+	CHECK(!is_in_range(22, 0, 22));
+	CHECK(!is_in_range(23, 0, 22));
+	CHECK(!is_in_range(-1, 0, 22));
+	CHECK(is_in_range(6.7f, 5.0f, 10.0f));
+	CHECK(is_in_range(5.0f, 5.0f, 10.0f));
+	CHECK(!is_in_range(10.0f, 5.0f, 10.0f));
+	CHECK(!is_in_range(3.0f, 5.0f, 10.0f));
+	CHECK(!is_in_range(10.0001f, -5.0f, 10.0f));
+	// is_inside
+	CHECK(is_inside(6, 0, 22));
+	CHECK(!is_inside(0, 0, 22));
+	CHECK(is_inside(22, 0, 22));
+	CHECK(!is_inside(23, 0, 22));
+	CHECK(!is_inside(-1, 0, 22));
+	CHECK(is_inside(6.7f, 5.0f, 10.0f));
+	CHECK(!is_inside(5.0f, 5.0f, 10.0f));
+	CHECK(is_inside(10.0f, 5.0f, 10.0f));
+	CHECK(!is_inside(3.0f, 5.0f, 10.0f));
+	CHECK(!is_inside(10.0001f, -5.0f, 10.0f));
 }
 
 TEST(Util_hmin)
