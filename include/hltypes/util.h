@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.0
+/// @version 1.4
 /// 
 /// @section LICENSE
 /// 
@@ -229,14 +229,5 @@ template <class T> bool is_inside(T value, T min, T max)
 {
 	return (value > min && value <= max);
 }
-
-/// @brief Debug macro.
-/// @todo Implement system("pause") in a nicer, crossplatform way.
-#define HLBREAKPT \
-	printf("HL Breakpoint:\n"); \
-	printf(" -> File: %s\n", __FILE__); \
-	printf(" -> Line: %d\n", __LINE__); \
-	printf(" -> Func: %s\n", __PRETTY_FUNCTION__); \
-	system("pause");
 
 #endif

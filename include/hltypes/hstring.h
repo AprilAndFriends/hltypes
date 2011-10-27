@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 1.0
+/// @version 1.4
 /// 
 /// @section LICENSE
 /// 
@@ -23,7 +23,7 @@
 #include "hltypesExport.h"
 
 #if defined(_MSC_VER) && _MSC_VER == 1600 && !defined(_NO_MSC_FIX_NPOS)
-/// @brief Circumvents a compilation problem in VS2010
+/// @brief Circumvents a compilation problem in VS 2010
 const std::string::size_type std::string::npos = size_t(-1);
 #endif
 
