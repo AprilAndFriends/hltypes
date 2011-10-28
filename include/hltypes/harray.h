@@ -54,14 +54,27 @@ namespace hltypes
 		Array(const Array<T>& other) : stdvector(other)
 		{
 		}
-		/// @brief Copy constructor.
+		/// @brief Constructor from single element.
+		/// @param[in] element Element to insert.
+		Array(const T& element) : stdvector()
+		{
+			this->insert_at(0, element);
+		}
+		/// @brief Constructor from single element.
+		/// @param[in] element Element to insert.
+		/// @param[in] times Number of times to insert element.
+		Array(const T& element, int times) : stdvector()
+		{
+			this->insert_at(0, element, times);
+		}
+		/// @brief Constructor from another Array.
 		/// @param[in] other Array to copy.
 		/// @param[in] count Number of elements to copy.
 		Array(const Array<T>& other, const int count) : stdvector()
 		{
-			this->insert_at(0, other, 0, count);
+			this->insert_at(0, other, count);
 		}
-		/// @brief Copy constructor.
+		/// @brief Constructor from another Array.
 		/// @param[in] other Array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
@@ -74,7 +87,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to copy.
 		Array(const T other[], const int count) : stdvector()
 		{
-			this->insert_at(0, other, 0, count);
+			this->insert_at(0, other, count);
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
@@ -84,7 +97,7 @@ namespace hltypes
 		{
 			this->insert_at(0, other, start, count);
 		}
-		/// @brief Destructor
+		/// @brief Destructor.
 		~Array()
 		{
 		}
@@ -553,12 +566,28 @@ namespace hltypes
 			stdvector::erase(begin, end);
 			return result;
 		}
+		/// @brief Unites elements of this Array with an element.
+		/// @param[in] element Element to unite with.
+		void unite(const T& element)
+		{
+			this->insert_at(this->size(), element);
+			this->remove_duplicates();
+		}
 		/// @brief Unites elements of this Array with another one.
 		/// @param[in] other Array to unite with.
 		void unite(const Array<T>& other)
 		{
 			this->insert_at(this->size(), other);
 			this->remove_duplicates();
+		}
+		/// @brief Creates a new Array as union of this Array with an element.
+		/// @param[in] element Element to unite with.
+		/// @return A new Array.
+		Array<T> united(const T& element) const
+		{
+			Array<T> result(*this);
+			result.unite(element);
+			return result;
 		}
 		/// @brief Creates a new Array as union of this Array with another one.
 		/// @param[in] other Array to unite with.
@@ -592,6 +621,17 @@ namespace hltypes
 			result.intersect(other);
 			return result;
 		}
+		/// @brief Differentiates elements of this Array with an element.
+		/// @param[in] other Element to differentiate with.
+		/// @note Unlike remove, this method ignores if the element is not in this Array.
+		void differentiate(const T& element)
+		{
+			int index = this->index_of(element);
+			if (index >= 0)
+			{
+				stdvector::erase(stdvector::begin() + index);
+			}
+		}
 		/// @brief Differentiates elements of this Array with another one.
 		/// @param[in] other Array to differentiate with.
 		/// @note Unlike remove, this method ignore elements of other Array that are not in this one.
@@ -606,6 +646,16 @@ namespace hltypes
 					stdvector::erase(stdvector::begin() + index);
 				}
 			}
+		}
+		/// @brief Creates a new Array as difference of this Array with an element.
+		/// @param[in] other Element to differentiate with.
+		/// @return A new Array.
+		/// @note Unlike remove, this method ignores if the element is not in this Array.
+		Array<T> differentiated(const T& element) const
+		{
+			Array<T> result(*this);
+			result.differentiate(element);
+			return result;
 		}
 		/// @brief Creates a new Array as difference of this Array with another one.
 		/// @param[in] other Array to differentiate with.
@@ -1280,25 +1330,48 @@ namespace hltypes
 			return (*this);
 		}
 		/// @brief Same as unite.
-		/// @see unite
+		/// @see unite(const T& element)
+		Array<T>& operator|=(const T& element)
+		{
+			this->unite(element);
+			return (*this);
+		}
+		/// @brief Same as unite.
+		/// @see unite(const Array<T>& other)
 		Array<T>& operator|=(const Array<T>& other)
 		{
 			this->unite(other);
 			return (*this);
 		}
 		/// @brief Same as intersect.
-		/// @see intersect
+		/// @see intersect(const Array<T>& other)
 		Array<T>& operator&=(const Array<T>& other)
 		{
 			this->intersect(other);
 			return (*this);
 		}
 		/// @brief Same as differentiate.
-		/// @see differentiate
+		/// @see differentiate(const T& element)
+		Array<T>& operator/=(const T& element)
+		{
+			this->differentiate(element);
+			return (*this);
+		}
+		/// @brief Same as differentiate.
+		/// @see differentiate(const Array<T>& other)
 		Array<T>& operator/=(const Array<T>& other)
 		{
 			this->differentiate(other);
 			return (*this);
+		}
+		/// @brief Merges an Array with an element.
+		/// @param[in] element Element to merge with.
+		/// @return New Array with element added at the end of Array.
+		Array<T> operator+(const T& element) const
+		{
+			Array<T> result(*this);
+			result += element;
+			return result;
 		}
 		/// @brief Merges two Arrays.
 		/// @param[in] other Second Array to merge with.
@@ -1309,13 +1382,13 @@ namespace hltypes
 			result += other;
 			return result;
 		}
-		/// @brief Merges an Array with an element.
-		/// @param[in] element Element to merge with.
-		/// @return New Array with element added at the end of Array.
-		Array<T> operator+(const T& element) const
+		/// @brief Removes element from Array.
+		/// @param[in] element Element to remove.
+		/// @return New Array with elements of first Array without given element.
+		Array<T> operator-(T element) const
 		{
 			Array<T> result(*this);
-			result += element;
+			result -= element;
 			return result;
 		}
 		/// @brief Removes second Array from first Array.
@@ -1327,29 +1400,32 @@ namespace hltypes
 			result -= other;
 			return result;
 		}
-		/// @brief Removes element from Array.
-		/// @param[in] element Element to remove.
-		/// @return New Array with elements of first Array without given element.
-		Array<T> operator-(const T& element) const
+		/// @brief Same as united.
+		/// @see united(const T& element)
+		Array<T> operator|(const T& element) const
 		{
-			Array<T> result(*this);
-			result -= element;
-			return result;
+			return this->united(element);
 		}
 		/// @brief Same as united.
-		/// @see united
+		/// @see united(const Array<T>& other)
 		Array<T> operator|(const Array<T>& other) const
 		{
 			return this->united(other);
 		}
 		/// @brief Same as intersected.
-		/// @see intersected
+		/// @see intersected(const Array<T>& other)
 		Array<T> operator&(const Array<T>& other) const
 		{
 			return this->intersected(other);
 		}
 		/// @brief Same as differentiated.
-		/// @see differentiated
+		/// @see differentiated(const T& element)
+		Array<T> operator/(const T& element) const
+		{
+			return this->differentiated(element);
+		}
+		/// @brief Same as differentiated.
+		/// @see differentiated(const Array<T>& other)
 		Array<T> operator/(const Array<T>& other) const
 		{
 			return this->differentiated(other);
