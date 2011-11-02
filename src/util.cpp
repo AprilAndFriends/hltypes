@@ -68,6 +68,16 @@ float hrandf(float max)
 #endif
 }
 
+int hmod(int i, int m)
+{
+	return (i >= 0 ? i % m : m - (-i % m));
+}
+
+float hmodf(float f, float m)
+{
+	return (f >= 0.0f ? fmod(f, m) : m - fmod(-f, m));
+}
+
 bool heqf(float a, float b, float tolerance)
 {
 	return (fabs(a - b) < tolerance);
@@ -76,11 +86,6 @@ bool heqf(float a, float b, float tolerance)
 int hcmpf(float a, float b, float tolerance)
 {
 	return (heqf(a, b, tolerance) ? 0 : (a > b ? 1 : -1));
-}
-
-float hmodf(float f, float m)
-{
-	return (f >= 0.0f ? fmod(f, m) : m - fmod(-f, m));
 }
 
 hstr normalize_path(chstr path)
