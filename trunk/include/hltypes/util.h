@@ -80,6 +80,16 @@ hltypesFnExport float hrandf(float min, float max);
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between 0.0 inclusively and max exclusively.
 hltypesFnExport float hrandf(float max);
+/// @brief Gets the always-positive value of i mod m.
+/// @param[in] i Integer value.
+/// @param[in] m Modulo value.
+/// @return The always-positive value of i mod m.
+hltypesFnExport int hmod(int i, int m);
+/// @brief Gets the always-positive value of f mod m.
+/// @param[in] f Float value.
+/// @param[in] m Modulo value.
+/// @return The always-positive value of f mod m.
+hltypesFnExport float hmodf(float f, float m);
 /// @brief Compares 2 float values within using a tolerance factor.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
@@ -90,11 +100,6 @@ hltypesFnExport bool heqf(float a, float b, float tolerance = HL_E_TOLERANCE);
 /// @param[in] b Second float value.
 /// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
 hltypesFnExport int hcmpf(float a, float b, float tolerance = HL_E_TOLERANCE);
-/// @brief Gets the always-positive value of f mod m.
-/// @param[in] f Float value.
-/// @param[in] m Modulo value.
-/// @return The always-positive value of f mod m.
-hltypesFnExport float hmodf(float f, float m);
 /// @brief Normalizes a file path by converting all platform specific characters into / and proper removal of "." and ".." where necessary.
 /// @param[in] path The path.
 /// @return Normalized filepath.
