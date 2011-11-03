@@ -221,7 +221,7 @@ template <class T> bool is_within(T value, T min, T max)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is inside of minimum and maximum.
-template <class T> bool is_in_range(T value, T min, T max) // I'd like to be inside
+template <class T> bool is_in_range(T value, T min, T max)
 {
 	return (value >= min && value < max);
 }
@@ -230,7 +230,7 @@ template <class T> bool is_in_range(T value, T min, T max) // I'd like to be ins
 /// @param[in] min Minimum exclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is inside of minimum and maximum.
-template <class T> bool is_inside(T value, T min, T max)
+template <class T> bool is_inside(T value, T min, T max) // I'd like to be inside
 {
 	return (value > min && value <= max);
 }
