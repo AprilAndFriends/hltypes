@@ -49,6 +49,84 @@ namespace hltypes
 		{
 			return (int)stddeque::size();
 		}
+		/// @brief Same as push_back.
+		/// @see push_back(const T& element)
+		Deque<T>& operator<<(const T& element)
+		{
+			this->push_back(element);
+			return (*this);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const Deque<T>& other)
+		Deque<T>& operator<<(const Deque<T>& other)
+		{
+			this->push_back(other);
+			return (*this);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const T& element)
+		Deque<T>& operator+=(const T& element)
+		{
+			this->push_back(element);
+			return (*this);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const Deque<T>& other)
+		Deque<T>& operator+=(const Deque<T>& other)
+		{
+			this->push_back(other);
+			return (*this);
+		}
+		/// @brief Same as remove.
+		/// @see remove(T element)
+		Deque<T>& operator-=(T element)
+		{
+			this->remove(element);
+			return (*this);
+		}
+		/// @brief Same as remove.
+		/// @see remove(const Deque<T>& other)
+		Deque<T>& operator-=(const Deque<T>& other)
+		{
+			this->remove(other);
+			return (*this);
+		}
+		/// @brief Merges an Deque with an element.
+		/// @param[in] element Element to merge with.
+		/// @return New Deque with element added at the end of Deque.
+		Deque<T> operator+(const T& element) const
+		{
+			Deque<T> result(*this);
+			result += element;
+			return result;
+		}
+		/// @brief Merges two Deques.
+		/// @param[in] other Second Deque to merge with.
+		/// @return New Deque with elements of second Deque added at the end of first Deque.
+		Deque<T> operator+(const Deque<T>& other) const
+		{
+			Deque<T> result(*this);
+			result += other;
+			return result;
+		}
+		/// @brief Removes element from Deque.
+		/// @param[in] element Element to remove.
+		/// @return New Deque with elements of first Deque without given element.
+		Deque<T> operator-(T element) const
+		{
+			Deque<T> result(*this);
+			result -= element;
+			return result;
+		}
+		/// @brief Removes second Deque from first Deque.
+		/// @param[in] other Deque to remove.
+		/// @return New Deque with elements of first Deque without the elements of second Deque.
+		Deque<T> operator-(const Deque<T>& other) const
+		{
+			Deque<T> result(*this);
+			result -= other;
+			return result;
+		}
 
 	};
 	
