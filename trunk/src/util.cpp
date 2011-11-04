@@ -17,21 +17,6 @@
 #include "hstring.h"
 #include "util.h"
 
-double hroundd(double value)
-{
-	return floor(value + 0.5);
-}
-
-float hroundf(float value)
-{
-	return floor(value + 0.5f);
-}
-
-int hround(double value)
-{
-	return (int)(floor(value + 0.5));
-}
-
 int hrand(int min, int max)
 {
 #ifdef _WIN32
@@ -68,6 +53,21 @@ float hrandf(float max)
 #endif
 }
 
+int hround(double value)
+{
+	return (int)(floor(value + 0.5));
+}
+
+float hroundf(float value)
+{
+	return floor(value + 0.5f);
+}
+
+double hroundd(double value)
+{
+	return floor(value + 0.5);
+}
+
 int hmod(int i, int m)
 {
 	return (i >= 0 ? i % m : m - (-i % m));
@@ -78,7 +78,17 @@ float hmodf(float f, float m)
 	return (f >= 0.0f ? fmod(f, m) : m - fmod(-f, m));
 }
 
+double hmodd(double d, double m)
+{
+	return (d >= 0.0 ? fmod(d, m) : m - fmod(-d, m));
+}
+
 bool heqf(float a, float b, float tolerance)
+{
+	return (fabs(a - b) < tolerance);
+}
+
+bool heqd(double a, double b, double tolerance)
 {
 	return (fabs(a - b) < tolerance);
 }
@@ -86,6 +96,11 @@ bool heqf(float a, float b, float tolerance)
 int hcmpf(float a, float b, float tolerance)
 {
 	return (heqf(a, b, tolerance) ? 0 : (a > b ? 1 : -1));
+}
+
+int hcmpd(double a, double b, double tolerance)
+{
+	return (heqd(a, b, tolerance) ? 0 : (a > b ? 1 : -1));
 }
 
 hstr normalize_path(chstr path)

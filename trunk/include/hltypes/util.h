@@ -26,18 +26,6 @@ namespace hltypes
 	template <class T> class Array;
 }
 
-/// @brief Rounds a double value to the nearest integer value.
-/// @param[in] value The value to be rounded.
-/// @return Rounded value as double.
-hltypesFnExport double hroundd(double value);
-/// @brief Rounds a double value to the nearest integer value.
-/// @param[in] value The value to be rounded.
-/// @return Rounded value as float.
-hltypesFnExport float hroundf(float value);
-/// @brief Rounds a double value to the nearest integer value.
-/// @param[in] value The value to be rounded.
-/// @return Rounded value as integer.
-hltypesFnExport int hround(double value);
 /// @brief Used for optimized and quick calculation from RAD to DEG.
 #define HL_RAD_TO_DEG_RATIO 57.295779513082320876798154814105
 /// @brief Used for optimized and quick calculation from DEG to RAD.
@@ -60,7 +48,7 @@ hltypesFnExport int hround(double value);
 /// @return acos in degrees.
 #define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
-#define HL_E_TOLERANCE 0.01f
+#define HL_E_TOLERANCE 0.01
 
 /// @brief Returns a random int number.
 /// @param[in] min Inclusive lower boundary.
@@ -80,6 +68,27 @@ hltypesFnExport float hrandf(float min, float max);
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between 0.0 inclusively and max exclusively.
 hltypesFnExport float hrandf(float max);
+/// @brief Returns a random double number.
+/// @param[in] min Inclusive lower boundary.
+/// @param[in] max Exclusive upper boundary.
+/// @return Random number between min inclusively and max exclusively.
+hltypesFnExport double hrandd(double min, double max);
+/// @brief Returns a random double number.
+/// @param[in] max Exclusive upper boundary.
+/// @return Random number between 0.0 inclusively and max exclusively.
+hltypesFnExport double hrandd(double max);
+/// @brief Rounds a double value to the nearest integer value.
+/// @param[in] value The value to be rounded.
+/// @return Rounded value as integer.
+hltypesFnExport int hround(double value);
+/// @brief Rounds a double value to the nearest integer value.
+/// @param[in] value The value to be rounded.
+/// @return Rounded value as float.
+hltypesFnExport float hroundf(float value);
+/// @brief Rounds a double value to the nearest integer value.
+/// @param[in] value The value to be rounded.
+/// @return Rounded value as double.
+hltypesFnExport double hroundd(double value);
 /// @brief Gets the always-positive value of i mod m.
 /// @param[in] i Integer value.
 /// @param[in] m Modulo value.
@@ -90,16 +99,31 @@ hltypesFnExport int hmod(int i, int m);
 /// @param[in] m Modulo value.
 /// @return The always-positive value of f mod m.
 hltypesFnExport float hmodf(float f, float m);
+/// @brief Gets the always-positive value of d mod m.
+/// @param[in] d Double value.
+/// @param[in] m Modulo value.
+/// @return The always-positive value of d mod m.
+hltypesFnExport double hmodd(double d, double m);
 /// @brief Compares 2 float values within using a tolerance factor.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
 /// @return True if comparison matches within boundary limits.
 hltypesFnExport bool heqf(float a, float b, float tolerance = HL_E_TOLERANCE);
+/// @brief Compares 2 double values within using a tolerance factor.
+/// @param[in] a First double value.
+/// @param[in] b Second double value.
+/// @return True if comparison matches within boundary limits.
+hltypesFnExport bool heqd(double a, double b, double tolerance = HL_E_TOLERANCE);
 /// @brief Uses a cmp-like comparison of 2 float values.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
 /// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
 hltypesFnExport int hcmpf(float a, float b, float tolerance = HL_E_TOLERANCE);
+/// @brief Uses a cmp-like comparison of 2 double values.
+/// @param[in] a First double value.
+/// @param[in] b Second double value.
+/// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
+hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE);
 /// @brief Normalizes a file path by converting all platform specific characters into / and proper removal of "." and ".." where necessary.
 /// @param[in] path The path.
 /// @return Normalized filepath.
