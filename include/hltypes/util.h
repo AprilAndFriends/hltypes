@@ -30,6 +30,21 @@ namespace hltypes
 #define HL_RAD_TO_DEG_RATIO 57.295779513082320876798154814105
 /// @brief Used for optimized and quick calculation from DEG to RAD.
 #define HL_DEG_TO_RAD_RATIO 0.01745329251994329576923690768489
+/// @brief Utility macro for quick getter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_GET(type, name, capsName) type get ## capsName() { return this->name; }
+/// @brief Utility macro for quick setter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_SET(type, name, capsName) void set ## capsName(type value) { this->name = value; }
+/// @brief Utility macro for quick getter and setter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
 
 /// @brief Calculates sin from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
