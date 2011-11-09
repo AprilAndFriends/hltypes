@@ -70,17 +70,17 @@ double hroundd(double value)
 
 int hmod(int i, int m)
 {
-	return (i >= 0 ? i % m : m - (-i % m));
+	return (i >= 0 ? i % m : (m - (-i % m)) % m);
 }
 
 float hmodf(float f, float m)
 {
-	return (f >= 0.0f ? fmod(f, m) : m - fmod(-f, m));
+	return (f >= 0.0f ? fmod(f, m) : fmod(m - fmod(-f, m), m));
 }
 
 double hmodd(double d, double m)
 {
-	return (d >= 0.0 ? fmod(d, m) : m - fmod(-d, m));
+	return (d >= 0.0 ? fmod(d, m) : fmod(m - fmod(-d, m), m));
 }
 
 bool heqf(float a, float b, float tolerance)
