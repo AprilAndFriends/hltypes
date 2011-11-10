@@ -35,6 +35,11 @@ namespace hltypes
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_GET(type, name, capsName) type get ## capsName() { return this->name; }
+/// @brief Utility macro for quick getter (with "is") definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_IS(type, name, capsName) type is ## capsName() { return this->name; }
 /// @brief Utility macro for quick setter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
@@ -45,6 +50,11 @@ namespace hltypes
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
+/// @brief Utility macro for quick getter (with "is") and setter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_ISSET(type, name, capsName) HL_DEFINE_IS(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
 
 /// @brief Calculates sin from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
