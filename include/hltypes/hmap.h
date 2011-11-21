@@ -266,7 +266,7 @@ namespace hltypes
 		/// @note Entries with already existing keys will not be overwritten.
 		void insert(const Map<K, V>& other)
 		{
-			stdmap::insert(other.begin, other.end());
+			stdmap::insert(other.begin(), other.end());
 		}
 		/// @brief Adds all pairs of keys and values from another Map into this one.
 		/// @param[in] other Another Map.
@@ -486,6 +486,23 @@ namespace hltypes
         {
             return (this->has_key(key) ? stdmap::find(key)->second : defaultValue);
         }
+		/// @brief Same as insert.
+		/// @see insert(const Map<K, V>& other)
+		Map<K, V>& operator+=(const Map<K, V>& other)
+		{
+			this->insert(other);
+			return (*this);
+		}
+		/// @brief Merges two Mapss.
+		/// @param[in] other Second Map to merge with.
+		/// @return New Map with elements of second Map added at the end of first Map.
+		/// @note Entries with already existing keys in the first map will not be overwritten.
+		Map<K, V> operator+(const Map<K, V>& other) const
+		{
+			Map<K, V> result(*this);
+			result += other;
+			return result;
+		}
 
 	};
 	
