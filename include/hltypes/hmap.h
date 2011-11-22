@@ -58,7 +58,7 @@ namespace hltypes
 		}
 		/// @brief Same as key_of.
 		/// @see key_of
-		K& operator()(const V& value)
+		K operator()(const V& value) const
 		{
 			return this->key_of(value);
 		}
