@@ -34,7 +34,7 @@ namespace hltypes
 	int File::repeats = 0;
 /******* CONSTRUCT/DESTRUCT ********************************************/
 
-	File::File(chstr filename, AccessMode access_mode, unsigned char encryption_offset) : cfile(NULL)
+	File::File(chstr filename, AccessMode access_mode, unsigned char encryption_offset) : fileSize(0), cfile(NULL)
 	{
 		this->filename = normalize_path(filename);
 #ifdef NO_FS_TREE
@@ -44,7 +44,7 @@ namespace hltypes
 		this->open(filename, access_mode, encryption_offset);
 	}
 	
-	File::File() : filename(""), cfile(NULL), encryption_offset(0)
+	File::File() : filename(""), fileSize(0), cfile(NULL), encryption_offset(0)
 	{
 	}
 	
@@ -110,6 +110,7 @@ namespace hltypes
 		{
 			throw file_not_found(this->filename.c_str());
 		}
+		this->fileSize = this->_getFileSize();
 	}
 	
 	hstr File::read(chstr delimiter)
@@ -190,6 +191,7 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		fwrite(text.c_str(), 1, text.size(), this->cfile);
+		this->fileSize = this->_getFileSize();
 	}
 	
 	void File::write(const char* text)
@@ -199,6 +201,7 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		fwrite(text, 1, strlen(text), this->cfile);
+		this->fileSize = this->_getFileSize();
 	}
 	
 	void File::write_line(chstr text)
@@ -208,6 +211,7 @@ namespace hltypes
 			throw file_not_open(this->filename.c_str());
 		}
 		fwrite((text + "\n").c_str(), 1, text.size() + 1, this->cfile);
+		this->fileSize = this->_getFileSize();
 	}
 	
 	void File::write_line(const char* text)
@@ -218,6 +222,7 @@ namespace hltypes
 		}
 		fwrite(text, 1, strlen(text), this->cfile);
 		fwrite("\n", 1, 1, this->cfile);
+		this->fileSize = this->_getFileSize();
 	}
 	
 	void File::writef(const char* format, ...)
@@ -226,12 +231,11 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		char c[BUFFER_SIZE + 1] = {'\0'};
 		va_list args;
 		va_start(args, format);
-		vsnprintf(c, BUFFER_SIZE, format, args);
+		hstr result(hvsprintf(format, args));
 		va_end(args);
-		this->write(c);
+		this->write(result);
 	}
 
 	int File::read_raw(void* buffer, int count)
@@ -249,7 +253,9 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		return fwrite(buffer, 1, count, this->cfile);
+		int result = fwrite(buffer, 1, count, this->cfile);
+		this->fileSize = this->_getFileSize();
+		return result;
 	}
 		
 	void File::seek(long offset, SeekMode seek_mode)
@@ -289,11 +295,7 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		long position = this->position();
-		this->seek(0, END);
-		long size = this->position();
-		this->seek(position, START);
-		return size;
+		return this->fileSize;
 	}
 	
 	bool File::is_open()
@@ -307,8 +309,17 @@ namespace hltypes
 		{
 			throw file_not_open(this->filename.c_str());
 		}
-		// feof doesn't really work if you use a write mode
-		return (this->position() >= this->size());
+		// "feof" doesn't really work if you use a write mode, so we use our own detection
+		return (this->position() >= this->fileSize);
+	}
+	
+	long File::_getFileSize()
+	{
+		long position = this->position();
+		this->seek(0, END);
+		long size = this->position();
+		this->seek(position, START);
+		return size;
 	}
 	
 	void File::close()
@@ -319,6 +330,7 @@ namespace hltypes
 		}
 		fclose(this->cfile);
 		this->cfile = NULL;
+		this->fileSize = 0;
 	}
 	
 /******* SERIALIZATION DUMP ********************************************/
