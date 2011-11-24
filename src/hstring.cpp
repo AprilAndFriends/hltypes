@@ -309,6 +309,16 @@ namespace hltypes
 		return stdstr::size();
 	}
 
+	String String::to_hex() const
+	{
+		String hex = "";
+		for (int i = 0; i < this->size(); i++)
+		{
+			hex += hsprintf("%02X", stdstr::at(i));
+		}
+		return hex;
+	}
+
 	wchar_t* String::w_str() const
 	{
 		wchar_t* result = new wchar_t[stdstr::size() * 4];
