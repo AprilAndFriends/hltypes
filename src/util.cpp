@@ -19,37 +19,79 @@
 
 int hrand(int min, int max)
 {
+	if (max <= min)
+	{
+		return min;
+	}
 #ifdef _WIN32
-	return min + rand() * (max - min) / (RAND_MAX + 1);
+	return (min + rand() * (max - min) / (RAND_MAX + 1));
 #else
-	return min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min);
+	return (min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min));
 #endif
 }
 
 int hrand(int max)
 {
+	if (max <= 0)
+	{
+		return 0;
+	}
 #ifdef _WIN32
-	return rand() * max / (RAND_MAX + 1);
+	return (rand() * max / (RAND_MAX + 1));
 #else
-	return (((double)rand()) / ((double)RAND_MAX + 1)) * max;
+	return ((((double)rand()) / ((double)RAND_MAX + 1)) * max);
 #endif
 }
 
 float hrandf(float min, float max)
 {
+	if (max <= min)
+	{
+		return min;
+	}
 #ifdef _WIN32
-	return min + rand() * (max - min) / (RAND_MAX + 1);
+	return (min + rand() * (max - min) / (RAND_MAX + 1));
 #else
-	return min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min);
+	return (min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min));
 #endif
 }
 
 float hrandf(float max)
 {
+	if (max <= 0.0f)
+	{
+		return 0.0f;
+	}
 #ifdef _WIN32
-	return rand() * max / (RAND_MAX + 1);
+	return (rand() * max / (RAND_MAX + 1));
 #else
-	return (((double)rand()) / ((double)RAND_MAX + 1)) * max;
+	return ((((double)rand()) / ((double)RAND_MAX + 1)) * max);
+#endif
+}
+
+double hrandd(double min, double max)
+{
+	if (max <= min)
+	{
+		return min;
+	}
+#ifdef _WIN32
+	return (min + rand() * (max - min) / (RAND_MAX + 1));
+#else
+	return (min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min));
+#endif
+}
+
+double hrandd(double max)
+{
+	if (max <= 0.0)
+	{
+		return 0.0;
+	}
+#ifdef _WIN32
+	return (rand() * max / (RAND_MAX + 1));
+#else
+	return ((((double)rand()) / ((double)RAND_MAX + 1)) * max);
 #endif
 }
 
