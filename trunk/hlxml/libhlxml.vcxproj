@@ -104,6 +104,11 @@
   <ItemGroup>
     <ResourceCompile Include="fileproperties.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libhltypes.vcxproj">
+      <Project>{e4d373bf-e227-48b9-99e6-84987e8674ec}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
