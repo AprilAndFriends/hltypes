@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="libhltypes"
 	ProjectGUID="{E4D373BF-E227-48B9-99E6-84987E8674EC}"
 	RootNamespace="hltypes"
@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="win32_Debug|Win32"
-			OutputDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\"
 			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
+				OutputFile="$(OutDir)$(ProjectName).dll"
 				GenerateDebugInformation="true"
 			/>
 			<Tool
@@ -90,7 +90,7 @@
 		</Configuration>
 		<Configuration
 			Name="win32_Release|Win32"
-			OutputDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\"
 			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -135,7 +135,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
+				OutputFile="$(OutDir)$(ProjectName).dll"
 			/>
 			<Tool
 				Name="VCALinkTool"
