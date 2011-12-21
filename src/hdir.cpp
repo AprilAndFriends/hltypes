@@ -15,8 +15,10 @@
 #else
 #include <dirent.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #define _mkdir(name) mkdir(name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
 #define _rmdir(name) rmdir(name)
+#define _chdir(name) chdir(name)
 #endif
 
 // prevents recursive calls of hdir::rename as this function is called via this pointer
@@ -410,5 +412,8 @@ namespace hltypes
 		}
 		return result;
 	}
-	
+	void hdir::chdir(chstr dirname)
+	{
+		_chdir(dirname.c_str());
+	}
 }
