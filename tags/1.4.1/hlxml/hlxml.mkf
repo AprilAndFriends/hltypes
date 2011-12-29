@@ -1,0 +1,28 @@
+define HAVE_MARMELADE
+define _STATICLIB
+define USE_TINYXML
+define _DEBUG_OUTPUT
+
+includepaths
+{
+	.
+	include
+	include/hlxml
+}
+
+library
+{
+	".,hlxml"
+}
+
+files
+{
+	(include/hlxml)
+	Document.h
+	Node.h
+	Property.h
+	Exception.h
+	hlxmlExport.h
+	
+}
+
