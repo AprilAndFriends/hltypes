@@ -186,6 +186,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\hsbase.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\hstream.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\hstring.cpp"
 				>
 			</File>
@@ -241,6 +249,14 @@
 			</File>
 			<File
 				RelativePath=".\include\hltypes\hmutex.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\hltypes\hsbase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\hltypes\hstream.h"
 				>
 			</File>
 			<File
