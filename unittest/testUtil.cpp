@@ -121,7 +121,7 @@ TEST(Util_hclamp)
 
 TEST(Util_hrand)
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	int value;
 	for (int i = 0; i < 1000000; i++)
 	{
