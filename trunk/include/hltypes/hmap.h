@@ -337,7 +337,7 @@ namespace hltypes
 			K key = this->keys()[hrand(this->size())];
 			if (value != NULL)
 			{
-				*value = stdmap::find(key);
+				*value = stdmap::find(key)->second;
 			}
 			return key;
 		}
@@ -358,7 +358,7 @@ namespace hltypes
 				for (int i = 0; i < count; i++)
 				{
 					key = keys.remove_at(hrand(keys.size()));
-					result[key] = stdmap::find(key);
+					result[key] = stdmap::find(key)->second;
 				}
 			}
 			return result;
