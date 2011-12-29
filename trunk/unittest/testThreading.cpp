@@ -17,11 +17,12 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <hltypes/hmutex.h>
 #include <hltypes/hstring.h>
 #include <hltypes/hthread.h>
 
 hstr output;
-bool critical;
+hmutex mutex;
 
 void f1()
 {
@@ -37,11 +38,10 @@ void f3()
 {
 	for (int i = 0; i < 10; i++)
 	{
-		while (critical);
-		critical = true;
+		mutex.lock();
 		output += "1 ";
 		//printf("1 ");
-		critical = false;
+		mutex.unlock();
 		hthread::sleep(10);
 	}
 }
@@ -50,11 +50,10 @@ void f4()
 {
 	for (int i = 0; i < 10; i++)
 	{
-		while (critical);
-		critical = true;
+		mutex.lock();
 		output += "2 ";
 		//printf("2 ");
-		critical = false;
+		mutex.unlock();
 		hthread::sleep(10);
 	}
 }
