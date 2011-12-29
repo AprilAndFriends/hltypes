@@ -14,6 +14,7 @@
     <File Name="testMap.cpp"/>
     <File Name="testFile.cpp"/>
     <File Name="testDir.cpp"/>
+    <File Name="testStream.cpp"/>
     <File Name="testUtil.cpp"/>
     <File Name="testThreading.cpp"/>
     <File Name="testList.cpp"/>

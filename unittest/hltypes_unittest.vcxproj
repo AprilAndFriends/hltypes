@@ -56,6 +56,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalDependencies>UnitTest++.lib;libhltypes_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -91,6 +93,7 @@
     <ClCompile Include="testDeque.cpp" />
     <ClCompile Include="testDir.cpp" />
     <ClCompile Include="testFile.cpp" />
+    <ClCompile Include="testStream.cpp" />
     <ClCompile Include="testList.cpp" />
     <ClCompile Include="testMap.cpp" />
     <ClCompile Include="testString.cpp" />

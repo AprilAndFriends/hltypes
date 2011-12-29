@@ -90,11 +90,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ResourceCompile Include="fileproperties.rc" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\exception.cpp" />
     <ClCompile Include="src\hdir.cpp" />
+    <ClCompile Include="src\hsbase.cpp" />
     <ClCompile Include="src\hfile.cpp" />
-    <ClCompile Include="src\hstring.cpp" />
+    <ClCompile Include="src\hstream.cpp" />
     <ClCompile Include="src\hmutex.cpp" />
+    <ClCompile Include="src\hstring.cpp" />
     <ClCompile Include="src\hthread.cpp" />
     <ClCompile Include="src\util.cpp" />
   </ItemGroup>
@@ -103,17 +108,16 @@
     <ClInclude Include="include\hltypes\harray.h" />
     <ClInclude Include="include\hltypes\hdeque.h" />
     <ClInclude Include="include\hltypes\hdir.h" />
+    <ClInclude Include="include\hltypes\hsbase.h" />
     <ClInclude Include="include\hltypes\hfile.h" />
+    <ClInclude Include="include\hltypes\hstream.h" />
     <ClInclude Include="include\hltypes\hlist.h" />
     <ClInclude Include="include\hltypes\hltypesExport.h" />
     <ClInclude Include="include\hltypes\hmap.h" />
-    <ClInclude Include="include\hltypes\hstring.h" />
     <ClInclude Include="include\hltypes\hmutex.h" />
+    <ClInclude Include="include\hltypes\hstring.h" />
     <ClInclude Include="include\hltypes\hthread.h" />
     <ClInclude Include="include\hltypes\util.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="fileproperties.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

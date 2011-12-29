@@ -11,6 +11,8 @@
     <File Name="src/hstring.cpp"/>
     <File Name="src/util.cpp"/>
     <File Name="src/hfile.cpp"/>
+    <File Name="src/hsbase.cpp"/>
+    <File Name="src/hstream.cpp"/>
     <File Name="src/exception.cpp"/>
     <File Name="src/hdir.cpp"/>
     <File Name="src/hmutex.cpp"/>
@@ -21,6 +23,8 @@
     <File Name="include/hltypes/hltypesExport.h"/>
     <File Name="include/hltypes/hstring.h"/>
     <File Name="include/hltypes/util.h"/>
+    <File Name="include/hltypes/hsbase.h"/>
+    <File Name="include/hltypes/hstream.h"/>
     <File Name="include/hltypes/hfile.h"/>
     <File Name="include/hltypes/hdeque.h"/>
     <File Name="include/hltypes/harray.h"/>

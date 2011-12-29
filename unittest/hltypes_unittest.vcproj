@@ -189,6 +189,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\testStream.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\testList.cpp"
 			>
 		</File>
