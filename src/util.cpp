@@ -95,6 +95,11 @@ double hrandd(double max)
 #endif
 }
 
+int hround(float value)
+{
+	return (int)(floor(value + 0.5));
+}
+
 int hround(double value)
 {
 	return (int)(floor(value + 0.5));

@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 1.0
+/// @version 1.5
 /// 
 /// @section LICENSE
 /// 
@@ -27,12 +27,16 @@ TEST(Array_adding_01)
 	a += 7;
 	a << 20;
 	CHECK(a[0] == 0);
+	CHECK(a.front() == 0);
+	CHECK(a.first() == 0);
 	CHECK(a[1] == 2);
 	CHECK(a[2] == 1);
 	CHECK(a[3] == 5);
 	CHECK(a[4] == 15);
 	CHECK(a[5] == 7);
 	CHECK(a[6] == 20);
+	CHECK(a.back() == 20);
+	CHECK(a.last() == 20);
 	CHECK(a.at(0) == 0);
 	CHECK(a.at(1) == 2);
 	CHECK(a.at(2) == 1);
@@ -188,6 +192,7 @@ TEST(Array_removing_02)
 TEST(Array_container)
 {
 	harray<int> a;
+	harray<int> indexes;
 	a.push_back(0);
 	a.push_back(1);
 	a.push_back(2);
@@ -196,6 +201,15 @@ TEST(Array_container)
 	CHECK(a.index_of(5) == -1);
 	CHECK(a.index_of(3) == 4);
 	CHECK(a.index_of(2) == 2);
+	indexes = a.indexes_of(2);
+	CHECK(indexes.size() == 2);
+	CHECK(indexes[0] == 2);
+	CHECK(indexes[1] == 3);
+	indexes = a.indexes_of(3);
+	CHECK(indexes.size() == 1);
+	CHECK(indexes[0] == 4);
+	indexes = a.indexes_of(9);
+	CHECK(indexes.size() == 0);
 	CHECK(a.contains(2) == true);
 	CHECK(a.contains(8) == false);
 	CHECK(a.contains(2) == a.includes(2));
@@ -204,6 +218,9 @@ TEST(Array_container)
 	CHECK(a.contains(9) == a.has(9));
 	CHECK(a.contains(2) == a.has_element(2));
 	CHECK(a.contains(9) == a.has_element(9));
+	CHECK(a.count(0) == 1);
+	CHECK(a.count(2) == 2);
+	CHECK(a.count(5) == 0);
 }
 
 TEST(Array_comparison)
@@ -266,9 +283,9 @@ TEST(Array_operations)
 	c += true;
 	c += false;
 	c += true;
-	CHECK(c.at(0));
-	CHECK(!c.at(1));
-	CHECK(c.at(2));
+	CHECK(c.at(0) == true);
+	CHECK(c.at(1) == false);
+	CHECK(c.at(2) == true);
 }
 
 TEST(Array_iterations)
@@ -301,6 +318,8 @@ TEST(Array_construct)
 	a += 3;
 	harray<int> b(a);
 	CHECK(a == b);
+	harray<int> c = a;
+	CHECK(a == c);
 }
 
 TEST(Array_intersection)
@@ -347,6 +366,10 @@ TEST(Array_union)
 	CHECK(c == (a | b));
 	a.unite(b);
 	CHECK(a == c);
+	a.unite(4);
+	CHECK(a == c);
+	a.unite(999);
+	CHECK(a != c);
 }
 
 TEST(Array_difference)
@@ -420,6 +443,7 @@ bool over_9000(int i) { return (i > 9000); }
 
 TEST(Array_match)
 {
+	int* result;
 	harray<int> a;
 	a += 0;
 	a += -1;

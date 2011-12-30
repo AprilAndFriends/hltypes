@@ -40,7 +40,6 @@ void f3()
 	{
 		mutex.lock();
 		output += "1 ";
-		//printf("1 ");
 		mutex.unlock();
 		hthread::sleep(10);
 	}
@@ -52,7 +51,6 @@ void f4()
 	{
 		mutex.lock();
 		output += "2 ";
-		//printf("2 ");
 		mutex.unlock();
 		hthread::sleep(10);
 	}
@@ -62,57 +60,50 @@ void f4()
 TEST(Threading_manual)
 {
 	output = "";
-	hthread* t1 = new hthread(&f1);
-	hthread* t2 = new hthread(&f2);
-	t1->execute();
-	t2->execute();
-	t1->execute();
+	hthread t1(&f1);
+	hthread t2(&f2);
+	t1.execute();
+	t2.execute();
+	t1.execute();
 	CHECK(output == "1 2 1 ");
-	t2->execute();
+	t2.execute();
 	CHECK(output == "1 2 1 2 ");
-	delete t1;
-	delete t2;
 }
 
 TEST(Threading_basic)
 {
 	output = "";
-	hthread* t1 = new hthread(&f3);
-	hthread* t2 = new hthread(&f4);
-	t1->start();
-	t2->start();
+	hthread t1(&f3);
+	hthread t2(&f4);
+	t1.start();
+	t2.start();
 	hthread::sleep(200);
 	CHECK(output.count('1') == 10);
 	CHECK(output.count('2') == 10);
-	delete t1;
-	delete t2;
 }
 
 TEST(Threading_control)
 {
 	output = "";
-	hthread* t1 = new hthread(&f3);
-	hthread* t2 = new hthread(&f4);
-	t1->start();
-	t2->start();
+	hthread t1(&f3);
+	hthread t2(&f4);
+	t1.start();
+	t2.start();
 	hthread::sleep(20);
-	t1->pause();
+	t1.pause();
 	hthread::sleep(20);
-	t2->pause();
+	t2.pause();
 	hthread::sleep(100);
-	t1->resume();
+	t1.resume();
 	hthread::sleep(20);
-	t2->resume();
-	t1->pause();
+	t2.resume();
+	t1.pause();
 	hthread::sleep(30);
-	t1->resume();
+	t1.resume();
 	hthread::sleep(200);
-	t1->stop();
-	t2->stop();
-	
+	t1.stop();
+	t2.stop();
 	CHECK(output.count('1') == 10);
 	CHECK(output.count('2') == 10);
-	delete t1;
-	delete t2;
 }
 

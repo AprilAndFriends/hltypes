@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.0
+/// @version 1.5
 /// 
 /// @section LICENSE
 /// 
@@ -17,5 +17,20 @@
 
 TEST(Deque_adding)
 {
-	CHECK(true);
+	hdeque<int> a;
+	a.push_back(1);
+	a.push_front(0);
+	a += 7;
+	a << 20;
+	CHECK(a[0] == 0);
+	CHECK(a.front() == 0);
+	CHECK(a[1] == 1);
+	CHECK(a[2] == 7);
+	CHECK(a[3] == 20);
+	CHECK(a.back() == 20);
+	CHECK(a.at(0) == 0);
+	CHECK(a.at(1) == 1);
+	CHECK(a.at(2) == 7);
+	CHECK(a.at(3) == 20);
+	CHECK(a.size() == 4);
 }
