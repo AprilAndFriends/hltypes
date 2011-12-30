@@ -32,7 +32,6 @@ int (*d_rename)(const char* old_name, const char* new_name) = rename;
 
 namespace hltypes
 {
-/******* STATIC ********************************************************/
 	
 	static hstr convert_to_native_path(hstr path)
 	{

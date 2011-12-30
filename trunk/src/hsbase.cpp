@@ -39,6 +39,11 @@ namespace hltypes
 		this->_seek(offset, seek_mode);
 	}
 	
+	void StreamBase::rewind()
+	{
+		this->seek(0, START);
+	}
+	
 	long StreamBase::position()
 	{
 		this->_check_availability();
@@ -68,7 +73,7 @@ namespace hltypes
 		while (!this->eof())
 		{
 			char c[BUFFER_SIZE + 1] = {'\0'};
-			count = this->_fread(c, 1, BUFFER_SIZE);
+			count = this->_read(c, 1, BUFFER_SIZE);
 			if (count == 0)
 			{
 				break;
@@ -102,7 +107,7 @@ namespace hltypes
 			{
 				current = count;
 			}
-			read = this->_fread(c, 1, current);
+			read = this->_read(c, 1, current);
 			if (read == 0)
 			{
 				break;
@@ -126,30 +131,27 @@ namespace hltypes
 	void StreamBase::write(chstr text)
 	{
 		this->_check_availability();
-		this->_fwrite(text.c_str(), 1, text.size());
+		this->_write(text.c_str(), 1, text.size());
 		this->_update_data_size();
 	}
 	
 	void StreamBase::write(const char* text)
 	{
 		this->_check_availability();
-		this->_fwrite(text, 1, strlen(text));
+		this->_write(text, 1, strlen(text));
 		this->_update_data_size();
 	}
 	
 	void StreamBase::write_line(chstr text)
 	{
 		this->_check_availability();
-		this->_fwrite((text + "\n").c_str(), 1, text.size() + 1);
+		this->_write((text + "\n").c_str(), 1, text.size() + 1);
 		this->_update_data_size();
 	}
 	
 	void StreamBase::write_line(const char* text)
 	{
-		this->_check_availability();
-		this->_fwrite(text, 1, strlen(text));
-		this->_fwrite("\n", 1, 1);
-		this->_update_data_size();
+		this->write_line(hstr(text));
 	}
 	
 	void StreamBase::writef(const char* format, ...)
@@ -164,13 +166,13 @@ namespace hltypes
 	int StreamBase::read_raw(void* buffer, int count)
 	{
 		this->_check_availability();
-		return this->_fread(buffer, 1, count);
+		return this->_read(buffer, 1, count);
 	}
 	
 	int StreamBase::write_raw(void* buffer, int count)
 	{
 		this->_check_availability();
-		int result = this->_fwrite(buffer, 1, count);
+		int result = this->_write(buffer, 1, count);
 		this->_update_data_size();
 		return result;
 	}
@@ -191,19 +193,17 @@ namespace hltypes
 		}
 	}
 
-/******* SERIALIZATION DUMP ********************************************/
-
 	void StreamBase::dump(char c)
 	{
 		this->_check_availability();
-		this->_fwrite(&c, 1, 1);
+		this->_write(&c, 1, 1);
 		this->_update_data_size();
 	}
 
 	void StreamBase::dump(unsigned char c)
 	{
 		this->_check_availability();
-		this->_fwrite(&c, 1, 1);
+		this->_write(&c, 1, 1);
 		this->_update_data_size();
 	}
 
@@ -216,14 +216,14 @@ namespace hltypes
 	{
 		this->_check_availability();
 #ifndef __BIG_ENDIAN__
-		this->_fwrite(&i, 1, 4);
+		this->_write(&i, 1, 4);
 #else
 		unsigned char bytes[4] = {0};
 		bytes[3] = (i >> 24) & 0xFF;
 		bytes[2] = (i >> 16) & 0xFF;
 		bytes[1] = (i >> 8) & 0xFF;
 		bytes[0] = i & 0xFF;
-		this->_fwrite(bytes, 1, 4);
+		this->_write(bytes, 1, 4);
 #endif
 		this->_update_data_size();
 	}
@@ -239,13 +239,13 @@ namespace hltypes
 #ifndef __BIG_ENDIAN__
 		if (sizeof(unsigned long) == 8) // long should be 8 bytes
 		{
-			this->_fwrite(&l, 1, 8);
+			this->_write(&l, 1, 8);
 		}
 		else if (sizeof(unsigned long) == 4) // will work with 4 bytes as well
 		{
-			this->_fwrite(&l, 1, 4);
+			this->_write(&l, 1, 4);
 			unsigned char bytes[4] = {0};
-			this->_fwrite(bytes, 1, 4);
+			this->_write(bytes, 1, 4);
 		}
 		else // other sizes are unacceptable
 		{
@@ -261,7 +261,7 @@ namespace hltypes
 		bytes[2] = (l >> 16) & 0xFF;
 		bytes[1] = (l >> 8) & 0xFF;
 		bytes[0] = l & 0xFF;
-		this->_fwrite(bytes, 1, 8);
+		this->_write(bytes, 1, 8);
 #endif
 		this->_update_data_size();
 	}
@@ -275,12 +275,12 @@ namespace hltypes
 	{
 		this->_check_availability();
 #ifndef __BIG_ENDIAN__
-		this->_fwrite(&s, 1, 2);
+		this->_write(&s, 1, 2);
 #else
 		unsigned char bytes[2] = {0};
 		bytes[1] = (s >> 8) & 0xFF;
 		bytes[0] = s & 0xFF;
-		this->_fwrite(bytes, 1, 2);
+		this->_write(bytes, 1, 2);
 #endif
 		this->_update_data_size();
 	}
@@ -289,7 +289,7 @@ namespace hltypes
 	{
 #ifndef __BIG_ENDIAN__
 		this->_check_availability();
-		this->_fwrite((unsigned char*)&f, 1, 4);
+		this->_write((unsigned char*)&f, 1, 4);
 		this->_update_data_size();
 #else
 		// some data voodoo magic
@@ -301,7 +301,7 @@ namespace hltypes
 	{
 #ifndef __BIG_ENDIAN__
 		this->_check_availability();
-		this->_fwrite((unsigned char*)&d, 1, 8);
+		this->_write((unsigned char*)&d, 1, 8);
 		this->_update_data_size();
 #else
 		// some more data voodoo magic, but this time we make 100% sure it uses 8 bytes
@@ -314,7 +314,7 @@ namespace hltypes
 	{
 		this->_check_availability();
 		unsigned char c = (b ? 1 : 0);
-		this->_fwrite(&c, 1, 1);
+		this->_write(&c, 1, 1);
 		this->_update_data_size();
 	}
 
@@ -327,7 +327,7 @@ namespace hltypes
 		{
 			if (this->encryption_offset == 0)
 			{
-				this->_fwrite(str.c_str(), 1, size);
+				this->_write(str.c_str(), 1, size);
 			}
 			else
 			{
@@ -338,7 +338,7 @@ namespace hltypes
 				{
 					c[i] = string[i] - this->encryption_offset;
 				}
-				this->_fwrite(c, 1, size);
+				this->_write(c, 1, size);
 				delete c;
 			}
 		}
@@ -350,13 +350,11 @@ namespace hltypes
 		this->dump(hstr(c));
 	}
 
-/******* SERIALIZATION LOAD ********************************************/
-
 	char StreamBase::load_char()
 	{
 		this->_check_availability();
 		char c;
-		this->_fread(&c, 1, 1);
+		this->_read(&c, 1, 1);
 		return c;
 	}
 
@@ -364,7 +362,7 @@ namespace hltypes
 	{
 		this->_check_availability();
 		unsigned char c;
-		this->_fread(&c, 1, 1);
+		this->_read(&c, 1, 1);
 		return c;
 	}
 
@@ -378,10 +376,10 @@ namespace hltypes
 		this->_check_availability();
 		unsigned int i = 0;
 #ifndef __BIG_ENDIAN__
-		this->_fread((unsigned char*)&i, 1, 4);
+		this->_read((unsigned char*)&i, 1, 4);
 #else
 		unsigned char bytes[4] = {0};
-		this->_fread(bytes, 4, 1);
+		this->_read(bytes, 4, 1);
 		i |= bytes[3] << 24;
 		i |= bytes[2] << 16;
 		i |= bytes[1] << 8;
@@ -402,13 +400,13 @@ namespace hltypes
 #ifndef __BIG_ENDIAN__
 		if (sizeof(unsigned long) == 8) // long should be 8 bytes
 		{
-			this->_fread((unsigned char*)&l, 1, 8);
+			this->_read((unsigned char*)&l, 1, 8);
 		}
 		else if (sizeof(unsigned long) == 4) // will work with 4 bytes as well
 		{
-			this->_fread((unsigned char*)&l, 1, 4);
+			this->_read((unsigned char*)&l, 1, 4);
 			unsigned char bytes[4] = {0};
-			this->_fread(bytes, 1, 4);
+			this->_read(bytes, 1, 4);
 		}
 		else // other sizes are unacceptable
 		{
@@ -416,7 +414,7 @@ namespace hltypes
 		}
 #else
 		unsigned char bytes[8] = {0};
-		this->_fread(bytes, 8, 1);
+		this->_read(bytes, 8, 1);
 		l |= bytes[7] << 56;
 		l |= bytes[6] << 48;
 		l |= bytes[5] << 40;
@@ -439,10 +437,10 @@ namespace hltypes
 		this->_check_availability();
 		unsigned short s = 0;
 #ifndef __BIG_ENDIAN__
-		this->_fread((unsigned char*)&s, 1, 2);
+		this->_read((unsigned char*)&s, 1, 2);
 #else
 		unsigned char bytes[2] = {0};
-		this->_fread(bytes, 1, 2);
+		this->_read(bytes, 1, 2);
 		s |= bytes[1] << 8;
 		s |= bytes[0];
 #endif
@@ -454,7 +452,7 @@ namespace hltypes
 		float f;
 #ifndef __BIG_ENDIAN__
 		this->_check_availability();
-		this->_fread((unsigned char*)&f, 1, 4);
+		this->_read((unsigned char*)&f, 1, 4);
 #else
 		// data voodoo magic, the float was stored as uint
 		unsigned int i = this->load_uint();
@@ -468,7 +466,7 @@ namespace hltypes
 		double d;
 #ifndef __BIG_ENDIAN__
 		this->_check_availability();
-		this->_fread((unsigned char*)&d, 1, 8);
+		this->_read((unsigned char*)&d, 1, 8);
 #else
 		// some more data voodoo magic, the double was stored as 2 uints
 		int halfSize = sizeof(d) / 2;
@@ -484,7 +482,7 @@ namespace hltypes
 	{
 		this->_check_availability();
 		unsigned char c;
-		this->_fread(&c, 1, 1);
+		this->_read(&c, 1, 1);
 		return (c != 0);
 	}
 
@@ -502,7 +500,7 @@ namespace hltypes
 			{
 				count = size;
 			}
-			this->_fread(c, 1, count);
+			this->_read(c, 1, count);
 			if (this->encryption_offset != 0)
 			{
 				for (int i = 0; i < count; i++)

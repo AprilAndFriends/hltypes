@@ -27,7 +27,6 @@ namespace hltypes
 {
 	float File::timeout = 100.0f;
 	int File::repeats = 0;
-/******* CONSTRUCT/DESTRUCT ********************************************/
 
 	File::File(chstr filename, AccessMode access_mode, unsigned char encryption_offset) : StreamBase(encryption_offset), cfile(NULL)
 	{
@@ -50,8 +49,6 @@ namespace hltypes
 		}
 	}
 	
-/******* METHODS *******************************************************/
-
 	void File::open(chstr filename, AccessMode access_mode, unsigned char encryption_offset)
 	{
 		if (this->is_open())
@@ -120,12 +117,12 @@ namespace hltypes
 		return this->filename;
 	}
 	
-	long File::_fread(void* buffer, int size, int count)
+	long File::_read(void* buffer, int size, int count)
 	{
 		return fread(buffer, size, count, this->cfile);
 	}
 	
-	long File::_fwrite(const void* buffer, int size, int count)
+	long File::_write(const void* buffer, int size, int count)
 	{
 		return fwrite(buffer, size, count, this->cfile);
 	}
@@ -158,8 +155,6 @@ namespace hltypes
 		fseek(this->cfile, offset, mode);
 	}
 	
-/******* STATIC ********************************************************/
-
 	bool File::create(chstr filename)
 	{
 		hstr name = normalize_path(filename);
@@ -286,8 +281,6 @@ namespace hltypes
 		return true;
 	}
 	
-/******* QUICK READ/WRITE **********************************************/
-
 	long File::hsize(chstr filename)
 	{
 		hstr name = normalize_path(filename);
