@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.0
+/// @version 1.5
 /// 
 /// @section LICENSE
 /// 
@@ -17,5 +17,12 @@
 
 TEST(List_adding)
 {
-	CHECK(true);
+	hlist<int> a;
+	a.push_back(1);
+	a.push_front(0);
+	a += 7;
+	a << 20;
+	CHECK(a.front() == 0);
+	CHECK(a.back() == 20);
+	CHECK(a.size() == 4);
 }

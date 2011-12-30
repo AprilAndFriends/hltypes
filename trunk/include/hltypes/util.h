@@ -111,6 +111,10 @@ hltypesFnExport double hrandd(double min, double max);
 /// @return Random number between 0.0 inclusively and max exclusively.
 /// @note Returns 0.0 if max is equal or less than 0.0.
 hltypesFnExport double hrandd(double max);
+/// @brief Rounds a float value to the nearest integer value.
+/// @param[in] value The value to be rounded.
+/// @return Rounded value as integer.
+hltypesFnExport int hround(float value);
 /// @brief Rounds a double value to the nearest integer value.
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as integer.

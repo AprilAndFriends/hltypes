@@ -175,6 +175,13 @@ namespace hltypes
 			}
 			return stdmap::end()->first;
 		}
+		/// @brief Returns value of specified key.
+		/// @param[in] key Key of the given value.
+		/// @return Value of specified key.
+		V value_of(const K& key) const
+		{
+			return stdmap::find(key)->second;
+		}
 		/// @brief Checks for existence of a key.
 		/// @param[in] key Key to check.
 		/// @return True if key is present.
@@ -187,9 +194,10 @@ namespace hltypes
 		/// @return True if all keys are present.
 		bool has_keys(const harray<K>& keys) const
 		{
+			iterator_map_t end = stdmap::end();
 			for (int i = 0; i < keys.size(); i++)
 			{
-				if (!this->has_key(keys.at(i)))
+				if (stdmap::find(keys.at(i)) == end)
 				{
 					return false;
 				}
@@ -202,9 +210,10 @@ namespace hltypes
 		/// @return True if all keys are present.
 		bool has_keys(const K keys[], const int count) const
 		{
+			iterator_map_t end = stdmap::end();
 			for (int i = 0; i < count; i++)
 			{
-				if (!this->has_key(keys[i]))
+				if (stdmap::find(keys[i]) == end)
 				{
 					return false;
 				}
