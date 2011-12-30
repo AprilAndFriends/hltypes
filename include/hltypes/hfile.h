@@ -151,13 +151,13 @@ namespace hltypes
 		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] sound Number of elements to read.
 		/// @return Number of bytes read.
-		long _fread(void* buffer, int size, int count);
+		long _read(void* buffer, int size, int count);
 		/// @brief Writes data to the stream.
 		/// @param[in] src Source data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] sound Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		long _fwrite(const void* buffer, int size, int count);
+		long _write(const void* buffer, int size, int count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
 		bool _is_open();

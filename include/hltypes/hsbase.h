@@ -47,18 +47,20 @@ namespace hltypes
 		/// @brief Checks if data is "open".
 		/// @return True if data is "open".
 		bool is_open();
-		/// @brief Seeks to position in file.
+		/// @brief Seeks to position in data.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seek_mode Seeking mode.
 		void seek(long offset, SeekMode seek_mode = CURRENT);
-		/// @brief Gets current position in file.
-		/// @return Current position in file.
+		/// @brief Seeks to position 0.
+		void rewind();
+		/// @brief Gets current position in data.
+		/// @return Current position in data.
 		long position();
-		/// @brief Gets size of file in bytes.
-		/// @return Size of file in bytes.
+		/// @brief Gets size of the data in bytes.
+		/// @return Size of the data in bytes.
 		long size();
-		/// @brief Checks if file has reached the end.
-		/// @return True if file has reached the end.
+		/// @brief Checks if data has reached the end.
+		/// @return True if data has reached the end.
 		bool eof();
 
 		/// @brief Reads from the file until delimiter character is read.
@@ -195,9 +197,9 @@ namespace hltypes
 		unsigned char encryption_offset;
 
 		/// @brief Updates internal data size.
-		void _update_data_size();
+		virtual void _update_data_size();
 		/// @brief Checks if object can be used.
-		void _check_availability();
+		virtual void _check_availability();
 
 		/// @brief Gets special descriptor.
 		/// @returns Special descriptor.
@@ -207,16 +209,16 @@ namespace hltypes
 		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] sound Number of elements to read.
 		/// @return Number of bytes read.
-		virtual long _fread(void* buffer, int size, int count) = 0;
+		virtual long _read(void* buffer, int size, int count) = 0;
 		/// @brief Writes data to the stream.
 		/// @param[in] src Source data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] sound Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		virtual long _fwrite(const void* buffer, int size, int count) = 0;
+		virtual long _write(const void* buffer, int size, int count) = 0;
 		/// @brief Checks if data is "open".
 		/// @return True if data is "open".
-		virtual bool _is_open()  = 0;
+		virtual bool _is_open() = 0;
 		/// @brief Gets current position in data.
 		/// @return Current position in data.
 		virtual long _position() = 0;

@@ -29,30 +29,44 @@ namespace hltypes
 		Stream(unsigned char encryption_offset = 0);
 		/// @brief Destructor.
 		~Stream();
+		/// @brief Clears the stream.
+		void clear();
 
 	protected:
+		/// @brief Data stream container.
+		unsigned char* stream;
+		/// @brief Data stream container.
+		long stream_size;
+		/// @brief Data stream container.
+		long current_size;
+		/// @brief writing position;
+		long stream_position;
+
+		/// @brief Updates internal data size.
+		void _update_data_size();
+
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] sound Number of elements to read.
 		/// @return Number of bytes read.
-		long _fread(void* buffer, int size, int count) { return 0L; }
+		long _read(void* buffer, int size, int count);
 		/// @brief Writes data to the stream.
 		/// @param[in] src Source data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] sound Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		long _fwrite(const void* buffer, int size, int count) { return 0L; }
-		/// @brief Checks if data is "open".
-		/// @return True if data is "open".
-		bool _is_open() { return true; }
-		/// @brief Gets current position in data.
-		/// @return Current position in data.
-		long _position() { return 0L; }
-		/// @brief Seeks to position in data.
+		long _write(const void* buffer, int size, int count);
+		/// @brief Checks if stream is open.
+		/// @return True if stream is open.
+		bool _is_open();
+		/// @brief Gets current position in stream.
+		/// @return Current position in stream.
+		long _position();
+		/// @brief Seeks to position in stream.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seek_mode Seeking mode.
-		void _seek(long offset, SeekMode seek_mode = CURRENT) { }
+		void _seek(long offset, SeekMode seek_mode = CURRENT);
 
 	};
 }
