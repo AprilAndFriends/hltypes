@@ -55,9 +55,6 @@ namespace hltypes
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_ISSET(type, name, capsName) HL_DEFINE_IS(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
-/// @brief Concatenate parameters into one macro parameter separated by commas.
-/// @param[in] ... Variables to concatenate into one macro parameter.
-#define HL_CONCAT(...) __VA_ARGS__
 
 /// @brief Calculates sin from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
