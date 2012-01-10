@@ -352,9 +352,9 @@ namespace hltypes
 				throw range_error(index, count);
 			}
 			Array<T> result;
-			const_iterator_t it = stdvector::begin();
-			const_iterator_t begin = it + index;
-			const_iterator_t end = it + (index + count);
+			iterator_t it = stdvector::begin();
+			iterator_t begin = it + index;
+			iterator_t end = it + (index + count);
 			result.assign(begin, end);
 			stdvector::erase(begin, end);
 			return result;
