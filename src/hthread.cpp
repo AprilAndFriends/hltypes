@@ -132,8 +132,7 @@ namespace hltypes
 #ifdef _WIN32
 			TerminateThread(this->id, 0);
 #endif
-			this->running = false;
-			this->id = 0;
+			pthread_cancel(this->id);
 		}
 #endif
 	}
