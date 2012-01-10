@@ -162,6 +162,9 @@ TEST(Array_removing_01)
 	CHECK(c[0] == 7);
 	CHECK(c[1] == 8);
 	CHECK(c[2] == 9);
+	c.remove_at(1, 2);
+	CHECK(c.size() == 1);
+	CHECK(c[0] == 7);
 }
 
 TEST(Array_removing_02)
