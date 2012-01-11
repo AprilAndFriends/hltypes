@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="libhltypes"
 	ProjectGUID="{E4D373BF-E227-48B9-99E6-84987E8674EC}"
 	RootNamespace="hltypes"
@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".;./include/hltypes"
-				PreprocessorDefinitions="_WIN32;_DEBUG;HLTYPES_EXPORTS;_CRT_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="_WIN32;HLTYPES_EXPORTS;_DEBUG;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -116,7 +116,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories=".;./include/hltypes"
-				PreprocessorDefinitions="_WIN32;NDEBUG;HLTYPES_EXPORTS;_CRT_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="_WIN32;HLTYPES_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
