@@ -17,10 +17,10 @@
 
 
 #ifdef USE_TINYXML
-#include <tinyxml.h>
+class TiXmlDocument;
 #define _xmlAttr TiXmlAttribute
 #else
-#include <libxml/xmlmemory.h>
+struct _xmlDoc;
 #endif
 
 #include <hltypes/hstring.h>
@@ -33,7 +33,7 @@ namespace hlxml
 
 
 #ifdef USE_TINYXML
-	struct hlxmlExport Document : public TiXmlDocument
+	struct hlxmlExport Document
 #else
 	struct hlxmlExport Document
 #endif
@@ -47,7 +47,7 @@ namespace hlxml
 #ifdef USE_TINYXML
 		TiXmlDocument* xmlDocument;
 #else
-		xmlDocPtr xmlDocument;
+		_xmlDoc* xmlDocument;
 #endif
 		Node* rootNode;
 	
