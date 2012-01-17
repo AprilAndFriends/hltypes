@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D129D447140E67AF00CC5073 /* hltypes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D129D446140E67AF00CC5073 /* hltypes.framework */; };
-		D129D449140E680500CC5073 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D129D448140E680500CC5073 /* libxml2.dylib */; };
+		D1745EA214C5F24A00A6BE6F /* hltypes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1745EA014C5F19E00A6BE6F /* hltypes.framework */; };
+		D1745EA514C5F75C00A6BE6F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D1745E9E14C5F13A00A6BE6F /* libxml2.dylib */; };
 		D1981C28140F80960057C3AF /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7A140E593900499A97 /* Document.cpp */; };
 		D1981C29140F80960057C3AF /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
 		D1981C2A140F80960057C3AF /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7C140E593900499A97 /* Node.cpp */; };
@@ -29,6 +29,9 @@
 		8DC2EF5B0486A6940098B216 /* hlxml.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hlxml.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D129D446140E67AF00CC5073 /* hltypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = hltypes.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Strix-avprgfkxwbppfxhiluxmiwiuhmgi/Build/Products/Debug-LLVM/hltypes.framework"; sourceTree = "<group>"; };
 		D129D448140E680500CC5073 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
+		D1745E9E14C5F13A00A6BE6F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = SDKs/MacOSX10.6.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
+		D1745EA014C5F19E00A6BE6F /* hltypes.framework */ = {isa = PBXFileReference; lastKnownFileType = file; name = hltypes.framework; path = ../../../__build__/pharaoh/Build/Products/Release/hltypes.framework; sourceTree = "<group>"; };
+		D1745EA314C5F61A00A6BE6F /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = SDKs/MacOSX10.6.sdk/usr/lib/libxml2.2.dylib; sourceTree = DEVELOPER_DIR; };
 		D1E1DD69140E58E600499A97 /* libhlxml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhlxml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1E1DD7A140E593900499A97 /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = src/Document.cpp; sourceTree = "<group>"; };
 		D1E1DD7B140E593900499A97 /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Exception.cpp; path = src/Exception.cpp; sourceTree = "<group>"; };
@@ -46,8 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D129D447140E67AF00CC5073 /* hltypes.framework in Frameworks */,
-				D129D449140E680500CC5073 /* libxml2.dylib in Frameworks */,
+				D1745EA514C5F75C00A6BE6F /* libxml2.dylib in Frameworks */,
+				D1745EA214C5F24A00A6BE6F /* hltypes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +76,9 @@
 		0867D691FE84028FC02AAC07 /* libhlxml */ = {
 			isa = PBXGroup;
 			children = (
+				D1745EA314C5F61A00A6BE6F /* libxml2.2.dylib */,
+				D1745EA014C5F19E00A6BE6F /* hltypes.framework */,
+				D1745E9E14C5F13A00A6BE6F /* libxml2.dylib */,
 				7F42F71411EB111E00B1C1DF /* Info.plist */,
 				7F42F69C11EB0B9A00B1C1DF /* include */,
 				7F42F69511EB0B8500B1C1DF /* src */,
@@ -260,7 +266,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -284,7 +290,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -367,7 +373,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -415,7 +421,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -458,7 +464,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
