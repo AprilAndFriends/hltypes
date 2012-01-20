@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 1.3
+/// @version 2.0
 /// 
 /// @section LICENSE
 /// 
@@ -10,18 +10,10 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Represents an XML node.
+/// Represents a generic XML node.
 
 #ifndef HLXML_NODE_H
 #define HLXML_NODE_H
-
-
-#ifdef USE_TINYXML
-#include <tinyxml.h>
-#define _xmlAttr TiXmlAttribute
-#else
-#include <libxml/xmlmemory.h>
-#endif
 
 #include <hltypes/hstring.h>
 
@@ -33,13 +25,24 @@ namespace hlxml
 {
 	class Property;
 
-#ifdef USE_TINYXML
-	struct hlxmlExport Node : public TiXmlNode
-#else
-	struct hlxmlExport Node : public _xmlNode
-#endif
+	class hlxmlExport Node
 	{
 	public:
+		enum Type
+		{
+			// TODO
+			TYPE_ELEMENT,
+			TYPE_COMMENT,
+			TYPE_TEXT
+		};
+
+		Node();
+		virtual ~Node();
+
+		virtual hstr getFilename() = 0;
+		virtual int getLine() = 0;
+		virtual Type getType() = 0;
+
 		bool pbool(chstr propertyName);
 		bool pbool(chstr propertyName, bool defaultValue);
 		int pint(chstr propertyName);
@@ -51,18 +54,19 @@ namespace hlxml
 		
 		bool pexists(chstr propertyName);
 		
-		void setProperty(chstr name, chstr value);
-		Node* next();
-		Node* iterChildren();
-		Property* iterProperties();
+		virtual void setProperty(chstr name, chstr value) = 0;
+		virtual Node* next() = 0;
+		virtual Node* iterChildren() = 0;
+		virtual Property* iterProperties() = 0;
 	
 		bool operator==(const char* name);
 		bool operator!=(const char* name);
 		bool operator==(chstr name);
 		bool operator!=(chstr name);
-	
+		
 	protected:
-		const char* findProperty(chstr propertyName, bool ignoreError = false);
+		virtual const char* _findProperty(chstr propertyName, bool ignoreError = false);
+		virtual bool _equals(const char* name) = 0;
 	
 	};
 

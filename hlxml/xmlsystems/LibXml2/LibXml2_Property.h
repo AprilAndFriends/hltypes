@@ -10,38 +10,40 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Represents a generic XML document.
+/// Represents a LibXML2 property.
 
-#ifndef HLXML_DOCUMENT_H
-#define HLXML_DOCUMENT_H
+#ifdef USE_LIBXML2
+#ifndef HLXML_LIBXML2_PROPERTY_H
+#define HLXML_LIBXML2_PROPERTY_H
 
 #include <hltypes/hstring.h>
 
 #include "hlxmlExport.h"
+#include "Property.h"
+
+struct _xmlAttr;
 
 namespace hlxml
 {
-	class Document;
-	class Node;
-	
-	hlxmlFnExport Document* open(chstr filename);
-	hlxmlFnExport void close(Document* document);
+	class LibXml2_Node;
 
-	class hlxmlExport Document
+	class hlxmlExport LibXml2_Property : public Property
 	{
 	public:
-		virtual ~Document();
+		LibXml2_Property(LibXml2_Node* node, _xmlAttr* prop);
+		~LibXml2_Property();
 
-		hstr getFilename() { return this->filename; }
-
-		virtual Node* root(chstr type = "") = 0;
+		hstr name();
+		hstr value();
+		Property* next();
 
 	protected:
-		hstr filename;
-	
-		Document(chstr filename);
+		LibXml2_Node* node;
+		_xmlAttr* prop;
 
 	};
+
 }
 
+#endif
 #endif

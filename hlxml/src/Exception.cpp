@@ -22,7 +22,7 @@ namespace hlxml
 #ifdef USE_TINYXML
 			this->msg += ", in file " + hstr((char*)node->ToDocument()->Value()) + ", line " + hstr(node->Row());
 #else
-			this->msg += ", in file " + hstr((char*)node->doc->URL) + ", line " + hstr(node->line);
+			this->msg += ", in file " + hstr(node->getFilename()) + ", line " + hstr(node->getLine());
 #endif
 		}
 	}

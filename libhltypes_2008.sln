@@ -8,7 +8,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hltypes_unittest", "unittes
 		{E4D373BF-E227-48B9-99E6-84987E8674EC} = {E4D373BF-E227-48B9-99E6-84987E8674EC}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhlxml", "hlxml\libhlxml.vcproj", "{2D053CDA-686C-4B36-80EB-1DA5F0CEF8F9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhlxml", "hlxml\libhlxml.vcproj", "{877B2D1A-DE16-457B-9146-423FE0026E07}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E4D373BF-E227-48B9-99E6-84987E8674EC} = {E4D373BF-E227-48B9-99E6-84987E8674EC}
 	EndProjectSection
@@ -25,10 +25,10 @@ Global
 		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.win32_Debug|Win32.Build.0 = win32_Debug|Win32
 		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.win32_Release|Win32.ActiveCfg = win32_Release|Win32
 		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.win32_Release|Win32.Build.0 = win32_Release|Win32
-		{2D053CDA-686C-4B36-80EB-1DA5F0CEF8F9}.win32_Debug|Win32.ActiveCfg = win32_Debug|Win32
-		{2D053CDA-686C-4B36-80EB-1DA5F0CEF8F9}.win32_Debug|Win32.Build.0 = win32_Debug|Win32
-		{2D053CDA-686C-4B36-80EB-1DA5F0CEF8F9}.win32_Release|Win32.ActiveCfg = win32_Release|Win32
-		{2D053CDA-686C-4B36-80EB-1DA5F0CEF8F9}.win32_Release|Win32.Build.0 = win32_Release|Win32
+		{877B2D1A-DE16-457B-9146-423FE0026E07}.win32_Debug|Win32.ActiveCfg = win32_Debug|Win32
+		{877B2D1A-DE16-457B-9146-423FE0026E07}.win32_Debug|Win32.Build.0 = win32_Debug|Win32
+		{877B2D1A-DE16-457B-9146-423FE0026E07}.win32_Release|Win32.ActiveCfg = win32_Release|Win32
+		{877B2D1A-DE16-457B-9146-423FE0026E07}.win32_Release|Win32.Build.0 = win32_Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
