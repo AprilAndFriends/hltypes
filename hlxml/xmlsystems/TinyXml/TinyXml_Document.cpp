@@ -9,102 +9,71 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #ifdef USE_TINYXML
-#ifdef USE_TINYXML
-#include <tinyxml.h>
-#else
-#include <libxml/xmlmemory.h>
-#include <libxml/parser.h>
-#endif
 
-#include "Document.h"
+#include <tinyxml/tinyxml.h>
+
+#include <hltypes/hstring.h>
+
 #include "Exception.h"
-#include "Node.h"
-
-#include "hltypes/util.h"
-#include "hltypes/hdir.h"
+#include "TinyXml_Document.h"
+#include "TinyXml_Node.h"
 
 namespace hlxml
 {
-	Document::Document(chstr filename) : rootNode(NULL)
+	TinyXml_Document::TinyXml_Document(chstr filename) : Document(filename), rootNode(NULL)
 	{
-#ifdef USE_TINYXML
-		hstr newname = filename;
-		normalize_path(newname);
-
-		newname = hdir::convert_to_native_path(newname);
-		printf("[HLXML] XML Document filename : %s\n", newname.c_str());
-
-		this->xmlDocument = new TiXmlDocument(newname.c_str());
-		this->xmlDocument->LoadFile();
-#else
-		this->xmlDocument = xmlParseFile((filename).c_str());
-#endif
-		if (this->xmlDocument == NULL)
+		hstr realFilename = normalize_path(filename);
+		this->document = new TiXmlDocument(realFilename.c_str());
+		if (this->document == NULL)
 		{
-#ifdef _DEBUG_OUTPUT
-			fprintf(stderr, "Unable to parse xml file '%s', the document does not exist or is invalid", filename.c_str());
-#endif
-			throw XMLException("Unable to parse xml file '" + filename + "', document does not exist", NULL);
+			throw XMLException("Unable to parse xml file '" + realFilename + "', document is invalid", NULL);
+		}
+		this->document->LoadFile();
+	}
+
+	TinyXml_Document::~TinyXml_Document()
+	{
+		this->rootNode = NULL;
+		foreach_map (TiXmlNode*, TinyXml_Node*, it, this->nodes)
+		{
+			delete it->second;
+		}
+		this->nodes.clear();
+		if (this->document != NULL)
+		{
+			delete this->document;
 		}
 	}
 
-	Document::~Document()
+	Node* TinyXml_Document::root(chstr type)
 	{
-#ifdef USE_TINYXML
-		if(this->xmlDocument)
-			delete this->xmlDocument;
-#else
-		xmlFreeDoc(this->xmlDocument);
-#endif
+		if (this->rootNode == NULL)
+		{
+			TiXmlNode* tinyXmlNode = this->document->FirstChildElement();
+			if (tinyXmlNode == NULL)
+			{
+				throw XMLException("No root node found in XML file '" + this->filename + "'!", NULL);
+			}
+			this->rootNode = this->node(tinyXmlNode);
+			if (type != "" && *this->rootNode != type)
+			{
+				throw XMLException("Root node type is not '" + type + "' in XML file '" + this->filename + "'!", NULL);
+			}
+		}
+		return this->rootNode;
 	}
 
-	Node* Document::root(chstr rootElementQuery)
+	TinyXml_Node* TinyXml_Document::node(TiXmlNode* node)
 	{
-		if (this->rootNode != NULL)
+		if (node == NULL)
 		{
-			return this->rootNode;
+			return NULL;
 		}
-#ifdef USE_TINYXML
-		this->rootNode = (Node *)xmlDocument->FirstChildElement();
-
-		if (this->rootNode == NULL)
+		if (!this->nodes.has_key(node))
 		{
-			hstr docname = (char*)this->xmlDocument->Value();
-			delete this->xmlDocument;
-#ifdef _DEBUG_OUTPUT
-			fprintf(stderr, "No root node found in xml file '%s'", docname.c_str());
-#endif
-			throw XMLException("No root node found in xml file '" + docname + "'", NULL);
+			this->nodes[node] = new TinyXml_Node(this, node);
 		}
-		if (rootElementQuery != "" && this->rootNode->Value() != rootElementQuery)
-		{
-#ifdef _DEBUG_OUTPUT
-			printf("this->rootNode->Value() = %s\n", this->rootNode->Value());
-#endif
-			hstr docname = (char*)this->xmlDocument->Value();
-			delete this->xmlDocument;
-#ifdef _DEBUG_OUTPUT
-			fprintf(stderr, "xml root node type is not '%s' in xml file '%s'", rootElementQuery.c_str(), docname.c_str());
-#endif
-			throw XMLException("xml root node type is not '" + rootElementQuery + "' in xml file '" + docname + "'", NULL);
-		}
-		return this->rootNode;
-#else
-		this->rootNode = (Node*)xmlDocGetRootElement(this->xmlDocument);
-		if (this->rootNode == NULL)
-		{
-			hstr docname = (char*)this->xmlDocument->URL;
-			xmlFreeDoc(this->xmlDocument);
-			throw XMLException("No root node found in xml file '" + docname + "'", NULL);
-		}
-		if (rootElementQuery != "" && *this->rootNode != rootElementQuery)
-		{
-			hstr docname = (char*)this->xmlDocument->URL;
-			xmlFreeDoc(this->xmlDocument);
-			throw XMLException("xml root node type is not '" + rootElementQuery + "' in xml file '" + docname + "'", NULL);
-		}
-		return this->rootNode;
-#endif
+		return this->nodes[node];
 	}
 
 }

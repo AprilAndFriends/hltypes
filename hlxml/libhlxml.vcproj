@@ -16,7 +16,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="win32_Debug|Win32"
+			Name="win32_LibXml2_Debug|Win32"
 			OutputDirectory="$(SolutionDir)bin\"
 			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -89,7 +89,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_Release|Win32"
+			Name="win32_LibXml2_Release|Win32"
 			OutputDirectory="$(SolutionDir)bin\"
 			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -206,7 +206,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libhltypes.lib libxml2.lib"
+				AdditionalDependencies="libhltypes.lib libtinyxml.lib"
 				OutputFile="$(OutDir)$(ProjectName).dll"
 				AdditionalLibraryDirectories="..\..\lib\msvc90;$(SolutionDir)bin"
 				GenerateDebugInformation="true"
@@ -280,7 +280,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libhltypes.lib libxml2.lib"
+				AdditionalDependencies="libhltypes.lib libtinyxml.lib"
 				OutputFile="$(OutDir)$(ProjectName).dll"
 				AdditionalLibraryDirectories="..\..\lib\msvc90;$(SolutionDir)bin"
 			/>

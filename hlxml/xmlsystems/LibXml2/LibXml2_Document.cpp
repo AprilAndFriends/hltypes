@@ -23,10 +23,11 @@ namespace hlxml
 {
 	LibXml2_Document::LibXml2_Document(chstr filename) : Document(filename), rootNode(NULL)
 	{
-		this->document = xmlParseFile(filename.c_str());
+		hstr realFilename = normalize_path(filename);
+		this->document = xmlParseFile(realFilename.c_str());
 		if (this->document == NULL)
 		{
-			throw XMLException("Unable to parse xml file '" + filename + "', document is invalid", NULL);
+			throw XMLException("Unable to parse xml file '" + realFilename + "', document is invalid", NULL);
 		}
 	}
 
@@ -51,13 +52,11 @@ namespace hlxml
 			_xmlNode* libXml2Root = xmlDocGetRootElement(this->document);
 			if (libXml2Root == NULL)
 			{
-				//this->_destroyDocument(this->document);
 				throw XMLException("No root node found in XML file '" + this->filename + "'!", NULL);
 			}
 			this->rootNode = this->node(libXml2Root);
 			if (type != "" && *this->rootNode != type)
 			{
-				//this->_destroyDocument(this->document);
 				throw XMLException("Root node type is not '" + type + "' in XML file '" + this->filename + "'!", NULL);
 			}
 		}
