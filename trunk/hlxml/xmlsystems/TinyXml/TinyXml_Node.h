@@ -13,47 +13,49 @@
 /// Represents a TinyXML node.
 
 #ifdef USE_TINYXML
-#ifndef HLXML_NODE_H
-#define HLXML_NODE_H
+#ifndef HLXML_TINYXML_NODE_H
+#define HLXML_TINYXML_NODE_H
 
-#ifdef USE_TINYXML
-#include <tinyxml.h>
-#define _xmlAttr TiXmlAttribute
-#else
-#include <libxml/xmlmemory.h>
-#endif
-
+#include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
 
 #include "hlxmlExport.h"
+#include "Node.h"
+#include "Property.h"
 
-#define foreach_xmlnode(nodeName, rootName) for (hlxml::Node* nodeName = rootName->iterChildren(); nodeName != NULL; nodeName = nodeName->next())
+class TiXmlAttribute;
+class TiXmlNode;
 
 namespace hlxml
 {
+	class TinyXml_Document;
+	class TinyXml_Property;
 	class Property;
 
-#ifdef USE_TINYXML
-	struct hlxmlExport Node : public TiXmlNode
-#else
-	struct hlxmlExport Node : public _xmlNode
-#endif
+	class hlxmlExport TinyXml_Node : public Node
 	{
 	public:
-		bool pexists(chstr propertyName);
-		
+		TinyXml_Node(TinyXml_Document* document, TiXmlNode* node);
+		~TinyXml_Node();
+
+		hstr getFilename();
+		int getLine();
+		Type getType();
+
 		void setProperty(chstr name, chstr value);
 		Node* next();
 		Node* iterChildren();
 		Property* iterProperties();
-	
-		bool operator==(const char* name);
-		bool operator!=(const char* name);
-		bool operator==(chstr name);
-		bool operator!=(chstr name);
+
+		TinyXml_Property* prop(TiXmlAttribute* prop);
 	
 	protected:
+		TinyXml_Document* document;
+		TiXmlNode* node;
+		hmap<TiXmlAttribute*, TinyXml_Property*> props;
+
 		const char* _findProperty(chstr propertyName, bool ignoreError = false);
+		bool _equals(const char* name);
 	
 	};
 

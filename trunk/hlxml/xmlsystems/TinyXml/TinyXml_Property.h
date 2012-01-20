@@ -10,40 +10,35 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Represents a TinyXML2 property.
+/// Represents a TinyXML property.
 
 #ifdef USE_TINYXML
-#ifndef HLXML_PROPERTY_H
-#define HLXML_PROPERTY_H
-
-#ifdef USE_TINYXML
-#include <tinyxml.h>
-#define _xmlAttr TiXmlAttribute
-#else
-#include <libxml/xmlmemory.h>
-#endif
+#ifndef HLXML_TINYXML_PROPERTY_H
+#define HLXML_TINYXML_PROPERTY_H
 
 #include <hltypes/hstring.h>
 
 #include "hlxmlExport.h"
 
-#define foreach_xmlproperty(propertyName, nodeName) for (hlxml::Property* propertyName = nodeName->iterProperties(); propertyName != NULL; propertyName = propertyName->next())
+class TiXmlAttribute;
 
 namespace hlxml
 {
-#ifdef USE_TINYXML
-	class hlxmlExport Property : public TiXmlAttribute
-#else
-	class hlxmlExport Property : public _xmlAttr
-#endif
+	class hlxmlExport TinyXml_Property : public Property
 	{
 	public:
-		Property* next();
+		TinyXml_Property(TinyXml_Node* node, TiXmlAttribute* prop);
+		~TinyXml_Property();
+
 		hstr name();
 		hstr value();
+		Property* next();
+
+	protected:
+		TinyXml_Node* node;
+		TiXmlAttribute* prop;
 
 	};
-
 }
 
 #endif

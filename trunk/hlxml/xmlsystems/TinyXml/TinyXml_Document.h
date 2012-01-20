@@ -13,44 +13,37 @@
 /// Represents a TinyXML document.
 
 #ifdef USE_TINYXML
-#ifndef HLXML_DOCUMENT_H
-#define HLXML_DOCUMENT_H
+#ifndef HLXML_TINYXML_DOCUMENT_H
+#define HLXML_TINYXML_DOCUMENT_H
 
-#ifdef USE_TINYXML
 class TiXmlDocument;
-#define _xmlAttr TiXmlAttribute
-#else
-struct _xmlDoc;
-#endif
+class TiXmlNode;
 
+#include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
 
+#include "Document.h"
 #include "hlxmlExport.h"
 
 namespace hlxml
 {
-	struct Node;
+	class TinyXml_Node;
 
-
-#ifdef USE_TINYXML
-	struct hlxmlExport Document
-#else
-	struct hlxmlExport Document
-#endif
+	class hlxmlExport TinyXml_Document : public Document
 	{
 	public:
-		Document(chstr filename);
-		~Document();
-		Node* root(chstr rootElementQuery = "");
-	
+		TinyXml_Document(chstr filename);
+		~TinyXml_Document();
+
+		Node* root(chstr type = "");
+
+		TinyXml_Node* node(TiXmlNode* node);
+
 	protected:
-#ifdef USE_TINYXML
-		TiXmlDocument* xmlDocument;
-#else
-		_xmlDoc* xmlDocument;
-#endif
-		Node* rootNode;
-	
+		TiXmlDocument* document;
+		TinyXml_Node* rootNode;
+		hmap<TiXmlNode*, TinyXml_Node*> nodes;
+		
 	};
 
 }

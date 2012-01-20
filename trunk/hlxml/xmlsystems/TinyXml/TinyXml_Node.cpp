@@ -9,120 +9,105 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #ifdef USE_TINYXML
-#ifdef USE_TINYXML
-#include <tinyxml.h>
-#define _xmlAttr TiXmlAttribute
-#else
-#include <libxml/xmlmemory.h>
-#endif
+
+#include <tinyxml/tinyxml.h>
+
+#include <hltypes/hmap.h>
+#include <hltypes/hstring.h>
 
 #include "Exception.h"
-#include "Node.h"
-#include "Property.h"
+#include "TinyXml_Document.h"
+#include "TinyXml_Node.h"
+#include "TinyXml_Property.h"
 
 namespace hlxml
 {
-	const char* Node::_findProperty(chstr propertyName, bool ignoreError)
+	TinyXml_Node::TinyXml_Node(TinyXml_Document* document, TiXmlNode* node) : Node()
 	{
-#ifdef USE_TINYXML
-		
-		for (TiXmlAttribute *attr = this->ToElement()->FirstAttribute(); attr != NULL; attr = attr->Next())
+		this->document = document;
+		this->node = node;
+	}
+
+	TinyXml_Node::~TinyXml_Node()
+	{
+		foreach_map (TiXmlAttribute*, TinyXml_Property*, it, this->props)
 		{
-			if(chstr(attr->Name()) == propertyName)
+			delete it->second;
+		}
+		this->props.clear();
+	}
+
+	hstr TinyXml_Node::getFilename()
+	{
+		return this->document->getFilename();
+	}
+
+	int TinyXml_Node::getLine()
+	{
+		return this->node->Row();
+	}
+
+	Node::Type TinyXml_Node::getType()
+	{
+		if (this->node->ToText() != NULL)
+		{
+			return TYPE_TEXT;
+		}
+		if (this->node->ToComment() != NULL)
+		{
+			return TYPE_COMMENT;
+		}
+		return TYPE_ELEMENT;
+	}
+
+	void TinyXml_Node::setProperty(chstr name, chstr value)
+	{
+		this->node->ToElement()->SetAttribute(name.c_str(), value.c_str());
+	}
+
+	Node* TinyXml_Node::next()
+	{
+		return this->document->node(this->node->NextSiblingElement());
+	}
+
+	Node* TinyXml_Node::iterChildren()
+	{
+		return this->document->node(this->node->FirstChildElement());
+	}
+
+	Property* TinyXml_Node::iterProperties()
+	{
+		return this->prop(this->node->ToElement()->FirstAttribute());
+	}
+
+	const char* TinyXml_Node::_findProperty(chstr propertyName, bool ignoreError)
+	{
+		for (TiXmlAttribute *attr = this->node->ToElement()->FirstAttribute(); attr != NULL; attr = attr->Next())
+		{
+			if (propertyName == attr->Name())
 			{
 				return attr->Value();
 			}
 		}
-#else
-		for (_xmlAttr* attr = this->properties; attr != NULL; attr = attr->next)
+		return Node::_findProperty(propertyName, ignoreError);
+	}
+
+	TinyXml_Property* TinyXml_Node::prop(TiXmlAttribute* prop)
+	{
+		if (prop == NULL)
 		{
-			if (xmlStrcmp(attr->name, (const xmlChar*)propertyName.c_str()) == 0)
-			{
-				return (const char*)attr->children->content;
-			}
+			return NULL;
 		}
-#endif
-		if (!ignoreError) // only villians use ignoreError
+		if (!this->props.has_key(prop))
 		{
-			throw XMLPropertyNotExistsException(propertyName, this);
+			this->props[prop] = new TinyXml_Property(this, prop);
 		}
-		return NULL;
+		return this->props[prop];
 	}
 
-	void Node::setProperty(chstr name, chstr value)
+	bool TinyXml_Node::_equals(const char* name)
 	{
-#ifdef USE_TINYXML
-		this->ToElement()->SetAttribute(name.c_str(), value.c_str());
-#else
-		xmlSetProp(this, (xmlChar*)name.c_str(), (xmlChar*)value.c_str());
-#endif
-	}
-
-	Node* Node::next()
-	{
-#ifdef USE_TINYXML
-		return (Node *)this->NextSiblingElement();
-#else
-		return (Node*)_xmlNode::next;
-#endif
-	}
-
-	Node* Node::iterChildren()
-	{
-#ifdef USE_TINYXML
-		return (Node *)this->FirstChildElement();
-#else
-		return (Node*)this->children;
-#endif
-	}
-
-	Property* Node::iterProperties()
-	{
-#ifdef USE_TINYXML
-		return (Property*)this->ToElement()->FirstAttribute();
-#else
-		return (Property*)this->properties;
-#endif
-	}
-
-	bool Node::operator==(const char* name)
-	{
-#ifdef USE_TINYXML
-		printf("this->Value() %s :: name %s\n", this->Value(), name);
-		return chstr(this->Value()) == chstr(name);
-#else
-		return (xmlStrcmp(this->name, (const xmlChar*)name) == 0);
-#endif
-	}
-
-	bool Node::operator!=(const char* name)
-	{
-#ifdef USE_TINYXML
-		printf("this->Value() %s :: name %s\n", this->Value(), name);
-		return chstr(this->Value()) != chstr(name);
-#else
-		return (xmlStrcmp(this->name, (const xmlChar*)name) != 0);
-#endif
-	}
-
-	bool Node::operator==(chstr name)
-	{
-#ifdef USE_TINYXML
-		printf("this->Value() %s :: name %s\n", this->Value(), name.c_str());
-		return chstr(this->Value()) == name;
-#else
-		return (xmlStrcmp(this->name, (const xmlChar*)name.c_str()) == 0);
-#endif
-	}
-
-	bool Node::operator!=(chstr name)
-	{
-#ifdef USE_TINYXML
-		printf("this->Value() %s :: name %s\n", this->Value(), name.c_str());
-		return chstr(this->Value()) != name;
-#else
-		return (xmlStrcmp(this->name, (const xmlChar*)name.c_str()) != 0);
-#endif
+		return (hstr(this->node->Value()) == hstr(name));
 	}
 
 }

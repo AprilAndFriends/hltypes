@@ -9,43 +9,37 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #ifdef USE_TINYXML
-#ifdef USE_TINYXML
-#include <tinyxml.h>
-#define _xmlAttr TiXmlAttribute
-#else
-#include <libxml/xmlmemory.h>
-#endif
 
-#include "Exception.h"
-#include "Property.h"
+#include <tinyxml/tinyxml.h>
+
+#include "TinyXml_Node.h"
+#include "TinyXml_Property.h"
 
 namespace hlxml
 {
-	Property* Property::next()
+	TinyXml_Property::TinyXml_Property(TinyXml_Node* node, TiXmlAttribute* prop) : Property()
 	{
-#ifdef USE_TINYXML
-		return (Property*)this->Next();
-#else
-		return (Property*)_xmlAttr::next;
-#endif
+		this->node = node;
+		this->prop = prop;
 	}
 
-	hstr Property::name()
+	TinyXml_Property::~TinyXml_Property()
 	{
-#ifdef USE_TINYXML
-		return hstr((const char*)this->Name());
-#else
-		return hstr((const char*)_xmlAttr::name);
-#endif
 	}
 
-	hstr Property::value()
+	hstr TinyXml_Property::name()
 	{
-#ifdef USE_TINYXML
-		return hstr((const char*)this->Value());
-#else
-		return hstr((const char*)this->children->content);
-#endif
+		return hstr((const char*)this->prop->Name());
+	}
+
+	hstr TinyXml_Property::value()
+	{
+		return hstr((const char*)this->prop->Value());
+	}
+
+	Property* TinyXml_Property::next()
+	{
+		return this->node->prop(this->prop->Next());
 	}
 
 }
