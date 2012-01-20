@@ -22,7 +22,7 @@
 
 namespace hlxml
 {
-	struct Node;
+	class Node;
 
 	class hlxmlExport _XMLException : public hltypes::exception
 	{

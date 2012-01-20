@@ -10,10 +10,18 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Represents a generic XML document.
+/// Represents a TinyXML document.
 
+#ifdef USE_TINYXML
 #ifndef HLXML_DOCUMENT_H
 #define HLXML_DOCUMENT_H
+
+#ifdef USE_TINYXML
+class TiXmlDocument;
+#define _xmlAttr TiXmlAttribute
+#else
+struct _xmlDoc;
+#endif
 
 #include <hltypes/hstring.h>
 
@@ -21,27 +29,31 @@
 
 namespace hlxml
 {
-	class Document;
-	class Node;
-	
-	hlxmlFnExport Document* open(chstr filename);
-	hlxmlFnExport void close(Document* document);
+	struct Node;
 
-	class hlxmlExport Document
+
+#ifdef USE_TINYXML
+	struct hlxmlExport Document
+#else
+	struct hlxmlExport Document
+#endif
 	{
 	public:
-		virtual ~Document();
-
-		hstr getFilename() { return this->filename; }
-
-		virtual Node* root(chstr type = "") = 0;
-
-	protected:
-		hstr filename;
-	
 		Document(chstr filename);
-
+		~Document();
+		Node* root(chstr rootElementQuery = "");
+	
+	protected:
+#ifdef USE_TINYXML
+		TiXmlDocument* xmlDocument;
+#else
+		_xmlDoc* xmlDocument;
+#endif
+		Node* rootNode;
+	
 	};
+
 }
 
+#endif
 #endif
