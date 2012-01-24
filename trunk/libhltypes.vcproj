@@ -202,7 +202,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\util.cpp"
+				RelativePath=".\src\hltypesUtil.cpp"
 				>
 			</File>
 		</Filter>

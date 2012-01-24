@@ -101,7 +101,7 @@
     <ClCompile Include="src\hmutex.cpp" />
     <ClCompile Include="src\hstring.cpp" />
     <ClCompile Include="src\hthread.cpp" />
-    <ClCompile Include="src\util.cpp" />
+    <ClCompile Include="src\hltypesUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\hltypes\exception.h" />
