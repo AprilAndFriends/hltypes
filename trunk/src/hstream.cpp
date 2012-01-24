@@ -11,8 +11,8 @@
 #include <string.h>
 #endif
 
+#include "hltypesUtil.h"
 #include "hstream.h"
-#include "util.h"
 
 namespace hltypes
 {

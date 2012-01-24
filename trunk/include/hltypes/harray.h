@@ -19,8 +19,8 @@
 #include <algorithm>
 
 #include "exception.h"
+#include "hltypesUtil.h"
 #include "hstring.h"
-#include "util.h"
 
 #ifdef _WIN32
 	#undef min

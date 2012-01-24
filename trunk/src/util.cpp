@@ -14,8 +14,8 @@
 
 #include "harray.h"
 #include "hfile.h"
+#include "hltypesUtil.h"
 #include "hstring.h"
-#include "util.h"
 
 int hrand(int min, int max)
 {

@@ -18,8 +18,8 @@
 
 #include "exception.h"
 #include "harray.h"
+#include "hltypesUtil.h"
 #include "hstring.h"
-#include "util.h"
 
 typedef std::basic_string<char> stdstr;
 
