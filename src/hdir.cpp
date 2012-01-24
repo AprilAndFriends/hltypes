@@ -27,8 +27,8 @@ int (*d_rename)(const char* old_name, const char* new_name) = rename;
 #include "harray.h"
 #include "hdir.h"
 #include "hfile.h"
+#include "hltypesUtil.h"
 #include "hstring.h"
-#include "util.h"
 
 namespace hltypes
 {
