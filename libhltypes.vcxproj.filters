@@ -22,9 +22,6 @@
     <ClCompile Include="src\exception.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\util.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\hdir.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -46,12 +43,12 @@
     <ClCompile Include="src\hstream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\hltypesUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\hltypes\exception.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\hltypes\util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\hltypes\harray.h">
@@ -88,6 +85,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\hltypes\hsbase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hltypesUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
