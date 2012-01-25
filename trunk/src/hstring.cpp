@@ -319,6 +319,7 @@ namespace hltypes
 		return hex;
 	}
 
+#ifndef _ANDROID
 	wchar_t* String::w_str() const
 	{
 		wchar_t* result = new wchar_t[stdstr::size() * 4];
@@ -326,6 +327,7 @@ namespace hltypes
 		mbstowcs(result, stdstr::c_str(), stdstr::size());
 		return result;
 	}
+#endif
 
 	bool String::split(const char delimiter, String& out_left,String& out_right) const
 	{

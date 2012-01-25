@@ -12,18 +12,30 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhlxml", "hlxml\libhlxml.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Android = Debug|Android
 		Debug|Win32 = Debug|Win32
+		Release|Android = Release|Android
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4D373BF-E227-48B9-99E6-84987E8674EC}.Debug|Android.ActiveCfg = Debug|Android
+		{E4D373BF-E227-48B9-99E6-84987E8674EC}.Debug|Android.Build.0 = Debug|Android
 		{E4D373BF-E227-48B9-99E6-84987E8674EC}.Debug|Win32.ActiveCfg = Debug|Win32
 		{E4D373BF-E227-48B9-99E6-84987E8674EC}.Debug|Win32.Build.0 = Debug|Win32
+		{E4D373BF-E227-48B9-99E6-84987E8674EC}.Release|Android.ActiveCfg = Release|Android
+		{E4D373BF-E227-48B9-99E6-84987E8674EC}.Release|Android.Build.0 = Release|Android
 		{E4D373BF-E227-48B9-99E6-84987E8674EC}.Release|Win32.ActiveCfg = Release|Win32
 		{E4D373BF-E227-48B9-99E6-84987E8674EC}.Release|Win32.Build.0 = Release|Win32
+		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.Debug|Android.ActiveCfg = Debug|Android
 		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.Debug|Win32.ActiveCfg = Debug|Win32
+		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.Release|Android.ActiveCfg = Release|Android
 		{342DE93D-9BAE-4FC2-96C0-B6B6D108A294}.Release|Win32.ActiveCfg = Release|Win32
+		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Debug|Android.ActiveCfg = Debug_TinyXml|Android
+		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Debug|Android.Build.0 = Debug_TinyXml|Android
 		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Debug|Win32.ActiveCfg = Debug_LibXml2|Win32
 		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Debug|Win32.Build.0 = Debug_LibXml2|Win32
+		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Release|Android.ActiveCfg = Release_TinyXml|Android
+		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Release|Android.Build.0 = Release_TinyXml|Android
 		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Release|Win32.ActiveCfg = Release_LibXml2|Win32
 		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}.Release|Win32.Build.0 = Release_LibXml2|Win32
 	EndGlobalSection
