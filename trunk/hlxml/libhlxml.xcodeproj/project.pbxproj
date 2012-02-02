@@ -7,7 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D1745EA214C5F24A00A6BE6F /* hltypes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1745EA014C5F19E00A6BE6F /* hltypes.framework */; };
+		C9F9314D14DA8B9500954F90 /* LibXml2_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314714DA8B9500954F90 /* LibXml2_Document.cpp */; };
+		C9F9314E14DA8B9500954F90 /* LibXml2_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314714DA8B9500954F90 /* LibXml2_Document.cpp */; };
+		C9F9314F14DA8B9500954F90 /* LibXml2_Document.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F9314814DA8B9500954F90 /* LibXml2_Document.h */; };
+		C9F9315114DA8B9500954F90 /* LibXml2_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314914DA8B9500954F90 /* LibXml2_Node.cpp */; };
+		C9F9315214DA8B9500954F90 /* LibXml2_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314914DA8B9500954F90 /* LibXml2_Node.cpp */; };
+		C9F9315314DA8B9500954F90 /* LibXml2_Node.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F9314A14DA8B9500954F90 /* LibXml2_Node.h */; };
+		C9F9315514DA8B9500954F90 /* LibXml2_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314B14DA8B9500954F90 /* LibXml2_Property.cpp */; };
+		C9F9315614DA8B9500954F90 /* LibXml2_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314B14DA8B9500954F90 /* LibXml2_Property.cpp */; };
+		C9F9315714DA8B9500954F90 /* LibXml2_Property.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F9314C14DA8B9500954F90 /* LibXml2_Property.h */; };
+		C9F9315A14DA8CDF00954F90 /* hltypes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F9315914DA8CDF00954F90 /* hltypes.framework */; };
 		D1745EA514C5F75C00A6BE6F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D1745E9E14C5F13A00A6BE6F /* libxml2.dylib */; };
 		D1981C28140F80960057C3AF /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7A140E593900499A97 /* Document.cpp */; };
 		D1981C29140F80960057C3AF /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
@@ -27,11 +36,14 @@
 /* Begin PBXFileReference section */
 		7F42F71411EB111E00B1C1DF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* hlxml.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hlxml.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D129D446140E67AF00CC5073 /* hltypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = hltypes.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Strix-avprgfkxwbppfxhiluxmiwiuhmgi/Build/Products/Debug-LLVM/hltypes.framework"; sourceTree = "<group>"; };
-		D129D448140E680500CC5073 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
+		C9F9314714DA8B9500954F90 /* LibXml2_Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibXml2_Document.cpp; path = xmlsystems/LibXml2/LibXml2_Document.cpp; sourceTree = "<group>"; };
+		C9F9314814DA8B9500954F90 /* LibXml2_Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibXml2_Document.h; path = xmlsystems/LibXml2/LibXml2_Document.h; sourceTree = "<group>"; };
+		C9F9314914DA8B9500954F90 /* LibXml2_Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibXml2_Node.cpp; path = xmlsystems/LibXml2/LibXml2_Node.cpp; sourceTree = "<group>"; };
+		C9F9314A14DA8B9500954F90 /* LibXml2_Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibXml2_Node.h; path = xmlsystems/LibXml2/LibXml2_Node.h; sourceTree = "<group>"; };
+		C9F9314B14DA8B9500954F90 /* LibXml2_Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibXml2_Property.cpp; path = xmlsystems/LibXml2/LibXml2_Property.cpp; sourceTree = "<group>"; };
+		C9F9314C14DA8B9500954F90 /* LibXml2_Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibXml2_Property.h; path = xmlsystems/LibXml2/LibXml2_Property.h; sourceTree = "<group>"; };
+		C9F9315914DA8CDF00954F90 /* hltypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = hltypes.framework; path = "../../__build__/angels/Build/Products/Debug-LLVM/hltypes.framework"; sourceTree = "<group>"; };
 		D1745E9E14C5F13A00A6BE6F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = SDKs/MacOSX10.6.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
-		D1745EA014C5F19E00A6BE6F /* hltypes.framework */ = {isa = PBXFileReference; lastKnownFileType = file; name = hltypes.framework; path = ../../../__build__/pharaoh/Build/Products/Release/hltypes.framework; sourceTree = "<group>"; };
-		D1745EA314C5F61A00A6BE6F /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = SDKs/MacOSX10.6.sdk/usr/lib/libxml2.2.dylib; sourceTree = DEVELOPER_DIR; };
 		D1E1DD69140E58E600499A97 /* libhlxml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhlxml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1E1DD7A140E593900499A97 /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = src/Document.cpp; sourceTree = "<group>"; };
 		D1E1DD7B140E593900499A97 /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Exception.cpp; path = src/Exception.cpp; sourceTree = "<group>"; };
@@ -49,8 +61,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9F9315A14DA8CDF00954F90 /* hltypes.framework in Frameworks */,
 				D1745EA514C5F75C00A6BE6F /* libxml2.dylib in Frameworks */,
-				D1745EA214C5F24A00A6BE6F /* hltypes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,12 +88,10 @@
 		0867D691FE84028FC02AAC07 /* libhlxml */ = {
 			isa = PBXGroup;
 			children = (
-				D1745EA314C5F61A00A6BE6F /* libxml2.2.dylib */,
-				D1745EA014C5F19E00A6BE6F /* hltypes.framework */,
-				D1745E9E14C5F13A00A6BE6F /* libxml2.dylib */,
 				7F42F71411EB111E00B1C1DF /* Info.plist */,
 				7F42F69C11EB0B9A00B1C1DF /* include */,
 				7F42F69511EB0B8500B1C1DF /* src */,
+				C9F9314514DA8B7500954F90 /* xmlsystems */,
 				D1E1DD6A140E58E600499A97 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -111,11 +121,32 @@
 			name = include;
 			sourceTree = "<group>";
 		};
+		C9F9314514DA8B7500954F90 /* xmlsystems */ = {
+			isa = PBXGroup;
+			children = (
+				C9F9314614DA8B8100954F90 /* libxml2 */,
+			);
+			name = xmlsystems;
+			sourceTree = "<group>";
+		};
+		C9F9314614DA8B8100954F90 /* libxml2 */ = {
+			isa = PBXGroup;
+			children = (
+				C9F9314714DA8B9500954F90 /* LibXml2_Document.cpp */,
+				C9F9314814DA8B9500954F90 /* LibXml2_Document.h */,
+				C9F9314914DA8B9500954F90 /* LibXml2_Node.cpp */,
+				C9F9314A14DA8B9500954F90 /* LibXml2_Node.h */,
+				C9F9314B14DA8B9500954F90 /* LibXml2_Property.cpp */,
+				C9F9314C14DA8B9500954F90 /* LibXml2_Property.h */,
+			);
+			name = libxml2;
+			sourceTree = "<group>";
+		};
 		D1E1DD6A140E58E600499A97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D129D448140E680500CC5073 /* libxml2.dylib */,
-				D129D446140E67AF00CC5073 /* hltypes.framework */,
+				D1745E9E14C5F13A00A6BE6F /* libxml2.dylib */,
+				C9F9315914DA8CDF00954F90 /* hltypes.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -132,13 +163,9 @@
 				D1E1DD89140E594B00499A97 /* hlxmlExport.h in Headers */,
 				D1E1DD8A140E594B00499A97 /* Node.h in Headers */,
 				D1E1DD8B140E594C00499A97 /* Property.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D1E1DD67140E58E600499A97 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				C9F9314F14DA8B9500954F90 /* LibXml2_Document.h in Headers */,
+				C9F9315314DA8B9500954F90 /* LibXml2_Node.h in Headers */,
+				C9F9315714DA8B9500954F90 /* LibXml2_Property.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +197,6 @@
 			buildPhases = (
 				D1E1DD65140E58E600499A97 /* Sources */,
 				D1E1DD66140E58E600499A97 /* Frameworks */,
-				D1E1DD67140E58E600499A97 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -229,6 +255,9 @@
 				D1E1DD7F140E593900499A97 /* Exception.cpp in Sources */,
 				D1E1DD80140E593900499A97 /* Node.cpp in Sources */,
 				D1E1DD81140E593900499A97 /* Property.cpp in Sources */,
+				C9F9314D14DA8B9500954F90 /* LibXml2_Document.cpp in Sources */,
+				C9F9315114DA8B9500954F90 /* LibXml2_Node.cpp in Sources */,
+				C9F9315514DA8B9500954F90 /* LibXml2_Property.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +269,9 @@
 				D1981C29140F80960057C3AF /* Exception.cpp in Sources */,
 				D1981C2A140F80960057C3AF /* Node.cpp in Sources */,
 				D1981C2B140F80960057C3AF /* Property.cpp in Sources */,
+				C9F9314E14DA8B9500954F90 /* LibXml2_Document.cpp in Sources */,
+				C9F9315214DA8B9500954F90 /* LibXml2_Node.cpp in Sources */,
+				C9F9315614DA8B9500954F90 /* LibXml2_Property.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,11 +288,19 @@
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../__build__/angels/Build/Products/Debug-LLVM\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					_DEBUG,
+				);
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -283,8 +323,13 @@
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../__build__/angels/Build/Products/Debug-LLVM\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -366,8 +411,13 @@
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../__build__/angels/Build/Products/Debug-LLVM\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -411,11 +461,19 @@
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../__build__/angels/Build/Products/Debug-LLVM\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					_DEBUG,
+				);
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -457,8 +515,13 @@
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../__build__/angels/Build/Products/Debug-LLVM\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -491,7 +554,8 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
-					"$(inherited)",
+					_DEBUG,
+					USE_LIBXML2,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -524,7 +588,8 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
-					"$(inherited)",
+					_DEBUG,
+					USE_LIBXML2,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = "";
@@ -554,6 +619,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
@@ -582,6 +648,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
@@ -610,6 +677,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
