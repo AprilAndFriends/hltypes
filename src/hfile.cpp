@@ -31,13 +31,10 @@ namespace hltypes
 	File::File(chstr filename, AccessMode access_mode, unsigned char encryption_offset) : StreamBase(encryption_offset), cfile(NULL)
 	{
 		this->filename = normalize_path(filename);
-#ifdef NO_FS_TREE
-		this->filename = this->filename.replace("/", "___");
-#endif
 		this->open(filename, access_mode, encryption_offset);
 	}
 	
-	File::File() : StreamBase(), filename(""), cfile(NULL)
+	File::File() : StreamBase(), cfile(NULL)
 	{
 	}
 	
@@ -56,9 +53,6 @@ namespace hltypes
 			this->close();
 		}
 		this->filename = normalize_path(filename);
-#ifdef NO_FS_TREE
-		this->filename = this->filename.replace("/", "___");
-#endif
 		this->encryption_offset = encryption_offset;
 		const char* mode = "rb";
 		switch (access_mode)
@@ -158,10 +152,7 @@ namespace hltypes
 	bool File::create(chstr filename)
 	{
 		hstr name = normalize_path(filename);
-#ifdef NO_FS_TREE
-		name = name.replace("/", "___");
-#endif
-		if (!hfile::exists(name))
+		if (!File::exists(name))
 		{
 			hdir::create_path(name);
 			int attempts = File::repeats + 1;
@@ -186,25 +177,19 @@ namespace hltypes
 	
 	bool File::create_new(chstr filename)
 	{
-		return (hfile::create(filename) || hfile::clear(filename));
+		return (File::create(filename) || File::clear(filename));
 	}
 	
 	bool File::remove(chstr filename)
 	{
 		hstr name = normalize_path(filename);
-#ifdef NO_FS_TREE
-		name = name.replace("/", "___");
-#endif
 		return (f_remove(name.c_str()) == 0);
 	}
 	
 	bool File::exists(chstr filename)
 	{
 		hstr name = normalize_path(filename);
-#ifdef NO_FS_TREE
-		name = name.replace("/", "___");
-#endif
-		FILE* f = fopen(name.c_str(), "r");
+		FILE* f = fopen(name.c_str(), "rb");
 		if (f != NULL)
 		{
 			fclose(f);
@@ -216,10 +201,7 @@ namespace hltypes
 	bool File::clear(chstr filename)
 	{
 		hstr name = normalize_path(filename);
-#ifdef NO_FS_TREE
-		name = name.replace("/", "___");
-#endif
-		if (hfile::exists(name))
+		if (File::exists(name))
 		{
 			FILE* f = fopen(name.c_str(), "wb");
 			if (f != NULL)
@@ -235,11 +217,7 @@ namespace hltypes
 	{
 		hstr old_name = normalize_path(old_filename);
 		hstr new_name = normalize_path(new_filename);
-#ifdef NO_FS_TREE
-		old_name = old_name.replace("/", "___");
-		new_name = new_name.replace("/", "___");
-#endif
-		if (!hfile::exists(old_name) || hfile::exists(new_name))
+		if (!File::exists(old_name) || File::exists(new_name))
 		{
 			return false;
 		}
@@ -250,27 +228,20 @@ namespace hltypes
 	bool File::move(chstr filename, chstr path)
 	{
 		hstr name = normalize_path(filename);
-#ifdef NO_FS_TREE
-		name = name.replace("/", "___");
-#endif
-		return hfile::rename(name, path + "/" + name.rsplit("/", 1, false).pop_last());
+		return File::rename(name, path + "/" + name.rsplit("/", 1, false).pop_last());
 	}
 	
 	bool File::copy(chstr old_filename, chstr new_filename)
 	{
 		hstr old_name = normalize_path(old_filename);
 		hstr new_name = normalize_path(new_filename);
-#ifdef NO_FS_TREE
-		old_name = old_name.replace("/", "___");
-		new_name = new_name.replace("/", "___");
-#endif
-		if (!hfile::exists(old_name) || hfile::exists(new_name))
+		if (!File::exists(old_name) || File::exists(new_name))
 		{
 			return false;
 		}
 		hdir::create_path(new_name);
-		hfile old_file(old_name);
-		hfile new_file(new_name, hfile::WRITE);
+		File old_file(old_name);
+		File new_file(new_name, File::WRITE);
 		int count;
 		char c[BUFFER_SIZE] = {'\0'}; // literal buffer, not a string buffer that requires \0 at the end
 		while (!old_file.eof())
@@ -283,44 +254,27 @@ namespace hltypes
 	
 	long File::hsize(chstr filename)
 	{
-		hstr name = normalize_path(filename);
-		return hfile(name).size();
+		return File(filename).size();
 	}
 	
 	hstr File::hread(chstr filename, int count)
 	{
-		hstr name = normalize_path(filename);
-#ifdef NO_FS_TREE
-		name = name.replace("/", "___");
-#endif
-		return hfile(name).read(count);
+		return File(filename).read(count);
 	}
 	
 	hstr File::hread(chstr filename, chstr delimiter)
 	{
-		hstr name = normalize_path(filename);
-#ifdef NO_FS_TREE
-		name = name.replace("/", "___");
-#endif
-		return hfile(name).read(delimiter);
+		return File(filename).read(delimiter);
 	}
 	
 	void File::hwrite(chstr filename, chstr text)
 	{
-		hstr name = normalize_path(filename);
-#ifdef NO_FS_TREE
-		name = name.replace("/", "___");
-#endif
-		hfile(name, WRITE).write(text);
+		File(filename, WRITE).write(text);
 	}
 	
 	void File::happend(chstr filename, chstr text)
 	{
-		hstr name = normalize_path(filename);
-#ifdef NO_FS_TREE
-		name = name.replace("/", "___");
-#endif
-		hfile(name, APPEND).write(text);
+		File(filename, APPEND).write(text);
 	}
 	
 }

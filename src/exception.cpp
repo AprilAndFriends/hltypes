@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 1.4
+/// @version 1.5
 /// 
 /// @section LICENSE
 /// 
@@ -51,6 +51,24 @@ namespace hltypes
 	_file_long_error::~_file_long_error()
 	{
 	}
+	
+	_resource_not_writeable::_resource_not_writeable(chstr filename, const char* source_file, int line) :
+	    exception("'" + filename + "' is accessed as a resource which is not writeable!", source_file, line)
+	{
+	}
+	_resource_not_writeable::~_resource_not_writeable()
+	{
+	}
+
+#ifdef _ANDROID
+	_resource_not_seekable::_resource_not_seekable(chstr filename, const char* source_file, int line) :
+	    exception("'" + filename + "' is accessed as a resource which is not seekable!", source_file, line)
+	{
+	}
+	_resource_not_seekable::~_resource_not_seekable()
+	{
+	}
+#endif
 	
 	_index_error::_index_error(int index, const char* source_file, int line) :
 	    exception("index '" + hstr(index) + "' out of range", source_file, line)

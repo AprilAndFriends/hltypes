@@ -11,8 +11,8 @@
 /// 
 /// Provides a base class for streaming.
 
-#ifndef HLTYPES_FILE_BASE_H
-#define HLTYPES_FILE_BASE_H
+#ifndef HLTYPES_STREAM_BASE_H
+#define HLTYPES_STREAM_BASE_H
 
 #include <stdio.h>
 

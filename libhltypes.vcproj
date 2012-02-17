@@ -186,6 +186,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\hresource.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\hsbase.cpp"
 				>
 			</File>
@@ -249,6 +253,10 @@
 			</File>
 			<File
 				RelativePath=".\include\hltypes\hmutex.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\hltypes\hresource.h"
 				>
 			</File>
 			<File
