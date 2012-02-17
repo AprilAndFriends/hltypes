@@ -108,14 +108,12 @@ namespace hltypes
 		/// @brief Defines the resource archive's filename.
 		static hstr archive;
 
+		/// @brief Updates internal data size.
+		void _update_data_size();
+
 		/// @brief Gets special descriptor.
 		/// @returns Special descriptor.
 		hstr _descriptor();
-		
-		/// @brief Gets full filename.
-		/// @returns Full filename.
-		hstr _get_full_filename();
-		
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
@@ -142,6 +140,11 @@ namespace hltypes
 		void _seek(long offset, SeekMode seek_mode = CURRENT);
 #endif
 
+		/// @brief Create a full filename.
+		/// @params[in] filename Original filename.
+		/// @returns Full filename.
+		static hstr _make_full_filename(chstr filename);
+		
 	};
 
 }

@@ -77,7 +77,7 @@ namespace hltypes
 			this->archivefile = zip_open(Resource::archive.c_str(), 0, NULL);
 			if (this->archivefile != NULL)
 			{
-				this->cfile = zip_fopen(this->archivefile, this->_get_full_filename().c_str(), 0);
+				this->cfile = zip_fopen(this->archivefile, Resource::_make_full_filename(this->filename).c_str(), 0);
 				if (this->cfile != NULL)
 				{
 					break;
@@ -93,6 +93,10 @@ namespace hltypes
 			}
 			Thread::sleep(Resource::timeout);
 		};
+		if (this->archivefile == NULL)
+		{
+			throw file_not_found(this->_descriptor());
+		}
 		if (this->cfile == NULL)
 		{
 			throw file_not_found(this->_descriptor());
@@ -112,14 +116,17 @@ namespace hltypes
 		this->data_size = 0;
 	}
 	
+	void Resource::_update_data_size()
+	{
+		struct zip_stat stat;
+		stat.size = 0;
+		zip_stat(this->archivefile, Resource::_make_full_filename(this->filename).c_str(), 0, &stat);
+		this->data_size = stat.size;
+	}
+
 	hstr Resource::_descriptor()
 	{
 		return this->filename;
-	}
-	
-	hstr Resource::_get_full_filename()
-	{
-		return (Resource::cwd + "/" + this->filename);
 	}
 	
 	long Resource::_read(void* buffer, int size, int count)
@@ -141,10 +148,7 @@ namespace hltypes
 	
 	long Resource::_position()
 	{
-		struct zip_stat stat;
-		stat.size = 0;
-		zip_stat(this->archivefile, this->_get_full_filename().c_str(), 0, &stat);
-		return stat.size;
+		return this->data_size;
 	}
 	
 	void Resource::_seek(long offset, SeekMode seek_mode)
@@ -154,14 +158,20 @@ namespace hltypes
 	
 	bool Resource::exists(chstr filename)
 	{
-		hstr name = normalize_path(filename);
-		FILE* f = fopen(name.c_str(), "rb");
-		if (f != NULL)
+		bool result = false;
+		struct zip* a = zip_open(Resource::archive.c_str(), 0, NULL);
+		if (a != NULL)
 		{
-			fclose(f);
-			return true;
+			hstr name = normalize_path(Resource::_make_full_filename(filename));
+			struct zip_file* f = zip_fopen(a, name.c_str(), 0);
+			if (f != NULL)
+			{
+				zip_fclose(f);
+				result = true;
+			}
+			zip_close(a);
 		}
-		return false;
+		return result;
 	}
 	
 	long Resource::hsize(chstr filename)
@@ -177,6 +187,11 @@ namespace hltypes
 	hstr Resource::hread(chstr filename, chstr delimiter)
 	{
 		return Resource(filename).read(delimiter);
+	}
+
+	hstr Resource::_make_full_filename(chstr filename)
+	{
+		return normalize_path(Resource::cwd + "/" + filename);
 	}
 #endif
 
