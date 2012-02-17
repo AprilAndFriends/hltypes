@@ -70,6 +70,11 @@ namespace hltypes
 		/// @brief Closes file.
 		void close();
 		
+		/// @brief Gets the underlying file pointer.
+		/// @result Underlying file pointer.
+		/// @note Careful when using this. It is only intended for special use such as calls that have to use an actual file pointer for access.
+		FILE* system_file() { return this->cfile; }
+
 		/// @brief Creates a file.
 		/// @param[in] filename Name of the file.
 		/// @result True if a new file was created. False if file could not be created or already exists.

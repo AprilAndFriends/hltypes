@@ -46,6 +46,9 @@
     <ClCompile Include="src\hltypesUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\hresource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\hltypes\exception.h">
@@ -88,6 +91,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\hltypes\hltypesUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hresource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
