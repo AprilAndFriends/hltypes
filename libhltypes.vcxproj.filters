@@ -14,11 +14,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="fileproperties.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="src\exception.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,5 +91,10 @@
     <ClInclude Include="include\hltypes\hresource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fileproperties.rc">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

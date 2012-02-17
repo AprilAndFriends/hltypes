@@ -170,10 +170,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ResourceCompile Include="fileproperties.rc">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Android'">true</ExcludedFromBuild>
-    </ResourceCompile>
+    <None Include="fileproperties.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\exception.cpp" />

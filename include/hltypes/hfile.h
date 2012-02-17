@@ -150,7 +150,6 @@ namespace hltypes
 		/// @brief Gets special descriptor.
 		/// @returns Special descriptor.
 		hstr _descriptor();
-		
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
