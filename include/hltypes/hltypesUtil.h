@@ -163,10 +163,6 @@ hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE)
 /// @param[in] path The path.
 /// @return Normalized filepath.
 hltypesFnExport hstr normalize_path(chstr path);
-/// @brief Changes the path when using specific system options. This function is usually not used.
-/// @param[in] path The path.
-/// @return Altered filepath.
-hltypesFnExport hstr systemize_path(chstr path);
 /// @brief Gets the base directory of a filename.
 /// @param[in] filename The filename.
 /// @return Base directory of the file.
