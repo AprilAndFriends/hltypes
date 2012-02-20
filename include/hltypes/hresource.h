@@ -19,7 +19,6 @@
 
 #include "hfile.h"
 #else
-#include <zip/zip.h>
 
 #include "hsbase.h"
 #include "hstring.h"
