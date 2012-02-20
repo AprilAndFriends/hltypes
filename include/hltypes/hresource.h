@@ -97,6 +97,8 @@ namespace hltypes
 		struct zip* archivefile;
 		/// @brief Internal archive file handle.
 		struct zip_file* cfile;
+		/// @brief Data position;
+		int data_position;
 
 		/// @brief Defines the number of repeated attempts to access a file.
 		static int repeats;

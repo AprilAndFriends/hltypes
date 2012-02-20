@@ -12,6 +12,7 @@
 
 #include <tinyxml/tinyxml.h>
 
+#include <hltypes/hresource.h>
 #include <hltypes/hstring.h>
 
 #include "Exception.h"
@@ -23,12 +24,18 @@ namespace hlxml
 	TinyXml_Document::TinyXml_Document(chstr filename) : Document(filename), rootNode(NULL)
 	{
 		hstr realFilename = normalize_path(filename);
-		this->document = new TiXmlDocument(realFilename.c_str());
-		if (this->document == NULL)
+		// loading goes through hresource because of Android's way of handling resources
+		hresource file(realFilename);
+		int size = file.size();
+		char* data = new char[size];
+		file.read_raw(data, size);
+		file.close();
+		this->document = new TiXmlDocument();
+		this->document->Parse(data);
+		if (this->document->Error())
 		{
 			throw XMLException("Unable to parse xml file '" + realFilename + "', document is invalid", NULL);
 		}
-		this->document->LoadFile();
 	}
 
 	TinyXml_Document::~TinyXml_Document()

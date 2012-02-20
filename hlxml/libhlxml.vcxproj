@@ -45,7 +45,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_LibXml2|Android'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <AndroidAPILevel>android-5</AndroidAPILevel>
@@ -56,7 +56,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_TinyXml|Android'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <AndroidAPILevel>android-5</AndroidAPILevel>
@@ -66,7 +66,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_LibXml2|Android'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <AndroidAPILevel>android-5</AndroidAPILevel>
   </PropertyGroup>
@@ -75,7 +75,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_TinyXml|Android'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <AndroidAPILevel>android-5</AndroidAPILevel>
   </PropertyGroup>
@@ -164,6 +164,7 @@
       <GccExceptionHandling>true</GccExceptionHandling>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OptimizationLevel>O0</OptimizationLevel>
     </ClCompile>
     <Link>
       <AdditionalDependencies>-lhltypes;-lxml2;%(AdditionalDependencies)</AdditionalDependencies>
@@ -216,6 +217,7 @@
       <GccExceptionHandling>true</GccExceptionHandling>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OptimizationLevel>O0</OptimizationLevel>
     </ClCompile>
     <Link>
       <AdditionalDependencies>-lhltypes;-ltinyxml;%(AdditionalDependencies)</AdditionalDependencies>
@@ -350,12 +352,7 @@
     <ClInclude Include="xmlsystems\TinyXml\TinyXml_Property.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="fileproperties.rc">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_LibXml2|Android'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_LibXml2|Android'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_TinyXml|Android'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_TinyXml|Android'">true</ExcludedFromBuild>
-    </ResourceCompile>
+    <None Include="fileproperties.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libhltypes.vcxproj">

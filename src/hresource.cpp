@@ -30,12 +30,14 @@ namespace hltypes
 
 	Resource::Resource(chstr filename) : StreamBase(), archivefile(NULL), cfile(NULL)
 	{
+		this->data_position = 0;
 		this->filename = normalize_path(filename);
 		this->open(filename);
 	}
 	
 	Resource::Resource() : StreamBase(), archivefile(NULL), cfile(NULL)
 	{
+		this->data_position = 0;
 	}
 
 	Resource::~Resource()
@@ -58,7 +60,7 @@ namespace hltypes
 	{
 	}
 #endif
-	
+#include <android/log.h>
 	void Resource::open(chstr filename)
 	{
 #ifndef _ANDROID
@@ -92,7 +94,7 @@ namespace hltypes
 				break;
 			}
 			Thread::sleep(Resource::timeout);
-		};
+		}
 		if (this->archivefile == NULL)
 		{
 			throw file_not_found(this->_descriptor());
@@ -114,6 +116,7 @@ namespace hltypes
 		zip_close(this->archivefile);
 		this->archivefile = NULL;
 		this->data_size = 0;
+		this->data_position = 0;
 	}
 	
 	void Resource::_update_data_size()
@@ -131,7 +134,9 @@ namespace hltypes
 	
 	long Resource::_read(void* buffer, int size, int count)
 	{
-		return zip_fread(this->cfile, buffer, size * count);
+		int readCount = size * count;
+		this->data_position += readCount;
+		return zip_fread(this->cfile, buffer, readCount);
 	}
 #endif
 	
@@ -148,7 +153,7 @@ namespace hltypes
 	
 	long Resource::_position()
 	{
-		return this->data_size;
+		return this->data_position;
 	}
 	
 	void Resource::_seek(long offset, SeekMode seek_mode)
