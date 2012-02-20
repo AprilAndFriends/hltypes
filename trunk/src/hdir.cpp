@@ -32,16 +32,9 @@ int (*d_rename)(const char* old_name, const char* new_name) = rename;
 
 namespace hltypes
 {
-	
 	static hstr convert_to_native_path(hstr path)
 	{
-#ifndef NO_FS_TREE
 		return path;
-#else
-		hstr npath = path.ltrim('.').ltrim('.').ltrim('/');
-		npath = npath.replace("/","___");
-		return npath;
-#endif
 	}
 
 	static bool hmkdir(chstr path)
@@ -53,11 +46,7 @@ namespace hltypes
 		return result;
 
 		*/
-#ifndef NO_FS_TREE
 		return (_mkdir(path.c_str()) != 0);
-#else
-		return true;
-#endif
 	}
 	
 	static bool hremove(chstr dirname)
@@ -68,11 +57,7 @@ namespace hltypes
 		delete wdirname;
 		return result;
 		*/
-#ifndef NO_FS_TREE
 		return (remove(dirname.c_str()) != 0);
-#else
-		return true;
-#endif
 	}
 	
 	static bool hrmdir(chstr dirname)
@@ -82,16 +67,11 @@ namespace hltypes
 		bool result = _wrmdir(wdirname);
 		return result;
 		*/
-#ifndef NO_FS_TREE
 		return (_rmdir(dirname.c_str()) != 0);
-#else
-		return true;
-#endif
 	}
 	
 	bool Dir::create(chstr dirname)
 	{
-#ifndef NO_FS_TREE
 		hstr name = normalize_path(dirname);
 		if (name == "" || hdir::exists(name))
 		{
@@ -109,23 +89,15 @@ namespace hltypes
 			}
 		}
 		return hdir::exists(dirname);
-#else
-		return true;
-#endif
 	}
 	
 	bool Dir::create_new(chstr dirname)
 	{
-#ifndef NO_FS_TREE
 		return (hdir::create(dirname) || hdir::clear(dirname));
-#else
-		return true;
-#endif
 	}
 	
 	bool Dir::remove(chstr dirname)
 	{
-#ifndef NO_FS_TREE
 		hstr name = normalize_path(dirname);
 		if (name == "" || !hdir::exists(name))
 		{
@@ -143,15 +115,10 @@ namespace hltypes
 		}
 		hrmdir(name);
 		return hdir::exists(name);
-#else
-		// TODO delete all files starting with dirname where all '/' are replaced by '___'
-		return true;
-#endif
 	}
 	
 	bool Dir::exists(chstr dirname)
 	{
-#ifndef NO_FS_TREE
 		hstr name = normalize_path(dirname);
 		DIR* dir = opendir(name.c_str());
 		if (dir != NULL)
@@ -160,15 +127,10 @@ namespace hltypes
 			return true;
 		}
 		return false;
-#else
-		// TODO return true if there are any files starting with dirname with replaced '/' for '___'
-		return false;
-#endif
 	}
 	
 	bool Dir::clear(chstr dirname)
 	{
-#ifndef NO_FS_TREE
 		hstr name = normalize_path(dirname);
 		if (name == "" || !hdir::exists(name))
 		{
@@ -185,15 +147,10 @@ namespace hltypes
 			hfile::remove(name + "/" + (*it));
 		}
 		return (directories.size() > 0 || files.size() > 0);
-#else
-		// TODO
-		return true;
-#endif
 	}
 	
 	bool Dir::rename(chstr old_dirname, chstr new_dirname)
 	{
-#ifndef NO_FS_TREE
 		hstr old_name = normalize_path(old_dirname);
 		hstr new_name = normalize_path(new_dirname);
 		if (!hdir::exists(old_name) || hdir::exists(new_name))
@@ -202,27 +159,17 @@ namespace hltypes
 		}
 		hdir::create_path(new_name);
 		return (d_rename(old_name.c_str(), new_name.c_str()) == 0);
-#else
-		// TODO rename all files that have old_dirname in them with new_dirname
-		return true;
-#endif
 	}
 	
 	bool Dir::move(chstr dirname, chstr path)
 	{
-#ifndef NO_FS_TREE
 		hstr name = normalize_path(dirname);
 		hstr path_name = normalize_path(path);
 		return hdir::rename(name, path_name + "/" + name.rsplit("/", 1, false).pop_last());
-#else
-		// TODO
-		return true;
-#endif
 	}
 	
 	bool Dir::copy(chstr old_dirname, chstr new_dirname)
 	{
-#ifndef NO_FS_TREE
 		hstr old_name = normalize_path(old_dirname);
 		hstr new_name = normalize_path(new_dirname);
 		if (!hdir::exists(old_name) || hdir::exists(new_name))
@@ -241,19 +188,12 @@ namespace hltypes
 			hfile::copy(old_name + "/" + (*it), new_name + "/" + (*it));
 		}
 		return true;
-#else
-		return true;
-#endif
 	}
 	
 	bool Dir::create_path(chstr path)
 	{
-#ifndef NO_FS_TREE
 		hstr dir = get_basedir(path);
 		return (dir != "." && hdir::create(dir));
-#else
-		return true;
-#endif
 	}
     
     void prepend_directory(chstr dirname, Array<hstr>& entries)
@@ -269,7 +209,6 @@ namespace hltypes
 	
 	Array<hstr> Dir::entries(chstr dirname, bool prepend_dir)
 	{
-#ifndef NO_FS_TREE
 		hstr name = normalize_path(dirname);
 		Array<hstr> result;
 		if (hdir::exists(name))
@@ -287,16 +226,10 @@ namespace hltypes
 			prepend_directory(name, result);
 		}
 		return result;
-#else
-		//2do
-		Array<hstr> result;
-		return result;
-#endif
 	}
 	
 	Array<hstr> Dir::contents(chstr dirname, bool prepend_dir)
 	{
-#ifndef NO_FS_TREE
 		hstr name = normalize_path(dirname);
 		Array<hstr> result;
 		if (hdir::exists(name))
@@ -316,16 +249,10 @@ namespace hltypes
 			prepend_directory(name, result);
 		}
 		return result;
-#else
-		//2do
-		Array<hstr> result;
-		return result;
-#endif
 	}
 	
 	Array<hstr> Dir::directories(chstr dirname, bool prepend_dir)
 	{
-#ifndef NO_FS_TREE
 		hstr name = normalize_path(dirname);
 		hstr current;
 		Array<hstr> result;
@@ -350,16 +277,10 @@ namespace hltypes
 			prepend_directory(name, result);
 		}
 		return result;
-#else
-		//2do
-		Array<hstr> result;
-		return result;
-#endif
 	}
 	
 	Array<hstr> Dir::files(chstr dirname, bool prepend_dir)
 	{
-#ifndef NO_FS_TREE
 		hstr name = normalize_path(dirname);
 		hstr current;
 		Array<hstr> result;
@@ -385,34 +306,16 @@ namespace hltypes
 			}
 			closedir(dir);
 		}
-#else
-		Array<hstr> result;
-		DIR *dir = opendir("./");
-		struct dirent *entry;
-		hstr tmp;
-		hstr name = normalize_path(dirname);
-		name = name.replace("/","___");
-		while ((entry = readdir(dir)))
-		{
-			tmp = hstr(entry->d_name);
-			if (tmp.starts_with(name))
-			{
-				printf("%s\n", entry->d_name);
-				tmp = tmp.split("___")[-1];
-				result += tmp;
-			}
-		}
-		name = name.replace("___", "/");
-		closedir(dir);
-#endif
 		if (prepend_dir)
 		{
 			prepend_directory(name, result);
 		}
 		return result;
 	}
+
 	void hdir::chdir(chstr dirname)
 	{
 		_chdir(dirname.c_str());
 	}
+
 }
