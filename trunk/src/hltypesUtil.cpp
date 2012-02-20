@@ -13,8 +13,8 @@
 #endif
 
 #include "harray.h"
-#include "hfile.h"
 #include "hltypesUtil.h"
+#include "hresource.h"
 #include "hstring.h"
 
 int hrand(int min, int max)
@@ -430,7 +430,7 @@ unsigned int calc_crc32(unsigned char* data, int size)
 unsigned int calc_crc32(chstr filename)
 {
 	create_crc32_table();
-	hfile f(filename);
+	hresource f(filename);
 	int size = f.size();
 	unsigned char* data = new unsigned char[size];
 	f.read_raw(data, size);
