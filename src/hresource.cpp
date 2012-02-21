@@ -60,7 +60,7 @@ namespace hltypes
 	{
 	}
 #endif
-#include <android/log.h>
+	
 	void Resource::open(chstr filename)
 	{
 #ifndef _ANDROID
