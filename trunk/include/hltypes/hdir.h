@@ -96,6 +96,28 @@ namespace hltypes
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
 		/// @result Array of all files.
 		static Array<hstr> files(chstr dirname, bool prepend_dir = false);
+		/// @brief Gets all resource directory entries in the given resource directory.
+		/// @param[in] dirname Name of the resource directory.
+		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource entries.
+		/// @result Array of all resource directory entries.
+		/// @note Entries include "." and "..".
+		static Array<hstr> resource_entries(chstr dirname, bool prepend_dir = false);
+		/// @brief Gets all physical resource directory contents in the given resource directory.
+		/// @param[in] dirname Name of the resource directory.
+		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource contents.
+		/// @result Array of all resource directory contents.
+		/// @note Contents do not include "." and "..".
+		static Array<hstr> resource_contents(chstr dirname, bool prepend_dir = false);
+		/// @brief Gets all resource directories in the given directory.
+		/// @param[in] dirname Name of the resource directory.
+		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource directory paths.
+		/// @result Array of all resource directories.
+		static Array<hstr> resource_directories(chstr dirname, bool prepend_dir = false);
+		/// @brief Gets all resource files in the given directory.
+		/// @param[in] dirname Name of the directory.
+		/// @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
+		/// @result Array of all files.
+		static Array<hstr> resource_files(chstr dirname, bool prepend_dir = false);
 		/// @brief Changes current working directory to given parameter
 		/// @param[in] dirname Name of the directory
 		static void chdir(chstr dirname);
