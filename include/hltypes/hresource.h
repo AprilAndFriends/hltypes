@@ -81,9 +81,15 @@ namespace hltypes
 		/// @brief Sets the timeout in miliseconds between repeated attempts to access a file.
 		/// @param[in] value New value.
 		static void setTimeout(float value) { timeout = value; }
+		/// @brief Gets the interal current working directory within a possible archive.
+		/// @return Interal current working directory.
+		static hstr getCwd() { return cwd; }
 		/// @brief Sets the interal current working directory within a possible archive.
 		/// @param[in] value New value.
 		static void setCwd(chstr value) { cwd = value; }
+		/// @brief Gets the resource archive's filename.
+		/// @return Resource archive's filename.
+		static hstr getArchive() { return archive; }
 		/// @brief Sets the resource archive's filename.
 		/// @param[in] value New value.
 		static void setArchive(chstr value) { archive = value; }

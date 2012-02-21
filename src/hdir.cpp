@@ -20,6 +20,9 @@
 #define _rmdir(name) rmdir(name)
 #define _chdir(name) chdir(name)
 #endif
+#ifdef _ANDROID
+#include <zip/zip.h>
+#endif
 
 // prevents recursive calls of hdir::rename as this function is called via this pointer
 int (*d_rename)(const char* old_name, const char* new_name) = rename;
@@ -28,6 +31,7 @@ int (*d_rename)(const char* old_name, const char* new_name) = rename;
 #include "hdir.h"
 #include "hfile.h"
 #include "hltypesUtil.h"
+#include "hresource.h"
 #include "hstring.h"
 
 namespace hltypes
@@ -311,6 +315,134 @@ namespace hltypes
 			prepend_directory(name, result);
 		}
 		return result;
+	}
+
+	Array<hstr> Dir::resource_entries(chstr dirname, bool prepend_dir)
+	{
+#ifndef _ANDROID
+		return Dir::entries(dirname, prepend_dir);
+#else
+		hstr name = normalize_path(dirname);
+		Array<hstr> result;
+		if (hdir::exists(name))
+		{
+			DIR* dir = opendir(name.c_str());
+			struct dirent* entry;
+			while ((entry = readdir(dir)))
+			{
+				result += entry->d_name;
+			}
+			closedir(dir);
+		}
+        if (prepend_dir)
+		{
+			prepend_directory(name, result);
+		}
+		return result;
+#endif
+	}
+	
+	Array<hstr> Dir::resource_contents(chstr dirname, bool prepend_dir)
+	{
+#ifndef _ANDROID
+		return Dir::contents(dirname, prepend_dir);
+#else
+		hstr name = normalize_path(dirname);
+		Array<hstr> result;
+		if (hdir::exists(name))
+		{
+			DIR* dir = opendir(name.c_str());
+			struct dirent* entry;
+			while ((entry = readdir(dir)))
+			{
+				result += entry->d_name;
+			}
+			result.remove(".");
+			result.remove("..");
+			closedir(dir);
+		}
+        if (prepend_dir)
+		{
+			prepend_directory(name, result);
+		}
+		return result;
+#endif
+	}
+	
+	Array<hstr> Dir::resource_directories(chstr dirname, bool prepend_dir)
+	{
+#ifndef _ANDROID
+		return Dir::directories(dirname, prepend_dir);
+#else
+		hstr name = normalize_path(dirname);
+		hstr current;
+		Array<hstr> result;
+		if (hdir::exists(name))
+		{
+			DIR* dir = opendir(name.c_str());
+			struct dirent* entry;
+			while ((entry = readdir(dir)))
+			{
+				current = name + "/" + entry->d_name;
+				if (hdir::exists(current))
+				{
+					result += entry->d_name;
+				}
+			}
+			result.remove(".");
+			result.remove("..");
+			closedir(dir);
+		}
+        if (prepend_dir)
+		{
+			prepend_directory(name, result);
+		}
+		return result;
+#endif
+	}
+	
+	Array<hstr> Dir::resource_files(chstr dirname, bool prepend_dir)
+	{
+#ifndef _ANDROID
+		return Dir::files(dirname, prepend_dir);
+#else
+		hstr name = normalize_path(dirname);
+		hstr current;
+		Array<hstr> result;
+		hstr cwd = Resource::getCwd();
+		struct zip* archivefile = zip_open(Resource::getArchive().c_str(), 0, NULL);
+		if (archivefile != NULL)
+		{
+			int count = zip_get_num_files(archivefile);
+			for (int i = 0; i < count; i++)
+			{
+				current = normalize_path(hstr(zip_get_name(archivefile, i, 0)));
+				if (cwd == "" || current.starts_with(cwd + "/"))
+				{
+					if (cwd != "")
+					{
+						current = current(cwd.size() + 1, current.size() - cwd.size() - 1);
+					}
+					if (dirname == "" || current.starts_with(dirname + "/"))
+					{
+						if (dirname != "")
+						{
+							current = current(dirname.size() + 1, current.size() - dirname.size() - 1);
+						}
+						if (!current.contains("/"))
+						{
+							result += current;
+						}
+					}
+				}
+			}
+		}
+		if (prepend_dir)
+		{
+			prepend_directory(name, result);
+		}
+		return result;
+#endif
 	}
 
 	void hdir::chdir(chstr dirname)
