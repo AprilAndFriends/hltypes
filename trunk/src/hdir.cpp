@@ -317,23 +317,31 @@ namespace hltypes
 		return result;
 	}
 
+	bool _check_dir_prefix(hstr& path, chstr prefix)
+	{
+		if (prefix == "")
+		{
+			return true;
+		}
+		if (path.starts_with(prefix + "/"))
+		{
+			path = path(prefix.size() + 1, path.size() - prefix.size() - 1);
+			return true;
+		}
+		return false;
+	}
+	
 	Array<hstr> Dir::resource_entries(chstr dirname, bool prepend_dir)
 	{
 #ifndef _ANDROID
 		return Dir::entries(dirname, prepend_dir);
 #else
 		hstr name = normalize_path(dirname);
-		Array<hstr> result;
-		if (hdir::exists(name))
-		{
-			DIR* dir = opendir(name.c_str());
-			struct dirent* entry;
-			while ((entry = readdir(dir)))
-			{
-				result += entry->d_name;
-			}
-			closedir(dir);
-		}
+		harray<hstr> result;
+		result += Dir::resource_directories(dirname, false);
+		result += Dir::resource_files(dirname, false);
+		result += hstr(".");
+		result += hstr("..");
         if (prepend_dir)
 		{
 			prepend_directory(name, result);
@@ -347,25 +355,7 @@ namespace hltypes
 #ifndef _ANDROID
 		return Dir::contents(dirname, prepend_dir);
 #else
-		hstr name = normalize_path(dirname);
-		Array<hstr> result;
-		if (hdir::exists(name))
-		{
-			DIR* dir = opendir(name.c_str());
-			struct dirent* entry;
-			while ((entry = readdir(dir)))
-			{
-				result += entry->d_name;
-			}
-			result.remove(".");
-			result.remove("..");
-			closedir(dir);
-		}
-        if (prepend_dir)
-		{
-			prepend_directory(name, result);
-		}
-		return result;
+		return (Dir::resource_directories(dirname, prepend_dir) + Dir::resource_files(dirname, prepend_dir));
 #endif
 	}
 	
@@ -377,30 +367,29 @@ namespace hltypes
 		hstr name = normalize_path(dirname);
 		hstr current;
 		Array<hstr> result;
-		if (hdir::exists(name))
+		hstr cwd = Resource::getCwd();
+		struct zip* archivefile = zip_open(Resource::getArchive().c_str(), 0, NULL);
+		if (archivefile != NULL)
 		{
-			DIR* dir = opendir(name.c_str());
-			struct dirent* entry;
-			while ((entry = readdir(dir)))
+			int count = zip_get_num_files(archivefile);
+			for (int i = 0; i < count; i++)
 			{
-				current = name + "/" + entry->d_name;
-				if (hdir::exists(current))
+				current = normalize_path(hstr(zip_get_name(archivefile, i, 0)));
+				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, dirname) && current.contains("/"))
 				{
-					result += entry->d_name;
+					result += current.split("/", 1, false).pop_first();
 				}
 			}
-			result.remove(".");
-			result.remove("..");
-			closedir(dir);
 		}
-        if (prepend_dir)
+		result.remove_duplicates();
+		if (prepend_dir)
 		{
 			prepend_directory(name, result);
 		}
 		return result;
 #endif
 	}
-	
+
 	Array<hstr> Dir::resource_files(chstr dirname, bool prepend_dir)
 	{
 #ifndef _ANDROID
@@ -417,23 +406,9 @@ namespace hltypes
 			for (int i = 0; i < count; i++)
 			{
 				current = normalize_path(hstr(zip_get_name(archivefile, i, 0)));
-				if (cwd == "" || current.starts_with(cwd + "/"))
+				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, dirname) && !current.contains("/"))
 				{
-					if (cwd != "")
-					{
-						current = current(cwd.size() + 1, current.size() - cwd.size() - 1);
-					}
-					if (dirname == "" || current.starts_with(dirname + "/"))
-					{
-						if (dirname != "")
-						{
-							current = current(dirname.size() + 1, current.size() - dirname.size() - 1);
-						}
-						if (!current.contains("/"))
-						{
-							result += current;
-						}
-					}
+					result += current;
 				}
 			}
 		}
