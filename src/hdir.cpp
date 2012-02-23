@@ -10,8 +10,9 @@
 
 #include <stdio.h>
 #ifdef _WIN32
-#include "msvc_dirent.h"
+#include <AccCtrl.h>
 #include <direct.h>
+#include "msvc_dirent.h"
 #else
 #include <dirent.h>
 #include <sys/stat.h>
@@ -36,10 +37,69 @@ int (*d_rename)(const char* old_name, const char* new_name) = rename;
 
 namespace hltypes
 {
-	static hstr convert_to_native_path(hstr path)
+	bool Dir::win32FullDirectoryPermissions = true;
+
+#ifdef _WIN32 // god help us all
+	static bool _mkdirWin32FullPermissions(chstr path)
 	{
-		return path;
+		typedef BOOL (WINAPI* TInitSD)(PSECURITY_DESCRIPTOR, DWORD);
+		typedef BOOL (WINAPI* TAllocSid)(PSID_IDENTIFIER_AUTHORITY, BYTE, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, PSID*);
+		typedef DWORD (WINAPI* TSetEntAcl)(ULONG, PEXPLICIT_ACCESS, PACL, PACL*);
+		typedef DWORD (WINAPI* TSetSDAcl)(PSECURITY_DESCRIPTOR, BOOL, PACL, BOOL);
+		typedef PVOID (WINAPI* TFreeSid)(PSID);
+		HMODULE hAdvapi32 = LoadLibrary(L"Advapi32.dll");
+		if (hAdvapi32 == 0)
+		{
+			return false;
+		}
+		TInitSD pInitSD = reinterpret_cast<TInitSD>(GetProcAddress(hAdvapi32, "InitializeSecurityDescriptor"));
+		TAllocSid pAllocSid = reinterpret_cast<TAllocSid>(GetProcAddress(hAdvapi32, "AllocateAndInitializeSid"));
+		TSetEntAcl pSetEntAcl = reinterpret_cast<TSetEntAcl>(GetProcAddress(hAdvapi32, "SetEntriesInAclW"));
+		TSetSDAcl pSetSDAcl = reinterpret_cast<TSetSDAcl>(GetProcAddress(hAdvapi32, "SetSecurityDescriptorDacl"));
+		TFreeSid pFreeSid = reinterpret_cast<TFreeSid>(GetProcAddress(hAdvapi32, "FreeSid"));
+		if (!pInitSD || !pAllocSid || !pSetEntAcl || !pSetSDAcl || !pFreeSid)
+		{
+			return false;
+		}
+		SECURITY_DESCRIPTOR sd;
+		if (!pInitSD(&sd, SECURITY_DESCRIPTOR_REVISION))
+		{
+			return false;
+		}
+		PSID pEveryoneSid;
+		SID_IDENTIFIER_AUTHORITY authority = SECURITY_WORLD_SID_AUTHORITY;
+		bool result = false;
+		if (pAllocSid(&authority, 1, SECURITY_WORLD_RID, 0, 0, 0, 0, 0, 0, 0, &pEveryoneSid))
+		{
+			EXPLICIT_ACCESS ea;
+			memset(&ea, 0, sizeof(ea));
+			ea.grfAccessPermissions = GENERIC_ALL;
+			ea.grfAccessMode = SET_ACCESS;
+			ea.grfInheritance = SUB_CONTAINERS_AND_OBJECTS_INHERIT;
+			ea.Trustee.MultipleTrusteeOperation = NO_MULTIPLE_TRUSTEE;
+			ea.Trustee.TrusteeForm = TRUSTEE_IS_SID;
+			ea.Trustee.TrusteeType = TRUSTEE_IS_WELL_KNOWN_GROUP;
+			ea.Trustee.ptstrName = static_cast<LPWSTR>(pEveryoneSid);
+			PACL acl;
+			if (pSetEntAcl(1, &ea, 0, &acl) == ERROR_SUCCESS)
+			{
+				if (pSetSDAcl(&sd, true, acl, false))
+				{
+					SECURITY_ATTRIBUTES sa;
+					sa.nLength = sizeof(sa);
+					sa.lpSecurityDescriptor = &sd;
+					sa.bInheritHandle = false;
+					WCHAR fullpath[1024] = {0};
+					mbstowcs((wchar_t*)fullpath, path.c_str(), path.size());
+					result = (CreateDirectory(fullpath, &sa) == TRUE);
+				}
+				LocalFree(acl);
+			}
+			pFreeSid(pEveryoneSid);
+		}
+		return result;
 	}
+#endif
 
 	static bool hmkdir(chstr path)
 	{
@@ -50,6 +110,12 @@ namespace hltypes
 		return result;
 
 		*/
+#ifdef _WIN32
+		if (Dir::getWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(path))
+		{
+			return true;
+		}
+#endif
 		return (_mkdir(path.c_str()) != 0);
 	}
 	
