@@ -20,39 +20,29 @@
 
 TEST(String_float)
 {
-	hstr floatString("5.75");
-	float f = floatString;
-	floatString = 6.75f;
+	hstr float_string("5.75");
+	float f = float_string;
+	float_string = 6.75f;
 	
 	CHECK(f == 5.75f);
-	CHECK(floatString == 6.75f);
+	CHECK(float_string == 6.75f);
 }
 
 TEST(String_int)
 {
-	hstr intString("5");
-	int f = intString;
-	intString = 6;
+	hstr int_string("5");
+	int f = int_string;
+	int_string = 6;
 	CHECK(f == 5);
-	CHECK(intString == 6);
+	CHECK(int_string == 6);
 }
 
-TEST(String_bool)
-{
-	hstr b;
-	b = "1";
-	CHECK(b == true);
-	b = "0";
-	CHECK(b == false);
-	b = "true";
-	CHECK(b == true);
-	b = "false";
-	CHECK(b == false);
-	b = true;
-	CHECK(b == true);
-	b = false;
-	CHECK(b == false);
-}
+TEST(String_bool1) { hstr b("1");     CHECK(b == true);  }
+TEST(String_bool2) { hstr b("0");     CHECK(b == false); }
+TEST(String_bool3) { hstr b("true");  CHECK(b == true);  }
+TEST(String_bool4) { hstr b("false"); CHECK(b == false); }
+TEST(String_bool5) { hstr b; b=true;  CHECK(b == true);  }
+TEST(String_bool6) { hstr b; b=false; CHECK(b == false); }
 
 TEST(String_stdstr_compatibility)
 {
@@ -220,26 +210,34 @@ TEST(String_substr_operator)
 	CHECK(s[3] == '4');
 }
 
-TEST(String_count)
+TEST(String_trim)
 {
-	hstr s = "11122223";
-	CHECK(s.count("22") == 2);
-	CHECK(s.count("1") == 3);
-	CHECK(s.count('1') == 3);
-	CHECK(s.count('5') == 0);
+	hstr s1 = "123 456 789 0";
+	CHECK(s1.rtrim() == "123 456 789 0");
+	CHECK(s1.ltrim() == "123 456 789 0");
+	CHECK(s1.trim() == "123 456 789 0");
+	CHECK(s1.trim('0') == "123 456 789 ");
+	hstr s2 = "   123 456 789 0";
+	CHECK(s2.rtrim() == "   123 456 789 0");
+	CHECK(s2.ltrim() == "123 456 789 0");
+	CHECK(s2.trim() == "123 456 789 0");
+	CHECK(s2.trim('0') == "   123 456 789 ");
+	hstr s3 = "123 456 789 0   ";
+	CHECK(s3.rtrim() == "123 456 789 0");
+	CHECK(s3.ltrim() == "123 456 789 0   ");
+	CHECK(s3.trim() == "123 456 789 0");
+	CHECK(s3.trim('0') == "123 456 789 0   ");
+	hstr s4 = "   123 456 789 0   ";
+	CHECK(s4.rtrim() == "   123 456 789 0");
+	CHECK(s4.ltrim() == "123 456 789 0   ");
+	CHECK(s4.trim() == "123 456 789 0");
+	CHECK(s4.trim('0') == "   123 456 789 0   ");
 }
 
-TEST(String_caps)
+TEST(String_hsprintf)
 {
-	hstr s = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
-	CHECK(s.lower() == "this t3xt w4s written in variant cap5");
-	CHECK(s.upper() == "THIS T3XT W4S WRITTEN IN VARIANT CAP5");
-}
-
-TEST(String_reverse)
-{
-	hstr s = "this text will be reversed";
-	CHECK(s.reverse() == "desrever eb lliw txet siht");
+	hstr text = hsprintf("This is a %d %s %4.2f %s.", 15, "formatted", 3.14f, "file");
+	CHECK(text == "This is a 15 formatted 3.14 file.");
 }
 
 TEST(String_is_numeric)
@@ -280,35 +278,5 @@ TEST(String_is_numeric)
 	CHECK(!text6.is_float());
 	CHECK(!text6.is_number());
 	CHECK(text6.is_hex());
-}
-
-TEST(String_trim)
-{
-	hstr s1 = "123 456 789 0";
-	CHECK(s1.rtrim() == "123 456 789 0");
-	CHECK(s1.ltrim() == "123 456 789 0");
-	CHECK(s1.trim() == "123 456 789 0");
-	CHECK(s1.trim('0') == "123 456 789 ");
-	hstr s2 = "   123 456 789 0";
-	CHECK(s2.rtrim() == "   123 456 789 0");
-	CHECK(s2.ltrim() == "123 456 789 0");
-	CHECK(s2.trim() == "123 456 789 0");
-	CHECK(s2.trim('0') == "   123 456 789 ");
-	hstr s3 = "123 456 789 0   ";
-	CHECK(s3.rtrim() == "123 456 789 0");
-	CHECK(s3.ltrim() == "123 456 789 0   ");
-	CHECK(s3.trim() == "123 456 789 0");
-	CHECK(s3.trim('0') == "123 456 789 0   ");
-	hstr s4 = "   123 456 789 0   ";
-	CHECK(s4.rtrim() == "   123 456 789 0");
-	CHECK(s4.ltrim() == "123 456 789 0   ");
-	CHECK(s4.trim() == "123 456 789 0");
-	CHECK(s4.trim('0') == "   123 456 789 0   ");
-}
-
-TEST(String_hsprintf)
-{
-	hstr text = hsprintf("This is a %d %s %4.2f %s.", 15, "formatted", 3.14f, "text");
-	CHECK(text == "This is a 15 formatted 3.14 text.");
 }
 

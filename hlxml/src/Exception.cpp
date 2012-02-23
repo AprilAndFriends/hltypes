@@ -8,9 +8,6 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
-#include <hltypes/exception.h>
-#include <hltypes/hstring.h>
-
 #include "Node.h"
 #include "Exception.h"
 
@@ -22,8 +19,11 @@ namespace hlxml
 		this->msg += msg;
 		if (node != NULL)
 		{
-			this->msg += ", in file " + node->getFilename() + ", line " + hstr(node->getLine());
+#ifdef USE_TINYXML
+			this->msg += ", in file " + hstr((char*)node->ToDocument()->Value()) + ", line " + hstr(node->Row());
+#else
+			this->msg += ", in file " + hstr((char*)node->doc->URL) + ", line " + hstr(node->line);
+#endif
 		}
 	}
-
 }

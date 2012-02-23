@@ -18,8 +18,8 @@
 
 #include "exception.h"
 #include "harray.h"
-#include "hltypesUtil.h"
 #include "hstring.h"
+#include "util.h"
 
 typedef std::basic_string<char> stdstr;
 
@@ -309,17 +309,6 @@ namespace hltypes
 		return stdstr::size();
 	}
 
-	String String::to_hex() const
-	{
-		String hex = "";
-		for (int i = 0; i < this->size(); i++)
-		{
-			hex += hsprintf("%02X", stdstr::at(i));
-		}
-		return hex;
-	}
-
-#ifndef _ANDROID
 	wchar_t* String::w_str() const
 	{
 		wchar_t* result = new wchar_t[stdstr::size() * 4];
@@ -327,8 +316,9 @@ namespace hltypes
 		mbstowcs(result, stdstr::c_str(), stdstr::size());
 		return result;
 	}
-#endif
 
+	
+/******* TYPE EXTENSION FUNCTIONS **************************************/
 	bool String::split(const char delimiter, String& out_left,String& out_right) const
 	{
 		const char sp[2] = {delimiter, '\0'};
@@ -442,7 +432,7 @@ namespace hltypes
 	{
 		return this->contains(s.c_str());
 	}
-	
+/******* SUBSTR OPERATORS **********************************************/
 	String String::operator()(int start, int count) const
 	{
 		return stdstr::substr(start, count);
@@ -480,7 +470,7 @@ namespace hltypes
 	{
 		return stdstr::at(index);
 	}
-	
+/******* CAST OPERATORS ************************************************/
 	String::operator float() const
 	{
 		float f;
@@ -507,6 +497,7 @@ namespace hltypes
 		return (*this != "" && *this != "0" && *this != "false");
 	}
 	
+/******* ASSIGNMENT OPERATORS ******************************************/
 	void String::operator=(const float f)
 	{
 		char s[64];
@@ -542,7 +533,7 @@ namespace hltypes
 	{
 		stdstr::operator=(b ? "true" : "false");
 	}
-
+/******* CONCATENATION OPERATORS ***************************************/
 	void String::operator+=(const float f)
 	{
 		String s = f;
@@ -583,6 +574,7 @@ namespace hltypes
 		stdstr::append(chstr);
 	}
 	
+/******* COMPARISON OPERATORS ******************************************/
 	bool String::operator==(const float f) const
 	{
 		return (fabs(((float)*this) - f) < HL_E_TOLERANCE);
@@ -616,7 +608,7 @@ namespace hltypes
 	{
 		return (strcmp(stdstr::c_str(), s.c_str()) == 0);
 	}
-
+/******* ADDITION OPERATORS ********************************************/
 	String String::operator+(const char* s) const
 	{
 		String result(*this);
@@ -650,7 +642,7 @@ namespace hltypes
 		return result;
 	}
 }
-
+/******* GLOBAL ADDITION OPERATORS **************************************/
 hstr operator+(const char* s1, chstr s2)
 {
 	return (hstr(s1) + s2);

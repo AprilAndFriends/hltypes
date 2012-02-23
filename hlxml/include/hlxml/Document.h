@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 1.3
 /// 
 /// @section LICENSE
 /// 
@@ -10,10 +10,18 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Represents a generic XML document.
+/// Represents an XML document.
 
 #ifndef HLXML_DOCUMENT_H
 #define HLXML_DOCUMENT_H
+
+
+#ifdef USE_TINYXML
+#include <tinyxml.h>
+#define _xmlAttr TiXmlAttribute
+#else
+#include <libxml/xmlmemory.h>
+#endif
 
 #include <hltypes/hstring.h>
 
@@ -21,27 +29,30 @@
 
 namespace hlxml
 {
-	class Document;
-	class Node;
-	
-	hlxmlFnExport Document* open(chstr filename);
-	hlxmlFnExport void close(Document* document);
+	struct Node;
 
-	class hlxmlExport Document
+
+#ifdef USE_TINYXML
+	struct hlxmlExport Document : public TiXmlDocument
+#else
+	struct hlxmlExport Document
+#endif
 	{
 	public:
-		virtual ~Document();
-
-		hstr getFilename() { return this->filename; }
-
-		virtual Node* root(chstr type = "") = 0;
-
-	protected:
-		hstr filename;
-	
 		Document(chstr filename);
-
+		~Document();
+		Node* root(chstr rootElementQuery = "");
+	
+	protected:
+#ifdef USE_TINYXML
+		TiXmlDocument* xmlDocument;
+#else
+		xmlDocPtr xmlDocument;
+#endif
+		Node* rootNode;
+	
 	};
+
 }
 
 #endif

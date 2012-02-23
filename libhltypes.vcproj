@@ -17,9 +17,9 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)bin\$(PlatformName)\"
-			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)\"
+			Name="win32_Debug|Win32"
+			OutputDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			>
@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;./src;./include/hltypes"
-				PreprocessorDefinitions="_WIN32;HLTYPES_EXPORTS;_DEBUG;_CRT_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories=".;./include/hltypes"
+				PreprocessorDefinitions="_WIN32;_DEBUG;HLTYPES_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)$(ProjectName).dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				GenerateDebugInformation="true"
 			/>
 			<Tool
@@ -89,9 +89,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)bin\$(PlatformName)\"
-			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)\"
+			Name="win32_Release|Win32"
+			OutputDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -115,8 +115,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories=".;./src;./include/hltypes"
-				PreprocessorDefinitions="_WIN32;HLTYPES_EXPORTS;_CRT_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories=".;./include/hltypes"
+				PreprocessorDefinitions="_WIN32;NDEBUG;HLTYPES_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -135,7 +135,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)$(ProjectName).dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -186,18 +186,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\hresource.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\hsbase.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\hstream.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\hstring.cpp"
 				>
 			</File>
@@ -206,7 +194,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\hltypesUtil.cpp"
+				RelativePath=".\src\util.cpp"
 				>
 			</File>
 		</Filter>
@@ -256,18 +244,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\hltypes\hresource.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\hltypes\hsbase.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\hltypes\hstream.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\hltypes\hstring.h"
 				>
 			</File>
@@ -276,7 +252,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\hltypes\hltypesUtil.h"
+				RelativePath=".\include\hltypes\util.h"
 				>
 			</File>
 		</Filter>

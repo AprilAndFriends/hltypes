@@ -1,0 +1,21 @@
+option lib
+
+subproject hltypes
+
+options
+{
+	enable-exceptions
+}
+
+files
+{
+	(src)
+	exception.cpp
+	hdir.cpp
+	hfile.cpp
+	hmutex.cpp
+	hstring.cpp
+	hthread.cpp
+	util.cpp
+}
+

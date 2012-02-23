@@ -19,8 +19,8 @@
 #include <algorithm>
 
 #include "exception.h"
-#include "hltypesUtil.h"
 #include "hstring.h"
+#include "util.h"
 
 #ifdef _WIN32
 	#undef min
@@ -352,9 +352,9 @@ namespace hltypes
 				throw range_error(index, count);
 			}
 			Array<T> result;
-			iterator_t it = stdvector::begin();
-			iterator_t begin = it + index;
-			iterator_t end = it + (index + count);
+			const_iterator_t it = stdvector::begin();
+			const_iterator_t begin = it + index;
+			const_iterator_t end = it + (index + count);
 			result.assign(begin, end);
 			stdvector::erase(begin, end);
 			return result;
@@ -405,7 +405,7 @@ namespace hltypes
 		{
 			Array<int> indexes;
 			iterator_t it;
-			int count = 0;
+			int count;
 			for (int i = 0; i < other.size(); i++)
 			{
 				Array<int> indexes = this->indexes_of(other.at(i));
@@ -842,51 +842,6 @@ namespace hltypes
 					result.push_back(stdvector::at(indexes.remove_at(hrand(indexes.size()))));
 				}
 			}
-			return result;
-		}
-		/// @brief Gets a random element in Array and removes it.
-		/// @return Random element.
-		T pop_random()
-		{
-			if (this->size() == 0)
-			{
-				throw size_error("pop_random()");
-			}
-			T result = stdvector::at(hrand(this->size()));
-			this->remove(result);
-			return result;
-		}
-		/// @brief Gets an Array of random elements selected from this one and removes them.
-		/// @param[in] count Number of random elements.
-		/// @param[in] unique Whether to force all random values to be unique.
-		/// @return Array of random elements selected from this one.
-		Array<T> pop_random(int count, bool unique = false)
-		{
-			Array<T> result;
-			if (!unique)
-			{
-				for (int i = 0; i < count; i++)
-				{
-					result.push_back(stdvector::at(hrand(this->size())));
-				}
-			}
-			else if (count > 0)
-			{
-				if (count >= this->size())
-				{
-					return this->randomized();
-				}
-				Array<int> indexes;
-				for (int i = 0; i < this->size(); i++)
-				{
-					indexes.push_back(i);
-				}
-				for (int i = 0; i < count; i++)
-				{
-					result.push_back(stdvector::at(indexes.remove_at(hrand(indexes.size()))));
-				}
-			}
-			this->remove(result);
 			return result;
 		}
 		/// @brief Joins all elements into a string.

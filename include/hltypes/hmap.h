@@ -58,7 +58,7 @@ namespace hltypes
 		}
 		/// @brief Same as key_of.
 		/// @see key_of
-		K operator()(const V& value) const
+		K& operator()(const V& value)
 		{
 			return this->key_of(value);
 		}
@@ -175,13 +175,6 @@ namespace hltypes
 			}
 			return stdmap::end()->first;
 		}
-		/// @brief Returns value of specified key.
-		/// @param[in] key Key of the given value.
-		/// @return Value of specified key.
-		V value_of(const K& key) const
-		{
-			return stdmap::find(key)->second;
-		}
 		/// @brief Checks for existence of a key.
 		/// @param[in] key Key to check.
 		/// @return True if key is present.
@@ -194,10 +187,9 @@ namespace hltypes
 		/// @return True if all keys are present.
 		bool has_keys(const harray<K>& keys) const
 		{
-			iterator_map_t end = stdmap::end();
 			for (int i = 0; i < keys.size(); i++)
 			{
-				if (stdmap::find(keys.at(i)) == end)
+				if (!this->has_key(keys.at(i)))
 				{
 					return false;
 				}
@@ -210,10 +202,9 @@ namespace hltypes
 		/// @return True if all keys are present.
 		bool has_keys(const K keys[], const int count) const
 		{
-			iterator_map_t end = stdmap::end();
 			for (int i = 0; i < count; i++)
 			{
-				if (stdmap::find(keys[i]) == end)
+				if (!this->has_key(keys[i]))
 				{
 					return false;
 				}
@@ -275,7 +266,7 @@ namespace hltypes
 		/// @note Entries with already existing keys will not be overwritten.
 		void insert(const Map<K, V>& other)
 		{
-			stdmap::insert(other.begin(), other.end());
+			stdmap::insert(other.begin, other.end());
 		}
 		/// @brief Adds all pairs of keys and values from another Map into this one.
 		/// @param[in] other Another Map.
@@ -346,7 +337,7 @@ namespace hltypes
 			K key = this->keys()[hrand(this->size())];
 			if (value != NULL)
 			{
-				*value = stdmap::find(key)->second;
+				*value = stdmap::find(key);
 			}
 			return key;
 		}
@@ -367,47 +358,7 @@ namespace hltypes
 				for (int i = 0; i < count; i++)
 				{
 					key = keys.remove_at(hrand(keys.size()));
-					result[key] = stdmap::find(key)->second;
-				}
-			}
-			return result;
-		}
-		/// @brief Gets a random element in Map and removes it.
-		/// @param[out] value Value of selected random entry.
-		/// @return Random element or NULL if Map is empty.
-		K pop_random(V* value = NULL)
-		{
-			if (this->size() == 0)
-			{
-				throw size_error("pop_random()");
-			}
-			K key = this->keys()[hrand(this->size())];
-			if (value != NULL)
-			{
-				*value = stdmap::find(key);
-			}
-			stdmap::erase(key);
-			return key;
-		}
-		/// @brief Gets a Map of random elements selected from this one and removes them.
-		/// @param[in] count Number of random elements.
-		/// @return Map of random elements selected from this one.
-		Map<K, V> pop_random(int count)
-		{
-			if (count >= this->size())
-			{
-				return Map<K, V>(*this);
-			}
-			Map<K, V> result;
-			if (count > 0)
-			{
-				Array<K> keys = this->keys();
-				K key;
-				for (int i = 0; i < count; i++)
-				{
-					key = keys.remove_at(hrand(keys.size()));
 					result[key] = stdmap::find(key);
-					stdmap::erase(key);
 				}
 			}
 			return result;
@@ -535,23 +486,6 @@ namespace hltypes
         {
             return (this->has_key(key) ? stdmap::find(key)->second : defaultValue);
         }
-		/// @brief Same as insert.
-		/// @see insert(const Map<K, V>& other)
-		Map<K, V>& operator+=(const Map<K, V>& other)
-		{
-			this->insert(other);
-			return (*this);
-		}
-		/// @brief Merges two Mapss.
-		/// @param[in] other Second Map to merge with.
-		/// @return New Map with elements of second Map added at the end of first Map.
-		/// @note Entries with already existing keys in the first map will not be overwritten.
-		Map<K, V> operator+(const Map<K, V>& other) const
-		{
-			Map<K, V> result(*this);
-			result += other;
-			return result;
-		}
 
 	};
 	

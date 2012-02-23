@@ -22,7 +22,7 @@
 
 #include "hltypesExport.h"
 
-#if defined(_MSC_VER) && _MSC_VER == 1600 && defined(_WIN32)
+#if defined(_MSC_VER) && _MSC_VER == 1600 && !defined(_NO_MSC_FIX_NPOS)
 /// @brief Circumvents a compilation problem in VS 2010
 const std::string::size_type std::string::npos = size_t(-1);
 #endif
@@ -297,14 +297,9 @@ namespace hltypes
 		/// @brief Same as size.
 		/// @see size
 		int length() const;
-		/// @brief Creates a string with characters converted using the %02X format.
-		/// @return String of hex values of the charcaters.
-		String to_hex() const;
-#ifndef _ANDROID
 		/// @brief Creates a wchar string.
 		/// @note The wchar string has to be manually destroyed using delete [].
 		wchar_t* w_str() const;
-#endif
 
 		/// @brief Casts String into float.
 		operator float() const;

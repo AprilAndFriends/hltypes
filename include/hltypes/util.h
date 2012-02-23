@@ -35,11 +35,6 @@ namespace hltypes
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_GET(type, name, capsName) type get ## capsName() { return this->name; }
-/// @brief Utility macro for quick getter (with "is") definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_IS(type, name, capsName) type is ## capsName() { return this->name; }
 /// @brief Utility macro for quick setter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
@@ -50,11 +45,6 @@ namespace hltypes
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
-/// @brief Utility macro for quick getter (with "is") and setter definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_ISSET(type, name, capsName) HL_DEFINE_IS(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
 
 /// @brief Calculates sin from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
@@ -79,39 +69,29 @@ namespace hltypes
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between min inclusively and max exclusively.
-/// @note Returns min if max is equal or less than min.
 hltypesFnExport int hrand(int min, int max);
 /// @brief Returns a random int number.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between 0 inclusively and max exclusively.
-/// @note Returns 0 if max is equal or less than 0.
 hltypesFnExport int hrand(int max);
 /// @brief Returns a random float number.
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between min inclusively and max exclusively.
-/// @note Returns min if max is equal or less than min.
 hltypesFnExport float hrandf(float min, float max);
 /// @brief Returns a random float number.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between 0.0 inclusively and max exclusively.
-/// @note Returns 0.0 if max is equal or less than 0.0.
 hltypesFnExport float hrandf(float max);
 /// @brief Returns a random double number.
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between min inclusively and max exclusively.
-/// @note Returns min if max is equal or less than min.
 hltypesFnExport double hrandd(double min, double max);
 /// @brief Returns a random double number.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between 0.0 inclusively and max exclusively.
-/// @note Returns 0.0 if max is equal or less than 0.0.
 hltypesFnExport double hrandd(double max);
-/// @brief Rounds a float value to the nearest integer value.
-/// @param[in] value The value to be rounded.
-/// @return Rounded value as integer.
-hltypesFnExport int hround(float value);
 /// @brief Rounds a double value to the nearest integer value.
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as integer.
@@ -163,6 +143,10 @@ hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE)
 /// @param[in] path The path.
 /// @return Normalized filepath.
 hltypesFnExport hstr normalize_path(chstr path);
+/// @brief Changes the path when using specific system options. This function is usually not used.
+/// @param[in] path The path.
+/// @return Altered filepath.
+hltypesFnExport hstr systemize_path(chstr path);
 /// @brief Gets the base directory of a filename.
 /// @param[in] filename The filename.
 /// @return Base directory of the file.

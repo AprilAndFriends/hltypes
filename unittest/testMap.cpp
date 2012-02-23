@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Domagoj Cerjan
-/// @version 1.5
+/// @version 1.0
 /// 
 /// @section LICENSE
 /// 
@@ -18,7 +18,7 @@
 #include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
 
-TEST(Map_adding)
+TEST(Map_structure_01)
 {
 	hmap<hstr, int> a;
 	a["a"] = 1;
@@ -27,67 +27,53 @@ TEST(Map_adding)
 	CHECK(a["a"] == 1);
 	CHECK(a["abc"] == 2);
 	CHECK(a["test"] == 7);
-	CHECK(a.value_of("a") == 1);
-	CHECK(a.value_of("abc") == 2);
-	CHECK(a.value_of("test") == 7);
-	CHECK(a(1) == "a");
-	CHECK(a(2) == "abc");
-	CHECK(a(7) == "test");
-	CHECK(a.key_of(1) == "a");
-	CHECK(a.key_of(2) == "abc");
-	CHECK(a.key_of(7) == "test");
-	CHECK(a.has_value(1));
-	CHECK(a.has_value(2));
-	CHECK(a.has_value(7));
-	CHECK(!a.has_value(6));
-	CHECK(a.has_key("a"));
-	CHECK(a.has_key("abc"));
-	CHECK(a.has_key("test"));
-	CHECK(!a.has_key("key"));
-	harray<int> values = a.values();
-	CHECK(values.size() == 3);
-	CHECK(values.contains(1));
-	CHECK(values.contains(2));
-	CHECK(values.contains(7));
-	CHECK(a.has_values(values));
-	values.remove(7);
-	CHECK(a.has_values(values));
-	values += 3;
-	CHECK(!a.has_values(values));
+	CHECK(a.has_key("a") == true);
+	CHECK(a.has_key("abc") == true);
+	CHECK(a.has_key("test") == true);
+	CHECK(a.has_value(1) == true);
+	CHECK(a.has_value(2) == true);
+	CHECK(a.has_value(7) == true);
 	harray<hstr> keys = a.keys();
-	CHECK(keys.size() == 3);
-	CHECK(keys.contains("a"));
-	CHECK(keys.contains("abc"));
-	CHECK(keys.contains("test"));
-	CHECK(!keys.contains("key"));
-	CHECK(a.has_keys(keys));
+	CHECK(keys.contains("a") == true);
+	CHECK(keys.contains("abc") == true);
+	CHECK(keys.contains("test") == true);
+	CHECK(a.has_keys(keys) == true);
 	keys.remove("abc");
-	CHECK(a.has_keys(keys));
+	CHECK(a.has_keys(keys) == true);
 	keys += "not existent";
-	CHECK(!a.has_keys(keys));
+	CHECK(a.has_keys(keys) == false);
+	harray<int> values = a.values();
+	CHECK(values.contains(1) == true);
+	CHECK(values.contains(2) == true);
+	CHECK(values.contains(7) == true);
+	CHECK(a.has_values(values) == true);
+	values.remove(7);
+	CHECK(a.has_values(values) == true);
+	values += 3;
+	CHECK(a.has_values(values) == false);
 }
 
-TEST(Map_removing)
+TEST(Map_structure_02)
 {
 	hmap<hstr, int> a;
 	a["A"] = 1;
 	a["B"] = 2;
 	a["C"] = 7;
 	harray<hstr> keys = a.keys();
-	CHECK(a.has_key("A"));
+	CHECK(a.has_key("A") == true);
 	a.remove_key("A");
-	CHECK(!a.has_key("A"));
-	CHECK(!a.has_keys(keys));
+	CHECK(a.has_key("A") == false);
+	CHECK(a.has_keys(keys) == false);
 	a["A"] = 1;
 	harray<int> values = a.values();
-	CHECK(a.has_value(7));
+	CHECK(a.has_value(7) == true);
 	a.remove_value(7);
-	CHECK(!a.has_value(7));
-	CHECK(!a.has_values(values));
+	CHECK(a.has_value(7) == false);
+	CHECK(a.has_values(values) == false);
 	a["C"] = 7;
 }
 
-TEST(Map_structure)
+TEST(Map_structure_03)
 {
 	hmap<hstr, int> a;
 	a["A"] = 1;
@@ -96,23 +82,6 @@ TEST(Map_structure)
 	hmap<hstr, int> b = a;
 	CHECK(a == b);
 	CHECK(!(a != b));
-	b.clear();
-	b["A"] = 5;
-	b["D"] = 6;
-	CHECK(a["A"] == 1);
-	CHECK(!a.has_key("D"));
-	CHECK(a.try_get_by_key("E", 10) == 10);
-	CHECK(a.try_get_by_key("E", 5) == 5);
-	a.insert(b); // does not overwrite already existing keys
-	CHECK(a["A"] == 1);
-	CHECK(a["D"] == 6);
-	b["E"] = 8;
-	CHECK(!a.has_key("E"));
-	a.inject(b); // overwrites already existing keys
-	CHECK(a["A"] == 5);
-	CHECK(a["D"] == 6);
-	CHECK(a["E"] == 8);
-	CHECK(a.try_get_by_key("E", 10) == 8);
 }
 
 TEST(Map_iteration)
@@ -122,11 +91,8 @@ TEST(Map_iteration)
 	a["abc"] = 2;
 	foreach_m (int, it, a)
 	{
-		CHECK(it->first == "a" && it->second == 1 || it->first == "abc" && it->second == 2);
-	}
-	foreach_map (hstr, int, it, a)
-	{
-		CHECK(it->first == "a" && it->second == 1 || it->first == "abc" && it->second == 2);
+		CHECK(it->first == "a" && it->second == 1 ||
+			it->first == "abc" && it->second == 2);
 	}
 }
 
@@ -148,7 +114,7 @@ TEST(Map_comparison)
 	d["abc2"] = 2;
 	CHECK(a != d);
 }
-
+#include <stdio.h>
 TEST(Map_random)
 {
 	hmap<int, int> a;

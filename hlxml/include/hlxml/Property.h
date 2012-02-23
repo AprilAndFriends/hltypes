@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 1.3
 /// 
 /// @section LICENSE
 /// 
@@ -10,10 +10,17 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Represents a generic XML property.
+/// Represents an XML property.
 
 #ifndef HLXML_PROPERTY_H
 #define HLXML_PROPERTY_H
+
+#ifdef USE_TINYXML
+#include <tinyxml.h>
+#define _xmlAttr TiXmlAttribute
+#else
+#include <libxml/xmlmemory.h>
+#endif
 
 #include <hltypes/hstring.h>
 
@@ -23,15 +30,16 @@
 
 namespace hlxml
 {
-	class hlxmlExport Property
+#ifdef USE_TINYXML
+	class hlxmlExport Property : public TiXmlAttribute
+#else
+	class hlxmlExport Property : public _xmlAttr
+#endif
 	{
 	public:
-		Property();
-		virtual ~Property();
-
-		virtual hstr name() = 0;
-		virtual hstr value() = 0;
-		virtual Property* next() = 0;
+		Property* next();
+		hstr name();
+		hstr value();
 
 	};
 

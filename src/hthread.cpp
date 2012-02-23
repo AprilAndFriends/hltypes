@@ -14,7 +14,6 @@
 #include <windows.h>
 #else
 #include <unistd.h>
-#include <pthread.h>
 #endif
 
 #include "hmutex.h"
@@ -132,11 +131,9 @@ namespace hltypes
 		{
 #ifdef _WIN32
 			TerminateThread(this->id, 0);
-#elif defined(_ANDROID)
-			pthread_kill(this->id, 0);
-#else
-			pthread_cancel(this->id);
 #endif
+			this->running = false;
+			this->id = 0;
 		}
 #endif
 	}
