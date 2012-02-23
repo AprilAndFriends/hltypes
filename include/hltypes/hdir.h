@@ -27,10 +27,13 @@ namespace hltypes
 	class hltypesExport Dir
 	{
 	public:
-		/// @brief 2DO
-		/// @param[in] filepath of the file.
-		/// @result 2DO
-		static hstr convert_to_native_path(hstr path);
+		/// @brief Sets flag for creating directories with full access permissions on Win32 (Vista and later).
+		/// @return flag for creating directories with full access permissions on Win32 (Vista and later)
+		static bool getWin32FullDirectoryPermissions() { return win32FullDirectoryPermissions; }
+		/// @brief Sets flag for creating directories with full access permissions on Win32 (Vista and later).
+		/// @param[in] value New value.
+		static void setWin32FullDirectoryPermissions(bool value) { win32FullDirectoryPermissions = value; }
+
 		/// @brief Creates a directory.
 		/// @param[in] dirname Name of the directory.
 		/// @result True if a new directory was created. False if directory could not be created or already exists.
@@ -97,6 +100,10 @@ namespace hltypes
 		/// @result Array of all files.
 		static Array<hstr> files(chstr dirname, bool prepend_dir = false);
 		
+	protected:
+		/// @brief Flag for creating directories with full access permissions on Win32 (Vista and later).
+		static bool win32FullDirectoryPermissions;
+
 	};
 }
 
