@@ -26,15 +26,26 @@ namespace hlxml
 		hstr realFilename = normalize_path(filename);
 		// loading goes through hresource because of Android's way of handling resources
 		hresource file(realFilename);
-		int size = file.size();
-		char* data = new char[size];
-		file.read_raw(data, size);
+		hstr data = file.read();
 		file.close();
 		this->document = new TiXmlDocument();
-		this->document->Parse(data);
+		this->document->Parse(data.c_str());
 		if (this->document->Error())
 		{
-			throw XMLException("Unable to parse xml file '" + realFilename + "', document is invalid", NULL);
+			hstr desc = this->document->ErrorDesc();
+			int row = this->document->ErrorRow(), col = this->document->ErrorCol();
+			if (row != 0)
+			{
+				desc += hsprintf(" [row %d, column %d]", row, col);
+				harray<hstr> lines = data.split("\n");
+				if (lines.size() >= row) // just in case!
+				{
+					desc += "\n---------------------------\n";
+					desc += lines[row - 1].trim();
+					desc += "\n---------------------------";
+				}
+			}
+            throw XMLException("An error occcured parsing XML file '" + realFilename + "': " + desc, NULL);
 		}
 	}
 

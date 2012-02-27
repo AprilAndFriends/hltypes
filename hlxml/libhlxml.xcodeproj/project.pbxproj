@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C9F9314D14DA8B9500954F90 /* LibXml2_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314714DA8B9500954F90 /* LibXml2_Document.cpp */; };
-		C9F9314E14DA8B9500954F90 /* LibXml2_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314714DA8B9500954F90 /* LibXml2_Document.cpp */; };
-		C9F9314F14DA8B9500954F90 /* LibXml2_Document.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F9314814DA8B9500954F90 /* LibXml2_Document.h */; };
-		C9F9315114DA8B9500954F90 /* LibXml2_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314914DA8B9500954F90 /* LibXml2_Node.cpp */; };
-		C9F9315214DA8B9500954F90 /* LibXml2_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314914DA8B9500954F90 /* LibXml2_Node.cpp */; };
-		C9F9315314DA8B9500954F90 /* LibXml2_Node.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F9314A14DA8B9500954F90 /* LibXml2_Node.h */; };
-		C9F9315514DA8B9500954F90 /* LibXml2_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314B14DA8B9500954F90 /* LibXml2_Property.cpp */; };
-		C9F9315614DA8B9500954F90 /* LibXml2_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9314B14DA8B9500954F90 /* LibXml2_Property.cpp */; };
-		C9F9315714DA8B9500954F90 /* LibXml2_Property.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F9314C14DA8B9500954F90 /* LibXml2_Property.h */; };
 		C9F9315A14DA8CDF00954F90 /* hltypes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F9315914DA8CDF00954F90 /* hltypes.framework */; };
-		D1745EA514C5F75C00A6BE6F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D1745E9E14C5F13A00A6BE6F /* libxml2.dylib */; };
+		D186227614F9630200639D7C /* tinyxml.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186227514F9630200639D7C /* tinyxml.framework */; };
+		D186227D14F9638400639D7C /* TinyXml_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227714F9638400639D7C /* TinyXml_Document.cpp */; };
+		D186227E14F9638400639D7C /* TinyXml_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227714F9638400639D7C /* TinyXml_Document.cpp */; };
+		D186227F14F9638400639D7C /* TinyXml_Document.h in Headers */ = {isa = PBXBuildFile; fileRef = D186227814F9638400639D7C /* TinyXml_Document.h */; };
+		D186228014F9638400639D7C /* TinyXml_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227914F9638400639D7C /* TinyXml_Node.cpp */; };
+		D186228114F9638400639D7C /* TinyXml_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227914F9638400639D7C /* TinyXml_Node.cpp */; };
+		D186228214F9638400639D7C /* TinyXml_Node.h in Headers */ = {isa = PBXBuildFile; fileRef = D186227A14F9638400639D7C /* TinyXml_Node.h */; };
+		D186228314F9638400639D7C /* TinyXml_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227B14F9638400639D7C /* TinyXml_Property.cpp */; };
+		D186228414F9638400639D7C /* TinyXml_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227B14F9638400639D7C /* TinyXml_Property.cpp */; };
+		D186228514F9638400639D7C /* TinyXml_Property.h in Headers */ = {isa = PBXBuildFile; fileRef = D186227C14F9638400639D7C /* TinyXml_Property.h */; };
 		D1981C28140F80960057C3AF /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7A140E593900499A97 /* Document.cpp */; };
 		D1981C29140F80960057C3AF /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
 		D1981C2A140F80960057C3AF /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7C140E593900499A97 /* Node.cpp */; };
@@ -36,14 +36,14 @@
 /* Begin PBXFileReference section */
 		7F42F71411EB111E00B1C1DF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* hlxml.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hlxml.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9F9314714DA8B9500954F90 /* LibXml2_Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibXml2_Document.cpp; path = xmlsystems/LibXml2/LibXml2_Document.cpp; sourceTree = "<group>"; };
-		C9F9314814DA8B9500954F90 /* LibXml2_Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibXml2_Document.h; path = xmlsystems/LibXml2/LibXml2_Document.h; sourceTree = "<group>"; };
-		C9F9314914DA8B9500954F90 /* LibXml2_Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibXml2_Node.cpp; path = xmlsystems/LibXml2/LibXml2_Node.cpp; sourceTree = "<group>"; };
-		C9F9314A14DA8B9500954F90 /* LibXml2_Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibXml2_Node.h; path = xmlsystems/LibXml2/LibXml2_Node.h; sourceTree = "<group>"; };
-		C9F9314B14DA8B9500954F90 /* LibXml2_Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibXml2_Property.cpp; path = xmlsystems/LibXml2/LibXml2_Property.cpp; sourceTree = "<group>"; };
-		C9F9314C14DA8B9500954F90 /* LibXml2_Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibXml2_Property.h; path = xmlsystems/LibXml2/LibXml2_Property.h; sourceTree = "<group>"; };
 		C9F9315914DA8CDF00954F90 /* hltypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = hltypes.framework; path = "../../__build__/angels/Build/Products/Debug-LLVM/hltypes.framework"; sourceTree = "<group>"; };
-		D1745E9E14C5F13A00A6BE6F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = SDKs/MacOSX10.6.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
+		D186227514F9630200639D7C /* tinyxml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = tinyxml.framework; path = ../../tinyxml/build/Release/tinyxml.framework; sourceTree = "<group>"; };
+		D186227714F9638400639D7C /* TinyXml_Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyXml_Document.cpp; path = xmlsystems/TinyXml/TinyXml_Document.cpp; sourceTree = "<group>"; };
+		D186227814F9638400639D7C /* TinyXml_Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyXml_Document.h; path = xmlsystems/TinyXml/TinyXml_Document.h; sourceTree = "<group>"; };
+		D186227914F9638400639D7C /* TinyXml_Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyXml_Node.cpp; path = xmlsystems/TinyXml/TinyXml_Node.cpp; sourceTree = "<group>"; };
+		D186227A14F9638400639D7C /* TinyXml_Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyXml_Node.h; path = xmlsystems/TinyXml/TinyXml_Node.h; sourceTree = "<group>"; };
+		D186227B14F9638400639D7C /* TinyXml_Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyXml_Property.cpp; path = xmlsystems/TinyXml/TinyXml_Property.cpp; sourceTree = "<group>"; };
+		D186227C14F9638400639D7C /* TinyXml_Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyXml_Property.h; path = xmlsystems/TinyXml/TinyXml_Property.h; sourceTree = "<group>"; };
 		D1E1DD69140E58E600499A97 /* libhlxml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhlxml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1E1DD7A140E593900499A97 /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = src/Document.cpp; sourceTree = "<group>"; };
 		D1E1DD7B140E593900499A97 /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Exception.cpp; path = src/Exception.cpp; sourceTree = "<group>"; };
@@ -61,15 +61,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D186227614F9630200639D7C /* tinyxml.framework in Frameworks */,
 				C9F9315A14DA8CDF00954F90 /* hltypes.framework in Frameworks */,
-				D1745EA514C5F75C00A6BE6F /* libxml2.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D1E1DD66140E58E600499A97 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,28 +117,28 @@
 		C9F9314514DA8B7500954F90 /* xmlsystems */ = {
 			isa = PBXGroup;
 			children = (
-				C9F9314614DA8B8100954F90 /* libxml2 */,
+				C9F9314614DA8B8100954F90 /* tinyxml */,
 			);
 			name = xmlsystems;
 			sourceTree = "<group>";
 		};
-		C9F9314614DA8B8100954F90 /* libxml2 */ = {
+		C9F9314614DA8B8100954F90 /* tinyxml */ = {
 			isa = PBXGroup;
 			children = (
-				C9F9314714DA8B9500954F90 /* LibXml2_Document.cpp */,
-				C9F9314814DA8B9500954F90 /* LibXml2_Document.h */,
-				C9F9314914DA8B9500954F90 /* LibXml2_Node.cpp */,
-				C9F9314A14DA8B9500954F90 /* LibXml2_Node.h */,
-				C9F9314B14DA8B9500954F90 /* LibXml2_Property.cpp */,
-				C9F9314C14DA8B9500954F90 /* LibXml2_Property.h */,
+				D186227714F9638400639D7C /* TinyXml_Document.cpp */,
+				D186227814F9638400639D7C /* TinyXml_Document.h */,
+				D186227914F9638400639D7C /* TinyXml_Node.cpp */,
+				D186227A14F9638400639D7C /* TinyXml_Node.h */,
+				D186227B14F9638400639D7C /* TinyXml_Property.cpp */,
+				D186227C14F9638400639D7C /* TinyXml_Property.h */,
 			);
-			name = libxml2;
+			name = tinyxml;
 			sourceTree = "<group>";
 		};
 		D1E1DD6A140E58E600499A97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D1745E9E14C5F13A00A6BE6F /* libxml2.dylib */,
+				D186227514F9630200639D7C /* tinyxml.framework */,
 				C9F9315914DA8CDF00954F90 /* hltypes.framework */,
 			);
 			name = Frameworks;
@@ -163,9 +156,9 @@
 				D1E1DD89140E594B00499A97 /* hlxmlExport.h in Headers */,
 				D1E1DD8A140E594B00499A97 /* Node.h in Headers */,
 				D1E1DD8B140E594C00499A97 /* Property.h in Headers */,
-				C9F9314F14DA8B9500954F90 /* LibXml2_Document.h in Headers */,
-				C9F9315314DA8B9500954F90 /* LibXml2_Node.h in Headers */,
-				C9F9315714DA8B9500954F90 /* LibXml2_Property.h in Headers */,
+				D186227F14F9638400639D7C /* TinyXml_Document.h in Headers */,
+				D186228214F9638400639D7C /* TinyXml_Node.h in Headers */,
+				D186228514F9638400639D7C /* TinyXml_Property.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,9 +169,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "libhlxml" */;
 			buildPhases = (
-				8DC2EF500486A6940098B216 /* Headers */,
-				8DC2EF520486A6940098B216 /* Resources */,
 				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF500486A6940098B216 /* Headers */,
 				8DC2EF560486A6940098B216 /* Frameworks */,
 			);
 			buildRules = (
@@ -196,7 +188,6 @@
 			buildConfigurationList = D1E1DD78140E58E700499A97 /* Build configuration list for PBXNativeTarget "libhlxml-ios" */;
 			buildPhases = (
 				D1E1DD65140E58E600499A97 /* Sources */,
-				D1E1DD66140E58E600499A97 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -236,16 +227,6 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		8DC2EF520486A6940098B216 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		8DC2EF540486A6940098B216 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -255,9 +236,9 @@
 				D1E1DD7F140E593900499A97 /* Exception.cpp in Sources */,
 				D1E1DD80140E593900499A97 /* Node.cpp in Sources */,
 				D1E1DD81140E593900499A97 /* Property.cpp in Sources */,
-				C9F9314D14DA8B9500954F90 /* LibXml2_Document.cpp in Sources */,
-				C9F9315114DA8B9500954F90 /* LibXml2_Node.cpp in Sources */,
-				C9F9315514DA8B9500954F90 /* LibXml2_Property.cpp in Sources */,
+				D186227D14F9638400639D7C /* TinyXml_Document.cpp in Sources */,
+				D186228014F9638400639D7C /* TinyXml_Node.cpp in Sources */,
+				D186228314F9638400639D7C /* TinyXml_Property.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,9 +250,9 @@
 				D1981C29140F80960057C3AF /* Exception.cpp in Sources */,
 				D1981C2A140F80960057C3AF /* Node.cpp in Sources */,
 				D1981C2B140F80960057C3AF /* Property.cpp in Sources */,
-				C9F9314E14DA8B9500954F90 /* LibXml2_Document.cpp in Sources */,
-				C9F9315214DA8B9500954F90 /* LibXml2_Node.cpp in Sources */,
-				C9F9315614DA8B9500954F90 /* LibXml2_Property.cpp in Sources */,
+				D186227E14F9638400639D7C /* TinyXml_Document.cpp in Sources */,
+				D186228114F9638400639D7C /* TinyXml_Node.cpp in Sources */,
+				D186228414F9638400639D7C /* TinyXml_Property.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +274,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					USE_LIBXML2,
+					USE_TINYXML,
 					_DEBUG,
 				);
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -301,7 +282,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -320,13 +301,13 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
-				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
+				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -343,7 +324,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/usr/include/libxml2,
+					../../,
 					"${SRCROOT}/../include",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -362,7 +343,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/usr/include/libxml2,
+					../../,
 					"${SRCROOT}/../include",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
@@ -380,7 +361,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/usr/include/libxml2,
+					../../,
 					"${SRCROOT}/../include",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
@@ -401,13 +382,13 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
-				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
+				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -424,7 +405,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/usr/include/libxml2,
+					../../,
 					"${SRCROOT}/../include",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -449,7 +430,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					USE_LIBXML2,
+					USE_TINYXML,
 					_DEBUG,
 				);
 				GCC_VERSION = "";
@@ -457,7 +438,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -473,7 +454,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/usr/include/libxml2,
+					../../,
 					"${SRCROOT}/../include",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
@@ -494,13 +475,13 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
-				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
+				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -528,7 +509,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					_DEBUG,
-					USE_LIBXML2,
+					USE_TINYXML,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
@@ -563,7 +544,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					_DEBUG,
-					USE_LIBXML2,
+					USE_TINYXML,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
@@ -594,7 +575,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
+				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -624,7 +605,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
+				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -654,7 +635,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = USE_LIBXML2;
+				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
