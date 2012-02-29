@@ -339,7 +339,7 @@ namespace hltypes
 					c[i] = string[i] - this->encryption_offset;
 				}
 				this->_write(c, 1, size);
-				delete c;
+				delete [] c;
 			}
 		}
 		this->_update_data_size();

@@ -106,7 +106,7 @@ namespace hltypes
 		/*
 		wchar_t* wpath = utf8_to_unicode(path);
 		bool result =_wmkdir(wpath)
-		delete wpath;
+		delete [] wpath;
 		return result;
 
 		*/
@@ -124,7 +124,7 @@ namespace hltypes
 		/*
 		wchar_t* wdirname = utf8_to_unicode(dirname);
 		bool result =_wremove(wdirname)
-		delete wdirname;
+		delete [] wdirname;
 		return result;
 		*/
 		return (remove(dirname.c_str()) != 0);
@@ -135,6 +135,7 @@ namespace hltypes
 		/*
 		wchar_t* wdirname = utf8_to_unicode(dirname);
 		bool result = _wrmdir(wdirname);
+		delete [] wdirname;
 		return result;
 		*/
 		return (_rmdir(dirname.c_str()) != 0);
