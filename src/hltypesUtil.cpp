@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 1.4
+/// @version 1.41
 /// 
 /// @section LICENSE
 /// 
@@ -95,24 +95,64 @@ double hrandd(double max)
 #endif
 }
 
+int hfloor(float value)
+{
+	return (int)(value > 0.0f || value == (int)value ? value : value - 1);
+}
+
+int hfloor(double value)
+{
+	return (int)(value > 0.0 || value == (int)value ? value : value - 1);
+}
+
+float hfloorf(float value)
+{
+	return (float)hfloor(value);
+}
+
+double hfloord(double value)
+{
+	return (double)hfloor(value);
+}
+
+int hceil(float value)
+{
+	return (int)(value < 0.0f || value == (int)value ? value : value + 1);
+}
+
+int hceil(double value)
+{
+	return (int)(value < 0.0 || value == (int)value ? value : value + 1);
+}
+
+float hceilf(float value)
+{
+	return (float)hceil(value);
+}
+
+double hceild(double value)
+{
+	return (double)hceil(value);
+}
+
 int hround(float value)
 {
-	return (int)(floor(value + 0.5));
+	return hfloor(value + 0.5);
 }
 
 int hround(double value)
 {
-	return (int)(floor(value + 0.5));
+	return hfloor(value + 0.5);
 }
 
 float hroundf(float value)
 {
-	return floor(value + 0.5f);
+	return (float)hround(value + 0.5f);
 }
 
 double hroundd(double value)
 {
-	return floor(value + 0.5);
+	return (double)hround(value + 0.5);
 }
 
 int hmod(int i, int m)

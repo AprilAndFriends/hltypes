@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.4
+/// @version 1.41
 /// 
 /// @section LICENSE
 /// 
@@ -108,6 +108,38 @@ hltypesFnExport double hrandd(double min, double max);
 /// @return Random number between 0.0 inclusively and max exclusively.
 /// @note Returns 0.0 if max is equal or less than 0.0.
 hltypesFnExport double hrandd(double max);
+/// @brief Floors a float value.
+/// @param[in] value The value to be floored.
+/// @return Rounded value as integer.
+hltypesFnExport int hfloor(float value);
+/// @brief Floors a double value.
+/// @param[in] value The value to be floored.
+/// @return Rounded value as integer.
+hltypesFnExport int hfloor(double value);
+/// @brief Floors a float value.
+/// @param[in] value The value to be floored.
+/// @return Rounded value as float.
+hltypesFnExport float hfloorf(float value);
+/// @brief Floors a double value.
+/// @param[in] value The value to be floored.
+/// @return Rounded value as double.
+hltypesFnExport double hfloord(double value);
+/// @brief Ceils a float value.
+/// @param[in] value The value to be ceiled.
+/// @return Rounded value as integer.
+hltypesFnExport int hceil(float value);
+/// @brief Ceils a double value.
+/// @param[in] value The value to be ceiled.
+/// @return Rounded value as integer.
+hltypesFnExport int hceil(double value);
+/// @brief Ceils a float value.
+/// @param[in] value The value to be ceiled.
+/// @return Rounded value as float.
+hltypesFnExport float hceilf(float value);
+/// @brief Ceils a double value.
+/// @param[in] value The value to be ceiled.
+/// @return Rounded value as double.
+hltypesFnExport double hceild(double value);
 /// @brief Rounds a float value to the nearest integer value.
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as integer.
@@ -116,7 +148,7 @@ hltypesFnExport int hround(float value);
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as integer.
 hltypesFnExport int hround(double value);
-/// @brief Rounds a double value to the nearest integer value.
+/// @brief Rounds a float value to the nearest integer value.
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as float.
 hltypesFnExport float hroundf(float value);
