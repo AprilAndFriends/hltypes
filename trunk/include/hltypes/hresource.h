@@ -59,6 +59,10 @@ namespace hltypes
 		/// @brief Opens file, reads data and closes file.
 		/// @see read(chstr delimiter = "")
 		static hstr hread(chstr filename, chstr delimiter = "");
+		/// @brief Create a full filename.
+		/// @params[in] filename Original filename.
+		/// @returns Full filename.
+		static hstr make_full_path(chstr filename);
 		
 		/// @brief Gets the interal current working directory within a possible archive.
 		/// @return Interal current working directory.
@@ -112,10 +116,6 @@ namespace hltypes
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seek_mode Seeking mode.
 		void _seek(long offset, SeekMode seek_mode = CURRENT);
-		/// @brief Create a full filename.
-		/// @params[in] filename Original filename.
-		/// @returns Full filename.
-		static hstr _make_full_filename(chstr filename);
 		
 	};
 
