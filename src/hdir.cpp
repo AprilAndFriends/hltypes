@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 1.4
+/// @version 1.55
 /// 
 /// @section LICENSE
 /// 
@@ -21,7 +21,7 @@
 #define _rmdir(name) rmdir(name)
 #define _chdir(name) chdir(name)
 #endif
-#ifdef _ANDROID
+#ifdef HAVE_ZIPRESOURCE
 #include <zip/zip.h>
 #endif
 
@@ -400,7 +400,7 @@ namespace hltypes
 	
 	Array<hstr> Dir::resource_entries(chstr dirname, bool prepend_dir)
 	{
-#ifndef _ANDROID
+#ifndef HAVE_ZIPRESOURCE
 		return Dir::entries(dirname, prepend_dir);
 #else
 		hstr name = normalize_path(dirname);
@@ -419,7 +419,7 @@ namespace hltypes
 	
 	Array<hstr> Dir::resource_contents(chstr dirname, bool prepend_dir)
 	{
-#ifndef _ANDROID
+#ifndef HAVE_ZIPRESOURCE
 		return Dir::contents(dirname, prepend_dir);
 #else
 		return (Dir::resource_directories(dirname, prepend_dir) + Dir::resource_files(dirname, prepend_dir));
@@ -428,7 +428,7 @@ namespace hltypes
 	
 	Array<hstr> Dir::resource_directories(chstr dirname, bool prepend_dir)
 	{
-#ifndef _ANDROID
+#ifndef HAVE_ZIPRESOURCE
 		return Dir::directories(dirname, prepend_dir);
 #else
 		hstr name = normalize_path(dirname);
@@ -459,7 +459,7 @@ namespace hltypes
 
 	Array<hstr> Dir::resource_files(chstr dirname, bool prepend_dir)
 	{
-#ifndef _ANDROID
+#ifndef HAVE_ZIPRESOURCE
 		return Dir::files(dirname, prepend_dir);
 #else
 		hstr name = normalize_path(dirname);

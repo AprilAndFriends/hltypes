@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.5
+/// @version 1.55
 /// 
 /// @section LICENSE
 /// 
@@ -25,16 +25,13 @@ int (*f_remove)(const char* filename) = remove;
 
 namespace hltypes
 {
-	float File::timeout = 100.0f;
-	int File::repeats = 0;
-
-	File::File(chstr filename, AccessMode access_mode, unsigned char encryption_offset) : StreamBase(encryption_offset), cfile(NULL)
+	File::File(chstr filename, AccessMode access_mode, unsigned char encryption_offset) : FileBase(encryption_offset)
 	{
 		this->filename = normalize_path(filename);
 		this->open(filename, access_mode, encryption_offset);
 	}
 	
-	File::File() : StreamBase(), cfile(NULL)
+	File::File() : FileBase()
 	{
 	}
 	
@@ -48,105 +45,37 @@ namespace hltypes
 	
 	void File::open(chstr filename, AccessMode access_mode, unsigned char encryption_offset)
 	{
-		if (this->is_open())
-		{
-			this->close();
-		}
-		this->filename = normalize_path(filename);
-		this->encryption_offset = encryption_offset;
-		const char* mode = "rb";
-		switch (access_mode)
-		{
-		case READ:
-			mode = "rb";
-			break;
-		case WRITE:
-			mode = "wb";
-			break;
-		case APPEND:
-			mode = "ab";
-			break;
-		case READ_WRITE:
-			mode = "r+b";
-			break;
-		case READ_WRITE_CREATE:
-			mode = "w+b";
-			break;
-		case READ_APPEND:
-			mode = "a+b";
-			break;
-		}
-		int attempts = File::repeats + 1;
-		while (true)
-		{
-			this->cfile = fopen(this->filename.c_str(), mode);
-			if (this->cfile != NULL)
-			{
-				break;
-			}
-			attempts--;
-			if (attempts <= 0)
-			{
-				break;
-			}
-			Thread::sleep(File::timeout);
-		};
-		if (this->cfile == NULL)
-		{
-			throw file_not_found(this->_descriptor());
-		}
-		this->_update_data_size();
+		this->_fopen(filename, access_mode, encryption_offset, FileBase::repeats, FileBase::timeout);
 	}
 	
 	void File::close()
 	{
-		this->_check_availability();
-		fclose(this->cfile);
-		this->cfile = NULL;
-		this->data_size = 0;
-	}
-	
-	hstr File::_descriptor()
-	{
-		return this->filename;
+		this->_fclose();
 	}
 	
 	long File::_read(void* buffer, int size, int count)
 	{
-		return fread(buffer, size, count, this->cfile);
+		return this->_fread(buffer, size, count);
 	}
 	
 	long File::_write(const void* buffer, int size, int count)
 	{
-		return fwrite(buffer, size, count, this->cfile);
+		return this->_fwrite(buffer, size, count);
 	}
 	
 	bool File::_is_open()
 	{
-		return (this->cfile != NULL);
+		return this->_fis_open();
 	}
 	
 	long File::_position()
 	{
-		return ftell(this->cfile);
+		return this->_fposition();
 	}
 	
 	void File::_seek(long offset, SeekMode seek_mode)
 	{
-		int mode = SEEK_CUR;
-		switch (seek_mode)
-		{
-		case CURRENT:
-			mode = SEEK_CUR;
-			break;
-		case START:
-			mode = SEEK_SET;
-			break;
-		case END:
-			mode = SEEK_END;
-			break;
-		}
-		fseek(this->cfile, offset, mode);
+		this->_fseek(offset, seek_mode);
 	}
 	
 	bool File::create(chstr filename)
@@ -188,14 +117,7 @@ namespace hltypes
 	
 	bool File::exists(chstr filename)
 	{
-		hstr name = normalize_path(filename);
-		FILE* f = fopen(name.c_str(), "rb");
-		if (f != NULL)
-		{
-			fclose(f);
-			return true;
-		}
-		return false;
+		return FileBase::_fexists(filename);
 	}
 	
 	bool File::clear(chstr filename)
@@ -243,11 +165,11 @@ namespace hltypes
 		File old_file(old_name);
 		File new_file(new_name, File::WRITE);
 		int count;
-		char c[BUFFER_SIZE] = {'\0'}; // literal buffer, not a string buffer that requires \0 at the end
+		unsigned char c[BUFFER_SIZE] = {0};
 		while (!old_file.eof())
 		{
-			count = fread(c, 1, BUFFER_SIZE, old_file.cfile);
-			fwrite(c, 1, count, new_file.cfile);
+			count = fread(c, 1, BUFFER_SIZE, (FILE*)old_file.cfile);
+			fwrite(c, 1, count, (FILE*)new_file.cfile);
 		}
 		return true;
 	}

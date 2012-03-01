@@ -1,13 +1,13 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.5
+/// @version 1.55
 /// 
 /// @section LICENSE
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
-#ifdef _ANDROID
+#ifdef HAVE_ZIPRESOURCE
 #include <stdio.h>
 #include <zip/zip.h>
 #endif
@@ -15,29 +15,28 @@
 #include "exception.h"
 #include "hdir.h"
 #include "hresource.h"
-#ifdef _ANDROID
+#ifdef HAVE_ZIPRESOURCE
 #include "hstring.h"
 #include "hthread.h"
 #endif
 
 namespace hltypes
 {
-#ifdef _ANDROID
-	float Resource::timeout = 100.0f;
-	int Resource::repeats = 0;
+#ifndef HAVE_ZIPRESOURCE
+	hstr Resource::cwd = ".";
+#else
 	hstr Resource::cwd = "assets";
+#endif
 	hstr Resource::archive = "";
 
-	Resource::Resource(chstr filename) : StreamBase(), archivefile(NULL), cfile(NULL)
+	Resource::Resource(chstr filename) : FileBase(), data_position(0), archivefile(NULL)
 	{
-		this->data_position = 0;
 		this->filename = normalize_path(filename);
 		this->open(filename);
 	}
 	
-	Resource::Resource() : StreamBase(), archivefile(NULL), cfile(NULL)
+	Resource::Resource() : FileBase(), data_position(0), archivefile(NULL)
 	{
-		this->data_position = 0;
 	}
 
 	Resource::~Resource()
@@ -47,24 +46,11 @@ namespace hltypes
 			this->close();
 		}
 	}
-#else
-	Resource::Resource(chstr filename) : File(filename)
-	{
-	}
-	
-	Resource::Resource() : File()
-	{
-	}
-
-	Resource::~Resource()
-	{
-	}
-#endif
 	
 	void Resource::open(chstr filename)
 	{
-#ifndef _ANDROID
-		File::open(filename);
+#ifndef HAVE_ZIPRESOURCE
+		this->_fopen(Resource::_make_full_filename(filename), READ, 0, FileBase::repeats, FileBase::timeout);
 #else
 		if (this->is_open())
 		{
@@ -79,13 +65,13 @@ namespace hltypes
 			this->archivefile = zip_open(Resource::archive.c_str(), 0, NULL);
 			if (this->archivefile != NULL)
 			{
-				this->cfile = zip_fopen(this->archivefile, Resource::_make_full_filename(this->filename).c_str(), 0);
+				this->cfile = zip_fopen((struct zip*)this->archivefile, Resource::_make_full_filename(this->filename).c_str(), 0);
 				if (this->cfile != NULL)
 				{
 					break;
 				}
 				// file wasn't found so let's rather close the archive
-				zip_close(this->archivefile);
+				zip_close((struct zip*)this->archivefile);
 				this->archivefile = NULL;
 			}
 			attempts--;
@@ -107,53 +93,77 @@ namespace hltypes
 #endif
 	}
 	
-#ifdef _ANDROID
 	void Resource::close()
 	{
+#ifndef HAVE_ZIPRESOURCE
+		this->_fclose();
+#else
 		this->_check_availability();
-		zip_fclose(this->cfile);
+		zip_fclose((struct zip_file*)this->cfile);
 		this->cfile = NULL;
-		zip_close(this->archivefile);
+		zip_close((struct zip*)this->archivefile);
 		this->archivefile = NULL;
 		this->data_size = 0;
+#endif
 		this->data_position = 0;
 	}
 	
-	void Resource::_update_data_size()
+	bool Resource::hasZip()
 	{
-		struct zip_stat stat;
-		stat.size = 0;
-		zip_stat(this->archivefile, Resource::_make_full_filename(this->filename).c_str(), 0, &stat);
-		this->data_size = stat.size;
+#ifndef HAVE_ZIPRESOURCE
+		return false;
+#else
+		return true;
+#endif
 	}
 
-	hstr Resource::_descriptor()
+	void Resource::_update_data_size()
 	{
-		return this->filename;
+#ifndef HAVE_ZIPRESOURCE
+		long position = this->_position();
+		this->_fseek(0, END);
+		this->data_size = this->_position();
+		this->_fseek(position, START);
+#else
+		struct zip_stat stat;
+		stat.size = 0;
+		zip_stat((struct zip*)this->archivefile, Resource::_make_full_filename(this->filename).c_str(), 0, &stat);
+		this->data_size = stat.size;
+#endif
 	}
-	
+
 	long Resource::_read(void* buffer, int size, int count)
 	{
+#ifndef HAVE_ZIPRESOURCE
+		return this->_fread(buffer, size, count);
+#else
 		int readCount = size * count;
 		this->data_position += readCount;
-		return zip_fread(this->cfile, buffer, readCount);
-	}
+		return zip_fread((struct zip_file*)this->cfile, buffer, readCount);
 #endif
+	}
 	
 	long Resource::_write(const void* buffer, int size, int count)
 	{
 		throw resource_not_writeable(this->filename);
 	}
-	
-#ifdef _ANDROID
+
 	bool Resource::_is_open()
 	{
+#ifndef HAVE_ZIPRESOURCE
+		return this->_fis_open();
+#else
 		return (this->archivefile != NULL && this->cfile != NULL);
+#endif
 	}
 	
 	long Resource::_position()
 	{
+#ifndef HAVE_ZIPRESOURCE
+		return this->_fposition();
+#else
 		return this->data_position;
+#endif
 	}
 	
 	void Resource::_seek(long offset, SeekMode seek_mode)
@@ -163,6 +173,9 @@ namespace hltypes
 	
 	bool Resource::exists(chstr filename)
 	{
+#ifndef HAVE_ZIPRESOURCE
+		return FileBase::_fexists(filename);
+#else
 		bool result = false;
 		struct zip* a = zip_open(Resource::archive.c_str(), 0, NULL);
 		if (a != NULL)
@@ -177,6 +190,7 @@ namespace hltypes
 			zip_close(a);
 		}
 		return result;
+#endif
 	}
 	
 	long Resource::hsize(chstr filename)
@@ -198,7 +212,6 @@ namespace hltypes
 	{
 		return normalize_path(Resource::cwd + "/" + filename);
 	}
-#endif
 
 }
 

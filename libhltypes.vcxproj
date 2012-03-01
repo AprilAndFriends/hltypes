@@ -175,6 +175,7 @@
   <ItemGroup>
     <ClCompile Include="src\exception.cpp" />
     <ClCompile Include="src\hdir.cpp" />
+    <ClCompile Include="src\hfbase.cpp" />
     <ClCompile Include="src\hresource.cpp" />
     <ClCompile Include="src\hsbase.cpp" />
     <ClCompile Include="src\hfile.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="include\hltypes\harray.h" />
     <ClInclude Include="include\hltypes\hdeque.h" />
     <ClInclude Include="include\hltypes\hdir.h" />
+    <ClInclude Include="include\hltypes\hfbase.h" />
     <ClInclude Include="include\hltypes\hresource.h" />
     <ClInclude Include="include\hltypes\hsbase.h" />
     <ClInclude Include="include\hltypes\hfile.h" />
