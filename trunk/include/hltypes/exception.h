@@ -107,7 +107,6 @@ namespace hltypes
 	/// @brief Alias for simpler code.
 	#define resource_not_writeable(filename) hltypes::_resource_not_writeable(filename, __FILE__, __LINE__)
 
-#ifdef _ANDROID
 	/// @brief Defines a resource-not-seekable exception.
 	class hltypesExport _resource_not_seekable : public exception
 	{
@@ -122,7 +121,6 @@ namespace hltypes
 	};
 	/// @brief Alias for simpler code.
 	#define resource_not_seekable(filename) hltypes::_resource_not_seekable(filename, __FILE__, __LINE__)
-#endif
 
 	/// @brief Defines an index-error exception.
 	class hltypesExport _index_error : public exception

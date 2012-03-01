@@ -178,6 +178,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\hfbase.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\hfile.cpp"
 				>
 			</File>
@@ -233,6 +237,10 @@
 			</File>
 			<File
 				RelativePath=".\include\hltypes\hdir.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\hltypes\hfbase.h"
 				>
 			</File>
 			<File

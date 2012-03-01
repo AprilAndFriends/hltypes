@@ -60,7 +60,6 @@ namespace hltypes
 	{
 	}
 
-#ifdef _ANDROID
 	_resource_not_seekable::_resource_not_seekable(chstr filename, const char* source_file, int line) :
 	    exception("'" + filename + "' is accessed as a resource which is not seekable!", source_file, line)
 	{
@@ -68,7 +67,6 @@ namespace hltypes
 	_resource_not_seekable::~_resource_not_seekable()
 	{
 	}
-#endif
 	
 	_index_error::_index_error(int index, const char* source_file, int line) :
 	    exception("index '" + hstr(index) + "' out of range", source_file, line)
