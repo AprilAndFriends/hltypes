@@ -400,36 +400,40 @@ namespace hltypes
 	
 	Array<hstr> Dir::resource_entries(chstr dirname, bool prepend_dir)
 	{
-#ifndef HAVE_ZIPRESOURCE
-		return Dir::entries(dirname, prepend_dir);
-#else
 		hstr name = normalize_path(dirname);
 		harray<hstr> result;
 		result += Dir::resource_directories(dirname, false);
 		result += Dir::resource_files(dirname, false);
 		result += hstr(".");
 		result += hstr("..");
+		result.sort();
         if (prepend_dir)
 		{
 			prepend_directory(name, result);
 		}
 		return result;
-#endif
 	}
 	
 	Array<hstr> Dir::resource_contents(chstr dirname, bool prepend_dir)
 	{
-#ifndef HAVE_ZIPRESOURCE
-		return Dir::contents(dirname, prepend_dir);
-#else
 		return (Dir::resource_directories(dirname, prepend_dir) + Dir::resource_files(dirname, prepend_dir));
-#endif
 	}
 	
 	Array<hstr> Dir::resource_directories(chstr dirname, bool prepend_dir)
 	{
 #ifndef HAVE_ZIPRESOURCE
-		return Dir::directories(dirname, prepend_dir);
+		hstr name = normalize_path(dirname);
+		Array<hstr> result = Dir::directories(Resource::make_full_path(name), false);
+		for (int i = 0; i < result.size(); i++)
+		{
+			result[i] = result[i].replace(Resource::getCwd() + "/", "");
+		}
+		result.remove_duplicates();
+		if (prepend_dir)
+		{
+			prepend_directory(name, result);
+		}
+		return result;
 #else
 		hstr name = normalize_path(dirname);
 		hstr current;
@@ -460,7 +464,18 @@ namespace hltypes
 	Array<hstr> Dir::resource_files(chstr dirname, bool prepend_dir)
 	{
 #ifndef HAVE_ZIPRESOURCE
-		return Dir::files(dirname, prepend_dir);
+		hstr name = normalize_path(dirname);
+		Array<hstr> result = Dir::files(Resource::make_full_path(name), false);
+		for (int i = 0; i < result.size(); i++)
+		{
+			result[i] = result[i].replace(Resource::getCwd() + "/", "");
+		}
+		result.remove_duplicates();
+		if (prepend_dir)
+		{
+			prepend_directory(name, result);
+		}
+		return result;
 #else
 		hstr name = normalize_path(dirname);
 		hstr current;

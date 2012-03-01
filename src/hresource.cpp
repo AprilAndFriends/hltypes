@@ -50,7 +50,7 @@ namespace hltypes
 	void Resource::open(chstr filename)
 	{
 #ifndef HAVE_ZIPRESOURCE
-		this->_fopen(Resource::_make_full_filename(filename), READ, 0, FileBase::repeats, FileBase::timeout);
+		this->_fopen(Resource::make_full_path(filename), READ, 0, FileBase::repeats, FileBase::timeout);
 #else
 		if (this->is_open())
 		{
@@ -65,7 +65,7 @@ namespace hltypes
 			this->archivefile = zip_open(Resource::archive.c_str(), 0, NULL);
 			if (this->archivefile != NULL)
 			{
-				this->cfile = zip_fopen((struct zip*)this->archivefile, Resource::_make_full_filename(this->filename).c_str(), 0);
+				this->cfile = zip_fopen((struct zip*)this->archivefile, Resource::make_full_path(this->filename).c_str(), 0);
 				if (this->cfile != NULL)
 				{
 					break;
@@ -127,7 +127,7 @@ namespace hltypes
 #else
 		struct zip_stat stat;
 		stat.size = 0;
-		zip_stat((struct zip*)this->archivefile, Resource::_make_full_filename(this->filename).c_str(), 0, &stat);
+		zip_stat((struct zip*)this->archivefile, Resource::make_full_path(this->filename).c_str(), 0, &stat);
 		this->data_size = stat.size;
 #endif
 	}
@@ -174,13 +174,13 @@ namespace hltypes
 	bool Resource::exists(chstr filename)
 	{
 #ifndef HAVE_ZIPRESOURCE
-		return FileBase::_fexists(filename);
+		return FileBase::_fexists(Resource::make_full_path(filename));
 #else
 		bool result = false;
 		struct zip* a = zip_open(Resource::archive.c_str(), 0, NULL);
 		if (a != NULL)
 		{
-			hstr name = normalize_path(Resource::_make_full_filename(filename));
+			hstr name = normalize_path(Resource::make_full_path(filename));
 			struct zip_file* f = zip_fopen(a, name.c_str(), 0);
 			if (f != NULL)
 			{
@@ -208,7 +208,7 @@ namespace hltypes
 		return Resource(filename).read(delimiter);
 	}
 
-	hstr Resource::_make_full_filename(chstr filename)
+	hstr Resource::make_full_path(chstr filename)
 	{
 		return normalize_path(Resource::cwd + "/" + filename);
 	}
