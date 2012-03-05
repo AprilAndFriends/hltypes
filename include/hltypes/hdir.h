@@ -50,6 +50,10 @@ namespace hltypes
 		/// @param[in] dirname Name of the directory.
 		/// @result True if directory exists.
 		static bool exists(chstr dirname);
+		/// @brief Checks if a resource directory exists.
+		/// @param[in] dirname Name of the resource directory.
+		/// @result True if resource directory exists.
+		static bool resource_exists(chstr dirname);
 		/// @brief Clears a directory recursively.
 		/// @param[in] dirname Name of the directory.
 		/// @result True if directory was cleared. False if directory does not exist or is already empty.
@@ -83,39 +87,39 @@ namespace hltypes
 		/// @result Array of all directory entries.
 		/// @note Entries include "." and "..".
 		static Array<hstr> entries(chstr dirname, bool prepend_dir = false);
-		/// @brief Gets all physical directory contents in the given directory.
-		/// @param[in] dirname Name of the directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the contents.
-		/// @result Array of all directory contents.
-		/// @note Contents do not include "." and "..".
-		static Array<hstr> contents(chstr dirname, bool prepend_dir = false);
-		/// @brief Gets all directories in the given directory.
-		/// @param[in] dirname Name of the directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the directory paths.
-		/// @result Array of all directories.
-		static Array<hstr> directories(chstr dirname, bool prepend_dir = false);
-		/// @brief Gets all files in the given directory.
-		/// @param[in] dirname Name of the directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
-		/// @result Array of all files.
-		static Array<hstr> files(chstr dirname, bool prepend_dir = false);
 		/// @brief Gets all resource directory entries in the given resource directory.
 		/// @param[in] dirname Name of the resource directory.
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource entries.
 		/// @result Array of all resource directory entries.
 		/// @note Entries include "." and "..".
 		static Array<hstr> resource_entries(chstr dirname, bool prepend_dir = false);
+		/// @brief Gets all physical directory contents in the given directory.
+		/// @param[in] dirname Name of the directory.
+		/// @param[in] prepend_dir Whether the same parent path should be appended to the contents.
+		/// @result Array of all directory contents.
+		/// @note Contents do not include "." and "..".
+		static Array<hstr> contents(chstr dirname, bool prepend_dir = false);
 		/// @brief Gets all physical resource directory contents in the given resource directory.
 		/// @param[in] dirname Name of the resource directory.
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource contents.
 		/// @result Array of all resource directory contents.
 		/// @note Contents do not include "." and "..".
 		static Array<hstr> resource_contents(chstr dirname, bool prepend_dir = false);
+		/// @brief Gets all directories in the given directory.
+		/// @param[in] dirname Name of the directory.
+		/// @param[in] prepend_dir Whether the same parent path should be appended to the directory paths.
+		/// @result Array of all directories.
+		static Array<hstr> directories(chstr dirname, bool prepend_dir = false);
 		/// @brief Gets all resource directories in the given directory.
 		/// @param[in] dirname Name of the resource directory.
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource directory paths.
 		/// @result Array of all resource directories.
 		static Array<hstr> resource_directories(chstr dirname, bool prepend_dir = false);
+		/// @brief Gets all files in the given directory.
+		/// @param[in] dirname Name of the directory.
+		/// @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
+		/// @result Array of all files.
+		static Array<hstr> files(chstr dirname, bool prepend_dir = false);
 		/// @brief Gets all resource files in the given directory.
 		/// @param[in] dirname Name of the directory.
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
