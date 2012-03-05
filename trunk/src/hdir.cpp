@@ -101,6 +101,20 @@ namespace hltypes
 	}
 #endif
 
+	bool _check_dir_prefix(hstr& path, chstr prefix)
+	{
+		if (prefix == "")
+		{
+			return true;
+		}
+		if (path.starts_with(prefix + "/"))
+		{
+			path = path(prefix.size() + 1, path.size() - prefix.size() - 1);
+			return true;
+		}
+		return false;
+	}
+	
 	static bool hmkdir(chstr path)
 	{
 		/*
@@ -198,6 +212,15 @@ namespace hltypes
 			return true;
 		}
 		return false;
+	}
+	
+	bool Dir::resource_exists(chstr dirname)
+	{
+#ifndef HAVE_ZIPRESOURCE
+		return Dir::exists(Resource::make_full_path(dirname));
+#else
+		return Dir::resource_directories(get_basedir(dirname)).contains(dirname);
+#endif
 	}
 	
 	bool Dir::clear(chstr dirname)
@@ -299,6 +322,22 @@ namespace hltypes
 		return result;
 	}
 	
+	Array<hstr> Dir::resource_entries(chstr dirname, bool prepend_dir)
+	{
+		hstr name = normalize_path(dirname);
+		harray<hstr> result;
+		result += Dir::resource_directories(dirname, false);
+		result += Dir::resource_files(dirname, false);
+		result += hstr(".");
+		result += hstr("..");
+		result.sort();
+        if (prepend_dir)
+		{
+			prepend_directory(name, result);
+		}
+		return result;
+	}
+	
 	Array<hstr> Dir::contents(chstr dirname, bool prepend_dir)
 	{
 		hstr name = normalize_path(dirname);
@@ -320,6 +359,11 @@ namespace hltypes
 			prepend_directory(name, result);
 		}
 		return result;
+	}
+	
+	Array<hstr> Dir::resource_contents(chstr dirname, bool prepend_dir)
+	{
+		return (Dir::resource_directories(dirname, prepend_dir) + Dir::resource_files(dirname, prepend_dir));
 	}
 	
 	Array<hstr> Dir::directories(chstr dirname, bool prepend_dir)
@@ -348,75 +392,6 @@ namespace hltypes
 			prepend_directory(name, result);
 		}
 		return result;
-	}
-	
-	Array<hstr> Dir::files(chstr dirname, bool prepend_dir)
-	{
-		hstr name = normalize_path(dirname);
-		hstr current;
-		Array<hstr> result;
-		if (hdir::exists(name))
-		{
-			DIR* dir = opendir(name.c_str());
-			struct dirent* entry;
-			while ((entry = readdir(dir)))
-			{
-				current = name + "/" + entry->d_name;
-				if (hfile::exists(current))
-				{
-					result += entry->d_name;
-				}
-			}
-			if (result.contains("."))
-			{
-				result.remove(".");
-			}
-			if (result.contains(".."))
-			{
-				result.remove("..");
-			}
-			closedir(dir);
-		}
-		if (prepend_dir)
-		{
-			prepend_directory(name, result);
-		}
-		return result;
-	}
-
-	bool _check_dir_prefix(hstr& path, chstr prefix)
-	{
-		if (prefix == "")
-		{
-			return true;
-		}
-		if (path.starts_with(prefix + "/"))
-		{
-			path = path(prefix.size() + 1, path.size() - prefix.size() - 1);
-			return true;
-		}
-		return false;
-	}
-	
-	Array<hstr> Dir::resource_entries(chstr dirname, bool prepend_dir)
-	{
-		hstr name = normalize_path(dirname);
-		harray<hstr> result;
-		result += Dir::resource_directories(dirname, false);
-		result += Dir::resource_files(dirname, false);
-		result += hstr(".");
-		result += hstr("..");
-		result.sort();
-        if (prepend_dir)
-		{
-			prepend_directory(name, result);
-		}
-		return result;
-	}
-	
-	Array<hstr> Dir::resource_contents(chstr dirname, bool prepend_dir)
-	{
-		return (Dir::resource_directories(dirname, prepend_dir) + Dir::resource_files(dirname, prepend_dir));
 	}
 	
 	Array<hstr> Dir::resource_directories(chstr dirname, bool prepend_dir)
@@ -459,6 +434,40 @@ namespace hltypes
 		}
 		return result;
 #endif
+	}
+
+	Array<hstr> Dir::files(chstr dirname, bool prepend_dir)
+	{
+		hstr name = normalize_path(dirname);
+		hstr current;
+		Array<hstr> result;
+		if (hdir::exists(name))
+		{
+			DIR* dir = opendir(name.c_str());
+			struct dirent* entry;
+			while ((entry = readdir(dir)))
+			{
+				current = name + "/" + entry->d_name;
+				if (hfile::exists(current))
+				{
+					result += entry->d_name;
+				}
+			}
+			if (result.contains("."))
+			{
+				result.remove(".");
+			}
+			if (result.contains(".."))
+			{
+				result.remove("..");
+			}
+			closedir(dir);
+		}
+		if (prepend_dir)
+		{
+			prepend_directory(name, result);
+		}
+		return result;
 	}
 
 	Array<hstr> Dir::resource_files(chstr dirname, bool prepend_dir)
