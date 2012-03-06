@@ -171,9 +171,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DC2EF4F0486A6940098B216 /* libhltypes */ = {
+		8DC2EF4F0486A6940098B216 /* hltypes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "libhltypes" */;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "hltypes" */;
 			buildPhases = (
 				8DC2EF540486A6940098B216 /* Sources */,
 				8DC2EF500486A6940098B216 /* Headers */,
@@ -182,15 +182,15 @@
 			);
 			dependencies = (
 			);
-			name = libhltypes;
+			name = hltypes;
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = libhltypes;
 			productReference = 8DC2EF5B0486A6940098B216 /* hltypes.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D1522F3D140F7A310012F290 /* libhltypes-ios */ = {
+		D1522F3D140F7A310012F290 /* hltypes (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D1522F48140F7A310012F290 /* Build configuration list for PBXNativeTarget "libhltypes-ios" */;
+			buildConfigurationList = D1522F48140F7A310012F290 /* Build configuration list for PBXNativeTarget "hltypes (iOS)" */;
 			buildPhases = (
 				D1522F3A140F7A310012F290 /* Sources */,
 			);
@@ -198,7 +198,7 @@
 			);
 			dependencies = (
 			);
-			name = "libhltypes-ios";
+			name = "hltypes (iOS)";
 			productName = "libhltypes-ios";
 			productReference = D1522F3E140F7A310012F290 /* libhltypes.a */;
 			productType = "com.apple.product-type.library.static";
@@ -226,8 +226,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* libhltypes */,
-				D1522F3D140F7A310012F290 /* libhltypes-ios */,
+				8DC2EF4F0486A6940098B216 /* hltypes */,
+				D1522F3D140F7A310012F290 /* hltypes (iOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -623,7 +623,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "libhltypes" */ = {
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "hltypes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91AE08733DA50010E9CD /* Debug */,
@@ -647,7 +647,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D1522F48140F7A310012F290 /* Build configuration list for PBXNativeTarget "libhltypes-ios" */ = {
+		D1522F48140F7A310012F290 /* Build configuration list for PBXNativeTarget "hltypes (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D1522F49140F7A310012F290 /* Debug */,

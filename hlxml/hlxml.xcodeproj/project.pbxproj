@@ -7,17 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C935CE7D1506144500AE8B67 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7A140E593900499A97 /* Document.cpp */; };
+		C935CE7E1506144500AE8B67 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
+		C935CE7F1506144500AE8B67 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7C140E593900499A97 /* Node.cpp */; };
+		C935CE801506144500AE8B67 /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7D140E593900499A97 /* Property.cpp */; };
+		C935CE851506144500AE8B67 /* Document.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD82140E594B00499A97 /* Document.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C935CE861506144500AE8B67 /* Exception.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD83140E594B00499A97 /* Exception.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C935CE871506144500AE8B67 /* hlxmlExport.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD84140E594B00499A97 /* hlxmlExport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C935CE881506144500AE8B67 /* Node.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD85140E594B00499A97 /* Node.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C935CE891506144500AE8B67 /* Property.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD86140E594B00499A97 /* Property.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C935CE8F1506144500AE8B67 /* hltypes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F9315914DA8CDF00954F90 /* hltypes.framework */; };
+		C935CE9E150614BE00AE8B67 /* LibXml2_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C935CE98150614BE00AE8B67 /* LibXml2_Document.cpp */; };
+		C935CEA0150614BE00AE8B67 /* LibXml2_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C935CE9A150614BE00AE8B67 /* LibXml2_Node.cpp */; };
+		C935CEA2150614BE00AE8B67 /* LibXml2_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C935CE9C150614BE00AE8B67 /* LibXml2_Property.cpp */; };
+		C935CEA6150615AE00AE8B67 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7A140E593900499A97 /* Document.cpp */; };
+		C935CEA7150615AE00AE8B67 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
+		C935CEA8150615AE00AE8B67 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7C140E593900499A97 /* Node.cpp */; };
+		C935CEA9150615AE00AE8B67 /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7D140E593900499A97 /* Property.cpp */; };
+		C935CEB51506166A00AE8B67 /* LibXml2_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C935CE98150614BE00AE8B67 /* LibXml2_Document.cpp */; };
+		C935CEB61506166A00AE8B67 /* LibXml2_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C935CE9A150614BE00AE8B67 /* LibXml2_Node.cpp */; };
+		C935CEB71506166A00AE8B67 /* LibXml2_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C935CE9C150614BE00AE8B67 /* LibXml2_Property.cpp */; };
 		C9F9315A14DA8CDF00954F90 /* hltypes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F9315914DA8CDF00954F90 /* hltypes.framework */; };
 		D186227614F9630200639D7C /* tinyxml.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186227514F9630200639D7C /* tinyxml.framework */; };
 		D186227D14F9638400639D7C /* TinyXml_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227714F9638400639D7C /* TinyXml_Document.cpp */; };
 		D186227E14F9638400639D7C /* TinyXml_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227714F9638400639D7C /* TinyXml_Document.cpp */; };
-		D186227F14F9638400639D7C /* TinyXml_Document.h in Headers */ = {isa = PBXBuildFile; fileRef = D186227814F9638400639D7C /* TinyXml_Document.h */; };
 		D186228014F9638400639D7C /* TinyXml_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227914F9638400639D7C /* TinyXml_Node.cpp */; };
 		D186228114F9638400639D7C /* TinyXml_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227914F9638400639D7C /* TinyXml_Node.cpp */; };
-		D186228214F9638400639D7C /* TinyXml_Node.h in Headers */ = {isa = PBXBuildFile; fileRef = D186227A14F9638400639D7C /* TinyXml_Node.h */; };
 		D186228314F9638400639D7C /* TinyXml_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227B14F9638400639D7C /* TinyXml_Property.cpp */; };
 		D186228414F9638400639D7C /* TinyXml_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D186227B14F9638400639D7C /* TinyXml_Property.cpp */; };
-		D186228514F9638400639D7C /* TinyXml_Property.h in Headers */ = {isa = PBXBuildFile; fileRef = D186227C14F9638400639D7C /* TinyXml_Property.h */; };
 		D1981C28140F80960057C3AF /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7A140E593900499A97 /* Document.cpp */; };
 		D1981C29140F80960057C3AF /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
 		D1981C2A140F80960057C3AF /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7C140E593900499A97 /* Node.cpp */; };
@@ -36,6 +53,14 @@
 /* Begin PBXFileReference section */
 		7F42F71411EB111E00B1C1DF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* hlxml.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hlxml.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C935CE961506144500AE8B67 /* hlxml.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hlxml.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C935CE98150614BE00AE8B67 /* LibXml2_Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibXml2_Document.cpp; path = xmlsystems/LibXml2/LibXml2_Document.cpp; sourceTree = "<group>"; };
+		C935CE99150614BE00AE8B67 /* LibXml2_Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibXml2_Document.h; path = xmlsystems/LibXml2/LibXml2_Document.h; sourceTree = "<group>"; };
+		C935CE9A150614BE00AE8B67 /* LibXml2_Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibXml2_Node.cpp; path = xmlsystems/LibXml2/LibXml2_Node.cpp; sourceTree = "<group>"; };
+		C935CE9B150614BE00AE8B67 /* LibXml2_Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibXml2_Node.h; path = xmlsystems/LibXml2/LibXml2_Node.h; sourceTree = "<group>"; };
+		C935CE9C150614BE00AE8B67 /* LibXml2_Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibXml2_Property.cpp; path = xmlsystems/LibXml2/LibXml2_Property.cpp; sourceTree = "<group>"; };
+		C935CE9D150614BE00AE8B67 /* LibXml2_Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibXml2_Property.h; path = xmlsystems/LibXml2/LibXml2_Property.h; sourceTree = "<group>"; };
+		C935CEB3150615AE00AE8B67 /* libhlxml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhlxml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9F9315914DA8CDF00954F90 /* hltypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = hltypes.framework; path = "../../__build__/angels/Build/Products/Debug-LLVM/hltypes.framework"; sourceTree = "<group>"; };
 		D186227514F9630200639D7C /* tinyxml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = tinyxml.framework; path = ../../tinyxml/build/Release/tinyxml.framework; sourceTree = "<group>"; };
 		D186227714F9638400639D7C /* TinyXml_Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyXml_Document.cpp; path = xmlsystems/TinyXml/TinyXml_Document.cpp; sourceTree = "<group>"; };
@@ -66,6 +91,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C935CE8D1506144500AE8B67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C935CE8F1506144500AE8B67 /* hltypes.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -74,6 +107,8 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* hlxml.framework */,
 				D1E1DD69140E58E600499A97 /* libhlxml.a */,
+				C935CE961506144500AE8B67 /* hlxml.framework */,
+				C935CEB3150615AE00AE8B67 /* libhlxml.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,9 +149,23 @@
 			name = include;
 			sourceTree = "<group>";
 		};
+		C935CEB4150615D400AE8B67 /* libxml2 */ = {
+			isa = PBXGroup;
+			children = (
+				C935CE98150614BE00AE8B67 /* LibXml2_Document.cpp */,
+				C935CE99150614BE00AE8B67 /* LibXml2_Document.h */,
+				C935CE9A150614BE00AE8B67 /* LibXml2_Node.cpp */,
+				C935CE9B150614BE00AE8B67 /* LibXml2_Node.h */,
+				C935CE9C150614BE00AE8B67 /* LibXml2_Property.cpp */,
+				C935CE9D150614BE00AE8B67 /* LibXml2_Property.h */,
+			);
+			name = libxml2;
+			sourceTree = "<group>";
+		};
 		C9F9314514DA8B7500954F90 /* xmlsystems */ = {
 			isa = PBXGroup;
 			children = (
+				C935CEB4150615D400AE8B67 /* libxml2 */,
 				C9F9314614DA8B8100954F90 /* tinyxml */,
 			);
 			name = xmlsystems;
@@ -156,36 +205,78 @@
 				D1E1DD89140E594B00499A97 /* hlxmlExport.h in Headers */,
 				D1E1DD8A140E594B00499A97 /* Node.h in Headers */,
 				D1E1DD8B140E594C00499A97 /* Property.h in Headers */,
-				D186227F14F9638400639D7C /* TinyXml_Document.h in Headers */,
-				D186228214F9638400639D7C /* TinyXml_Node.h in Headers */,
-				D186228514F9638400639D7C /* TinyXml_Property.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C935CE841506144500AE8B67 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C935CE851506144500AE8B67 /* Document.h in Headers */,
+				C935CE861506144500AE8B67 /* Exception.h in Headers */,
+				C935CE871506144500AE8B67 /* hlxmlExport.h in Headers */,
+				C935CE881506144500AE8B67 /* Node.h in Headers */,
+				C935CE891506144500AE8B67 /* Property.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DC2EF4F0486A6940098B216 /* libhlxml */ = {
+		8DC2EF4F0486A6940098B216 /* hlxml (tinyxml) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "libhlxml" */;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "hlxml (tinyxml)" */;
 			buildPhases = (
 				8DC2EF540486A6940098B216 /* Sources */,
-				8DC2EF500486A6940098B216 /* Headers */,
 				8DC2EF560486A6940098B216 /* Frameworks */,
+				8DC2EF500486A6940098B216 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = libhlxml;
+			name = "hlxml (tinyxml)";
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = libhlxml;
 			productReference = 8DC2EF5B0486A6940098B216 /* hlxml.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D1E1DD68140E58E600499A97 /* libhlxml-ios */ = {
+		C935CE7B1506144500AE8B67 /* hlxml (libxml2) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D1E1DD78140E58E700499A97 /* Build configuration list for PBXNativeTarget "libhlxml-ios" */;
+			buildConfigurationList = C935CE901506144500AE8B67 /* Build configuration list for PBXNativeTarget "hlxml (libxml2)" */;
+			buildPhases = (
+				C935CE7C1506144500AE8B67 /* Sources */,
+				C935CE8D1506144500AE8B67 /* Frameworks */,
+				C935CE841506144500AE8B67 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "hlxml (libxml2)";
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = libhlxml;
+			productReference = C935CE961506144500AE8B67 /* hlxml.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C935CEA4150615AE00AE8B67 /* hlxml (iOS libxml2) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C935CEAD150615AE00AE8B67 /* Build configuration list for PBXNativeTarget "hlxml (iOS libxml2)" */;
+			buildPhases = (
+				C935CEA5150615AE00AE8B67 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "hlxml (iOS libxml2)";
+			productName = "libhlxml-ios";
+			productReference = C935CEB3150615AE00AE8B67 /* libhlxml.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D1E1DD68140E58E600499A97 /* hlxml (iOS tinyxml) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1E1DD78140E58E700499A97 /* Build configuration list for PBXNativeTarget "hlxml (iOS tinyxml)" */;
 			buildPhases = (
 				D1E1DD65140E58E600499A97 /* Sources */,
 			);
@@ -193,7 +284,7 @@
 			);
 			dependencies = (
 			);
-			name = "libhlxml-ios";
+			name = "hlxml (iOS tinyxml)";
 			productName = "libhlxml-ios";
 			productReference = D1E1DD69140E58E600499A97 /* libhlxml.a */;
 			productType = "com.apple.product-type.library.static";
@@ -206,7 +297,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "libhlxml" */;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "hlxml" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -221,8 +312,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* libhlxml */,
-				D1E1DD68140E58E600499A97 /* libhlxml-ios */,
+				C935CE7B1506144500AE8B67 /* hlxml (libxml2) */,
+				8DC2EF4F0486A6940098B216 /* hlxml (tinyxml) */,
+				C935CEA4150615AE00AE8B67 /* hlxml (iOS libxml2) */,
+				D1E1DD68140E58E600499A97 /* hlxml (iOS tinyxml) */,
 			);
 		};
 /* End PBXProject section */
@@ -239,6 +332,34 @@
 				D186227D14F9638400639D7C /* TinyXml_Document.cpp in Sources */,
 				D186228014F9638400639D7C /* TinyXml_Node.cpp in Sources */,
 				D186228314F9638400639D7C /* TinyXml_Property.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C935CE7C1506144500AE8B67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C935CE7D1506144500AE8B67 /* Document.cpp in Sources */,
+				C935CE7E1506144500AE8B67 /* Exception.cpp in Sources */,
+				C935CE7F1506144500AE8B67 /* Node.cpp in Sources */,
+				C935CE801506144500AE8B67 /* Property.cpp in Sources */,
+				C935CE9E150614BE00AE8B67 /* LibXml2_Document.cpp in Sources */,
+				C935CEA0150614BE00AE8B67 /* LibXml2_Node.cpp in Sources */,
+				C935CEA2150614BE00AE8B67 /* LibXml2_Property.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C935CEA5150615AE00AE8B67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C935CEB51506166A00AE8B67 /* LibXml2_Document.cpp in Sources */,
+				C935CEB61506166A00AE8B67 /* LibXml2_Node.cpp in Sources */,
+				C935CEB71506166A00AE8B67 /* LibXml2_Property.cpp in Sources */,
+				C935CEA6150615AE00AE8B67 /* Document.cpp in Sources */,
+				C935CEA7150615AE00AE8B67 /* Exception.cpp in Sources */,
+				C935CEA8150615AE00AE8B67 /* Node.cpp in Sources */,
+				C935CEA9150615AE00AE8B67 /* Property.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,7 +396,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					USE_TINYXML,
-					_DEBUG,
+					"$(inherited)",
 				);
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
@@ -301,7 +422,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
-				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_TINYXML,
+					"$(inherited)",
+				);
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -320,12 +444,14 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
 				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					../../,
 					"${SRCROOT}/../include",
+					/usr/include/libxml2,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
@@ -345,6 +471,7 @@
 				HEADER_SEARCH_PATHS = (
 					../../,
 					"${SRCROOT}/../include",
+					/usr/include/libxml2,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = hlxml;
@@ -363,6 +490,7 @@
 				HEADER_SEARCH_PATHS = (
 					../../,
 					"${SRCROOT}/../include",
+					/usr/include/libxml2,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = hlxml;
@@ -382,7 +510,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
-				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_TINYXML,
+					"$(inherited)",
+				);
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -395,18 +526,321 @@
 			};
 			name = "App Store";
 		};
+		C935CE911506144500AE8B67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					"$(inherited)",
+				);
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = hlxml;
+				SDKROOT = macosx10.6;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "i386 x86_64 ppc";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		C935CE921506144500AE8B67 /* Debug-LLVM */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					"$(inherited)",
+				);
+				GCC_VERSION = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = hlxml;
+				SDKROOT = macosx10.6;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "i386 x86_64 ppc";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = "Debug-LLVM";
+		};
+		C935CE931506144500AE8B67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					"$(inherited)",
+				);
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = hlxml;
+				SDKROOT = macosx10.6;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "i386 x86_64 ppc";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		C935CE941506144500AE8B67 /* Release-LLVM */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					"$(inherited)",
+				);
+				GCC_VERSION = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = hlxml;
+				SDKROOT = macosx10.6;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "i386 x86_64 ppc";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = "Release-LLVM";
+		};
+		C935CE951506144500AE8B67 /* App Store */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					"$(inherited)",
+				);
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = hlxml;
+				SDKROOT = macosx10.6;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "i386 x86_64 ppc";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = "App Store";
+		};
+		C935CEAE150615AE00AE8B67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/libhlxml_ios.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = hlxml;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C935CEAF150615AE00AE8B67 /* Debug-LLVM */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/libhlxml_ios.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = hlxml;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = "Debug-LLVM";
+		};
+		C935CEB0150615AE00AE8B67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/libhlxml_ios.dst;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					"$(inherited)",
+				);
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = hlxml;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C935CEB1150615AE00AE8B67 /* Release-LLVM */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/libhlxml_ios.dst;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					"$(inherited)",
+				);
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = hlxml;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-LLVM";
+		};
+		C935CEB2150615AE00AE8B67 /* App Store */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/libhlxml_ios.dst;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_LIBXML2,
+					"$(inherited)",
+				);
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = hlxml;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "App Store";
+		};
 		C981CCAD132AE98F0072B5A9 /* Debug-LLVM */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
 				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					../../,
 					"${SRCROOT}/../include",
+					/usr/include/libxml2,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
@@ -431,7 +865,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					USE_TINYXML,
-					_DEBUG,
+					"$(inherited)",
 				);
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
@@ -456,6 +890,7 @@
 				HEADER_SEARCH_PATHS = (
 					../../,
 					"${SRCROOT}/../include",
+					/usr/include/libxml2,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = hlxml;
@@ -475,7 +910,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
-				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_TINYXML,
+					"$(inherited)",
+				);
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -498,18 +936,13 @@
 				);
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/libhlxml_ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					_DEBUG,
 					USE_TINYXML,
+					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
@@ -533,18 +966,13 @@
 				);
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/libhlxml_ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					_DEBUG,
 					USE_TINYXML,
+					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
@@ -568,14 +996,13 @@
 				);
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhlxml_ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_TINYXML,
+					"$(inherited)",
+				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -598,14 +1025,13 @@
 				);
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhlxml_ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_TINYXML,
+					"$(inherited)",
+				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -628,14 +1054,13 @@
 				);
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhlxml_ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = USE_TINYXML;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					USE_TINYXML,
+					"$(inherited)",
+				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -651,7 +1076,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "libhlxml" */ = {
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "hlxml (tinyxml)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91AE08733DA50010E9CD /* Debug */,
@@ -663,7 +1088,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "libhlxml" */ = {
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "hlxml" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Debug */,
@@ -675,7 +1100,31 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D1E1DD78140E58E700499A97 /* Build configuration list for PBXNativeTarget "libhlxml-ios" */ = {
+		C935CE901506144500AE8B67 /* Build configuration list for PBXNativeTarget "hlxml (libxml2)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C935CE911506144500AE8B67 /* Debug */,
+				C935CE921506144500AE8B67 /* Debug-LLVM */,
+				C935CE931506144500AE8B67 /* Release */,
+				C935CE941506144500AE8B67 /* Release-LLVM */,
+				C935CE951506144500AE8B67 /* App Store */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C935CEAD150615AE00AE8B67 /* Build configuration list for PBXNativeTarget "hlxml (iOS libxml2)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C935CEAE150615AE00AE8B67 /* Debug */,
+				C935CEAF150615AE00AE8B67 /* Debug-LLVM */,
+				C935CEB0150615AE00AE8B67 /* Release */,
+				C935CEB1150615AE00AE8B67 /* Release-LLVM */,
+				C935CEB2150615AE00AE8B67 /* App Store */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D1E1DD78140E58E700499A97 /* Build configuration list for PBXNativeTarget "hlxml (iOS tinyxml)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D1E1DD73140E58E700499A97 /* Debug */,
