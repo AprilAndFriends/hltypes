@@ -147,12 +147,12 @@ int hround(double value)
 
 float hroundf(float value)
 {
-	return (float)hround(value + 0.5f);
+	return (float)hround(value);
 }
 
 double hroundd(double value)
 {
-	return (double)hround(value + 0.5);
+	return (double)hround(value);
 }
 
 int hmod(int i, int m)
