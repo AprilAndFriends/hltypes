@@ -57,6 +57,37 @@ namespace hltypes
 /// @note Iterates from max - 1 to min.
 #define for_iter_step_r(name, max, min, step) for (int name = max - 1; name >= min; name -= step)
 /// @brief Provides a simpler syntax for iteration.
+/// @param[in] type Type of the iteration variable.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] min Start value.
+/// @param[in] max Final value.
+/// @param[in] step Value to increase iterator.
+/// @note Iterates from min to max - 1.
+#define for_itert(type, name, min, max) for (type name = min; name < max; name++)
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] type Type of the iteration variable.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] max Start value.
+/// @param[in] min Final value.
+/// @note Iterates from max - 1 to min.
+#define for_itert_r(type, name, max, min) for (type name = max - 1; name >= min; name--)
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] type Type of the iteration variable.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] min Start value.
+/// @param[in] max Final value.
+/// @param[in] step Value to increase iterator.
+/// @note Iterates from min to max - 1.
+#define for_itert_step(type, name, min, max, step) for (type name = min; name < max; name += step)
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] type Type of the iteration variable.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] max Start value.
+/// @param[in] min Final value.
+/// @param[in] step Value to increase iterator.
+/// @note Iterates from max - 1 to min.
+#define for_itert_step_r(type, name, max, min, step) for (type name = max - 1; name >= min; name -= step)
+/// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] min Start value.
 /// @param[in] max Final value.
