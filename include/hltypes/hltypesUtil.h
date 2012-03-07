@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.41
+/// @version 1.56
 /// 
 /// @section LICENSE
 /// 
@@ -11,7 +11,7 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Provides high level utility methods.
+/// Provides high level utility methods and macros.
 
 #ifndef HLTYPES_UTIL_H
 #define HLTYPES_UTIL_H
@@ -30,6 +30,64 @@ namespace hltypes
 #define HL_RAD_TO_DEG_RATIO 57.295779513082320876798154814105
 /// @brief Used for optimized and quick calculation from DEG to RAD.
 #define HL_DEG_TO_RAD_RATIO 0.01745329251994329576923690768489
+
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] min Start value.
+/// @param[in] max Final value.
+/// @note Iterates from min to max - 1.
+#define for_iter(name, min, max) for (int name = min; name < max; name++)
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] max Start value.
+/// @param[in] min Final value.
+/// @note Iterates from max - 1 to min.
+#define for_iter_r(name, max, min) for (int name = max - 1; name >= min; name--)
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] min Start value.
+/// @param[in] max Final value.
+/// @param[in] step Value to increase iterator.
+/// @note Iterates from min to max - 1.
+#define for_iter_step(name, min, max, step) for (int name = min; name < max; name += step)
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] max Start value.
+/// @param[in] min Final value.
+/// @note Iterates from max - 1 to min.
+#define for_iter_step_r(name, max, min, step) for (int name = max - 1; name >= min; name -= step)
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] min Start value.
+/// @param[in] max Final value.
+/// @param[in] step Value to increase iterator.
+/// @note Iterates from min to max - 1.
+/// @note The iteration variable has to be declared previously.
+#define for_iterx(name, min, max) for (name = min; name < max; name++)
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] max Start value.
+/// @param[in] min Final value.
+/// @note Iterates from max - 1 to min.
+/// @note The iteration variable has to be declared previously.
+#define for_iterx_r(name, max, min) for (name = max - 1; name >= min; name--)
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] min Start value.
+/// @param[in] max Final value.
+/// @param[in] step Value to increase iterator.
+/// @note Iterates from min to max - 1.
+/// @note The iteration variable has to be declared previously.
+#define for_iterx_step(name, min, max, step) for (name = min; name < max; name += step)
+/// @brief Provides a simpler syntax for iteration.
+/// @param[in] name Name of the iteration variable.
+/// @param[in] max Start value.
+/// @param[in] min Final value.
+/// @param[in] step Value to increase iterator.
+/// @note Iterates from max - 1 to min.
+/// @note The iteration variable has to be declared previously.
+#define for_iterx_step_r(name, max, min, step) for (name = max - 1; name >= min; name -= step)
+
 /// @brief Utility macro for quick getter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
@@ -156,6 +214,26 @@ hltypesFnExport float hroundf(float value);
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as double.
 hltypesFnExport double hroundd(double value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
+hltypesFnExport int habs(int value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
+hltypesFnExport long habs(long value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
+hltypesFnExport float habs(float value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
+hltypesFnExport double habs(double value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
+hltypesFnExport long double habs(long double value);
 /// @brief Gets the always-positive value of i mod m.
 /// @param[in] i Integer value.
 /// @param[in] m Modulo value.
