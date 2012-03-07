@@ -504,7 +504,7 @@ namespace hltypes
 	
 	String::operator bool() const
 	{
-		return (*this != "" && *this != "0" && *this != "false");
+		return (*this != "" && *this != "0" && this->lower() != "false");
 	}
 	
 	void String::operator=(const float f)
@@ -585,17 +585,17 @@ namespace hltypes
 	
 	bool String::operator==(const float f) const
 	{
-		return (fabs(((float)*this) - f) < HL_E_TOLERANCE);
+		return heqf((float)*this, f, HL_E_TOLERANCE);
 	}
 	
 	bool String::operator==(const int i) const
 	{
-		return (((int)*this) == i);
+		return ((int)*this == i);
 	}
 	
 	bool String::operator==(const unsigned int i) const
 	{
-		return (((unsigned int)*this) == i);
+		return ((unsigned int)*this == i);
 	}
 	
 	bool String::operator==(const bool b) const

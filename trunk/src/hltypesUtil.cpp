@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 1.41
+/// @version 1.56
 /// 
 /// @section LICENSE
 /// 
@@ -155,6 +155,31 @@ double hroundd(double value)
 	return (double)hround(value);
 }
 
+int habs(int value)
+{
+	return abs(value);
+}
+
+long habs(long value)
+{
+	return labs(value);
+}
+
+float habs(float value)
+{
+	return fabs(value);
+}
+
+double habs(double value)
+{
+	return fabs(value);
+}
+
+long double habs(long double value)
+{
+	return fabs(value);
+}
+
 int hmod(int i, int m)
 {
 	return (i >= 0 ? i % m : (m - (-i % m)) % m);
@@ -172,12 +197,12 @@ double hmodd(double d, double m)
 
 bool heqf(float a, float b, float tolerance)
 {
-	return (fabs(a - b) < tolerance);
+	return (habs(a - b) < tolerance);
 }
 
 bool heqd(double a, double b, double tolerance)
 {
-	return (fabs(a - b) < tolerance);
+	return (habs(a - b) < tolerance);
 }
 
 int hcmpf(float a, float b, float tolerance)
