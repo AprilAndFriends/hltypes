@@ -585,7 +585,7 @@ namespace hltypes
 	
 	bool String::operator==(const float f) const
 	{
-		return heqf((float)*this, f, HL_E_TOLERANCE);
+		return heqf((float)*this, f, (float)HL_E_TOLERANCE);
 	}
 	
 	bool String::operator==(const int i) const
