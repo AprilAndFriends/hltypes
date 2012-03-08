@@ -334,7 +334,7 @@ namespace hltypes
 				const char* string = str.c_str();
 				char* c = new char[size];
 				memset(c, 0, size * sizeof(char));
-				for (int i = 0; i < size; i++)
+				for_iter (i, 0, size)
 				{
 					c[i] = string[i] - this->encryption_offset;
 				}
@@ -503,7 +503,7 @@ namespace hltypes
 			this->_read(c, 1, count);
 			if (this->encryption_offset != 0)
 			{
-				for (int i = 0; i < count; i++)
+				for_iter (i, 0, count)
 				{
 					c[i] += this->encryption_offset;
 				}

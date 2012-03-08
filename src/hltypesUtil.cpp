@@ -462,10 +462,10 @@ void create_crc32_table()
 	}
 	unsigned int polynome = 0xEDB88320;
 	unsigned int sum;
-	for (int i = 0; i < 256; i++)
+	for_iter (i, 0, 256)
 	{
 		sum = i;
-		for (int j = 8; j > 0; j--)
+		for_iter (j, 9, 1)
 		{
 			if ((sum & 1) != 0)
 			{
@@ -485,7 +485,7 @@ unsigned int calc_crc32(unsigned char* data, int size)
 {
 	create_crc32_table();
 	unsigned int crc = 0xFFFFFFFF;
-	for (int i = 0; i < size; i++)
+	for_iter (i, 0, size)
 	{
 		crc = ((crc >> 8) & 0x00FFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
 	}
@@ -501,7 +501,7 @@ unsigned int calc_crc32(chstr filename)
 	f.read_raw(data, size);
 	f.close();
 	unsigned int crc = 0xFFFFFFFF;
-	for (int i = 0; i < size; i++)
+	for_iter (i, 0, size)
 	{
 		crc = ((crc >> 8) & 0x00FFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
 	}

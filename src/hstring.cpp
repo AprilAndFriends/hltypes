@@ -312,7 +312,7 @@ namespace hltypes
 	String String::to_hex() const
 	{
 		String hex = "";
-		for (int i = 0; i < this->size(); i++)
+		for_iter (i, 0, this->size())
 		{
 			hex += hsprintf("%02X", stdstr::at(i));
 		}
@@ -361,7 +361,7 @@ namespace hltypes
     {
         int c = 0;
         hstr tmp(stdstr::c_str());
-        for (int i = 0; i < size(); ++i)
+		for_iter (i, 0, this->size())
         {
             if (tmp(i, -1).starts_with(substr))
             {
@@ -459,7 +459,7 @@ namespace hltypes
 			return stdstr::substr(start, count);
 		}
 		String result;
-		for (int i = start; i < start + count; i += step)
+		for_iter_step (i, start, start + count, step)
 		{
 			result += stdstr::at(i);
 		}
@@ -672,7 +672,7 @@ hstr hvsprintf(const char* format, va_list args)
 	char* c = new char[size + 1];
 	int count = 0;
 	int i;
-	for (i = 0; i < 8; i++)
+	for_iterx (i, 0, 8)
 	{
 		count = vsnprintf(c, size + 1, format, args);
 		if (count == 0)

@@ -17,8 +17,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
-#include <hltypes/util.h>
 
 TEST(Util_hrand)
 {
