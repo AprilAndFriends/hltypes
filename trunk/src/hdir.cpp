@@ -10,7 +10,9 @@
 
 #include <stdio.h>
 #ifdef _WIN32
+#ifdef _MSC_VER
 #include <AccCtrl.h>
+#endif
 #include <direct.h>
 #include "msvc_dirent.h"
 #else
@@ -39,7 +41,7 @@ namespace hltypes
 {
 	bool Dir::win32FullDirectoryPermissions = true;
 
-#ifdef _WIN32 // god help us all
+#if defined(_WIN32) && defined(_MSC_VER) // god help us all
 	static bool _mkdirWin32FullPermissions(chstr path)
 	{
 		typedef BOOL (WINAPI* TInitSD)(PSECURITY_DESCRIPTOR, DWORD);
@@ -124,7 +126,7 @@ namespace hltypes
 		return result;
 
 		*/
-#ifdef _WIN32
+#if defined(_WIN32) && defined(_MSC_VER)
 		if (Dir::getWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(path))
 		{
 			return true;
@@ -399,7 +401,7 @@ namespace hltypes
 #ifndef HAVE_ZIPRESOURCE
 		hstr name = normalize_path(dirname);
 		Array<hstr> result = Dir::directories(Resource::make_full_path(name), false);
-		for (int i = 0; i < result.size(); i++)
+		for_iter (i, 0, result.size())
 		{
 			result[i] = result[i].replace(Resource::getCwd() + "/", "");
 		}
@@ -418,7 +420,7 @@ namespace hltypes
 		if (archivefile != NULL)
 		{
 			int count = zip_get_num_files(archivefile);
-			for (int i = 0; i < count; i++)
+			for_iter (i, 0, count)
 			{
 				current = normalize_path(hstr(zip_get_name(archivefile, i, 0)));
 				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, dirname) && current.contains("/"))
@@ -475,7 +477,7 @@ namespace hltypes
 #ifndef HAVE_ZIPRESOURCE
 		hstr name = normalize_path(dirname);
 		Array<hstr> result = Dir::files(Resource::make_full_path(name), false);
-		for (int i = 0; i < result.size(); i++)
+		for_iter (i, 0, result.size())
 		{
 			result[i] = result[i].replace(Resource::getCwd() + "/", "");
 		}
@@ -494,7 +496,7 @@ namespace hltypes
 		if (archivefile != NULL)
 		{
 			int count = zip_get_num_files(archivefile);
-			for (int i = 0; i < count; i++)
+			for_iter (i, 0, count)
 			{
 				current = normalize_path(hstr(zip_get_name(archivefile, i, 0)));
 				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, dirname) && !current.contains("/"))

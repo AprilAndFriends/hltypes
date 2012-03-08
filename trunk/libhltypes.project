@@ -9,7 +9,6 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="src/hstring.cpp"/>
-    <File Name="src/util.cpp"/>
     <File Name="src/hfile.cpp"/>
     <File Name="src/hsbase.cpp"/>
     <File Name="src/hstream.cpp"/>
@@ -18,11 +17,14 @@
     <File Name="src/hmutex.cpp"/>
     <File Name="src/hthread.cpp"/>
     <File Name="fileproperties.rc"/>
+    <File Name="src/hfbase.cpp"/>
+    <File Name="src/hltypesUtil.cpp"/>
+    <File Name="src/hresource.cpp"/>
+    <File Name="src/msvc_dirent.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/hltypes/hltypesExport.h"/>
     <File Name="include/hltypes/hstring.h"/>
-    <File Name="include/hltypes/util.h"/>
     <File Name="include/hltypes/hsbase.h"/>
     <File Name="include/hltypes/hstream.h"/>
     <File Name="include/hltypes/hfile.h"/>
@@ -34,6 +36,9 @@
     <File Name="include/hltypes/hmutex.h"/>
     <File Name="include/hltypes/hthread.h"/>
     <File Name="include/hltypes/hlist.h"/>
+    <File Name="include/hltypes/hfbase.h"/>
+    <File Name="include/hltypes/hltypesUtil.h"/>
+    <File Name="include/hltypes/hresource.h"/>
   </VirtualDirectory>
   <Dependencies Name="Release"/>
   <Settings Type="Dynamic Library">
