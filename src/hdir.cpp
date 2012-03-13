@@ -105,7 +105,7 @@ namespace hltypes
 
 	bool _check_dir_prefix(hstr& path, chstr prefix)
 	{
-		if (prefix == "")
+		if (prefix == "" || prefix == ".")
 		{
 			return true;
 		}
