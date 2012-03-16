@@ -390,9 +390,9 @@ template <class T> void hswap(T& a, T& b)
 /// @brief Returns Signum of the value.
 /// @param[in] value The value.
 /// @return Signum of the value.
-template <class T> int sgn(T value)
+template <class T> int hsgn(T value)
 {
-	return (value >= 0 ? 1 : -1);
+	return (value == 0 ? 0 : value >= 0 ? 1 : -1);
 }
 /// @brief Checks whether an element is within the range of two other elements, inclusively.
 /// @param[in] value The element to check.
