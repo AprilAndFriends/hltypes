@@ -450,6 +450,24 @@ unsigned int* utf8_to_unicode(chstr input, int* length)
 	return result;
 }
 
+wchar_t* utf8_to_wchars(chstr input, int* length)
+{
+	int unicode_length;
+	unsigned int* unicode = utf8_to_unicode(input, &unicode_length);
+	wchar_t* result = new wchar_t[unicode_length + 1];
+	memset(result, 0, (unicode_length + 1) * sizeof(wchar_t));
+	for_iter (i, 0, unicode_length)
+	{
+		result[i] = unicode[i];
+	}
+	delete [] unicode;
+	if (length != NULL)
+	{
+		*length = unicode_length;
+	}
+	return result;
+}
+
 // CRC32 stuff
 
 unsigned int crc32_table[256];
