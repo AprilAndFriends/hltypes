@@ -253,15 +253,25 @@ hstr normalize_path(chstr path)
 	return result.join('/');
 }
 
-hstr get_basedir(chstr filename)
+hstr get_basedir(chstr path)
 {
-	harray<hstr> result = filename.replace('\\', '/').rtrim('/').split('/', -1, false);
+	harray<hstr> result = path.replace('\\', '/').rtrim('/').split('/', -1, false);
 	if (result.size() < 2)
 	{
 		return ".";
 	}
 	result.pop_last();
 	return result.join("/");
+}
+
+hstr get_basename(chstr path)
+{
+	harray<hstr> result = path.replace('\\', '/').rtrim('/').split('/', -1, false);
+	if (result.size() == 0)
+	{
+		return "";
+	}
+	return result.pop_last();
 }
 
 // Unicode stuff
