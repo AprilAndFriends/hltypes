@@ -304,10 +304,14 @@ hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE)
 /// @param[in] path The path.
 /// @return Normalized filepath.
 hltypesFnExport hstr normalize_path(chstr path);
-/// @brief Gets the base directory of a filename.
-/// @param[in] filename The filename.
-/// @return Base directory of the file.
-hltypesFnExport hstr get_basedir(chstr filename);
+/// @brief Gets the base directory of a filename/directory.
+/// @param[in] filename The path.
+/// @return Base directory of the given filename/directory.
+hltypesFnExport hstr get_basedir(chstr path);
+/// @brief Gets the base filename/directory without the prepended directory path.
+/// @param[in] filename The path.
+/// @return Base directory of the filename/directory.
+hltypesFnExport hstr get_basename(chstr path);
 /// @brief Converts a unicode unsigned int to a UTF8 string.
 /// @param[in] value The unsigned int value.
 /// @return UTF8 string.
