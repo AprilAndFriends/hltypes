@@ -262,22 +262,19 @@ namespace hltypes
 
 	String String::ltrim(char c) const
 	{
-		int index = stdstr::find_first_not_of(c);
-		if (index < 0)
-		{
-			return *this;
-		}
-		return stdstr::substr(index, this->size() - index);
+		const char* cstr;
+		for (cstr = c_str(); *cstr == c; cstr++);
+		return hstr(cstr == NULL ? "" : cstr);
 	}
 
 	String String::rtrim(char c) const
 	{
-		int index = stdstr::find_last_not_of(c);
-		if (index < 0)
-		{
-			return *this;
-		}
-		return stdstr::substr(0, index + 1);
+		int i, len = size();
+		const char* cstr = c_str();
+		if (len == 0) return hstr("");
+		for (i = len - 1; i >= 0 && cstr[i] == c; i--);
+
+		return stdstr::substr(0, i + 1);
 	}
 
 	String String::replace(const char* what, const char* with_what) const
