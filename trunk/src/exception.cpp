@@ -60,11 +60,11 @@ namespace hltypes
 	{
 	}
 
-	_resource_not_seekable::_resource_not_seekable(chstr filename, const char* source_file, int line) :
-	    exception("'" + filename + "' is accessed as a resource which is not seekable!", source_file, line)
+	_resource_only_seekable_forward::_resource_only_seekable_forward(chstr filename, const char* source_file, int line) :
+	    exception("'" + filename + "' is accessed as a resource which can only be seeked forward!", source_file, line)
 	{
 	}
-	_resource_not_seekable::~_resource_not_seekable()
+	_resource_only_seekable_forward::~_resource_only_seekable_forward()
 	{
 	}
 	

@@ -168,7 +168,16 @@ namespace hltypes
 	
 	void Resource::_seek(long offset, SeekMode seek_mode)
 	{
-		throw resource_not_seekable(this->filename);
+		if (seek_mode != CURRENT || offset < 0)
+		{
+			throw resource_only_seekable_forward(this->filename);
+		}
+		if (offset > 0)
+		{
+			unsigned char* buffer = new unsigned char[offset];
+			this->_read(buffer, 1, offset);
+			delete [] buffer;
+		}
 	}
 	
 	bool Resource::exists(chstr filename)
