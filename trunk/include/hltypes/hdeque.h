@@ -142,7 +142,7 @@ namespace hltypes
 			for_iter (i, 0, this->size())
 			{
 				// making sure operator!= is used, not ==
-				if (stddqeue::at(i) != other.at(i))
+				if (stddeque::at(i) != other.at(i))
 				{
 					return true;
 				}
