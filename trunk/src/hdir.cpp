@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 1.55
+/// @version 1.61
 /// 
 /// @section LICENSE
 /// 
@@ -112,6 +112,10 @@ namespace hltypes
 		if (path.starts_with(prefix + "/"))
 		{
 			path = path(prefix.size() + 1, path.size() - prefix.size() - 1);
+			if (path == "")
+			{
+				return false;
+			}
 			return true;
 		}
 		return false;
@@ -397,18 +401,20 @@ namespace hltypes
 		if (archivefile != NULL)
 		{
 			int count = zip_get_num_files(archivefile);
+			int slashCount = 0;
 			for_iter (i, 0, count)
 			{
-				current = normalize_path(hstr(zip_get_name(archivefile, i, 0)));
+				current = systemize_path(hstr(zip_get_name(archivefile, i, 0)));
 				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name))
 				{
-					if (current.contains("/")) // directory
-					{
-						result += current.split("/", 1, false).pop_first();
-					}
-					else // file
+					slashCount = current.count("/");
+					if (slashCount == 0) // directory // file
 					{
 						result += current;
+					}
+					else if (slashCount == 1) // directory
+					{
+						result += current(0, current.size() - 1);
 					}
 				}
 			}
@@ -475,10 +481,10 @@ namespace hltypes
 			int count = zip_get_num_files(archivefile);
 			for_iter (i, 0, count)
 			{
-				current = normalize_path(hstr(zip_get_name(archivefile, i, 0)));
-				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.contains("/"))
+				current = systemize_path(hstr(zip_get_name(archivefile, i, 0)));
+				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.count("/") == 1)
 				{
-					result += current.split("/", 1, false).pop_first();
+					result += current(0, current.size() - 1);
 				}
 			}
 		}
@@ -544,8 +550,8 @@ namespace hltypes
 			int count = zip_get_num_files(archivefile);
 			for_iter (i, 0, count)
 			{
-				current = normalize_path(hstr(zip_get_name(archivefile, i, 0)));
-				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && !current.contains("/"))
+				current = systemize_path(hstr(zip_get_name(archivefile, i, 0)));
+				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.count("/") == 0)
 				{
 					result += current;
 				}

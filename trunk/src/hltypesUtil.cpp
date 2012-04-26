@@ -215,9 +215,14 @@ int hcmpd(double a, double b, double tolerance)
 	return (heqd(a, b, tolerance) ? 0 : (a > b ? 1 : -1));
 }
 
+hstr systemize_path(chstr path)
+{
+	return path.replace('\\', '/');
+}
+
 hstr normalize_path(chstr path)
 {
-	harray<hstr> directories = path.replace('\\', '/').rtrim('/').split('/', -1, false);
+	harray<hstr> directories = systemize_path(path).rtrim('/').split('/', -1, false);
 	harray<hstr> result;
 	while (directories.size() > 0)
 	{
