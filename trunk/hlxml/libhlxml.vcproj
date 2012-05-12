@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1250"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="libhlxml"
 	ProjectGUID="{877B2D1A-DE16-457B-9146-423FE0026E07}"
 	RootNamespace="libhlxml"
@@ -137,6 +137,8 @@
 				AdditionalDependencies="libhltypes.lib libxml2.lib"
 				OutputFile="$(OutDir)$(ProjectName).dll"
 				AdditionalLibraryDirectories="..\..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -283,6 +285,8 @@
 				AdditionalDependencies="libhltypes.lib libtinyxml.lib"
 				OutputFile="$(OutDir)$(ProjectName).dll"
 				AdditionalLibraryDirectories="..\..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
 			/>
 			<Tool
 				Name="VCALinkTool"
