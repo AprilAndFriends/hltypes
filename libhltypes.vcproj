@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="libhltypes"
 	ProjectGUID="{E4D373BF-E227-48B9-99E6-84987E8674EC}"
 	RootNamespace="hltypes"
@@ -136,6 +136,8 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)$(ProjectName).dll"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -186,6 +188,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\hltypesUtil.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\hmutex.cpp"
 				>
 			</File>
@@ -207,10 +213,6 @@
 			</File>
 			<File
 				RelativePath=".\src\hthread.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\hltypesUtil.cpp"
 				>
 			</File>
 		</Filter>
@@ -256,6 +258,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\hltypes\hltypesUtil.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\hltypes\hmap.h"
 				>
 			</File>
@@ -281,10 +287,6 @@
 			</File>
 			<File
 				RelativePath=".\include\hltypes\hthread.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\hltypes\hltypesUtil.h"
 				>
 			</File>
 		</Filter>
