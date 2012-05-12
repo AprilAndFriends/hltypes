@@ -21,6 +21,7 @@ namespace hltypes
 		this->current_size = 16;
 		this->stream_size = 0;
 		this->stream_position = 0;
+		// using malloc because realloc is needed later
 		this->stream = (unsigned char*)malloc(this->current_size * sizeof(unsigned char));
 	}
 	
