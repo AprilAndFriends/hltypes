@@ -168,16 +168,41 @@ namespace hltypes
 	
 	void Resource::_seek(long offset, SeekMode seek_mode)
 	{
-		if (seek_mode != CURRENT || offset < 0)
+#ifndef HAVE_ZIPRESOURCE
+		this->_fseek(offset, seek_mode);
+#else
+		// zip can only read forward and doesn't really have seeking
+		long target = offset;
+		switch (seek_mode)
 		{
-			throw resource_only_seekable_forward(this->filename);
+		case CURRENT:
+			target = offset + position;
+			break;
+		case START:
+			target = offset;
+			break;
+		case END:
+			target = this->data_size + offset;
+			break;
 		}
-		if (offset > 0)
+		long position = this->_position();
+		if (target >= position)
 		{
-			unsigned char* buffer = new unsigned char[offset];
-			this->_read(buffer, 1, offset);
+			target -= position;
+		}
+		else
+		{
+			// reopening the file as the target position was already passed
+			zip_fclose((struct zip_file*)this->cfile);
+			this->cfile = zip_fopen((struct zip*)this->archivefile, Resource::make_full_path(this->filename).c_str(), 0);
+		}
+		if (target > 0)
+		{
+			unsigned char* buffer = new unsigned char[target];
+			zip_fread((struct zip_file*)this->cfile, buffer, target);
 			delete [] buffer;
 		}
+#endif
 	}
 	
 	bool Resource::exists(chstr filename)

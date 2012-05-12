@@ -60,14 +60,6 @@ namespace hltypes
 	{
 	}
 
-	_resource_only_seekable_forward::_resource_only_seekable_forward(chstr filename, const char* source_file, int line) :
-	    exception("'" + filename + "' is accessed as a resource which can only be seeked forward!", source_file, line)
-	{
-	}
-	_resource_only_seekable_forward::~_resource_only_seekable_forward()
-	{
-	}
-	
 	_index_error::_index_error(int index, const char* source_file, int line) :
 	    exception("index '" + hstr(index) + "' out of range", source_file, line)
 	{
