@@ -176,7 +176,7 @@ namespace hltypes
 		switch (seek_mode)
 		{
 		case CURRENT:
-			target = offset + position;
+			target = offset + this->data_position;
 			break;
 		case START:
 			target = offset;
@@ -185,16 +185,16 @@ namespace hltypes
 			target = this->data_size + offset;
 			break;
 		}
-		long position = this->_position();
-		if (target >= position)
+		if (target >= this->data_position)
 		{
-			target -= position;
+			target -= this->data_position;
 		}
 		else
 		{
 			// reopening the file as the target position was already passed
 			zip_fclose((struct zip_file*)this->cfile);
 			this->cfile = zip_fopen((struct zip*)this->archivefile, Resource::make_full_path(this->filename).c_str(), 0);
+			this->data_position = 0;
 		}
 		if (target > 0)
 		{
