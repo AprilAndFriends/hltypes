@@ -22,6 +22,7 @@
 #define _mkdir(name) mkdir(name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
 #define _rmdir(name) rmdir(name)
 #define _chdir(name) chdir(name)
+#define _getcwd(buffer, size) chdir(buffer, size)
 #endif
 #ifdef HAVE_ZIPRESOURCE
 #include <zip/zip.h>
@@ -569,6 +570,13 @@ namespace hltypes
 	void hdir::chdir(chstr dirname)
 	{
 		_chdir(dirname.c_str());
+	}
+
+	hstr hdir::cwd()
+	{
+		char dir[FILENAME_MAX] = {'\0'};
+		_getcwd(dir, FILENAME_MAX);
+		return systemize_path(dir);
 	}
 
 }
