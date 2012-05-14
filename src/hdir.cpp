@@ -19,10 +19,10 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#define _mkdir(name) mkdir(name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
-#define _rmdir(name) rmdir(name)
-#define _chdir(name) chdir(name)
-#define _getcwd(buffer, size) chdir(buffer, size)
+#define _mkdir(name) ::mkdir(name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
+#define _rmdir(name) ::rmdir(name)
+#define _chdir(name) ::chdir(name)
+#define _getcwd(buffer, size) ::getcwd(buffer, size)
 #endif
 #ifdef HAVE_ZIPRESOURCE
 #include <zip/zip.h>
