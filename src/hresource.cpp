@@ -58,7 +58,6 @@ namespace hltypes
 		}
 		this->filename = normalize_path(filename);
 		this->encryption_offset = 0;
-		const char* mode = "rb";
 		int attempts = Resource::repeats + 1;
 		while (true)
 		{
