@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.55
+/// @version 1.66
 /// 
 /// @section LICENSE
 /// 
@@ -84,7 +84,7 @@ namespace hltypes
 				index = result.find(delimiter);
 				if (index >= 0)
 				{
-					this->seek(index - result.size() + delimiter.size(), CURRENT);
+					this->_seek(index - result.size() + delimiter.size(), CURRENT);
 					result = result(0, index);
 					break;
 				}
@@ -177,6 +177,25 @@ namespace hltypes
 		return result;
 	}
 		
+	int StreamBase::write_raw(StreamBase& stream, int count)
+	{
+		this->_check_availability();
+		count = hmin(count, (int)(stream.size() - stream.position()));
+		unsigned char* buffer = new unsigned char[count];
+		stream.read_raw(buffer, count);
+		stream.seek(-count);
+		int result = this->_write(buffer, 1, count);
+		delete [] buffer;
+		this->_update_data_size();
+		return result;
+	}
+	
+	int StreamBase::write_raw(StreamBase& stream)
+	{
+		this->_check_availability();
+		return this->write_raw(stream, stream.size() - stream.position());
+	}
+	
 	void StreamBase::_update_data_size()
 	{
 		long position = this->_position();
