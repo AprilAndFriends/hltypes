@@ -134,7 +134,7 @@ namespace hltypes
 			return false;
 		}
 		out_left = stdstr::substr(0, index);
-		out_right = stdstr::substr(index + strlen(delimiter), 1000);
+		out_right = stdstr::substr(index + strlen(delimiter));
 		return true;
 	}
 	
@@ -146,7 +146,7 @@ namespace hltypes
 			return false;
 		}
 		out_left = stdstr::substr(0, index);
-		out_right = stdstr::substr(index + strlen(delimiter), 1000);
+		out_right = stdstr::substr(index + strlen(delimiter));
 		return true;
 	}
 
