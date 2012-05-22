@@ -83,7 +83,7 @@ namespace hltypes
 				break;
 			}
 			Thread::sleep(timeout);
-		};
+		}
 		if (this->cfile == NULL)
 		{
 			throw file_not_found(this->_descriptor());
