@@ -314,7 +314,7 @@ hltypesFnExport hstr normalize_path(chstr path);
 hltypesFnExport hstr get_basedir(chstr path);
 /// @brief Gets the base filename/directory without the prepended directory path.
 /// @param[in] filename The path.
-/// @return Base directory of the filename/directory.
+/// @return Base filename/directory without the prepended directory path.
 hltypesFnExport hstr get_basename(chstr path);
 /// @brief Converts a unicode unsigned int to a UTF8 string.
 /// @param[in] value The unsigned int value.
