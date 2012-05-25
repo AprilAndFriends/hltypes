@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.55
+/// @version 1.67
 /// 
 /// @section LICENSE
 /// 
@@ -26,6 +26,8 @@ namespace hltypes
 	hstr Resource::cwd = ".";
 #else
 	hstr Resource::cwd = "assets";
+#define READ_BUFFER_SIZE 32768
+	static unsigned char _read_buffer[READ_BUFFER_SIZE];
 #endif
 	hstr Resource::archive = "";
 
@@ -197,9 +199,16 @@ namespace hltypes
 		}
 		if (target > 0)
 		{
-			unsigned char* buffer = new unsigned char[target];
-			zip_fread((struct zip_file*)this->cfile, buffer, target);
-			delete [] buffer;
+			unsigned char* buffer = _read_buffer;
+			if (target > READ_BUFFER_SIZE)
+			{
+				buffer = new unsigned char[target];
+			}
+			this->_read(buffer, 1, target);
+			if (target > READ_BUFFER_SIZE)
+			{
+				delete [] buffer;
+			}
 		}
 #endif
 	}
