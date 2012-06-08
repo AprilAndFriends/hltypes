@@ -295,7 +295,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0432;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "hlxml" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -456,7 +456,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = hlxml;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -476,7 +476,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = hlxml;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -496,7 +496,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = hlxml;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = "App Store";
 		};
@@ -847,7 +847,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = hlxml;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx;
 			};
 			name = "Debug-LLVM";
 		};
@@ -897,7 +897,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = hlxml;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx;
 			};
 			name = "Release-LLVM";
 		};
