@@ -553,7 +553,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = hlxml;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -585,7 +585,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = hlxml;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -615,7 +615,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = hlxml;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -645,7 +645,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = hlxml;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
@@ -675,7 +675,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = hlxml;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64 ppc";
 				WRAPPER_EXTENSION = framework;
