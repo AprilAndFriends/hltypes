@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 1.4
+/// @version 1.68
 /// 
 /// @section LICENSE
 /// 
@@ -665,29 +665,23 @@ hstr operator+(char s1, chstr s2)
 
 hstr hvsprintf(const char* format, va_list args)
 {
-	int size = 256; // safe assumption that strings will be usually under 256 characters
+	int size = 256; // safe assumption that most strings will be under 257 characters
 	char* c = new char[size + 1];
+	c[0] = '\0';
 	int count = 0;
 	int i;
 	for_iterx (i, 0, 8)
 	{
-		count = vsnprintf(c, size + 1, format, args);
-		if (count == 0)
+		count = vsnprintf(c, size, format, args);
+		if (count >= 0)
 		{
-			c[0] = '\0'; // empty string
-			break;
-		}
-		if (count > 0)
-		{
-			delete [] c;
-			c = new char[count + 1];
-			vsnprintf(c, count + 1, format, args);
-			c[count] = '\0'; // terminate string with \0, safe is safe
+			c[count] = '\0'; // terminate string
 			break;
 		}
 		size *= 2; // not enough characters, double current buffer
 		delete [] c;
 		c = new char[size + 1];
+		c[0] = '\0';
 	}
 #ifdef _DEBUG
 	if (i == 8)
@@ -700,6 +694,8 @@ hstr hvsprintf(const char* format, va_list args)
 	delete [] c;
 	return result;
 }
+
+
 
 
 hstr hsprintf(const char* format, ...)
