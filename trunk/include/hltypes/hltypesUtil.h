@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.56
+/// @version 1.69
 /// 
 /// @section LICENSE
 /// 
@@ -316,6 +316,10 @@ hltypesFnExport hstr get_basedir(chstr path);
 /// @param[in] filename The path.
 /// @return Base filename/directory without the prepended directory path.
 hltypesFnExport hstr get_basename(chstr path);
+/// @brief Gets an environment variable as String.
+/// @param[in] env The environment variable.
+/// @return Environment variable as String.
+hltypesFnExport hstr get_environment_variable(chstr name);
 /// @brief Converts a unicode unsigned int to a UTF8 string.
 /// @param[in] value The unsigned int value.
 /// @return UTF8 string.
