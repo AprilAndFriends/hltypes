@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 1.56
+/// @version 1.69
 /// 
 /// @section LICENSE
 /// 
@@ -277,6 +277,18 @@ hstr get_basename(chstr path)
 		return "";
 	}
 	return result.pop_last();
+}
+
+hstr get_environment_variable(chstr name)
+{
+#ifndef _WIN32
+	return hstr(getenv(env.c_str());
+#else
+	wchar_t* wname = utf8_to_wchars(name);
+	const wchar_t* value = _wgetenv(wname);
+	delete [] wname;
+	return unicode_to_utf8(value);
+#endif
 }
 
 // Unicode stuff
