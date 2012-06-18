@@ -11,6 +11,7 @@
 #ifndef _MSC_VER // required for memset on non-MSVC compilers
 #include <string.h>
 #endif
+#include <stdlib.h>
 
 #include "harray.h"
 #include "hltypesUtil.h"
@@ -282,7 +283,7 @@ hstr get_basename(chstr path)
 hstr get_environment_variable(chstr name)
 {
 #ifndef _WIN32
-	return hstr(getenv(env.c_str());
+	return hstr(getenv(name.c_str()));
 #else
 	wchar_t* wname = utf8_to_wchars(name);
 	const wchar_t* value = _wgetenv(wname);
