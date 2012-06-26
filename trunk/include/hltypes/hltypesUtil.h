@@ -24,6 +24,7 @@
 namespace hltypes
 {
 	template <class T> class Array;
+	class StreamBase;
 }
 
 /// @brief Used for optimized and quick calculation from RAD to DEG.
@@ -365,10 +366,19 @@ hltypesFnExport wchar_t* utf8_to_wchars(chstr input, int* length = NULL);
 /// @param[in] data Data stream.
 /// @param[in] size Size of the data stream.
 /// @return CRC32 value of the stream.
-hltypesFnExport unsigned int calc_crc32(unsigned char* data, int size);
-/// @brief Calculates CRC32 from a byte stream.
-/// @param[in] filename Filename of the file to calculate the CRC32 from.
-/// @return CRC32 value of the file.
+hltypesFnExport unsigned int calc_crc32(unsigned char* data, long size);
+/// @brief Calculates CRC32 from a StreamBase.
+/// @param[in] stream StreamBase from which to calculate the CRC32.
+/// @param[in] size Number of bytes to read for CRC32.
+/// @return CRC32 value of the StreamBase.
+hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream, long size);
+/// @brief Calculates CRC32 from a StreamBase.
+/// @param[in] stream StreamBase from which to calculate the CRC32.
+/// @return CRC32 value of the StreamBase.
+hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
+/// @brief Calculates CRC32 from Resource file.
+/// @param[in] filename Filename of the Resource from which to calculate the CRC32.
+/// @return CRC32 value of the Resource.
 hltypesFnExport unsigned int calc_crc32(chstr filename);
 
 /// @brief Returns the lesser of two elements.
