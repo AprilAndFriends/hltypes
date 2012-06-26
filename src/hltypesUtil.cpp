@@ -527,30 +527,38 @@ void create_crc32_table()
 	crc32_table_created = true;
 }
 
-unsigned int calc_crc32(unsigned char* data, int size)
+unsigned int calc_crc32(unsigned char* data, long size)
 {
 	create_crc32_table();
 	unsigned int crc = 0xFFFFFFFF;
-	for_iter (i, 0, size)
+	for_itert (long, i, 0, size)
 	{
 		crc = ((crc >> 8) & 0x00FFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
 	}
 	return (crc ^ 0xFFFFFFFF);
 }
 
+unsigned int calc_crc32(hsbase* stream, long size)
+{
+	if (size <= 0)
+	{
+		return 0;
+	}
+	unsigned char* data = new unsigned char[size];
+	stream->read_raw(data, size);
+	unsigned int result = calc_crc32(data, size);
+	delete [] data;
+	return result;
+}
+
+unsigned int calc_crc32(hsbase* stream)
+{
+	return calc_crc32(stream, stream->size() - stream->position());
+}
+
 unsigned int calc_crc32(chstr filename)
 {
-	create_crc32_table();
-	hresource f(filename);
-	int size = f.size();
-	unsigned char* data = new unsigned char[size];
-	f.read_raw(data, size);
-	f.close();
-	unsigned int crc = 0xFFFFFFFF;
-	for_iter (i, 0, size)
-	{
-		crc = ((crc >> 8) & 0x00FFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
-	}
-	delete [] data;
-	return (crc ^ 0xFFFFFFFF);
+	hresource resource(filename);
+	return calc_crc32(&resource);
 }
+
