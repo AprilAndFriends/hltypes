@@ -498,8 +498,8 @@ wchar_t* utf8_to_wchars(chstr input, int* length)
 
 // CRC32 stuff
 
-unsigned int crc32_table[256];
-bool crc32_table_created = false;
+static unsigned int crc32_table[256];
+static bool crc32_table_created = false;
 void create_crc32_table()
 {
 	if (crc32_table_created)
@@ -551,6 +551,6 @@ unsigned int calc_crc32(chstr filename)
 	{
 		crc = ((crc >> 8) & 0x00FFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
 	}
-	delete data;
+	delete [] data;
 	return (crc ^ 0xFFFFFFFF);
 }
