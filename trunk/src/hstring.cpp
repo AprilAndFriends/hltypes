@@ -673,7 +673,7 @@ hstr hvsprintf(const char* format, va_list args)
 	for_iterx (i, 0, 8)
 	{
 		count = vsnprintf(c, size, format, args);
-		if (count >= 0)
+		if (count >= 0 && count <= size)
 		{
 			c[count] = '\0'; // terminate string
 			break;
