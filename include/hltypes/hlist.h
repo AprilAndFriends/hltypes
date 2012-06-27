@@ -16,9 +16,9 @@
 
 #include <list>
 
-/// @brief Provides a simpler syntax to iterate through a llist.
+/// @brief Provides a simpler syntax to iterate through a list.
 #define foreach_l(type, name, container) for (std::list<type>::iterator name = (container).begin(); name != (container).end(); name++)
-/// @brief Provides a simpler syntax to reverse iterate through a List.
+/// @brief Provides a simpler syntax to reverse iterate through a list.
 #define foreach_lr(type, name, container) for (std::list<type>::reverse_iterator name = (container).rbegin(); name != (container).rend(); name++)
 /// @brief Alias for simpler code.
 #define stdlist std::list<T>
@@ -317,7 +317,6 @@ namespace hltypes
 			{
 				throw element_not_found_error();
 			}
-			const_iterator it = stdlist::begin();
 			stdlist::erase(_iterator_plus(stdlist::begin(), index));
 		}
 		/// @brief Removes first occurrence of each element in another List from this one.
