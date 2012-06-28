@@ -146,7 +146,7 @@ namespace hltypes
 	
 	long Resource::_write(const void* buffer, int size, int count)
 	{
-		throw resource_not_writeable(this->filename);
+		throw file_not_writeable(this->filename);
 	}
 
 	bool Resource::_is_open()
