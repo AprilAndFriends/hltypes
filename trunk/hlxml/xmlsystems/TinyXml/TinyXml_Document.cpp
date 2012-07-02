@@ -33,19 +33,20 @@ namespace hlxml
 		if (this->document->Error())
 		{
 			hstr desc = this->document->ErrorDesc();
-			int row = this->document->ErrorRow(), col = this->document->ErrorCol();
+			int row = this->document->ErrorRow();
+			int col = this->document->ErrorCol();
 			if (row != 0)
 			{
 				desc += hsprintf(" [row %d, column %d]", row, col);
 				harray<hstr> lines = data.split("\n");
 				if (lines.size() >= row) // just in case!
 				{
-					desc += "\n---------------------------\n";
+					desc += "\n----------------------------------------------------------\n";
 					desc += lines[row - 1].trim();
-					desc += "\n---------------------------";
+					desc += "\n----------------------------------------------------------";
 				}
 			}
-            throw XMLException("An error occcured parsing XML file '" + realFilename + "': " + desc, NULL);
+			throw XMLException("An error occcured parsing XML file '" + realFilename + "': " + desc, NULL);
 		}
 	}
 
