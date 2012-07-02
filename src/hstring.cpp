@@ -189,20 +189,20 @@ namespace hltypes
 	
 	bool String::is_digit() const
 	{
-        return (this->size() == 1 && isdigit(stdstr::c_str()[0]));
+		return (this->size() == 1 && isdigit(stdstr::c_str()[0]));
 	}
-    
+	
 	bool String::is_int() const
 	{
 		const char* s = stdstr::c_str();
 		int i = 0;
-        if (s[i] == '-')
+		if (s[i] == '-')
 		{
 			i++;
 		}
 		for (; s[i] != '\0'; i++)
 		{
-            if (!isdigit(s[i]))
+			if (!isdigit(s[i]))
 			{
 				return false;
 			}
@@ -215,20 +215,20 @@ namespace hltypes
 		const char* s = stdstr::c_str();
 		bool foundDot = false;
 		int i = 0;
-        if (s[i] == '-')
+		if (s[i] == '-')
 		{
 			i++;
 		}
 		for (; s[i] != '\0'; i++)
 		{
-            if (s[i] == '.')
-            {
-                if (foundDot)
+			if (s[i] == '.')
+			{
+				if (foundDot)
 				{
 					return false;
 				}
 				foundDot = true;
-            }
+			}
 			else if (!isdigit(s[i]))
 			{
 				return false;
@@ -247,7 +247,7 @@ namespace hltypes
 		const char* s = stdstr::c_str();
 		for (int i = 0; s[i] != '\0'; i++)
 		{
-            if (!isxdigit(s[i]))
+			if (!isxdigit(s[i]))
 			{
 				return false;
 			}
@@ -347,32 +347,32 @@ namespace hltypes
 	{
 		return this->rsplit(delimiter.c_str(), out_left, out_right);
 	}
-    
-    int String::count(const char substr) const
-    {
-        char c[2] = {substr, 0};
-        return count(c);
-    }
-    
-    int String::count(const char* substr) const
-    {
-        int c = 0;
-        hstr tmp(stdstr::c_str());
+	
+	int String::count(const char substr) const
+	{
+		char c[2] = {substr, 0};
+		return count(c);
+	}
+	
+	int String::count(const char* substr) const
+	{
+		int c = 0;
+		hstr tmp(stdstr::c_str());
 		for_iter (i, 0, this->size())
-        {
-            if (tmp(i, -1).starts_with(substr))
-            {
-                c++;
-                i += strlen(substr) - 1;
-            }
-        }
-        return c;
-    }
-    
-    int String::count(const String& substr) const
-    {
-        return count(substr.c_str());
-    }
+		{
+			if (tmp(i, -1).starts_with(substr))
+			{
+				c++;
+				i += strlen(substr) - 1;
+			}
+		}
+		return c;
+	}
+	
+	int String::count(const String& substr) const
+	{
+		return count(substr.c_str());
+	}
 
 	bool String::starts_with(const String& s) const
 	{
@@ -598,8 +598,8 @@ namespace hltypes
 	bool String::operator==(const bool b) const
 	{
 		const char* cstr = stdstr::c_str();
-		return ((strcmp(cstr, "1")     == 0 &&  b) ||
-				(strcmp(cstr, "0")     == 0 && !b) ||
+		return ((strcmp(cstr, "1")	 == 0 &&  b) ||
+				(strcmp(cstr, "0")	 == 0 && !b) ||
 				(strcmp(cstr, "true")  == 0 &&  b) ||
 				(strcmp(cstr, "false") == 0 && !b));
 	}

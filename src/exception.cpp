@@ -24,7 +24,7 @@ namespace hltypes
 	}
 
 	_file_not_found::_file_not_found(chstr filename, const char* source_file, int line_number) :
-	    exception(hsprintf("'%s' not found!", filename.c_str()), source_file, line_number)
+		exception(hsprintf("'%s' not found!", filename.c_str()), source_file, line_number)
 	{
 	}
 	_file_not_found::~_file_not_found()
@@ -56,7 +56,7 @@ namespace hltypes
 	}
 	
 	_index_error::_index_error(int index, const char* source_file, int line_number) :
-	    exception(hsprintf("index '%d' out of range", index), source_file, line_number)
+		exception(hsprintf("index '%d' out of range", index), source_file, line_number)
 	{
 	}
 	_index_error::~_index_error()
@@ -72,7 +72,7 @@ namespace hltypes
 	}
 	
 	_element_not_found_error::_element_not_found_error(const char* source_file, int line_number) :
-	    exception("element not found in array", source_file, line_number)
+		exception("element not found in array", source_file, line_number)
 	{
 	}
 	_element_not_found_error::~_element_not_found_error()
@@ -80,7 +80,7 @@ namespace hltypes
 	}
 	
 	_range_error::_range_error(int start, int count, const char* source_file, int line_number) :
-	    exception(hsprintf("range 'at %d for %d' out of range", start, count), source_file, line_number)
+		exception(hsprintf("range 'at %d for %d' out of range", start, count), source_file, line_number)
 	{
 	}
 	_range_error::~_range_error()
@@ -104,7 +104,7 @@ namespace hltypes
 	}
 
 	_resource_already_exists::_resource_already_exists(chstr type, chstr name, chstr container, const char* source_file, int line_number) :
-	    exception(hsprintf("'%s' '%s' already exists in '%s'", name.c_str(), type.c_str(), container.c_str()), source_file, line_number)
+		exception(hsprintf("'%s' '%s' already exists in '%s'", name.c_str(), type.c_str(), container.c_str()), source_file, line_number)
 	{
 	}
 	_resource_already_exists::~_resource_already_exists()

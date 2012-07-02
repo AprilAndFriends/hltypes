@@ -358,7 +358,7 @@
     <ClInclude Include="xmlsystems\TinyXml\TinyXml_Property.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fileproperties.rc" />
+    <ResourceCompile Include="fileproperties.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libhltypes.vcxproj">

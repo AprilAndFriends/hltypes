@@ -301,9 +301,9 @@ namespace hltypes
 		hstr name = get_basedir(path);
 		return (name != "" && name != "." && hdir::create(name));
 	}
-    
-    void prepend_directory(chstr dirname, Array<hstr>& entries)
-    {
+	
+	void prepend_directory(chstr dirname, Array<hstr>& entries)
+	{
 		if (dirname != "")
 		{
 			foreach (hstr, it, entries)
@@ -311,7 +311,7 @@ namespace hltypes
 				(*it) = dirname + "/" + (*it);
 			}
 		}
-    }
+	}
 	
 	Array<hstr> Dir::entries(chstr dirname, bool prepend_dir)
 	{
@@ -335,7 +335,7 @@ namespace hltypes
 			}
 			closedir(dir);
 		}
-        if (prepend_dir)
+		if (prepend_dir)
 		{
 			prepend_directory(name, result);
 		}
@@ -348,7 +348,7 @@ namespace hltypes
 		harray<hstr> result = Dir::resource_contents(dirname, false);
 		result += hstr(".");
 		result += hstr("..");
-        if (prepend_dir)
+		if (prepend_dir)
 		{
 			prepend_directory(name, result);
 		}
@@ -377,7 +377,7 @@ namespace hltypes
 			}
 			closedir(dir);
 		}
-        if (prepend_dir)
+		if (prepend_dir)
 		{
 			prepend_directory(name, result);
 		}
@@ -456,7 +456,7 @@ namespace hltypes
 			}
 			closedir(dir);
 		}
-        if (prepend_dir)
+		if (prepend_dir)
 		{
 			prepend_directory(name, result);
 		}

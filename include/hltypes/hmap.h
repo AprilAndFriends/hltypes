@@ -531,14 +531,14 @@ namespace hltypes
 			}
 			return result;
 		}
-        /// @brief Finds and returns value stored at key. In case no value is found, returns the given default value.
+		/// @brief Finds and returns value stored at key. In case no value is found, returns the given default value.
 		/// @param[in] key Key to retrieve the value of.
-        /// @param[in] defaultValue Default value to return if key does not exist.
+		/// @param[in] defaultValue Default value to return if key does not exist.
 		/// @return Value stored at key or given default value.
-        V try_get_by_key(K key, V defaultValue) const
-        {
-            return (this->has_key(key) ? stdmap::find(key)->second : defaultValue);
-        }
+		V try_get_by_key(K key, V defaultValue) const
+		{
+			return (this->has_key(key) ? stdmap::find(key)->second : defaultValue);
+		}
 		/// @brief Same as insert.
 		/// @see insert(const Map<K, V>& other)
 		Map<K, V>& operator+=(const Map<K, V>& other)

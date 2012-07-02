@@ -125,15 +125,15 @@ namespace hltypes
 		/// @brief Counts the occurrences of a substring.
 		/// @param[in] substr The character to look for.
 		/// @return Number of occurrences of the substring.
-        int count(const char substr) const;
+		int count(const char substr) const;
 		/// @brief Counts the occurrences of a substring.
 		/// @param[in] substr The C-type string to look for.
 		/// @return Number of occurrences of the substring.
-        int count(const char* substr) const;
+		int count(const char* substr) const;
 		/// @brief Counts the occurrences of a substring.
 		/// @param[in] substr The String to look for.
 		/// @return Number of occurrences of the substring.
-        int count(const String& substr) const;
+		int count(const String& substr) const;
 		/// @brief Splits the String with the delimiter.
 		/// @param[in] delimiter The character acting as splitting delimiter.
 		/// @param[in] n How many times the string should be split maximally.
@@ -194,25 +194,25 @@ namespace hltypes
 		String upper() const;
 		/// @brief Reverses String.
 		/// @return Reversed String.
-		String reverse() const;        
-        /// @brief Checks if all elements of the string contain only one digit '0'-'9'.
-        /// @return True if string is a digit.
-        bool is_digit() const;
-        /// @brief Checks if the string is an integer.
-        /// @return True if string is a number.
-        bool is_int() const;
-        /// @brief Checks if the string is a float.
+		String reverse() const;		
+		/// @brief Checks if all elements of the string contain only one digit '0'-'9'.
+		/// @return True if string is a digit.
+		bool is_digit() const;
+		/// @brief Checks if the string is an integer.
+		/// @return True if string is a number.
+		bool is_int() const;
+		/// @brief Checks if the string is a float.
 		/// @param[in] require_dot If this parameter is false, then a decimal point is not required to designate a float value.
-        /// @return True if string is a number.
-        bool is_float(bool require_dot = true) const;
-        /// @brief Checks if the string is a number, positive or negative integer or float.
-        /// @return True if string is a number.
-        bool is_number() const;
-        /// @brief Checks if the string is a hexadecimal number, case ignore.
-        /// @return True if string is a hex number.
+		/// @return True if string is a number.
+		bool is_float(bool require_dot = true) const;
+		/// @brief Checks if the string is a number, positive or negative integer or float.
+		/// @return True if string is a number.
+		bool is_number() const;
+		/// @brief Checks if the string is a hexadecimal number, case ignore.
+		/// @return True if string is a hex number.
 		/// @note This method is case insensitive.
 		/// @note Hex numbers cannot be negative in this context.
-        bool is_hex() const;
+		bool is_hex() const;
 		/// @brief Left-trims and right-trims String from a specific character.
 		/// @param[in] c Character to trim.
 		/// @return Trimmed String.
