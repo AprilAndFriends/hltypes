@@ -358,7 +358,12 @@
     <ClInclude Include="xmlsystems\TinyXml\TinyXml_Property.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="fileproperties.rc" />
+    <ResourceCompile Include="fileproperties.rc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_LibXml2|Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_TinyXml|Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_LibXml2|Android'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_TinyXml|Android'">true</ExcludedFromBuild>
+    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libhltypes.vcxproj">
