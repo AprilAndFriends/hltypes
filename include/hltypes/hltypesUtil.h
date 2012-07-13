@@ -376,10 +376,6 @@ hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream, long size);
 /// @param[in] stream StreamBase from which to calculate the CRC32.
 /// @return CRC32 value of the StreamBase.
 hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
-/// @brief Calculates CRC32 from Resource file.
-/// @param[in] filename Filename of the Resource from which to calculate the CRC32.
-/// @return CRC32 value of the Resource.
-hltypesFnExport unsigned int calc_crc32(chstr filename);
 
 /// @brief Returns the lesser of two elements.
 /// @param[in] a First element.

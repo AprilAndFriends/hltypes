@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.55
+/// @version 1.69
 /// 
 /// @section LICENSE
 /// 
@@ -135,11 +135,11 @@ namespace hltypes
 		return false;
 	}
 	
-	bool File::rename(chstr old_filename, chstr new_filename)
+	bool File::rename(chstr old_filename, chstr new_filename, bool overwrite)
 	{
 		hstr old_name = normalize_path(old_filename);
 		hstr new_name = normalize_path(new_filename);
-		if (!File::exists(old_name) || File::exists(new_name))
+		if (!File::exists(old_name) || !overwrite && File::exists(new_name))
 		{
 			return false;
 		}
@@ -147,17 +147,17 @@ namespace hltypes
 		return (f_rename(old_name.c_str(), new_name.c_str()) == 0);
 	}
 	
-	bool File::move(chstr filename, chstr path)
+	bool File::move(chstr filename, chstr path, bool overwrite)
 	{
 		hstr name = normalize_path(filename);
-		return File::rename(name, path + "/" + name.rsplit("/", 1, false).pop_last());
+		return File::rename(name, path + "/" + name.rsplit("/", 1, false).pop_last(), overwrite);
 	}
 	
-	bool File::copy(chstr old_filename, chstr new_filename)
+	bool File::copy(chstr old_filename, chstr new_filename, bool overwrite)
 	{
 		hstr old_name = normalize_path(old_filename);
 		hstr new_name = normalize_path(new_filename);
-		if (!File::exists(old_name) || File::exists(new_name))
+		if (!File::exists(old_name) || !overwrite && File::exists(new_name))
 		{
 			return false;
 		}
