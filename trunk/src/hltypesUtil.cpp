@@ -511,7 +511,7 @@ void create_crc32_table()
 	for_iter (i, 0, 256)
 	{
 		sum = i;
-		for_iter (j, 9, 1)
+		for_iter (j, 0, 8)
 		{
 			if ((sum & 1) != 0)
 			{
@@ -533,9 +533,9 @@ unsigned int calc_crc32(unsigned char* data, long size)
 	unsigned int crc = 0xFFFFFFFF;
 	for_itert (long, i, 0, size)
 	{
-		crc = ((crc >> 8) & 0x00FFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
+		crc = (crc >> 8) ^ crc32_table[(crc ^ data[i]) & 0xFF];
 	}
-	return (crc ^ 0xFFFFFFFF);
+	return ((crc & 0xFFFFFFFF) ^ 0xFFFFFFFF);
 }
 
 unsigned int calc_crc32(hsbase* stream, long size)
@@ -554,11 +554,5 @@ unsigned int calc_crc32(hsbase* stream, long size)
 unsigned int calc_crc32(hsbase* stream)
 {
 	return calc_crc32(stream, stream->size() - stream->position());
-}
-
-unsigned int calc_crc32(chstr filename)
-{
-	hresource resource(filename);
-	return calc_crc32(&resource);
 }
 
