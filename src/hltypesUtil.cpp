@@ -11,12 +11,29 @@
 #ifndef _MSC_VER // required for memset on non-MSVC compilers
 #include <string.h>
 #endif
+#ifdef __APPLE__
+	#include <sys/time.h>
+#else
+	#include <windows.h>
+#endif
+
 #include <stdlib.h>
 
 #include "harray.h"
 #include "hltypesUtil.h"
 #include "hresource.h"
 #include "hstring.h"
+
+unsigned int get_system_tick_count()
+{
+#ifdef __APPLE__
+	timeval tv = {0, 0};
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+#else
+	return getTickCount();
+#endif
+}
 
 int hrand(int min, int max)
 {
