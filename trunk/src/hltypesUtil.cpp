@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 1.69
+/// @version 1.7
 /// 
 /// @section LICENSE
 /// 
@@ -11,13 +11,13 @@
 #ifndef _MSC_VER // required for memset on non-MSVC compilers
 #include <string.h>
 #endif
-#ifdef __APPLE__
-	#include <sys/time.h>
+#ifdef _WIN32
+#include <windows.h>
 #else
-	#include <windows.h>
+#include <sys/time.h>
 #endif
-
-#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 
 #include "harray.h"
 #include "hltypesUtil.h"
@@ -26,13 +26,18 @@
 
 unsigned int get_system_tick_count()
 {
-#ifdef __APPLE__
+#ifdef _WIN32
+	return GetTickCount();
+#else
 	timeval tv = {0, 0};
 	gettimeofday(&tv, NULL);
-	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
-#else
-	return getTickCount();
+	return (unsigned int)(tv.tv_sec * 1000 + tv.tv_usec / 1000);
 #endif
+}
+
+unsigned int get_system_time()
+{
+	return (unsigned int)time(NULL);
 }
 
 int hrand(int min, int max)
