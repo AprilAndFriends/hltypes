@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.69
+/// @version 1.7
 /// 
 /// @section LICENSE
 /// 
@@ -164,8 +164,13 @@ namespace hltypes
 #define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.01
-/// @brief Returns a number of milliseconds since the system boot
-/// @note Useful for rand operations, like setting the rand generator with srand()
+/// @brief Gets the number of seconds passed since 1970/01/01 UTC.
+/// @return Number of seconds passed since 1970/01/01 UTC.
+/// @note Useful for rand operations, like setting the rand generator with srand().
+hltypesFnExport unsigned int get_system_time();
+/// @brief Gets the number of miliseconds passed since the system boot.
+/// @brief Number of miliseconds passed since the system boot.
+/// @note Useful for rand operations, like setting the rand generator with srand().
 hltypesFnExport unsigned int get_system_tick_count();
 /// @brief Returns a random int number.
 /// @param[in] min Inclusive lower boundary.
