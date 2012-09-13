@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 1.4
+/// @version 1.7
 /// 
 /// @section LICENSE
 /// 
