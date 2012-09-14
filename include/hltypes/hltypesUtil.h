@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.7
+/// @version 1.71
 /// 
 /// @section LICENSE
 /// 
@@ -288,6 +288,26 @@ hltypesFnExport float hmodf(float f, float m);
 /// @param[in] m Modulo value.
 /// @return The always-positive value of d mod m.
 hltypesFnExport double hmodd(double d, double m);
+/// @brief Calculates the double length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The double length of the hypotenuse of a right-angles triangle.
+hltypesFnExport double hhypot(double a, double b);
+/// @brief Calculates the float length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The float length of the hypotenuse of a right-angles triangle.
+hltypesFnExport float hhypot(float a, float b);
+/// @brief Calculates the double squared length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The double squared length of the hypotenuse of a right-angles triangle.
+hltypesFnExport double hhypotSquared(double a, double b);
+/// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The float squared length of the hypotenuse of a right-angles triangle.
+hltypesFnExport float hhypotSquared(float a, float b);
 /// @brief Compares 2 float values within using a tolerance factor.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
