@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 1.68
+/// @version 1.72
 /// 
 /// @section LICENSE
 /// 
@@ -195,6 +195,10 @@ namespace hltypes
 	bool String::is_int() const
 	{
 		const char* s = stdstr::c_str();
+		if (s[0] == '\0')
+		{
+			return false;
+		}
 		int i = 0;
 		if (s[i] == '-')
 		{
@@ -213,6 +217,10 @@ namespace hltypes
 	bool String::is_float(bool require_dot) const
 	{
 		const char* s = stdstr::c_str();
+		if (s[0] == '\0')
+		{
+			return false;
+		}
 		bool foundDot = false;
 		int i = 0;
 		if (s[i] == '-')
@@ -245,6 +253,10 @@ namespace hltypes
 	bool String::is_hex() const
 	{
 		const char* s = stdstr::c_str();
+		if (s[0] == '\0')
+		{
+			return false;
+		}
 		for (int i = 0; s[i] != '\0'; i++)
 		{
 			if (!isxdigit(s[i]))
