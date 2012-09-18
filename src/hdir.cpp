@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 1.61
+/// @version 1.73
 /// 
 /// @section LICENSE
 /// 
@@ -231,7 +231,7 @@ namespace hltypes
 #ifndef HAVE_ZIPRESOURCE
 		return Dir::exists(Resource::make_full_path(name));
 #else
-		return Dir::resource_directories(get_basedir(name)).contains(name);
+		return Dir::resource_directories(get_basedir(name)).contains(get_basename(name));
 #endif
 	}
 	
