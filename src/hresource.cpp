@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.67
+/// @version 1.8
 /// 
 /// @section LICENSE
 /// 
@@ -16,6 +16,7 @@
 #include "hdir.h"
 #include "hresource.h"
 #ifdef HAVE_ZIPRESOURCE
+#include "hmap.h"
 #include "hstring.h"
 #include "hthread.h"
 #endif
@@ -30,6 +31,56 @@ namespace hltypes
 	static unsigned char _read_buffer[READ_BUFFER_SIZE];
 #endif
 	hstr Resource::archive = "";
+
+#ifdef HAVE_ZIPRESOURCE
+	hmap<struct zip*, harray<hresource*> > activeHandles;
+	struct zip* currentArchive = NULL;
+
+	struct zip* _openArchive(hresource* resource)
+	{
+		if (currentArchive == NULL)
+		{
+			hstr archive = Resource::getArchive();
+			if (archive == "")
+			{
+				return NULL;
+			}
+			currentArchive = zip_open(archive.c_str(), 0, NULL);
+			if (currentArchive == NULL)
+			{
+				return NULL;
+			}
+			activeHandles[currentArchive] = harray<hresource*>();
+		}
+		activeHandles[currentArchive] += resource;
+		return currentArchive;
+	}
+
+	void _closeArchive(hresource* resource, struct zip* archive)
+	{
+		harray<hresource*> references = activeHandles[archive];
+		references -= resource;
+		activeHandles[archive] = references;
+		if (currentArchive != archive && references.size() == 0)
+		{
+			zip_close((struct zip*)archive);
+			activeHandles.remove_key(archive);
+		}
+	}
+#endif
+
+	void Resource::setArchive(chstr value)
+	{
+#ifdef HAVE_ZIPRESOURCE
+		if (currentArchive != NULL && activeHandles[currentArchive].size() == 0)
+		{
+			zip_close((struct zip*)currentArchive);
+			activeHandles.remove_key(currentArchive);
+			currentArchive = NULL;
+		}
+#endif
+		archive = value;
+	}
 
 	Resource::Resource(chstr filename) : FileBase(), data_position(0), archivefile(NULL)
 	{
@@ -63,7 +114,7 @@ namespace hltypes
 		int attempts = Resource::repeats + 1;
 		while (true)
 		{
-			this->archivefile = zip_open(Resource::archive.c_str(), 0, NULL);
+			this->archivefile = (void*)_openArchive(this);
 			if (this->archivefile != NULL)
 			{
 				this->cfile = zip_fopen((struct zip*)this->archivefile, Resource::make_full_path(this->filename).c_str(), 0);
@@ -72,7 +123,7 @@ namespace hltypes
 					break;
 				}
 				// file wasn't found so let's rather close the archive
-				zip_close((struct zip*)this->archivefile);
+				_closeArchive(this, (struct zip*)this->archivefile);
 				this->archivefile = NULL;
 			}
 			attempts--;
@@ -102,7 +153,7 @@ namespace hltypes
 		this->_check_availability();
 		zip_fclose((struct zip_file*)this->cfile);
 		this->cfile = NULL;
-		zip_close((struct zip*)this->archivefile);
+		_closeArchive(this, (struct zip*)this->archivefile);
 		this->archivefile = NULL;
 		this->data_size = 0;
 #endif
@@ -219,7 +270,7 @@ namespace hltypes
 		return FileBase::_fexists(Resource::make_full_path(filename));
 #else
 		bool result = false;
-		struct zip* a = zip_open(Resource::archive.c_str(), 0, NULL);
+		struct zip* a = _openArchive(NULL); // NULL, because this is a static function which will close the archive right after it is done
 		if (a != NULL)
 		{
 			hstr name = normalize_path(Resource::make_full_path(filename));
@@ -229,7 +280,7 @@ namespace hltypes
 				zip_fclose(f);
 				result = true;
 			}
-			zip_close(a);
+			_closeArchive(NULL, a);
 		}
 		return result;
 #endif
