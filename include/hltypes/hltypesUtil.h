@@ -368,6 +368,14 @@ hltypesFnExport hstr unicode_to_utf8(wchar_t value);
 /// @param[in] string The wchar string.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
+/// @brief Converts a char string to a UTF8 string.
+/// @param[in] string The char string.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(const char* string);
+/// @brief Converts an unsigned char string to a UTF8 string.
+/// @param[in] string The char string.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(const unsigned char* string);
 /// @brief Converts a unicode wchar Array to a UTF8 string.
 /// @param[in] string The wchar characters.
 /// @return UTF8 string.

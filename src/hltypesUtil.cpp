@@ -442,6 +442,16 @@ hstr unicode_to_utf8(const wchar_t* string)
 	return result;
 }
 
+hstr unicode_to_utf8(const char* string)
+{
+	return string;
+}
+
+hstr unicode_to_utf8(const unsigned char* string)
+{
+	return (const char*)string;
+}
+
 hstr unicode_to_utf8(harray<wchar_t> chars)
 {
 	hstr result;
