@@ -13,9 +13,6 @@
 #endif
 #ifdef _WIN32
 #include <windows.h>
-#ifndef __WIN32_DESKTOP
-#include <Windows.Foundation.h>
-#endif
 #else
 #include <sys/time.h>
 #endif
