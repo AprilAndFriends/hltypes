@@ -88,14 +88,14 @@ typedef struct DIR
 } DIR;
 
 static DIR* _opendir(chstr dirname);
-static struct dirent* _readdir(DIR *dirp);
+static dirent* _readdir(DIR *dirp);
 static int _closedir(DIR* dirp);
 
 /* use the new safe string functions introduced in Visual Studio 2005 */
 #if defined(_MSC_VER) && _MSC_VER >= 1400
 #define WCSNCPY(dest, src, size) wcsncpy_s((dest), (size), (src), _TRUNCATE)
 #else
-#define WCSRNCPY(dest, src, size) wcsncpy((dest), (src), (size))
+#define WCSNCPY(dest, src, size) wcsncpy((dest), (src), (size))
 #endif
 
 /*
@@ -111,17 +111,16 @@ static DIR* _opendir(chstr dirname)
 	DIR* dirp = new DIR();
 	if (dirp != NULL)
 	{
-		wchar_t* p;
 		/* take directory name... */
 		wchar_t* wdirname = dirname.w_str();
-		WCSNCPY(dirp->patt, wdirname, sizeof(dirp->patt));
+		WCSNCPY(dirp->patt, wdirname, MAX_PATH);
 		delete [] wdirname;
 		dirp->patt[MAX_PATH] = '\0';
 		/* ... and append search pattern to it */
-		p = wcschr(dirp->patt, '\0');
-		if (dirp->patt < p && *(p - 1) != '\\' && *(p - 1) != ':')
+		wchar_t* p = wcschr(dirp->patt, '\0');
+		if (dirp->patt < p && *(p - 1) != '/' && *(p - 1) != ':')
 		{
-			*p++ = '\\';
+			*p++ = '/';
 		}
 		*p++ = '*';
 		*p = '\0';
@@ -147,7 +146,7 @@ static DIR* _opendir(chstr dirname)
  * sub-directories, pseudo-directories "." and "..", but also volume labels,
  * hidden files and system files may be returned.  
  */
-static struct dirent* _readdir(DIR* dirp)
+static dirent* _readdir(DIR* dirp)
 {
 	assert(dirp != NULL);
 	if (dirp->search_handle == INVALID_HANDLE_VALUE)

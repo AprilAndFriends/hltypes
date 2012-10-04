@@ -99,9 +99,9 @@ namespace hltypes
 					sa.nLength = sizeof(sa);
 					sa.lpSecurityDescriptor = &sd;
 					sa.bInheritHandle = false;
-					wchar_t fullpath[4096] = {0};
-					mbstowcs((wchar_t*)fullpath, path.c_str(), 4096);
-					result = (CreateDirectory(fullpath, &sa) == TRUE);
+					wchar_t* wpath = path.w_str();
+					result = (CreateDirectory(wpath, &sa) == TRUE);
+					delete [] wpath;
 				}
 				LocalFree(acl);
 			}
