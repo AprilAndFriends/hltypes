@@ -13,6 +13,9 @@
 #endif
 #ifdef _WIN32
 #include <windows.h>
+#ifndef __WIN32_DESKTOP
+#include <Windows.Foundation.h>
+#endif
 #else
 #include <sys/time.h>
 #endif
@@ -27,7 +30,11 @@
 unsigned int get_system_tick_count()
 {
 #ifdef _WIN32
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_PARTITION_DESKTOP // because GetTickCount64() is not available pre-Vista
 	return GetTickCount();
+#else
+	return (unsigned int)GetTickCount64();
+#endif
 #else
 	timeval tv = {0, 0};
 	gettimeofday(&tv, NULL);
@@ -324,13 +331,16 @@ hstr get_basename(chstr path)
 
 hstr get_environment_variable(chstr name)
 {
-#ifndef _WIN32
-	return hstr(getenv(name.c_str()));
-#else
-	wchar_t* wname = utf8_to_wchars(name);
+#ifdef _WIN32
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_PARTITION_DESKTOP
+	wchar_t* wname = name.w_str();
 	const wchar_t* value = _wgetenv(wname);
 	delete [] wname;
 	return unicode_to_utf8(value);
+#endif
+	return ""; // WinRT does not support environment variables
+#else
+	return hstr(getenv(name.c_str()));
 #endif
 }
 
