@@ -15,6 +15,10 @@
 #endif
 #include <direct.h>
 #include "msvc_dirent.h"
+#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_PARTITION_APP
+#define _chdir(name) winrtcwd = name
+static hstr winrtcwd = ".";
+#endif
 #else
 #include <dirent.h>
 #include <sys/stat.h>
@@ -23,6 +27,9 @@
 #define _rmdir(name) ::rmdir(name)
 #define _chdir(name) ::chdir(name)
 #define _getcwd(buffer, size) ::getcwd(buffer, size)
+#define _opendir(name) opendir(name.c_str())
+#define _readdir(dirp) readdir(dirp)
+#define _closedir(dirp) closedir(dirp)
 #endif
 #ifdef HAVE_ZIPRESOURCE
 #include <zip/zip.h>
@@ -42,7 +49,7 @@ namespace hltypes
 {
 	bool Dir::win32FullDirectoryPermissions = true;
 
-#if defined(_WIN32) && defined(_MSC_VER) // god help us all
+#if defined(_WIN32) && defined(_MSC_VER) && (!defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_PARTITION_DESKTOP) // god help us all
 	static bool _mkdirWin32FullPermissions(chstr path)
 	{
 		typedef BOOL (WINAPI* TInitSD)(PSECURITY_DESCRIPTOR, DWORD);
@@ -131,7 +138,7 @@ namespace hltypes
 		return result;
 
 		*/
-#if defined(_WIN32) && defined(_MSC_VER)
+#if defined(_WIN32) && defined(_MSC_VER) && (!defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_PARTITION_DESKTOP)
 		if (Dir::getWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(path))
 		{
 			return true;
@@ -212,10 +219,10 @@ namespace hltypes
 	bool Dir::exists(chstr dirname)
 	{
 		hstr name = normalize_path(dirname);
-		DIR* dir = opendir(name.c_str());
+		DIR* dir = _opendir(name);
 		if (dir != NULL)
 		{
-			closedir(dir);
+			_closedir(dir);
 			return true;
 		}
 		return false;
@@ -319,11 +326,11 @@ namespace hltypes
 		Array<hstr> result;
 		if (hdir::exists(name))
 		{
-			DIR* dir = opendir(name.c_str());
+			DIR* dir = _opendir(name);
 			struct dirent* entry;
-			while ((entry = readdir(dir)))
+			while ((entry = _readdir(dir)))
 			{
-				result += entry->d_name;
+				result += unicode_to_utf8(entry->d_name);
 			}
 			if (!result.contains("."))
 			{
@@ -333,7 +340,7 @@ namespace hltypes
 			{
 				result += hstr("..");
 			}
-			closedir(dir);
+			_closedir(dir);
 		}
 		if (prepend_dir)
 		{
@@ -361,11 +368,11 @@ namespace hltypes
 		Array<hstr> result;
 		if (hdir::exists(name))
 		{
-			DIR* dir = opendir(name.c_str());
+			DIR* dir = _opendir(name);
 			struct dirent* entry;
-			while ((entry = readdir(dir)))
+			while ((entry = _readdir(dir)))
 			{
-				result += entry->d_name;
+				result += unicode_to_utf8(entry->d_name);
 			}
 			if (result.contains("."))
 			{
@@ -375,7 +382,7 @@ namespace hltypes
 			{
 				result.remove("..");
 			}
-			closedir(dir);
+			_closedir(dir);
 		}
 		if (prepend_dir)
 		{
@@ -436,14 +443,14 @@ namespace hltypes
 		Array<hstr> result;
 		if (hdir::exists(name))
 		{
-			DIR* dir = opendir(name.c_str());
+			DIR* dir = _opendir(name);
 			struct dirent* entry;
-			while ((entry = readdir(dir)))
+			while ((entry = _readdir(dir)))
 			{
-				current = name + "/" + entry->d_name;
+				current = name + "/" + unicode_to_utf8(entry->d_name);
 				if (hdir::exists(current))
 				{
-					result += entry->d_name;
+					result += unicode_to_utf8(entry->d_name);
 				}
 			}
 			if (result.contains("."))
@@ -454,7 +461,7 @@ namespace hltypes
 			{
 				result.remove("..");
 			}
-			closedir(dir);
+			_closedir(dir);
 		}
 		if (prepend_dir)
 		{
@@ -505,14 +512,14 @@ namespace hltypes
 		Array<hstr> result;
 		if (hdir::exists(name))
 		{
-			DIR* dir = opendir(name.c_str());
+			DIR* dir = _opendir(name);
 			struct dirent* entry;
-			while ((entry = readdir(dir)))
+			while ((entry = _readdir(dir)))
 			{
-				current = name + "/" + entry->d_name;
+				current = name + "/" + unicode_to_utf8(entry->d_name);
 				if (hfile::exists(current))
 				{
-					result += entry->d_name;
+					result += unicode_to_utf8(entry->d_name);
 				}
 			}
 			if (result.contains("."))
@@ -523,7 +530,7 @@ namespace hltypes
 			{
 				result.remove("..");
 			}
-			closedir(dir);
+			_closedir(dir);
 		}
 		if (prepend_dir)
 		{
@@ -574,9 +581,13 @@ namespace hltypes
 
 	hstr hdir::cwd()
 	{
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_PARTITION_DESKTOP
 		char dir[FILENAME_MAX] = {'\0'};
 		_getcwd(dir, FILENAME_MAX);
 		return systemize_path(dir);
+#else
+		return winrtcwd;
+#endif
 	}
 
 }
