@@ -78,6 +78,15 @@ namespace hltypes
 			activeHandles.remove_key(currentArchive);
 			currentArchive = NULL;
 		}
+		harray<struct zip*> handles = activeHandles.keys();
+		foreach (struct zip*, it, handles)
+		{
+			if (activeHandles[*it].size() == 0)
+			{
+				zip_close((struct zip*)(*it));
+				activeHandles.remove_key((*it));
+			}
+		}
 #endif
 		archive = value;
 	}
