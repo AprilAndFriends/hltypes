@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.71
+/// @version 1.9
 /// 
 /// @section LICENSE
 /// 
@@ -31,6 +31,51 @@ namespace hltypes
 #define HL_RAD_TO_DEG_RATIO 57.295779513082320876798154814105
 /// @brief Used for optimized and quick calculation from DEG to RAD.
 #define HL_DEG_TO_RAD_RATIO 0.01745329251994329576923690768489
+
+/// @brief Calculates sin from angle given in degrees.
+/// @param[in] degrees Angle in degrees.
+/// @return sin(degrees).
+#define dsin(degrees) sin((degrees) * HL_DEG_TO_RAD_RATIO)
+/// @brief Calculates cos from angle given in degrees.
+/// @param[in] degrees Angle in degrees.
+/// @return cos(degrees).
+#define dcos(degrees) cos((degrees) * HL_DEG_TO_RAD_RATIO)
+/// @brief Calculates asin in degrees.
+/// @param[in] value sin value.
+/// @return asin in degrees.
+#define dasin(value) (asin(value) * HL_RAD_TO_DEG_RATIO)
+/// @brief Calculates acos in degrees.
+/// @param[in] value cos value.
+/// @return acos in degrees.
+#define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
+/// @brief hltypes e-tolerance.
+#define HL_E_TOLERANCE 0.01
+
+/// @brief Utility macro for quick getter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_GET(type, name, capsName) type get ## capsName() { return this->name; }
+/// @brief Utility macro for quick getter (with "is") definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_IS(type, name, capsName) type is ## capsName() { return this->name; }
+/// @brief Utility macro for quick setter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_SET(type, name, capsName) void set ## capsName(type value) { this->name = value; }
+/// @brief Utility macro for quick getter and setter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
+/// @brief Utility macro for quick getter (with "is") and setter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_ISSET(type, name, capsName) HL_DEFINE_IS(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
 
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
@@ -120,50 +165,6 @@ namespace hltypes
 /// @note The iteration variable has to be declared previously.
 #define for_iterx_step_r(name, max, min, step) for (name = max - 1; name >= min; name -= step)
 
-/// @brief Utility macro for quick getter definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_GET(type, name, capsName) type get ## capsName() { return this->name; }
-/// @brief Utility macro for quick getter (with "is") definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_IS(type, name, capsName) type is ## capsName() { return this->name; }
-/// @brief Utility macro for quick setter definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_SET(type, name, capsName) void set ## capsName(type value) { this->name = value; }
-/// @brief Utility macro for quick getter and setter definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
-/// @brief Utility macro for quick getter (with "is") and setter definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_ISSET(type, name, capsName) HL_DEFINE_IS(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
-
-/// @brief Calculates sin from angle given in degrees.
-/// @param[in] degrees Angle in degrees.
-/// @return sin(degrees).
-#define dsin(degrees) sin((degrees) * HL_DEG_TO_RAD_RATIO)
-/// @brief Calculates cos from angle given in degrees.
-/// @param[in] degrees Angle in degrees.
-/// @return cos(degrees).
-#define dcos(degrees) cos((degrees) * HL_DEG_TO_RAD_RATIO)
-/// @brief Calculates asin in degrees.
-/// @param[in] value sin value.
-/// @return asin in degrees.
-#define dasin(value) (asin(value) * HL_RAD_TO_DEG_RATIO)
-/// @brief Calculates acos in degrees.
-/// @param[in] value cos value.
-/// @return acos in degrees.
-#define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
-/// @brief hltypes e-tolerance.
-#define HL_E_TOLERANCE 0.01
 /// @brief Gets the number of seconds passed since 1970/01/01 UTC.
 /// @return Number of seconds passed since 1970/01/01 UTC.
 /// @note Useful for rand operations, like setting the rand generator with srand().
@@ -348,22 +349,27 @@ hltypesFnExport hstr get_basename(chstr path);
 /// @param[in] env The environment variable.
 /// @return Environment variable as String.
 hltypesFnExport hstr get_environment_variable(chstr name);
+
 /// @brief Converts a unicode unsigned int to a UTF8 string.
 /// @param[in] value The unsigned int value.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(unsigned int value);
-/// @brief Converts a unicode unsigned int string to a UTF8 string.
-/// @param[in] string The unsigned int string.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
-/// @brief Converts a unicode unsigned int Array to a UTF8 string.
-/// @param[in] string The unsigned int characters.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
 /// @brief Converts a unicode wchar to a UTF8 string.
 /// @param[in] value The wchar value.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(wchar_t value);
+/// @brief Converts a char to a UTF8 string.
+/// @param[in] string The char.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(char value);
+/// @brief Converts an unsigned char to a UTF8 string.
+/// @param[in] string The unsigned char.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(unsigned char value);
+/// @brief Converts a unicode unsigned int string to a UTF8 string.
+/// @param[in] string The unsigned int string.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
 /// @brief Converts a unicode wchar string to a UTF8 string.
 /// @param[in] string The wchar string.
 /// @return UTF8 string.
@@ -373,30 +379,41 @@ hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(const char* string);
 /// @brief Converts an unsigned char string to a UTF8 string.
-/// @param[in] string The char string.
+/// @param[in] string The unsigned char string.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(const unsigned char* string);
+/// @brief Converts a unicode unsigned int Array to a UTF8 string.
+/// @param[in] string The unsigned int characters.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
 /// @brief Converts a unicode wchar Array to a UTF8 string.
 /// @param[in] string The wchar characters.
 /// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
+hltypesFnExport hstr unicode_to_utf8(hltypes::Array<wchar_t> chars);
+/// @brief Converts a char Array to a UTF8 string.
+/// @param[in] string The char characters.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(hltypes::Array<char> chars);
+/// @brief Converts an unsigned char Array to a UTF8 string.
+/// @param[in] string The unsigned char characters.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned char> chars);
 /// @brief Converts a UTF8 character into the corresponding character code.
 /// @param[in] input The UTF8 character as C string.
 /// @param[out] character_length Length of character in bytes.
 /// @return Charcter code.
 hltypesFnExport unsigned int utf8_to_uint(chstr input, int* character_length = NULL);
-/// @brief Converts a UTF8 string into a unicode string.
+/// @brief Converts a UTF8 string into a unicode Array.
 /// @param[in] input The UTF8 string.
 /// @param[out] lenght Length of the string.
 /// @return The unsigned int string.
-/// @note Make sure to use "delete []" on the result to prevent memory leaks.
-hltypesFnExport unsigned int* utf8_to_unicode(chstr input, int* length = NULL);
+hltypesFnExport std::basic_string<unsigned int> utf8_to_unicode(chstr input);
 /// @brief Converts a UTF8 string into a wchar string.
 /// @param[in] input The UTF8 string.
 /// @param[out] lenght Length of the string.
 /// @return The wchar_t string.
-/// @note Make sure to use "delete []" on the result to prevent memory leaks.
-hltypesFnExport wchar_t* utf8_to_wchars(chstr input, int* length = NULL);
+hltypesFnExport std::basic_string<wchar_t> utf8_to_wchars(chstr input);
+
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.
 /// @param[in] size Size of the data stream.

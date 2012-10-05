@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 1.73
+/// @version 1.9
 /// 
 /// @section LICENSE
 /// 
@@ -15,7 +15,7 @@
 #endif
 #include <direct.h>
 #include "msvc_dirent.h"
-#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_PARTITION_APP
+#if defined(WINAPI_FAMILY) && !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 #define _chdir(name) winrtcwd = name
 static hstr winrtcwd = ".";
 #endif
@@ -49,7 +49,7 @@ namespace hltypes
 {
 	bool Dir::win32FullDirectoryPermissions = true;
 
-#if defined(_WIN32) && defined(_MSC_VER) && (!defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_PARTITION_DESKTOP) // god help us all
+#if defined(_WIN32) && defined(_MSC_VER) && (!defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)) // god help us all
 	static bool _mkdirWin32FullPermissions(chstr path)
 	{
 		typedef BOOL (WINAPI* TInitSD)(PSECURITY_DESCRIPTOR, DWORD);
@@ -99,9 +99,7 @@ namespace hltypes
 					sa.nLength = sizeof(sa);
 					sa.lpSecurityDescriptor = &sd;
 					sa.bInheritHandle = false;
-					wchar_t* wpath = path.w_str();
-					result = (CreateDirectory(wpath, &sa) == TRUE);
-					delete [] wpath;
+					result = (CreateDirectory(path.w_str().c_str(), &sa) == TRUE);
 				}
 				LocalFree(acl);
 			}
@@ -131,6 +129,7 @@ namespace hltypes
 	
 	static bool hmkdir(chstr path)
 	{
+		// TODO
 		/*
 		wchar_t* wpath = utf8_to_unicode(path);
 		bool result =_wmkdir(wpath)
@@ -138,7 +137,7 @@ namespace hltypes
 		return result;
 
 		*/
-#if defined(_WIN32) && defined(_MSC_VER) && (!defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_PARTITION_DESKTOP)
+#if defined(_WIN32) && defined(_MSC_VER) && (!defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP))
 		if (Dir::getWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(path))
 		{
 			return true;
@@ -149,6 +148,7 @@ namespace hltypes
 	
 	static bool hremove(chstr dirname)
 	{
+		// TODO
 		/*
 		wchar_t* wdirname = utf8_to_unicode(dirname);
 		bool result =_wremove(wdirname)
@@ -160,6 +160,7 @@ namespace hltypes
 	
 	static bool hrmdir(chstr dirname)
 	{
+		// TODO
 		/*
 		wchar_t* wdirname = utf8_to_unicode(dirname);
 		bool result = _wrmdir(wdirname);
@@ -581,7 +582,7 @@ namespace hltypes
 
 	hstr hdir::cwd()
 	{
-#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_PARTITION_DESKTOP
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 		char dir[FILENAME_MAX] = {'\0'};
 		_getcwd(dir, FILENAME_MAX);
 		return systemize_path(dir);

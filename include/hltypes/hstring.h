@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 1.7
+/// @version 1.9
 /// 
 /// @section LICENSE
 /// 
@@ -300,10 +300,13 @@ namespace hltypes
 		/// @brief Creates a string with characters converted using the %02X format.
 		/// @return String of hex values of the charcaters.
 		String to_hex() const;
+		/// @brief Creates an unicode (unsigned int) string.
+		/// @return A unicode (unsigned int) string.
+		std::basic_string<unsigned int> u_str() const;
 #ifndef _ANDROID
 		/// @brief Creates a wchar string.
-		/// @note The wchar string has to be manually destroyed using delete [].
-		wchar_t* w_str() const;
+		/// @return A wchar string.
+		std::basic_string<wchar_t> w_str() const;
 #endif
 
 		/// @brief Casts String into float.
