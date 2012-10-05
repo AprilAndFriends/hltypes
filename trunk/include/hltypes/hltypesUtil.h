@@ -27,6 +27,15 @@ namespace hltypes
 	class StreamBase;
 }
 
+#if defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
+#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP)
+#define _HLWINRT 1
+#endif
+#endif
+#ifndef _HLWINRT
+#define _HLWINRT 0
+#endif
+
 /// @brief Used for optimized and quick calculation from RAD to DEG.
 #define HL_RAD_TO_DEG_RATIO 57.295779513082320876798154814105
 /// @brief Used for optimized and quick calculation from DEG to RAD.

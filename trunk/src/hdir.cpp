@@ -15,7 +15,7 @@
 #endif
 #include <direct.h>
 #include "msvc_dirent.h"
-#if defined(WINAPI_FAMILY) && !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+#if _HLWINRT
 #define _chdir(name) winrtcwd = name
 static hstr winrtcwd = ".";
 #endif
@@ -49,7 +49,7 @@ namespace hltypes
 {
 	bool Dir::win32FullDirectoryPermissions = true;
 
-#if defined(_WIN32) && defined(_MSC_VER) && (!defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)) // god help us all
+#if defined(_WIN32) && defined(_MSC_VER) && !_HLWINRT // god help us all
 	static bool _mkdirWin32FullPermissions(chstr path)
 	{
 		typedef BOOL (WINAPI* TInitSD)(PSECURITY_DESCRIPTOR, DWORD);
@@ -137,7 +137,7 @@ namespace hltypes
 		return result;
 
 		*/
-#if defined(_WIN32) && defined(_MSC_VER) && (!defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP))
+#if defined(_WIN32) && defined(_MSC_VER) && !_HLWINRT
 		if (Dir::getWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(path))
 		{
 			return true;
@@ -582,7 +582,7 @@ namespace hltypes
 
 	hstr hdir::cwd()
 	{
-#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+#if !_HLWINRT
 		char dir[FILENAME_MAX] = {'\0'};
 		_getcwd(dir, FILENAME_MAX);
 		return systemize_path(dir);
