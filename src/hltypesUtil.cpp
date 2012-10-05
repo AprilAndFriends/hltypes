@@ -330,8 +330,7 @@ hstr get_environment_variable(chstr name)
 {
 #ifdef _WIN32
 #if !_HLWINRT
-	const wchar_t* value = _wgetenv(name.w_str().c_str());
-	return unicode_to_utf8(value);
+	return unicode_to_utf8(_wgetenv(name.w_str().c_str()));
 #else
 	return ""; // WinRT does not support environment variables
 #endif
