@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 1.72
+/// @version 1.9
 /// 
 /// @section LICENSE
 /// 
@@ -328,13 +328,15 @@ namespace hltypes
 		return hex;
 	}
 
-#ifndef _ANDROID
-	wchar_t* String::w_str() const
+	std::basic_string<unsigned int> String::u_str() const
 	{
-		wchar_t* result = new wchar_t[stdstr::size() * 4];
-		memset(result, 0, stdstr::size() * 4);
-		mbstowcs(result, stdstr::c_str(), stdstr::size());
-		return result;
+		return utf8_to_unicode(*this);
+	}
+
+#ifndef _ANDROID
+	std::basic_string<wchar_t> String::w_str() const
+	{
+		return utf8_to_wchars(*this);
 	}
 #endif
 

@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 1.71
+/// @version 1.9
 /// 
 /// @section LICENSE
 /// 
@@ -27,7 +27,7 @@
 unsigned int get_system_tick_count()
 {
 #ifdef _WIN32
-#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_PARTITION_DESKTOP // because GetTickCount64() is not available pre-Vista
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP) // because GetTickCount64() is not available pre-Vista
 	return GetTickCount();
 #else
 	return (unsigned int)GetTickCount64();
@@ -329,13 +329,12 @@ hstr get_basename(chstr path)
 hstr get_environment_variable(chstr name)
 {
 #ifdef _WIN32
-#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_PARTITION_DESKTOP
-	wchar_t* wname = name.w_str();
-	const wchar_t* value = _wgetenv(wname);
-	delete [] wname;
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+	const wchar_t* value = _wgetenv(name.w_str().c_str());
 	return unicode_to_utf8(value);
-#endif
+#else
 	return ""; // WinRT does not support environment variables
+#endif
 #else
 	return hstr(getenv(name.c_str()));
 #endif
@@ -388,6 +387,21 @@ hstr unicode_to_utf8(unsigned int value)
 	return result;
 }
 
+hstr unicode_to_utf8(wchar_t value)
+{
+	return unicode_to_utf8((unsigned int)value);
+}
+
+hstr unicode_to_utf8(char value)
+{
+	return value;
+}
+
+hstr unicode_to_utf8(unsigned char value)
+{
+	return (char)value;
+}
+
 hstr unicode_to_utf8(const unsigned int* string)
 {
 	hstr result;
@@ -398,43 +412,12 @@ hstr unicode_to_utf8(const unsigned int* string)
 	return result;
 }
 
-hstr unicode_to_utf8(harray<unsigned int> chars)
-{
-	hstr result;
-	foreach (unsigned int, it, chars)
-	{
-		result += unicode_to_utf8(*it);
-	}
-	return result;
-}
-
-hstr unicode_to_utf8(wchar_t value)
-{
-	hstr result;
-	if (value < 0x80)
-	{
-		result += (char)value;
-	}
-	else if (value < 0x800)
-	{
-		result += (char)(0xC0 | (value >> 6));
-		result += (char)(0x80 | (value & 0x3F));
-	}
-	else if (value < 0x10000)
-	{
-		result += (char)(0xE0 | (value >> 12));
-		result += (char)(0x80 | ((value >> 6) & 0x3F));
-		result += (char)(0x80 | (value & 0x3F));
-	}
-	return result;
-}
-
 hstr unicode_to_utf8(const wchar_t* string)
 {
 	hstr result;
 	for (int i = 0; string[i] != 0; i++)
 	{
-		result += unicode_to_utf8(string[i]);
+		result += unicode_to_utf8((unsigned int)string[i]);
 	}
 	return result;
 }
@@ -449,16 +432,47 @@ hstr unicode_to_utf8(const unsigned char* string)
 	return (const char*)string;
 }
 
-hstr unicode_to_utf8(harray<wchar_t> chars)
+hstr unicode_to_utf8(harray<unsigned int> chars)
 {
 	hstr result;
-	foreach (wchar_t, it, chars)
+	foreach (unsigned int, it, chars)
 	{
 		result += unicode_to_utf8(*it);
 	}
 	return result;
 }
 
+hstr unicode_to_utf8(harray<wchar_t> chars)
+{
+	hstr result;
+	foreach (wchar_t, it, chars)
+	{
+		result += unicode_to_utf8((unsigned int)(*it));
+	}
+	return result;
+}
+
+hstr unicode_to_utf8(harray<char> chars)
+{
+	hstr result;
+	foreach (char, it, chars)
+	{
+		result += (*it);
+	}
+	return result;
+}
+
+hstr unicode_to_utf8(harray<unsigned char> chars)
+{
+	hstr result;
+	foreach (unsigned char, it, chars)
+	{
+		result += (char)(*it);
+	}
+	return result;
+}
+
+// TODO - this should be removed
 unsigned int utf8_to_uint(chstr input, int* character_length)
 {
 	/*
@@ -499,10 +513,9 @@ unsigned int utf8_to_uint(chstr input, int* character_length)
 	return result;
 }
 
-unsigned int* utf8_to_unicode(chstr input, int* length)
+std::basic_string<unsigned int> utf8_to_unicode(chstr input)
 {
-	unsigned int* result = new unsigned int[input.size() + 1];
-	memset(result, 0, (input.size() + 1) * sizeof(unsigned int));
+	std::basic_string<unsigned int> result;
 	const unsigned char* str = (const unsigned char*)input.c_str();
 	int i = 0;
 	int j = 0;
@@ -510,47 +523,35 @@ unsigned int* utf8_to_unicode(chstr input, int* length)
 	{
 		if (str[i] < 0x80)
 		{
-			result[j] = str[i];
+			result += str[i];
 			i += 1;
 		}
 		else if ((str[i] & 0xE0) == 0xC0)
 		{
-			result[j] = ((str[i] & 0x1F) << 6) | (str[i + 1] & 0x3F);
+			result += ((str[i] & 0x1F) << 6) | (str[i + 1] & 0x3F);
 			i += 2;
 		}
 		else if ((str[i] & 0xF0) == 0xE0)
 		{
-			result[j] = ((((str[i] & 0xF) << 6) | (str[i + 1] & 0x3F) ) << 6) | (str[i + 2] & 0x3F);
+			result += ((((str[i] & 0xF) << 6) | (str[i + 1] & 0x3F) ) << 6) | (str[i + 2] & 0x3F);
 			i += 3;
 		}
 		else
 		{
-			result[j] = ((((((str[i] & 0x7) << 6) | (str[i + 1] & 0x3F)) << 6) | (str[i + 2] & 0x3F)) << 6) | (str[i + 3] & 0x3F);
+			result += ((((((str[i] & 0x7) << 6) | (str[i + 1] & 0x3F)) << 6) | (str[i + 2] & 0x3F)) << 6) | (str[i + 3] & 0x3F);
 			i += 4;
 		}
-		j++;
-	}
-	if (length != NULL)
-	{
-		*length = j;
 	}
 	return result;
 }
 
-wchar_t* utf8_to_wchars(chstr input, int* length)
+std::basic_string<wchar_t> utf8_to_wchars(chstr input)
 {
-	int unicode_length;
-	unsigned int* unicode = utf8_to_unicode(input, &unicode_length);
-	wchar_t* result = new wchar_t[unicode_length + 1];
-	memset(result, 0, (unicode_length + 1) * sizeof(wchar_t));
-	for_iter (i, 0, unicode_length)
+	std::basic_string<unsigned int> ustring = utf8_to_unicode(input);
+	std::basic_string<wchar_t> result;
+	for_itert (unsigned int, i, 0, ustring.size())
 	{
-		result[i] = unicode[i];
-	}
-	delete [] unicode;
-	if (length != NULL)
-	{
-		*length = unicode_length;
+		result += (wchar_t)ustring[i];
 	}
 	return result;
 }

@@ -112,9 +112,7 @@ static DIR* _opendir(chstr dirname)
 	if (dirp != NULL)
 	{
 		/* take directory name... */
-		wchar_t* wdirname = dirname.w_str();
-		WCSNCPY(dirp->patt, wdirname, MAX_PATH);
-		delete [] wdirname;
+		WCSNCPY(dirp->patt, dirname.w_str().c_str(), MAX_PATH);
 		dirp->patt[MAX_PATH] = '\0';
 		/* ... and append search pattern to it */
 		wchar_t* p = wcschr(dirp->patt, '\0');
