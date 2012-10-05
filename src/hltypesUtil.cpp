@@ -27,7 +27,7 @@
 unsigned int get_system_tick_count()
 {
 #ifdef _WIN32
-#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP) // because GetTickCount64() is not available pre-Vista
+#if !_HLWINRT // because GetTickCount64() is not available pre-Vista
 	return GetTickCount();
 #else
 	return (unsigned int)GetTickCount64();
@@ -329,7 +329,7 @@ hstr get_basename(chstr path)
 hstr get_environment_variable(chstr name)
 {
 #ifdef _WIN32
-#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+#if !_HLWINRT
 	const wchar_t* value = _wgetenv(name.w_str().c_str());
 	return unicode_to_utf8(value);
 #else
