@@ -123,12 +123,16 @@ static DIR* _opendir(chstr dirname)
 		*p++ = '*';
 		*p = '\0';
 		/* open stream and retrieve first file */
+#if defined(_MSC_VER)
 #if _MSC_VER >= 1600 // below VS2010 "FindExInfoBasic" and "FIND_FIRST_EX_LARGE_FETCH" are not supported
 		dirp->search_handle = FindFirstFileEx(dirp->patt, FindExInfoBasic,
 			&dirp->current.data, FindExSearchNameMatch, NULL, FIND_FIRST_EX_LARGE_FETCH);
 #else
 		dirp->search_handle = FindFirstFileEx(dirp->patt, FindExInfoStandard,
 			&dirp->current.data, FindExSearchNameMatch, NULL, 0);
+#endif
+#else
+		dirp->search_handle = FindFirstFileW(dirp->patt, &dirp->current.data);
 #endif
 		if (dirp->search_handle == INVALID_HANDLE_VALUE)
 		{
