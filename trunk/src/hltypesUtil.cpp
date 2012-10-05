@@ -517,7 +517,6 @@ std::basic_string<unsigned int> utf8_to_unicode(chstr input)
 	std::basic_string<unsigned int> result;
 	const unsigned char* str = (const unsigned char*)input.c_str();
 	int i = 0;
-	int j = 0;
 	while (str[i] != 0)
 	{
 		if (str[i] < 0x80)
