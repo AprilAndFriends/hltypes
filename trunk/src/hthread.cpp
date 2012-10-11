@@ -18,18 +18,24 @@
 #endif
 
 #include "hmutex.h"
+#include "hltypesUtil.h"
 #include "hthread.h"
+
+#if _HLWINRT
+#using <Windows.winmd>
+using namespace Windows::Foundation;
+using namespace Windows::System::Threading;
+#endif
 
 namespace hltypes
 {
 #ifdef _WIN32
-	unsigned long WINAPI asyncCall(void* param)
+	unsigned long WINAPI async_call(void* param)
 	{
 #else
-	void *asyncCall(void* param)
+	void *async_call(void* param)
 	{
 #endif
-#ifndef NO_THREADING
 		Thread* t = (Thread*)param;
 		t->execute();
 #ifdef _WIN32
@@ -37,64 +43,78 @@ namespace hltypes
 #else
 		pthread_exit(NULL);
 #endif
-#endif
-#ifdef NO_THREADING
-		return NULL;
-#endif
 	}
-	
-	Thread::Thread(void (*function)()) : running(false), id(0)
+
+#if _HLWINRT
+	struct AsyncActionWrapper
 	{
-#ifndef NO_THREADING
-		this->function = function;
+	public:
+		IAsyncAction^ async_action;
+		AsyncActionWrapper(IAsyncAction^ async_action)
+		{
+			this->async_action = async_action;
+		}
+	};
+	
+	WorkItemHandler^ work_item_handler = ref new WorkItemHandler([&](IAsyncAction^ work_item)
+    {
+		// TODO - WinRT
+	});
 #endif
+	
+	Thread::Thread(void (*function)()) : running(false), id(NULL)
+	{
+		this->function = function;
 	}
 
 	Thread::~Thread()
 	{
-#ifndef NO_THREADING
 		if (this->running)
 		{
 			this->stop();
 		}
 #ifdef _WIN32
-		if (this->id != 0)
+		if (this->id != NULL)
 		{
+#if !_HLWINRT
 			CloseHandle(this->id);
-		}
+#else
+			delete this->id;
 #endif
+		}
 #endif
 	}
 
 	void Thread::start()
 	{
-#ifndef NO_THREADING
 		this->running = true;
 #ifdef _WIN32
-		this->id = CreateThread(0, 0, &asyncCall, this, 0, 0);
+#if !_HLWINRT
+		this->id = CreateThread(0, 0, &async_call, this, 0, 0);
 #else
-		pthread_create(&this->id, NULL, &asyncCall, this);
+		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(work_item_handler,
+			WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
 #endif
+#else
+		pthread_create(&this->id, NULL, &async_call, this);
 #endif
 	}
 	
 	void Thread::execute()
 	{
-#ifndef NO_THREADING
 		if (this->function != NULL)
 		{
 			this->running = true;
-			(*function)();
+			(*this->function)();
 			this->running = false;
 		}
-#endif
 	}
 
 	void Thread::join()
 	{
-#ifndef NO_THREADING
 		this->running = false;
 #ifdef _WIN32
+#if !_HLWINRT
 		WaitForSingleObject(this->id, INFINITE);
 		if (this->id)
 		{
@@ -102,69 +122,73 @@ namespace hltypes
 			this->id = 0;
 		}
 #else
-		pthread_join(this->id, 0);
+		((AsyncActionWrapper*)this->id)->async_action->Close();
 #endif
+#else
+		pthread_join(this->id, 0);
 #endif
 	}
 	
 	void Thread::resume()
 	{
-#ifndef NO_THREADING
 #ifdef _WIN32
+#if !_HLWINRT
 		ResumeThread(this->id);
+#else
+		// not available in WinRT
 #endif
 #endif
 	}
 	
 	void Thread::pause()
 	{
-#ifndef NO_THREADING
 #ifdef _WIN32
+#if !_HLWINRT
 		SuspendThread(this->id);
+#else
+		// not available in WinRT
 #endif
 #endif
 	}
 	
 	void Thread::stop()
 	{
-#ifndef NO_THREADING
 		if (this->running)
 		{
 #ifdef _WIN32
+#if !_HLWINRT
 			TerminateThread(this->id, 0);
+#else
+			((AsyncActionWrapper*)this->id)->async_action->Cancel();
+#endif
 #elif defined(_ANDROID)
 			pthread_kill(this->id, 0);
 #else
 			pthread_cancel(this->id);
 #endif
 		}
-#endif
 	}
 	
 	void Thread::enterCritical()
 	{
-#ifndef NO_THREADING
-#ifdef _WIN32
-#endif
-#endif
+		// TODO
 	}
 	
 	void Thread::leaveCritical()
 	{
-#ifndef NO_THREADING
-#ifdef _WIN32
-#endif
-#endif
+		// TODO
 	}
 	
 	void Thread::sleep(float miliseconds)
 	{
-#ifndef NO_THREADING
 #ifdef _WIN32
+#if !_HLWINRT
 		Sleep((int)miliseconds);
 #else
-		usleep(miliseconds * 1000);
+		WaitForSingleObjectEx(GetCurrentThread(), (int)miliseconds, 0);
 #endif
+#else
+		usleep(miliseconds * 1000);
 #endif
 	}
 }

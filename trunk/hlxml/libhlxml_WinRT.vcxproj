@@ -125,7 +125,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.;include/hlxml;../include;xmlsystems/LibXml2;xmlsystems/TinyXml;;../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;HLXML_EXPORTS;USE_LIBXML2;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -152,7 +152,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.;include/hlxml;../include;xmlsystems/LibXml2;xmlsystems/TinyXml;;../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;HLXML_EXPORTS;USE_TINYXML;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -179,7 +179,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.;include/hlxml;../include;xmlsystems/LibXml2;xmlsystems/TinyXml;;../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;HLXML_EXPORTS;USE_TINYXML;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>

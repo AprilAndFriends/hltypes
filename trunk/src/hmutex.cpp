@@ -14,55 +14,51 @@
 #endif
 
 #include "exception.h"
+#include "hltypesUtil.h"
 #include "hmutex.h"
 
 namespace hltypes
 {
 	Mutex::Mutex()
 	{
-#ifndef NO_THREADING
 #ifdef _WIN32
+#if !_HLWINRT
 		this->handle = CreateMutex(0, 0, 0);
 		if (this->handle == 0)
 		{
 			throw hl_exception("Could not create mutex");
 		}
 #else
-		pthread_mutex_init(&this->handle, 0);
 #endif
+#else
+		pthread_mutex_init(&this->handle, 0);
 #endif
 	}
 
 	Mutex::~Mutex()
 	{
-#ifndef NO_THREADING
 #ifdef _WIN32
 		CloseHandle(this->handle);
 #else
 		pthread_mutex_destroy(&this->handle);
 #endif
-#endif
 	}
 
 	void Mutex::lock()
 	{
-#ifndef NO_THREADING
 #ifdef _WIN32
-		WaitForSingleObject(this->handle, INFINITE);
+		WaitForSingleObjectEx(this->handle, INFINITE, FALSE);
 #else
 		pthread_mutex_lock(&this->handle);
-#endif
 #endif
 	}
 
 	void Mutex::unlock()
 	{
-#ifndef NO_THREADING
 #ifdef _WIN32
 		ReleaseMutex(this->handle);
 #else
 		pthread_mutex_unlock(&this->handle);
-#endif
 #endif
 	}
 	
