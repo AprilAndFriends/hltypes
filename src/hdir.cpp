@@ -10,15 +10,8 @@
 
 #include <stdio.h>
 #ifdef _WIN32
-#ifdef _MSC_VER
-#include <AccCtrl.h>
-#endif
 #include <direct.h>
 #include "msvc_dirent.h"
-#if _HLWINRT
-#define _chdir(name) winrtcwd = name
-static hstr winrtcwd = ".";
-#endif
 #else
 #include <dirent.h>
 #include <sys/stat.h>
@@ -44,6 +37,15 @@ int (*d_rename)(const char* old_name, const char* new_name) = rename;
 #include "hltypesUtil.h"
 #include "hresource.h"
 #include "hstring.h"
+
+#ifdef _WIN32
+#if _HLWINRT
+#define _chdir(name) winrtcwd = name
+static hstr winrtcwd = ".";
+#elif defined(_MSC_VER)
+#include <AccCtrl.h>
+#endif
+#endif
 
 namespace hltypes
 {
