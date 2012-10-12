@@ -42,6 +42,7 @@
 		D1981C17140F7F5C0057C3AF /* exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F469C7612088C00009781BB /* exception.cpp */; };
 		D1981C18140F7F5C0057C3AF /* hfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69611EB0B9400B1C1DF /* hfile.cpp */; };
 		D1981C19140F7F5C0057C3AF /* hstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69711EB0B9500B1C1DF /* hstring.cpp */; };
+		D1DB1C20162854920013C0E5 /* hplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DB1C1F162854920013C0E5 /* hplatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD59140E579C00499A97 /* hdeque.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD56140E579C00499A97 /* hdeque.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5A140E579D00499A97 /* hlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD57140E579C00499A97 /* hlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5B140E579D00499A97 /* hthread.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD58140E579C00499A97 /* hthread.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -75,6 +76,7 @@
 		D115F7C514AD4FB400C78558 /* hsbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsbase.h; path = include/hltypes/hsbase.h; sourceTree = "<group>"; };
 		D115F7C614AD4FB400C78558 /* hstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hstream.h; path = include/hltypes/hstream.h; sourceTree = "<group>"; };
 		D1522F3E140F7A310012F290 /* libhltypes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhltypes.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1DB1C1F162854920013C0E5 /* hplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hplatform.h; path = include/hltypes/hplatform.h; sourceTree = "<group>"; };
 		D1E1DD56140E579C00499A97 /* hdeque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdeque.h; path = include/hltypes/hdeque.h; sourceTree = "<group>"; };
 		D1E1DD57140E579C00499A97 /* hlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hlist.h; path = include/hltypes/hlist.h; sourceTree = "<group>"; };
 		D1E1DD58140E579C00499A97 /* hthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hthread.h; path = include/hltypes/hthread.h; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		7F42F69C11EB0B9A00B1C1DF /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D1DB1C1F162854920013C0E5 /* hplatform.h */,
 				C981D01F14FFC6270032F321 /* hfbase.h */,
 				D115F7C514AD4FB400C78558 /* hsbase.h */,
 				D115F7C614AD4FB400C78558 /* hstream.h */,
@@ -165,6 +168,7 @@
 				C981D02014FFC6270032F321 /* hfbase.h in Headers */,
 				D115F7C714AD4FB400C78558 /* hsbase.h in Headers */,
 				D115F7C814AD4FB400C78558 /* hstream.h in Headers */,
+				D1DB1C20162854920013C0E5 /* hplatform.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
