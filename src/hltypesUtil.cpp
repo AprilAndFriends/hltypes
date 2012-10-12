@@ -21,13 +21,14 @@
 
 #include "harray.h"
 #include "hltypesUtil.h"
+#include "hplatform.h"
 #include "hresource.h"
 #include "hstring.h"
 
 unsigned int get_system_tick_count()
 {
 #ifdef _WIN32
-#if !_HLWINRT // because GetTickCount64() is not available pre-Vista
+#if !_HL_WINRT // because GetTickCount64() is not available pre-Vista
 	return GetTickCount();
 #else
 	return (unsigned int)GetTickCount64();
@@ -329,7 +330,7 @@ hstr get_basename(chstr path)
 hstr get_environment_variable(chstr name)
 {
 #ifdef _WIN32
-#if !_HLWINRT
+#if !_HL_WINRT
 	return unicode_to_utf8(_wgetenv(name.w_str().c_str()));
 #else
 	return ""; // WinRT does not support environment variables

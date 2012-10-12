@@ -207,6 +207,7 @@
     <ClInclude Include="include\hltypes\hdeque.h" />
     <ClInclude Include="include\hltypes\hdir.h" />
     <ClInclude Include="include\hltypes\hfbase.h" />
+    <ClInclude Include="include\hltypes\hplatform.h" />
     <ClInclude Include="include\hltypes\hresource.h" />
     <ClInclude Include="include\hltypes\hsbase.h" />
     <ClInclude Include="include\hltypes\hfile.h" />
