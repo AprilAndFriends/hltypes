@@ -17,12 +17,14 @@
 #include "hltypesUtil.h"
 #include "hmutex.h"
 
+#include "hplatform.h"
+
 namespace hltypes
 {
 	Mutex::Mutex()
 	{
 #ifdef _WIN32
-#if !_HLWINRT
+#if !_HL_WINRT
 		this->handle = CreateMutex(0, 0, 0);
 		if (this->handle == 0)
 		{

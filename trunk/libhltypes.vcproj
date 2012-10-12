@@ -270,6 +270,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\hltypes\hplatform.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\hltypes\hresource.h"
 				>
 			</File>
