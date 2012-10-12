@@ -14,6 +14,7 @@
 #ifndef HLTYPES_PLATFORM_H
 #define HLTYPES_PLATFORM_H
 
+#if defined(_MSC_VER)
 #include <windows.h>
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
 #if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
@@ -25,6 +26,7 @@
 #endif
 #ifndef _HL_WINRT
 #define _HL_WINRT 0
+#endif
 #endif
 
 #endif
