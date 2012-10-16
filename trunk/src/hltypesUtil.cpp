@@ -405,9 +405,12 @@ hstr unicode_to_utf8(unsigned char value)
 hstr unicode_to_utf8(const unsigned int* string)
 {
 	hstr result;
-	for (int i = 0; string[i] != 0; i++)
+	if (string != NULL)
 	{
-		result += unicode_to_utf8(string[i]);
+		for (int i = 0; string[i] != 0; i++)
+		{
+			result += unicode_to_utf8(string[i]);
+		}
 	}
 	return result;
 }
@@ -415,21 +418,24 @@ hstr unicode_to_utf8(const unsigned int* string)
 hstr unicode_to_utf8(const wchar_t* string)
 {
 	hstr result;
-	for (int i = 0; string[i] != 0; i++)
+	if (string != NULL)
 	{
-		result += unicode_to_utf8((unsigned int)string[i]);
+		for (int i = 0; string[i] != 0; i++)
+		{
+			result += unicode_to_utf8((unsigned int)string[i]);
+		}
 	}
 	return result;
 }
 
 hstr unicode_to_utf8(const char* string)
 {
-	return string;
+	return (string != NULL ? string : "");
 }
 
 hstr unicode_to_utf8(const unsigned char* string)
 {
-	return (const char*)string;
+	return (string != NULL ? (const char*)string : "");
 }
 
 hstr unicode_to_utf8(harray<unsigned int> chars)
