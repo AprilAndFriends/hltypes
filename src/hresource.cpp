@@ -17,6 +17,7 @@
 #include "hresource.h"
 #ifdef HAVE_ZIPRESOURCE
 #include "hmap.h"
+#include "hmutex.h"
 #include "hstring.h"
 #include "hthread.h"
 #endif
@@ -33,10 +34,11 @@ namespace hltypes
 	hstr Resource::archive = "";
 
 #ifdef HAVE_ZIPRESOURCE
-	hmap<struct zip*, harray<hresource*> > activeHandles;
-	struct zip* currentArchive = NULL;
+	hmutex access_mutex;
+	hmap<void*, harray<hresource*> > activeHandles;
+	void* currentArchive = NULL;
 
-	struct zip* _openArchive(hresource* resource)
+	void* _zip_open(hresource* resource)
 	{
 		if (currentArchive == NULL)
 		{
@@ -56,7 +58,7 @@ namespace hltypes
 		return currentArchive;
 	}
 
-	void _closeArchive(hresource* resource, struct zip* archive)
+	void _zip_close(hresource* resource, void* archive)
 	{
 		harray<hresource*> references = activeHandles[archive];
 		references -= resource;
@@ -66,6 +68,48 @@ namespace hltypes
 			zip_close((struct zip*)archive);
 			activeHandles.remove_key(archive);
 		}
+	}
+
+	void* _zip_fopen(void* archivefile, chstr filename)
+	{
+		access_mutex.lock();
+		void* file = zip_fopen((struct zip*)archivefile, filename.c_str(), 0);
+		access_mutex.unlock();
+		return file;
+	}
+
+	void _zip_fclose(void* file)
+	{
+		access_mutex.lock();
+		zip_fclose((struct zip_file*)file);
+		access_mutex.unlock();
+	}
+
+	long _zip_fread(void* file, void* buffer, int count)
+	{
+		access_mutex.lock();
+		long result = zip_fread((struct zip_file*)file, buffer, count);
+		access_mutex.unlock();
+		return result;
+	}
+
+	long _zip_fsize(void* archivefile, chstr filename)
+	{
+		struct zip_stat stat;
+		stat.size = 0;
+		access_mutex.lock();
+		zip_stat((struct zip*)archivefile, Resource::make_full_path(filename).c_str(), 0, &stat);
+		access_mutex.unlock();
+		return stat.size;
+	}
+
+	void* _zip_freopen(void* file, void* archivefile, chstr filename)
+	{
+		access_mutex.lock();
+		zip_fclose((struct zip_file*)file);
+		file = zip_fopen((struct zip*)archivefile, filename.c_str(), 0);
+		access_mutex.unlock();
+		return file;
 	}
 #endif
 
@@ -78,8 +122,8 @@ namespace hltypes
 			activeHandles.remove_key(currentArchive);
 			currentArchive = NULL;
 		}
-		harray<struct zip*> handles = activeHandles.keys();
-		foreach (struct zip*, it, handles)
+		harray<void*> handles = activeHandles.keys();
+		foreach (void*, it, handles)
 		{
 			if (activeHandles[*it].size() == 0)
 			{
@@ -123,16 +167,16 @@ namespace hltypes
 		int attempts = Resource::repeats + 1;
 		while (true)
 		{
-			this->archivefile = (void*)_openArchive(this);
+			this->archivefile = _zip_open(this);
 			if (this->archivefile != NULL)
 			{
-				this->cfile = zip_fopen((struct zip*)this->archivefile, Resource::make_full_path(this->filename).c_str(), 0);
+				this->cfile = _zip_fopen(this->archivefile, Resource::make_full_path(this->filename));
 				if (this->cfile != NULL)
 				{
 					break;
 				}
 				// file wasn't found so let's rather close the archive
-				_closeArchive(this, (struct zip*)this->archivefile);
+				_zip_close(this, this->archivefile);
 				this->archivefile = NULL;
 			}
 			attempts--;
@@ -160,9 +204,9 @@ namespace hltypes
 		this->_fclose();
 #else
 		this->_check_availability();
-		zip_fclose((struct zip_file*)this->cfile);
+		_zip_fclose(this->cfile);
 		this->cfile = NULL;
-		_closeArchive(this, (struct zip*)this->archivefile);
+		_zip_close(this, this->archivefile);
 		this->archivefile = NULL;
 		this->data_size = 0;
 #endif
@@ -186,10 +230,7 @@ namespace hltypes
 		this->data_size = this->_position();
 		this->_fseek(position, START);
 #else
-		struct zip_stat stat;
-		stat.size = 0;
-		zip_stat((struct zip*)this->archivefile, Resource::make_full_path(this->filename).c_str(), 0, &stat);
-		this->data_size = stat.size;
+		this->data_size = _zip_fsize(this->archivefile, this->filename);
 #endif
 	}
 
@@ -198,9 +239,9 @@ namespace hltypes
 #ifndef HAVE_ZIPRESOURCE
 		return this->_fread(buffer, size, count);
 #else
-		int readCount = size * count;
-		this->data_position += readCount;
-		return zip_fread((struct zip_file*)this->cfile, buffer, readCount);
+		int read_count = size * count;
+		this->data_position += read_count;
+		return _zip_fread(this->cfile, buffer, read_count);
 #endif
 	}
 	
@@ -253,8 +294,7 @@ namespace hltypes
 		else
 		{
 			// reopening the file as the target position was already passed
-			zip_fclose((struct zip_file*)this->cfile);
-			this->cfile = zip_fopen((struct zip*)this->archivefile, Resource::make_full_path(this->filename).c_str(), 0);
+			this->cfile = _zip_freopen(this->cfile, this->archivefile, Resource::make_full_path(this->filename));
 			this->data_position = 0;
 		}
 		if (target > 0)
@@ -279,17 +319,17 @@ namespace hltypes
 		return FileBase::_fexists(Resource::make_full_path(filename));
 #else
 		bool result = false;
-		struct zip* a = _openArchive(NULL); // NULL, because this is a static function which will close the archive right after it is done
+		void* a = _zip_open(NULL); // NULL, because this is a static function which will close the archive right after it is done
 		if (a != NULL)
 		{
 			hstr name = normalize_path(Resource::make_full_path(filename));
-			struct zip_file* f = zip_fopen(a, name.c_str(), 0);
+			void* f = _zip_fopen(a, name);
 			if (f != NULL)
 			{
-				zip_fclose(f);
+				_zip_fclose(f);
 				result = true;
 			}
-			_closeArchive(NULL, a);
+			_zip_close(NULL, a);
 		}
 		return result;
 #endif
