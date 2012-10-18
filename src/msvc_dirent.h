@@ -105,8 +105,10 @@ static int _closedir(DIR* dirp);
  */
 static DIR* _opendir(chstr dirname)
 {
-	assert(dirname != "");
-	assert(dirname.size() < MAX_PATH);
+	if (dirname == "" || dirname.size() >= MAX_PATH)
+	{
+		return NULL;
+	}
 	/* construct new DIR structure */
 	DIR* dirp = new DIR();
 	if (dirp != NULL)
@@ -116,6 +118,10 @@ static DIR* _opendir(chstr dirname)
 		dirp->patt[MAX_PATH] = '\0';
 		/* ... and append search pattern to it */
 		wchar_t* p = wcschr(dirp->patt, '\0');
+		if (p == NULL)
+		{
+			p = dirp->patt;
+		}
 		if (dirp->patt < p && *(p - 1) != '/' && *(p - 1) != ':')
 		{
 			*p++ = '/';
@@ -155,7 +161,10 @@ static DIR* _opendir(chstr dirname)
  */
 static dirent* _readdir(DIR* dirp)
 {
-	assert(dirp != NULL);
+	if (dirp == NULL)
+	{
+		return NULL;
+	}
 	if (dirp->search_handle == INVALID_HANDLE_VALUE)
 	{
 		/* directory stream was opened/rewound incorrectly or it ended normally */
@@ -179,7 +188,7 @@ static dirent* _readdir(DIR* dirp)
 		}
 	}
 	/* copy as a multibyte character string */
-	WCSNCPY(dirp->current.d_name, dirp->current.data.cFileName, sizeof(dirp->current.d_name));
+	WCSNCPY(dirp->current.d_name, dirp->current.data.cFileName, (MAX_PATH + 2) * sizeof(wchar_t));
 	dirp->current.d_name[MAX_PATH] = '\0';
 	return &dirp->current;
 }
