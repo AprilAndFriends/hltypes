@@ -2,7 +2,7 @@
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
 /// @author  Ivan Vucica
-/// @version 1.6
+/// @version 2.0
 /// 
 /// @section LICENSE
 /// 
@@ -88,9 +88,13 @@ namespace hltypes
 		/// @return Subdeque created from the current Deque.
 		Deque<T> operator()(const int start, const int count) const
 		{
+			if (start >= this->size() || start + count > this->size())
+			{
+				throw container_range_error(start, count);
+			}
 			Deque<T> result;
-			const_iterator_t it = stddeque::begin();
-			result.assign(it + start, it + (start + count));
+			const_iterator_t it = stddeque::begin() + start;
+			result.assign(it, it + count);
 			return result;
 		}
 		/// @brief Same as equals.
@@ -239,6 +243,10 @@ namespace hltypes
 		/// @param[in] times Number of times to insert element.
 		void insert_at(const int index, const T& element, const int times = 1)
 		{
+			if (index > this->size())
+			{
+				throw container_index_error(index);
+			}
 			stddeque::insert(stddeque::begin() + index, times, element);
 		}
 		/// @brief Inserts all elements of another Deque into this one.
@@ -246,6 +254,10 @@ namespace hltypes
 		/// @param[in] other Deque of elements to insert.
 		void insert_at(const int index, const Deque<T>& other)
 		{
+			if (index > this->size())
+			{
+				throw container_index_error(index);
+			}
 			stddeque::insert(stddeque::begin() + index, other.begin(), other.end());
 		}
 		/// @brief Inserts all elements of another Deque into this one.
@@ -254,6 +266,14 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const Deque<T>& other, const int count)
 		{
+			if (index > this->size())
+			{
+				throw container_index_error(index);
+			}
+			if (count > other.size())
+			{
+				throw container_range_error(0, count);
+			}
 			const_iterator_t it = other.begin();
 			stddeque::insert(stddeque::begin() + index, it, it + count);
 		}
@@ -264,8 +284,16 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const Deque<T>& other, const int start, const int count)
 		{
-			const_iterator_t it = other.begin();
-			stddeque::insert(stddeque::begin() + index, it + start, it + (start + count));
+			if (index > this->size())
+			{
+				throw container_index_error(index);
+			}
+			if (start >= other.size() || start + count > other.size())
+			{
+				throw container_range_error(start, count);
+			}
+			const_iterator_t it = other.begin() + start;
+			stddeque::insert(stddeque::begin() + index, it, it + count);
 		}
 		/// @brief Inserts all elements of a C-type array into this Deque.
 		/// @param[in] index Position where to insert the new elements.
@@ -291,7 +319,7 @@ namespace hltypes
 		{
 			if (index >= this->size())
 			{
-				throw index_error(index);
+				throw container_index_error(index);
 			}
 			T result = stddeque::at(index);
 			stddeque::erase(stddeque::begin() + index);
@@ -306,7 +334,7 @@ namespace hltypes
 		{
 			if (index >= this->size() || index + count > this->size())
 			{
-				throw range_error(index, count);
+				throw container_range_error(index, count);
 			}
 			Deque<T> result;
 			iterator_t it = stddeque::begin();
@@ -323,7 +351,7 @@ namespace hltypes
 			int index = this->index_of(element);
 			if (index < 0)
 			{
-				throw element_not_found_error();
+				throw container_element_not_found();
 			}
 			stddeque::erase(stddeque::begin() + index);
 		}
@@ -337,7 +365,7 @@ namespace hltypes
 				index = this->index_of(other.at(i));
 				if (index < 0)
 				{
-					throw element_not_found_error();
+					throw container_element_not_found();
 				}
 				stddeque::erase(stddeque::begin() + index);
 			}
@@ -473,7 +501,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw index_error(0);
+				throw container_index_error(0);
 			}
 			return this->remove_at(0);
 		}
@@ -485,7 +513,7 @@ namespace hltypes
 		{
 			if (count > this->size())
 			{
-				throw index_error(count);
+				throw container_range_error(0, count);
 			}
 			Deque<T> result;
 			iterator_t begin = stddeque::begin();
@@ -500,7 +528,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw index_error(0);
+				throw container_index_error(0);
 			}
 			T element = stddeque::back();
 			stddeque::pop_back();
@@ -514,7 +542,7 @@ namespace hltypes
 		{
 			if (count > this->size())
 			{
-				throw index_error(count);
+				throw container_range_error(0, count);
 			}
 			Deque<T> result;
 			iterator_t end = stddeque::end();
@@ -721,7 +749,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("min()");
+				throw container_empty_error("min()");
 			}
 			return (*std::min_element(stddeque::begin(), stddeque::end()));
 		}
@@ -733,7 +761,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("min()");
+				throw container_empty_error("min()");
 			}
 			return (*std::min_element(stddeque::begin(), stddeque::end(), compare_function));
 		}
@@ -743,7 +771,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("max()");
+				throw container_empty_error("max()");
 			}
 			return (*std::max_element(stddeque::begin(), stddeque::end()));
 		}
@@ -755,7 +783,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("max()");
+				throw container_empty_error("max()");
 			}
 			return (*std::max_element(stddeque::begin(), stddeque::end(), compare_function));
 		}
@@ -765,7 +793,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("random()");
+				throw container_empty_error("random()");
 			}
 			return stddeque::at(hrand(this->size()));
 		}
@@ -785,7 +813,11 @@ namespace hltypes
 			}
 			else if (count > 0)
 			{
-				if (count >= this->size())
+				if (count > this->size())
+				{
+					throw container_range_error(0, count);
+				}
+				if (count == this->size())
 				{
 					return this->randomized();
 				}
@@ -807,7 +839,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("pop_random()");
+				throw container_empty_error("pop_random()");
 			}
 			T result = stddeque::at(hrand(this->size()));
 			this->remove(result);
@@ -829,7 +861,11 @@ namespace hltypes
 			}
 			else if (count > 0)
 			{
-				if (count >= this->size())
+				if (count > this->size())
+				{
+					throw container_range_error(0, count);
+				}
+				if (count == this->size())
 				{
 					return this->randomized();
 				}

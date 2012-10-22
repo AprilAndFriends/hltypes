@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.4
+/// @version 2.0
 /// 
 /// @section LICENSE
 /// 
@@ -76,9 +76,13 @@ namespace hltypes
 		/// @return Sublist created from the current List.
 		List<T> operator()(const int start, const int count) const
 		{
+			if (start >= this->size() || start + count > this->size())
+			{
+				throw container_range_error(start, count);
+			}
 			List<T> result;
-			const_iterator_t it = stdlist::begin();
-			result.assign(this->_const_iterator_plus(it, start), this->_const_iterator_plus(it, start + count));
+			const_iterator_t it = this->_const_iterator_plus(stdlist::begin(), start);
+			result.assign(it, this->_const_iterator_plus(it, count));
 			return result;
 		}
 		/// @brief Same as equals.
@@ -231,6 +235,10 @@ namespace hltypes
 		/// @param[in] times Number of times to insert element.
 		void insert_at(const int index, const T& element, const int times = 1)
 		{
+			if (index > this->size())
+			{
+				throw container_index_error(index);
+			}
 			stdlist::insert(stdlist::begin() + index, times, element);
 		}
 		/// @brief Inserts all elements of another List into this one.
@@ -238,6 +246,10 @@ namespace hltypes
 		/// @param[in] other List of elements to insert.
 		void insert_at(const int index, const List<T>& other)
 		{
+			if (index > this->size())
+			{
+				throw container_index_error(index);
+			}
 			stdlist::insert(stdlist::begin() + index, other.begin(), other.end());
 		}
 		/// @brief Inserts all elements of another List into this one.
@@ -246,8 +258,16 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const List<T>& other, const int count)
 		{
+			if (index > this->size())
+			{
+				throw container_index_error(index);
+			}
+			if (count > other.size())
+			{
+				throw container_range_error(0, count);
+			}
 			const_iterator_t it = other.begin();
-			stdlist::insert(stdlist::begin() + index, it, it + count);
+			stdlist::insert(stdlist::begin() + index, it, this->_const_iterator_plus(it, count));
 		}
 		/// @brief Inserts all elements of another List into this one.
 		/// @param[in] index Position where to insert the new elements.
@@ -256,8 +276,16 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const List<T>& other, const int start, const int count)
 		{
-			const_iterator_t it = other.begin();
-			stdlist::insert(stdlist::begin() + index, it + start, it + (start + count));
+			if (index > this->size())
+			{
+				throw container_index_error(index);
+			}
+			if (start >= other.size() || start + count > other.size())
+			{
+				throw container_range_error(start, count);
+			}
+			const_iterator_t it = this->_const_iterator_plus(other.begin(), start);
+			stdlist::insert(stdlist::begin() + index, it, this->_const_iterator_plus(it, count));
 		}
 		/// @brief Inserts all elements of a C-type array into this List.
 		/// @param[in] index Position where to insert the new elements.
@@ -283,7 +311,7 @@ namespace hltypes
 		{
 			if (index >= this->size())
 			{
-				throw index_error(index);
+				throw container_index_error(index);
 			}
 			T result = stdlist::at(index);
 			stdlist::erase(stdlist::begin() + index);
@@ -298,7 +326,7 @@ namespace hltypes
 		{
 			if (index >= this->size() || index + count > this->size())
 			{
-				throw range_error(index, count);
+				throw container_range_error(index, count);
 			}
 			List<T> result;
 			iterator_t it = stdlist::begin();
@@ -315,7 +343,7 @@ namespace hltypes
 			int index = this->index_of(element);
 			if (index < 0)
 			{
-				throw element_not_found_error();
+				throw container_element_not_found();
 			}
 			stdlist::erase(_iterator_plus(stdlist::begin(), index));
 		}
@@ -329,7 +357,7 @@ namespace hltypes
 				index = this->index_of(other.at(i));
 				if (index < 0)
 				{
-					throw element_not_found_error();
+					throw container_element_not_found();
 				}
 				stdlist::erase(stdlist::begin() + index);
 			}
@@ -465,7 +493,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw index_error(0);
+				throw container_index_error(0);
 			}
 			return this->remove_at(0);
 		}
@@ -477,7 +505,7 @@ namespace hltypes
 		{
 			if (count > this->size())
 			{
-				throw index_error(count);
+				throw container_range_error(0, count);
 			}
 			List<T> result;
 			iterator_t begin = stdlist::begin();
@@ -492,7 +520,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw index_error(0);
+				throw container_index_error(0);
 			}
 			T element = stdlist::back();
 			stdlist::pop_back();
@@ -506,7 +534,7 @@ namespace hltypes
 		{
 			if (count > this->size())
 			{
-				throw index_error(count);
+				throw container_range_error(0, count);
 			}
 			List<T> result;
 			iterator_t end = stdlist::end();
@@ -713,7 +741,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("min()");
+				throw container_empty_error("min()");
 			}
 			return (*std::min_element(stdlist::begin(), stdlist::end()));
 		}
@@ -725,7 +753,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("min()");
+				throw container_empty_error("min()");
 			}
 			return (*std::min_element(stdlist::begin(), stdlist::end(), compare_function));
 		}
@@ -735,7 +763,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("max()");
+				throw container_empty_error("max()");
 			}
 			return (*std::max_element(stdlist::begin(), stdlist::end()));
 		}
@@ -747,7 +775,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("max()");
+				throw container_empty_error("max()");
 			}
 			return (*std::max_element(stdlist::begin(), stdlist::end(), compare_function));
 		}
@@ -757,7 +785,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("random()");
+				throw container_empty_error("random()");
 			}
 			return stdlist::at(hrand(this->size()));
 		}
@@ -777,7 +805,11 @@ namespace hltypes
 			}
 			else if (count > 0)
 			{
-				if (count >= this->size())
+				if (count > this->size())
+				{
+					throw container_range_error(0, count);
+				}
+				if (count == this->size())
 				{
 					return this->randomized();
 				}
@@ -799,7 +831,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("pop_random()");
+				throw container_empty_error("pop_random()");
 			}
 			T result = stdlist::at(hrand(this->size()));
 			this->remove(result);
@@ -821,7 +853,11 @@ namespace hltypes
 			}
 			else if (count > 0)
 			{
-				if (count >= this->size())
+				if (count > this->size())
+				{
+					throw container_range_error(0, count);
+				}
+				if (count == this->size())
 				{
 					return this->randomized();
 				}

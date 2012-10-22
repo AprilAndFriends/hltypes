@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 1.5
+/// @version 2.0
 /// 
 /// @section LICENSE
 /// 
@@ -55,46 +55,6 @@ namespace hltypes
 	{
 	}
 	
-	_index_error::_index_error(int index, const char* source_file, int line_number) :
-		exception(hsprintf("index '%d' out of range", index), source_file, line_number)
-	{
-	}
-	_index_error::~_index_error()
-	{
-	}
-	
-	_size_error::_size_error(chstr function_name, const char* source_file, int line_number) :
-		exception(hsprintf("'%s' cannot be used on a harray with size = 0", function_name.c_str()), source_file, line_number)
-	{
-	}
-	_size_error::~_size_error()
-	{
-	}
-	
-	_element_not_found_error::_element_not_found_error(const char* source_file, int line_number) :
-		exception("element not found in array", source_file, line_number)
-	{
-	}
-	_element_not_found_error::~_element_not_found_error()
-	{
-	}
-	
-	_range_error::_range_error(int start, int count, const char* source_file, int line_number) :
-		exception(hsprintf("range 'at %d for %d' out of range", start, count), source_file, line_number)
-	{
-	}
-	_range_error::~_range_error()
-	{
-	}
-	
-	_key_error::_key_error(chstr key, chstr container, const char* source_file, int line_number) :
-		exception(hsprintf("key '%s' not found in '%s'", key.c_str(), container.c_str()), source_file, line_number)
-	{
-	}
-	_key_error::~_key_error()
-	{
-	}
-	
 	_resource_not_exists::_resource_not_exists(chstr type, chstr name, chstr container, const char* source_file, int line_number) :
 		exception(hsprintf("'%s' '%s' does not exist in '%s'", name.c_str(), type.c_str(), container.c_str()), source_file, line_number)
 	{
@@ -111,4 +71,44 @@ namespace hltypes
 	{
 	}
 
+	_container_index_error::_container_index_error(int index, const char* source_file, int line_number) :
+		exception(hsprintf("index '%d' out of range", index), source_file, line_number)
+	{
+	}
+	_container_index_error::~_container_index_error()
+	{
+	}
+	
+	_container_empty_error::_container_empty_error(chstr function_name, const char* source_file, int line_number) :
+		exception(hsprintf("'%s' cannot be used on a container with size = 0", function_name.c_str()), source_file, line_number)
+	{
+	}
+	_container_empty_error::~_container_empty_error()
+	{
+	}
+	
+	_container_element_not_found::_container_element_not_found(const char* source_file, int line_number) :
+		exception("element not found in container	", source_file, line_number)
+	{
+	}
+	_container_element_not_found::~_container_element_not_found()
+	{
+	}
+	
+	_container_range_error::_container_range_error(int start, int count, const char* source_file, int line_number) :
+		exception(hsprintf("range 'at %d for %d' out of range", start, count), source_file, line_number)
+	{
+	}
+	_container_range_error::~_container_range_error()
+	{
+	}
+	
+	_container_key_error::_container_key_error(chstr key, chstr container, const char* source_file, int line_number) :
+		exception(hsprintf("key '%s' not found in '%s'", key.c_str(), container.c_str()), source_file, line_number)
+	{
+	}
+	_container_key_error::~_container_key_error()
+	{
+	}
+	
 }

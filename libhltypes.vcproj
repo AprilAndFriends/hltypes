@@ -188,6 +188,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\hlog.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\hltypesUtil.cpp"
 				>
 			</File>
@@ -222,10 +226,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\hlxml\include\hlxml\Document.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\hltypes\exception.h"
 				>
 			</File>
@@ -251,6 +251,10 @@
 			</File>
 			<File
 				RelativePath=".\include\hltypes\hlist.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\hltypes\hlog.h"
 				>
 			</File>
 			<File
