@@ -132,13 +132,16 @@ namespace hltypes
 		/// @return Subarray created from the current Array.
 		Array<T> operator()(const int start, const int count) const
 		{
-			if (start >= this->size() || start + count > this->size())
-			{
-				throw container_range_error(start, count);
-			}
 			Array<T> result;
-			const_iterator_t it = stdvector::begin() + start;
-			result.assign(it, it + count);
+			if (count > 0)
+			{
+				if (start >= this->size() || start + count > this->size())
+				{
+					throw container_range_error(start, count);
+				}
+				const_iterator_t it = stdvector::begin() + start;
+				result.assign(it, it + count);
+			}
 			return result;
 		}
 		/// @brief Same as equals.

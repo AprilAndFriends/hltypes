@@ -88,13 +88,16 @@ namespace hltypes
 		/// @return Subdeque created from the current Deque.
 		Deque<T> operator()(const int start, const int count) const
 		{
-			if (start >= this->size() || start + count > this->size())
-			{
-				throw container_range_error(start, count);
-			}
 			Deque<T> result;
-			const_iterator_t it = stddeque::begin() + start;
-			result.assign(it, it + count);
+			if (count > 0)
+			{
+				if (start >= this->size() || start + count > this->size())
+				{
+					throw container_range_error(start, count);
+				}
+				const_iterator_t it = stddeque::begin() + start;
+				result.assign(it, it + count);
+			}
 			return result;
 		}
 		/// @brief Same as equals.
