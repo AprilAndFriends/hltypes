@@ -23,6 +23,9 @@
     <ClCompile Include="src\hfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\hlog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\hmutex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,6 +68,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\hltypes\hlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hlog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\hltypes\hltypesExport.h">

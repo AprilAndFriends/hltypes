@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 1.9
+/// @version 2.0
 /// 
 /// @section LICENSE
 /// 
@@ -701,7 +701,7 @@ hstr hvsprintf(const char* format, va_list args)
 	if (i == 8)
 	{
 		delete [] c;
-		throw hl_exception("ERROR! Resulting string for hsprintf is longer than 2^16 (65536) characters!");
+		throw hl_exception("Resulting string for hsprintf is longer than 2^16 (65536) characters!");
 	}
 #endif
 	hstr result(c);
