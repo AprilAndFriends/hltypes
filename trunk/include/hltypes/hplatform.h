@@ -9,7 +9,7 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Provides special preprocessor macros for platform definitions.
+/// Provides special preprocessor macros for platform definitions and special platform specific functions.
 
 #ifndef HLTYPES_PLATFORM_H
 #define HLTYPES_PLATFORM_H
@@ -28,5 +28,17 @@
 #define _HL_WINRT 0
 #endif
 #endif
+
+#include "hstring.h"
+
+namespace hltypes
+{
+	/// @brief Executes the actual message loggging.
+	/// @param[in] tag The message tag.
+	/// @param[in] message The message to log.
+	/// @param[in] level Log level (required for Android).
+	void _platform_print(chstr tag, chstr message, int level);
+
+}
 
 #endif

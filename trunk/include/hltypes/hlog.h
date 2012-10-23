@@ -67,23 +67,23 @@ namespace hltypes
 		static void setFilename(chstr filename, bool clearFile = true);
 
 		/// @brief Logs a message on the log level Write.
-		/// @param[in] message The message to log.
 		/// @param[in] tag The message tag.
+		/// @param[in] message The message to log.
 		/// @return True if level Write and tag allowed.
 		static bool write(chstr tag, chstr message);
 		/// @brief Logs a message on the log level Error.
-		/// @param[in] message The message to log.
 		/// @param[in] tag The message tag.
+		/// @param[in] message The message to log.
 		/// @return True if level Error and tag allowed.
 		static bool error(chstr tag, chstr message);
 		/// @brief Logs a message on the log level Warn.
-		/// @param[in] message The message to log.
 		/// @param[in] tag The message tag.
+		/// @param[in] message The message to log.
 		/// @return True if level Warn and tag allowed.
 		static bool warn(chstr tag, chstr message);
 		/// @brief Logs a message on the log level Debug.
-		/// @param[in] message The message to log.
 		/// @param[in] tag The message tag.
+		/// @param[in] message The message to log.
 		/// @return True if level Debug and tag allowed.
 		static bool debug(chstr tag, chstr message);
 		/// @brief Same as write, except with string formatting.
@@ -114,11 +114,11 @@ namespace hltypes
 		static hstr filename;
 
 		/// @brief Executes the actual message loggging.
-		/// @param[in] message The message to log.
 		/// @param[in] tag The message tag.
+		/// @param[in] message The message to log.
 		/// @param[in] level Log level (required for Android).
 		/// @return True if the message could be logged.
-		static bool _platform_log(chstr message, chstr tag, int level);
+		static bool _system_log(chstr tag, chstr message, int level);
 
 	};
 }

@@ -7,15 +7,13 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
-#ifdef _ANDROID
-#include <android/log.h>
-#endif
 #include <stdarg.h>
 
 #include "harray.h"
 #include "hfile.h"
 #include "hlog.h"
 #include "hmutex.h"
+#include "hplatform.h"
 #include "hstring.h"
 
 #ifdef _ANDROID
@@ -75,7 +73,7 @@ namespace hltypes
 		}
 	}
 
-	bool Log::_platform_log(chstr tag, chstr message, int level) // level is needed for Android
+	bool Log::_system_log(chstr tag, chstr message, int level) // level is needed for Android
 	{
 		if (level == LEVEL_WRITE && !Log::level_write)
 		{
@@ -103,13 +101,7 @@ namespace hltypes
 			log_message = "[" + tag + "] " + log_message;
 		}
 		log_mutex.lock();
-#ifdef _ANDROID
-		__android_log_write(level, tag.c_str(), log_message.c_str());
-#elif defined(__APPLE__)
-		nsLog(log_message);
-#else
-		printf("%s\n", log_message.c_str());
-#endif
+		_platform_print(tag, log_message, level);
 		if (Log::filename != "")
 		{
 			hfile file(Log::filename, hfile::APPEND);
@@ -121,22 +113,22 @@ namespace hltypes
 
 	bool Log::write(chstr tag, chstr message)
 	{
-		return Log::_platform_log(tag, message, LEVEL_WRITE);
+		return Log::_system_log(tag, message, LEVEL_WRITE);
 	}
 
 	bool Log::error(chstr tag, chstr message)
 	{
-		return Log::_platform_log(tag, "ERROR: " + message, LEVEL_ERROR);
+		return Log::_system_log(tag, "ERROR: " + message, LEVEL_ERROR);
 	}
 
 	bool Log::warn(chstr tag, chstr message)
 	{
-		return Log::_platform_log(tag, "WARNING: " + message, LEVEL_WARN);
+		return Log::_system_log(tag, "WARNING: " + message, LEVEL_WARN);
 	}
 
 	bool Log::debug(chstr tag, chstr message)
 	{
-		return Log::_platform_log(tag, "DEBUG: " + message, LEVEL_DEBUG);
+		return Log::_system_log(tag, "DEBUG: " + message, LEVEL_DEBUG);
 	}
 
 	bool Log::writef(chstr tag, const char* format, ...)

@@ -346,6 +346,9 @@
     <ClCompile Include="src\hstring.cpp" />
     <ClCompile Include="src\hthread.cpp" />
     <ClCompile Include="src\hltypesUtil.cpp" />
+    <ClCompile Include="src\platform\Android_platform.cpp" />
+    <ClCompile Include="src\platform\Win32_platform.cpp" />
+    <ClCompile Include="src\platform\WinRT_platform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\hltypes\exception.h" />

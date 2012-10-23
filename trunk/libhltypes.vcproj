@@ -219,6 +219,22 @@
 				RelativePath=".\src\hthread.cpp"
 				>
 			</File>
+			<Filter
+				Name="platform"
+				>
+				<File
+					RelativePath=".\src\platform\Android_platform.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\platform\Win32_platform.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\platform\WinRT_platform.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
