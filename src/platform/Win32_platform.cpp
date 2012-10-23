@@ -17,7 +17,8 @@ namespace hltypes
 {
 	void _platform_print(chstr tag, chstr message, int level)
 	{
-		printf("%s\n", message.c_str());
+		hstr log_message = (tag != "" ? "[" + tag + "] " + message : message);
+		printf("%s\n", log_message.c_str());
 	}
 
 }

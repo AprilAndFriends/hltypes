@@ -17,7 +17,14 @@ namespace hltypes
 {
 	void _platform_print(chstr tag, chstr message, int level)
 	{
-		NSLog(@"%s", message.c_str());
+		if (tag != "")
+		{
+			NSLog(@"%s", message.c_str());
+		}
+		else
+		{
+			NSLog(@"[%s] %s", tag.c_str(), message.c_str());
+		}
 	}
 	
 }
