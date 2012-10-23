@@ -30,6 +30,10 @@
 #define LEVEL_DEBUG 1
 #endif
 
+#if defined(__APPLE__)
+	void nsLog(chstr message); // defined in Mac_platform.mm and iOS_platform.mm
+#endif
+
 #define MAKE_VA_ARGS(result, format) \
 	hstr result; \
 	{ \
@@ -102,7 +106,7 @@ namespace hltypes
 #ifdef _ANDROID
 		__android_log_write(level, tag.c_str(), log_message.c_str());
 #elif defined(__APPLE__)
-		NSLog(@"%s", log_message.c_str());
+		nsLog(log_message);
 #else
 		printf("%s\n", log_message.c_str());
 #endif
