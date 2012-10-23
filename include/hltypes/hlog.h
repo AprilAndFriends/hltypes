@@ -26,12 +26,44 @@ namespace hltypes
 	class hltypesExport Log
 	{
 	public:
+		/// @brief Checks if log level Write is turned on.
+		/// @return True if log level Write is turned on.
+		static bool isLevelWrite() { return level_write; }
+		/// @brief Sets the log level Write.
+		/// @param[in] value Whether to turn it on or off.
 		static void setLevelWrite(bool value) { level_write = value; }
+		/// @brief Checks if log level Error is turned on.
+		/// @return True if log level Error is turned on.
+		static bool isLevelError() { return level_error; }
+		/// @brief Sets the log level Error.
+		/// @param[in] value Whether to turn it on or off.
 		static void setLevelError(bool value) { level_error = value; }
+		/// @brief Checks if log level Warn is turned on.
+		/// @return True if log level Warn is turned on.
+		static bool isLevelWarn() { return level_warn; }
+		/// @brief Sets the log level Warn.
+		/// @param[in] value Whether to turn it on or off.
 		static void setLevelWarn(bool value) { level_warn = value; }
+		/// @brief Checks if log level Debug is turned on.
+		/// @return True if log level Debug is turned on.
+		static bool isLevelDebug() { return level_debug; }
+		/// @brief Sets the log level Debug.
+		/// @param[in] value Whether to turn it on or off.
 		static void setLevelDebug(bool value) { level_debug = value; }
+		/// @brief Sets the current tag filters.
+		/// @param[in] value New tag filters.
+		/// @note If value is an empty Array, the no filtering will be used.
 		static void setTagFilters(harray<hstr> value) { tag_filters = value; }
+		/// @brief Sets all logging levels at once.
+		/// @param[in] write Value for Log level Write.
+		/// @param[in] write Value for Log level Error.
+		/// @param[in] write Value for Log level Warn.
+		/// @param[in] write Value for Log level Debug.
 		static void setLevels(bool write, bool error, bool warn, bool debug);
+		/// @brief Sets the filename for log dump.
+		/// @param[in] filename Filename for log dump.
+		/// @param[in] clearFile Set to true if file should be cleared.
+		/// @note If filename is an empty String, the no dumping will be used.
 		static void setFilename(chstr filename, bool clearFile = true);
 
 		/// @brief Logs a message on the log level Write.
