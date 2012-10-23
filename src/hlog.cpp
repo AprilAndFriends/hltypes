@@ -91,21 +91,17 @@ namespace hltypes
 		{
 			return false;
 		}
-		hstr log_message = message;
-		if (tag != "")
+		if (tag != "" && Log::tag_filters.size() > 0 && !Log::tag_filters.contains(tag))
 		{
-			if (Log::tag_filters.size() > 0 && !Log::tag_filters.contains(tag))
-			{
-				return false;
-			}
-			log_message = "[" + tag + "] " + log_message;
+			return false;
 		}
 		log_mutex.lock();
-		_platform_print(tag, log_message, level);
+		_platform_print(tag, message, level);
 		if (Log::filename != "")
 		{
 			hfile file(Log::filename, hfile::APPEND);
-			file.writef("%s\n", message.c_str());
+			hstr log_message = (tag != "" ? "[" + tag + "] " + message : message);
+			file.writef("%s\n", log_message.c_str());
 		}
 		log_mutex.unlock();
 		return true;
