@@ -46,6 +46,12 @@
 		D1E1DD59140E579C00499A97 /* hdeque.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD56140E579C00499A97 /* hdeque.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5A140E579D00499A97 /* hlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD57140E579C00499A97 /* hlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5B140E579D00499A97 /* hthread.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD58140E579C00499A97 /* hthread.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1E909E71636911B00EB27EE /* hlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E909E61636911B00EB27EE /* hlog.cpp */; };
+		D1E909E81636911B00EB27EE /* hlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E909E61636911B00EB27EE /* hlog.cpp */; };
+		D1E909EB1636912400EB27EE /* hlog.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E909EA1636912400EB27EE /* hlog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1E909F5163693B600EB27EE /* iOS_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F4163693B600EB27EE /* iOS_platform.mm */; };
+		D1E909F7163693BC00EB27EE /* Mac_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F6163693BC00EB27EE /* Mac_platform.mm */; };
+		D1E909FC163694F300EB27EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1E909FB163694F300EB27EE /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +86,26 @@
 		D1E1DD56140E579C00499A97 /* hdeque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdeque.h; path = include/hltypes/hdeque.h; sourceTree = "<group>"; };
 		D1E1DD57140E579C00499A97 /* hlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hlist.h; path = include/hltypes/hlist.h; sourceTree = "<group>"; };
 		D1E1DD58140E579C00499A97 /* hthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hthread.h; path = include/hltypes/hthread.h; sourceTree = "<group>"; };
+		D1E909E61636911B00EB27EE /* hlog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hlog.cpp; path = src/hlog.cpp; sourceTree = "<group>"; };
+		D1E909EA1636912400EB27EE /* hlog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hlog.h; path = include/hltypes/hlog.h; sourceTree = "<group>"; };
+		D1E909F1163693AF00EB27EE /* Android_platform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Android_platform.cpp; path = src/platform/Android_platform.cpp; sourceTree = "<group>"; };
+		D1E909F2163693AF00EB27EE /* Win32_platform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Win32_platform.cpp; path = src/platform/Win32_platform.cpp; sourceTree = "<group>"; };
+		D1E909F3163693AF00EB27EE /* WinRT_platform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = WinRT_platform.cpp; path = src/platform/WinRT_platform.cpp; sourceTree = "<group>"; };
+		D1E909F4163693B600EB27EE /* iOS_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOS_platform.mm; path = src/platform/iOS_platform.mm; sourceTree = "<group>"; };
+		D1E909F6163693BC00EB27EE /* Mac_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Mac_platform.mm; path = src/platform/Mac_platform.mm; sourceTree = "<group>"; };
+		D1E909FB163694F300EB27EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D1E909FA163694EC00EB27EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1E909FC163694F300EB27EE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		034768DFFF38A50411DB9C8B /* Products */ = {
@@ -98,6 +123,7 @@
 				7F42F71411EB111E00B1C1DF /* Info.plist */,
 				7F42F69C11EB0B9A00B1C1DF /* include */,
 				7F42F69511EB0B8500B1C1DF /* src */,
+				D1E909FD163694FE00EB27EE /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
 			name = libhltypes;
@@ -106,6 +132,8 @@
 		7F42F69511EB0B8500B1C1DF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				D1E909F0163693A500EB27EE /* platform */,
+				D1E909E61636911B00EB27EE /* hlog.cpp */,
 				D115F7C014AD4FA600C78558 /* hsbase.cpp */,
 				D115F7C114AD4FA600C78558 /* hstream.cpp */,
 				7FAB23531291377B0035EDF5 /* hthread.cpp */,
@@ -124,6 +152,7 @@
 		7F42F69C11EB0B9A00B1C1DF /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D1E909EA1636912400EB27EE /* hlog.h */,
 				D1DB1C1F162854920013C0E5 /* hplatform.h */,
 				C981D01F14FFC6270032F321 /* hfbase.h */,
 				D115F7C514AD4FB400C78558 /* hsbase.h */,
@@ -145,6 +174,26 @@
 			name = include;
 			sourceTree = "<group>";
 		};
+		D1E909F0163693A500EB27EE /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				D1E909F6163693BC00EB27EE /* Mac_platform.mm */,
+				D1E909F4163693B600EB27EE /* iOS_platform.mm */,
+				D1E909F1163693AF00EB27EE /* Android_platform.cpp */,
+				D1E909F2163693AF00EB27EE /* Win32_platform.cpp */,
+				D1E909F3163693AF00EB27EE /* WinRT_platform.cpp */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		D1E909FD163694FE00EB27EE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1E909FB163694F300EB27EE /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -154,6 +203,7 @@
 			files = (
 				D1E1DD59140E579C00499A97 /* hdeque.h in Headers */,
 				D1E1DD5A140E579D00499A97 /* hlist.h in Headers */,
+				D1E909EB1636912400EB27EE /* hlog.h in Headers */,
 				D1E1DD5B140E579D00499A97 /* hthread.h in Headers */,
 				7F42F6A211EB0BAA00B1C1DF /* harray.h in Headers */,
 				7F42F6A311EB0BAA00B1C1DF /* hfile.h in Headers */,
@@ -180,6 +230,7 @@
 			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "hltypes" */;
 			buildPhases = (
 				8DC2EF540486A6940098B216 /* Sources */,
+				D1E909FA163694EC00EB27EE /* Frameworks */,
 				8DC2EF500486A6940098B216 /* Headers */,
 			);
 			buildRules = (
@@ -252,6 +303,8 @@
 				C9F9314014DA88B400954F90 /* hltypesUtil.cpp in Sources */,
 				C965F5BB14F3897B009F0EE5 /* hresource.cpp in Sources */,
 				C981D01C14FFC5FE0032F321 /* hfbase.cpp in Sources */,
+				D1E909E71636911B00EB27EE /* hlog.cpp in Sources */,
+				D1E909F7163693BC00EB27EE /* Mac_platform.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +323,8 @@
 				C9F9314114DA88B400954F90 /* hltypesUtil.cpp in Sources */,
 				C965F5BC14F3897B009F0EE5 /* hresource.cpp in Sources */,
 				C981D01D14FFC5FE0032F321 /* hfbase.cpp in Sources */,
+				D1E909E81636911B00EB27EE /* hlog.cpp in Sources */,
+				D1E909F5163693B600EB27EE /* iOS_platform.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
