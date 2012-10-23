@@ -7,3 +7,20 @@
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+
+#ifdef _WIN32
+#include "hplatform.h"
+#if !_HL_WINRT
+#include "hstring.h"
+
+namespace hltypes
+{
+	void _platform_print(chstr tag, chstr message, int level)
+	{
+		printf("%s\n", message.c_str());
+	}
+
+}
+
+#endif
+#endif
