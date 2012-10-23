@@ -9,9 +9,15 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #import <Foundation/Foundation.h>
+
+#include "hplatform.h"
 #include "hstring.h"
 
-void nsLog(chstr message)
+namespace hltypes
 {
-	NSLog(@"%s", message.c_str());
+	void _platform_print(chstr tag, chstr message, int level)
+	{
+		NSLog(@"%s", message.c_str());
+	}
+	
 }
