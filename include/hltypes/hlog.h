@@ -10,7 +10,7 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Provides high level logging.
+/// Provides high level thread-safe logging.
 
 #ifndef HLTYPES_LOG_H
 #define HLTYPES_LOG_H
@@ -65,6 +65,10 @@ namespace hltypes
 		/// @param[in] clearFile Set to true if file should be cleared.
 		/// @note If filename is an empty String, the no dumping will be used.
 		static void setFilename(chstr filename, bool clearFile = true);
+		/// @brief Sets the callback function that is called after logging.
+		/// @param[in] function Callback function.
+		/// @note The callback is called in a thread-safe manner.
+		static void setCallbackFunction(void (*function)(chstr, chstr)) { callback_function = function; }
 
 		/// @brief Logs a message on the log level Write.
 		/// @param[in] tag The message tag.
@@ -112,6 +116,8 @@ namespace hltypes
 		static harray<hstr> tag_filters;
 		/// @brief Filename for logging to files.
 		static hstr filename;
+		/// @brief Callback function for logging.
+		static void (*callback_function)(chstr, chstr);
 
 		/// @brief Executes the actual message loggging.
 		/// @param[in] tag The message tag.
