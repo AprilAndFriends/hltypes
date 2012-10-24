@@ -45,8 +45,6 @@ namespace hltypes
 {
 	hmutex log_mutex;
 
-	hstr Log::filename;
-	harray<hstr> Log::tag_filters;
 	bool Log::level_write = true;
 	bool Log::level_error = true;
 	bool Log::level_warn = true;
@@ -55,6 +53,9 @@ namespace hltypes
 #else
 	bool Log::level_debug = true;
 #endif
+	harray<hstr> Log::tag_filters;
+	hstr Log::filename;
+	void (*Log::callback_function)(chstr, chstr) = NULL;
 
 	void Log::setLevels(bool write, bool error, bool warn, bool debug)
 	{
@@ -102,6 +103,10 @@ namespace hltypes
 			hfile file(Log::filename, hfile::APPEND);
 			hstr log_message = (tag != "" ? "[" + tag + "] " + message : message);
 			file.writef("%s\n", log_message.c_str());
+		}
+		if (Log::callback_function != NULL)
+		{
+			(*Log::callback_function)(tag, message);
 		}
 		log_mutex.unlock();
 		return true;
