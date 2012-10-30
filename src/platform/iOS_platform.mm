@@ -19,11 +19,11 @@ namespace hltypes
 	{
 		if (tag != "")
 		{
-			NSLog(@"%s", message.c_str());
+			NSLog(@"[%s] %s", tag.c_str(), message.c_str());
 		}
 		else
 		{
-			NSLog(@"[%s] %s", tag.c_str(), message.c_str());
+			NSLog(@"%s", message.c_str());
 		}
 	}
 	
