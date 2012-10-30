@@ -18,8 +18,15 @@ namespace hltypes
 {
 	void _platform_print(chstr tag, chstr message, int level)
 	{
-		hstr log_message = (tag != "" ? "[" + tag + "] " + message : message);
-		__android_log_write(level, tag.c_str(), log_message.c_str());
+		if (tag != "")
+		{
+			__android_log_print(level, tag.c_str(), "[%s] %s", tag.c_str(), message.c_str());
+		}
+		else
+		{
+			__android_log_write(level, "", message.c_str());
+		}
+
 	}
 
 }
