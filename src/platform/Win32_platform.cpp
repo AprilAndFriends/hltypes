@@ -19,11 +19,11 @@ namespace hltypes
 	{
 		if (tag != "")
 		{
-			printf("[%s] %s", tag.c_str(), message.c_str());
+			printf("[%s] %s\n", tag.c_str(), message.c_str());
 		}
 		else
 		{
-			printf("%s", message.c_str());
+			printf("%s\n", message.c_str());
 		}
 	}
 
