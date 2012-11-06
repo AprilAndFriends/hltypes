@@ -11,13 +11,25 @@
 #ifdef _WIN32
 #include "hplatform.h"
 #if _HL_WINRT
+#include <windows.h>
+
 #include "hstring.h"
 
 namespace hltypes
 {
 	void _platform_print(chstr tag, chstr message, int level)
 	{
-		// WinRT does not support console style printing
+		// using console style printing invalidates WACK certification so it is used only in Debug builds
+#ifdef _DEBUG
+		if (tag != "")
+		{
+			OutputDebugString(("[" + tag + "] " + message + "\n").w_str().c_str());
+		}
+		else
+		{
+			OutputDebugString((message + "\n").w_str().c_str());
+		}
+#endif
 	}
 
 }
