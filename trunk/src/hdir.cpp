@@ -117,6 +117,10 @@ namespace hltypes
 	{
 		if (prefix == "" || prefix == ".")
 		{
+			if (path.starts_with("./"))
+			{
+				path = path(2, path.size() - 2);
+			}
 			return true;
 		}
 		if (path.starts_with(prefix + "/"))
@@ -421,13 +425,13 @@ namespace hltypes
 				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name))
 				{
 					slashCount = current.count("/");
-					if (slashCount == 0) // directory // file
+					if (slashCount == 0) // file
 					{
 						result += current;
 					}
 					else if (slashCount == 1) // directory
 					{
-						result += current(0, current.size() - 1);
+						result += current.split('/', 1).pop_first();
 					}
 				}
 			}
@@ -497,7 +501,7 @@ namespace hltypes
 				current = systemize_path(hstr(zip_get_name(archivefile, i, 0)));
 				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.count("/") == 1)
 				{
-					result += current(0, current.size() - 1);
+					result += current.split('/', 1).pop_first();
 				}
 			}
 		}
