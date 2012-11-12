@@ -20,6 +20,7 @@
 #if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 #define _HL_WINRT 1
 #using <Windows.winmd>
+#include <wrl.h>
 #define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).w_str().c_str())
 #define _HL_HSTR_TO_PSTR_DEF(string) Platform::String^ p ## string = _HL_HSTR_TO_PSTR(string)
 #endif
