@@ -283,9 +283,15 @@ namespace hltypes
 	{
 		int i, len = size();
 		const char* cstr = c_str();
-		if (len == 0) return hstr("");
-		for (i = len - 1; i >= 0 && cstr[i] == c; i--);
-
+		if (len == 0)
+		{
+			return "";
+		}
+		int i = len - 1;
+		while (i >= 0 && cstr[i] == c)
+		{
+			i--;
+		}
 		return stdstr::substr(0, i + 1);
 	}
 
@@ -494,21 +500,21 @@ namespace hltypes
 	
 	String::operator float() const
 	{
-		float f;
+		float f = 0.0f;
 		sscanf(stdstr::c_str(), "%f", &f);
 		return f;
 	}
 	
 	String::operator int() const
 	{
-		int i;
+		int i = 0;
 		sscanf(stdstr::c_str(), "%d", &i);
 		return i;
 	}
 	
 	String::operator unsigned int() const
 	{
-		unsigned int i;
+		unsigned int i = 0;
 		sscanf(stdstr::c_str(), "%u", &i);
 		return i;
 	}
@@ -520,7 +526,7 @@ namespace hltypes
 	
 	void String::operator=(const float f)
 	{
-		char s[64];
+		char s[64] = {'\0'};
 		sprintf(s, "%f", f);
 		stdstr::operator=(s);
 	}
@@ -537,14 +543,14 @@ namespace hltypes
 	
 	void String::operator=(const int i)
 	{
-		char s[64];
+		char s[64] = {'\0'};
 		sprintf(s, "%d", i);
 		stdstr::operator=(s);
 	}
 	
 	void String::operator=(const unsigned int i)
 	{
-		char s[64];
+		char s[64] = {'\0'};
 		sprintf(s, "%u", i);
 		stdstr::operator=(s);
 	}
