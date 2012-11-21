@@ -281,12 +281,12 @@ namespace hltypes
 
 	String String::rtrim(char c) const
 	{
-		int i, len = size();
-		const char* cstr = c_str();
+		int len = stdstr::size();
 		if (len == 0)
 		{
 			return "";
 		}
+		const char* cstr = stdstr::c_str();
 		int i = len - 1;
 		while (i >= 0 && cstr[i] == c)
 		{
@@ -297,7 +297,8 @@ namespace hltypes
 
 	String String::replace(const char* what, const char* with_what) const
 	{
-		const char *s = stdstr::c_str(), *p;
+		const char* s = stdstr::c_str();
+		const char* p;
 		String out;
 		int what_len = strlen(what);
 		if (what_len == 0)
