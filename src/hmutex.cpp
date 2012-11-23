@@ -9,14 +9,10 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #include <stdio.h>
-#ifdef _WIN32
-#include <windows.h>
-#endif
 
 #include "exception.h"
 #include "hltypesUtil.h"
 #include "hmutex.h"
-
 #include "hplatform.h"
 
 namespace hltypes

@@ -16,17 +16,13 @@
 #ifndef HLTYPES_DEQUE_H
 #define HLTYPES_DEQUE_H
 
-#include <deque>
 #include <algorithm>
+#include <deque>
 
 #include "exception.h"
 #include "hltypesUtil.h"
+#include "hplatform.h"
 #include "hstring.h"
-
-#ifdef _WIN32
-	#undef min
-	#undef max
-#endif
 
 /// @brief Provides a simpler syntax to iterate through a ldeque.
 #define foreach_q(type, name, container) for (std::deque<type>::iterator name = (container).begin(); name != (container).end(); name++)

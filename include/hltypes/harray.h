@@ -16,17 +16,13 @@
 #ifndef HLTYPES_ARRAY_H
 #define HLTYPES_ARRAY_H
 
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 #include "exception.h"
 #include "hltypesUtil.h"
+#include "hplatform.h"
 #include "hstring.h"
-
-#ifdef _WIN32
-	#undef min
-	#undef max
-#endif
 
 /// @brief Provides a simpler syntax to iterate through an Array.
 #define foreach(type, name, container) for (std::vector<type>::iterator name = (container).begin(); name != (container).end(); name++)
