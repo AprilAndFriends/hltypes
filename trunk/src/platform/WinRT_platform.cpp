@@ -11,8 +11,6 @@
 #ifdef _WIN32
 #include "hplatform.h"
 #if _HL_WINRT
-#include <windows.h>
-
 #include "hstring.h"
 
 namespace hltypes

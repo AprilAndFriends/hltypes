@@ -14,9 +14,16 @@
 #ifndef HLTYPES_PLATFORM_H
 #define HLTYPES_PLATFORM_H
 
-#if defined(_MSC_VER)
+#if defined(_WIN32) && defined(_MSC_VER)
+#ifdef max
+#undef max
+#endif
+#ifdef min
+#undef min
+#endif
+#define NOMINMAX
 #include <windows.h>
-#if defined(_WIN32) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
+#if defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
 #if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 #define _HL_WINRT 1
 #using <Windows.winmd>
@@ -25,9 +32,9 @@
 #define _HL_HSTR_TO_PSTR_DEF(string) Platform::String^ p ## string = _HL_HSTR_TO_PSTR(string)
 #endif
 #endif
+#endif
 #ifndef _HL_WINRT
 #define _HL_WINRT 0
-#endif
 #endif
 
 #include "hstring.h"

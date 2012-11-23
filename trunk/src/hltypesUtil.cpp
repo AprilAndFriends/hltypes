@@ -11,9 +11,7 @@
 #ifndef _MSC_VER // required for memset on non-MSVC compilers
 #include <string.h>
 #endif
-#ifdef _WIN32
-#include <windows.h>
-#else
+#ifndef _WIN32
 #include <sys/time.h>
 #endif
 #include <stdio.h>
