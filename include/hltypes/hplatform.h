@@ -30,6 +30,18 @@
 #include <wrl.h>
 #define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).w_str().c_str())
 #define _HL_HSTR_TO_PSTR_DEF(string) Platform::String^ p ## string = _HL_HSTR_TO_PSTR(string)
+#define _HL_TRY_DELETE(name) \
+	if (name != NULL) \
+	{ \
+		delete name; \
+		name = NULL; \
+	}
+#define _HL_TRY_RELEASE_COMPTR(name) \
+	if (name != nullptr) \
+	{ \
+		name.Get()->Release(); \
+		name = nullptr; \
+	}
 #endif
 #endif
 #endif
