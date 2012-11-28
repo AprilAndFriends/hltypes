@@ -37,7 +37,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E4D373BF-E227-48B9-99E6-84987E8674EC}</ProjectGuid>
     <ProjectName>libhltypes</ProjectName>
-    <RootNamespace>libhltypes</RootNamespace>
+    <RootNamespace>hltypes</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
