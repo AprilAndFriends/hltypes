@@ -27,6 +27,7 @@ namespace hltypes
 			throw hl_exception("Could not create mutex");
 		}
 #else
+		this->handle = 0;
 #endif
 #else
 		pthread_mutex_init(&this->handle, 0);
