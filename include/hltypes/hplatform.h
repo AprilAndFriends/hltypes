@@ -37,11 +37,11 @@
 		delete name; \
 		name = NULL; \
 	}
-#define _HL_TRY_RELEASE_COMPTR(name) \
-	if (name != nullptr) \
+#define _HL_TRY_RELEASE(name) \
+	if (name != NULL) \
 	{ \
-		name.Get()->Release(); \
-		name = nullptr; \
+		name->Release(); \
+		name = NULL; \
 	}
 #endif
 #endif
