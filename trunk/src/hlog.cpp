@@ -23,7 +23,11 @@
 #define LEVEL_WRITE ((int)ANDROID_LOG_INFO)
 #define LEVEL_ERROR ((int)ANDROID_LOG_ERROR)
 #define LEVEL_WARN ((int)ANDROID_LOG_WARN)
+#ifndef _DEBUG
+#define LEVEL_DEBUG ((int)ANDROID_LOG_INFO)
+#else
 #define LEVEL_DEBUG ((int)ANDROID_LOG_DEBUG)
+#endif
 #else
 #define LEVEL_WRITE 4
 #define LEVEL_ERROR 3
