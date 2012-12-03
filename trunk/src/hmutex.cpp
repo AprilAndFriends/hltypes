@@ -20,15 +20,11 @@ namespace hltypes
 	Mutex::Mutex()
 	{
 #ifdef _WIN32
-#if !_HL_WINRT
-		this->handle = CreateMutex(0, 0, 0);
+		this->handle = CreateMutexEx(NULL, NULL, 0, 0);
 		if (this->handle == 0)
 		{
 			throw hl_exception("Could not create mutex");
 		}
-#else
-		this->handle = 0;
-#endif
 #else
 		pthread_mutex_init(&this->handle, 0);
 #endif
