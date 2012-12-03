@@ -23,7 +23,7 @@ namespace hltypes
 		this->handle = CreateMutexEx(NULL, NULL, 0, 0);
 		if (this->handle == 0)
 		{
-			throw hl_exception("Could not create mutex");
+			throw hl_exception("Could not create mutex.");
 		}
 #else
 		pthread_mutex_init(&this->handle, 0);
