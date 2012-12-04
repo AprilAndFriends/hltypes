@@ -15,6 +15,7 @@
 #include <pthread.h>
 #endif
 
+#include "harray.h"
 #include "hmutex.h"
 #include "hltypesUtil.h"
 #include "hplatform.h"
@@ -29,11 +30,10 @@ namespace hltypes
 {
 #ifdef _WIN32
 	unsigned long WINAPI async_call(void* param)
-	{
 #else
-	void *async_call(void* param)
-	{
+	void* async_call(void* param)
 #endif
+	{
 		Thread* t = (Thread*)param;
 		t->execute();
 #ifdef _WIN32
@@ -53,11 +53,6 @@ namespace hltypes
 			this->async_action = async_action;
 		}
 	};
-	
-	WorkItemHandler^ work_item_handler = ref new WorkItemHandler([&](IAsyncAction^ work_item)
-    {
-		// TODO - WinRT
-	});
 #endif
 	
 	Thread::Thread(void (*function)()) : running(false), id(NULL)
@@ -90,7 +85,11 @@ namespace hltypes
 #if !_HL_WINRT
 		this->id = CreateThread(0, 0, &async_call, this, 0, 0);
 #else
-		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(work_item_handler,
+		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(
+			ref new WorkItemHandler([&](IAsyncAction^ work_item)
+			{
+				this->execute();
+			}),
 			WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
 #endif
 #else
@@ -114,7 +113,7 @@ namespace hltypes
 #ifdef _WIN32
 #if !_HL_WINRT
 		WaitForSingleObject(this->id, INFINITE);
-		if (this->id)
+		if (this->id != 0)
 		{
 			CloseHandle(this->id);
 			this->id = 0;
