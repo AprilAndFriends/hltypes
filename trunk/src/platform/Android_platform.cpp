@@ -26,7 +26,6 @@ namespace hltypes
 		{
 			__android_log_write(level, "", message.c_str());
 		}
-
 	}
 
 }

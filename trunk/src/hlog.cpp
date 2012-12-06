@@ -28,12 +28,17 @@
 #else
 #define LEVEL_DEBUG ((int)ANDROID_LOG_DEBUG)
 #endif
+#define LEVEL_CHECK_DEBUG ((int)ANDROID_LOG_DEBUG)
 #else
 #define LEVEL_WRITE 4
 #define LEVEL_ERROR 3
 #define LEVEL_WARN 2
 #define LEVEL_DEBUG 1
+#define LEVEL_CHECK_DEBUG LEVEL_DEBUG
 #endif
+#define LEVEL_CHECK_WRITE LEVEL_WRITE
+#define LEVEL_CHECK_ERROR LEVEL_ERROR
+#define LEVEL_CHECK_WARN LEVEL_WANR
 
 #if defined(__APPLE__)
 	void nsLog(chstr message); // defined in Mac_platform.mm and iOS_platform.mm
@@ -83,19 +88,19 @@ namespace hltypes
 
 	bool Log::_system_log(chstr tag, chstr message, int level) // level is needed for Android
 	{
-		if (level == LEVEL_WRITE && !Log::level_write)
+		if (level == LEVEL_CHECK_WRITE && !Log::level_write)
 		{
 			return false;
 		}
-		if (level == LEVEL_ERROR && !Log::level_error)
+		if (level == LEVEL_CHECK_ERROR && !Log::level_error)
 		{
 			return false;
 		}
-		if (level == LEVEL_WARN && !Log::level_warn)
+		if (level == LEVEL_CHECK_WARN && !Log::level_warn)
 		{
 			return false;
 		}
-		if (level == LEVEL_DEBUG && !Log::level_debug)
+		if (level == LEVEL_CHECK_DEBUG && !Log::level_debug)
 		{
 			return false;
 		}
