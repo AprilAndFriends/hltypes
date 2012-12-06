@@ -34,7 +34,7 @@
 #define LEVEL_ERROR 3
 #define LEVEL_WARN 2
 #define LEVEL_DEBUG 1
-#define LEVEL_PLATFORM_DEBUG LEVEL_DEBUG
+#define LEVEL_PLATFORM(level) (level)
 #endif
 
 #if defined(__APPLE__)
