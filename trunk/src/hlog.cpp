@@ -38,7 +38,7 @@
 #endif
 #define LEVEL_CHECK_WRITE LEVEL_WRITE
 #define LEVEL_CHECK_ERROR LEVEL_ERROR
-#define LEVEL_CHECK_WARN LEVEL_WANR
+#define LEVEL_CHECK_WARN LEVEL_WARN
 
 #if defined(__APPLE__)
 	void nsLog(chstr message); // defined in Mac_platform.mm and iOS_platform.mm
