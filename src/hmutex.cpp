@@ -20,7 +20,7 @@ namespace hltypes
 	Mutex::Mutex()
 	{
 #ifdef _WIN32
-		this->handle = CreateMutexEx(NULL, NULL, 0, 0);
+		this->handle = CreateMutexEx(NULL, NULL, 0, SYNCHRONIZE);
 		if (this->handle == 0)
 		{
 			throw hl_exception("Could not create mutex.");
