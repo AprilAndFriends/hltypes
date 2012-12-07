@@ -55,7 +55,7 @@ namespace hltypes
 	};
 #endif
 	
-	Thread::Thread(void (*function)()) : running(false), id(NULL)
+	Thread::Thread(void (*function)()) : running(false), id(0)
 	{
 		this->function = function;
 	}
