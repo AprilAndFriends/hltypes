@@ -553,9 +553,13 @@ namespace hltypes
 		hstr name = normalize_path(dirname);
 #ifndef HAVE_ZIPRESOURCE
 		Array<hstr> result = Dir::files(Resource::make_full_path(name), false);
-		for_iter (i, 0, result.size())
+		hstr cwd = Resource::getCwd() + "/";
+		if (cwd != "./" && cwd != "/")
 		{
-			result[i] = result[i].replace(Resource::getCwd() + "/", "");
+			for_iter (i, 0, result.size())
+			{
+				result[i] = result[i].replace(cwd, "");
+			}
 		}
 #else
 		hstr current;
