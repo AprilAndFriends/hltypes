@@ -20,7 +20,11 @@ namespace hltypes
 	Mutex::Mutex()
 	{
 #ifdef _WIN32
+#if !_HL_WINRT // WinXP does not have CreateMutexEx()
+		this->handle = CreateMutex(0, 0, 0);
+#else
 		this->handle = CreateMutexEx(NULL, NULL, 0, SYNCHRONIZE);
+#endif
 		if (this->handle == 0)
 		{
 			throw hl_exception("Could not create mutex.");
