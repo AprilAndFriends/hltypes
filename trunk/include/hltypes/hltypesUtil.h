@@ -354,10 +354,12 @@ hltypesFnExport hstr get_environment_variable(chstr name);
 /// @param[in] value The unsigned int value.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(unsigned int value);
+#ifndef _ANDROID
 /// @brief Converts a unicode wchar to a UTF8 string.
 /// @param[in] value The wchar value.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(wchar_t value);
+#endif
 /// @brief Converts a char to a UTF8 string.
 /// @param[in] string The char.
 /// @return UTF8 string.
@@ -370,10 +372,12 @@ hltypesFnExport hstr unicode_to_utf8(unsigned char value);
 /// @param[in] string The unsigned int string.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
+#ifndef _ANDROID
 /// @brief Converts a unicode wchar string to a UTF8 string.
 /// @param[in] string The wchar string.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
+#endif
 /// @brief Converts a char string to a UTF8 string.
 /// @param[in] string The char string.
 /// @return UTF8 string.
@@ -386,10 +390,12 @@ hltypesFnExport hstr unicode_to_utf8(const unsigned char* string);
 /// @param[in] string The unsigned int characters.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
+#ifndef _ANDROID
 /// @brief Converts a unicode wchar Array to a UTF8 string.
 /// @param[in] string The wchar characters.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(hltypes::Array<wchar_t> chars);
+#endif
 /// @brief Converts a char Array to a UTF8 string.
 /// @param[in] string The char characters.
 /// @return UTF8 string.
@@ -408,11 +414,13 @@ hltypesFnExport unsigned int utf8_to_uint(chstr input, int* character_length = N
 /// @param[out] lenght Length of the string.
 /// @return The unsigned int string.
 hltypesFnExport std::basic_string<unsigned int> utf8_to_unicode(chstr input);
+#ifndef _ANDROID
 /// @brief Converts a UTF8 string into a wchar string.
 /// @param[in] input The UTF8 string.
 /// @param[out] lenght Length of the string.
 /// @return The wchar_t string.
 hltypesFnExport std::basic_string<wchar_t> utf8_to_wchars(chstr input);
+#endif
 
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.
