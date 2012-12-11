@@ -385,10 +385,12 @@ hstr unicode_to_utf8(unsigned int value)
 	return result;
 }
 
+#ifndef _ANDROID
 hstr unicode_to_utf8(wchar_t value)
 {
 	return unicode_to_utf8((unsigned int)value);
 }
+#endif
 
 hstr unicode_to_utf8(char value)
 {
@@ -413,6 +415,7 @@ hstr unicode_to_utf8(const unsigned int* string)
 	return result;
 }
 
+#ifndef _ANDROID
 hstr unicode_to_utf8(const wchar_t* string)
 {
 	hstr result;
@@ -425,6 +428,7 @@ hstr unicode_to_utf8(const wchar_t* string)
 	}
 	return result;
 }
+#endif
 
 hstr unicode_to_utf8(const char* string)
 {
@@ -446,6 +450,7 @@ hstr unicode_to_utf8(harray<unsigned int> chars)
 	return result;
 }
 
+#ifndef _ANDROID
 hstr unicode_to_utf8(harray<wchar_t> chars)
 {
 	hstr result;
@@ -455,6 +460,7 @@ hstr unicode_to_utf8(harray<wchar_t> chars)
 	}
 	return result;
 }
+#endif
 
 hstr unicode_to_utf8(harray<char> chars)
 {
@@ -548,6 +554,7 @@ std::basic_string<unsigned int> utf8_to_unicode(chstr input)
 	return result;
 }
 
+#ifndef _ANDROID
 std::basic_string<wchar_t> utf8_to_wchars(chstr input)
 {
 	std::basic_string<unsigned int> ustring = utf8_to_unicode(input);
@@ -558,6 +565,7 @@ std::basic_string<wchar_t> utf8_to_wchars(chstr input)
 	}
 	return result;
 }
+#endif
 
 // CRC32 stuff
 
