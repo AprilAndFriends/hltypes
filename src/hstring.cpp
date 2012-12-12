@@ -716,9 +716,6 @@ hstr hvsprintf(const char* format, va_list args)
 	return result;
 }
 
-
-
-
 hstr hsprintf(const char* format, ...)
 {
 	va_list args;
