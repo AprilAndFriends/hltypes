@@ -22,7 +22,9 @@
 #undef min
 #endif
 #define NOMINMAX
+#ifndef _NO_WIN_H
 #include <windows.h>
+#endif
 #if defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
 #if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 #define _HL_WINRT 1
