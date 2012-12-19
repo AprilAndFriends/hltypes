@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.0
+/// @version 2.01
 /// 
 /// @section LICENSE
 /// 
@@ -25,7 +25,7 @@
 #define _closedir(dirp) closedir(dirp)
 #endif
 #ifdef HAVE_ZIPRESOURCE
-#include <zip/zip.h>
+#include "zipaccess.h"
 #endif
 
 // prevents recursive calls of hdir::rename as this function is called via this pointer
@@ -35,10 +35,9 @@ int (*d_rename)(const char* old_name, const char* new_name) = rename;
 #include "hdir.h"
 #include "hfile.h"
 #include "hltypesUtil.h"
+#include "hplatform.h"
 #include "hresource.h"
 #include "hstring.h"
-
-#include "hplatform.h"
 
 #ifdef _WIN32
 #if _HL_WINRT
@@ -411,20 +410,21 @@ namespace hltypes
 			result[i] = result[i].replace(Resource::getCwd() + "/", "");
 		}
 #else
-		hstr current;
 		Array<hstr> result;
 		hstr cwd = Resource::getCwd();
-		struct zip* archivefile = zip_open(Resource::getArchive().c_str(), 0, NULL);
-		if (archivefile != NULL)
+		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
+		if (a != NULL)
 		{
-			int count = zip_get_num_files(archivefile);
+			harray<hstr> files = zip::getFiles(a);
+			zip::close(NULL, a);
+			hstr current;
 			int slashCount = 0;
-			for_iter (i, 0, count)
+			foreach (hstr, it, files)
 			{
-				current = systemize_path(hstr(zip_get_name(archivefile, i, 0)));
+				current = (*it);
 				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name))
 				{
-					slashCount = current.count("/");
+					slashCount = current.count('/');
 					if (slashCount == 0) // file
 					{
 						result += current;
@@ -489,17 +489,18 @@ namespace hltypes
 			result[i] = result[i].replace(Resource::getCwd() + "/", "");
 		}
 #else
-		hstr current;
 		Array<hstr> result;
 		hstr cwd = Resource::getCwd();
-		struct zip* archivefile = zip_open(Resource::getArchive().c_str(), 0, NULL);
-		if (archivefile != NULL)
+		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
+		if (a != NULL)
 		{
-			int count = zip_get_num_files(archivefile);
-			for_iter (i, 0, count)
+			harray<hstr> files = zip::getFiles(a);
+			zip::close(NULL, a);
+			hstr current;
+			foreach (hstr, it, files)
 			{
-				current = systemize_path(hstr(zip_get_name(archivefile, i, 0)));
-				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.count("/") == 1)
+				current = (*it);
+				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.count('/') == 1)
 				{
 					result += current.split('/', 1).pop_first();
 				}
@@ -562,17 +563,18 @@ namespace hltypes
 			}
 		}
 #else
-		hstr current;
 		Array<hstr> result;
 		hstr cwd = Resource::getCwd();
-		struct zip* archivefile = zip_open(Resource::getArchive().c_str(), 0, NULL);
-		if (archivefile != NULL)
+		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
+		if (a != NULL)
 		{
-			int count = zip_get_num_files(archivefile);
-			for_iter (i, 0, count)
+			harray<hstr> files = zip::getFiles(a);
+			zip::close(NULL, a);
+			hstr current;
+			foreach (hstr, it, files)
 			{
-				current = systemize_path(hstr(zip_get_name(archivefile, i, 0)));
-				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.count("/") == 0)
+				current = (*it);
+				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.count('/') == 0)
 				{
 					result += current;
 				}
