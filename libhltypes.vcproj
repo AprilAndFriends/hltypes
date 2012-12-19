@@ -219,6 +219,10 @@
 				RelativePath=".\src\hthread.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\zipaccess.cpp"
+				>
+			</File>
 			<Filter
 				Name="platform"
 				>
@@ -311,6 +315,10 @@
 			</File>
 			<File
 				RelativePath=".\include\hltypes\hthread.h"
+				>
+			</File>
+			<File
+				RelativePath=".\arc\zipaccess.h"
 				>
 			</File>
 		</Filter>
