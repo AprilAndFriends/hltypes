@@ -355,7 +355,7 @@
     <ClCompile Include="src\platform\Android_platform.cpp" />
     <ClCompile Include="src\platform\Win32_platform.cpp" />
     <ClCompile Include="src\platform\WinRT_platform.cpp" />
-    <ClCompile Include="src\platform\zipaccess.cpp" />
+    <ClCompile Include="src\zipaccess.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\hltypes\exception.h" />
@@ -376,7 +376,7 @@
     <ClInclude Include="include\hltypes\hstring.h" />
     <ClInclude Include="include\hltypes\hthread.h" />
     <ClInclude Include="include\hltypes\hltypesUtil.h" />
-    <ClInclude Include="include\hltypes\zipaccess.h" />
+    <ClInclude Include="src\zipaccess.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
