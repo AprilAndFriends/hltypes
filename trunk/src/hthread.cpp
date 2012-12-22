@@ -119,7 +119,29 @@ namespace hltypes
 			this->id = 0;
 		}
 #else
-		((AsyncActionWrapper*)this->id)->async_action->Close();
+		IAsyncAction^ action = ((AsyncActionWrapper*)this->id)->async_action;
+		int i = 0;
+		while (action->Status != AsyncStatus::Completed &&
+			action->Status != AsyncStatus::Canceled &&
+			action->Status != AsyncStatus::Error &&
+			i < 100)
+		{
+			hthread::sleep(50);
+			i++;
+		}
+		if (i >= 100)
+		{
+			i = 0;
+			action->Cancel();
+			while (action->Status != AsyncStatus::Completed &&
+				action->Status != AsyncStatus::Canceled &&
+				action->Status != AsyncStatus::Error &&
+				i < 100)
+			{
+				hthread::sleep(50);
+				i++;
+			}
+		}
 #endif
 #else
 		pthread_join(this->id, 0);
