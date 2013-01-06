@@ -194,7 +194,7 @@ namespace hltypes
 		String upper() const;
 		/// @brief Reverses String.
 		/// @return Reversed String.
-		String reverse() const;		
+		String reverse() const;
 		/// @brief Checks if all elements of the string contain only one digit '0'-'9'.
 		/// @return True if string is a digit.
 		bool is_digit() const;
