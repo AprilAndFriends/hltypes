@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.01
 /// 
 /// @section LICENSE
 /// 
@@ -21,7 +21,9 @@
 #ifdef min
 #undef min
 #endif
+#ifndef NOMINMAX
 #define NOMINMAX
+#endif
 #ifndef _NO_WIN_H
 #include <windows.h>
 #endif
