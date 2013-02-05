@@ -33,7 +33,7 @@
 			#endif
 		#else
 			#define hlxmlExport __attribute__ ((visibility("default")))
-			#define hlxmlFnExport
+			#define hlxmlFnExport __attribute__ ((visibility("default")))
 		#endif
 	#endif
 	#ifndef DEPRECATED_ATTRIBUTE

@@ -436,8 +436,8 @@ namespace hltypes
 			int count = 0;
 			for_iter (i, 0, other.size())
 			{
-				Array<int> indexes = this->indexes_of(other.at(i));
-				iterator_t it = stdvector::begin();
+				indexes = this->indexes_of(other.at(i));
+				it = stdvector::begin();
 				for_iter_r (j, indexes.size(), 0)
 				{
 					stdvector::erase(it + indexes[j]);
