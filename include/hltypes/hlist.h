@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.02
 /// 
 /// @section LICENSE
 /// 
@@ -56,9 +56,9 @@ namespace hltypes
 		{
 			if (index < 0)
 			{
-				return stdlist::at(this->size() + index);
+				return (*this->_iterator_plus(stdlist::begin(), this->size() + index));
 			}
-			return stdlist::at(index);
+			return (*this->_iterator_plus(stdlist::begin(), index));
 		}
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
@@ -68,9 +68,9 @@ namespace hltypes
 		{
 			if (index < 0)
 			{
-				return stdlist::at(this->size() + index);
+				return (*this->_const_iterator_plus(stdlist::begin(), this->size() + index));
 			}
-			return stdlist::at(index);
+			return (*this->_const_iterator_plus(stdlist::begin(), index));
 		}
 		/// @brief Returns a sublist.
 		/// @param[in] start Start index of the elements to copy.
@@ -244,7 +244,7 @@ namespace hltypes
 			{
 				throw container_index_error(index);
 			}
-			stdlist::insert(stdlist::begin() + index, times, element);
+			stdlist::insert(this->_iterator_plus(stdlist::begin(), index), times, element);
 		}
 		/// @brief Inserts all elements of another List into this one.
 		/// @param[in] index Position where to insert the new elements.
@@ -255,7 +255,7 @@ namespace hltypes
 			{
 				throw container_index_error(index);
 			}
-			stdlist::insert(stdlist::begin() + index, other.begin(), other.end());
+			stdlist::insert(this->_iterator_plus(stdlist::begin(), index), other.begin(), other.end());
 		}
 		/// @brief Inserts all elements of another List into this one.
 		/// @param[in] index Position where to insert the new elements.
@@ -272,7 +272,7 @@ namespace hltypes
 				throw container_range_error(0, count);
 			}
 			const_iterator_t it = other.begin();
-			stdlist::insert(stdlist::begin() + index, it, this->_const_iterator_plus(it, count));
+			stdlist::insert(this->_iterator_plus(stdlist::begin(), index), it, this->_const_iterator_plus(it, count));
 		}
 		/// @brief Inserts all elements of another List into this one.
 		/// @param[in] index Position where to insert the new elements.
@@ -290,7 +290,7 @@ namespace hltypes
 				throw container_range_error(start, count);
 			}
 			const_iterator_t it = this->_const_iterator_plus(other.begin(), start);
-			stdlist::insert(stdlist::begin() + index, it, this->_const_iterator_plus(it, count));
+			stdlist::insert(this->_iterator_plus(stdlist::begin(), index), it, this->_const_iterator_plus(it, count));
 		}
 		/// @brief Inserts all elements of a C-type array into this List.
 		/// @param[in] index Position where to insert the new elements.
@@ -298,7 +298,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const T other[], const int count)
 		{
-			stdlist::insert(stdlist::begin() + index, other, other + count);
+			stdlist::insert(this->_iterator_plus(stdlist::begin(), index), other, other + count);
 		}
 		/// @brief Inserts all elements of a C-type array into this List.
 		/// @param[in] index Position where to insert the new elements.
@@ -307,7 +307,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to insert.
 		void insert_at(const int index, const T other[], const int start, const int count)
 		{
-			stdlist::insert(stdlist::begin() + index, other + start, other + (start + count));
+			stdlist::insert(this->_iterator_plus(stdlist::begin(), index), other + start, other + (start + count));
 		}
 		/// @brief Removes element at given index.
 		/// @param[in] index Index of element to remove.
