@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.0
+/// @version 2.02
 /// 
 /// @section LICENSE
 /// 
@@ -50,6 +50,11 @@ namespace hltypes
 #define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.01
+
+/// @brief This macro is used to make it possible to use Map in macros because of the argument problems in macros.
+/// @param[in] keyType Map key type.
+/// @param[in] valueType Map value type.
+#define HL_HMAP_MACRO_FIX(keyType, valueType) hmap<keyType, valueType>
 
 /// @brief Utility macro for quick getter definition.
 /// @param[in] type Variable type.
