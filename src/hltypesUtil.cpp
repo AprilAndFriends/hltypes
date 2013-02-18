@@ -221,14 +221,29 @@ double hmodd(double d, double m)
 	return (d >= 0.0 ? fmod(d, m) : fmod(m - fmod(-d, m), m));
 }
 
+float hhypot(float a, float b)
+{
+	return (float)sqrt(a * a + b * b);
+}
+
 double hhypot(double a, double b)
 {
 	return sqrt(a * a + b * b);
 }
 
-float hhypot(float a, float b)
+float hhypot(int a, int b)
 {
-	return (float)sqrt(a * a + b * b);
+	return (float)sqrt((float)a * a + (float)b * b);
+}
+
+double hhypotd(int a, int b)
+{
+	return sqrt((double)a * a + (double)b * b);
+}
+
+float hhypotSquared(float a, float b)
+{
+	return (a * a + b * b);
 }
 
 double hhypotSquared(double a, double b)
@@ -236,9 +251,14 @@ double hhypotSquared(double a, double b)
 	return (a * a + b * b);
 }
 
-float hhypotSquared(float a, float b)
+float hhypotSquared(int a, int b)
 {
-	return (a * a + b * b);
+	return (float)(a * a + b * b);
+}
+
+double hhypotSquaredd(int a, int b)
+{
+	return (double)(a * a + b * b);
 }
 
 bool heqf(float a, float b, float tolerance)
