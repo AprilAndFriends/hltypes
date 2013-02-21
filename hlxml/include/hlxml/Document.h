@@ -21,6 +21,8 @@
 
 namespace hlxml
 {
+	extern hstr logTag;
+
 	class Document;
 	class Node;
 	

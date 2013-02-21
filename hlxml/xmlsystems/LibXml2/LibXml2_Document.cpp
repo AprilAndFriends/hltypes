@@ -13,6 +13,7 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 
+#include <hltypes/hlog.h>
 #include <hltypes/hstring.h>
 
 #include "Exception.h"
@@ -27,7 +28,9 @@ namespace hlxml
 		this->document = xmlParseFile(realFilename.c_str());
 		if (this->document == NULL)
 		{
-			throw XMLException("Unable to parse xml file '" + realFilename + "', document is invalid", NULL);
+			hstr errorText = "An error occcured parsing XML file '" + realFilename + "'.";
+			hlog::error(hlxml::logTag, errorText);
+			throw XMLException(errorText, NULL);
 		}
 	}
 
