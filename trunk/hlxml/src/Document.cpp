@@ -21,6 +21,8 @@
 
 namespace hlxml
 {
+	hstr logTag = "hlxml";
+
 	Document* open(chstr filename)
 	{
 #ifdef USE_LIBXML2

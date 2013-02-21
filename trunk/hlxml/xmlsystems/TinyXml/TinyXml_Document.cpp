@@ -12,6 +12,7 @@
 
 #include <tinyxml/tinyxml.h>
 
+#include <hltypes/hlog.h>
 #include <hltypes/hresource.h>
 #include <hltypes/hstring.h>
 
@@ -46,7 +47,9 @@ namespace hlxml
 					desc += "\n----------------------------------------------------------";
 				}
 			}
-			throw XMLException("An error occcured parsing XML file '" + realFilename + "': " + desc, NULL);
+			hstr errorText = "An error occcured parsing XML file '" + realFilename + "': " + desc;
+			hlog::error(hlxml::logTag, errorText);
+			throw XMLException(errorText, NULL);
 		}
 	}
 
