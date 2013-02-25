@@ -546,6 +546,16 @@ unsigned int utf8_to_uint(chstr input, int* character_length)
 std::basic_string<unsigned int> utf8_to_unicode(chstr input)
 {
 	std::basic_string<unsigned int> result;
+#ifdef __APPLE__ // bugfix for apple llvm compiler, has allocation problems in std::string with unsigned int comibination
+	if (input.size() == 0)
+	{
+		unsigned int array[] = {'x', 0};
+		result = array;
+		array[0] = 0;
+		result = array;
+		return result;
+	}
+#endif
 	const unsigned char* str = (const unsigned char*)input.c_str();
 	int i = 0;
 	while (str[i] != 0)
