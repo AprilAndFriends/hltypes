@@ -324,11 +324,16 @@ hltypesFnExport float hhypotSquared(float a, float b);
 /// @param[in] b Second cathetus.
 /// @return The double squared length of the hypotenuse of a right-angles triangle.
 hltypesFnExport double hhypotSquared(double a, double b);
+/// @brief Calculates the int squared length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The int squared length of the hypotenuse of a right-angles triangle.
+hltypesFnExport int hhypotSquared(int a, int b);
 /// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The float squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport float hhypotSquared(int a, int b);
+hltypesFnExport float hhypotSquaredf(int a, int b);
 /// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
