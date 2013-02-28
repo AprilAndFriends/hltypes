@@ -251,7 +251,12 @@ double hhypotSquared(double a, double b)
 	return (a * a + b * b);
 }
 
-float hhypotSquared(int a, int b)
+int hhypotSquared(int a, int b)
+{
+	return (a * a + b * b);
+}
+
+float hhypotSquaredf(int a, int b)
 {
 	return (float)(a * a + b * b);
 }
