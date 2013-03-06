@@ -59,12 +59,7 @@ namespace hltypes
 		out += String(s);
 		if (remove_empty)
 		{
-			int index = out.index_of("");
-			while (index >= 0)
-			{
-				out.remove_at(index);
-				index = out.index_of("");
-			}
+			out.remove_all("");
 		}
 		return out;
 	}
@@ -105,12 +100,7 @@ namespace hltypes
 		out += String(s);
 		if (remove_empty)
 		{
-			int index = out.index_of("");
-			while (index >= 0)
-			{
-				out.remove_at(index);
-				index = out.index_of("");
-			}
+			out.remove_all("");
 		}
 		return out;
 	}
@@ -168,21 +158,21 @@ namespace hltypes
 	
 	String String::lower() const
 	{
-		hstr s(*this);
+		String s(*this);
 		std::transform(s.begin(), s.end(), s.begin(), tolower);
 		return s;
 	}
 	
 	String String::upper() const
 	{
-		hstr s(*this);
+		String s(*this);
 		std::transform(s.begin(), s.end(), s.begin(), toupper);
 		return s;
 	}
 
 	String String::reverse() const
 	{
-		hstr s(*this);
+		String s(*this);
 		std::reverse(s.begin(), s.end());
 		return s;
 	}
@@ -274,9 +264,12 @@ namespace hltypes
 
 	String String::ltrim(char c) const
 	{
-		const char* cstr;
-		for (cstr = c_str(); *cstr == c; cstr++);
-		return hstr(cstr == NULL ? "" : cstr);
+		const char* cstr = stdstr::c_str();
+		while (*cstr == c)
+		{
+			cstr++;
+		}
+		return cstr;
 	}
 
 	String String::rtrim(char c) const
@@ -378,10 +371,10 @@ namespace hltypes
 	int String::count(const char* substr) const
 	{
 		int c = 0;
-		hstr tmp(stdstr::c_str());
+		String temp = stdstr::c_str();
 		for_iter (i, 0, this->size())
 		{
-			if (tmp(i, -1).starts_with(substr))
+			if (temp(i, -1).starts_with(substr))
 			{
 				c++;
 				i += strlen(substr) - 1;
@@ -597,8 +590,8 @@ namespace hltypes
 	
 	void String::operator+=(const char c)
 	{
-		char chstr[2] = {c, '\0'};
-		stdstr::append(chstr);
+		char cstr[2] = {c, '\0'};
+		stdstr::append(cstr);
 	}
 	
 	bool String::operator==(const float f) const
