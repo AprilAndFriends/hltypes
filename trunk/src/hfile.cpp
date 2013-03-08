@@ -150,7 +150,7 @@ namespace hltypes
 	bool File::move(chstr filename, chstr path, bool overwrite)
 	{
 		hstr name = normalize_path(filename);
-		return File::rename(name, path + "/" + name.rsplit("/", 1, false).pop_last(), overwrite);
+		return File::rename(name, path + "/" + name.rsplit("/", 1, false).remove_last(), overwrite);
 	}
 	
 	bool File::copy(chstr old_filename, chstr new_filename, bool overwrite)

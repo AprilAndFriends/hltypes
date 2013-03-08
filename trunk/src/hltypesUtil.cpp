@@ -299,27 +299,27 @@ hstr normalize_path(chstr path)
 	{
 		if (directories.first() == ".")
 		{
-			directories.pop_first();
+			directories.remove_first();
 		}
 		else if (directories.first() == "..")
 		{
 			if (result.size() == 0)
 			{
-				result += directories.pop_first();
+				result += directories.remove_first();
 			}
 			else if (result.last() == "..")
 			{
-				result += directories.pop_first();
+				result += directories.remove_first();
 			}
 			else
 			{
-				result.pop_last();
-				directories.pop_first();
+				result.remove_last();
+				directories.remove_first();
 			}
 		}
 		else
 		{
-			result += directories.pop_first();
+			result += directories.remove_first();
 		}
 	}
 	if (result.size() == 0)
@@ -336,7 +336,7 @@ hstr get_basedir(chstr path)
 	{
 		return ".";
 	}
-	result.pop_last();
+	result.remove_last();
 	return result.join("/");
 }
 
@@ -347,7 +347,7 @@ hstr get_basename(chstr path)
 	{
 		return "";
 	}
-	return result.pop_last();
+	return result.remove_last();
 }
 
 hstr get_environment_variable(chstr name)

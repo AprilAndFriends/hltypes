@@ -187,7 +187,7 @@ namespace hltypes
 		Array<hstr> folders = name.split("/", -1, false);
 		if (folders.size() > 0)
 		{
-			hstr path = folders.pop_first();
+			hstr path = folders.remove_first();
 			hmkdir(path);
 			foreach (hstr, it, folders)
 			{
@@ -286,7 +286,7 @@ namespace hltypes
 	{
 		hstr name = normalize_path(dirname);
 		hstr path_name = normalize_path(path);
-		return hdir::rename(name, path_name + "/" + name.rsplit("/", 1, false).pop_last());
+		return hdir::rename(name, path_name + "/" + name.rsplit("/", 1, false).remove_last());
 	}
 	
 	bool Dir::copy(chstr old_dirname, chstr new_dirname)
@@ -431,7 +431,7 @@ namespace hltypes
 					}
 					else if (slashCount == 1) // directory
 					{
-						result += current.split('/', 1).pop_first();
+						result += current.split('/', 1).remove_first();
 					}
 				}
 			}
@@ -502,7 +502,7 @@ namespace hltypes
 				current = (*it);
 				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.count('/') == 1)
 				{
-					result += current.split('/', 1).pop_first();
+					result += current.split('/', 1).remove_first();
 				}
 			}
 		}
