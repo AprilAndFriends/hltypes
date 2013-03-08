@@ -416,6 +416,18 @@ namespace hltypes
 			}
 			return result;
 		}
+		/// @brief Same as pop_random.
+		/// @see pop_random().
+		K remove_random(V* value = NULL)
+		{
+			return this->pop_random(value);
+		}
+		/// @brief Same as pop_random.
+		/// @see pop_random(const int count).
+		Map<K, V> remove_random(const int count)
+		{
+			return this->pop_random(count);
+		}
 		/// @brief Finds and returns new Map with entries that match the condition.
 		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return New Map with all matching elements.

@@ -1288,6 +1288,18 @@ namespace hltypes
 		{
 			return this->pop_back(count);
 		}
+		/// @brief Same as pop_random.
+		/// @see pop_random().
+		T remove_random()
+		{
+			return this->pop_random();
+		}
+		/// @brief Same as pop_random.
+		/// @see pop_random(const int count).
+		Deque<T> remove_random(const int count)
+		{
+			return this->pop_random(count);
+		}
 		/// @brief Same as remove_at.
 		/// @see remove_at(const int index)
 		T pop(const int index)
