@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.01
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -21,15 +21,15 @@ namespace hltypes
 {
 	namespace zip
 	{
-		void setArchive(chstr value);
-		void* open(hresource* resource);
-		void close(hresource* resource, void* archive);
-		void* fopen(void* archivefile, chstr filename);
+		void setArchive(const String& value);
+		void* open(Resource* resource);
+		void close(Resource* resource, void* archive);
+		void* fopen(void* archivefile, const String& filename);
 		void fclose(void* file);
 		long fread(void* file, void* buffer, int count);
-		long fsize(void* archivefile, chstr filename);
-		void* freopen(void* file, void* archivefile, chstr filename);
-		harray<hstr> getFiles(void* archivefile);
+		long fsize(void* archivefile, const String& filename);
+		void* freopen(void* file, void* archivefile, const String& filename);
+		Array<String> getFiles(void* archivefile);
 
 	}
 

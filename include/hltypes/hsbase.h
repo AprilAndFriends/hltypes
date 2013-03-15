@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -69,28 +69,28 @@ namespace hltypes
 		/// @return The read string.
 		/// @note Delimiter String is not included in return result.
 		/// @note When delimiter is omitted, the file will be read until EOF.
-		hstr read(chstr delimiter = "");
+		String read(const String& delimiter = "");
 		/// @brief Reads n bytes from the stream.
 		/// @param[in] count Number of bytes to read.
 		/// @return The read string.
-		hstr read(int count);
+		String read(int count);
 		/// @brief Reads one line from the stream.
 		/// @return The read line.
 		/// @note \\n is not included in the returned String.
-		hstr read_line();
+		String read_line();
 		/// @brief Reads all lines from the stream.
 		/// @return Array with read lines.
 		/// @note \\n is not included in the read lines.
-		Array<hstr> read_lines();
+		Array<String> read_lines();
 		/// @brief Writes string to the stream.
 		/// @param[in] text String to write.
-		void write(chstr text);
+		void write(const String& text);
 		/// @brief Writes string to the stream.
 		/// @param[in] text C-type string to write.
 		void write(const char* text);
 		/// @brief Writes string to the stream and appends \\n at the end.
 		/// @param[in] text String to write.
-		void write_line(chstr text);
+		void write_line(const String& text);
 		/// @brief Writes string to the stream and appends \\n at the end.
 		/// @param[in] text C-type string to write.
 		void write_line(const char* text);
@@ -155,7 +155,7 @@ namespace hltypes
 		void dump(bool b);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param str String to dump.
-		void dump(chstr str);
+		void dump(const String& str);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c C-type string to dump.
 		void dump(const char* c);
@@ -195,10 +195,10 @@ namespace hltypes
 		bool load_bool();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded String.
-		hstr load_hstr();
+		String load_hstr();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded String.
-		hstr load_string();
+		String load_string();
 		
 	protected:
 		/// @brief Data size, mostly used for optimization and faster "eof" detection.
@@ -213,7 +213,7 @@ namespace hltypes
 
 		/// @brief Gets special descriptor.
 		/// @returns Special descriptor.
-		virtual hstr _descriptor() { return "stream"; }
+		virtual String _descriptor() { return "stream"; }
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.

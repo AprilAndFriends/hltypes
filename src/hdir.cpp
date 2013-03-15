@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.01
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -28,7 +28,7 @@
 #include "zipaccess.h"
 #endif
 
-// prevents recursive calls of hdir::rename as this function is called via this pointer
+// prevents recursive calls of Dir::rename as this function is called via this pointer
 int (*d_rename)(const char* old_name, const char* new_name) = rename;
 
 #include "harray.h"
@@ -42,7 +42,7 @@ int (*d_rename)(const char* old_name, const char* new_name) = rename;
 #ifdef _WIN32
 #if _HL_WINRT
 #define _chdir(name) winrtcwd = name
-static hstr winrtcwd = ".";
+static hltypes::String winrtcwd = ".";
 #elif defined(_MSC_VER)
 #include <AccCtrl.h>
 #endif
@@ -53,7 +53,7 @@ namespace hltypes
 	bool Dir::win32FullDirectoryPermissions = true;
 
 #if defined(_WIN32) && defined(_MSC_VER) && !_HL_WINRT // god help us all
-	static bool _mkdirWin32FullPermissions(chstr path)
+	static bool _mkdirWin32FullPermissions(const String& path)
 	{
 		typedef BOOL (WINAPI* TInitSD)(PSECURITY_DESCRIPTOR, DWORD);
 		typedef BOOL (WINAPI* TAllocSid)(PSID_IDENTIFIER_AUTHORITY, BYTE, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, PSID*);
@@ -112,7 +112,7 @@ namespace hltypes
 	}
 #endif
 
-	bool _check_dir_prefix(hstr& path, chstr prefix)
+	bool _check_dir_prefix(String& path, const String& prefix)
 	{
 		if (prefix == "" || prefix == ".")
 		{
@@ -134,7 +134,7 @@ namespace hltypes
 		return false;
 	}
 	
-	static bool hmkdir(chstr path)
+	static bool hmkdir(const String& path)
 	{
 		// TODO
 		/*
@@ -153,7 +153,7 @@ namespace hltypes
 		return (_mkdir(path.c_str()) != 0);
 	}
 	
-	static bool hremove(chstr dirname)
+	static bool hremove(const String& dirname)
 	{
 		// TODO
 		/*
@@ -165,7 +165,7 @@ namespace hltypes
 		return (remove(dirname.c_str()) != 0);
 	}
 	
-	static bool hrmdir(chstr dirname)
+	static bool hrmdir(const String& dirname)
 	{
 		// TODO
 		/*
@@ -177,56 +177,56 @@ namespace hltypes
 		return (_rmdir(dirname.c_str()) != 0);
 	}
 	
-	bool Dir::create(chstr dirname)
+	bool Dir::create(const String& dirname)
 	{
-		hstr name = normalize_path(dirname);
-		if (name == "" || hdir::exists(name))
+		String name = normalize_path(dirname);
+		if (name == "" || Dir::exists(name))
 		{
 			return false;
 		}
-		Array<hstr> folders = name.split("/", -1, false);
+		Array<String> folders = name.split("/", -1, false);
 		if (folders.size() > 0)
 		{
-			hstr path = folders.remove_first();
+			String path = folders.remove_first();
 			hmkdir(path);
-			foreach (hstr, it, folders)
+			foreach (String, it, folders)
 			{
 				path += "/" + (*it);
 				hmkdir(path);
 			}
 		}
-		return hdir::exists(dirname);
+		return Dir::exists(dirname);
 	}
 	
-	bool Dir::create_new(chstr dirname)
+	bool Dir::create_new(const String& dirname)
 	{
-		return (hdir::create(dirname) || hdir::clear(dirname));
+		return (Dir::create(dirname) || Dir::clear(dirname));
 	}
 	
-	bool Dir::remove(chstr dirname)
+	bool Dir::remove(const String& dirname)
 	{
-		hstr name = normalize_path(dirname);
-		if (name == "" || !hdir::exists(name))
+		String name = normalize_path(dirname);
+		if (name == "" || !Dir::exists(name))
 		{
 			return false;
 		}
-		Array<hstr> directories = hdir::directories(name);
-		foreach (hstr, it, directories)
+		Array<String> directories = Dir::directories(name);
+		foreach (String, it, directories)
 		{
-			hdir::remove(name + "/" + (*it));
+			Dir::remove(name + "/" + (*it));
 		}
-		Array<hstr> files = hdir::files(name);
-		foreach (hstr, it, files)
+		Array<String> files = Dir::files(name);
+		foreach (String, it, files)
 		{
 			hfile::remove(name + "/" + (*it));
 		}
 		hrmdir(name);
-		return hdir::exists(name);
+		return Dir::exists(name);
 	}
 	
-	bool Dir::exists(chstr dirname)
+	bool Dir::exists(const String& dirname)
 	{
-		hstr name = normalize_path(dirname);
+		String name = normalize_path(dirname);
 		DIR* dir = _opendir(name);
 		if (dir != NULL)
 		{
@@ -236,9 +236,9 @@ namespace hltypes
 		return false;
 	}
 	
-	bool Dir::resource_exists(chstr dirname)
+	bool Dir::resource_exists(const String& dirname)
 	{
-		hstr name = normalize_path(dirname);
+		String name = normalize_path(dirname);
 		if (name == "" || name == ".")
 		{
 			return true;
@@ -250,103 +250,103 @@ namespace hltypes
 #endif
 	}
 	
-	bool Dir::clear(chstr dirname)
+	bool Dir::clear(const String& dirname)
 	{
-		hstr name = normalize_path(dirname);
-		if (name == "" || !hdir::exists(name))
+		String name = normalize_path(dirname);
+		if (name == "" || !Dir::exists(name))
 		{
 			return false;
 		}
-		Array<hstr> directories = hdir::directories(name);
-		foreach (hstr, it, directories)
+		Array<String> directories = Dir::directories(name);
+		foreach (String, it, directories)
 		{
-			hdir::remove(name + "/" + (*it));
+			Dir::remove(name + "/" + (*it));
 		}
-		Array<hstr> files = hdir::files(name);
-		foreach (hstr, it, files)
+		Array<String> files = Dir::files(name);
+		foreach (String, it, files)
 		{
 			hfile::remove(name + "/" + (*it));
 		}
 		return (directories.size() > 0 || files.size() > 0);
 	}
 	
-	bool Dir::rename(chstr old_dirname, chstr new_dirname)
+	bool Dir::rename(const String& old_dirname, const String& new_dirname)
 	{
-		hstr old_name = normalize_path(old_dirname);
-		hstr new_name = normalize_path(new_dirname);
-		if (!hdir::exists(old_name) || hdir::exists(new_name))
+		String old_name = normalize_path(old_dirname);
+		String new_name = normalize_path(new_dirname);
+		if (!Dir::exists(old_name) || Dir::exists(new_name))
 		{
 			return false;
 		}
-		hdir::create_path(new_name);
+		Dir::create_path(new_name);
 		return (d_rename(old_name.c_str(), new_name.c_str()) == 0);
 	}
 	
-	bool Dir::move(chstr dirname, chstr path)
+	bool Dir::move(const String& dirname, const String& path)
 	{
-		hstr name = normalize_path(dirname);
-		hstr path_name = normalize_path(path);
-		return hdir::rename(name, path_name + "/" + name.rsplit("/", 1, false).remove_last());
+		String name = normalize_path(dirname);
+		String path_name = normalize_path(path);
+		return Dir::rename(name, path_name + "/" + name.rsplit("/", 1, false).remove_last());
 	}
 	
-	bool Dir::copy(chstr old_dirname, chstr new_dirname)
+	bool Dir::copy(const String& old_dirname, const String& new_dirname)
 	{
-		hstr old_name = normalize_path(old_dirname);
-		hstr new_name = normalize_path(new_dirname);
-		if (!hdir::exists(old_name) || hdir::exists(new_name))
+		String old_name = normalize_path(old_dirname);
+		String new_name = normalize_path(new_dirname);
+		if (!Dir::exists(old_name) || Dir::exists(new_name))
 		{
 			return false;
 		}
-		hdir::create(new_name);
-		Array<hstr> directories = hdir::directories(old_name);
-		foreach (hstr, it, directories)
+		Dir::create(new_name);
+		Array<String> directories = Dir::directories(old_name);
+		foreach (String, it, directories)
 		{
-			hdir::copy(old_name + "/" + (*it), new_name + "/" + (*it));
+			Dir::copy(old_name + "/" + (*it), new_name + "/" + (*it));
 		}
-		Array<hstr> files = hdir::files(old_name);
-		foreach (hstr, it, files)
+		Array<String> files = Dir::files(old_name);
+		foreach (String, it, files)
 		{
 			hfile::copy(old_name + "/" + (*it), new_name + "/" + (*it));
 		}
 		return true;
 	}
 	
-	bool Dir::create_path(chstr path)
+	bool Dir::create_path(const String& path)
 	{
-		hstr name = get_basedir(path);
-		return (name != "" && name != "." && hdir::create(name));
+		String name = get_basedir(path);
+		return (name != "" && name != "." && Dir::create(name));
 	}
 	
-	void prepend_directory(chstr dirname, Array<hstr>& entries)
+	void prepend_directory(const String& dirname, Array<String>& entries)
 	{
 		if (dirname != "")
 		{
-			foreach (hstr, it, entries)
+			foreach (String, it, entries)
 			{
 				(*it) = dirname + "/" + (*it);
 			}
 		}
 	}
 	
-	Array<hstr> Dir::entries(chstr dirname, bool prepend_dir)
+	Array<String> Dir::entries(const String& dirname, bool prepend_dir)
 	{
-		hstr name = normalize_path(dirname);
-		Array<hstr> result;
-		if (hdir::exists(name))
+		String name = normalize_path(dirname);
+		Array<String> result;
+		if (Dir::exists(name))
 		{
 			DIR* dir = _opendir(name);
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				result += unicode_to_utf8(entry->d_name);
+				result += String::from_unicode(entry->d_name);
 			}
 			if (!result.contains("."))
 			{
-				result += hstr(".");
+				result += ".";
 			}
 			if (!result.contains(".."))
 			{
-				result += hstr("..");
+				result += "..";
 			}
 			_closedir(dir);
 		}
@@ -357,12 +357,12 @@ namespace hltypes
 		return result;
 	}
 	
-	Array<hstr> Dir::resource_entries(chstr dirname, bool prepend_dir)
+	Array<String> Dir::resource_entries(const String& dirname, bool prepend_dir)
 	{
-		hstr name = normalize_path(dirname);
-		harray<hstr> result = Dir::resource_contents(dirname, false);
-		result += hstr(".");
-		result += hstr("..");
+		String name = normalize_path(dirname);
+		Array<String> result = Dir::resource_contents(dirname, false);
+		result += String(".");
+		result += String("..");
 		if (prepend_dir)
 		{
 			prepend_directory(name, result);
@@ -370,17 +370,17 @@ namespace hltypes
 		return result;
 	}
 	
-	Array<hstr> Dir::contents(chstr dirname, bool prepend_dir)
+	Array<String> Dir::contents(const String& dirname, bool prepend_dir)
 	{
-		hstr name = normalize_path(dirname);
-		Array<hstr> result;
-		if (hdir::exists(name))
+		String name = normalize_path(dirname);
+		Array<String> result;
+		if (Dir::exists(name))
 		{
 			DIR* dir = _opendir(name);
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				result += unicode_to_utf8(entry->d_name);
+				result += String::from_unicode(entry->d_name);
 			}
 			if (result.contains("."))
 			{
@@ -399,27 +399,27 @@ namespace hltypes
 		return result;
 	}
 	
-	Array<hstr> Dir::resource_contents(chstr dirname, bool prepend_dir)
+	Array<String> Dir::resource_contents(const String& dirname, bool prepend_dir)
 	{
-		hstr name = normalize_path(dirname);
+		String name = normalize_path(dirname);
 #ifndef HAVE_ZIPRESOURCE
-		hstr full_path = Resource::make_full_path(name);
-		Array<hstr> result = Dir::directories(full_path, false) + Dir::files(full_path, false);
+		String full_path = Resource::make_full_path(name);
+		Array<String> result = Dir::directories(full_path, false) + Dir::files(full_path, false);
 		for_iter (i, 0, result.size())
 		{
 			result[i] = result[i].replace(Resource::getCwd() + "/", "");
 		}
 #else
-		Array<hstr> result;
-		hstr cwd = Resource::getCwd();
+		Array<String> result;
+		String cwd = Resource::getCwd();
 		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
 		if (a != NULL)
 		{
-			harray<hstr> files = zip::getFiles(a);
+			Array<String> files = zip::getFiles(a);
 			zip::close(NULL, a);
-			hstr current;
+			String current;
 			int slashCount = 0;
-			foreach (hstr, it, files)
+			foreach (String, it, files)
 			{
 				current = (*it);
 				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name))
@@ -445,21 +445,21 @@ namespace hltypes
 		return result;
 	}
 	
-	Array<hstr> Dir::directories(chstr dirname, bool prepend_dir)
+	Array<String> Dir::directories(const String& dirname, bool prepend_dir)
 	{
-		hstr name = normalize_path(dirname);
-		hstr current;
-		Array<hstr> result;
-		if (hdir::exists(name))
+		String name = normalize_path(dirname);
+		String current;
+		Array<String> result;
+		if (Dir::exists(name))
 		{
 			DIR* dir = _opendir(name);
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				current = name + "/" + unicode_to_utf8(entry->d_name);
-				if (hdir::exists(current))
+				current = name + "/" + String::from_unicode(entry->d_name);
+				if (Dir::exists(current))
 				{
-					result += unicode_to_utf8(entry->d_name);
+					result += String::from_unicode(entry->d_name);
 				}
 			}
 			if (result.contains("."))
@@ -479,25 +479,25 @@ namespace hltypes
 		return result;
 	}
 	
-	Array<hstr> Dir::resource_directories(chstr dirname, bool prepend_dir)
+	Array<String> Dir::resource_directories(const String& dirname, bool prepend_dir)
 	{
-		hstr name = normalize_path(dirname);
+		String name = normalize_path(dirname);
 #ifndef HAVE_ZIPRESOURCE
-		Array<hstr> result = Dir::directories(Resource::make_full_path(name), false);
+		Array<String> result = Dir::directories(Resource::make_full_path(name), false);
 		for_iter (i, 0, result.size())
 		{
 			result[i] = result[i].replace(Resource::getCwd() + "/", "");
 		}
 #else
-		Array<hstr> result;
-		hstr cwd = Resource::getCwd();
+		Array<String> result;
+		String cwd = Resource::getCwd();
 		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
 		if (a != NULL)
 		{
-			harray<hstr> files = zip::getFiles(a);
+			Array<String> files = zip::getFiles(a);
 			zip::close(NULL, a);
-			hstr current;
-			foreach (hstr, it, files)
+			String current;
+			foreach (String, it, files)
 			{
 				current = (*it);
 				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.count('/') == 1)
@@ -515,21 +515,21 @@ namespace hltypes
 		return result;
 	}
 
-	Array<hstr> Dir::files(chstr dirname, bool prepend_dir)
+	Array<String> Dir::files(const String& dirname, bool prepend_dir)
 	{
-		hstr name = normalize_path(dirname);
-		hstr current;
-		Array<hstr> result;
-		if (hdir::exists(name))
+		String name = normalize_path(dirname);
+		String current;
+		Array<String> result;
+		if (Dir::exists(name))
 		{
 			DIR* dir = _opendir(name);
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				current = name + "/" + unicode_to_utf8(entry->d_name);
+				current = name + "/" + String::from_unicode(entry->d_name);
 				if (hfile::exists(current))
 				{
-					result += unicode_to_utf8(entry->d_name);
+					result += String::from_unicode(entry->d_name);
 				}
 			}
 			if (result.contains("."))
@@ -549,12 +549,12 @@ namespace hltypes
 		return result;
 	}
 
-	Array<hstr> Dir::resource_files(chstr dirname, bool prepend_dir)
+	Array<String> Dir::resource_files(const String& dirname, bool prepend_dir)
 	{
-		hstr name = normalize_path(dirname);
+		String name = normalize_path(dirname);
 #ifndef HAVE_ZIPRESOURCE
-		Array<hstr> result = Dir::files(Resource::make_full_path(name), false);
-		hstr cwd = Resource::getCwd() + "/";
+		Array<String> result = Dir::files(Resource::make_full_path(name), false);
+		String cwd = Resource::getCwd() + "/";
 		if (cwd != "./" && cwd != "/")
 		{
 			for_iter (i, 0, result.size())
@@ -563,15 +563,15 @@ namespace hltypes
 			}
 		}
 #else
-		Array<hstr> result;
-		hstr cwd = Resource::getCwd();
+		Array<String> result;
+		String cwd = Resource::getCwd();
 		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
 		if (a != NULL)
 		{
-			harray<hstr> files = zip::getFiles(a);
+			Array<String> files = zip::getFiles(a);
 			zip::close(NULL, a);
-			hstr current;
-			foreach (hstr, it, files)
+			String current;
+			foreach (String, it, files)
 			{
 				current = (*it);
 				if (_check_dir_prefix(current, cwd) && _check_dir_prefix(current, name) && current.count('/') == 0)
@@ -589,12 +589,12 @@ namespace hltypes
 		return result;
 	}
 
-	void hdir::chdir(chstr dirname)
+	void Dir::chdir(const String& dirname)
 	{
 		_chdir(dirname.c_str());
 	}
 
-	hstr hdir::cwd()
+	String Dir::cwd()
 	{
 #if !_HL_WINRT
 		char dir[FILENAME_MAX] = {'\0'};

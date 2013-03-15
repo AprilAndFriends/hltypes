@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -18,8 +18,79 @@
 
 #include "exception.h"
 #include "harray.h"
+#include "hlog.h"
 #include "hltypesUtil.h"
 #include "hstring.h"
+
+/*
+7	U+7F		0xxxxxxx
+11	U+7FF		110xxxxx	10xxxxxx
+16	U+FFFF		1110xxxx	10xxxxxx	10xxxxxx
+21	U+1FFFFF	11110xxx	10xxxxxx	10xxxxxx	10xxxxxx
+26	U+3FFFFFF	111110xx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
+31	U+7FFFFFFF	1111110x	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
+*/
+#define _FROM_UNICODE_FAST(string, value) \
+	if ((value) < 0x80) \
+	{ \
+		string += (char)(value); \
+	} \
+	else if ((value) < 0x800) \
+	{ \
+		string += (char)(0xC0 | ((value) >> 6)); \
+		string += (char)(0x80 | ((value) & 0x3F)); \
+	} \
+	else if ((value) < 0x10000) \
+	{ \
+		string += (char)(0xE0 | ((value) >> 12)); \
+		string += (char)(0x80 | (((value) >> 6) & 0x3F)); \
+		string += (char)(0x80 | ((value) & 0x3F)); \
+	} \
+	else if ((value) < 0x200000) \
+	{ \
+		string += (char)(0xF0 | ((value) >> 18)); \
+		string += (char)(0x80 | (((value) >> 12) & 0x3F)); \
+		string += (char)(0x80 | (((value) >> 6) & 0x3F)); \
+		string += (char)(0x80 | ((value) & 0x3F)); \
+	} \
+	else if ((value) < 0x4000000) \
+	{ \
+		string += (char)(0xF8 | ((value) >> 24)); \
+		string += (char)(0x80 | (((value) >> 18) & 0x3F)); \
+		string += (char)(0x80 | (((value) >> 12) & 0x3F)); \
+		string += (char)(0x80 | (((value) >> 6) & 0x3F)); \
+		string += (char)(0x80 | ((value) & 0x3F)); \
+	} \
+	else if ((value) < 0x80000000) \
+	{ \
+		string += (char)(0xFC | ((value) >> 30)); \
+		string += (char)(0x80 | (((value) >> 24) & 0x3F)); \
+		string += (char)(0x80 | (((value) >> 18) & 0x3F)); \
+		string += (char)(0x80 | (((value) >> 12) & 0x3F)); \
+		string += (char)(0x80 | (((value) >> 6) & 0x3F)); \
+		string += (char)(0x80 | ((value) & 0x3F)); \
+	}
+#define _TO_UNICODE_FAST(result, str, i, size) \
+	if (str[i] < 0x80) \
+	{ \
+		result = str[i]; \
+		size = 1; \
+	} \
+	else if ((str[i] & 0xE0) == 0xC0) \
+	{ \
+		result = ((str[i] & 0x1F) << 6) | (str[i + 1] & 0x3F); \
+		size = 2; \
+	} \
+	else if ((str[i] & 0xF0) == 0xE0) \
+	{ \
+		result = ((((str[i] & 0xF) << 6) | (str[i + 1] & 0x3F) ) << 6) | (str[i + 2] & 0x3F); \
+		size = 3; \
+	} \
+	else \
+	{ \
+		result = ((((((str[i] & 0x7) << 6) | (str[i + 1] & 0x3F)) << 6) | (str[i + 2] & 0x3F)) << 6) | (str[i + 3] & 0x3F); \
+		size = 4; \
+	}
 
 typedef std::basic_string<char> stdstr;
 
@@ -307,15 +378,123 @@ namespace hltypes
 		out.append(s);
 		return out;
 	}
+
+	String String::utf8_substr(int start, int count) const
+	{
+		String result;
+		const unsigned char* str = (const unsigned char*)stdstr::c_str();
+		int i = 0;
+		while (str[i] != 0)
+		{
+			if (str[i] < 0x80)
+			{
+				i += 1;
+			}
+			else if ((str[i] & 0xE0) == 0xC0)
+			{
+				i += 2;
+			}
+			else if ((str[i] & 0xF0) == 0xE0)
+			{
+				i += 3;
+			}
+			else
+			{
+				i += 4;
+			}
+		}
+#ifdef _DEBUG
+		if (str[i] == 0)
+		{
+			Log::warn(hltypes::logTag, "Parameter start in utf8_substr() is after end of string: " + *this);
+		}
+#endif
+		int start_size = i;
+		int size = 0;
+		while (str[i] != 0 && size < count)
+		{
+			if (str[i] < 0x80)
+			{
+				i += 1;
+			}
+			else if ((str[i] & 0xE0) == 0xC0)
+			{
+				i += 2;
+			}
+			else if ((str[i] & 0xF0) == 0xE0)
+			{
+				i += 3;
+			}
+			else
+			{
+				i += 4;
+			}
+			size++;
+		}
+#ifdef _DEBUG
+		if (size < count)
+		{
+			Log::warn(hltypes::logTag, "Parameter count in utf8_substr() is out of bounds in string: " + *this);
+		}
+#endif
+		return String((const char*)&str[start_size], i - start_size);
+	}
 	
 	int String::size() const
 	{
-		return stdstr::size();
+		return (int)stdstr::size();
 	}
 	
 	int String::length() const
 	{
-		return stdstr::size();
+		return (int)stdstr::size();
+	}
+
+	int String::utf8_size() const
+	{
+		int result = 0;
+		const unsigned char* str = (const unsigned char*)stdstr::c_str();
+		int i = 0;
+		while (str[i] != 0)
+		{
+			if (str[i] < 0x80)
+			{
+				i += 1;
+			}
+			else if ((str[i] & 0xE0) == 0xC0)
+			{
+				i += 2;
+			}
+			else if ((str[i] & 0xF0) == 0xE0)
+			{
+				i += 3;
+			}
+			else
+			{
+				i += 4;
+			}
+			result++;
+		}
+		return result;
+	}
+	
+	int String::utf8_length() const
+	{
+		return this->utf8_size();
+	}
+
+	bool String::is_ascii() const
+	{
+		const unsigned char* str = (const unsigned char*)stdstr::c_str();
+		int i = 0;
+		while (str[i] != 0)
+		{
+			if (str[i] > 0x7F)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 	String String::to_hex() const
@@ -327,18 +506,6 @@ namespace hltypes
 		}
 		return hex;
 	}
-
-	std::basic_string<unsigned int> String::u_str() const
-	{
-		return utf8_to_unicode(*this);
-	}
-
-#ifndef _ANDROID
-	std::basic_string<wchar_t> String::w_str() const
-	{
-		return utf8_to_wchars(*this);
-	}
-#endif
 
 	bool String::split(const char delimiter, String& out_left,String& out_right) const
 	{
@@ -660,6 +827,187 @@ namespace hltypes
 		result.append(1, c);
 		return result;
 	}
+
+	std::basic_string<unsigned int> String::u_str() const
+	{
+		std::basic_string<unsigned int> result;
+#ifdef __APPLE__ // bugfix for apple llvm compiler, has allocation problems in std::string with unsigned int combination
+		if (stdstr::size() == 0)
+		{
+			unsigned int ary[] = {'x', 0};
+			result = ary;
+			ary[0] = 0;
+			result = ary;
+			return result;
+		}
+#endif
+		unsigned int code = 0;
+		const unsigned char* str = (const unsigned char*)stdstr::c_str();
+		int i = 0;
+		int size = 0;
+		while (str[i] != 0)
+		{
+			_TO_UNICODE_FAST(code, str, i, size);
+			result += code;
+			i += size;
+		}
+		return result;
+	}
+
+	std::basic_string<wchar_t> String::w_str() const
+	{
+		std::basic_string<wchar_t> result;
+#ifdef __APPLE__ // bugfix for apple llvm compiler, has allocation problems in std::string with unsigned int combination
+		if (stdstr::size() == 0)
+		{
+			unsigned int ary[] = {'x', 0};
+			result = ary;
+			ary[0] = 0;
+			result = ary;
+			return result;
+		}
+#endif
+#ifdef _DEBUG
+		static bool checked = false;
+#endif
+		unsigned int code = 0;
+		const unsigned char* str = (const unsigned char*)stdstr::c_str();
+		int i = 0;
+		int size = 0;
+		while (str[i] != 0)
+		{
+			_TO_UNICODE_FAST(code, str, i, size);
+#ifdef _DEBUG
+			if (!checked && code > 0xFFFF)
+			{
+				Log::warnf(hltypes::logTag, "String uses Unicode characters above 0xFFFF: %s", stdstr::c_str());
+				checked = true;
+			}
+#endif
+			result += code;
+			i += size;
+		}
+		return result;
+	}
+
+	unsigned int String::first_unicode_char(int* character_size) const
+	{
+		unsigned int result = 0;
+		const unsigned char* str = (const unsigned char*)stdstr::c_str();
+		int size = 0;
+		_TO_UNICODE_FAST(result, str, 0, size);
+		if (character_size != NULL)
+		{
+			*character_size = size;
+		}
+		return result;
+	}
+
+	String String::from_unicode(unsigned int value)
+	{
+		String result;
+		_FROM_UNICODE_FAST(result, value);
+		return result;
+	}
+
+	String String::from_unicode(wchar_t value)
+	{
+		String result;
+		unsigned int code = value;
+		_FROM_UNICODE_FAST(result, code);
+		return result;
+	}
+
+	String String::from_unicode(char value)
+	{
+		return value;
+	}
+
+	String String::from_unicode(unsigned char value)
+	{
+		return (char)value;
+	}
+
+	String String::from_unicode(const unsigned int* string)
+	{
+		String result;
+		if (string != NULL)
+		{
+			for (int i = 0; string[i] != 0; i++)
+			{
+				_FROM_UNICODE_FAST(result, string[i]);
+			}
+		}
+		return result;
+	}
+
+	String String::from_unicode(const wchar_t* string)
+	{
+		String result;
+		if (string != NULL)
+		{
+			unsigned int code;
+			for (int i = 0; string[i] != 0; i++)
+			{
+				code = string[i];
+				_FROM_UNICODE_FAST(result, code);
+			}
+		}
+		return result;
+	}
+
+	String String::from_unicode(const char* string)
+	{
+		return (string != NULL ? string : "");
+	}
+
+	String String::from_unicode(const unsigned char* string)
+	{
+		return (string != NULL ? (const char*)string : "");
+	}
+
+	String String::from_unicode(Array<unsigned int> chars)
+	{
+		String result;
+		foreach (unsigned int, it, chars)
+		{
+			_FROM_UNICODE_FAST(result, (*it));
+		}
+		return result;
+	}
+
+	String String::from_unicode(Array<wchar_t> chars)
+	{
+		String result;
+		unsigned int code;
+		foreach (wchar_t, it, chars)
+		{
+			code = (*it);
+			_FROM_UNICODE_FAST(result, code);
+		}
+		return result;
+	}
+
+	String String::from_unicode(Array<char> chars)
+	{
+		String result;
+		foreach (char, it, chars)
+		{
+			result += (*it);
+		}
+		return result;
+	}
+
+	String String::from_unicode(Array<unsigned char> chars)
+	{
+		String result;
+		foreach (unsigned char, it, chars)
+		{
+			result += (char)(*it);
+		}
+		return result;
+	}
+
 }
 
 hstr operator+(const char* s1, chstr s2)

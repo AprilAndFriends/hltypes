@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -53,7 +53,7 @@ namespace hltypes
 		/// @brief Sets the current tag filters.
 		/// @param[in] value New tag filters.
 		/// @note If value is an empty Array, the no filtering will be used.
-		static void setTagFilters(harray<hstr> value) { tag_filters = value; }
+		static void setTagFilters(Array<String> value) { tag_filters = value; }
 		/// @brief Sets all logging levels at once.
 		/// @param[in] write Value for Log level Write.
 		/// @param[in] write Value for Log level Error.
@@ -64,44 +64,44 @@ namespace hltypes
 		/// @param[in] filename Filename for log dump.
 		/// @param[in] clearFile Set to true if file should be cleared.
 		/// @note If filename is an empty String, the no dumping will be used.
-		static void setFilename(chstr filename, bool clearFile = true);
+		static void setFilename(const String& filename, bool clearFile = true);
 		/// @brief Sets the callback function that is called after logging.
 		/// @param[in] function Callback function.
 		/// @note The callback is called in a thread-safe manner.
-		static void setCallbackFunction(void (*function)(chstr, chstr)) { callback_function = function; }
+		static void setCallbackFunction(void (*function)(const String&, const String&)) { callback_function = function; }
 
 		/// @brief Logs a message on the log level Write.
 		/// @param[in] tag The message tag.
 		/// @param[in] message The message to log.
 		/// @return True if level Write and tag allowed.
-		static bool write(chstr tag, chstr message);
+		static bool write(const String& tag, const String& message);
 		/// @brief Logs a message on the log level Error.
 		/// @param[in] tag The message tag.
 		/// @param[in] message The message to log.
 		/// @return True if level Error and tag allowed.
-		static bool error(chstr tag, chstr message);
+		static bool error(const String& tag, const String& message);
 		/// @brief Logs a message on the log level Warn.
 		/// @param[in] tag The message tag.
 		/// @param[in] message The message to log.
 		/// @return True if level Warn and tag allowed.
-		static bool warn(chstr tag, chstr message);
+		static bool warn(const String& tag, const String& message);
 		/// @brief Logs a message on the log level Debug.
 		/// @param[in] tag The message tag.
 		/// @param[in] message The message to log.
 		/// @return True if level Debug and tag allowed.
-		static bool debug(chstr tag, chstr message);
+		static bool debug(const String& tag, const String& message);
 		/// @brief Same as write, except with string formatting.
 		/// @see write
-		static bool writef(chstr tag, const char* format, ...);
+		static bool writef(const String& tag, const char* format, ...);
 		/// @brief Same as error, except with string formatting.
 		/// @see error
-		static bool errorf(chstr tag, const char* format, ...);
+		static bool errorf(const String& tag, const char* format, ...);
 		/// @brief Same as warn, except with string formatting.
 		/// @see warn
-		static bool warnf(chstr tag, const char* format, ...);
+		static bool warnf(const String& tag, const char* format, ...);
 		/// @brief Same as debug, except with string formatting.
 		/// @see debug
-		static bool debugf(chstr tag, const char* format, ...);
+		static bool debugf(const String& tag, const char* format, ...);
 
 	protected:
 		/// @brief Flag for Write level logging.
@@ -113,18 +113,18 @@ namespace hltypes
 		/// @brief Flag for Debug level logging.
 		static bool level_debug;
 		/// @brief Filters for tags that should be logged.
-		static harray<hstr> tag_filters;
+		static Array<String> tag_filters;
 		/// @brief Filename for logging to files.
-		static hstr filename;
+		static String filename;
 		/// @brief Callback function for logging.
-		static void (*callback_function)(chstr, chstr);
+		static void (*callback_function)(const String&, const String&);
 
 		/// @brief Executes the actual message loggging.
 		/// @param[in] tag The message tag.
 		/// @param[in] message The message to log.
 		/// @param[in] level Log level (required for Android).
 		/// @return True if the message could be logged.
-		static bool _system_log(chstr tag, chstr message, int level);
+		static bool _system_log(const String& tag, const String& message, int level);
 
 	};
 }

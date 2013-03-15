@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -15,7 +15,7 @@
 
 namespace hltypes
 {
-	void _platform_print(chstr tag, chstr message, int level)
+	void _platform_print(const String& tag, const String& message, int level)
 	{
 		// using console style printing invalidates WACK certification so it is used only in Debug builds
 #ifdef _DEBUG

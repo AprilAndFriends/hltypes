@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -22,6 +22,11 @@
 #include "hplatform.h"
 #include "hresource.h"
 #include "hstring.h"
+
+namespace hltypes
+{
+	hstr logTag = "hltypes";
+}
 
 unsigned int get_system_tick_count()
 {
@@ -354,7 +359,7 @@ hstr get_environment_variable(chstr name)
 {
 #ifdef _WIN32
 #if !_HL_WINRT
-	return unicode_to_utf8(_wgetenv(name.w_str().c_str()));
+	return hstr::from_unicode(_wgetenv(name.w_str().c_str()));
 #else
 	return ""; // WinRT does not support environment variables
 #endif
@@ -363,244 +368,22 @@ hstr get_environment_variable(chstr name)
 #endif
 }
 
-// Unicode stuff
-
-hstr unicode_to_utf8(unsigned int value)
-{
-	hstr result;
-	if (value < 0x80)
-	{
-		result += (char)value;
-	}
-	else if (value < 0x800)
-	{
-		result += (char)(0xC0 | (value >> 6));
-		result += (char)(0x80 | (value & 0x3F));
-	}
-	else if (value < 0x10000)
-	{
-		result += (char)(0xE0 | (value >> 12));
-		result += (char)(0x80 | ((value >> 6) & 0x3F));
-		result += (char)(0x80 | (value & 0x3F));
-	}
-	else if (value < 0x200000)
-	{
-		result += (char)(0xF0 | (value >> 18));
-		result += (char)(0x80 | ((value >> 12) & 0x3F));
-		result += (char)(0x80 | ((value >> 6) & 0x3F));
-		result += (char)(0x80 | (value & 0x3F));
-	}
-	else if (value < 0x4000000)
-	{
-		result += (char)(0xF8 | (value >> 24));
-		result += (char)(0x80 | ((value >> 18) & 0x3F));
-		result += (char)(0x80 | ((value >> 12) & 0x3F));
-		result += (char)(0x80 | ((value >> 6) & 0x3F));
-		result += (char)(0x80 | (value & 0x3F));
-	}
-	else if (value < 0x80000000)
-	{
-		result += (char)(0xFC | (value >> 30));
-		result += (char)(0x80 | ((value >> 24) & 0x3F));
-		result += (char)(0x80 | ((value >> 18) & 0x3F));
-		result += (char)(0x80 | ((value >> 12) & 0x3F));
-		result += (char)(0x80 | ((value >> 6) & 0x3F));
-		result += (char)(0x80 | (value & 0x3F));
-	}
-	return result;
-}
-
-#ifndef _ANDROID
-hstr unicode_to_utf8(wchar_t value)
-{
-	return unicode_to_utf8((unsigned int)value);
-}
-#endif
-
-hstr unicode_to_utf8(char value)
-{
-	return value;
-}
-
-hstr unicode_to_utf8(unsigned char value)
-{
-	return (char)value;
-}
-
-hstr unicode_to_utf8(const unsigned int* string)
-{
-	hstr result;
-	if (string != NULL)
-	{
-		for (int i = 0; string[i] != 0; i++)
-		{
-			result += unicode_to_utf8(string[i]);
-		}
-	}
-	return result;
-}
-
-#ifndef _ANDROID
-hstr unicode_to_utf8(const wchar_t* string)
-{
-	hstr result;
-	if (string != NULL)
-	{
-		for (int i = 0; string[i] != 0; i++)
-		{
-			result += unicode_to_utf8((unsigned int)string[i]);
-		}
-	}
-	return result;
-}
-#endif
-
-hstr unicode_to_utf8(const char* string)
-{
-	return (string != NULL ? string : "");
-}
-
-hstr unicode_to_utf8(const unsigned char* string)
-{
-	return (string != NULL ? (const char*)string : "");
-}
-
-hstr unicode_to_utf8(harray<unsigned int> chars)
-{
-	hstr result;
-	foreach (unsigned int, it, chars)
-	{
-		result += unicode_to_utf8(*it);
-	}
-	return result;
-}
-
-#ifndef _ANDROID
-hstr unicode_to_utf8(harray<wchar_t> chars)
-{
-	hstr result;
-	foreach (wchar_t, it, chars)
-	{
-		result += unicode_to_utf8((unsigned int)(*it));
-	}
-	return result;
-}
-#endif
-
-hstr unicode_to_utf8(harray<char> chars)
-{
-	hstr result;
-	foreach (char, it, chars)
-	{
-		result += (*it);
-	}
-	return result;
-}
-
-hstr unicode_to_utf8(harray<unsigned char> chars)
-{
-	hstr result;
-	foreach (unsigned char, it, chars)
-	{
-		result += (char)(*it);
-	}
-	return result;
-}
-
-// TODO - this should be removed
-unsigned int utf8_to_uint(chstr input, int* character_length)
-{
-	/*
-	 7	U+7F		0xxxxxxx
-	11	U+7FF		110xxxxx	10xxxxxx
-	16	U+FFFF		1110xxxx	10xxxxxx	10xxxxxx
-	21	U+1FFFFF	11110xxx	10xxxxxx	10xxxxxx	10xxxxxx
-	26	U+3FFFFFF	111110xx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
-	31	U+7FFFFFFF	1111110x	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx	10xxxxxx
-	*/
-	unsigned int result = 0;
-	const unsigned char* u = (const unsigned char*)input.c_str();
-	int length = 0;
-	if (u[0] < 0x80)
-	{
-		result = u[0];
-		length = 1;
-	}
-	else if ((u[0] & 0xE0) == 0xC0)
-	{
-		result = ((u[0] & 0x1F) << 6) | (u[1] & 0x3F);
-		length = 2;
-	}
-	else if ((u[0] & 0xF0) == 0xE0)
-	{
-		result = ((((u[0] & 0xF) << 6) | (u[1] & 0x3F)) << 6) | (u[2] & 0x3F);
-		length = 3;
-	}
-	else
-	{
-		result = ((((((u[0] & 0x7) << 6) | (u[1] & 0x3F)) << 6) | (u[2] & 0x3F)) << 6) | (u[3] & 0x3F);
-		length = 4;
-	}
-	if (character_length != NULL)
-	{
-		*character_length = length;
-	}
-	return result;
-}
-
-std::basic_string<unsigned int> utf8_to_unicode(chstr input)
-{
-	std::basic_string<unsigned int> result;
-#ifdef __APPLE__ // bugfix for apple llvm compiler, has allocation problems in std::string with unsigned int comibination
-	if (input.size() == 0)
-	{
-		unsigned int array[] = {'x', 0};
-		result = array;
-		array[0] = 0;
-		result = array;
-		return result;
-	}
-#endif
-	const unsigned char* str = (const unsigned char*)input.c_str();
-	int i = 0;
-	while (str[i] != 0)
-	{
-		if (str[i] < 0x80)
-		{
-			result += str[i];
-			i += 1;
-		}
-		else if ((str[i] & 0xE0) == 0xC0)
-		{
-			result += ((str[i] & 0x1F) << 6) | (str[i + 1] & 0x3F);
-			i += 2;
-		}
-		else if ((str[i] & 0xF0) == 0xE0)
-		{
-			result += ((((str[i] & 0xF) << 6) | (str[i + 1] & 0x3F) ) << 6) | (str[i + 2] & 0x3F);
-			i += 3;
-		}
-		else
-		{
-			result += ((((((str[i] & 0x7) << 6) | (str[i + 1] & 0x3F)) << 6) | (str[i + 2] & 0x3F)) << 6) | (str[i + 3] & 0x3F);
-			i += 4;
-		}
-	}
-	return result;
-}
-
-#ifndef _ANDROID
-std::basic_string<wchar_t> utf8_to_wchars(chstr input)
-{
-	std::basic_string<unsigned int> ustring = utf8_to_unicode(input);
-	std::basic_string<wchar_t> result;
-	for_itert (unsigned int, i, 0, ustring.size())
-	{
-		result += (wchar_t)ustring[i];
-	}
-	return result;
-}
-#endif
+// Unicode stuff, DEPRECATED, use String::from_unicode/hstr::from_unicode static methods instead.
+hstr unicode_to_utf8(unsigned int value)						{ return hstr::from_unicode(value); }
+hstr unicode_to_utf8(char value)								{ return hstr::from_unicode(value); }
+hstr unicode_to_utf8(unsigned char value)						{ return hstr::from_unicode(value); }
+hstr unicode_to_utf8(wchar_t value)								{ return hstr::from_unicode(value); }
+hstr unicode_to_utf8(const unsigned int* string)				{ return hstr::from_unicode(string); }
+hstr unicode_to_utf8(const char* string)						{ return hstr::from_unicode(string); }
+hstr unicode_to_utf8(const unsigned char* string)				{ return hstr::from_unicode(string); }
+hstr unicode_to_utf8(const wchar_t* string)						{ return hstr::from_unicode(string); }
+hstr unicode_to_utf8(harray<unsigned int> chars)				{ return hstr::from_unicode(chars); }
+hstr unicode_to_utf8(harray<char> chars)						{ return hstr::from_unicode(chars); }
+hstr unicode_to_utf8(harray<unsigned char> chars)				{ return hstr::from_unicode(chars); }
+hstr unicode_to_utf8(harray<wchar_t> chars)						{ return hstr::from_unicode(chars); }
+unsigned int utf8_to_uint(chstr input, int* character_length)	{ return input.first_unicode_char(character_length); }
+std::basic_string<unsigned int> utf8_to_unicode(chstr input)	{ return input.u_str(); }
+std::basic_string<wchar_t> utf8_to_wchars(chstr input)			{ return input.w_str(); }
 
 // CRC32 stuff
 

@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -86,9 +86,9 @@ namespace hltypes
 		}
 		/// @brief Returns an Array with all keys.
 		/// @return An Array with all keys.
-		harray<K> keys() const
+		Array<K> keys() const
 		{
-			harray<K> result;
+			Array<K> result;
 			__foreach_this_map_it(it)
 			{
 				result += it->first;
@@ -97,9 +97,9 @@ namespace hltypes
 		}
 		/// @brief Returns an Array with all values.
 		/// @return An Array with all values.
-		harray<V> values() const
+		Array<V> values() const
 		{
-			harray<V> result;
+			Array<V> result;
 			__foreach_this_map_it(it)
 			{
 				result += it->second;
@@ -108,9 +108,9 @@ namespace hltypes
 		}
 		/// @brief Returns an Array with all values in the same order as the given corresponding keys.
 		/// @return An Array with all values in the same order as the given corresponding keys.
-		harray<V> values(harray<K> keys)
+		Array<V> values(Array<K> keys)
 		{
-			harray<V> result;
+			Array<V> result;
 			for (iterator_map_key_t it = keys.begin(); it != keys.end(); it++) // don't change, requires a const iterator
 			{
 				result += stdmap::operator[](*it);
@@ -126,7 +126,7 @@ namespace hltypes
 			{
 				return false;
 			}
-			harray<K> keys = other.keys();
+			Array<K> keys = other.keys();
 			if (!this->has_keys(keys))
 			{
 				return false;
@@ -150,7 +150,7 @@ namespace hltypes
 			{
 				return true;
 			}
-			harray<K> keys = other.keys();
+			Array<K> keys = other.keys();
 			if (!this->has_keys(keys))
 			{
 				return true;
@@ -196,7 +196,7 @@ namespace hltypes
 		/// @brief Checks for existence of all keys.
 		/// @param[in] keys Array of keys to check.
 		/// @return True if all keys are present.
-		bool has_keys(const harray<K>& keys) const
+		bool has_keys(const Array<K>& keys) const
 		{
 			iterator_map_t end = stdmap::end();
 			for_iter (i, 0, keys.size())
@@ -241,7 +241,7 @@ namespace hltypes
 		/// @brief Checks for existence of all values.
 		/// @param[in] values Array of values to check.
 		/// @return True if all values are present.
-		bool has_values(const harray<V>& values) const
+		bool has_values(const Array<V>& values) const
 		{
 			for_iter (i, 0, values.size())
 			{
@@ -302,7 +302,7 @@ namespace hltypes
 		}
 		/// @brief Removes all pairs of key and value specified by an Array of keys.
 		/// @param[in] keys Array of keys.
-		void remove_keys(const harray<K>& keys)
+		void remove_keys(const Array<K>& keys)
 		{
 			for_iter (i, 0, keys.size())
 			{
@@ -324,7 +324,7 @@ namespace hltypes
 		}
 		/// @brief Removes all pairs of key and value specified by an Array of values.
 		/// @param[in] values Array of values.
-		void remove_values(const harray<V>& values)
+		void remove_values(const Array<V>& values)
 		{
 			for_iter (i, 0, values.size())
 			{

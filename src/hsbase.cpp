@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -63,11 +63,11 @@ namespace hltypes
 		return (this->_position() >= this->data_size);
 	}
 	
-	hstr StreamBase::read(chstr delimiter)
+	String StreamBase::read(const String& delimiter)
 	{
 		this->_check_availability();
-		hstr result;
-		harray<hstr> parts;
+		String result;
+		Array<String> parts;
 		int count;
 		int index;
 		while (!this->eof())
@@ -94,10 +94,10 @@ namespace hltypes
 		return result;
 	}
 	
-	hstr StreamBase::read(int count)
+	String StreamBase::read(int count)
 	{
 		this->_check_availability();
-		hstr result;
+		String result;
 		int current = BUFFER_SIZE;
 		int read;
 		while (count > 0)
@@ -113,22 +113,22 @@ namespace hltypes
 				break;
 			}
 			count -= BUFFER_SIZE;
-			result += hstr(c);
+			result += String(c);
 		}
 		return result;
 	}
 
-	hstr StreamBase::read_line()
+	String StreamBase::read_line()
 	{
 		return this->read("\n");
 	}
 	
-	Array<hstr> StreamBase::read_lines()
+	Array<String> StreamBase::read_lines()
 	{
 		return this->read().split("\n", -1, false);
 	}
 	
-	void StreamBase::write(chstr text)
+	void StreamBase::write(const String& text)
 	{
 		this->_check_availability();
 		this->_write(text.c_str(), 1, text.size());
@@ -142,7 +142,7 @@ namespace hltypes
 		this->_update_data_size();
 	}
 	
-	void StreamBase::write_line(chstr text)
+	void StreamBase::write_line(const String& text)
 	{
 		this->_check_availability();
 		this->_write((text + "\n").c_str(), 1, text.size() + 1);
@@ -151,14 +151,14 @@ namespace hltypes
 	
 	void StreamBase::write_line(const char* text)
 	{
-		this->write_line(hstr(text));
+		this->write_line(String(text));
 	}
 	
 	void StreamBase::writef(const char* format, ...)
 	{
 		va_list args;
 		va_start(args, format);
-		hstr result(hvsprintf(format, args));
+		String result(hvsprintf(format, args));
 		va_end(args);
 		this->write(result);
 	}
@@ -337,7 +337,7 @@ namespace hltypes
 		this->_update_data_size();
 	}
 
-	void StreamBase::dump(chstr str)
+	void StreamBase::dump(const String& str)
 	{
 		this->_check_availability();
 		int size = str.size();
@@ -366,7 +366,7 @@ namespace hltypes
 
 	void StreamBase::dump(const char* c)
 	{
-		this->dump(hstr(c));
+		this->dump(String(c));
 	}
 
 	char StreamBase::load_char()
@@ -505,11 +505,11 @@ namespace hltypes
 		return (c != 0);
 	}
 
-	hstr StreamBase::load_hstr()
+	String StreamBase::load_hstr()
 	{
 		this->_check_availability();
 		int size = this->load_int();
-		hstr str;
+		String str;
 		int count = BUFFER_SIZE;
 		char c[BUFFER_SIZE + 1];
 		while (size > 0)
@@ -528,12 +528,12 @@ namespace hltypes
 				}
 			}
 			size -= BUFFER_SIZE;
-			str += hstr(c);
+			str += String(c);
 		}
 		return str;
 	}
 
-	hstr StreamBase::load_string()
+	String StreamBase::load_string()
 	{
 		return this->load_hstr();
 	}

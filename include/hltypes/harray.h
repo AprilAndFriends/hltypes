@@ -2,7 +2,7 @@
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
 /// @author  Ivan Vucica
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -929,15 +929,15 @@ namespace hltypes
 		/// @param[in] separator Separator string between elements.
 		/// @return String or joined elements separater by separator string.
 		/// @note Make sure your elements can be cast into String or are already String.
-		hstr join(chstr separator) const
+		String join(const String& separator) const
 		{
-			hstr result;
+			String result;
 			if (this->size() > 0)
 			{
-				result += hstr(stdvector::at(0));
+				result += String(stdvector::at(0));
 				for_iter (i, 1, this->size())
 				{
-					result += separator + hstr(stdvector::at(i));
+					result += separator + String(stdvector::at(i));
 				}
 			}
 			return result;

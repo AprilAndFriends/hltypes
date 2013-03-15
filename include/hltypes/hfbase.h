@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -63,20 +63,20 @@ namespace hltypes
 
 	protected:
 		/// @brief Current filename.
-		hstr filename;
+		String filename;
 		/// @brief OS file handle.
 		void* cfile;
 
 		/// @brief Gets special descriptor.
 		/// @returns Special descriptor.
-		hstr _descriptor();
+		String _descriptor();
 
 		/// @brief Opens an OS file.
 		/// @param[in] filename Name of the file (may include path).
 		/// @param[in] access_mode File access mode.
 		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
 		/// @note If this instance is already working with an opened file handle, that file handle will be closed.
-		void _fopen(chstr filename, AccessMode access_mode, unsigned char encryption_offset, int repeats, float timeout);
+		void _fopen(const String& filename, AccessMode access_mode, unsigned char encryption_offset, int repeats, float timeout);
 		/// @brief Closes file.
 		void _fclose();
 		/// @brief Reads data from the file.
@@ -105,7 +105,7 @@ namespace hltypes
 		/// @brief Checks if a file exists.
 		/// @param[in] filename Name of the file.
 		/// @return True if file exists.
-		static bool _fexists(chstr filename);
+		static bool _fexists(const String& filename);
 
 		/// @brief Defines the number of repeated attempts to access a file.
 		static int repeats;

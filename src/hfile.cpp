@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -25,7 +25,7 @@ int (*f_remove)(const char* filename) = remove;
 
 namespace hltypes
 {
-	File::File(chstr filename, AccessMode access_mode, unsigned char encryption_offset) : FileBase(encryption_offset)
+	File::File(const String& filename, AccessMode access_mode, unsigned char encryption_offset) : FileBase(encryption_offset)
 	{
 		this->filename = normalize_path(filename);
 		this->open(filename, access_mode, encryption_offset);
@@ -43,7 +43,7 @@ namespace hltypes
 		}
 	}
 	
-	void File::open(chstr filename, AccessMode access_mode, unsigned char encryption_offset)
+	void File::open(const String& filename, AccessMode access_mode, unsigned char encryption_offset)
 	{
 		this->_fopen(filename, access_mode, encryption_offset, FileBase::repeats, FileBase::timeout);
 	}
@@ -78,12 +78,12 @@ namespace hltypes
 		this->_fseek(offset, seek_mode);
 	}
 	
-	bool File::create(chstr filename)
+	bool File::create(const String& filename)
 	{
-		hstr name = normalize_path(filename);
+		String name = normalize_path(filename);
 		if (!File::exists(name))
 		{
-			hdir::create_path(name);
+			Dir::create_path(name);
 			int attempts = File::repeats + 1;
 			while (true)
 			{
@@ -104,25 +104,25 @@ namespace hltypes
 		return false;
 	}
 	
-	bool File::create_new(chstr filename)
+	bool File::create_new(const String& filename)
 	{
 		return (File::create(filename) || File::clear(filename));
 	}
 	
-	bool File::remove(chstr filename)
+	bool File::remove(const String& filename)
 	{
-		hstr name = normalize_path(filename);
+		String name = normalize_path(filename);
 		return (f_remove(name.c_str()) == 0);
 	}
 	
-	bool File::exists(chstr filename)
+	bool File::exists(const String& filename)
 	{
 		return FileBase::_fexists(filename);
 	}
 	
-	bool File::clear(chstr filename)
+	bool File::clear(const String& filename)
 	{
-		hstr name = normalize_path(filename);
+		String name = normalize_path(filename);
 		if (File::exists(name))
 		{
 			FILE* f = fopen(name.c_str(), "wb");
@@ -135,33 +135,33 @@ namespace hltypes
 		return false;
 	}
 	
-	bool File::rename(chstr old_filename, chstr new_filename, bool overwrite)
+	bool File::rename(const String& old_filename, const String& new_filename, bool overwrite)
 	{
-		hstr old_name = normalize_path(old_filename);
-		hstr new_name = normalize_path(new_filename);
+		String old_name = normalize_path(old_filename);
+		String new_name = normalize_path(new_filename);
 		if (!File::exists(old_name) || !overwrite && File::exists(new_name))
 		{
 			return false;
 		}
-		hdir::create_path(new_name);
+		Dir::create_path(new_name);
 		return (f_rename(old_name.c_str(), new_name.c_str()) == 0);
 	}
 	
-	bool File::move(chstr filename, chstr path, bool overwrite)
+	bool File::move(const String& filename, const String& path, bool overwrite)
 	{
-		hstr name = normalize_path(filename);
+		String name = normalize_path(filename);
 		return File::rename(name, path + "/" + name.rsplit("/", 1, false).remove_last(), overwrite);
 	}
 	
-	bool File::copy(chstr old_filename, chstr new_filename, bool overwrite)
+	bool File::copy(const String& old_filename, const String& new_filename, bool overwrite)
 	{
-		hstr old_name = normalize_path(old_filename);
-		hstr new_name = normalize_path(new_filename);
+		String old_name = normalize_path(old_filename);
+		String new_name = normalize_path(new_filename);
 		if (!File::exists(old_name) || !overwrite && File::exists(new_name))
 		{
 			return false;
 		}
-		hdir::create_path(new_name);
+		Dir::create_path(new_name);
 		File old_file(old_name);
 		File new_file(new_name, File::WRITE);
 		int count;
@@ -174,27 +174,27 @@ namespace hltypes
 		return true;
 	}
 	
-	long File::hsize(chstr filename)
+	long File::hsize(const String& filename)
 	{
 		return File(filename).size();
 	}
 	
-	hstr File::hread(chstr filename, int count)
+	String File::hread(const String& filename, int count)
 	{
 		return File(filename).read(count);
 	}
 	
-	hstr File::hread(chstr filename, chstr delimiter)
+	String File::hread(const String& filename, const String& delimiter)
 	{
 		return File(filename).read(delimiter);
 	}
 	
-	void File::hwrite(chstr filename, chstr text)
+	void File::hwrite(const String& filename, const String& text)
 	{
 		File(filename, WRITE).write(text);
 	}
 	
-	void File::happend(chstr filename, chstr text)
+	void File::happend(const String& filename, const String& text)
 	{
 		File(filename, APPEND).write(text);
 	}
