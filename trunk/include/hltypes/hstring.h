@@ -298,6 +298,11 @@ namespace hltypes
 		/// @param[in] start Start index of the substring.
 		/// @param[in] count Character length of the substring (UT8, not ASCII).
 		/// @return The substring.
+		String substr(int start, int count) const;
+		/// @brief Creates a substring from UTF8-indexed characters.
+		/// @param[in] start Start index of the substring.
+		/// @param[in] count Character length of the substring (UT8, not ASCII).
+		/// @return The substring.
 		String utf8_substr(int start, int count) const;
 		/// @brief Gets the byte length of the String.
 		/// @return Byte length of String.
@@ -442,11 +447,11 @@ namespace hltypes
 		/// @return A wchar string.
 		std::basic_string<wchar_t> w_str() const;
 		/// @brief Converts first UTF8 character into the corresponding character code.
+		/// @param[in] index The byte position of the first character in the string.
 		/// @param[out] character_length Length of UTF8 character in bytes.
 		/// @return Character code.
 		/// @note The out value of character_length parameter can be used to move a character iterator forward.
-		unsigned int first_unicode_char(int* character_length = NULL) const;
-
+		unsigned int first_unicode_char(int index = 0, int* character_length = NULL) const;
 		/// @brief Converts a unicode unsigned int to a UTF8 string.
 		/// @param[in] value The unsigned int value.
 		/// @return UTF8 string.

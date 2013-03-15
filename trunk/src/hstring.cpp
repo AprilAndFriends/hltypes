@@ -379,6 +379,11 @@ namespace hltypes
 		return out;
 	}
 
+	String String::substr(int start, int count) const
+	{
+		return stdstr::substr(start, count);
+	}
+	
 	String String::utf8_substr(int start, int count) const
 	{
 		String result;
@@ -890,12 +895,12 @@ namespace hltypes
 		return result;
 	}
 
-	unsigned int String::first_unicode_char(int* character_size) const
+	unsigned int String::first_unicode_char(int index, int* character_size) const
 	{
 		unsigned int result = 0;
 		const unsigned char* str = (const unsigned char*)stdstr::c_str();
 		int size = 0;
-		_TO_UNICODE_FAST(result, str, 0, size);
+		_TO_UNICODE_FAST(result, str, index, size);
 		if (character_size != NULL)
 		{
 			*character_size = size;

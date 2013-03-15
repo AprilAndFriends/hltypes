@@ -381,7 +381,7 @@ hstr unicode_to_utf8(harray<unsigned int> chars)				{ return hstr::from_unicode(
 hstr unicode_to_utf8(harray<char> chars)						{ return hstr::from_unicode(chars); }
 hstr unicode_to_utf8(harray<unsigned char> chars)				{ return hstr::from_unicode(chars); }
 hstr unicode_to_utf8(harray<wchar_t> chars)						{ return hstr::from_unicode(chars); }
-unsigned int utf8_to_uint(chstr input, int* character_length)	{ return input.first_unicode_char(character_length); }
+unsigned int utf8_to_uint(chstr input, int* character_length)	{ return input.first_unicode_char(0, character_length); }
 std::basic_string<unsigned int> utf8_to_unicode(chstr input)	{ return input.u_str(); }
 std::basic_string<wchar_t> utf8_to_wchars(chstr input)			{ return input.w_str(); }
 
