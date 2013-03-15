@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -38,15 +38,15 @@
 #endif
 
 #if defined(__APPLE__)
-	void nsLog(chstr message); // defined in Mac_platform.mm and iOS_platform.mm
+	void nsLog(const String& message); // defined in Mac_platform.mm and iOS_platform.mm
 #endif
 
 #define MAKE_VA_ARGS(result, format) \
-	hstr result; \
+	String result; \
 	{ \
 		va_list args; \
 		va_start(args, format); \
-		result = hstr(hvsprintf(format, args)); \
+		result = String(hvsprintf(format, args)); \
 		va_end(args); \
 	}
 
@@ -62,9 +62,9 @@ namespace hltypes
 #else
 	bool Log::level_debug = true;
 #endif
-	harray<hstr> Log::tag_filters;
-	hstr Log::filename;
-	void (*Log::callback_function)(chstr, chstr) = NULL;
+	Array<String> Log::tag_filters;
+	String Log::filename;
+	void (*Log::callback_function)(const String&, const String&) = NULL;
 
 	void Log::setLevels(bool write, bool error, bool warn, bool debug)
 	{
@@ -74,7 +74,7 @@ namespace hltypes
 		Log::level_debug = debug;
 	}
 
-	void Log::setFilename(chstr filename, bool clearFile)
+	void Log::setFilename(const String& filename, bool clearFile)
 	{
 		Log::filename = filename;
 		if (clearFile)
@@ -83,7 +83,7 @@ namespace hltypes
 		}
 	}
 
-	bool Log::_system_log(chstr tag, chstr message, int level) // level is needed for Android
+	bool Log::_system_log(const String& tag, const String& message, int level) // level is needed for Android
 	{
 		if (level == LEVEL_WRITE && !Log::level_write)
 		{
@@ -110,7 +110,7 @@ namespace hltypes
 		if (Log::filename != "")
 		{
 			hfile file(Log::filename, hfile::APPEND);
-			hstr log_message = (tag != "" ? "[" + tag + "] " + message : message);
+			String log_message = (tag != "" ? "[" + tag + "] " + message : message);
 			file.writef("%s\n", log_message.c_str());
 		}
 		if (Log::callback_function != NULL)
@@ -121,45 +121,45 @@ namespace hltypes
 		return true;
 	}
 
-	bool Log::write(chstr tag, chstr message)
+	bool Log::write(const String& tag, const String& message)
 	{
 		return Log::_system_log(tag, message, LEVEL_WRITE);
 	}
 
-	bool Log::error(chstr tag, chstr message)
+	bool Log::error(const String& tag, const String& message)
 	{
 		return Log::_system_log(tag, "ERROR: " + message, LEVEL_ERROR);
 	}
 
-	bool Log::warn(chstr tag, chstr message)
+	bool Log::warn(const String& tag, const String& message)
 	{
 		return Log::_system_log(tag, "WARNING: " + message, LEVEL_WARN);
 	}
 
-	bool Log::debug(chstr tag, chstr message)
+	bool Log::debug(const String& tag, const String& message)
 	{
 		return Log::_system_log(tag, "DEBUG: " + message, LEVEL_DEBUG);
 	}
 
-	bool Log::writef(chstr tag, const char* format, ...)
+	bool Log::writef(const String& tag, const char* format, ...)
 	{
 		MAKE_VA_ARGS(result, format);
 		return Log::write(tag, result);
 	}
 
-	bool Log::errorf(chstr tag, const char* format, ...)
+	bool Log::errorf(const String& tag, const char* format, ...)
 	{
 		MAKE_VA_ARGS(result, format);
 		return Log::error(tag, result);
 	}
 
-	bool Log::warnf(chstr tag, const char* format, ...)
+	bool Log::warnf(const String& tag, const char* format, ...)
 	{
 		MAKE_VA_ARGS(result, format);
 		return Log::warn(tag, result);
 	}
 
-	bool Log::debugf(chstr tag, const char* format, ...)
+	bool Log::debugf(const String& tag, const char* format, ...)
 	{
 		MAKE_VA_ARGS(result, format);
 		return Log::debug(tag, result);

@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.01
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -21,11 +21,11 @@ namespace hltypes
 {
 	namespace zip
 	{
-		hmutex access_mutex;
-		hmap<void*, harray<hresource*> > activeHandles;
+		Mutex access_mutex;
+		Map<void*, Array<Resource*> > activeHandles;
 		void* currentArchive = NULL;
 
-		void setArchive(chstr value)
+		void setArchive(const String& value)
 		{
 			if (currentArchive != NULL && activeHandles[currentArchive].size() == 0)
 			{
@@ -33,7 +33,7 @@ namespace hltypes
 				activeHandles.remove_key(currentArchive);
 				currentArchive = NULL;
 			}
-			harray<void*> handles = activeHandles.keys();
+			Array<void*> handles = activeHandles.keys();
 			foreach (void*, it, handles)
 			{
 				if (activeHandles[*it].size() == 0)
@@ -44,11 +44,11 @@ namespace hltypes
 			}
 		}
 
-		void* open(hresource* resource)
+		void* open(Resource* resource)
 		{
 			if (currentArchive == NULL)
 			{
-				hstr archive = Resource::getArchive();
+				String archive = Resource::getArchive();
 				if (archive == "")
 				{
 					return NULL;
@@ -58,15 +58,15 @@ namespace hltypes
 				{
 					return NULL;
 				}
-				activeHandles[currentArchive] = harray<hresource*>();
+				activeHandles[currentArchive] = Array<Resource*>();
 			}
 			activeHandles[currentArchive] += resource;
 			return currentArchive;
 		}
 
-		void close(hresource* resource, void* archive)
+		void close(Resource* resource, void* archive)
 		{
-			harray<hresource*> references = activeHandles[archive];
+			Array<Resource*> references = activeHandles[archive];
 			references -= resource;
 			activeHandles[archive] = references;
 			if (currentArchive != archive && references.size() == 0)
@@ -76,7 +76,7 @@ namespace hltypes
 			}
 		}
 
-		void* fopen(void* archivefile, chstr filename)
+		void* fopen(void* archivefile, const String& filename)
 		{
 			access_mutex.lock();
 			void* file = zip_fopen((struct zip*)archivefile, filename.c_str(), 0);
@@ -99,7 +99,7 @@ namespace hltypes
 			return result;
 		}
 
-		long fsize(void* archivefile, chstr filename)
+		long fsize(void* archivefile, const String& filename)
 		{
 			struct zip_stat stat;
 			stat.size = 0;
@@ -109,7 +109,7 @@ namespace hltypes
 			return stat.size;
 		}
 
-		void* freopen(void* file, void* archivefile, chstr filename)
+		void* freopen(void* file, void* archivefile, const String& filename)
 		{
 			access_mutex.lock();
 			zip_fclose((struct zip_file*)file);
@@ -118,14 +118,14 @@ namespace hltypes
 			return file;
 		}
 
-		harray<hstr> getFiles(void* archivefile)
+		Array<String> getFiles(void* archivefile)
 		{
-			harray<hstr> result;
+			Array<String> result;
 			struct zip* archive = (struct zip*)archivefile;
 			int count = zip_get_num_files(archive);
 			for_iter (i, 0, count)
 			{
-				result += systemize_path(hstr(zip_get_name(archive, i, 0)));
+				result += systemize_path(String(zip_get_name(archive, i, 0)));
 			}
 			return result;
 		}

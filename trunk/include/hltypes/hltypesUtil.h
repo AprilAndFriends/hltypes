@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.02
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -25,6 +25,7 @@ namespace hltypes
 {
 	template <class T> class Array;
 	class StreamBase;
+	extern hstr logTag;
 }
 
 /// @brief Used for optimized and quick calculation from RAD to DEG.
@@ -380,77 +381,21 @@ hltypesFnExport hstr get_basename(chstr path);
 /// @return Environment variable as String.
 hltypesFnExport hstr get_environment_variable(chstr name);
 
-/// @brief Converts a unicode unsigned int to a UTF8 string.
-/// @param[in] value The unsigned int value.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(unsigned int value);
-#ifndef _ANDROID
-/// @brief Converts a unicode wchar to a UTF8 string.
-/// @param[in] value The wchar value.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(wchar_t value);
-#endif
-/// @brief Converts a char to a UTF8 string.
-/// @param[in] string The char.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(char value);
-/// @brief Converts an unsigned char to a UTF8 string.
-/// @param[in] string The unsigned char.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(unsigned char value);
-/// @brief Converts a unicode unsigned int string to a UTF8 string.
-/// @param[in] string The unsigned int string.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
-#ifndef _ANDROID
-/// @brief Converts a unicode wchar string to a UTF8 string.
-/// @param[in] string The wchar string.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
-#endif
-/// @brief Converts a char string to a UTF8 string.
-/// @param[in] string The char string.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(const char* string);
-/// @brief Converts an unsigned char string to a UTF8 string.
-/// @param[in] string The unsigned char string.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(const unsigned char* string);
-/// @brief Converts a unicode unsigned int Array to a UTF8 string.
-/// @param[in] string The unsigned int characters.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
-#ifndef _ANDROID
-/// @brief Converts a unicode wchar Array to a UTF8 string.
-/// @param[in] string The wchar characters.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<wchar_t> chars);
-#endif
-/// @brief Converts a char Array to a UTF8 string.
-/// @param[in] string The char characters.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<char> chars);
-/// @brief Converts an unsigned char Array to a UTF8 string.
-/// @param[in] string The unsigned char characters.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned char> chars);
-/// @brief Converts a UTF8 character into the corresponding character code.
-/// @param[in] input The UTF8 character as C string.
-/// @param[out] character_length Length of character in bytes.
-/// @return Charcter code.
-hltypesFnExport unsigned int utf8_to_uint(chstr input, int* character_length = NULL);
-/// @brief Converts a UTF8 string into a unicode Array.
-/// @param[in] input The UTF8 string.
-/// @param[out] lenght Length of the string.
-/// @return The unsigned int string.
-hltypesFnExport std::basic_string<unsigned int> utf8_to_unicode(chstr input);
-#ifndef _ANDROID
-/// @brief Converts a UTF8 string into a wchar string.
-/// @param[in] input The UTF8 string.
-/// @param[out] lenght Length of the string.
-/// @return The wchar_t string.
-hltypesFnExport std::basic_string<wchar_t> utf8_to_wchars(chstr input);
-#endif
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(unsigned int value);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(wchar_t value);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(char value);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(unsigned char value);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(const char* string);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(const unsigned char* string);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(hltypes::Array<wchar_t> chars);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(hltypes::Array<char> chars);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned char> chars);
+DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int utf8_to_uint(chstr input, int* character_length = NULL);
+DEPRECATED_ATTRIBUTE hltypesFnExport std::basic_string<unsigned int> utf8_to_unicode(chstr input);
+DEPRECATED_ATTRIBUTE hltypesFnExport std::basic_string<wchar_t> utf8_to_wchars(chstr input);
 
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.

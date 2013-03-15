@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.01
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -68,7 +68,7 @@ namespace hltypes
 	/// @param[in] tag The message tag.
 	/// @param[in] message The message to log.
 	/// @param[in] level Log level (required for Android).
-	void _platform_print(chstr tag, chstr message, int level);
+	void _platform_print(const String& tag, const String& message, int level);
 
 }
 

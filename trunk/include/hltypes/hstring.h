@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -30,6 +30,9 @@ const std::string::size_type std::string::npos = size_t(-1);
 namespace hltypes
 {
 	template <class T> class Array;
+#ifdef _ANDROID // Android compiler does not support wchar_t so we use a typedef to work around that
+	typedef unsigned short wchar_t;
+#endif
 	
 	/// @brief Encapsulates std::string and adds high level methods.
 	/// @author Kresimir Spes
@@ -291,23 +294,29 @@ namespace hltypes
 		/// @param[in] s String to search for.
 		/// @return True if this String contains other String.
 		bool contains(const String& s) const;
-		/// @brief Gets the length of the String.
-		/// @return Length of String.
+		/// @brief Creates a substring from UTF8-indexed characters.
+		/// @param[in] start Start index of the substring.
+		/// @param[in] count Character length of the substring (UT8, not ASCII).
+		/// @return The substring.
+		String utf8_substr(int start, int count) const;
+		/// @brief Gets the byte length of the String.
+		/// @return Byte length of String.
 		int size() const;
 		/// @brief Same as size.
 		/// @see size
 		int length() const;
+		/// @brief Gets the character length of the String.
+		/// @return Character length of String.
+		int utf8_size() const;
+		/// @brief Same as utf8_size.
+		/// @see utf8_size
+		int utf8_length() const;
+		/// @brief Checks if string contains ASCII only characters.
+		/// @return True if String contains only ASCII-7 characters.
+		bool is_ascii() const;
 		/// @brief Creates a string with characters converted using the %02X format.
-		/// @return String of hex values of the charcaters.
+		/// @return String of hex values of the characters.
 		String to_hex() const;
-		/// @brief Creates an unicode (unsigned int) string.
-		/// @return A unicode (unsigned int) string.
-		std::basic_string<unsigned int> u_str() const;
-#ifndef _ANDROID
-		/// @brief Creates a wchar string.
-		/// @return A wchar string.
-		std::basic_string<wchar_t> w_str() const;
-#endif
 
 		/// @brief Casts String into float.
 		operator float() const;
@@ -425,6 +434,67 @@ namespace hltypes
 		/// @param[in] index Index of the character.
 		/// @return A character.
 		const char& operator[](int index) const;
+
+		/// @brief Creates an unicode (unsigned int) string.
+		/// @return A unicode (unsigned int) string.
+		std::basic_string<unsigned int> u_str() const;
+		/// @brief Creates a wchar string.
+		/// @return A wchar string.
+		std::basic_string<wchar_t> w_str() const;
+		/// @brief Converts first UTF8 character into the corresponding character code.
+		/// @param[out] character_length Length of UTF8 character in bytes.
+		/// @return Character code.
+		/// @note The out value of character_length parameter can be used to move a character iterator forward.
+		unsigned int first_unicode_char(int* character_length = NULL) const;
+
+		/// @brief Converts a unicode unsigned int to a UTF8 string.
+		/// @param[in] value The unsigned int value.
+		/// @return UTF8 string.
+		static String from_unicode(unsigned int value);
+		/// @brief Converts a unicode wchar to a UTF8 string.
+		/// @param[in] value The wchar value.
+		/// @return UTF8 string.
+		static String from_unicode(wchar_t value);
+		/// @brief Converts a char to a UTF8 string.
+		/// @param[in] string The char.
+		/// @return UTF8 string.
+		static String from_unicode(char value);
+		/// @brief Converts an unsigned char to a UTF8 string.
+		/// @param[in] string The unsigned char.
+		/// @return UTF8 string.
+		static String from_unicode(unsigned char value);
+		/// @brief Converts a unicode unsigned int string to a UTF8 string.
+		/// @param[in] string The unsigned int string.
+		/// @return UTF8 string.
+		static String from_unicode(const unsigned int* string);
+		/// @brief Converts a unicode wchar string to a UTF8 string.
+		/// @param[in] string The wchar string.
+		/// @return UTF8 string.
+		static String from_unicode(const wchar_t* string);
+		/// @brief Converts a char string to a UTF8 string.
+		/// @param[in] string The char string.
+		/// @return UTF8 string.
+		static String from_unicode(const char* string);
+		/// @brief Converts an unsigned char string to a UTF8 string.
+		/// @param[in] string The unsigned char string.
+		/// @return UTF8 string.
+		static String from_unicode(const unsigned char* string);
+		/// @brief Converts a unicode unsigned int Array to a UTF8 string.
+		/// @param[in] string The unsigned int characters.
+		/// @return UTF8 string.
+		static String from_unicode(Array<unsigned int> chars);
+		/// @brief Converts a unicode wchar Array to a UTF8 string.
+		/// @param[in] string The wchar characters.
+		/// @return UTF8 string.
+		static String from_unicode(Array<wchar_t> chars);
+		/// @brief Converts a char Array to a UTF8 string.
+		/// @param[in] string The char characters.
+		/// @return UTF8 string.
+		static String from_unicode(Array<char> chars);
+		/// @brief Converts an unsigned char Array to a UTF8 string.
+		/// @param[in] string The unsigned char characters.
+		/// @return UTF8 string.
+		static String from_unicode(Array<unsigned char> chars);
 
 	};
 }

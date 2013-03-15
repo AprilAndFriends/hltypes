@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.01
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -18,15 +18,15 @@
 namespace hltypes
 {
 #ifndef HAVE_ZIPRESOURCE
-	hstr Resource::cwd = ".";
+	String Resource::cwd = ".";
 #else
-	hstr Resource::cwd = "assets";
+	String Resource::cwd = "assets";
 #define READ_BUFFER_SIZE 32768
 	static unsigned char _read_buffer[READ_BUFFER_SIZE];
 #endif
-	hstr Resource::archive = "";
+	String Resource::archive = "";
 
-	void Resource::setArchive(chstr value)
+	void Resource::setArchive(const String& value)
 	{
 #ifdef HAVE_ZIPRESOURCE
 		zip::setArchive(value);
@@ -34,7 +34,7 @@ namespace hltypes
 		archive = value;
 	}
 
-	Resource::Resource(chstr filename) : FileBase(), data_position(0), archivefile(NULL)
+	Resource::Resource(const String& filename) : FileBase(), data_position(0), archivefile(NULL)
 	{
 		this->filename = normalize_path(filename);
 		this->open(filename);
@@ -52,7 +52,7 @@ namespace hltypes
 		}
 	}
 	
-	void Resource::open(chstr filename)
+	void Resource::open(const String& filename)
 	{
 #ifndef HAVE_ZIPRESOURCE
 		this->_fopen(Resource::make_full_path(filename), READ, 0, FileBase::repeats, FileBase::timeout);
@@ -212,7 +212,7 @@ namespace hltypes
 #endif
 	}
 	
-	bool Resource::exists(chstr filename)
+	bool Resource::exists(const String& filename)
 	{
 #ifndef HAVE_ZIPRESOURCE
 		return FileBase::_fexists(Resource::make_full_path(filename));
@@ -221,7 +221,7 @@ namespace hltypes
 		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
 		if (a != NULL)
 		{
-			hstr name = normalize_path(Resource::make_full_path(filename));
+			String name = normalize_path(Resource::make_full_path(filename));
 			void* f = zip::fopen(a, name);
 			if (f != NULL)
 			{
@@ -234,22 +234,22 @@ namespace hltypes
 #endif
 	}
 	
-	long Resource::hsize(chstr filename)
+	long Resource::hsize(const String& filename)
 	{
 		return Resource(filename).size();
 	}
 	
-	hstr Resource::hread(chstr filename, int count)
+	String Resource::hread(const String& filename, int count)
 	{
 		return Resource(filename).read(count);
 	}
 	
-	hstr Resource::hread(chstr filename, chstr delimiter)
+	String Resource::hread(const String& filename, const String& delimiter)
 	{
 		return Resource(filename).read(delimiter);
 	}
 
-	hstr Resource::make_full_path(chstr filename)
+	String Resource::make_full_path(const String& filename)
 	{
 		return normalize_path(Resource::cwd + "/" + filename);
 	}

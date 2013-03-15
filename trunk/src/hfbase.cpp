@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.1
 /// 
 /// @section LICENSE
 /// 
@@ -34,12 +34,12 @@ namespace hltypes
 		}
 	}
 	
-	hstr FileBase::_descriptor()
+	String FileBase::_descriptor()
 	{
 		return this->filename;
 	}
 	
-	void FileBase::_fopen(chstr filename, AccessMode access_mode, unsigned char encryption_offset, int repeats, float timeout)
+	void FileBase::_fopen(const String& filename, AccessMode access_mode, unsigned char encryption_offset, int repeats, float timeout)
 	{
 		if (this->is_open())
 		{
@@ -137,9 +137,9 @@ namespace hltypes
 		fseek((FILE*)this->cfile, offset, mode);
 	}
 	
-	bool FileBase::_fexists(chstr filename)
+	bool FileBase::_fexists(const String& filename)
 	{
-		hstr name = normalize_path(filename);
+		String name = normalize_path(filename);
 		bool result = false;
 		FILE* f = fopen(name.c_str(), "rb");
 		if (f != NULL)
