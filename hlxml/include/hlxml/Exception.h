@@ -15,8 +15,8 @@
 #ifndef HLXML_EXCEPTION_H
 #define HLXML_EXCEPTION_H
 
-#include <hltypes/hstring.h>
 #include <hltypes/exception.h>
+#include <hltypes/hstring.h>
 
 #include "hlxmlExport.h"
 
