@@ -388,8 +388,9 @@ namespace hltypes
 	{
 		String result;
 		const unsigned char* str = (const unsigned char*)stdstr::c_str();
+		int start_index = 0;
 		int i = 0;
-		while (str[i] != 0)
+		while (str[i] != 0 && start_index < start)
 		{
 			if (str[i] < 0x80)
 			{
@@ -407,6 +408,7 @@ namespace hltypes
 			{
 				i += 4;
 			}
+			start_index++;
 		}
 #ifdef _DEBUG
 		if (str[i] == 0)

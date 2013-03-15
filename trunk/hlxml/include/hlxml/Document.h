@@ -15,6 +15,7 @@
 #ifndef HLXML_DOCUMENT_H
 #define HLXML_DOCUMENT_H
 
+#include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
 
 #include "hlxmlExport.h"
@@ -34,7 +35,7 @@ namespace hlxml
 	public:
 		virtual ~Document();
 
-		hstr getFilename() { return this->filename; }
+		HL_DEFINE_GET(hstr, filename, Filename);
 
 		virtual Node* root(chstr type = "") = 0;
 
