@@ -38,7 +38,7 @@
 #endif
 
 #if defined(__APPLE__)
-	void nsLog(const String& message); // defined in Mac_platform.mm and iOS_platform.mm
+    void nsLog(const hltypes::String& message); // defined in Mac_platform.mm and iOS_platform.mm
 #endif
 
 #define MAKE_VA_ARGS(result, format) \

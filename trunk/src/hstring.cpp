@@ -867,7 +867,7 @@ namespace hltypes
 #ifdef __APPLE__ // bugfix for apple llvm compiler, has allocation problems in std::string with unsigned int combination
 		if (stdstr::size() == 0)
 		{
-			unsigned int ary[] = {'x', 0};
+			wchar_t ary[] = {'x', 0};
 			result = ary;
 			ary[0] = 0;
 			result = ary;
