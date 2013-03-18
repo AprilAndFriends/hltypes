@@ -411,9 +411,9 @@ namespace hltypes
 			start_index++;
 		}
 #ifdef _DEBUG
-		if (str[i] == 0)
+		if (str[i] == 0 && count > 0)
 		{
-			Log::warn(hltypes::logTag, "Parameter start in utf8_substr() is after end of string: " + *this);
+			Log::warn(hltypes::logTag, "Parameter 'start' in utf8_substr() is after end of string: " + *this);
 		}
 #endif
 		int start_size = i;
@@ -441,7 +441,7 @@ namespace hltypes
 #ifdef _DEBUG
 		if (size < count)
 		{
-			Log::warn(hltypes::logTag, "Parameter count in utf8_substr() is out of bounds in string: " + *this);
+			Log::warn(hltypes::logTag, "Parameter 'count' in utf8_substr() is out of bounds in string: " + *this);
 		}
 #endif
 		return String((const char*)&str[start_size], i - start_size);
