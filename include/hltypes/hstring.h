@@ -30,9 +30,6 @@ const std::string::size_type std::string::npos = size_t(-1);
 namespace hltypes
 {
 	template <class T> class Array;
-#ifdef _ANDROID // Android compiler does not support wchar_t so we use a typedef to work around that
-	typedef unsigned short wchar_t;
-#endif
 	
 	/// @brief Encapsulates std::string and adds high level methods.
 	/// @author Kresimir Spes
