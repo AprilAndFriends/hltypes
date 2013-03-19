@@ -62,6 +62,7 @@ namespace hltypes
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_GET(type, name, capsName) type get ## capsName() { return this->name; }
+#define HL_DEFINE_GET2(cls, arg1, arg2, name, capsName) cls<arg1, arg2> get ## capsName() { return this->name; }
 /// @brief Utility macro for quick getter (with "is") definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
@@ -72,11 +73,13 @@ namespace hltypes
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_SET(type, name, capsName) void set ## capsName(type value) { this->name = value; }
+#define HL_DEFINE_SET2(cls, arg1, arg2, name, capsName) void set ## capsName(cls<arg1, arg2> value) { this->name = value; }
 /// @brief Utility macro for quick getter and setter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
+#define HL_DEFINE_GETSET2(cls, arg1, arg2, name, capsName) HL_DEFINE_GET2(cls, arg1, arg2, name, capsName) HL_DEFINE_SET2(cls, arg1, arg2, name, capsName)
 /// @brief Utility macro for quick getter (with "is") and setter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
