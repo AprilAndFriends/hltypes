@@ -52,39 +52,54 @@ namespace hltypes
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.01
 
-/// @brief This macro is used to make it possible to use Map in macros because of the argument problems in macros.
-/// @param[in] keyType Map key type.
-/// @param[in] valueType Map value type.
-#define HL_HMAP_MACRO_FIX(keyType, valueType) hmap<keyType, valueType>
-
 /// @brief Utility macro for quick getter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_GET(type, name, capsName) type get ## capsName() { return this->name; }
-#define HL_DEFINE_GET2(cls, arg1, arg2, name, capsName) cls<arg1, arg2> get ## capsName() { return this->name; }
-/// @brief Utility macro for quick getter (with "is") definition.
-/// @param[in] type Variable type.
+/// @brief Utility macro for quick getter definition.
+/// @param[in] classe Template class.
+/// @param[in] type1 First template type argument.
+/// @param[in] type2 Second template type argument.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_IS(type, name, capsName) type is ## capsName() { return this->name; }
+#define HL_DEFINE_GET2(classe, type1, type2, name, capsName) classe<type1, type2> get ## capsName() { return this->name; }
+/// @brief Utility macro for quick getter (with "is") definition.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+/// @note This is meant for use with bool only.
+#define HL_DEFINE_IS(name, capsName) bool is ## capsName() { return this->name; }
 /// @brief Utility macro for quick setter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_SET(type, name, capsName) void set ## capsName(type value) { this->name = value; }
-#define HL_DEFINE_SET2(cls, arg1, arg2, name, capsName) void set ## capsName(cls<arg1, arg2> value) { this->name = value; }
+/// @brief Utility macro for quick setter definition.
+/// @param[in] classe Template class.
+/// @param[in] type1 First template type argument.
+/// @param[in] type2 Second template type argument.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_SET2(classe, type1, type2, name, capsName) void set ## capsName(classe<type1, type2> value) { this->name = value; }
 /// @brief Utility macro for quick getter and setter definition.
-/// @param[in] type Variable type.
+/// @param[in] classe Template class.
+/// @param[in] type1 First template type argument.
+/// @param[in] type2 Second template type argument.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
-#define HL_DEFINE_GETSET2(cls, arg1, arg2, name, capsName) HL_DEFINE_GET2(cls, arg1, arg2, name, capsName) HL_DEFINE_SET2(cls, arg1, arg2, name, capsName)
-/// @brief Utility macro for quick getter (with "is") and setter definition.
-/// @param[in] type Variable type.
+/// @brief Utility macro for quick getter and setter definition.
+/// @param[in] classe Template class.
+/// @param[in] type1 First template type argument.
+/// @param[in] type2 Second template type argument.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_ISSET(type, name, capsName) HL_DEFINE_IS(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
+#define HL_DEFINE_GETSET2(classe, type1, type2, name, capsName) HL_DEFINE_GET2(classe, type1, type2, name, capsName) HL_DEFINE_SET2(classe, type1, type2, name, capsName)
+/// @brief Utility macro for quick getter (with "is") and setter definition.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+/// @note This is meant for use with bool only.
+#define HL_DEFINE_ISSET(name, capsName) HL_DEFINE_IS(name, capsName) HL_DEFINE_SET(bool, name, capsName)
 
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
