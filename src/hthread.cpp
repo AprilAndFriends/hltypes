@@ -55,7 +55,7 @@ namespace hltypes
 	};
 #endif
 	
-	Thread::Thread(void (*function)()) : running(false), id(0)
+	Thread::Thread(void (*function)(Thread*)) : running(false), id(0)
 	{
 		this->function = function;
 	}
@@ -102,7 +102,7 @@ namespace hltypes
 		if (this->function != NULL)
 		{
 			this->running = true;
-			(*this->function)();
+			(*this->function)(this);
 			this->running = false;
 		}
 	}

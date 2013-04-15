@@ -32,12 +32,12 @@ namespace hltypes
 	public:
 		/// @brief Basic constructor.
 		/// @param[in] function Function pointer for the callback.
-		Thread(void (*function)());
+		Thread(void (*function)(Thread*));
 		/// @brief Destructor.
-		~Thread();
+		virtual ~Thread();
 		/// @brief Sets function.
 		/// @param[in] value New function.
-		void setFunction(void (*value)()) { this->function = value; }
+		void setFunction(void (*value)(Thread*)) { this->function = value; }
 		/// @brief Starts the thread processing.
 		void start();
 		/// @brief Stops the thread processing.
@@ -62,7 +62,7 @@ namespace hltypes
 
 	protected:
 		/// @brief The callback function of the thread.
-		void (*function)();
+		void (*function)(Thread*);
 		/// @brief The internal OS handle ID for the thread.
 #ifdef _WIN32
 		void* id;
