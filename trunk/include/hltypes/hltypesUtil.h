@@ -41,6 +41,10 @@ namespace hltypes
 /// @param[in] degrees Angle in degrees.
 /// @return cos(degrees).
 #define dcos(degrees) cos((degrees) * HL_DEG_TO_RAD_RATIO)
+/// @brief Calculates tan from angle given in degrees.
+/// @param[in] degrees Angle in degrees.
+/// @return tan(degrees).
+#define dtan(degrees) tan((degrees) * HL_DEG_TO_RAD_RATIO)
 /// @brief Calculates asin in degrees.
 /// @param[in] value sin value.
 /// @return asin in degrees.
@@ -49,6 +53,11 @@ namespace hltypes
 /// @param[in] value cos value.
 /// @return acos in degrees.
 #define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
+/// @brief Calculates atan in degrees.
+/// @param[in] value cos value.
+/// @return atan in degrees.
+/// @note This uses atan2.
+#define datan(value) (atan2(value) * HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.01
 
