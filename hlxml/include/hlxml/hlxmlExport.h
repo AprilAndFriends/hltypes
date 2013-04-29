@@ -19,7 +19,7 @@
 	/// @brief Macro for DLL exports/imports.
 	/// @def hlxmlFnExport
 	/// @brief Macro for function DLL exports/imports.
-	#ifdef _STATICLIB
+	#ifdef _LIB
 		#define hlxmlExport
 		#define hlxmlFnExport
 	#else
