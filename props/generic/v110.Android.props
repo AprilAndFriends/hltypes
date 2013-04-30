@@ -19,6 +19,6 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>..\lib\android;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Lb>
+    </Lib>
   </ItemDefinitionGroup>
 </Project>
