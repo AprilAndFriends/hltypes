@@ -4,20 +4,14 @@
                                   '$(Configuration)'=='DebugS_ZipResource' or
                                   '$(Configuration)'=='Release_ZipResource' or
                                   '$(Configuration)'=='ReleaseS_ZipResource'">
-    <ClCompile Condition="'$(Configuration)|$(Platform)'=='Debug_ZipResource|Android'">
+    <ClCompile>
       <PreprocessorDefinitions>HAVE_ZIPRESOURCE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link Condition="'$(Platform)'=='Win32'">
       <AdditionalDependencies>libzip.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Lib Condition="'$(Platform)'=='Win32'">
-      <AdditionalDependencies>libzip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Lib>
     <Link Condition="'$(Platform)'=='Android'">
       <AdditionalDependencies>-lzip;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Lib Condition="'$(Platform)'=='Android'">
-      <AdditionalDependencies>-lzip;%(AdditionalDependencies)</AdditionalDependencies>
-    </Lib>
   </ItemDefinitionGroup>
 </Project>
