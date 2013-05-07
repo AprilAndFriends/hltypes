@@ -68,7 +68,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E4D373BF-E227-48B9-99E6-84987E8674EC}</ProjectGuid>
-    <RootNamespace>libhltypes</RootNamespace>
+    <RootNamespace>hltypes</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="props\v110.default.props" />

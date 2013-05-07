@@ -36,7 +36,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}</ProjectGuid>
-    <RootNamespace>libhlxml</RootNamespace>
+    <RootNamespace>hlxml</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="props\v110.default.props" />
