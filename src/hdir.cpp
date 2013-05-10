@@ -24,7 +24,7 @@
 #define _readdir(dirp) readdir(dirp)
 #define _closedir(dirp) closedir(dirp)
 #endif
-#ifdef HAVE_ZIPRESOURCE
+#ifdef _ZIPRESOURCE
 #include "zipaccess.h"
 #endif
 
@@ -243,7 +243,7 @@ namespace hltypes
 		{
 			return true;
 		}
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		return Dir::exists(Resource::make_full_path(name));
 #else
 		return Dir::resource_directories(get_basedir(name)).contains(get_basename(name));
@@ -402,7 +402,7 @@ namespace hltypes
 	Array<String> Dir::resource_contents(const String& dirname, bool prepend_dir)
 	{
 		String name = normalize_path(dirname);
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		String full_path = Resource::make_full_path(name);
 		Array<String> result = Dir::directories(full_path, false) + Dir::files(full_path, false);
 		for_iter (i, 0, result.size())
@@ -482,7 +482,7 @@ namespace hltypes
 	Array<String> Dir::resource_directories(const String& dirname, bool prepend_dir)
 	{
 		String name = normalize_path(dirname);
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		Array<String> result = Dir::directories(Resource::make_full_path(name), false);
 		for_iter (i, 0, result.size())
 		{
@@ -552,7 +552,7 @@ namespace hltypes
 	Array<String> Dir::resource_files(const String& dirname, bool prepend_dir)
 	{
 		String name = normalize_path(dirname);
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		Array<String> result = Dir::files(Resource::make_full_path(name), false);
 		String cwd = Resource::getCwd() + "/";
 		if (cwd != "./" && cwd != "/")

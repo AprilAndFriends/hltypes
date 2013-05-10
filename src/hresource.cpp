@@ -11,13 +11,13 @@
 #include "hdir.h"
 #include "hresource.h"
 #include "hthread.h"
-#ifdef HAVE_ZIPRESOURCE
+#ifdef _ZIPRESOURCE
 #include "zipaccess.h"
 #endif
 
 namespace hltypes
 {
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 	String Resource::cwd = ".";
 #else
 	String Resource::cwd = "assets";
@@ -28,7 +28,7 @@ namespace hltypes
 
 	void Resource::setArchive(const String& value)
 	{
-#ifdef HAVE_ZIPRESOURCE
+#ifdef _ZIPRESOURCE
 		zip::setArchive(value);
 #endif
 		archive = value;
@@ -54,7 +54,7 @@ namespace hltypes
 	
 	void Resource::open(const String& filename)
 	{
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		this->_fopen(Resource::make_full_path(filename), READ, 0, FileBase::repeats, FileBase::timeout);
 #else
 		if (this->is_open())
@@ -99,7 +99,7 @@ namespace hltypes
 	
 	void Resource::close()
 	{
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		this->_fclose();
 #else
 		this->_check_availability();
@@ -114,7 +114,7 @@ namespace hltypes
 	
 	bool Resource::hasZip()
 	{
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		return false;
 #else
 		return true;
@@ -123,7 +123,7 @@ namespace hltypes
 
 	void Resource::_update_data_size()
 	{
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		long position = this->_position();
 		this->_fseek(0, END);
 		this->data_size = this->_position();
@@ -135,7 +135,7 @@ namespace hltypes
 
 	long Resource::_read(void* buffer, int size, int count)
 	{
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		return this->_fread(buffer, size, count);
 #else
 		int read_count = size * count;
@@ -151,7 +151,7 @@ namespace hltypes
 
 	bool Resource::_is_open()
 	{
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		return this->_fis_open();
 #else
 		return (this->archivefile != NULL && this->cfile != NULL);
@@ -160,7 +160,7 @@ namespace hltypes
 	
 	long Resource::_position()
 	{
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		return this->_fposition();
 #else
 		return this->data_position;
@@ -169,7 +169,7 @@ namespace hltypes
 	
 	void Resource::_seek(long offset, SeekMode seek_mode)
 	{
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		this->_fseek(offset, seek_mode);
 #else
 		// zip can only read forward and doesn't really have seeking
@@ -214,7 +214,7 @@ namespace hltypes
 	
 	bool Resource::exists(const String& filename)
 	{
-#ifndef HAVE_ZIPRESOURCE
+#ifndef _ZIPRESOURCE
 		return FileBase::_fexists(Resource::make_full_path(filename));
 #else
 		bool result = false;

@@ -5,7 +5,7 @@
                                   '$(Configuration)'=='Release_ZipResource' or
                                   '$(Configuration)'=='ReleaseS_ZipResource'">
     <ClCompile>
-      <PreprocessorDefinitions>HAVE_ZIPRESOURCE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_ZIPRESOURCE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link Condition="'$(Platform)'=='Win32'">
       <AdditionalDependencies>libzip.lib;%(AdditionalDependencies)</AdditionalDependencies>
