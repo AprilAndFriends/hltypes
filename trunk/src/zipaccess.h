@@ -11,7 +11,7 @@
 /// 
 /// Provides functions for accessing ZIP files when using ZIP Resources.
 
-#ifdef HAVE_ZIPRESOURCE
+#ifdef _ZIPRESOURCE
 
 #include "harray.h"
 #include "hresource.h"
