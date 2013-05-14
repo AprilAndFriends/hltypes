@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.1
+/// @version 2.12
 /// 
 /// @section LICENSE
 /// 
@@ -322,6 +322,22 @@ hltypesFnExport float hmodf(float f, float m);
 /// @param[in] m Modulo value.
 /// @return The always-positive value of d mod m.
 hltypesFnExport double hmodd(double d, double m);
+/// @brief Calculates the square root.
+/// @param[in] value Value to square root.
+/// @return Square root of a value.
+hltypesFnExport float hsqrt(int value);
+/// @brief Calculates the square root.
+/// @param[in] value Value to square root.
+/// @return Square root of a value.
+hltypesFnExport float hsqrt(float value);
+/// @brief Calculates the square root.
+/// @param[in] value Value to square root.
+/// @return Square root of a value.
+hltypesFnExport double hsqrt(double value);
+/// @brief Calculates the square root.
+/// @param[in] value Value to square root.
+/// @return Square root of a value.
+hltypesFnExport long double hsqrt(long double value);
 /// @brief Calculates the float length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
