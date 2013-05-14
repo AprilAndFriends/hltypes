@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.1
+/// @version 2.12
 /// 
 /// @section LICENSE
 /// 
@@ -224,6 +224,26 @@ float hmodf(float f, float m)
 double hmodd(double d, double m)
 {
 	return (d >= 0.0 ? fmod(d, m) : fmod(m - fmod(-d, m), m));
+}
+
+float hsqrt(int value)
+{
+	return sqrt((float)value);
+}
+
+float hsqrt(float value)
+{
+	return sqrt(value);
+}
+
+double hsqrt(double value)
+{
+	return sqrt(value);
+}
+
+long double hsqrt(long double value)
+{
+	return sqrt(value);
 }
 
 float hhypot(float a, float b)
