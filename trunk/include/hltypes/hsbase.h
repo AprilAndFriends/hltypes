@@ -217,13 +217,13 @@ namespace hltypes
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
-		/// @param[in] sound Number of elements to read.
+		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
 		virtual long _read(void* buffer, int size, int count) = 0;
 		/// @brief Writes data to the stream.
 		/// @param[in] src Source data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
-		/// @param[in] sound Number of elements contained in buffer.
+		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
 		virtual long _write(const void* buffer, int size, int count) = 0;
 		/// @brief Checks if data is "open".
