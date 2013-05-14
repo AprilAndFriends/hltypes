@@ -82,13 +82,13 @@ namespace hltypes
 		/// @brief Reads data from the file.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
-		/// @param[in] sound Number of elements to read.
+		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
 		long _fread(void* buffer, int size, int count);
 		/// @brief Writes data to the file.
 		/// @param[in] src Source data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
-		/// @param[in] sound Number of elements contained in buffer.
+		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
 		long _fwrite(const void* buffer, int size, int count);
 		/// @brief Checks if file is open.
