@@ -18,6 +18,7 @@
 #include <time.h>
 
 #include "harray.h"
+#include "hlog.h"
 #include "hltypesUtil.h"
 #include "hplatform.h"
 #include "hresource.h"
@@ -313,7 +314,18 @@ int hcmpd(double a, double b, double tolerance)
 
 hstr systemize_path(chstr path)
 {
-	return path.replace('\\', '/');
+	hstr result = path.replace('\\', '/');
+	if (result.contains("//"))
+	{
+#ifdef _DEBUG
+		hlog::warnf(hltypes::logTag, "The path '%s' contains mutliple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", result.c_str());
+#endif
+		for (int i = 0; i < 1000 && result.contains("//"); i++) // to prevent an infinite loop
+		{
+			result = result.replace("//", "/");
+		}
+	}
+	return result;
 }
 
 hstr normalize_path(chstr path)
