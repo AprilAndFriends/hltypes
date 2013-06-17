@@ -41,6 +41,7 @@ namespace hltypes
 #else
 		pthread_exit(NULL);
 #endif
+		return NULL;
 	}
 
 #if _HL_WINRT
