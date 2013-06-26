@@ -107,7 +107,7 @@
 		D1E909F4163693B600EB27EE /* iOS_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOS_platform.mm; path = src/platform/iOS_platform.mm; sourceTree = "<group>"; };
 		D1E909F6163693BC00EB27EE /* Mac_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Mac_platform.mm; path = src/platform/Mac_platform.mm; sourceTree = "<group>"; };
 		D1E909FB163694F300EB27EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D1F27A9F177A2D0E00E5C131 /* libhltypes (iOS) copy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libhltypes (iOS) copy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1F27A9F177A2D0E00E5C131 /* libhltypes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libhltypes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +127,7 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* hltypes.framework */,
 				D1522F3E140F7A310012F290 /* libhltypes.a */,
-				D1F27A9F177A2D0E00E5C131 /* libhltypes (iOS) copy.a */,
+				D1F27A9F177A2D0E00E5C131 /* libhltypes.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -285,7 +285,7 @@
 			);
 			name = "hltypes (Mac)";
 			productName = "libhltypes-ios";
-			productReference = D1F27A9F177A2D0E00E5C131 /* libhltypes (iOS) copy.a */;
+			productReference = D1F27A9F177A2D0E00E5C131 /* libhltypes.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -619,12 +619,14 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -641,12 +643,14 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = "Debug-LLVM";
@@ -658,12 +662,14 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhltypes_ios.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -676,12 +682,14 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhltypes_ios.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -694,12 +702,14 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhltypes_ios.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -717,14 +727,12 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "hltypes (iOS) copy";
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = hltypes;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -741,14 +749,12 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "hltypes (iOS) copy";
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = hltypes;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
 			name = "Debug-LLVM";
@@ -760,14 +766,12 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhltypes_ios.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "hltypes (iOS) copy";
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = hltypes;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -780,14 +784,12 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhltypes_ios.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "hltypes (iOS) copy";
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = hltypes;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -800,14 +802,12 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhltypes_ios.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "hltypes (iOS) copy";
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = hltypes;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
