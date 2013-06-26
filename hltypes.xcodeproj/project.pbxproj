@@ -52,6 +52,19 @@
 		D1E909F5163693B600EB27EE /* iOS_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F4163693B600EB27EE /* iOS_platform.mm */; };
 		D1E909F7163693BC00EB27EE /* Mac_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F6163693BC00EB27EE /* Mac_platform.mm */; };
 		D1E909FC163694F300EB27EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1E909FB163694F300EB27EE /* Foundation.framework */; };
+		D1F27A8C177A2D0E00E5C131 /* hsbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C014AD4FA600C78558 /* hsbase.cpp */; };
+		D1F27A8D177A2D0E00E5C131 /* hstream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C114AD4FA600C78558 /* hstream.cpp */; };
+		D1F27A8E177A2D0E00E5C131 /* hthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23531291377B0035EDF5 /* hthread.cpp */; };
+		D1F27A8F177A2D0E00E5C131 /* hmutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23541291377B0035EDF5 /* hmutex.cpp */; };
+		D1F27A90177A2D0E00E5C131 /* hdir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F79A50F125CB34400B22DA2 /* hdir.cpp */; };
+		D1F27A91177A2D0E00E5C131 /* exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F469C7612088C00009781BB /* exception.cpp */; };
+		D1F27A92177A2D0E00E5C131 /* hfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69611EB0B9400B1C1DF /* hfile.cpp */; };
+		D1F27A93177A2D0E00E5C131 /* hstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69711EB0B9500B1C1DF /* hstring.cpp */; };
+		D1F27A94177A2D0E00E5C131 /* hltypesUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9313F14DA88B400954F90 /* hltypesUtil.cpp */; };
+		D1F27A95177A2D0E00E5C131 /* hresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C965F5BA14F3897B009F0EE5 /* hresource.cpp */; };
+		D1F27A96177A2D0E00E5C131 /* hfbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C981D01B14FFC5FE0032F321 /* hfbase.cpp */; };
+		D1F27A97177A2D0E00E5C131 /* hlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E909E61636911B00EB27EE /* hlog.cpp */; };
+		D1F27A98177A2D0E00E5C131 /* iOS_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F4163693B600EB27EE /* iOS_platform.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +107,7 @@
 		D1E909F4163693B600EB27EE /* iOS_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOS_platform.mm; path = src/platform/iOS_platform.mm; sourceTree = "<group>"; };
 		D1E909F6163693BC00EB27EE /* Mac_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Mac_platform.mm; path = src/platform/Mac_platform.mm; sourceTree = "<group>"; };
 		D1E909FB163694F300EB27EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D1F27A9F177A2D0E00E5C131 /* libhltypes (iOS) copy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libhltypes (iOS) copy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +127,7 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* hltypes.framework */,
 				D1522F3E140F7A310012F290 /* libhltypes.a */,
+				D1F27A9F177A2D0E00E5C131 /* libhltypes (iOS) copy.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -258,6 +273,21 @@
 			productReference = D1522F3E140F7A310012F290 /* libhltypes.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		D1F27A8A177A2D0E00E5C131 /* hltypes (Mac) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1F27A99177A2D0E00E5C131 /* Build configuration list for PBXNativeTarget "hltypes (Mac)" */;
+			buildPhases = (
+				D1F27A8B177A2D0E00E5C131 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "hltypes (Mac)";
+			productName = "libhltypes-ios";
+			productReference = D1F27A9F177A2D0E00E5C131 /* libhltypes (iOS) copy.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -282,6 +312,7 @@
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* hltypes */,
+				D1F27A8A177A2D0E00E5C131 /* hltypes (Mac) */,
 				D1522F3D140F7A310012F290 /* hltypes (iOS) */,
 			);
 		};
@@ -325,6 +356,26 @@
 				C981D01D14FFC5FE0032F321 /* hfbase.cpp in Sources */,
 				D1E909E81636911B00EB27EE /* hlog.cpp in Sources */,
 				D1E909F5163693B600EB27EE /* iOS_platform.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1F27A8B177A2D0E00E5C131 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1F27A8C177A2D0E00E5C131 /* hsbase.cpp in Sources */,
+				D1F27A8D177A2D0E00E5C131 /* hstream.cpp in Sources */,
+				D1F27A8E177A2D0E00E5C131 /* hthread.cpp in Sources */,
+				D1F27A8F177A2D0E00E5C131 /* hmutex.cpp in Sources */,
+				D1F27A90177A2D0E00E5C131 /* hdir.cpp in Sources */,
+				D1F27A91177A2D0E00E5C131 /* exception.cpp in Sources */,
+				D1F27A92177A2D0E00E5C131 /* hfile.cpp in Sources */,
+				D1F27A93177A2D0E00E5C131 /* hstring.cpp in Sources */,
+				D1F27A94177A2D0E00E5C131 /* hltypesUtil.cpp in Sources */,
+				D1F27A95177A2D0E00E5C131 /* hresource.cpp in Sources */,
+				D1F27A96177A2D0E00E5C131 /* hfbase.cpp in Sources */,
+				D1F27A97177A2D0E00E5C131 /* hlog.cpp in Sources */,
+				D1F27A98177A2D0E00E5C131 /* iOS_platform.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,28 +610,21 @@
 		D1522F49140F7A310012F290 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/libhltypes_ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -588,28 +632,21 @@
 		D1522F4A140F7A310012F290 /* Debug-LLVM */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/libhltypes_ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
 			name = "Debug-LLVM";
@@ -617,23 +654,16 @@
 		D1522F4B140F7A310012F290 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhltypes_ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -642,23 +672,16 @@
 		D1522F4C140F7A310012F290 /* Release-LLVM */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhltypes_ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -667,14 +690,75 @@
 		D1522F4D140F7A310012F290 /* App Store */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/libhltypes_ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = hltypes;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "App Store";
+		};
+		D1F27A9A177A2D0E00E5C131 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/libhltypes_ios.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
 					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
 				);
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "hltypes (iOS) copy";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D1F27A9B177A2D0E00E5C131 /* Debug-LLVM */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/libhltypes_ios.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "hltypes (iOS) copy";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = "Debug-LLVM";
+		};
+		D1F27A9C177A2D0E00E5C131 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/libhltypes_ios.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -682,7 +766,47 @@
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = hltypes;
+				PRODUCT_NAME = "hltypes (iOS) copy";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D1F27A9D177A2D0E00E5C131 /* Release-LLVM */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/libhltypes_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "hltypes (iOS) copy";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-LLVM";
+		};
+		D1F27A9E177A2D0E00E5C131 /* App Store */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/libhltypes_ios.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "hltypes (iOS) copy";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
@@ -724,6 +848,18 @@
 				D1522F4B140F7A310012F290 /* Release */,
 				D1522F4C140F7A310012F290 /* Release-LLVM */,
 				D1522F4D140F7A310012F290 /* App Store */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D1F27A99177A2D0E00E5C131 /* Build configuration list for PBXNativeTarget "hltypes (Mac)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1F27A9A177A2D0E00E5C131 /* Debug */,
+				D1F27A9B177A2D0E00E5C131 /* Debug-LLVM */,
+				D1F27A9C177A2D0E00E5C131 /* Release */,
+				D1F27A9D177A2D0E00E5C131 /* Release-LLVM */,
+				D1F27A9E177A2D0E00E5C131 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
