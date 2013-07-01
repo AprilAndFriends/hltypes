@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 2.1
+/// @version 2.13
 /// 
 /// @section LICENSE
 /// 
@@ -630,18 +630,22 @@ namespace hltypes
 	
 	String String::operator()(int start, int count) const
 	{
+		if (count < 0)
+		{
+			count = stdstr::npos;
+		}
 		return stdstr::substr(start, count);
 	}
 	
 	String String::operator()(int start, int count, int step) const
 	{
-		if (count < 0)
-		{
-			count = stdstr::npos;
-		}
 		if (step == 1)
 		{
 			return stdstr::substr(start, count);
+		}
+		if (count < 0)
+		{
+			count = stdstr::npos;
 		}
 		String result;
 		for_iter_step (i, start, start + count, step)
