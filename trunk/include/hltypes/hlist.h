@@ -14,9 +14,13 @@
 #ifndef HLTYPES_LIST_H
 #define HLTYPES_LIST_H
 
+#include <algorithm>
 #include <list>
 
+#include "exception.h"
+#include "hltypesUtil.h"
 #include "hplatform.h"
+#include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a list.
 #define foreach_l(type, name, container) for (std::list<type>::iterator name = (container).begin(); name != (container).end(); name++)
