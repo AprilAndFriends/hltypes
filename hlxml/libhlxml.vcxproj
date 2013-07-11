@@ -84,9 +84,6 @@
     <ClCompile Include="src\Exception.cpp" />
     <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\Property.cpp" />
-    <ClCompile Include="xmlsystems\LibXml2\LibXml2_Document.cpp" />
-    <ClCompile Include="xmlsystems\LibXml2\LibXml2_Node.cpp" />
-    <ClCompile Include="xmlsystems\LibXml2\LibXml2_Property.cpp" />
     <ClCompile Include="xmlsystems\TinyXml\TinyXml_Document.cpp" />
     <ClCompile Include="xmlsystems\TinyXml\TinyXml_Node.cpp" />
     <ClCompile Include="xmlsystems\TinyXml\TinyXml_Property.cpp" />
@@ -97,9 +94,6 @@
     <ClInclude Include="include\hlxml\hlxmlExport.h" />
     <ClInclude Include="include\hlxml\Node.h" />
     <ClInclude Include="include\hlxml\Property.h" />
-    <ClInclude Include="xmlsystems\LibXml2\LibXml2_Document.h" />
-    <ClInclude Include="xmlsystems\LibXml2\LibXml2_Node.h" />
-    <ClInclude Include="xmlsystems\LibXml2\LibXml2_Property.h" />
     <ClInclude Include="xmlsystems\TinyXml\TinyXml_Document.h" />
     <ClInclude Include="xmlsystems\TinyXml\TinyXml_Node.h" />
     <ClInclude Include="xmlsystems\TinyXml\TinyXml_Property.h" />

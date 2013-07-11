@@ -12,12 +12,7 @@
 
 #include "Document.h"
 #include "Exception.h"
-#ifdef USE_LIBXML2
-#include "LibXml2_Document.h"
-#endif
-#ifdef USE_TINYXML
 #include "TinyXml_Document.h"
-#endif
 
 namespace hlxml
 {
@@ -25,12 +20,7 @@ namespace hlxml
 
 	Document* open(chstr filename)
 	{
-#ifdef USE_LIBXML2
-		return new LibXml2_Document(filename);
-#endif
-#ifdef USE_TINYXML
 		return new TinyXml_Document(filename);
-#endif
 	}
 
 	void close(Document* document)

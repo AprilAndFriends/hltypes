@@ -12,7 +12,6 @@
 /// 
 /// Represents a TinyXML property.
 
-#ifdef USE_TINYXML
 #ifndef HLXML_TINYXML_PROPERTY_H
 #define HLXML_TINYXML_PROPERTY_H
 
@@ -41,5 +40,4 @@ namespace hlxml
 	};
 }
 
-#endif
 #endif
