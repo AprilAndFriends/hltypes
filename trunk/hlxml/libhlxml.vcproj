@@ -16,154 +16,6 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug_LibXml2|Win32"
-			OutputDirectory="$(SolutionDir)bin\$(PlatformName)\"
-			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)\"
-			ConfigurationType="2"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories=".;include/hlxml;../include;xmlsystems/LibXml2;xmlsystems/TinyXml;../../include"
-				PreprocessorDefinitions="_WIN32;HLXML_EXPORTS;USE_LIBXML2;_DEBUG;_CRT_SECURE_NO_WARNINGS"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				WarningLevel="3"
-				DebugInformationFormat="4"
-				DisableSpecificWarnings="4251"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="libhltypes.lib libxml2.lib"
-				OutputFile="$(OutDir)$(ProjectName).dll"
-				AdditionalLibraryDirectories="..\..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
-				GenerateDebugInformation="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine=""
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release_LibXml2|Win32"
-			OutputDirectory="$(SolutionDir)bin\$(PlatformName)\"
-			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)\"
-			ConfigurationType="2"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories=".;include/hlxml;../include;xmlsystems/LibXml2;xmlsystems/TinyXml;../../include"
-				PreprocessorDefinitions="_WIN32;HLXML_EXPORTS;USE_LIBXML2;_CRT_SECURE_NO_WARNINGS"
-				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="true"
-				WarningLevel="3"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4251"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="libhltypes.lib libxml2.lib"
-				OutputFile="$(OutDir)$(ProjectName).dll"
-				AdditionalLibraryDirectories="..\..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine=""
-			/>
-		</Configuration>
-		<Configuration
 			Name="Debug_TinyXml|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(PlatformName)\"
 			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)\"
@@ -188,8 +40,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;include/hlxml;../include;xmlsystems/LibXml2;xmlsystems/TinyXml;../../include"
-				PreprocessorDefinitions="_WIN32;HLXML_EXPORTS;USE_TINYXML;_DEBUG;_CRT_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories=".;include/hlxml;../include;xmlsystems/TinyXml;../../include"
+				PreprocessorDefinitions="_WIN32;HLXML_EXPORTS;_DEBUG;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -263,8 +115,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories=".;include/hlxml;../include;xmlsystems/LibXml2;xmlsystems/TinyXml;../../include"
-				PreprocessorDefinitions="_WIN32;HLXML_EXPORTS;USE_TINYXML;_CRT_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories=".;include/hlxml;../include;xmlsystems/TinyXml;../../include"
+				PreprocessorDefinitions="_WIN32;HLXML_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -337,22 +189,6 @@
 				>
 			</File>
 			<Filter
-				Name="LibXml2"
-				>
-				<File
-					RelativePath=".\xmlsystems\LibXml2\LibXml2_Document.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\xmlsystems\LibXml2\LibXml2_Node.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\xmlsystems\LibXml2\LibXml2_Property.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="TinyXml"
 				>
 				<File
@@ -394,22 +230,6 @@
 				RelativePath=".\include\hlxml\Property.h"
 				>
 			</File>
-			<Filter
-				Name="LibXml2"
-				>
-				<File
-					RelativePath=".\xmlsystems\LibXml2\LibXml2_Document.h"
-					>
-				</File>
-				<File
-					RelativePath=".\xmlsystems\LibXml2\LibXml2_Node.h"
-					>
-				</File>
-				<File
-					RelativePath=".\xmlsystems\LibXml2\LibXml2_Property.h"
-					>
-				</File>
-			</Filter>
 			<Filter
 				Name="TinyXml"
 				>

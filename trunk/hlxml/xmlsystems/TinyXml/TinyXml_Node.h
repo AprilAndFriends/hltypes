@@ -12,7 +12,6 @@
 /// 
 /// Represents a TinyXML node.
 
-#ifdef USE_TINYXML
 #ifndef HLXML_TINYXML_NODE_H
 #define HLXML_TINYXML_NODE_H
 
@@ -61,5 +60,4 @@ namespace hlxml
 
 }
 
-#endif
 #endif
