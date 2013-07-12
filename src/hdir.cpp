@@ -40,7 +40,7 @@ int (*d_rename)(const char* old_name, const char* new_name) = rename;
 #include "hstring.h"
 
 #ifdef _WIN32
-#if _HL_WINRT
+#ifdef _WINRT
 #define _chdir(name) winrtcwd = name
 static hltypes::String winrtcwd = ".";
 #elif defined(_MSC_VER)
@@ -52,7 +52,7 @@ namespace hltypes
 {
 	bool Dir::win32FullDirectoryPermissions = true;
 
-#if defined(_WIN32) && defined(_MSC_VER) && !_HL_WINRT // god help us all
+#if defined(_WIN32) && defined(_MSC_VER) && !defined(_WINRT) // god help us all
 	static bool _mkdirWin32FullPermissions(const String& path)
 	{
 		typedef BOOL (WINAPI* TInitSD)(PSECURITY_DESCRIPTOR, DWORD);
@@ -144,7 +144,7 @@ namespace hltypes
 		return result;
 
 		*/
-#if defined(_WIN32) && defined(_MSC_VER) && !_HL_WINRT
+#if defined(_WIN32) && defined(_MSC_VER) && !defined(_WINRT)
 		if (Dir::getWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(path))
 		{
 			return true;
@@ -596,7 +596,7 @@ namespace hltypes
 
 	String Dir::cwd()
 	{
-#if !_HL_WINRT
+#ifndef _WINRT
 		char dir[FILENAME_MAX] = {'\0'};
 		_getcwd(dir, FILENAME_MAX);
 		return systemize_path(dir);
