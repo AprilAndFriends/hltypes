@@ -32,7 +32,7 @@ namespace hltypes
 unsigned int get_system_tick_count()
 {
 #ifdef _WIN32
-#if !_HL_WINRT // because GetTickCount64() is not available pre-Vista
+#ifndef _WINRT // because GetTickCount64() is not available pre-Vista
 	return GetTickCount();
 #else
 	return (unsigned int)GetTickCount64();
@@ -390,7 +390,7 @@ hstr get_basename(chstr path)
 hstr get_environment_variable(chstr name)
 {
 #ifdef _WIN32
-#if !_HL_WINRT
+#ifndef _WINRT
 	return hstr::from_unicode(_wgetenv(name.w_str().c_str()));
 #else
 	return ""; // WinRT does not support environment variables

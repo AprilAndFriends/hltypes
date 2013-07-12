@@ -130,7 +130,7 @@ static DIR* _opendir(chstr dirname)
 		*p++ = '*';
 		*p = '\0';
 		/* open stream and retrieve first file */
-#if !_HL_WINRT
+#ifndef _WINRT
 		dirp->search_handle = FindFirstFileW(dirp->patt, &dirp->current.data);
 #else
 		dirp->search_handle = FindFirstFileEx(dirp->patt, FindExInfoBasic,
