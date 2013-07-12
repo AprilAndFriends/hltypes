@@ -14,14 +14,7 @@
 #ifndef HLTYPES_PLATFORM_H
 #define HLTYPES_PLATFORM_H
 
-// define _WINRT for external projects just in case
-#if !defined(_WINRT) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
-#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
-#define _WINRT
-#endif
-#endif
-
-#ifdef _WINRT
+#if defined(_WIN32) && defined(_MSC_VER)
 #ifdef max
 #undef max
 #endif
@@ -35,6 +28,14 @@
 #include <windows.h>
 #endif
 
+// define _WINRT for external projects just in case
+#if !defined(_WINRT) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
+#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+#define _WINRT
+#endif
+#endif
+
+#ifdef _WINRT
 #using <Windows.winmd>
 #include <wrl.h>
 #define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).w_str().c_str())
@@ -58,6 +59,8 @@
 		name->Release(); \
 		name = NULL; \
 	}
+#endif
+#endif
 
 #include "hstring.h"
 
@@ -71,5 +74,4 @@ namespace hltypes
 
 }
 
-#endif
 #endif
