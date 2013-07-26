@@ -45,9 +45,7 @@ namespace hlxml
 					desc += "\n----------------------------------------------------------";
 				}
 			}
-			hstr errorText = "An error occcured parsing XML file '" + realFilename + "': " + desc;
-			hlog::error(hlxml::logTag, errorText);
-			throw XMLException(errorText, NULL);
+			throw XMLException(hsprintf("An error occcured parsing XML file '%s': %s", realFilename.c_str(), desc.c_str()), NULL);
 		}
 	}
 
