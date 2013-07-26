@@ -9,6 +9,7 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #include "exception.h"
+#include "hlog.h"
 #include "hltypesUtil.h"
 #include "hstring.h"
 
@@ -17,6 +18,7 @@ namespace hltypes
 	exception::exception(const String& message, const char* source_file, int line_number)
 	{
 		this->msg = hsprintf("[%s:%d] %s", get_basename(source_file).c_str(), line_number, message.c_str());
+		hlog::error("FATAL", this->msg); // useful because WinRT cannot properly handle and display exceptions for some reason even though it should
 	}
 	
 	exception::~exception()
