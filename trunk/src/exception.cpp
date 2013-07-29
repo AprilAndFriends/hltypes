@@ -18,7 +18,9 @@ namespace hltypes
 	exception::exception(const String& message, const char* source_file, int line_number)
 	{
 		this->msg = hsprintf("[%s:%d] %s", get_basename(source_file).c_str(), line_number, message.c_str());
-		hlog::error("FATAL", this->msg); // useful because WinRT cannot properly handle and display exceptions for some reason even though it should
+#if defined(_WINRT) && defined(_DEBUG) // because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
+		hlog::error("FATAL", this->msg);
+#endif
 	}
 	
 	exception::~exception()
