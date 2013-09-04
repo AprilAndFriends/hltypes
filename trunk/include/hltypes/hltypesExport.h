@@ -43,6 +43,13 @@
 			#define DEPRECATED_ATTRIBUTE __attribute__((deprecated))
 		#endif
 	#endif
+	#ifdef HLTYPES_STRING_EXPORTS
+		#define hltypesSpecialExport
+		#define hltypesMemberExport hltypesExport
+	#else
+		#define hltypesSpecialExport hltypesExport
+		#define hltypesMemberExport
+	#endif
 
 #endif
 
