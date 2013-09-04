@@ -20,7 +20,7 @@
 #include <stdarg.h>
 #include <string>
 
-#include "hltypesMemberExport.h"
+#include "hltypesExport.h"
 
 #if defined(_MSC_VER) && _MSC_VER >= 1600 && defined(_WIN32)
 /// @brief Circumvents a compilation problem in VS 2010 and higher
