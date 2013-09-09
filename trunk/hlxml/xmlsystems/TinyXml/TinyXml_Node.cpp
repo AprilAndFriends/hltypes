@@ -8,7 +8,7 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
-#include <tinyxml/tinyxml.h>
+#include <tinyxml.h>
 
 #include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
