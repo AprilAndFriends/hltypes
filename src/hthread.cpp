@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.1
+/// @version 2.14
 /// 
 /// @section LICENSE
 /// 
@@ -94,7 +94,7 @@ namespace hltypes
 			WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
 #endif
 #else
-		pthread_create(&this->id, NULL, &async_call, this);
+		pthread_create((pthread_t*)&this->id, NULL, &async_call, this);
 #endif
 	}
 	
@@ -145,7 +145,7 @@ namespace hltypes
 		}
 #endif
 #else
-		pthread_join(this->id, 0);
+		pthread_join((pthread_t)this->id, 0);
 #endif
 	}
 	
@@ -182,9 +182,9 @@ namespace hltypes
 			((AsyncActionWrapper*)this->id)->async_action->Cancel();
 #endif
 #elif defined(_ANDROID)
-			pthread_kill(this->id, 0);
+			pthread_kill((pthread_t)this->id, 0);
 #else
-			pthread_cancel(this->id);
+			pthread_cancel((pthread_t)this->id);
 #endif
 		}
 	}

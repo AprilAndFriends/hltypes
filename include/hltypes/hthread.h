@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.1
+/// @version 2.14
 /// 
 /// @section LICENSE
 /// 
@@ -64,13 +64,7 @@ namespace hltypes
 		/// @brief The callback function of the thread.
 		void (*function)(Thread*);
 		/// @brief The internal OS handle ID for the thread.
-#ifdef _WIN32
 		void* id;
-		/// @brief Void pointer to critical section.
-		static void* criticalSection;
-#else
-		pthread_t id;
-#endif
 		/// @brief Flag that determines whether the thread is running or not.
 		volatile bool running;
 		

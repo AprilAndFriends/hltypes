@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.1
+/// @version 2.14
 /// 
 /// @section LICENSE
 /// 
@@ -43,11 +43,7 @@ namespace hltypes
 		
 	protected:
 		/// @brief Mutex OS handle.
-#ifdef _WIN32
 		void* handle;
-#else
-		pthread_mutex_t handle;
-#endif
 		
 	};
 }

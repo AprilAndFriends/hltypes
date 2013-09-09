@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.1
+/// @version 2.14
 /// 
 /// @section LICENSE
 /// 
@@ -30,7 +30,7 @@ namespace hltypes
 			throw hl_exception("Could not create mutex.");
 		}
 #else
-		pthread_mutex_init(&this->handle, 0);
+		pthread_mutex_init((pthread_mutex_t*)&this->handle, 0);
 #endif
 	}
 
@@ -39,7 +39,7 @@ namespace hltypes
 #ifdef _WIN32
 		CloseHandle(this->handle);
 #else
-		pthread_mutex_destroy(&this->handle);
+		pthread_mutex_destroy((pthread_mutex_t*)&this->handle);
 #endif
 	}
 
@@ -48,7 +48,7 @@ namespace hltypes
 #ifdef _WIN32
 		WaitForSingleObjectEx(this->handle, INFINITE, FALSE);
 #else
-		pthread_mutex_lock(&this->handle);
+		pthread_mutex_lock((pthread_mutex_t*)&this->handle);
 #endif
 	}
 
@@ -57,7 +57,7 @@ namespace hltypes
 #ifdef _WIN32
 		ReleaseMutex(this->handle);
 #else
-		pthread_mutex_unlock(&this->handle);
+		pthread_mutex_unlock((pthread_mutex_t*)&this->handle);
 #endif
 	}
 	
