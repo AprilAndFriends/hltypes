@@ -30,7 +30,8 @@ namespace hltypes
 			throw hl_exception("Could not create mutex.");
 		}
 #else
-		pthread_mutex_init((pthread_mutex_t*)&this->handle, 0);
+		this->handle = (pthread_mutex_t*)malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init((pthread_mutex_t*)this->handle, 0);
 #endif
 	}
 
@@ -39,7 +40,9 @@ namespace hltypes
 #ifdef _WIN32
 		CloseHandle(this->handle);
 #else
-		pthread_mutex_destroy((pthread_mutex_t*)&this->handle);
+		pthread_mutex_destroy((pthread_mutex_t*)this->handle);
+		free((pthread_mutex_t*)this->handle);
+		this->handle = NULL;
 #endif
 	}
 
@@ -48,7 +51,7 @@ namespace hltypes
 #ifdef _WIN32
 		WaitForSingleObjectEx(this->handle, INFINITE, FALSE);
 #else
-		pthread_mutex_lock((pthread_mutex_t*)&this->handle);
+		pthread_mutex_lock((pthread_mutex_t*)this->handle);
 #endif
 	}
 
@@ -57,8 +60,9 @@ namespace hltypes
 #ifdef _WIN32
 		ReleaseMutex(this->handle);
 #else
-		pthread_mutex_unlock((pthread_mutex_t*)&this->handle);
+		pthread_mutex_unlock((pthread_mutex_t*)this->handle);
 #endif
 	}
 	
 }
+
