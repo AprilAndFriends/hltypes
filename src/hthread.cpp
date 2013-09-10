@@ -40,8 +40,8 @@ namespace hltypes
 		return 0;
 #else
 		pthread_exit(NULL);
-#endif
 		return NULL;
+#endif
 	}
 
 #ifdef _WINRT
@@ -59,6 +59,9 @@ namespace hltypes
 	Thread::Thread(void (*function)(Thread*)) : running(false), id(0)
 	{
 		this->function = function;
+#ifndef _WIN32
+		this->id = (pthread_t*)malloc(sizeof(pthread_t));
+#endif
 	}
 
 	Thread::~Thread()
@@ -67,16 +70,19 @@ namespace hltypes
 		{
 			this->stop();
 		}
-#ifdef _WIN32
 		if (this->id != NULL)
 		{
+#ifdef _WIN32
 #ifndef _WINRT
 			CloseHandle(this->id);
 #else
 			delete this->id;
 #endif
-		}
+#else
+			free((pthread_t*)this->id);
 #endif
+			this->id = NULL;
+		}
 	}
 
 	void Thread::start()
@@ -94,7 +100,6 @@ namespace hltypes
 			WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
 #endif
 #else
-		this->id = (pthread_t*)malloc(sizeof(pthread_t));
 		pthread_create((pthread_t*)this->id, NULL, &async_call, this);
 #endif
 	}
@@ -115,10 +120,10 @@ namespace hltypes
 #ifdef _WIN32
 #ifndef _WINRT
 		WaitForSingleObject(this->id, INFINITE);
-		if (this->id != 0)
+		if (this->id != NULL)
 		{
 			CloseHandle(this->id);
-			this->id = 0;
+			this->id = NULL;
 		}
 #else
 		IAsyncAction^ action = ((AsyncActionWrapper*)this->id)->async_action;
@@ -176,6 +181,7 @@ namespace hltypes
 	{
 		if (this->running)
 		{
+			this->running = false;
 #ifdef _WIN32
 #ifndef _WINRT
 			TerminateThread(this->id, 0);
@@ -184,24 +190,10 @@ namespace hltypes
 #endif
 #elif defined(_ANDROID)
 			pthread_kill(*((pthread_t*)this->id), 0);
-			free((pthread_t*) this->id);
-			this->id = NULL;
 #else
 			pthread_cancel(*((pthread_t*)this->id));
-			free((pthread_t*) this->id);
-			this->id = NULL;
 #endif
 		}
-	}
-	
-	void Thread::enterCritical()
-	{
-		// TODO
-	}
-	
-	void Thread::leaveCritical()
-	{
-		// TODO
 	}
 	
 	void Thread::sleep(float miliseconds)

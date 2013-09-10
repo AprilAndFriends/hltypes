@@ -46,10 +46,6 @@ namespace hltypes
 		void resume();
 		/// @brief Pauses the thread processing.
 		void pause();
-		/// @brief Enters a criticals section.
-		void enterCritical();
-		/// @brief Leaves a criticals section.
-		void leaveCritical();
 		/// @brief Executes the thread's function.
 		virtual void execute();
 		/// @brief Joins thread.
