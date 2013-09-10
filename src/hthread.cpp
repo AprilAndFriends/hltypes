@@ -94,7 +94,8 @@ namespace hltypes
 			WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
 #endif
 #else
-		pthread_create((pthread_t*)&this->id, NULL, &async_call, this);
+		this->id = (pthread_t*)malloc(sizeof(pthread_t));
+		pthread_create((pthread_t*)this->id, NULL, &async_call, this);
 #endif
 	}
 	
@@ -145,7 +146,7 @@ namespace hltypes
 		}
 #endif
 #else
-		pthread_join((pthread_t)this->id, 0);
+		pthread_join(*((pthread_t*)this->id), 0);
 #endif
 	}
 	
@@ -182,9 +183,13 @@ namespace hltypes
 			((AsyncActionWrapper*)this->id)->async_action->Cancel();
 #endif
 #elif defined(_ANDROID)
-			pthread_kill((pthread_t)this->id, 0);
+			pthread_kill(*((pthread_t*)this->id), 0);
+			free((pthread_t*) this->id);
+			this->id = NULL;
 #else
-			pthread_cancel((pthread_t)this->id);
+			pthread_cancel(*((pthread_t*)this->id));
+			free((pthread_t*) this->id);
+			this->id = NULL;
 #endif
 		}
 	}
