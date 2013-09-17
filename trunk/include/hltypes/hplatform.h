@@ -36,7 +36,9 @@
 #endif
 
 #ifdef _WINRT
+#ifndef _WINP8
 #using <Windows.winmd>
+#endif
 #include <wrl.h>
 #define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).w_str().c_str())
 #define _HL_HSTR_TO_PSTR_DEF(string) Platform::String^ p ## string = _HL_HSTR_TO_PSTR(string)
