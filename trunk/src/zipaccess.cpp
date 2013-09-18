@@ -9,7 +9,7 @@
 
 #ifdef _ZIPRESOURCE
 #include <stdio.h>
-#include <zip/zip.h>
+#include <zip.h>
 
 #include "harray.h"
 #include "hmap.h"
