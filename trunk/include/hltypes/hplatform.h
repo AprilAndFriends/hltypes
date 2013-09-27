@@ -36,7 +36,7 @@
 #endif
 
 #ifdef _WINRT
-#ifndef _WINP8
+#if !defined(_WINP8) && !defined(_OPENKODE)
 #using <Windows.winmd>
 #endif
 #include <wrl.h>
