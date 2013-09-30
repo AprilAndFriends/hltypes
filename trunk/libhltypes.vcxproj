@@ -5,6 +5,10 @@
       <Configuration>DebugS_ZipResource</Configuration>
       <Platform>Android</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugS_ZipResource|Android-x86">
+      <Configuration>DebugS_ZipResource</Configuration>
+      <Platform>Android-x86</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="DebugS_ZipResource|Win32">
       <Configuration>DebugS_ZipResource</Configuration>
       <Platform>Win32</Platform>
@@ -12,6 +16,10 @@
     <ProjectConfiguration Include="DebugS|Android">
       <Configuration>DebugS</Configuration>
       <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugS|Android-x86">
+      <Configuration>DebugS</Configuration>
+      <Platform>Android-x86</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="DebugS|Win32">
       <Configuration>DebugS</Configuration>
@@ -21,6 +29,10 @@
       <Configuration>Debug_ZipResource</Configuration>
       <Platform>Android</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_ZipResource|Android-x86">
+      <Configuration>Debug_ZipResource</Configuration>
+      <Platform>Android-x86</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug_ZipResource|Win32">
       <Configuration>Debug_ZipResource</Configuration>
       <Platform>Win32</Platform>
@@ -28,6 +40,10 @@
     <ProjectConfiguration Include="Debug|Android">
       <Configuration>Debug</Configuration>
       <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Android-x86">
+      <Configuration>Debug</Configuration>
+      <Platform>Android-x86</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -37,6 +53,10 @@
       <Configuration>ReleaseS_ZipResource</Configuration>
       <Platform>Android</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseS_ZipResource|Android-x86">
+      <Configuration>ReleaseS_ZipResource</Configuration>
+      <Platform>Android-x86</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="ReleaseS_ZipResource|Win32">
       <Configuration>ReleaseS_ZipResource</Configuration>
       <Platform>Win32</Platform>
@@ -44,6 +64,10 @@
     <ProjectConfiguration Include="ReleaseS|Android">
       <Configuration>ReleaseS</Configuration>
       <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseS|Android-x86">
+      <Configuration>ReleaseS</Configuration>
+      <Platform>Android-x86</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="ReleaseS|Win32">
       <Configuration>ReleaseS</Configuration>
@@ -53,6 +77,10 @@
       <Configuration>Release_ZipResource</Configuration>
       <Platform>Android</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_ZipResource|Android-x86">
+      <Configuration>Release_ZipResource</Configuration>
+      <Platform>Android-x86</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release_ZipResource|Win32">
       <Configuration>Release_ZipResource</Configuration>
       <Platform>Win32</Platform>
@@ -60,6 +88,10 @@
     <ProjectConfiguration Include="Release|Android">
       <Configuration>Release</Configuration>
       <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Android-x86">
+      <Configuration>Release</Configuration>
+      <Platform>Android-x86</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
@@ -93,7 +125,15 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Android-x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Android'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseS|Android-x86'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
@@ -101,7 +141,15 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_ZipResource|Android-x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseS_ZipResource|Android'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseS_ZipResource|Android-x86'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
@@ -120,13 +168,25 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android-x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugS|Android'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugS|Android-x86'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ZipResource|Android'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ZipResource|Android-x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugS_ZipResource|Android'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugS_ZipResource|Android-x86'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
