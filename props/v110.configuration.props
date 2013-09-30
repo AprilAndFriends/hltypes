@@ -10,7 +10,7 @@
     <Link Condition="'$(Platform)'=='Win32'">
       <AdditionalDependencies>libzip.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Link Condition="'$(Platform)'=='Android'">
+    <Link Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86'">
       <AdditionalDependencies>-lzip;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
