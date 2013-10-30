@@ -14,6 +14,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "exception.h"
@@ -91,6 +92,22 @@
 		result = ((((((str[i] & 0x7) << 6) | (str[i + 1] & 0x3F)) << 6) | (str[i + 2] & 0x3F)) << 6) | (str[i + 3] & 0x3F); \
 		size = 4; \
 	}
+
+// MacOS 10.9 SDK has problems linking to tolower/toupper for some reason, so this is used... sigh..
+#ifdef __APPLE__
+	inline int __tolower__(int c)
+	{
+		return tolower(c);
+	}
+
+	inline int __toupper__(int c)
+	{
+		return toupper(c);
+	}
+#else
+	#define __tolower__ tolower
+	#define __toupper__ toupper
+#endif
 
 typedef std::basic_string<char> stdstr;
 
@@ -226,18 +243,18 @@ namespace hltypes
 		}
 		return (strcmp(thiss + thislen - slen, s) == 0);
 	}
-	
+
 	String String::lower() const
 	{
 		String s(*this);
-		std::transform(s.begin(), s.end(), s.begin(), tolower);
+		std::transform(s.begin(), s.end(), s.begin(), __tolower__);
 		return s;
 	}
 	
 	String String::upper() const
 	{
 		String s(*this);
-		std::transform(s.begin(), s.end(), s.begin(), toupper);
+		std::transform(s.begin(), s.end(), s.begin(), __tolower__);
 		return s;
 	}
 
