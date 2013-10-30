@@ -10,6 +10,7 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #include <stdio.h>
+#include <stdlib.h>
 #ifndef _WIN32
 #include <unistd.h>
 #include <pthread.h>

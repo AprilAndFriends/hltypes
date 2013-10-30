@@ -9,6 +9,7 @@
 
 #ifndef _MSC_VER // required for memcpy on non-MSVC compilers
 #include <string.h>
+#include <stdlib.h>
 #endif
 
 #include "hltypesUtil.h"
