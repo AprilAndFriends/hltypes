@@ -126,9 +126,19 @@ namespace hltypes
 	String::String(const float f) { this->operator=(f); }
 	String::String(const float f, int precision)
 	{
-		char fmt[16], s[64];
+		char fmt[16];
+		char s[64];
 		sprintf(fmt, "%%.%df", precision);
 		sprintf(s, fmt, f);
+		stdstr::operator=(s);
+	}
+	String::String(const double d) { this->operator=(d); }
+	String::String(const double d, int precision)
+	{
+		char fmt[16];
+		char s[64];
+		sprintf(fmt, "%%.%dlf", precision);
+		sprintf(s, fmt, d);
 		stdstr::operator=(s);
 	}
 	String::~String() { }
@@ -694,6 +704,13 @@ namespace hltypes
 		return f;
 	}
 	
+	String::operator double() const
+	{
+		double d = 0.0;
+		sscanf(stdstr::c_str(), "%lf", &d);
+		return d;
+	}
+	
 	String::operator int() const
 	{
 		int i = 0;
@@ -717,6 +734,13 @@ namespace hltypes
 	{
 		char s[64] = {'\0'};
 		sprintf(s, "%f", f);
+		stdstr::operator=(s);
+	}
+	
+	void String::operator=(const double d)
+	{
+		char s[64] = {'\0'};
+		sprintf(s, "%lf", d);
 		stdstr::operator=(s);
 	}
 	

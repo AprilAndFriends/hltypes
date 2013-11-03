@@ -82,6 +82,13 @@ namespace hltypes
 		/// @param[in] f Float to create String of.
 		/// @param[in] precision The floating point precision to use.
 		hltypesMemberExport String(const float f, int precision);
+		/// @brief Type constructor.
+		/// @param[in] d Double to create String of.
+		hltypesMemberExport String(const double f);
+		/// @brief Type constructor.
+		/// @param[in] d Double to create String of.
+		/// @param[in] precision The floating point precision to use.
+		hltypesMemberExport String(const double d, int precision);
 		/// @brief Destructor.
 		hltypesMemberExport ~String();
 
@@ -322,6 +329,8 @@ namespace hltypes
 
 		/// @brief Casts String into float.
 		hltypesMemberExport operator float() const;
+		/// @brief Casts String into double.
+		hltypesMemberExport operator double() const;
 		/// @brief Casts String into int.
 		hltypesMemberExport operator int() const;
 		/// @brief Casts String into unsigned int.
@@ -332,6 +341,9 @@ namespace hltypes
 		/// @brief Converts float into String.
 		/// @param[in] f Float value.
 		hltypesMemberExport void operator=(const float f);
+		/// @brief Converts double into String.
+		/// @param[in] d Double value.
+		hltypesMemberExport void operator=(const double d);
 		/// @brief Converts int into String.
 		/// @param[in] i Int value.
 		hltypesMemberExport void operator=(const int i);
