@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.1
+/// @version 2.15
 /// 
 /// @section LICENSE
 /// 
@@ -47,7 +47,7 @@ namespace hltypes
 		}
 		this->filename = normalize_path(filename);
 		this->encryption_offset = encryption_offset;
-		const char* mode = "rb";
+		hstr mode = "rb";
 		switch (access_mode)
 		{
 		case READ:
@@ -72,7 +72,11 @@ namespace hltypes
 		int attempts = repeats + 1;
 		while (true)
 		{
-			this->cfile = fopen(this->filename.c_str(), mode);
+#ifdef _WIN32
+			this->cfile = _wfopen(this->filename.w_str().c_str(), mode.w_str().c_str());
+#else
+			this->cfile = fopen(this->filename.c_str(), mode.c_str()); // TODO - should be ported to Unix systems as well
+#endif
 			if (this->cfile != NULL)
 			{
 				break;
@@ -141,7 +145,11 @@ namespace hltypes
 	{
 		String name = normalize_path(filename);
 		bool result = false;
-		FILE* f = fopen(name.c_str(), "rb");
+#ifdef _WIN32
+		FILE* f = _wfopen(name.w_str().c_str(), L"rb");
+#else
+		FILE* f = fopen(name.c_str(), "rb"); // TODO - should be ported to Unix systems as well
+#endif
 		if (f != NULL)
 		{
 			fclose(f);

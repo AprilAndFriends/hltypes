@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.1
+/// @version 2.15
 /// 
 /// @section LICENSE
 /// 
@@ -87,7 +87,11 @@ namespace hltypes
 			int attempts = File::repeats + 1;
 			while (true)
 			{
-				FILE* f = fopen(name.c_str(), "wb");
+#ifdef _WIN32
+				FILE* f = _wfopen(name.w_str().c_str(), L"wb");
+#else
+				FILE* f = fopen(name.c_str(), "wb"); // TODO - should be ported to Unix systems as well
+#endif
 				if (f != NULL)
 				{
 					fclose(f);
@@ -112,7 +116,11 @@ namespace hltypes
 	bool File::remove(const String& filename)
 	{
 		String name = normalize_path(filename);
-		return (f_remove(name.c_str()) == 0);
+#ifdef _WIN32
+		return (_wremove(name.w_str().c_str()) == 0);
+#else
+		return (f_remove(name.c_str()) == 0); // TODO - should be ported to Unix systems as well
+#endif
 	}
 	
 	bool File::exists(const String& filename)
@@ -125,7 +133,11 @@ namespace hltypes
 		String name = normalize_path(filename);
 		if (File::exists(name))
 		{
-			FILE* f = fopen(name.c_str(), "wb");
+#ifdef _WIN32
+			FILE* f = _wfopen(name.w_str().c_str(), L"wb");
+#else
+			FILE* f = fopen(name.c_str(), "wb"); // TODO - should be ported to Unix systems as well
+#endif
 			if (f != NULL)
 			{
 				fclose(f);
@@ -144,7 +156,11 @@ namespace hltypes
 			return false;
 		}
 		Dir::create_path(new_name);
-		return (f_rename(old_name.c_str(), new_name.c_str()) == 0);
+#ifdef _WIN32
+		return (_wrename(old_name.w_str().c_str(), new_name.w_str().c_str()) == 0);
+#else
+		return (f_rename(old_name.c_str(), new_name.c_str()) == 0); // TODO - should be ported to Unix systems as well
+#endif
 	}
 	
 	bool File::move(const String& filename, const String& path, bool overwrite)

@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.12
+/// @version 2.15
 /// 
 /// @section LICENSE
 /// 
@@ -319,7 +319,7 @@ hstr systemize_path(chstr path)
 	if (result.contains("//"))
 	{
 #ifdef _DEBUG
-		hlog::warnf(hltypes::logTag, "The path '%s' contains mutliple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", result.c_str());
+		hlog::warnf(hltypes::logTag, "The path '%s' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", result.c_str());
 #endif
 		for (int i = 0; i < 1000 && result.contains("//"); i++) // to prevent an infinite loop
 		{

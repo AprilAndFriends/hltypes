@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.1
+/// @version 2.15
 /// 
 /// @section LICENSE
 /// 
@@ -136,45 +136,35 @@ namespace hltypes
 	
 	static bool hmkdir(const String& path)
 	{
-		// TODO
-		/*
-		wchar_t* wpath = utf8_to_unicode(path);
-		bool result =_wmkdir(wpath)
-		delete [] wpath;
-		return result;
-
-		*/
 #if defined(_WIN32) && defined(_MSC_VER) && !defined(_WINRT)
 		if (Dir::getWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(path))
 		{
 			return true;
 		}
 #endif
-		return (_mkdir(path.c_str()) != 0);
+#ifdef _WIN32
+		return (_wmkdir(path.w_str().c_str()) != 0);
+#else
+		return (_mkdir(path.c_str()) != 0); // TODO - should be ported to Unix systems as well
+#endif
 	}
 	
 	static bool hremove(const String& dirname)
 	{
-		// TODO
-		/*
-		wchar_t* wdirname = utf8_to_unicode(dirname);
-		bool result =_wremove(wdirname)
-		delete [] wdirname;
-		return result;
-		*/
-		return (remove(dirname.c_str()) != 0);
+#ifdef _WIN32
+		return (_wremove(dirname.w_str().c_str()) != 0);
+#else
+		return (remove(dirname.c_str()) != 0); // TODO - should be ported to Unix systems as well
+#endif
 	}
 	
 	static bool hrmdir(const String& dirname)
 	{
-		// TODO
-		/*
-		wchar_t* wdirname = utf8_to_unicode(dirname);
-		bool result = _wrmdir(wdirname);
-		delete [] wdirname;
-		return result;
-		*/
-		return (_rmdir(dirname.c_str()) != 0);
+#ifdef _WIN32
+		return (_wrmdir(dirname.w_str().c_str()) != 0);
+#else
+		return (_rmdir(dirname.c_str()) != 0); // TODO - should be ported to Unix systems as well
+#endif
 	}
 	
 	bool Dir::create(const String& dirname)
