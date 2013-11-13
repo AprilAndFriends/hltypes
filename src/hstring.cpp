@@ -264,7 +264,7 @@ namespace hltypes
 	String String::upper() const
 	{
 		String s(*this);
-		std::transform(s.begin(), s.end(), s.begin(), __tolower__);
+		std::transform(s.begin(), s.end(), s.begin(), __toupper__);
 		return s;
 	}
 
