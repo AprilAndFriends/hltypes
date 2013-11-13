@@ -319,7 +319,7 @@ hstr systemize_path(chstr path)
 	if (result.contains("//"))
 	{
 #ifdef _DEBUG
-		hlog::warnf(hltypes::logTag, "The path '%s' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", result.c_str());
+        hltypes::_platform_print(hltypes::logTag, "The path '" + result + "' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", 10000);
 #endif
 		for (int i = 0; i < 1000 && result.contains("//"); i++) // to prevent an infinite loop
 		{
