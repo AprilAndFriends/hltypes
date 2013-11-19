@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.1
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -12,6 +12,7 @@
 #include <zip.h>
 
 #include "harray.h"
+#include "hdir.h"
 #include "hmap.h"
 #include "hmutex.h"
 #include "hresource.h"
@@ -125,7 +126,7 @@ namespace hltypes
 			int count = zip_get_num_files(archive);
 			for_iter (i, 0, count)
 			{
-				result += systemize_path(String(zip_get_name(archive, i, 0)));
+				result += Dir::systemize(String(zip_get_name(archive, i, 0)));
 			}
 			return result;
 		}

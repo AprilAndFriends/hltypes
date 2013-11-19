@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.12
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -403,42 +403,16 @@ hltypesFnExport int hcmpf(float a, float b, float tolerance = HL_E_TOLERANCE);
 /// @param[in] b Second double value.
 /// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
 hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE);
-/// @brief Changes all platform-specific directory separators to / and removal of duplicate /.
-/// @param[in] path The path.
-/// @return Filepath with all platform-specific directory separators changed to /.
-hltypesFnExport hstr systemize_path(chstr path);
-/// @brief Normalizes a file path by converting all platform-specific directory separators into /, removal of duplicate / and proper removal of "." and ".." where necessary .
-/// @param[in] path The path.
-/// @return Normalized filepath.
-hltypesFnExport hstr normalize_path(chstr path);
-/// @brief Gets the base directory of a filename/directory.
-/// @param[in] filename The path.
-/// @return Base directory of the given filename/directory.
-hltypesFnExport hstr get_basedir(chstr path);
-/// @brief Gets the base filename/directory without the prepended directory path.
-/// @param[in] filename The path.
-/// @return Base filename/directory without the prepended directory path.
-hltypesFnExport hstr get_basename(chstr path);
 /// @brief Gets an environment variable as String.
 /// @param[in] env The environment variable.
 /// @return Environment variable as String.
 hltypesFnExport hstr get_environment_variable(chstr name);
 
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(unsigned int value);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(wchar_t value);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(char value);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(unsigned char value);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(const char* string);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(const unsigned char* string);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(hltypes::Array<wchar_t> chars);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(hltypes::Array<char> chars);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned char> chars);
-DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int utf8_to_uint(chstr input, int* character_length = NULL);
-DEPRECATED_ATTRIBUTE hltypesFnExport std::basic_string<unsigned int> utf8_to_unicode(chstr input);
-DEPRECATED_ATTRIBUTE hltypesFnExport std::basic_string<wchar_t> utf8_to_wchars(chstr input);
+// DEPRECATED
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr get_basedir(chstr path);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr get_basename(chstr path);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr systemize_path(chstr path);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr normalize_path(chstr path);
 
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.

@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.15
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -12,6 +12,7 @@
 #include <sys/types.h>
 #endif
 
+#include "hdir.h"
 #include "hfbase.h"
 #include "hstring.h"
 #include "hthread.h"
@@ -21,6 +22,11 @@ namespace hltypes
 	int FileBase::repeats = 0;
 	float FileBase::timeout = 100.0f;
 
+	FileBase::FileBase(const String& filename, unsigned char encryption_offset) : StreamBase(encryption_offset), cfile(NULL)
+	{
+		this->filename = Dir::normalize(filename);
+	}
+	
 	FileBase::FileBase(unsigned char encryption_offset) : StreamBase(encryption_offset), cfile(NULL)
 	{
 	}
@@ -32,6 +38,32 @@ namespace hltypes
 		{
 			this->_fclose();
 		}
+	}
+
+	String FileBase::extension_of(const String& path)
+	{
+		if (Dir::basename(path).contains("."))
+		{
+			int index = path.rfind(".");
+			if (index >= 0)
+			{
+				return path(index + 1, -1);
+			}
+		}
+		return "";
+	}
+
+	String FileBase::no_extension(const String& path)
+	{
+		if (Dir::basename(path).contains("."))
+		{
+			int index = path.rfind(".");
+			if (index >= 0)
+			{
+				return path.substr(0, index);
+			}
+		}
+		return path;
 	}
 	
 	String FileBase::_descriptor()
@@ -45,7 +77,7 @@ namespace hltypes
 		{
 			this->_fclose();
 		}
-		this->filename = normalize_path(filename);
+		this->filename = Dir::normalize(filename);
 		this->encryption_offset = encryption_offset;
 		hstr mode = "rb";
 		switch (access_mode)
@@ -143,7 +175,7 @@ namespace hltypes
 	
 	bool FileBase::_fexists(const String& filename)
 	{
-		String name = normalize_path(filename);
+		String name = Dir::normalize(filename);
 		bool result = false;
 #ifdef _WIN32
 		FILE* f = _wfopen(name.w_str().c_str(), L"rb");

@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.1
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -13,6 +13,7 @@
 #include <stdarg.h>
 
 #include "harray.h"
+#include "hdir.h"
 #include "hfile.h"
 #include "hlog.h"
 #include "hmutex.h"
@@ -37,10 +38,6 @@
 #define LEVEL_PLATFORM(level) (level)
 #endif
 
-#if defined(__APPLE__)
-    void nsLog(const hltypes::String& message); // defined in Mac_platform.mm and iOS_platform.mm
-#endif
-
 #define MAKE_VA_ARGS(result, format) \
 	String result; \
 	{ \
@@ -53,7 +50,7 @@
 namespace hltypes
 {
 	hmutex log_mutex;
-
+	
 	bool Log::level_write = true;
 	bool Log::level_error = true;
 	bool Log::level_warn = true;
@@ -65,7 +62,7 @@ namespace hltypes
 	Array<String> Log::tag_filters;
 	String Log::filename;
 	void (*Log::callback_function)(const String&, const String&) = NULL;
-
+	
 	void Log::setLevels(bool write, bool error, bool warn, bool debug)
 	{
 		Log::level_write = write;
@@ -73,16 +70,16 @@ namespace hltypes
 		Log::level_warn = warn;
 		Log::level_debug = debug;
 	}
-
+	
 	void Log::setFilename(const String& filename, bool clearFile)
 	{
-		Log::filename = filename;
+		Log::filename = Dir::normalize(filename);
 		if (clearFile)
 		{
 			hfile::create_new(Log::filename);
 		}
 	}
-
+	
 	bool Log::_system_log(const String& tag, const String& message, int level) // level is needed for Android
 	{
 		if (level == LEVEL_WRITE && !Log::level_write)
@@ -109,56 +106,74 @@ namespace hltypes
 		_platform_print(tag, message, LEVEL_PLATFORM(level));
 		if (Log::filename != "")
 		{
-			hfile file(Log::filename, hfile::APPEND);
-			String log_message = (tag != "" ? "[" + tag + "] " + message : message);
-			file.writef("%s\n", log_message.c_str());
+			try
+			{
+				hfile file(Log::filename, hfile::APPEND);
+				String log_message = (tag != "" ? "[" + tag + "] " + message : message);
+				file.writef("%s\n", log_message.c_str());
+			}
+			catch (hltypes::exception& e)
+			{
+				_platform_print("FATAL", e.getMessage(), LEVEL_ERROR);
+				log_mutex.unlock();
+				throw e;
+			}
 		}
-		if (Log::callback_function != NULL)
+		try
 		{
-			(*Log::callback_function)(tag, message);
+			if (Log::callback_function != NULL)
+			{
+				(*Log::callback_function)(tag, message);
+			}
+		}
+		catch (hltypes::exception& e)
+		{
+			_platform_print("FATAL", e.getMessage(), LEVEL_ERROR);
+			log_mutex.unlock();
+			throw e;
 		}
 		log_mutex.unlock();
 		return true;
 	}
-
+	
 	bool Log::write(const String& tag, const String& message)
 	{
 		return Log::_system_log(tag, message, LEVEL_WRITE);
 	}
-
+	
 	bool Log::error(const String& tag, const String& message)
 	{
 		return Log::_system_log(tag, "ERROR: " + message, LEVEL_ERROR);
 	}
-
+	
 	bool Log::warn(const String& tag, const String& message)
 	{
 		return Log::_system_log(tag, "WARNING: " + message, LEVEL_WARN);
 	}
-
+	
 	bool Log::debug(const String& tag, const String& message)
 	{
 		return Log::_system_log(tag, "DEBUG: " + message, LEVEL_DEBUG);
 	}
-
+	
 	bool Log::writef(const String& tag, const char* format, ...)
 	{
 		MAKE_VA_ARGS(result, format);
 		return Log::write(tag, result);
 	}
-
+	
 	bool Log::errorf(const String& tag, const char* format, ...)
 	{
 		MAKE_VA_ARGS(result, format);
 		return Log::error(tag, result);
 	}
-
+	
 	bool Log::warnf(const String& tag, const char* format, ...)
 	{
 		MAKE_VA_ARGS(result, format);
 		return Log::warn(tag, result);
 	}
-
+	
 	bool Log::debugf(const String& tag, const char* format, ...)
 	{
 		MAKE_VA_ARGS(result, format);

@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -10,6 +10,7 @@
 
 #include <tinyxml.h>
 
+#include <hltypes/hdir.h>
 #include <hltypes/hlog.h>
 #include <hltypes/hresource.h>
 #include <hltypes/hstring.h>
@@ -22,7 +23,7 @@ namespace hlxml
 {
 	TinyXml_Document::TinyXml_Document(chstr filename) : Document(filename), rootNode(NULL)
 	{
-		hstr realFilename = normalize_path(filename);
+		hstr realFilename = hdir::normalize(filename);
 		// loading goes through hresource because of Android's way of handling resources
 		hresource file(realFilename);
 		hstr data = file.read();

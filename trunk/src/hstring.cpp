@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 2.13
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -659,20 +659,20 @@ namespace hltypes
 	{
 		if (count < 0)
 		{
-			count = stdstr::npos;
+			count = stdstr::size() + count + 1;
 		}
 		return stdstr::substr(start, count);
 	}
 	
 	String String::operator()(int start, int count, int step) const
 	{
+		if (count < 0)
+		{
+			count = stdstr::size() + count + 1;
+		}
 		if (step == 1)
 		{
 			return stdstr::substr(start, count);
-		}
-		if (count < 0)
-		{
-			count = stdstr::npos;
 		}
 		String result;
 		for_iter_step (i, start, start + count, step)

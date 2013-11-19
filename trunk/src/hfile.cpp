@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.15
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -25,9 +25,8 @@ int (*f_remove)(const char* filename) = remove;
 
 namespace hltypes
 {
-	File::File(const String& filename, AccessMode access_mode, unsigned char encryption_offset) : FileBase(encryption_offset)
+	File::File(const String& filename, AccessMode access_mode, unsigned char encryption_offset) : FileBase(filename, encryption_offset)
 	{
-		this->filename = normalize_path(filename);
 		this->open(filename, access_mode, encryption_offset);
 	}
 	
@@ -80,10 +79,10 @@ namespace hltypes
 	
 	bool File::create(const String& filename)
 	{
-		String name = normalize_path(filename);
+		String name = Dir::normalize(filename);
 		if (!File::exists(name))
 		{
-			Dir::create_path(name);
+			Dir::create(Dir::basedir(name));
 			int attempts = File::repeats + 1;
 			while (true)
 			{
@@ -115,7 +114,7 @@ namespace hltypes
 	
 	bool File::remove(const String& filename)
 	{
-		String name = normalize_path(filename);
+		String name = Dir::normalize(filename);
 #ifdef _WIN32
 		return (_wremove(name.w_str().c_str()) == 0);
 #else
@@ -130,7 +129,7 @@ namespace hltypes
 	
 	bool File::clear(const String& filename)
 	{
-		String name = normalize_path(filename);
+		String name = Dir::normalize(filename);
 		if (File::exists(name))
 		{
 #ifdef _WIN32
@@ -149,13 +148,13 @@ namespace hltypes
 	
 	bool File::rename(const String& old_filename, const String& new_filename, bool overwrite)
 	{
-		String old_name = normalize_path(old_filename);
-		String new_name = normalize_path(new_filename);
+		String old_name = Dir::normalize(old_filename);
+		String new_name = Dir::normalize(new_filename);
 		if (!File::exists(old_name) || !overwrite && File::exists(new_name))
 		{
 			return false;
 		}
-		Dir::create_path(new_name);
+		Dir::create(Dir::basedir(new_name));
 #ifdef _WIN32
 		return (_wrename(old_name.w_str().c_str(), new_name.w_str().c_str()) == 0);
 #else
@@ -165,19 +164,19 @@ namespace hltypes
 	
 	bool File::move(const String& filename, const String& path, bool overwrite)
 	{
-		String name = normalize_path(filename);
+		String name = Dir::normalize(filename);
 		return File::rename(name, path + "/" + name.rsplit("/", 1, false).remove_last(), overwrite);
 	}
 	
 	bool File::copy(const String& old_filename, const String& new_filename, bool overwrite)
 	{
-		String old_name = normalize_path(old_filename);
-		String new_name = normalize_path(new_filename);
+		String old_name = Dir::normalize(old_filename);
+		String new_name = Dir::normalize(new_filename);
 		if (!File::exists(old_name) || !overwrite && File::exists(new_name))
 		{
 			return false;
 		}
-		Dir::create_path(new_name);
+		Dir::create(Dir::basedir(new_name));
 		File old_file(old_name);
 		File new_file(new_name, File::WRITE);
 		int count;
