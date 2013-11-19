@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.1
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -9,6 +9,7 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #include "exception.h"
+#include "hdir.h"
 #include "hlog.h"
 #include "hltypesUtil.h"
 #include "hstring.h"
@@ -17,11 +18,11 @@ namespace hltypes
 {
 	exception::exception(const String& message, const char* source_file, int line_number)
 	{
-		this->msg = hsprintf("[%s:%d] %s", get_basename(source_file).c_str(), line_number, message.c_str());
+		this->msg = hsprintf("[%s:%d] %s", Dir::basename(source_file).c_str(), line_number, message.c_str());
 #ifdef _WINRT // because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
 		if (hlog::isLevelDebug())
 		{
-			hlog::error("FATAL", this->msg);
+			hltypes::_platform_print("FATAL", this->msg, 1000);
 		}
 #endif
 	}

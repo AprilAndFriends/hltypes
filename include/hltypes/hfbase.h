@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.1
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -48,6 +48,10 @@ namespace hltypes
 			READ_APPEND
 		};
 		
+		/// @brief Constructor with filename.
+		/// @param[in] filename Name of the file (may include path).
+		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
+		FileBase(const String& filename, unsigned char encryption_offset = 0);
 		/// @brief Basic constructor.
 		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
 		FileBase(unsigned char encryption_offset = 0);
@@ -60,6 +64,15 @@ namespace hltypes
 		/// @brief Sets the timeout in miliseconds between repeated attempts to access a file.
 		/// @param[in] value New value.
 		static void setTimeout(float value) { timeout = value; }
+
+		/// @brief Gets the extension of the filename.
+		/// @param[in] filename The path.
+		/// @return Extension of the filename.
+		static String extension_of(const String& path);
+		/// @brief Gets the filename with the extension (with the prepended directory path).
+		/// @param[in] filename The path.
+		/// @return Filename with the extension (with the prepended directory path).
+		static String no_extension(const String& path);
 
 	protected:
 		/// @brief Current filename.

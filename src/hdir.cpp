@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.15
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -39,6 +39,13 @@ int (*d_rename)(const char* old_name, const char* new_name) = rename;
 #include "hresource.h"
 #include "hstring.h"
 
+#ifdef _ANDROID // needed for Android only anyway so this "second" definition (aside from hlog.h) is ok (needed for systemize)
+#include <android/log.h>
+#define LEVEL_WARN ((int)ANDROID_LOG_WARN)
+#else
+#define LEVEL_WARN 2
+#endif
+
 #ifdef _WIN32
 #ifdef _WINRT
 #define _chdir(name) winrtcwd = name
@@ -50,6 +57,17 @@ static hltypes::String winrtcwd = ".";
 
 namespace hltypes
 {
+	static void _prepend_directory(const String& dirname, Array<String>& entries)
+	{
+		if (dirname != "")
+		{
+			foreach (String, it, entries)
+			{
+				(*it) = dirname + "/" + (*it);
+			}
+		}
+	}
+	
 	bool Dir::win32FullDirectoryPermissions = true;
 
 #if defined(_WIN32) && defined(_MSC_VER) && !defined(_WINRT) // god help us all
@@ -169,7 +187,7 @@ namespace hltypes
 	
 	bool Dir::create(const String& dirname)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 		if (name == "" || Dir::exists(name))
 		{
 			return false;
@@ -195,7 +213,7 @@ namespace hltypes
 	
 	bool Dir::remove(const String& dirname)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 		if (name == "" || !Dir::exists(name))
 		{
 			return false;
@@ -216,7 +234,7 @@ namespace hltypes
 	
 	bool Dir::exists(const String& dirname)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 		DIR* dir = _opendir(name);
 		if (dir != NULL)
 		{
@@ -228,7 +246,7 @@ namespace hltypes
 	
 	bool Dir::resource_exists(const String& dirname)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 		if (name == "" || name == ".")
 		{
 			return true;
@@ -242,7 +260,7 @@ namespace hltypes
 	
 	bool Dir::clear(const String& dirname)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 		if (name == "" || !Dir::exists(name))
 		{
 			return false;
@@ -262,27 +280,27 @@ namespace hltypes
 	
 	bool Dir::rename(const String& old_dirname, const String& new_dirname)
 	{
-		String old_name = normalize_path(old_dirname);
-		String new_name = normalize_path(new_dirname);
+		String old_name = Dir::normalize(old_dirname);
+		String new_name = Dir::normalize(new_dirname);
 		if (!Dir::exists(old_name) || Dir::exists(new_name))
 		{
 			return false;
 		}
-		Dir::create_path(new_name);
+		Dir::create(Dir::basedir(new_name));
 		return (d_rename(old_name.c_str(), new_name.c_str()) == 0);
 	}
 	
 	bool Dir::move(const String& dirname, const String& path)
 	{
-		String name = normalize_path(dirname);
-		String path_name = normalize_path(path);
+		String name = Dir::normalize(dirname);
+		String path_name = Dir::normalize(path);
 		return Dir::rename(name, path_name + "/" + name.rsplit("/", 1, false).remove_last());
 	}
 	
 	bool Dir::copy(const String& old_dirname, const String& new_dirname)
 	{
-		String old_name = normalize_path(old_dirname);
-		String new_name = normalize_path(new_dirname);
+		String old_name = Dir::normalize(old_dirname);
+		String new_name = Dir::normalize(new_dirname);
 		if (!Dir::exists(old_name) || Dir::exists(new_name))
 		{
 			return false;
@@ -303,24 +321,13 @@ namespace hltypes
 	
 	bool Dir::create_path(const String& path)
 	{
-		String name = get_basedir(path);
+		String name = Dir::basedir(path);
 		return (name != "" && name != "." && Dir::create(name));
-	}
-	
-	void prepend_directory(const String& dirname, Array<String>& entries)
-	{
-		if (dirname != "")
-		{
-			foreach (String, it, entries)
-			{
-				(*it) = dirname + "/" + (*it);
-			}
-		}
 	}
 	
 	Array<String> Dir::entries(const String& dirname, bool prepend_dir)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 		Array<String> result;
 		if (Dir::exists(name))
 		{
@@ -342,27 +349,27 @@ namespace hltypes
 		}
 		if (prepend_dir)
 		{
-			prepend_directory(name, result);
+			_prepend_directory(name, result);
 		}
 		return result;
 	}
 	
 	Array<String> Dir::resource_entries(const String& dirname, bool prepend_dir)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 		Array<String> result = Dir::resource_contents(dirname, false);
 		result += String(".");
 		result += String("..");
 		if (prepend_dir)
 		{
-			prepend_directory(name, result);
+			_prepend_directory(name, result);
 		}
 		return result;
 	}
 	
 	Array<String> Dir::contents(const String& dirname, bool prepend_dir)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 		Array<String> result;
 		if (Dir::exists(name))
 		{
@@ -384,14 +391,14 @@ namespace hltypes
 		}
 		if (prepend_dir)
 		{
-			prepend_directory(name, result);
+			_prepend_directory(name, result);
 		}
 		return result;
 	}
 	
 	Array<String> Dir::resource_contents(const String& dirname, bool prepend_dir)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 #ifndef _ZIPRESOURCE
 		String full_path = Resource::make_full_path(name);
 		Array<String> result = Dir::directories(full_path, false) + Dir::files(full_path, false);
@@ -430,14 +437,14 @@ namespace hltypes
 		result.remove_duplicates();
 		if (prepend_dir)
 		{
-			prepend_directory(name, result);
+			_prepend_directory(name, result);
 		}
 		return result;
 	}
 	
 	Array<String> Dir::directories(const String& dirname, bool prepend_dir)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 		String current;
 		Array<String> result;
 		if (Dir::exists(name))
@@ -464,14 +471,14 @@ namespace hltypes
 		}
 		if (prepend_dir)
 		{
-			prepend_directory(name, result);
+			_prepend_directory(name, result);
 		}
 		return result;
 	}
 	
 	Array<String> Dir::resource_directories(const String& dirname, bool prepend_dir)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 #ifndef _ZIPRESOURCE
 		Array<String> result = Dir::directories(Resource::make_full_path(name), false);
 		for_iter (i, 0, result.size())
@@ -500,14 +507,14 @@ namespace hltypes
 		result.remove_duplicates();
 		if (prepend_dir)
 		{
-			prepend_directory(name, result);
+			_prepend_directory(name, result);
 		}
 		return result;
 	}
 
 	Array<String> Dir::files(const String& dirname, bool prepend_dir)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 		String current;
 		Array<String> result;
 		if (Dir::exists(name))
@@ -534,14 +541,14 @@ namespace hltypes
 		}
 		if (prepend_dir)
 		{
-			prepend_directory(name, result);
+			_prepend_directory(name, result);
 		}
 		return result;
 	}
 
 	Array<String> Dir::resource_files(const String& dirname, bool prepend_dir)
 	{
-		String name = normalize_path(dirname);
+		String name = Dir::normalize(dirname);
 #ifndef _ZIPRESOURCE
 		Array<String> result = Dir::files(Resource::make_full_path(name), false);
 		String cwd = Resource::getCwd() + "/";
@@ -574,14 +581,89 @@ namespace hltypes
 		result.remove_duplicates();
 		if (prepend_dir)
 		{
-			prepend_directory(name, result);
+			_prepend_directory(name, result);
 		}
 		return result;
 	}
 
+	String Dir::basedir(const String& path)
+	{
+		harray<String> result = path.replace('\\', '/').rtrim('/').split('/', -1, false);
+		if (result.size() < 2)
+		{
+			return ".";
+		}
+		result.remove_last();
+		return result.join("/");
+	}
+
+	String Dir::basename(const String& path)
+	{
+		harray<String> result = path.replace('\\', '/').rtrim('/').split('/', -1, false);
+		return (result.size() > 0 ? result.remove_last() : hstr(""));
+	}
+
+	String Dir::systemize(const String& path)
+	{
+		String result = path.replace('\\', '/');
+		if (result.contains("//"))
+		{
+#ifdef _DEBUG // using _platform_print() directory to avoid possible deadlock when saving to file during logging
+			hltypes::_platform_print(hltypes::logTag, "The path '" + result + "' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", LEVEL_WARN);
+#endif
+			for (int i = 0; i < 1000 && result.contains("//"); i++) // to prevent an infinite loop
+			{
+				result = result.replace("//", "/");
+			}
+		}
+		return result;
+	}
+
+	String Dir::normalize(const String& path)
+	{
+		harray<String> directories = Dir::systemize(path).rtrim('/').split('/', -1, false);
+		harray<String> result;
+		while (directories.size() > 0)
+		{
+			if (directories.first() == ".")
+			{
+				directories.remove_first();
+			}
+			else if (directories.first() == "..")
+			{
+				if (result.size() == 0)
+				{
+					result += directories.remove_first();
+				}
+				else if (result.last() == "..")
+				{
+					result += directories.remove_first();
+				}
+				else
+				{
+					result.remove_last();
+					directories.remove_first();
+				}
+			}
+			else
+			{
+				result += directories.remove_first();
+			}
+		}
+		if (result.size() == 0)
+		{
+			return ".";
+		}
+		return result.join('/');
+	}
+
 	void Dir::chdir(const String& dirname)
 	{
-		_chdir(dirname.c_str());
+#ifdef _WIN32
+		_wchdir(Dir::systemize(dirname).w_str().c_str());
+#else
+		_chdir(Dir::systemize(dirname).c_str());
+#endif
 	}
 
 	String Dir::cwd()
@@ -589,7 +671,7 @@ namespace hltypes
 #ifndef _WINRT
 		char dir[FILENAME_MAX] = {'\0'};
 		_getcwd(dir, FILENAME_MAX);
-		return systemize_path(dir);
+		return Dir::systemize(dir);
 #else
 		return winrtcwd;
 #endif

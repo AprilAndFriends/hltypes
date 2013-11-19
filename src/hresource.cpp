@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.1
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -34,10 +34,9 @@ namespace hltypes
 		archive = value;
 	}
 
-	Resource::Resource(const String& filename) : FileBase(), data_position(0), archivefile(NULL)
+	Resource::Resource(const String& filename) : FileBase(filename), data_position(0), archivefile(NULL)
 	{
-		this->filename = normalize_path(filename);
-		this->open(filename);
+		this->open(this->filename);
 	}
 	
 	Resource::Resource() : FileBase(), data_position(0), archivefile(NULL)
@@ -61,7 +60,7 @@ namespace hltypes
 		{
 			this->close();
 		}
-		this->filename = normalize_path(filename);
+		this->filename = Dir::normalize(filename);
 		this->encryption_offset = 0;
 		int attempts = Resource::repeats + 1;
 		while (true)
@@ -221,8 +220,7 @@ namespace hltypes
 		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
 		if (a != NULL)
 		{
-			String name = normalize_path(Resource::make_full_path(filename));
-			void* f = zip::fopen(a, name);
+			void* f = zip::fopen(a, Resource::make_full_path(filename));
 			if (f != NULL)
 			{
 				zip::fclose(f);
@@ -251,7 +249,7 @@ namespace hltypes
 
 	String Resource::make_full_path(const String& filename)
 	{
-		return normalize_path(Resource::cwd + "/" + filename);
+		return Dir::normalize(Resource::cwd + "/" + filename);
 	}
 
 }

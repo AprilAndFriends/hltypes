@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.15
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -313,80 +313,12 @@ int hcmpd(double a, double b, double tolerance)
 	return (heqd(a, b, tolerance) ? 0 : (a > b ? 1 : -1));
 }
 
-hstr systemize_path(chstr path)
-{
-	hstr result = path.replace('\\', '/');
-	if (result.contains("//"))
-	{
-#ifdef _DEBUG
-        hltypes::_platform_print(hltypes::logTag, "The path '" + result + "' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", 10000);
-#endif
-		for (int i = 0; i < 1000 && result.contains("//"); i++) // to prevent an infinite loop
-		{
-			result = result.replace("//", "/");
-		}
-	}
-	return result;
-}
-
-hstr normalize_path(chstr path)
-{
-	harray<hstr> directories = systemize_path(path).rtrim('/').split('/', -1, false);
-	harray<hstr> result;
-	while (directories.size() > 0)
-	{
-		if (directories.first() == ".")
-		{
-			directories.remove_first();
-		}
-		else if (directories.first() == "..")
-		{
-			if (result.size() == 0)
-			{
-				result += directories.remove_first();
-			}
-			else if (result.last() == "..")
-			{
-				result += directories.remove_first();
-			}
-			else
-			{
-				result.remove_last();
-				directories.remove_first();
-			}
-		}
-		else
-		{
-			result += directories.remove_first();
-		}
-	}
-	if (result.size() == 0)
-	{
-		return ".";
-	}
-	return result.join('/');
-}
-
-hstr get_basedir(chstr path)
-{
-	harray<hstr> result = path.replace('\\', '/').rtrim('/').split('/', -1, false);
-	if (result.size() < 2)
-	{
-		return ".";
-	}
-	result.remove_last();
-	return result.join("/");
-}
-
-hstr get_basename(chstr path)
-{
-	harray<hstr> result = path.replace('\\', '/').rtrim('/').split('/', -1, false);
-	if (result.size() == 0)
-	{
-		return "";
-	}
-	return result.remove_last();
-}
+// DEPRECATED
+#include "hdir.h"
+hstr get_basedir(chstr path)	{ return hdir::basedir(path); }
+hstr get_basename(chstr path)	{ return hdir::basename(path); }
+hstr systemize_path(chstr path)	{ return hdir::systemize(path); }
+hstr normalize_path(chstr path)	{ return hdir::normalize(path); }
 
 hstr get_environment_variable(chstr name)
 {
@@ -400,23 +332,6 @@ hstr get_environment_variable(chstr name)
 	return hstr(getenv(name.c_str()));
 #endif
 }
-
-// Unicode stuff, DEPRECATED, use String::from_unicode/hstr::from_unicode static methods instead.
-hstr unicode_to_utf8(unsigned int value)						{ return hstr::from_unicode(value); }
-hstr unicode_to_utf8(char value)								{ return hstr::from_unicode(value); }
-hstr unicode_to_utf8(unsigned char value)						{ return hstr::from_unicode(value); }
-hstr unicode_to_utf8(wchar_t value)								{ return hstr::from_unicode(value); }
-hstr unicode_to_utf8(const unsigned int* string)				{ return hstr::from_unicode(string); }
-hstr unicode_to_utf8(const char* string)						{ return hstr::from_unicode(string); }
-hstr unicode_to_utf8(const unsigned char* string)				{ return hstr::from_unicode(string); }
-hstr unicode_to_utf8(const wchar_t* string)						{ return hstr::from_unicode(string); }
-hstr unicode_to_utf8(harray<unsigned int> chars)				{ return hstr::from_unicode(chars); }
-hstr unicode_to_utf8(harray<char> chars)						{ return hstr::from_unicode(chars); }
-hstr unicode_to_utf8(harray<unsigned char> chars)				{ return hstr::from_unicode(chars); }
-hstr unicode_to_utf8(harray<wchar_t> chars)						{ return hstr::from_unicode(chars); }
-unsigned int utf8_to_uint(chstr input, int* character_length)	{ return input.first_unicode_char(0, character_length); }
-std::basic_string<unsigned int> utf8_to_unicode(chstr input)	{ return input.u_str(); }
-std::basic_string<wchar_t> utf8_to_wchars(chstr input)			{ return input.w_str(); }
 
 // CRC32 stuff
 

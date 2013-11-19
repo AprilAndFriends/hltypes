@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.1
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -76,11 +76,6 @@ namespace hltypes
 		/// @return True if directory was copied. False if old directory does not exist or directory with the new name already exists.
 		/// @note If path does not exist, it will be created.
 		static bool copy(const String& old_dirname, const String& new_dirname);
-		/// @brief Creates the parent path of the given directory or file.
-		/// @param[in] path Path of a directory or file.
-		/// @return True if parent path was created.
-		/// @note This method is used to create the parent path structure for a directory or file without haivng to manually split the path string.
-		static bool create_path(const String& path);
 		/// @brief Gets all directory entries in the given directory.
 		/// @param[in] dirname Name of the directory.
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the entries.
@@ -125,12 +120,35 @@ namespace hltypes
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
 		/// @return Array of all files.
 		static Array<String> resource_files(const String& dirname, bool prepend_dir = false);
+		/// @brief Gets the base directory of a filename/directory.
+		/// @param[in] filename The path.
+		/// @return Base directory of the given filename/directory.
+		static String basedir(const String& path);
+		/// @brief Gets the base filename/directory without the prepended directory path.
+		/// @param[in] filename The path.
+		/// @return Base filename/directory without the prepended directory path.
+		static String basename(const String& path);
+		/// @brief Changes all platform-specific directory separators to / and removal of duplicate /.
+		/// @param[in] path The path.
+		/// @return Path with all platform-specific directory separators changed to /.
+		static String systemize(const String& path);
+		/// @brief Normalizes a file path by converting all platform-specific directory separators into /, removal of duplicate / and proper removal of "." and ".." where necessary.
+		/// @param[in] path The path.
+		/// @return Normalized path.
+		/// @note Calls Dir::systemize() internally.
+		static String normalize(const String& path);
 		/// @brief Changes current working directory to given parameter.
 		/// @param[in] dirname Name of the directory.
 		static void chdir(const String& dirname);
 		/// @brief Gets the current working directory.
 		/// @return Current working directory.
 		static String cwd();
+
+		/// @brief Creates the parent path of the given directory or file.
+		/// @param[in] path Path of a directory or file.
+		/// @return True if parent path was created.
+		/// @note This method is used to create the parent path structure for a directory or file without haivng to manually split the path string.
+		DEPRECATED_ATTRIBUTE static bool create_path(const String& path); // use Dir::create() and Dir::basedir() instead
 
 	protected:
 		/// @brief Flag for creating directories with full access permissions on Win32 (Vista and later).

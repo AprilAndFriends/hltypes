@@ -70,21 +70,21 @@
 
 typedef struct dirent
 {
-	/* name of current directory entry (a multi-byte character string) */
+	// name of current directory entry (a multi-byte character string)
 	wchar_t d_name[MAX_PATH + 1];
-	/* file attributes */
+	// file attributes
 	WIN32_FIND_DATAW data;
 } dirent;
 
 typedef struct DIR
 {
-	/* current directory entry */
+	// current directory entry
 	dirent current;
-	/* is there an un-processed entry in current? */
+	// is there an un-processed entry in current?
 	int cached;
-	/* file search handle */
+	// file search handle
 	HANDLE search_handle;
-	/* search pattern (3 = zero terminator + pattern "\\*") */
+	// search pattern (3 = zero terminator + pattern "\\*")
 	wchar_t patt[MAX_PATH + 3];
 } DIR;
 
@@ -92,7 +92,7 @@ static DIR* _opendir(chstr dirname);
 static dirent* _readdir(DIR *dirp);
 static int _closedir(DIR* dirp);
 
-/* use the new safe string functions introduced in Visual Studio 2005 */
+// use the new safe string functions introduced in Visual Studio 2005
 #if defined(_MSC_VER) && _MSC_VER >= 1400
 #define WCSNCPY(dest, src, size) wcsncpy_s((dest), (size), (src), _TRUNCATE)
 #else
@@ -110,14 +110,14 @@ static DIR* _opendir(chstr dirname)
 	{
 		return NULL;
 	}
-	/* construct new DIR structure */
+	// construct new DIR structure
 	DIR* dirp = new DIR();
 	if (dirp != NULL)
 	{
-		/* take directory name... */
+		// take directory name...
 		WCSNCPY(dirp->patt, dirname.w_str().c_str(), MAX_PATH);
 		dirp->patt[MAX_PATH] = '\0';
-		/* ... and append search pattern to it */
+		// ... and append search pattern to it
 		wchar_t* p = wcschr(dirp->patt, '\0');
 		if (p == NULL)
 		{
@@ -129,7 +129,7 @@ static DIR* _opendir(chstr dirname)
 		}
 		*p++ = '*';
 		*p = '\0';
-		/* open stream and retrieve first file */
+		// open stream and retrieve first file
 #ifndef _WINRT
 		dirp->search_handle = FindFirstFileW(dirp->patt, &dirp->current.data);
 #else
@@ -138,11 +138,11 @@ static DIR* _opendir(chstr dirname)
 #endif
 		if (dirp->search_handle == INVALID_HANDLE_VALUE)
 		{
-			/* invalid search pattern? */
+			// invalid search pattern?
 			delete dirp;
 			return NULL;
 		}
-		/* there is an un-processed directory entry in memory now */
+		// there is an un-processed directory entry in memory now
 		dirp->cached = 1;
 	}
 	return dirp;
@@ -163,27 +163,27 @@ static dirent* _readdir(DIR* dirp)
 	}
 	if (dirp->search_handle == INVALID_HANDLE_VALUE)
 	{
-		/* directory stream was opened/rewound incorrectly or it ended normally */
+		// directory stream was opened/rewound incorrectly or it ended normally
 		return NULL;
 	}
-	/* get next directory entry */
+	// get next directory entry
 	if (dirp->cached != 0)
 	{
-		/* a valid directory entry already in memory */
+		// a valid directory entry already in memory
 		dirp->cached = 0;
 	}
 	else
 	{
-		/* read next directory entry from disk */
+		// read next directory entry from disk
 		if (FindNextFileW(dirp->search_handle, &dirp->current.data) == FALSE)
 		{
-			/* the very last file has been processed or an error occured */
+			// the very last file has been processed or an error occured
 			FindClose(dirp->search_handle);
 			dirp->search_handle = INVALID_HANDLE_VALUE;
 			return NULL;
 		}
 	}
-	/* copy as a multibyte character string */
+	// copy as a multibyte character string
 	WCSNCPY(dirp->current.d_name, dirp->current.data.cFileName, (MAX_PATH + 2) * sizeof(wchar_t));
 	dirp->current.d_name[MAX_PATH] = '\0';
 	return &dirp->current;
@@ -197,13 +197,13 @@ static dirent* _readdir(DIR* dirp)
 static int _closedir(DIR *dirp)
 {
 	assert(dirp != NULL);
-	/* release search handle */
+	// release search handle
 	if (dirp->search_handle != INVALID_HANDLE_VALUE)
 	{
 		FindClose(dirp->search_handle);
 		dirp->search_handle = INVALID_HANDLE_VALUE;
 	}
-	/* release directory handle */
+	// release directory handle
 	delete dirp;
 	return 0;
 }
