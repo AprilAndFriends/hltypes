@@ -293,7 +293,7 @@ namespace hltypes
 		}
 		if (prepend_dir)
 		{
-			DirBase::_prepend_directory(name, result);
+			Dir::_prepend_directory(name, result);
 		}
 		return result;
 	}
@@ -322,7 +322,7 @@ namespace hltypes
 		}
 		if (prepend_dir)
 		{
-			DirBase::_prepend_directory(name, result);
+			Dir::_prepend_directory(name, result);
 		}
 		return result;
 	}
@@ -356,7 +356,7 @@ namespace hltypes
 		}
 		if (prepend_dir)
 		{
-			DirBase::_prepend_directory(name, result);
+			Dir::_prepend_directory(name, result);
 		}
 		return result;
 	}
@@ -390,7 +390,7 @@ namespace hltypes
 		}
 		if (prepend_dir)
 		{
-			DirBase::_prepend_directory(name, result);
+			Dir::_prepend_directory(name, result);
 		}
 		return result;
 	}
