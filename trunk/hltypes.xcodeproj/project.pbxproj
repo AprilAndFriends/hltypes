@@ -42,6 +42,19 @@
 		D1981C17140F7F5C0057C3AF /* exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F469C7612088C00009781BB /* exception.cpp */; };
 		D1981C18140F7F5C0057C3AF /* hfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69611EB0B9400B1C1DF /* hfile.cpp */; };
 		D1981C19140F7F5C0057C3AF /* hstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69711EB0B9500B1C1DF /* hstring.cpp */; };
+		D1BAE0F3183B91D100BC2434 /* hdbase.h in Headers */ = {isa = PBXBuildFile; fileRef = D1BAE0F1183B91D100BC2434 /* hdbase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1BAE0F4183B91D100BC2434 /* hrdir.h in Headers */ = {isa = PBXBuildFile; fileRef = D1BAE0F2183B91D100BC2434 /* hrdir.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1BAE0F8183B91FC00BC2434 /* hdbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F5183B91FC00BC2434 /* hdbase.cpp */; };
+		D1BAE0F9183B91FC00BC2434 /* hdbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F5183B91FC00BC2434 /* hdbase.cpp */; };
+		D1BAE0FA183B91FC00BC2434 /* hdbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F5183B91FC00BC2434 /* hdbase.cpp */; };
+		D1BAE0FB183B91FC00BC2434 /* hrdir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F6183B91FC00BC2434 /* hrdir.cpp */; };
+		D1BAE0FC183B91FC00BC2434 /* hrdir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F6183B91FC00BC2434 /* hrdir.cpp */; };
+		D1BAE0FD183B91FC00BC2434 /* hrdir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F6183B91FC00BC2434 /* hrdir.cpp */; };
+		D1BAE0FE183B91FC00BC2434 /* zipaccess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F7183B91FC00BC2434 /* zipaccess.cpp */; };
+		D1BAE0FF183B91FC00BC2434 /* zipaccess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F7183B91FC00BC2434 /* zipaccess.cpp */; };
+		D1BAE100183B91FC00BC2434 /* zipaccess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F7183B91FC00BC2434 /* zipaccess.cpp */; };
+		D1BAE102183B920700BC2434 /* msvc_dirent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1BAE101183B920700BC2434 /* msvc_dirent.h */; };
+		D1BAE104183B921400BC2434 /* zipaccess.h in Headers */ = {isa = PBXBuildFile; fileRef = D1BAE103183B921400BC2434 /* zipaccess.h */; };
 		D1DB1C20162854920013C0E5 /* hplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DB1C1F162854920013C0E5 /* hplatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD59140E579C00499A97 /* hdeque.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD56140E579C00499A97 /* hdeque.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5A140E579D00499A97 /* hlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD57140E579C00499A97 /* hlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -95,6 +108,13 @@
 		D115F7C514AD4FB400C78558 /* hsbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsbase.h; path = include/hltypes/hsbase.h; sourceTree = "<group>"; };
 		D115F7C614AD4FB400C78558 /* hstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hstream.h; path = include/hltypes/hstream.h; sourceTree = "<group>"; };
 		D1522F3E140F7A310012F290 /* libhltypes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhltypes.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1BAE0F1183B91D100BC2434 /* hdbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdbase.h; path = include/hltypes/hdbase.h; sourceTree = "<group>"; };
+		D1BAE0F2183B91D100BC2434 /* hrdir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hrdir.h; path = include/hltypes/hrdir.h; sourceTree = "<group>"; };
+		D1BAE0F5183B91FC00BC2434 /* hdbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hdbase.cpp; path = src/hdbase.cpp; sourceTree = "<group>"; };
+		D1BAE0F6183B91FC00BC2434 /* hrdir.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hrdir.cpp; path = src/hrdir.cpp; sourceTree = "<group>"; };
+		D1BAE0F7183B91FC00BC2434 /* zipaccess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zipaccess.cpp; path = src/zipaccess.cpp; sourceTree = "<group>"; };
+		D1BAE101183B920700BC2434 /* msvc_dirent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = msvc_dirent.h; path = src/msvc_dirent.h; sourceTree = "<group>"; };
+		D1BAE103183B921400BC2434 /* zipaccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zipaccess.h; path = src/zipaccess.h; sourceTree = "<group>"; };
 		D1DB1C1F162854920013C0E5 /* hplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hplatform.h; path = include/hltypes/hplatform.h; sourceTree = "<group>"; };
 		D1E1DD56140E579C00499A97 /* hdeque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdeque.h; path = include/hltypes/hdeque.h; sourceTree = "<group>"; };
 		D1E1DD57140E579C00499A97 /* hlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hlist.h; path = include/hltypes/hlist.h; sourceTree = "<group>"; };
@@ -147,6 +167,11 @@
 		7F42F69511EB0B8500B1C1DF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				D1BAE103183B921400BC2434 /* zipaccess.h */,
+				D1BAE101183B920700BC2434 /* msvc_dirent.h */,
+				D1BAE0F5183B91FC00BC2434 /* hdbase.cpp */,
+				D1BAE0F6183B91FC00BC2434 /* hrdir.cpp */,
+				D1BAE0F7183B91FC00BC2434 /* zipaccess.cpp */,
 				D1E909F0163693A500EB27EE /* platform */,
 				D1E909E61636911B00EB27EE /* hlog.cpp */,
 				D115F7C014AD4FA600C78558 /* hsbase.cpp */,
@@ -167,6 +192,8 @@
 		7F42F69C11EB0B9A00B1C1DF /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D1BAE0F1183B91D100BC2434 /* hdbase.h */,
+				D1BAE0F2183B91D100BC2434 /* hrdir.h */,
 				D1E909EA1636912400EB27EE /* hlog.h */,
 				D1DB1C1F162854920013C0E5 /* hplatform.h */,
 				C981D01F14FFC6270032F321 /* hfbase.h */,
@@ -218,6 +245,7 @@
 			files = (
 				D1E1DD59140E579C00499A97 /* hdeque.h in Headers */,
 				D1E1DD5A140E579D00499A97 /* hlist.h in Headers */,
+				D1BAE102183B920700BC2434 /* msvc_dirent.h in Headers */,
 				D1E909EB1636912400EB27EE /* hlog.h in Headers */,
 				D1E1DD5B140E579D00499A97 /* hthread.h in Headers */,
 				7F42F6A211EB0BAA00B1C1DF /* harray.h in Headers */,
@@ -231,7 +259,10 @@
 				7F79A512125CB34F00B22DA2 /* hdir.h in Headers */,
 				7FAB235A1291378A0035EDF5 /* hmutex.h in Headers */,
 				C981D02014FFC6270032F321 /* hfbase.h in Headers */,
+				D1BAE104183B921400BC2434 /* zipaccess.h in Headers */,
 				D115F7C714AD4FB400C78558 /* hsbase.h in Headers */,
+				D1BAE0F3183B91D100BC2434 /* hdbase.h in Headers */,
+				D1BAE0F4183B91D100BC2434 /* hrdir.h in Headers */,
 				D115F7C814AD4FB400C78558 /* hstream.h in Headers */,
 				D1DB1C20162854920013C0E5 /* hplatform.h in Headers */,
 			);
@@ -326,7 +357,10 @@
 				7F42F69911EB0B9500B1C1DF /* hfile.cpp in Sources */,
 				7F42F69A11EB0B9500B1C1DF /* hstring.cpp in Sources */,
 				7F469C7812088C00009781BB /* exception.cpp in Sources */,
+				D1BAE0FE183B91FC00BC2434 /* zipaccess.cpp in Sources */,
 				7F79A510125CB34400B22DA2 /* hdir.cpp in Sources */,
+				D1BAE0FB183B91FC00BC2434 /* hrdir.cpp in Sources */,
+				D1BAE0F8183B91FC00BC2434 /* hdbase.cpp in Sources */,
 				7FAB23551291377B0035EDF5 /* hthread.cpp in Sources */,
 				7FAB23561291377B0035EDF5 /* hmutex.cpp in Sources */,
 				D115F7C214AD4FA600C78558 /* hsbase.cpp in Sources */,
@@ -346,7 +380,10 @@
 				D122D39A14AD51F200F2886F /* hsbase.cpp in Sources */,
 				D122D39B14AD51F200F2886F /* hstream.cpp in Sources */,
 				D1981C14140F7F5C0057C3AF /* hthread.cpp in Sources */,
+				D1BAE100183B91FC00BC2434 /* zipaccess.cpp in Sources */,
 				D1981C15140F7F5C0057C3AF /* hmutex.cpp in Sources */,
+				D1BAE0FD183B91FC00BC2434 /* hrdir.cpp in Sources */,
+				D1BAE0FA183B91FC00BC2434 /* hdbase.cpp in Sources */,
 				D1981C16140F7F5C0057C3AF /* hdir.cpp in Sources */,
 				D1981C17140F7F5C0057C3AF /* exception.cpp in Sources */,
 				D1981C18140F7F5C0057C3AF /* hfile.cpp in Sources */,
@@ -366,7 +403,10 @@
 				D1F27A8C177A2D0E00E5C131 /* hsbase.cpp in Sources */,
 				D1F27A8D177A2D0E00E5C131 /* hstream.cpp in Sources */,
 				D1F27A8E177A2D0E00E5C131 /* hthread.cpp in Sources */,
+				D1BAE0FF183B91FC00BC2434 /* zipaccess.cpp in Sources */,
 				D1F27A8F177A2D0E00E5C131 /* hmutex.cpp in Sources */,
+				D1BAE0FC183B91FC00BC2434 /* hrdir.cpp in Sources */,
+				D1BAE0F9183B91FC00BC2434 /* hdbase.cpp in Sources */,
 				D1F27A90177A2D0E00E5C131 /* hdir.cpp in Sources */,
 				D1F27A91177A2D0E00E5C131 /* exception.cpp in Sources */,
 				D1F27A92177A2D0E00E5C131 /* hfile.cpp in Sources */,
