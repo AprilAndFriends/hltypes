@@ -165,7 +165,7 @@ namespace hltypes
 	bool File::move(const String& filename, const String& path, bool overwrite)
 	{
 		String name = Dir::normalize(filename);
-		return File::rename(name, path + "/" + name.rsplit("/", 1, false).remove_last(), overwrite);
+		return File::rename(name, path + "/" + Dir::basename(name), overwrite);
 	}
 	
 	bool File::copy(const String& old_filename, const String& new_filename, bool overwrite)
