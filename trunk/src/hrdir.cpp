@@ -13,7 +13,6 @@
 #include "hrdir.h"
 #include "hresource.h"
 #include "hstring.h"
-
 #ifdef _ZIPRESOURCE
 #include "zipaccess.h"
 #endif
