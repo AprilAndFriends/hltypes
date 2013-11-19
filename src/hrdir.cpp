@@ -14,6 +14,10 @@
 #include "hresource.h"
 #include "hstring.h"
 
+#ifdef _ZIPRESOURCE
+#include "zipaccess.h"
+#endif
+
 namespace hltypes
 {
 	bool ResourceDir::exists(const String& dirname)
