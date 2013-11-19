@@ -41,7 +41,7 @@ namespace hltypes
 		result += String("..");
 		if (prepend_dir)
 		{
-			DirBase::_prepend_directory(name, result);
+			ResourceDir::_prepend_directory(name, result);
 		}
 		return result;
 	}
@@ -83,7 +83,7 @@ namespace hltypes
 		result.remove_duplicates();
 		if (prepend_dir)
 		{
-			DirBase::_prepend_directory(name, result);
+			ResourceDir::_prepend_directory(name, result);
 		}
 		return result;
 	}
@@ -115,7 +115,7 @@ namespace hltypes
 		result.remove_duplicates();
 		if (prepend_dir)
 		{
-			DirBase::_prepend_directory(name, result);
+			ResourceDir::_prepend_directory(name, result);
 		}
 		return result;
 	}
@@ -147,7 +147,7 @@ namespace hltypes
 		result.remove_duplicates();
 		if (prepend_dir)
 		{
-			DirBase::_prepend_directory(name, result);
+			ResourceDir::_prepend_directory(name, result);
 		}
 		return result;
 	}
