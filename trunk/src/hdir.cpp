@@ -24,9 +24,6 @@
 #define _readdir(dirp) readdir(dirp)
 #define _closedir(dirp) closedir(dirp)
 #endif
-#ifdef _ZIPRESOURCE
-#include "zipaccess.h"
-#endif
 
 // prevents recursive calls of Dir::rename as this function is called via this pointer
 int (*d_rename)(const char* old_name, const char* new_name) = rename;
