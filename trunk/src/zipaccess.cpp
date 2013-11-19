@@ -12,9 +12,9 @@
 #include <zip.h>
 
 #include "harray.h"
-#include "hdir.h"
 #include "hmap.h"
 #include "hmutex.h"
+#include "hrdir.h"
 #include "hresource.h"
 #include "hstring.h"
 
@@ -126,7 +126,7 @@ namespace hltypes
 			int count = zip_get_num_files(archive);
 			for_iter (i, 0, count)
 			{
-				result += Dir::systemize(String(zip_get_name(archive, i, 0)));
+				result += ResourceDir::systemize(String(zip_get_name(archive, i, 0)));
 			}
 			return result;
 		}
