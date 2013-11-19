@@ -15,6 +15,7 @@
 #ifndef HLTYPES_DIR_H
 #define HLTYPES_DIR_H
 
+#include "hdbase.h"
 #include "hstring.h"
 #include "hltypesExport.h"
 
@@ -24,7 +25,7 @@ namespace hltypes
 	/// @brief Provides high level directory handling.
 	/// @author Boris Mikic
 	/// @author Kresimir Spes
-	class hltypesExport Dir
+	class hltypesExport Dir : public DirBase
 	{
 	public:
 		/// @brief Sets flag for creating directories with full access permissions on Win32 (Vista and later).
@@ -50,10 +51,6 @@ namespace hltypes
 		/// @param[in] dirname Name of the directory.
 		/// @return True if directory exists.
 		static bool exists(const String& dirname);
-		/// @brief Checks if a resource directory exists.
-		/// @param[in] dirname Name of the resource directory.
-		/// @return True if resource directory exists.
-		static bool resource_exists(const String& dirname);
 		/// @brief Clears a directory recursively.
 		/// @param[in] dirname Name of the directory.
 		/// @return True if directory was cleared. False if directory does not exist or is already empty.
@@ -82,61 +79,22 @@ namespace hltypes
 		/// @return Array of all directory entries.
 		/// @note Entries include "." and "..".
 		static Array<String> entries(const String& dirname, bool prepend_dir = false);
-		/// @brief Gets all resource directory entries in the given resource directory.
-		/// @param[in] dirname Name of the resource directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource entries.
-		/// @return Array of all resource directory entries.
-		/// @note Entries include "." and "..".
-		static Array<String> resource_entries(const String& dirname, bool prepend_dir = false);
 		/// @brief Gets all physical directory contents in the given directory.
 		/// @param[in] dirname Name of the directory.
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the contents.
 		/// @return Array of all directory contents.
 		/// @note Contents do not include "." and "..".
 		static Array<String> contents(const String& dirname, bool prepend_dir = false);
-		/// @brief Gets all physical resource directory contents in the given resource directory.
-		/// @param[in] dirname Name of the resource directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource contents.
-		/// @return Array of all resource directory contents.
-		/// @note Contents do not include "." and "..".
-		static Array<String> resource_contents(const String& dirname, bool prepend_dir = false);
 		/// @brief Gets all directories in the given directory.
 		/// @param[in] dirname Name of the directory.
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the directory paths.
 		/// @return Array of all directories.
 		static Array<String> directories(const String& dirname, bool prepend_dir = false);
-		/// @brief Gets all resource directories in the given directory.
-		/// @param[in] dirname Name of the resource directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource directory paths.
-		/// @return Array of all resource directories.
-		static Array<String> resource_directories(const String& dirname, bool prepend_dir = false);
 		/// @brief Gets all files in the given directory.
 		/// @param[in] dirname Name of the directory.
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
 		/// @return Array of all files.
 		static Array<String> files(const String& dirname, bool prepend_dir = false);
-		/// @brief Gets all resource files in the given directory.
-		/// @param[in] dirname Name of the directory.
-		/// @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
-		/// @return Array of all files.
-		static Array<String> resource_files(const String& dirname, bool prepend_dir = false);
-		/// @brief Gets the base directory of a filename/directory.
-		/// @param[in] filename The path.
-		/// @return Base directory of the given filename/directory.
-		static String basedir(const String& path);
-		/// @brief Gets the base filename/directory without the prepended directory path.
-		/// @param[in] filename The path.
-		/// @return Base filename/directory without the prepended directory path.
-		static String basename(const String& path);
-		/// @brief Changes all platform-specific directory separators to / and removal of duplicate /.
-		/// @param[in] path The path.
-		/// @return Path with all platform-specific directory separators changed to /.
-		static String systemize(const String& path);
-		/// @brief Normalizes a file path by converting all platform-specific directory separators into /, removal of duplicate / and proper removal of "." and ".." where necessary.
-		/// @param[in] path The path.
-		/// @return Normalized path.
-		/// @note Calls Dir::systemize() internally.
-		static String normalize(const String& path);
 		/// @brief Changes current working directory to given parameter.
 		/// @param[in] dirname Name of the directory.
 		static void chdir(const String& dirname);
@@ -147,10 +105,22 @@ namespace hltypes
 		/// @brief Creates the parent path of the given directory or file.
 		/// @param[in] path Path of a directory or file.
 		/// @return True if parent path was created.
-		/// @note This method is used to create the parent path structure for a directory or file without haivng to manually split the path string.
-		DEPRECATED_ATTRIBUTE static bool create_path(const String& path); // use Dir::create() and Dir::basedir() instead
+		/// @note use Dir::create(Dir::basedir(path)) instead
+		DEPRECATED_ATTRIBUTE static bool create_path(const String& path);
+		DEPRECATED_ATTRIBUTE static bool resource_exists(const String& dirname);
+		DEPRECATED_ATTRIBUTE static Array<String> resource_entries(const String& dirname, bool prepend_dir = false);
+		DEPRECATED_ATTRIBUTE static Array<String> resource_contents(const String& dirname, bool prepend_dir = false);
+		DEPRECATED_ATTRIBUTE static Array<String> resource_directories(const String& dirname, bool prepend_dir = false);
+		DEPRECATED_ATTRIBUTE static Array<String> resource_files(const String& dirname, bool prepend_dir = false);
 
 	protected:
+		/// @brief Basic constructor.
+		/// @note Forces this to be a static class.
+		Dir() : DirBase() { }
+		/// @brief Basic constructor.
+		/// @note Forces this to be a static class.
+		~Dir() { }
+
 		/// @brief Flag for creating directories with full access permissions on Win32 (Vista and later).
 		static bool win32FullDirectoryPermissions;
 
