@@ -398,7 +398,9 @@ namespace hltypes
 	void Dir::chdir(const String& dirname)
 	{
 #ifdef _WIN32
+#ifndef _WINRT
 		_wchdir(Dir::systemize(dirname).w_str().c_str());
+#endif
 #else
 		_chdir(Dir::systemize(dirname).c_str());
 #endif

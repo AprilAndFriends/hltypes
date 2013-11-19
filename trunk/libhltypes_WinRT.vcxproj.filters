@@ -65,6 +65,12 @@
     <ClCompile Include="src\zipaccess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\hrdir.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hdbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\hltypes\exception.h">
@@ -122,6 +128,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\zipaccess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hdbase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hrdir.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
