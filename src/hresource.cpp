@@ -21,7 +21,7 @@ namespace hltypes
 	String Resource::cwd = ".";
 #else
 	String Resource::cwd = "assets";
-#define READ_BUFFER_SIZE 32768
+#define READ_BUFFER_SIZE 65536
 	static unsigned char _read_buffer[READ_BUFFER_SIZE];
 #endif
 	String Resource::archive = "";
@@ -197,6 +197,8 @@ namespace hltypes
 		}
 		if (target > 0)
 		{
+			// seeking in a compressed stream is not possible so the data has to be read and then discarded
+			// the buffer can be static, because this data isn't used so there will be no threading problems
 			unsigned char* buffer = _read_buffer;
 			if (target > READ_BUFFER_SIZE)
 			{

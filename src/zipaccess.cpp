@@ -22,9 +22,9 @@ namespace hltypes
 {
 	namespace zip
 	{
-		Mutex access_mutex;
-		Map<void*, Array<Resource*> > activeHandles;
-		void* currentArchive = NULL;
+		static Mutex access_mutex;
+		static Map<void*, Array<Resource*> > activeHandles;
+		static void* currentArchive = NULL;
 
 		void setArchive(const String& value)
 		{
