@@ -919,13 +919,13 @@ namespace hltypes
 			return result;
 		}
 #endif
-#ifdef _DEBUG
-		static bool checked = false;
-#endif
 		unsigned int code = 0;
 		const unsigned char* str = (const unsigned char*)stdstr::c_str();
 		int i = 0;
 		int size = 0;
+#ifdef _DEBUG
+		bool checked = false;
+#endif
 		while (str[i] != 0)
 		{
 			_TO_UNICODE_FAST(code, str, i, size);
