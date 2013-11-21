@@ -8,7 +8,7 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #include "exception.h"
-#include "hrdir.h"
+#include "hdir.h"
 #include "hresource.h"
 #include "hthread.h"
 #ifdef _ZIPRESOURCE
@@ -22,7 +22,7 @@ namespace hltypes
 #else
 	String Resource::cwd = "assets";
 #define READ_BUFFER_SIZE 65536
-	static unsigned char _read_buffer[READ_BUFFER_SIZE];
+	static unsigned char _read_buffer[READ_BUFFER_SIZE] = {0};
 #endif
 	String Resource::archive = "";
 
@@ -60,7 +60,7 @@ namespace hltypes
 		{
 			this->close();
 		}
-		this->filename = ResourceDir::normalize(filename);
+		this->filename = Dir::normalize(filename);
 		this->encryption_offset = 0;
 		int attempts = Resource::repeats + 1;
 		while (true)
@@ -251,7 +251,7 @@ namespace hltypes
 
 	String Resource::make_full_path(const String& filename)
 	{
-		return ResourceDir::normalize(Resource::cwd + "/" + filename);
+		return Dir::normalize(Resource::cwd + "/" + filename);
 	}
 
 }
