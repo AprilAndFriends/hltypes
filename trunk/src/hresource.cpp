@@ -8,7 +8,7 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #include "exception.h"
-#include "hdir.h"
+#include "hrdir.h"
 #include "hresource.h"
 #include "hthread.h"
 #ifdef _ZIPRESOURCE
@@ -60,7 +60,7 @@ namespace hltypes
 		{
 			this->close();
 		}
-		this->filename = Dir::normalize(filename);
+		this->filename = ResourceDir::normalize(filename);
 		this->encryption_offset = 0;
 		int attempts = Resource::repeats + 1;
 		while (true)
@@ -251,7 +251,7 @@ namespace hltypes
 
 	String Resource::make_full_path(const String& filename)
 	{
-		return Dir::normalize(Resource::cwd + "/" + filename);
+		return ResourceDir::normalize(Resource::cwd + "/" + filename);
 	}
 
 }

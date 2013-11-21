@@ -1086,8 +1086,9 @@ hstr hvsprintf(const char* format, va_list args)
 	int i;
 	for_iterx (i, 0, 8)
 	{
+		// due to different (and non-standard) behavior in different implementations, there is one safe byte
 		count = vsnprintf(c, size, format, args);
-		if (count >= 0 && count <= size)
+		if (count >= 0 && count < size)
 		{
 			c[count] = '\0'; // terminate string
 			break;
