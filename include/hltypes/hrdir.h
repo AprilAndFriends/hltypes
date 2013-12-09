@@ -15,9 +15,11 @@
 #ifndef HLTYPES_RESOURCE_DIR_H
 #define HLTYPES_RESOURCE_DIR_H
 
-#include "hstring.h"
+#include "harray.h"
 #include "hdbase.h"
 #include "hltypesExport.h"
+#include "hmap.h"
+#include "hstring.h"
 
 namespace hltypes
 {
@@ -56,6 +58,13 @@ namespace hltypes
 		static Array<String> files(const String& dirname, bool prepend_dir = false);
 
 	protected:
+		/// @brief Cache for directory entries.
+		/// @note This is usually only used when ZIP resources are being used.
+		static Map<String, Array<String> > cacheDirectories;
+		/// @brief Cache for file entries.
+		/// @note This is usually only used when ZIP resources are being used.
+		static Map<String, Array<String> > cacheFiles;
+
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
 		ResourceDir() : DirBase() { }
@@ -68,6 +77,10 @@ namespace hltypes
 		/// @param[in] prefix Prefix to check.
 		/// @return True if prefix matches.
 		static bool _check_dir_prefix(String& path, const String& prefix);
+		/// @brief Gets the file listing within the resource archive.
+		/// @return True File listing within the resource archive.
+		/// @note This is usually only used when ZIP resources are being used.
+		static Array<String> _get_internal_files();
 		/// @brief Removes CWD from resource paths.
 		/// @param[in] paths The resource paths.
 		/// @return Resource paths without the CWD.
