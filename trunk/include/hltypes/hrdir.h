@@ -19,6 +19,7 @@
 #include "hdbase.h"
 #include "hltypesExport.h"
 #include "hmap.h"
+#include "hresource.h"
 #include "hstring.h"
 
 namespace hltypes
@@ -30,6 +31,8 @@ namespace hltypes
 	class hltypesExport ResourceDir : public DirBase
 	{
 	public:
+		friend class Resource;
+
 		/// @brief Checks if a resource directory exists.
 		/// @param[in] dirname Name of the resource directory.
 		/// @return True if resource directory exists.
