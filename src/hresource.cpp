@@ -9,6 +9,7 @@
 
 #include "exception.h"
 #include "hdir.h"
+#include "hrdir.h"
 #include "hresource.h"
 #include "hthread.h"
 #ifdef _ZIPRESOURCE
@@ -29,6 +30,11 @@ namespace hltypes
 	void Resource::setArchive(const String& value)
 	{
 #ifdef _ZIPRESOURCE
+		if (archive != value)
+		{
+			hrdir::cacheDirectories.clear();
+			hrdir::cacheFiles.clear();
+		}
 		zip::setArchive(value);
 #endif
 		archive = value;
