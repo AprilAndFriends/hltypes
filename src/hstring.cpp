@@ -932,7 +932,7 @@ namespace hltypes
 #ifdef _DEBUG
 			if (!checked && code > 0xFFFF)
 			{
-				Log::warnf(hltypes::logTag, "String uses Unicode characters above 0xFFFF: %s", stdstr::c_str());
+				hltypes::_platform_print(hltypes::logTag, "String uses Unicode characters above 0xFFFF: " + *this, 1000);
 				checked = true;
 			}
 #endif
