@@ -55,12 +55,16 @@
 		D1BAE100183B91FC00BC2434 /* zipaccess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F7183B91FC00BC2434 /* zipaccess.cpp */; };
 		D1BAE102183B920700BC2434 /* msvc_dirent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1BAE101183B920700BC2434 /* msvc_dirent.h */; };
 		D1BAE104183B921400BC2434 /* zipaccess.h in Headers */ = {isa = PBXBuildFile; fileRef = D1BAE103183B921400BC2434 /* zipaccess.h */; };
+		D1D34301186241AB0040AA7F /* hlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E909E61636911B00EB27EE /* hlog.cpp */; };
+		D1D34302186241AF0040AA7F /* Mac_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F6163693BC00EB27EE /* Mac_platform.mm */; };
+		D1D34304186250360040AA7F /* Apple_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1D34303186250360040AA7F /* Apple_platform.mm */; };
+		D1D34305186250360040AA7F /* Apple_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1D34303186250360040AA7F /* Apple_platform.mm */; };
+		D1D34306186250360040AA7F /* Apple_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1D34303186250360040AA7F /* Apple_platform.mm */; };
 		D1DB1C20162854920013C0E5 /* hplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DB1C1F162854920013C0E5 /* hplatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD59140E579C00499A97 /* hdeque.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD56140E579C00499A97 /* hdeque.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5A140E579D00499A97 /* hlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD57140E579C00499A97 /* hlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5B140E579D00499A97 /* hthread.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD58140E579C00499A97 /* hthread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E909E71636911B00EB27EE /* hlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E909E61636911B00EB27EE /* hlog.cpp */; };
-		D1E909E81636911B00EB27EE /* hlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E909E61636911B00EB27EE /* hlog.cpp */; };
 		D1E909EB1636912400EB27EE /* hlog.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E909EA1636912400EB27EE /* hlog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E909F5163693B600EB27EE /* iOS_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F4163693B600EB27EE /* iOS_platform.mm */; };
 		D1E909F7163693BC00EB27EE /* Mac_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F6163693BC00EB27EE /* Mac_platform.mm */; };
@@ -77,7 +81,6 @@
 		D1F27A95177A2D0E00E5C131 /* hresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C965F5BA14F3897B009F0EE5 /* hresource.cpp */; };
 		D1F27A96177A2D0E00E5C131 /* hfbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C981D01B14FFC5FE0032F321 /* hfbase.cpp */; };
 		D1F27A97177A2D0E00E5C131 /* hlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E909E61636911B00EB27EE /* hlog.cpp */; };
-		D1F27A98177A2D0E00E5C131 /* iOS_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F4163693B600EB27EE /* iOS_platform.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +118,7 @@
 		D1BAE0F7183B91FC00BC2434 /* zipaccess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zipaccess.cpp; path = src/zipaccess.cpp; sourceTree = "<group>"; };
 		D1BAE101183B920700BC2434 /* msvc_dirent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = msvc_dirent.h; path = src/msvc_dirent.h; sourceTree = "<group>"; };
 		D1BAE103183B921400BC2434 /* zipaccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zipaccess.h; path = src/zipaccess.h; sourceTree = "<group>"; };
+		D1D34303186250360040AA7F /* Apple_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Apple_platform.mm; path = src/platform/Apple_platform.mm; sourceTree = "<group>"; };
 		D1DB1C1F162854920013C0E5 /* hplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hplatform.h; path = include/hltypes/hplatform.h; sourceTree = "<group>"; };
 		D1E1DD56140E579C00499A97 /* hdeque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdeque.h; path = include/hltypes/hdeque.h; sourceTree = "<group>"; };
 		D1E1DD57140E579C00499A97 /* hlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hlist.h; path = include/hltypes/hlist.h; sourceTree = "<group>"; };
@@ -167,12 +171,12 @@
 		7F42F69511EB0B8500B1C1DF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				D1E909F0163693A500EB27EE /* platform */,
 				D1BAE103183B921400BC2434 /* zipaccess.h */,
 				D1BAE101183B920700BC2434 /* msvc_dirent.h */,
 				D1BAE0F5183B91FC00BC2434 /* hdbase.cpp */,
 				D1BAE0F6183B91FC00BC2434 /* hrdir.cpp */,
 				D1BAE0F7183B91FC00BC2434 /* zipaccess.cpp */,
-				D1E909F0163693A500EB27EE /* platform */,
 				D1E909E61636911B00EB27EE /* hlog.cpp */,
 				D115F7C014AD4FA600C78558 /* hsbase.cpp */,
 				D115F7C114AD4FA600C78558 /* hstream.cpp */,
@@ -219,6 +223,7 @@
 		D1E909F0163693A500EB27EE /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				D1D34303186250360040AA7F /* Apple_platform.mm */,
 				D1E909F6163693BC00EB27EE /* Mac_platform.mm */,
 				D1E909F4163693B600EB27EE /* iOS_platform.mm */,
 				D1E909F1163693AF00EB27EE /* Android_platform.cpp */,
@@ -367,6 +372,7 @@
 				D115F7C314AD4FA600C78558 /* hstream.cpp in Sources */,
 				C9F9314014DA88B400954F90 /* hltypesUtil.cpp in Sources */,
 				C965F5BB14F3897B009F0EE5 /* hresource.cpp in Sources */,
+				D1D34304186250360040AA7F /* Apple_platform.mm in Sources */,
 				C981D01C14FFC5FE0032F321 /* hfbase.cpp in Sources */,
 				D1E909E71636911B00EB27EE /* hlog.cpp in Sources */,
 				D1E909F7163693BC00EB27EE /* Mac_platform.mm in Sources */,
@@ -380,6 +386,7 @@
 				D122D39A14AD51F200F2886F /* hsbase.cpp in Sources */,
 				D122D39B14AD51F200F2886F /* hstream.cpp in Sources */,
 				D1981C14140F7F5C0057C3AF /* hthread.cpp in Sources */,
+				D1D34301186241AB0040AA7F /* hlog.cpp in Sources */,
 				D1BAE100183B91FC00BC2434 /* zipaccess.cpp in Sources */,
 				D1981C15140F7F5C0057C3AF /* hmutex.cpp in Sources */,
 				D1BAE0FD183B91FC00BC2434 /* hrdir.cpp in Sources */,
@@ -389,9 +396,9 @@
 				D1981C18140F7F5C0057C3AF /* hfile.cpp in Sources */,
 				D1981C19140F7F5C0057C3AF /* hstring.cpp in Sources */,
 				C9F9314114DA88B400954F90 /* hltypesUtil.cpp in Sources */,
+				D1D34306186250360040AA7F /* Apple_platform.mm in Sources */,
 				C965F5BC14F3897B009F0EE5 /* hresource.cpp in Sources */,
 				C981D01D14FFC5FE0032F321 /* hfbase.cpp in Sources */,
-				D1E909E81636911B00EB27EE /* hlog.cpp in Sources */,
 				D1E909F5163693B600EB27EE /* iOS_platform.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,10 +419,11 @@
 				D1F27A92177A2D0E00E5C131 /* hfile.cpp in Sources */,
 				D1F27A93177A2D0E00E5C131 /* hstring.cpp in Sources */,
 				D1F27A94177A2D0E00E5C131 /* hltypesUtil.cpp in Sources */,
+				D1D34302186241AF0040AA7F /* Mac_platform.mm in Sources */,
+				D1D34305186250360040AA7F /* Apple_platform.mm in Sources */,
 				D1F27A95177A2D0E00E5C131 /* hresource.cpp in Sources */,
 				D1F27A96177A2D0E00E5C131 /* hfbase.cpp in Sources */,
 				D1F27A97177A2D0E00E5C131 /* hlog.cpp in Sources */,
-				D1F27A98177A2D0E00E5C131 /* iOS_platform.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

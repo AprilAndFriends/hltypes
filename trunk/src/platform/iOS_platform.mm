@@ -12,19 +12,3 @@
 
 #include "hplatform.h"
 #include "hstring.h"
-
-namespace hltypes
-{
-	void _platform_print(const String& tag, const String& message, int level)
-	{
-		if (tag != "")
-		{
-			NSLog(@"[%s] %s", tag.c_str(), message.c_str());
-		}
-		else
-		{
-			NSLog(@"%s", message.c_str());
-		}
-	}
-	
-}
