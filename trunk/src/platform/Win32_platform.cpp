@@ -9,8 +9,6 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #if defined(_WIN32) && !defined(_WINRT)
-#include <iostream>
-
 #include "hlog.h"
 #include "hplatform.h"
 #include "hstring.h"
@@ -23,21 +21,25 @@ namespace hltypes
 		if (consoleHandle == NULL)
 		{
 			consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+			if (consoleHandle == NULL)
+			{
+				return;
+			}
 		}
-		int color = 15; // white
+		int color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE; // white
 		if (level == Log::LevelError)
 		{
-			color = 12; // red
+			color = FOREGROUND_RED; // red
 		}
 		else if (level == Log::LevelWarn)
 		{
-			color = 14; // yellow
+			color = FOREGROUND_RED | FOREGROUND_GREEN; // yellow
 		}
 		else if (level == Log::LevelDebug)
 		{
-			color = 10; // green
+			color = FOREGROUND_GREEN; // green
 		}
-		SetConsoleTextAttribute(consoleHandle, color);
+		SetConsoleTextAttribute(consoleHandle, color | FOREGROUND_INTENSITY);
 	}
 
 	void _platform_print(const String& tag, const String& message, int level)
