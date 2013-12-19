@@ -26,6 +26,19 @@ namespace hltypes
 	class hltypesExport Log
 	{
 	public:
+		/// @brief Level Write value.
+		/// @note Usually only used internally.
+		static int LevelWrite;
+		/// @brief Level Error value.
+		/// @note Usually only used internally.
+		static int LevelError;
+		/// @brief Level Warn value.
+		/// @note Usually only used internally.
+		static int LevelWarn;
+		/// @brief Level Debug value.
+		/// @note Usually only used internally.
+		static int LevelDebug;
+
 		/// @brief Checks if log level Write is turned on.
 		/// @return True if log level Write is turned on.
 		static bool isLevelWrite() { return level_write; }
