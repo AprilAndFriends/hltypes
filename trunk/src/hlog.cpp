@@ -20,21 +20,9 @@
 #include "hplatform.h"
 #include "hstring.h"
 
-#ifdef _ANDROID
-#define LEVEL_WRITE ((int)ANDROID_LOG_INFO)
-#define LEVEL_ERROR ((int)ANDROID_LOG_ERROR)
-#define LEVEL_WARN ((int)ANDROID_LOG_WARN)
-#define LEVEL_DEBUG ((int)ANDROID_LOG_DEBUG)
-#ifndef _DEBUG
-#define LEVEL_PLATFORM(level) ((level) == LEVEL_DEBUG ? LEVEL_WRITE : (level))
+#if defined(_ANDROID) && !defined(_DEBUG)
+#define LEVEL_PLATFORM(level) ((level) == Log::LevelDebug ? Log::LevelWrite : (level))
 #else
-#define LEVEL_PLATFORM(level) (level)
-#endif
-#else
-#define LEVEL_WRITE 4
-#define LEVEL_ERROR 3
-#define LEVEL_WARN 2
-#define LEVEL_DEBUG 1
 #define LEVEL_PLATFORM(level) (level)
 #endif
 
@@ -49,8 +37,20 @@
 
 namespace hltypes
 {
-	hmutex log_mutex;
+	static hmutex log_mutex;
 	
+#ifdef _ANDROID
+	int Log::LevelWrite = (int)ANDROID_LOG_INFO;
+	int Log::LevelError = (int)ANDROID_LOG_ERROR;
+	int Log::LevelWarn = (int)ANDROID_LOG_WARN;
+	int Log::LevelDebug = (int)ANDROID_LOG_DEBUG;
+#else
+	int Log::LevelWrite = 4;
+	int Log::LevelError = 3;
+	int Log::LevelWarn = 2;
+	int Log::LevelDebug = 1;
+#endif
+
 	bool Log::level_write = true;
 	bool Log::level_error = true;
 	bool Log::level_warn = true;
@@ -82,19 +82,19 @@ namespace hltypes
 	
 	bool Log::_system_log(const String& tag, const String& message, int level) // level is needed for Android
 	{
-		if (level == LEVEL_WRITE && !Log::level_write)
+		if (level == LevelWrite && !Log::level_write)
 		{
 			return false;
 		}
-		if (level == LEVEL_ERROR && !Log::level_error)
+		if (level == LevelError && !Log::level_error)
 		{
 			return false;
 		}
-		if (level == LEVEL_WARN && !Log::level_warn)
+		if (level == LevelWarn && !Log::level_warn)
 		{
 			return false;
 		}
-		if (level == LEVEL_DEBUG && !Log::level_debug)
+		if (level == LevelDebug && !Log::level_debug)
 		{
 			return false;
 		}
@@ -114,7 +114,7 @@ namespace hltypes
 			}
 			catch (hltypes::exception& e)
 			{
-				_platform_print("FATAL", e.getMessage(), LEVEL_ERROR);
+				_platform_print("FATAL", e.getMessage(), LevelError);
 				log_mutex.unlock();
 				throw e;
 			}
@@ -128,7 +128,7 @@ namespace hltypes
 		}
 		catch (hltypes::exception& e)
 		{
-			_platform_print("FATAL", e.getMessage(), LEVEL_ERROR);
+			_platform_print("FATAL", e.getMessage(), LevelError);
 			log_mutex.unlock();
 			throw e;
 		}
@@ -138,22 +138,22 @@ namespace hltypes
 	
 	bool Log::write(const String& tag, const String& message)
 	{
-		return Log::_system_log(tag, message, LEVEL_WRITE);
+		return Log::_system_log(tag, message, LevelWrite);
 	}
 	
 	bool Log::error(const String& tag, const String& message)
 	{
-		return Log::_system_log(tag, "ERROR: " + message, LEVEL_ERROR);
+		return Log::_system_log(tag, "ERROR: " + message, LevelError);
 	}
 	
 	bool Log::warn(const String& tag, const String& message)
 	{
-		return Log::_system_log(tag, "WARNING: " + message, LEVEL_WARN);
+		return Log::_system_log(tag, "WARNING: " + message, LevelWarn);
 	}
 	
 	bool Log::debug(const String& tag, const String& message)
 	{
-		return Log::_system_log(tag, "DEBUG: " + message, LEVEL_DEBUG);
+		return Log::_system_log(tag, "DEBUG: " + message, LevelDebug);
 	}
 	
 	bool Log::writef(const String& tag, const char* format, ...)
