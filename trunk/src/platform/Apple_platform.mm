@@ -39,7 +39,8 @@ namespace hltypes
         {
             if (XCodeColorsInstalled == -1) // put here for performance reasons
             {
-                XCodeColorsInstalled = strcmp(getenv("XcodeColors"), "YES") == 0 ? 1 : 0;
+                const char* result = getenv("XcodeColors");
+                XCodeColorsInstalled = result != NULL && strcmp(result, "YES") == 0 ? 1 : 0;
                 _platform_print(tag, message, level);
                 return;
             }
