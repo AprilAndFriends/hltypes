@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.21
 /// 
 /// @section LICENSE
 /// 
@@ -61,7 +61,7 @@ namespace hltypes
 		static String hread(const String& filename, const String& delimiter = "");
 		/// @brief Create a full filename.
 		/// @params[in] filename Original filename.
-		/// @returns Full filename.
+		/// @return Full filename.
 		static String make_full_path(const String& filename);
 		
 		/// @brief Gets the interal current working directory within a possible archive.

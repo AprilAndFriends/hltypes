@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.21
 /// 
 /// @section LICENSE
 /// 
@@ -31,6 +31,10 @@ namespace hltypes
 		~Stream();
 		/// @brief Clears the stream.
 		void clear();
+		/// @brief Gets a direct reference to the internal steam.
+		/// @param[in] index Reference to a specific element.
+		/// @return Direct reference to the internal steam.
+		const unsigned char& operator[](int index);
 
 	protected:
 		/// @brief Data stream container.

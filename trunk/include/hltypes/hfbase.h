@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.21
 /// 
 /// @section LICENSE
 /// 
@@ -81,7 +81,7 @@ namespace hltypes
 		void* cfile;
 
 		/// @brief Gets special descriptor.
-		/// @returns Special descriptor.
+		/// @return Special descriptor.
 		String _descriptor();
 
 		/// @brief Opens an OS file.
