@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.21
 /// 
 /// @section LICENSE
 /// 
@@ -52,11 +52,20 @@ namespace hltypes
 		this->_update_data_size();
 	}
 	
+	const unsigned char& Stream::operator[](int index)
+	{
+		if (index < 0)
+		{
+			index += this->stream_size;
+		}
+		return this->stream[index];
+	}
+	
 	void Stream::_update_data_size()
 	{
 		this->data_size = this->stream_size;
 	}
-
+	
 	long Stream::_read(void* buffer, int size, int count)
 	{
 		long read_size = hclamp((long)(size * count), 0L, this->stream_size - this->stream_position);

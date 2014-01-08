@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.21
 /// 
 /// @section LICENSE
 /// 
@@ -212,7 +212,7 @@ namespace hltypes
 		virtual void _check_availability();
 
 		/// @brief Gets special descriptor.
-		/// @returns Special descriptor.
+		/// @return Special descriptor.
 		virtual String _descriptor() { return "stream"; }
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
