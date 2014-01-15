@@ -215,7 +215,7 @@ namespace hltypes
 		/// @brief Checks if the string is a number, positive or negative integer or float.
 		/// @return True if string is a number.
 		hltypesMemberExport bool is_number() const;
-		/// @brief Checks if the string is a hexadecimal number, case ignore.
+		/// @brief Checks if the string is a hexadecimal number, case ignored.
 		/// @return True if string is a hex number.
 		/// @note This method is case insensitive.
 		/// @note Hex numbers cannot be negative in this context.
@@ -326,6 +326,11 @@ namespace hltypes
 		/// @brief Creates a string with characters converted using the %02X format.
 		/// @return String of hex values of the characters.
 		hltypesMemberExport String to_hex() const;
+		/// @brief Creates an unsigned int from hex value string.
+		/// @return An unsigned int.
+		/// @note Will return 0 if string is not a hex number. Use String::is_hex() to check first.
+		/// @note Hex strings above 0xFFFFFFFF cause undefined behavior.
+		hltypesMemberExport unsigned int unhex() const;
 
 		/// @brief Casts String into float.
 		hltypesMemberExport operator float() const;

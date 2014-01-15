@@ -541,6 +541,16 @@ namespace hltypes
 		return hex;
 	}
 
+	unsigned int String::unhex() const
+	{
+		unsigned int i = 0;
+		if (this->is_hex())
+		{
+			sscanf(this->upper().c_str(), "%X", &i);
+		}
+		return i;
+	}
+
 	bool String::split(const char delimiter, String& out_left,String& out_right) const
 	{
 		const char sp[2] = {delimiter, '\0'};
