@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 2.2
+/// @version 2.22
 /// 
 /// @section LICENSE
 /// 
@@ -141,6 +141,9 @@ namespace hltypes
 		/// @param[in] substr The String to look for.
 		/// @return Number of occurrences of the substring.
 		hltypesMemberExport int count(const String& substr) const;
+		/// @brief Splits all characters in the String.
+		/// @return Array of chars.
+		hltypesMemberExport Array<char> split() const;
 		/// @brief Splits the String with the delimiter.
 		/// @param[in] delimiter The character acting as splitting delimiter.
 		/// @param[in] n How many times the string should be split maximally.

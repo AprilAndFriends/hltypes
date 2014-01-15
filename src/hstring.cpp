@@ -3,7 +3,7 @@
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
 /// @author  Domagoj Cerjan
-/// @version 2.2
+/// @version 2.22
 /// 
 /// @section LICENSE
 /// 
@@ -143,6 +143,11 @@ namespace hltypes
 	}
 	String::~String() { }
 
+	Array<char> String::split() const
+	{
+		return Array<char>(stdstr::c_str(), stdstr::size());
+	}
+	
 	Array<String> String::split(const char* delimiter, unsigned int n, bool remove_empty) const
 	{
 		Array<String> out;
