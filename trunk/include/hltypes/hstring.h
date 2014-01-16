@@ -301,6 +301,22 @@ namespace hltypes
 		/// @param[in] s String to search for.
 		/// @return True if this String contains other String.
 		hltypesMemberExport bool contains(const String& s) const;
+		/// @brief Checks if String contains any character from a C-type string.
+		/// @param[in] s C-type string to search for.
+		/// @return True if String contains any character from a C-type string.
+		hltypesMemberExport bool contains_any(const char* s) const;
+		/// @brief Checks if String contains any character from another String.
+		/// @param[in] s String to search for.
+		/// @return True if this String contains any character from another String.
+		hltypesMemberExport bool contains_any(const String& s) const;
+		/// @brief Checks if String contains all characters from a C-type string.
+		/// @param[in] s C-type string to search for.
+		/// @return True if String contains all characters from a C-type string.
+		hltypesMemberExport bool contains_all(const char* s) const;
+		/// @brief Checks if String contains all characters from another String.
+		/// @param[in] s String to search for.
+		/// @return True if this String contains all characters from another String.
+		hltypesMemberExport bool contains_all(const String& s) const;
 		/// @brief Creates a substring from UTF8-indexed characters.
 		/// @param[in] start Start index of the substring.
 		/// @param[in] count Character length of the substring (UT8, not ASCII).
