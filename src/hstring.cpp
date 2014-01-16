@@ -670,6 +670,42 @@ namespace hltypes
 		return this->contains(s.c_str());
 	}
 	
+	bool String::contains_any(const char* s) const
+	{
+		int size = strlen(s);
+		for_iter (i, 0, size)
+		{
+			if (stdstr::find(s[i]) != stdstr::npos)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	bool String::contains_any(const String& s) const
+	{
+		return this->contains_any(s.c_str());
+	}
+	
+	bool String::contains_all(const char* s) const
+	{
+		int size = strlen(s);
+		for_iter (i, 0, size)
+		{
+			if (stdstr::find(s[i]) != stdstr::npos)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	bool String::contains_all(const String& s) const
+	{
+		return this->contains_all(s.c_str());
+	}
+	
 	String String::operator()(int start, int count) const
 	{
 		if (count < 0)
