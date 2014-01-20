@@ -601,7 +601,7 @@ namespace hltypes
 	
 	int String::count(const String& substr) const
 	{
-		return count(substr.c_str());
+		return this->count(substr.c_str());
 	}
 
 	bool String::starts_with(const String& s) const
