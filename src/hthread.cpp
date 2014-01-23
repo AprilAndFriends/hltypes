@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.2
+/// @version 2.23
 /// 
 /// @section LICENSE
 /// 
@@ -127,6 +127,10 @@ namespace hltypes
 			this->id = NULL;
 		}
 #else
+		if (this->id == NULL) // means that it wasn't started yet
+		{
+			return;
+		}
 		IAsyncAction^ action = ((AsyncActionWrapper*)this->id)->async_action;
 		int i = 0;
 		while (action->Status != AsyncStatus::Completed &&
