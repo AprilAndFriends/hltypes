@@ -610,9 +610,14 @@ namespace hltypes
 		/// @note Unlike remove, this method ignores if the element is not in this Deque.
 		void differentiate(const T& element)
 		{
-			int index = this->index_of(element);
-			if (index >= 0)
+			int index = 0;
+			while (true)
 			{
+				index = this->index_of(element);
+				if (index < 0)
+				{
+					break;
+				}
 				stddeque::erase(stddeque::begin() + index);
 			}
 		}
@@ -624,9 +629,13 @@ namespace hltypes
 			int index;
 			for_iter (i, 0, other.size())
 			{
-				index = this->index_of(other.at(i));
-				if (index >= 0)
+				while (true)
 				{
+					index = this->index_of(other.at(i));
+					if (index < 0)
+					{
+						break;
+					}
 					stddeque::erase(stddeque::begin() + index);
 				}
 			}
