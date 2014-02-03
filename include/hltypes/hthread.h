@@ -38,6 +38,9 @@ namespace hltypes
 		/// @brief Sets function.
 		/// @param[in] value New function.
 		void setFunction(void (*value)(Thread*)) { this->function = value; }
+		/// @brief Gets whether the thread is running.
+		/// @return True if the thread is running.
+		bool isRunning() { return this->running; }
 		/// @brief Starts the thread processing.
 		void start();
 		/// @brief Stops the thread processing.
@@ -54,8 +57,6 @@ namespace hltypes
 		/// @param[in] miliseconds How long to sleep in miliseconds.
 		static void sleep(float miliseconds);
 		
-		//static Thread* getCurrentThread();
-
 	protected:
 		/// @brief The callback function of the thread.
 		void (*function)(Thread*);
