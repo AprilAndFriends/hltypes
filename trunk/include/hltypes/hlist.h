@@ -24,8 +24,10 @@
 
 /// @brief Provides a simpler syntax to iterate through a list.
 #define foreach_l(type, name, container) for (std::list<type>::iterator name = (container).begin(); name != (container).end(); name++)
+#define foreachc_l(type, name, container) for (std::list<type>::const_iterator name = (container).begin(); name != (container).end(); name++)
 /// @brief Provides a simpler syntax to reverse iterate through a list.
 #define foreach_lr(type, name, container) for (std::list<type>::reverse_iterator name = (container).rbegin(); name != (container).rend(); name++)
+#define foreachc_lr(type, name, container) for (std::list<type>::reverse_const_iterator name = (container).rbegin(); name != (container).rend(); name++)
 /// @brief Alias for simpler code.
 #define stdlist std::list<T>
 
