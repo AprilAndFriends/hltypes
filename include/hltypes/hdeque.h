@@ -26,8 +26,10 @@
 
 /// @brief Provides a simpler syntax to iterate through a ldeque.
 #define foreach_q(type, name, container) for (std::deque<type>::iterator name = (container).begin(); name != (container).end(); name++)
+#define foreachc_q(type, name, container) for (std::deque<type>::const_iterator name = (container).begin(); name != (container).end(); name++)
 /// @brief Provides a simpler syntax to reverse iterate through a Deque.
 #define foreach_qr(type, name, container) for (std::deque<type>::reverse_iterator name = (container).rbegin(); name != (container).rend(); name++)
+#define foreachc_qr(type, name, container) for (std::deque<type>::reverse_const_iterator name = (container).rbegin(); name != (container).rend(); name++)
 /// @brief Alias for simpler code.
 #define stddeque std::deque<T>
 

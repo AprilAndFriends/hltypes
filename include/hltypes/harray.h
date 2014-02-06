@@ -26,8 +26,10 @@
 
 /// @brief Provides a simpler syntax to iterate through an Array.
 #define foreach(type, name, container) for (std::vector<type>::iterator name = (container).begin(); name != (container).end(); name++)
+#define foreachc(type, name, container) for (std::vector<type>::const_iterator name = (container).begin(); name != (container).end(); name++)
 /// @brief Provides a simpler syntax to reverse iterate through an Array.
 #define foreach_r(type, name, container) for (std::vector<type>::reverse_iterator name = (container).rbegin(); name != (container).rend(); name++)
+#define foreachc_r(type, name, container) for (std::vector<type>::reverse_const_iterator name = (container).rbegin(); name != (container).rend(); name++)
 /// @brief Alias for simpler code.
 #define stdvector std::vector<T>
 

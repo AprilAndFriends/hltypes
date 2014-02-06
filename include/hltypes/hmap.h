@@ -21,8 +21,10 @@
 
 /// @brief Provides a simpler syntax to iterate through a Map.
 #define foreach_map(type_key, type_value, name, container) for (std::map<type_key, type_value >::iterator name = container.begin(); name != container.end(); name++)
+#define foreachc_map(type_key, type_value, name, container) for (std::map<type_key, type_value >::const_iterator name = container.begin(); name != container.end(); name++)
 /// @brief Provides a simpler syntax to iterate through a Map with String as key.
 #define foreach_m(type, name, container) for (std::map<hstr, type >::iterator name = container.begin(); name != container.end(); name++)
+#define foreachc_m(type, name, container) for (std::map<hstr, type >::const_iterator name = container.begin(); name != container.end(); name++)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
 #define __foreach_this_map_it(name) for (iterator_map_t name = stdmap::begin(); name != stdmap::end(); name++)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
