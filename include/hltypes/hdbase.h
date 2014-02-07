@@ -45,6 +45,12 @@ namespace hltypes
 		/// @return Normalized path.
 		/// @note Calls Dir::systemize() internally.
 		static String normalize(const String& path);
+		/// @brief joins two paths taking into consideration slashes at both ends
+		/// @param[in] path1 First path
+		/// @param[in] path2 Second path
+		/// @param[in] systemize Optional argument if you want to systemize the path as well, false by default
+		/// @return Joined path.
+		static String joinPath(const String& path1, const String& path2, bool systemizeResult = false);
 
 	protected:
 		/// @brief Basic constructor.
