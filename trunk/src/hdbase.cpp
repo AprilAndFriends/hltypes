@@ -92,6 +92,33 @@ namespace hltypes
 		return result.join('/');
 	}
 		
+	String DirBase::joinPath(const String& path1, const String& path2, bool systemizeResult)
+	{
+		String result;
+		bool slash1 = path1.ends_with("/"), slash2 = path2.starts_with("/");
+		if (!slash1 && !slash2)
+		{
+			result = path1 + "/" + path2;
+		}
+		else if ((slash1 && !slash2) || (!slash1 && slash2))
+		{
+			result = path1 + path2;
+		}
+		else // (slash1 && slash2)
+		{
+			result = path1.substr(0, path1.size() - 1) + path2;
+		}
+
+		if (systemizeResult)
+		{
+			return systemize(result);
+		}
+		else
+		{
+			return result;
+		}
+	}
+
 	void DirBase::_prepend_directory(const String& dirname, Array<String>& entries)
 	{
 		if (dirname != "")
