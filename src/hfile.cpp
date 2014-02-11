@@ -21,6 +21,10 @@ int (*f_remove)(const char* filename) = remove;
 #include "hstring.h"
 #include "hthread.h"
 
+#if !defined _WIN32 && !defined(_WINRT)
+#include <sys/stat.h>
+#endif
+
 #define BUFFER_SIZE 4096
 
 namespace hltypes
@@ -213,5 +217,24 @@ namespace hltypes
 	{
 		File(filename, APPEND).write(text);
 	}
-	
+}
+
+#include "hlog.h" // temp for windows
+namespace hltypes
+{
+	FileInfo File::getInfo(const String& filename)
+	{
+		FileInfo info;
+#if defined _WIN32 || defined(_WINRT)
+		hlog::warn(logTag, "File::getInfo() not implemented on this platform!");
+		info.size = 0;
+		info.modificationTime = 0;
+#else // posix
+		struct stat s;
+		stat(filename.c_str(), &s);
+		info.size = s.st_size;
+		info.modificationTime = s.st_mtimespec.tv_sec;
+#endif
+		return info;
+	}
 }
