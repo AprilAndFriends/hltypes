@@ -30,7 +30,7 @@ namespace hltypes
 		long fsize(void* archivefile, const String& filename);
 		void* freopen(void* file, void* archivefile, const String& filename);
 		Array<String> getFiles(void* archivefile);
-		Resource::Info finfo(void* archivefile, const String& filename);
+		FileInfo finfo(void* archivefile, const String& filename);
 
 	}
 
