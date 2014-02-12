@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.21
+/// @version 2.24
 /// 
 /// @section LICENSE
 /// 
@@ -23,9 +23,28 @@
 
 namespace hltypes
 {
+	/// @brief Used for information about files.
+	struct hltypesExport FileInfo
+	{
+		/// @brief File size.
+		/// @note Only files up to 4 GB for now.
+		unsigned long size;
+		/// @brief The time the file was created.
+		unsigned long creation_time;
+		/// @brief The time the file was last accessed.
+		unsigned long access_time;
+		/// @brief The time the file was last modified.
+		unsigned long modification_time;
+
+		/// @brief Constructor.
+		FileInfo();
+		/// @brief Destructor.
+		~FileInfo();
+
+	};
+	
 	template <class T> class Array;
 	/// @brief Provides a base for high level file handling.
-	/// @author Boris Mikic
 	/// @note When writing, \\r may be used, but \\r will be removed during read.
 	class hltypesExport FileBase : public StreamBase
 	{
@@ -131,6 +150,8 @@ namespace hltypes
 
 /// @brief Alias for simpler code.
 typedef hltypes::FileBase hfbase;
+/// @brief Alias for simpler code.
+typedef hltypes::FileInfo hfinfo;
 
 #endif
 

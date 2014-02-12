@@ -24,9 +24,6 @@
 namespace hltypes
 {
 	/// @brief Provides functionality of a Thread for multithreading.
-	/// @author Kresimir Spes
-	/// @author Boris Mikic
-	/// @todo Finish the class and fix remaining problems.
 	class hltypesExport Thread
 	{
 	public:

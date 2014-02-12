@@ -21,7 +21,6 @@ namespace hltypes
 {
 	template <class T> class Array;
 	/// @brief Provides high level data streaming.
-	/// @author Boris Mikic
 	class hltypesExport Stream : public StreamBase
 	{
 	public:

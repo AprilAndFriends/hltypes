@@ -24,8 +24,6 @@
 namespace hltypes
 {
 	/// @brief Provides functionality of a Mutex for multithreading.
-	/// @author Kresimir Spes
-	/// @author Boris Mikic
 	/// @todo Finish the class and fix remaining problems.
 	class hltypesExport Mutex
 	{

@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.24
 /// 
 /// @section LICENSE
 /// 
@@ -129,6 +129,20 @@ namespace hltypes
 				result += ResourceDir::systemize(String(zip_get_name(archive, i, 0)));
 			}
 			return result;
+		}
+
+		Resource::Info finfo(void* archivefile, const String& filename)
+		{
+			struct zip_stat stat;
+			stat.size = 0;
+			stat.mtime = 0;
+			access_mutex.lock();
+			zip_stat((struct zip*)archivefile, Resource::make_full_path(filename).c_str(), 0, &stat);
+			access_mutex.unlock();
+			Resource::Info info;
+			info.size = stat.size;
+			info.modification_time = stat.mtime;
+			return info;
 		}
 
 	}

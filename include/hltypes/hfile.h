@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.2
+/// @version 2.24
 /// 
 /// @section LICENSE
 /// 
@@ -25,12 +25,6 @@
 
 namespace hltypes
 {
-	struct FileInfo
-	{
-		unsigned long size;
-		unsigned long modificationTime;
-	};
-	
 	template <class T> class Array;
 	/// @brief Provides high level file handling.
 	/// @author Kresimir Spes
@@ -113,8 +107,10 @@ namespace hltypes
 		/// @brief Opens file, appends data and closes file.
 		/// @see write
 		static void happend(const String& filename, const String& text);
-		/// @brief return file information provided by the OS
-		static FileInfo getInfo(const String& filename);
+		/// @brief Gets the file information provided by the OS.
+		/// @param[in] filename The filename of the file.
+		/// @return File information provided by the OS.
+		static FileInfo get_info(const String& filename);
 		
 	protected:
 		/// @brief Reads data from the stream.

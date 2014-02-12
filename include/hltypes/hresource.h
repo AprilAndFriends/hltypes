@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.21
+/// @version 2.24
 /// 
 /// @section LICENSE
 /// 
@@ -59,6 +59,10 @@ namespace hltypes
 		/// @brief Opens file, reads data and closes file.
 		/// @see read
 		static String hread(const String& filename, const String& delimiter = "");
+		/// @brief Gets the file information provided by the implementation.
+		/// @param[in] filename The filename of the file.
+		/// @return File information provided by the implementation.
+		static FileInfo get_info(const String& filename);
 		/// @brief Create a full filename.
 		/// @params[in] filename Original filename.
 		/// @return Full filename.

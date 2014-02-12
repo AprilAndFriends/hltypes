@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.24
 /// 
 /// @section LICENSE
 /// 
@@ -9,6 +9,7 @@
 
 #include "exception.h"
 #include "hdir.h"
+#include "hfile.h"
 #include "hrdir.h"
 #include "hresource.h"
 #include "hthread.h"
@@ -253,6 +254,26 @@ namespace hltypes
 	String Resource::hread(const String& filename, const String& delimiter)
 	{
 		return Resource(filename).read(delimiter);
+	}
+
+	FileInfo Resource::get_info(const String& filename)
+	{
+#ifndef _ZIPRESOURCE
+		return File::get_info(Resource::make_full_path(filename));
+#else
+		FileInfo info;
+		bool result = false;
+		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
+		if (a != NULL)
+		{
+			info = zip::finfo(a, Resource::make_full_path(filename));
+			zip::close(NULL, a);
+			FileInfo archive = File::get_info(Resource::archive);
+			info.creation_time = archive.creation_time;
+			info.access_time = archive.access_time;
+		}
+		return info;
+#endif
 	}
 
 	String Resource::make_full_path(const String& filename)

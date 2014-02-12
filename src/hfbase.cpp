@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.24
 /// 
 /// @section LICENSE
 /// 
@@ -21,6 +21,18 @@ namespace hltypes
 {
 	int FileBase::repeats = 0;
 	float FileBase::timeout = 100.0f;
+
+	FileInfo::FileInfo()
+	{
+		this->size = 0;
+		this->creation_time = 0;
+		this->access_time = 0;
+		this->modification_time = 0;
+	}
+
+	FileInfo::~FileInfo()
+	{
+	}
 
 	FileBase::FileBase(const String& filename, unsigned char encryption_offset) : StreamBase(encryption_offset), cfile(NULL)
 	{

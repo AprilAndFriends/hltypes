@@ -22,7 +22,6 @@
 namespace hltypes
 {
 	/// @brief Provides high level logging.
-	/// @author Boris Mikic
 	class hltypesExport Log
 	{
 	public:

@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.24
 /// 
 /// @section LICENSE
 /// 
@@ -30,6 +30,7 @@ namespace hltypes
 		long fsize(void* archivefile, const String& filename);
 		void* freopen(void* file, void* archivefile, const String& filename);
 		Array<String> getFiles(void* archivefile);
+		Resource::Info finfo(void* archivefile, const String& filename);
 
 	}
 
