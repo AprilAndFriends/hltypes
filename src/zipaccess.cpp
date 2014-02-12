@@ -131,7 +131,7 @@ namespace hltypes
 			return result;
 		}
 
-		Resource::Info finfo(void* archivefile, const String& filename)
+		FileInfo finfo(void* archivefile, const String& filename)
 		{
 			struct zip_stat stat;
 			stat.size = 0;
@@ -139,7 +139,7 @@ namespace hltypes
 			access_mutex.lock();
 			zip_stat((struct zip*)archivefile, Resource::make_full_path(filename).c_str(), 0, &stat);
 			access_mutex.unlock();
-			Resource::Info info;
+			FileInfo info;
 			info.size = stat.size;
 			info.modification_time = stat.mtime;
 			return info;
