@@ -23,8 +23,6 @@ namespace hltypes
 {
 	template <class T> class Array;
 	/// @brief Provides high level directory handling.
-	/// @author Boris Mikic
-	/// @author Kresimir Spes
 	class hltypesExport Dir : public DirBase
 	{
 	public:

@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.2
+/// @version 2.24
 /// 
 /// @section LICENSE
 /// 
@@ -195,7 +195,7 @@ namespace hltypes
 	
 	long File::hsize(const String& filename)
 	{
-		return File(filename).size();
+		return File::get_info(filename).size; // uses get_info to avoid opening the file
 	}
 	
 	String File::hread(const String& filename, int count)
@@ -217,24 +217,36 @@ namespace hltypes
 	{
 		File(filename, APPEND).write(text);
 	}
-}
 
-#include "hlog.h" // temp for windows
-namespace hltypes
-{
-	FileInfo File::getInfo(const String& filename)
+	FileInfo File::get_info(const String& filename)
 	{
 		FileInfo info;
-#if defined _WIN32 || defined(_WINRT)
-		hlog::warn(logTag, "File::getInfo() not implemented on this platform!");
-		info.size = 0;
-		info.modificationTime = 0;
-#else // posix
+#if defined(_WIN32)
+		WIN32_FILE_ATTRIBUTE_DATA data;
+		memset(&data, 0, sizeof(WIN32_FILE_ATTRIBUTE_DATA));
+		if (GetFileAttributesExW(filename.w_str().c_str(), GetFileExInfoStandard, &data) != 0)
+		{
+			info.size = data.nFileSizeLow;
+			ULARGE_INTEGER ull;
+			ull.LowPart = data.ftCreationTime.dwLowDateTime;
+			ull.HighPart = data.ftCreationTime.dwHighDateTime;
+			info.creation_time = (unsigned long)(ull.QuadPart / 10000000ULL - 11644473600ULL); // mystical runes,
+			ull.LowPart = data.ftLastAccessTime.dwLowDateTime;
+			ull.HighPart = data.ftLastAccessTime.dwHighDateTime;
+			info.access_time = (unsigned long)(ull.QuadPart / 10000000ULL - 11644473600ULL); // arcane powers
+			ull.LowPart = data.ftLastWriteTime.dwLowDateTime;
+			ull.HighPart = data.ftLastWriteTime.dwHighDateTime;
+			info.modification_time = (unsigned long)(ull.QuadPart / 10000000ULL - 11644473600ULL); // and voodoo magic!
+		}
+#else
 		struct stat s;
 		stat(filename.c_str(), &s);
 		info.size = s.st_size;
-		info.modificationTime = s.st_mtimespec.tv_sec;
+		info.creation_time = s.st_ctime;
+		info.access_time = s.st_atime;
+		info.modification_time = s.st_mtime;
 #endif
 		return info;
 	}
+
 }

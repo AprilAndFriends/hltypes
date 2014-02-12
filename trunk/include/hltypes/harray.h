@@ -36,8 +36,6 @@
 namespace hltypes
 {
 	/// @brief Encapsulates std::vector and adds high level methods.
-	/// @author Boris Mikic
-	/// @author Ivan Vucica
 	template <class T> class Array : public stdvector
 	{
 	private:

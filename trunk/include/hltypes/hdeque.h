@@ -36,7 +36,6 @@
 namespace hltypes
 {
 	/// @brief Encapsulates std::deque and adds high level methods.
-	/// @author Boris Mikic
 	template <class T> class Deque : public stddeque
 	{
 	private:

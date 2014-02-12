@@ -35,7 +35,6 @@
 namespace hltypes
 {
 	/// @brief Encapsulates std::map and adds high level methods.
-	/// @author Boris Mikic
 	template <class K, class V> class Map : public stdmap
 	{
 	private:

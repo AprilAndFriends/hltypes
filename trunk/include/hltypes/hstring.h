@@ -32,10 +32,6 @@ namespace hltypes
 	template <class T> class Array;
 	
 	/// @brief Encapsulates std::string and adds high level methods.
-	/// @author Kresimir Spes
-	/// @author Boris Mikic
-	/// @author Ivan Vucica
-	/// @author Domagoj Cerjan
 	/// @todo capitalize?
 	/// @todo swapcase?
 	/// @todo utf8_len?

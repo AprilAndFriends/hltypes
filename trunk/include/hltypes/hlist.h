@@ -34,7 +34,6 @@
 namespace hltypes
 {
 	/// @brief Encapsulates std::list and adds high level methods.
-	/// @author Boris Mikic
 	template <class T> class List : public stdlist
 	{
 	private:
