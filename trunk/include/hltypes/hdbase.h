@@ -48,7 +48,7 @@ namespace hltypes
 		/// @param[in] path2 Second path
 		/// @param[in] systemize Optional argument if you want to systemize the path as well, false by default
 		/// @return Joined path.
-		static String joinPath(const String& path1, const String& path2, bool systemizeResult = false);
+		static String join_path(const String& path1, const String& path2, bool systemizeResult = false);
 
 	protected:
 		/// @brief Basic constructor.
