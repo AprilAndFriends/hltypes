@@ -92,7 +92,7 @@ namespace hltypes
 		return result.join('/');
 	}
 		
-	String DirBase::joinPath(const String& path1, const String& path2, bool systemizeResult)
+	String DirBase::join_path(const String& path1, const String& path2, bool systemizeResult)
 	{
 		String result;
 		bool slash1 = path1.ends_with("/"), slash2 = path2.starts_with("/");
