@@ -278,7 +278,7 @@ namespace hltypes
 
 	String Resource::make_full_path(const String& filename)
 	{
-		return Dir::normalize(Resource::cwd + "/" + filename);
+		return Dir::normalize(hdir::join_path(Resource::cwd, filename));
 	}
 
 }
