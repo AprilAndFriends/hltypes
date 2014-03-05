@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.25
 /// 
 /// @section LICENSE
 /// 
@@ -19,6 +19,8 @@
 #include "hmutex.h"
 #include "hplatform.h"
 #include "hstring.h"
+
+#define MAX_FILE_SIZE 131072
 
 #if defined(_ANDROID) && !defined(_DEBUG)
 #define LEVEL_PLATFORM(level) ((level) == Log::LevelDebug ? Log::LevelWrite : (level))
@@ -62,6 +64,28 @@ namespace hltypes
 	Array<String> Log::tag_filters;
 	String Log::filename;
 	void (*Log::callback_function)(const String&, const String&) = NULL;
+
+#ifdef _WIN32
+	static int fileIndex = 0;
+	static hstr fileBase;
+	static hstr fileExtension;
+
+	hstr _get_file_name(chstr filename, int index)
+	{
+		return (fileBase + "." + hstr(index) + "." + fileExtension);
+	}
+
+	hstr _get_current_file_name(chstr filename)
+	{
+		hstr newFilename = _get_file_name(filename, fileIndex);
+		if (hfile::hsize(newFilename) > MAX_FILE_SIZE)
+		{
+			fileIndex++;
+			newFilename = _get_file_name(filename, fileIndex);
+		}
+		return newFilename;
+	}
+#endif
 	
 	void Log::setLevels(bool write, bool error, bool warn, bool debug)
 	{
@@ -78,6 +102,10 @@ namespace hltypes
 		{
 			hfile::create_new(Log::filename);
 		}
+#ifdef _WIN32
+		fileBase = hfile::no_extension(filename);
+		fileExtension = hfile::extension_of(filename);
+#endif
 	}
 	
 	bool Log::_system_log(const String& tag, const String& message, int level) // level is needed for Android
@@ -108,7 +136,11 @@ namespace hltypes
 		{
 			try
 			{
+#ifndef _WIN32
 				hfile file(Log::filename, hfile::APPEND);
+#else
+				hfile file(_get_current_file_name(Log::filename), hfile::APPEND);
+#endif
 				String log_message = (tag != "" ? "[" + tag + "] " + message : message);
 				file.writef("%s\n", log_message.c_str());
 			}
@@ -178,6 +210,23 @@ namespace hltypes
 	{
 		MAKE_VA_ARGS(result, format);
 		return Log::debug(tag, result);
+	}
+
+	void Log::finalize()
+	{
+#ifdef _WIN32
+		hstr filename;
+		harray<hstr> data;
+		for_iter (i, 0, fileIndex + 1)
+		{
+			filename = _get_file_name(Log::filename, i);
+			data += hfile::hread(filename);
+			hfile::remove(filename);
+		}
+		hfile file(Log::filename, File::APPEND);
+		file.write(data.join('\n'));
+		fileIndex = 0;
+#endif
 	}
 
 }

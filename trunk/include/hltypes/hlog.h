@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.2
+/// @version 2.25
 /// 
 /// @section LICENSE
 /// 
@@ -114,6 +114,9 @@ namespace hltypes
 		/// @brief Same as debug, except with string formatting.
 		/// @see debug
 		static bool debugf(const String& tag, const char* format, ...);
+		/// @brief Merges all log files into one.
+		/// @note Call this at application exit or before changing logging files.
+		static void finalize();
 
 	protected:
 		/// @brief Flag for Write level logging.
