@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.2
+/// @version 2.26
 /// 
 /// @section LICENSE
 /// 
@@ -190,7 +190,7 @@ namespace hltypes
 		return Dir::exists(name);
 	}
 	
-	bool Dir::exists(const String& dirname)
+	bool Dir::exists(const String& dirname, bool case_insensitive)
 	{
 		String name = Dir::normalize(dirname);
 		DIR* dir = _opendir(name);

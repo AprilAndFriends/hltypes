@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.24
+/// @version 2.26
 /// 
 /// @section LICENSE
 /// 
@@ -185,7 +185,7 @@ namespace hltypes
 		fseek((FILE*)this->cfile, offset, mode);
 	}
 	
-	bool FileBase::_fexists(const String& filename)
+	bool FileBase::_fexists(const String& filename, bool case_insensitive)
 	{
 		String name = Dir::normalize(filename);
 		bool result = false;

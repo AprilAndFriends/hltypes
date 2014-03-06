@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.2
+/// @version 2.26
 /// 
 /// @section LICENSE
 /// 
@@ -33,8 +33,10 @@ namespace hltypes
 
 		/// @brief Checks if a resource directory exists.
 		/// @param[in] dirname Name of the resource directory.
+		/// @param[in] case_insensitive Whether to check case sensitive files if file was not found.
 		/// @return True if resource directory exists.
-		static bool exists(const String& dirname);
+		/// @note Disabling case_insensitive is somewhat costly if the given file is not found at first.
+		static bool exists(const String& dirname, bool case_insensitive = true);
 		/// @brief Gets all resource directory entries in the given resource directory.
 		/// @param[in] dirname Name of the resource directory.
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the resource entries.
