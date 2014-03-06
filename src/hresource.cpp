@@ -237,6 +237,7 @@ namespace hltypes
 			}
 			if (!result && !case_sensitive)
 			{
+				hstr name = filename;
 				hstr basedir = ResourceDir::basedir(name);
 				hstr basename = ResourceDir::basename(name);
 				Array<String> files = ResourceDir::files(basedir);
