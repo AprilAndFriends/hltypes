@@ -61,10 +61,10 @@ namespace hltypes
 			Array<String> directories;
 			for_iter (i, 0, dirs.size())
 			{
-				path = Dir::join_path(dirs(0, dirs.size() - i));
+				path = Dir::join_paths(dirs(0, dirs.size() - i));
 				if (!is_resource ? Dir::exists(path, false) : ResourceDir::exists(path, false))
 				{
-					dir = Dir::join_path(dirs(0, dirs.size() - 1 - i));
+					dir = Dir::join_paths(dirs(0, dirs.size() - 1 - i));
 					basename = dirs[dirs.size() - 1 - i];
 					Array<String> directories = (!is_resource ? Dir::directories(dir) : ResourceDir::directories(dir));
 					foreach (String, it, directories)

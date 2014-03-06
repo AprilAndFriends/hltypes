@@ -53,7 +53,7 @@ namespace hltypes
 		/// @param[in] paths Array of paths.
 		/// @param[in] systemize_result Whether to systemize the resulting path as well.
 		/// @return Joined path.
-		static String join_path(Array<String> paths, bool systemize_result = false);
+		static String join_paths(Array<String> paths, bool systemize_result = false);
 		/// @brief Splits a non-systemized path into its segments.
 		/// @param[in] path The path.
 		/// @return Split path.
