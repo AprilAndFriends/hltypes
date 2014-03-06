@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
@@ -48,7 +48,13 @@ namespace hltypes
 	protected:
 		/// @brief Exception message.
 		String msg;
-		
+		/// @brief Sets internal message.
+		/// @param[in] message Exception message.
+		/// @param[in] source_file Name of the source file.
+		/// @param[in] line_number Number of the line.
+		/// @note Should be used only when setting the error message from within the class.
+		void _setInternalMessage(const String& message, const char* source_file, int line_number);
+
 	};
 	/// @brief Alias for simpler code.
 	#define hl_exception(msg) hltypes::exception(msg, __FILE__, __LINE__)
@@ -61,12 +67,14 @@ namespace hltypes
 		/// @param[in] filename Name of the file.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		_file_not_found(const String& filename, const char* source_file, int line_number);
+		_file_not_found(const String& filename, bool is_resource, const char* source_file, int line_number);
 		~_file_not_found();
 		
 	};
 	/// @brief Alias for simpler code.
-	#define file_not_found(filename) hltypes::_file_not_found(filename, __FILE__, __LINE__)
+	#define file_not_found(filename) hltypes::_file_not_found(filename, false, __FILE__, __LINE__)
+	/// @brief Alias for simpler code.
+	#define rsource_not_found(filename) hltypes::_file_not_found(filename, true, __FILE__, __LINE__)
 	
 	/// @brief Defines a file-not-open exception.
 	class hltypesExport _file_not_open : public exception

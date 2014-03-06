@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.26
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
@@ -185,7 +185,7 @@ namespace hltypes
 		fseek((FILE*)this->cfile, offset, mode);
 	}
 	
-	bool FileBase::_fexists(const String& filename, bool case_insensitive)
+	bool FileBase::_fexists(const String& filename, bool case_sensitive)
 	{
 		String name = Dir::normalize(filename);
 		bool result = false;
@@ -198,7 +198,25 @@ namespace hltypes
 		{
 			fclose(f);
 			result = true;
+		}
+		if (!result && !case_sensitive)
+		{
+			hstr basedir = Dir::basedir(name);
+			hstr basename = Dir::basename(name);
+			Array<String> files = Dir::files(basedir);
+			foreach (String, it, files)
+			{
+				if ((*it).lower() == basename.lower())
+				{
+					name = Dir::join_path(basedir, (*it));
+					result = true;
+					break;
+				}
+			}
+		}
 #ifndef _WIN32
+		if (result)
+		{
 			struct stat stats;
 			// on UNIX fopen on a directory actually works so this check prevents
 			// errorously reporting the existence of a file if it's a directory
@@ -206,8 +224,8 @@ namespace hltypes
 			{
 				result = false;
 			}
-#endif
 		}
+#endif
 		return result;
 	}
 	

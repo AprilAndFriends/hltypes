@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.26
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
@@ -126,9 +126,9 @@ namespace hltypes
 #endif
 	}
 	
-	bool File::exists(const String& filename, bool case_insensitive)
+	bool File::exists(const String& filename, bool case_sensitive) // such an sensitive method
 	{
-		return FileBase::_fexists(filename, case_insensitive);
+		return FileBase::_fexists(filename, case_sensitive);
 	}
 	
 	bool File::clear(const String& filename)
@@ -169,7 +169,7 @@ namespace hltypes
 	bool File::move(const String& filename, const String& path, bool overwrite)
 	{
 		String name = Dir::normalize(filename);
-		return File::rename(name, path + "/" + Dir::basename(name), overwrite);
+		return File::rename(name, Dir::join_path(path, Dir::basename(name), false), overwrite);
 	}
 	
 	bool File::copy(const String& old_filename, const String& new_filename, bool overwrite)

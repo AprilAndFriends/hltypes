@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.26
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
@@ -157,7 +157,7 @@ namespace hltypes
 			hmkdir(path);
 			foreach (String, it, folders)
 			{
-				path += "/" + (*it);
+				path = Dir::join_path(path, (*it), false);
 				hmkdir(path);
 			}
 		}
@@ -179,27 +179,43 @@ namespace hltypes
 		Array<String> directories = Dir::directories(name);
 		foreach (String, it, directories)
 		{
-			Dir::remove(name + "/" + (*it));
+			Dir::remove(Dir::join_path(name, (*it), false));
 		}
 		Array<String> files = Dir::files(name);
 		foreach (String, it, files)
 		{
-			hfile::remove(name + "/" + (*it));
+			File::remove(Dir::join_path(name, (*it), false));
 		}
 		hrmdir(name);
 		return Dir::exists(name);
 	}
 	
-	bool Dir::exists(const String& dirname, bool case_insensitive)
+	bool Dir::exists(const String& dirname, bool case_sensitive)
 	{
 		String name = Dir::normalize(dirname);
+		bool result = false;
 		DIR* dir = _opendir(name);
 		if (dir != NULL)
 		{
 			_closedir(dir);
-			return true;
+			result = true;
 		}
-		return false;
+		if (!result && !case_sensitive)
+		{
+			hstr basedir = Dir::basedir(name);
+			hstr basename = Dir::basename(name);
+			Array<String> directories = Dir::directories(basedir);
+			foreach (String, it, directories)
+			{
+				if ((*it).lower() == basename.lower())
+				{
+					name = Dir::join_path(basedir, (*it));
+					result = true;
+					break;
+				}
+			}
+		}
+		return result;
 	}
 	
 	bool Dir::clear(const String& dirname)
@@ -212,12 +228,12 @@ namespace hltypes
 		Array<String> directories = Dir::directories(name);
 		foreach (String, it, directories)
 		{
-			Dir::remove(name + "/" + (*it));
+			Dir::remove(Dir::join_path(name, (*it), false));
 		}
 		Array<String> files = Dir::files(name);
 		foreach (String, it, files)
 		{
-			hfile::remove(name + "/" + (*it));
+			File::remove(Dir::join_path(name, (*it), false));
 		}
 		return (directories.size() > 0 || files.size() > 0);
 	}
@@ -238,7 +254,7 @@ namespace hltypes
 	{
 		String name = Dir::normalize(dirname);
 		String path_name = Dir::normalize(path);
-		return Dir::rename(name, path_name + "/" + name.rsplit("/", 1, false).remove_last());
+		return Dir::rename(name, Dir::join_path(path_name, Dir::basename(name), false));
 	}
 	
 	bool Dir::copy(const String& old_dirname, const String& new_dirname)
@@ -253,12 +269,12 @@ namespace hltypes
 		Array<String> directories = Dir::directories(old_name);
 		foreach (String, it, directories)
 		{
-			Dir::copy(old_name + "/" + (*it), new_name + "/" + (*it));
+			Dir::copy(Dir::join_path(old_name, (*it), false), Dir::join_path(new_name, (*it), false));
 		}
 		Array<String> files = Dir::files(old_name);
 		foreach (String, it, files)
 		{
-			hfile::copy(old_name + "/" + (*it), new_name + "/" + (*it));
+			File::copy(Dir::join_path(old_name, (*it), false), Dir::join_path(new_name, (*it), false));
 		}
 		return true;
 	}
@@ -338,7 +354,7 @@ namespace hltypes
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				current = name + "/" + String::from_unicode(entry->d_name);
+				current = Dir::join_path(name, String::from_unicode(entry->d_name), false);
 				if (Dir::exists(current))
 				{
 					result += String::from_unicode(entry->d_name);
@@ -372,8 +388,8 @@ namespace hltypes
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				current = name + "/" + String::from_unicode(entry->d_name);
-				if (hfile::exists(current))
+				current = Dir::join_path(name, String::from_unicode(entry->d_name), false);
+				if (File::exists(current))
 				{
 					result += String::from_unicode(entry->d_name);
 				}

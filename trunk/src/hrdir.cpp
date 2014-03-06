@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.26
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
@@ -23,7 +23,7 @@ namespace hltypes
 	Map<String, Array<String> > ResourceDir::cacheDirectories;
 	Map<String, Array<String> > ResourceDir::cacheFiles;
 
-	bool ResourceDir::exists(const String& dirname, bool case_insensitive)
+	bool ResourceDir::exists(const String& dirname, bool case_sensitive)
 	{
 		String name = ResourceDir::normalize(dirname);
 		if (name == "" || name == ".")
@@ -31,9 +31,25 @@ namespace hltypes
 			return true;
 		}
 #ifdef _ZIPRESOURCE
-		return ResourceDir::directories(ResourceDir::basedir(name)).contains(ResourceDir::basename(name));
+		bool result = ResourceDir::directories(ResourceDir::basedir(name)).contains(ResourceDir::basename(name));
+		if (!result && !case_sensitive)
+		{
+			hstr basedir = ResourceDir::basedir(name);
+			hstr basename = ResourceDir::basename(name);
+			Array<String> directories = ResourceDir::directories(basedir);
+			foreach (String, it, directories)
+			{
+				if ((*it).lower() == basename.lower())
+				{
+					name = ResourceDir::join_path(basedir, (*it));
+					result = true;
+					break;
+				}
+			}
+		}
+		return result;
 #else
-		return Dir::exists(Resource::make_full_path(name), case_insensitive);
+		return Dir::exists(Resource::make_full_path(name), case_sensitive);
 #endif
 	}
 	

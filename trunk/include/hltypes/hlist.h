@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.23
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 

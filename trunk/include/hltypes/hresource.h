@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.26
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
@@ -48,10 +48,10 @@ namespace hltypes
 		
 		/// @brief Checks if a resource file exists.
 		/// @param[in] filename Name of the resource file.
-		/// @param[in] case_insensitive Whether to check case sensitive files if file was not found.
+		/// @param[in] case_sensitive Whether to check case sensitive files if file was not found.
 		/// @return True if resource file exists.
-		/// @note Disabling case_insensitive is somewhat costly if the given file is not found at first.
-		static bool exists(const String& filename, bool case_insensitive = true);
+		/// @note Disabling case_sensitive is somewhat costly if the given file is not found at first.
+		static bool exists(const String& filename, bool case_sensitive = true);
 		/// @brief Opens file, gets size and closes file.
 		/// @see size
 		static long hsize(const String& filename);
