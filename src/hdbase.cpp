@@ -29,7 +29,7 @@ namespace hltypes
 			return ".";
 		}
 		result.remove_last();
-		return DirBase::join_path(result, false);
+		return DirBase::join_paths(result, false);
 	}
 
 	String DirBase::basename(const String& path)
@@ -89,7 +89,7 @@ namespace hltypes
 		{
 			return ".";
 		}
-		return DirBase::join_path(result);
+		return DirBase::join_paths(result);
 	}
 		
 	String DirBase::join_path(const String& path1, const String& path2, bool systemize_result)
@@ -116,7 +116,7 @@ namespace hltypes
 		return result;
 	}
 
-	String DirBase::join_path(Array<String> paths, bool systemize_result)
+	String DirBase::join_paths(Array<String> paths, bool systemize_result)
 	{
 		if (paths.size() == 0)
 		{
