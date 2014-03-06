@@ -17,6 +17,7 @@
 #endif
 
 #include "harray.h"
+#include "hlog.h"
 #include "hmutex.h"
 #include "hltypesUtil.h"
 #include "hplatform.h"
@@ -69,6 +70,7 @@ namespace hltypes
 	{
 		if (this->running)
 		{
+			Log::warn(hltypes::logTag, "Thread still running in destructor! Attempting 'stop', but this may be unsafe. The thread should be joined before deleting it.");
 			this->stop();
 		}
 		if (this->id != NULL)
