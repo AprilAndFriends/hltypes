@@ -74,7 +74,7 @@ namespace hltypes
 	/// @brief Alias for simpler code.
 	#define file_not_found(filename) hltypes::_file_not_found(filename, false, __FILE__, __LINE__)
 	/// @brief Alias for simpler code.
-	#define rsource_not_found(filename) hltypes::_file_not_found(filename, true, __FILE__, __LINE__)
+	#define resource_not_found(filename) hltypes::_file_not_found(filename, true, __FILE__, __LINE__)
 	
 	/// @brief Defines a file-not-open exception.
 	class hltypesExport _file_not_open : public exception
