@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.24
+/// @version 2.26
 /// 
 /// @section LICENSE
 /// 
@@ -65,8 +65,10 @@ namespace hltypes
 		static bool remove(const String& filename);
 		/// @brief Checks if a file exists.
 		/// @param[in] filename Name of the file.
+		/// @param[in] case_insensitive Whether to check case sensitive files if file was not found (costly).
 		/// @return True if file exists.
-		static bool exists(const String& filename);
+		/// @note Disabling case_insensitive is somewhat costly if the given file is not found at first.
+		static bool exists(const String& filename, bool case_insensitive = true);
 		/// @brief Clears a file recursively.
 		/// @param[in] filename Name of the file.
 		/// @return True if file was cleared. False if file does not exist or is already empty.

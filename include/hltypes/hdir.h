@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.2
+/// @version 2.26
 /// 
 /// @section LICENSE
 /// 
@@ -47,8 +47,10 @@ namespace hltypes
 		static bool remove(const String& dirname);
 		/// @brief Checks if a directory exists.
 		/// @param[in] dirname Name of the directory.
+		/// @param[in] case_insensitive Whether to check case sensitive files if file was not found.
 		/// @return True if directory exists.
-		static bool exists(const String& dirname);
+		/// @note Disabling case_insensitive is somewhat costly if the given file is not found at first.
+		static bool exists(const String& dirname, bool case_insensitive = true);
 		/// @brief Clears a directory recursively.
 		/// @param[in] dirname Name of the directory.
 		/// @return True if directory was cleared. False if directory does not exist or is already empty.

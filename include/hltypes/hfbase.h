@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.24
+/// @version 2.26
 /// 
 /// @section LICENSE
 /// 
@@ -136,8 +136,10 @@ namespace hltypes
 
 		/// @brief Checks if a file exists.
 		/// @param[in] filename Name of the file.
+		/// @param[in] case_insensitive Whether to check case sensitive files if file was not found.
 		/// @return True if file exists.
-		static bool _fexists(const String& filename);
+		/// @note Disabling case_insensitive is somewhat costly if the given file is not found at first.
+		static bool _fexists(const String& filename, bool case_insensitive = true);
 
 		/// @brief Defines the number of repeated attempts to access a file.
 		static int repeats;

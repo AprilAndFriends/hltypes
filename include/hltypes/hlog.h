@@ -115,8 +115,9 @@ namespace hltypes
 		/// @see debug
 		static bool debugf(const String& tag, const char* format, ...);
 		/// @brief Merges all log files into one.
+		/// @param[in] clearFile Set to true if file should be cleared.
 		/// @note Call this at application exit or before changing logging files.
-		static void finalize();
+		static void finalize(bool clearFile = true);
 
 	protected:
 		/// @brief Flag for Write level logging.

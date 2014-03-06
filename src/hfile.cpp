@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.24
+/// @version 2.26
 /// 
 /// @section LICENSE
 /// 
@@ -126,9 +126,9 @@ namespace hltypes
 #endif
 	}
 	
-	bool File::exists(const String& filename)
+	bool File::exists(const String& filename, bool case_insensitive)
 	{
-		return FileBase::_fexists(filename);
+		return FileBase::_fexists(filename, case_insensitive);
 	}
 	
 	bool File::clear(const String& filename)

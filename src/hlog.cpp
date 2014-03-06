@@ -67,21 +67,25 @@ namespace hltypes
 
 #ifdef _WIN32
 	static int fileIndex = 0;
-	static hstr fileBase;
 	static hstr fileExtension;
 
 	hstr _get_file_name(chstr filename, int index)
 	{
-		return (fileBase + "." + hstr(index) + "." + fileExtension);
+		return (filename + ".hlog/" + hstr(index) + "." + fileExtension);
 	}
 
 	hstr _get_current_file_name(chstr filename)
 	{
+		if (!hdir::exists(filename + ".hlog"))
+		{
+			hdir::create(filename + ".hlog");
+		}
 		hstr newFilename = _get_file_name(filename, fileIndex);
 		if (hfile::hsize(newFilename) > MAX_FILE_SIZE)
 		{
 			fileIndex++;
 			newFilename = _get_file_name(filename, fileIndex);
+			hfile::create_new(newFilename); // clears the file
 		}
 		return newFilename;
 	}
@@ -100,10 +104,16 @@ namespace hltypes
 		Log::filename = Dir::normalize(filename);
 		if (clearFile)
 		{
+#ifdef _WIN32
+			hdir::remove(filename + ".hlog"); // left over from last run, delete
+#endif
 			hfile::create_new(Log::filename);
 		}
 #ifdef _WIN32
-		fileBase = hfile::no_extension(filename);
+		else if (hdir::exists(filename + ".hlog"))
+		{
+			Log::finalize(clearFile); // left over from last run, merge
+		}
 		fileExtension = hfile::extension_of(filename);
 #endif
 	}
@@ -212,19 +222,24 @@ namespace hltypes
 		return Log::debug(tag, result);
 	}
 
-	void Log::finalize()
+	void Log::finalize(bool clearFile)
 	{
 #ifdef _WIN32
-		hstr filename;
-		harray<hstr> data;
+		hfile file;
+		if (clearFile)
+		{
+			file.open(Log::filename, File::WRITE);
+		}
+		else
+		{
+			file.open(Log::filename, File::APPEND);
+		}
 		for_iter (i, 0, fileIndex + 1)
 		{
-			filename = _get_file_name(Log::filename, i);
-			data += hfile::hread(filename);
-			hfile::remove(filename);
+			file.write(hfile::hread(_get_file_name(Log::filename, i)));
 		}
-		hfile file(Log::filename, File::APPEND);
-		file.write(data.join('\n'));
+		file.close(); // to flush everything
+		hdir::remove(Log::filename + ".hlog");
 		fileIndex = 0;
 #endif
 	}

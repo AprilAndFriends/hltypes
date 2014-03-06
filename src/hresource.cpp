@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.24
+/// @version 2.26
 /// 
 /// @section LICENSE
 /// 
@@ -220,10 +220,10 @@ namespace hltypes
 #endif
 	}
 	
-	bool Resource::exists(const String& filename)
+	bool Resource::exists(const String& filename, bool case_insensitive)
 	{
 #ifndef _ZIPRESOURCE
-		return FileBase::_fexists(Resource::make_full_path(filename));
+		return FileBase::_fexists(Resource::make_full_path(filename), case_insensitive);
 #else
 		bool result = false;
 		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
