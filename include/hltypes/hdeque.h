@@ -2,7 +2,7 @@
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
 /// @author  Ivan Vucica
-/// @version 2.23
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 

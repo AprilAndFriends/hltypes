@@ -1,7 +1,7 @@
 /// @file
 /// @author  Boris Mikic
 /// @author  Kresimir Spes
-/// @version 2.2
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
@@ -43,12 +43,21 @@ namespace hltypes
 		/// @return Normalized path.
 		/// @note Calls Dir::systemize() internally.
 		static String normalize(const String& path);
-		/// @brief joins two paths taking into consideration slashes at both ends
-		/// @param[in] path1 First path
-		/// @param[in] path2 Second path
-		/// @param[in] systemize Optional argument if you want to systemize the path as well, false by default
+		/// @brief Joins two paths taking into consideration slashes at both ends.
+		/// @param[in] path1 First path.
+		/// @param[in] path2 Second path.
+		/// @param[in] systemize_result Whether to systemize the resulting path as well.
 		/// @return Joined path.
-		static String join_path(const String& path1, const String& path2, bool systemizeResult = false);
+		static String join_path(const String& path1, const String& path2, bool systemize_result = false);
+		/// @brief Joins an array of paths taking into consideration slashes at both ends.
+		/// @param[in] paths Array of paths.
+		/// @param[in] systemize_result Whether to systemize the resulting path as well.
+		/// @return Joined path.
+		static String join_path(Array<String> paths, bool systemize_result = false);
+		/// @brief Splits a non-systemized path into its segments.
+		/// @param[in] path The path.
+		/// @return Split path.
+		static Array<String> split_path(const String& path);
 
 	protected:
 		/// @brief Basic constructor.

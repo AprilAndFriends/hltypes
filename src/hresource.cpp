@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.26
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
@@ -93,11 +93,11 @@ namespace hltypes
 		}
 		if (this->archivefile == NULL)
 		{
-			throw file_not_found(this->_descriptor());
+			throw resource_not_found(this->_descriptor());
 		}
 		if (this->cfile == NULL)
 		{
-			throw file_not_found(this->_descriptor());
+			throw resource_not_found(this->_descriptor());
 		}
 		this->_update_data_size();
 #endif
@@ -220,10 +220,10 @@ namespace hltypes
 #endif
 	}
 	
-	bool Resource::exists(const String& filename, bool case_insensitive)
+	bool Resource::exists(const String& filename, bool case_sensitive)
 	{
 #ifndef _ZIPRESOURCE
-		return FileBase::_fexists(Resource::make_full_path(filename), case_insensitive);
+		return FileBase::_fexists(Resource::make_full_path(filename), case_sensitive);
 #else
 		bool result = false;
 		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
@@ -234,6 +234,21 @@ namespace hltypes
 			{
 				zip::fclose(f);
 				result = true;
+			}
+			if (!result && !case_sensitive)
+			{
+				hstr basedir = ResourceDir::basedir(name);
+				hstr basename = ResourceDir::basename(name);
+				Array<String> files = ResourceDir::files(basedir);
+				foreach (String, it, files)
+				{
+					if ((*it).lower() == basename.lower())
+					{
+						name = ResourceDir::join_path(basedir, (*it));
+						result = true;
+						break;
+					}
+				}
 			}
 			zip::close(NULL, a);
 		}
