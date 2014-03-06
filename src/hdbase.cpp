@@ -101,7 +101,7 @@ namespace hltypes
 		{
 			result = path1 + "/" + path2;
 		}
-		else if (slash1 ^ !slash2)
+		else if (slash1 ^ slash2)
 		{
 			result = path1 + path2;
 		}
