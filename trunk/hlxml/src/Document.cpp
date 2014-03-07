@@ -9,6 +9,7 @@
 /// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
 
 #include <hltypes/hresource.h>
+#include <hltypes/exception.h>
 
 #include "Document.h"
 #include "Exception.h"
@@ -33,7 +34,7 @@ namespace hlxml
 		this->filename = filename;
 		if (!hresource::exists(this->filename))
 		{
-			throw XMLException("Unable to parse xml file '" + this->filename + "', document does not exist", NULL);
+			throw resource_not_found(this->filename);
 		}
 	}
 
