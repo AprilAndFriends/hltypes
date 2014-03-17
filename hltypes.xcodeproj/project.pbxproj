@@ -111,6 +111,8 @@
 		D115F7C514AD4FB400C78558 /* hsbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsbase.h; path = include/hltypes/hsbase.h; sourceTree = "<group>"; };
 		D115F7C614AD4FB400C78558 /* hstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hstream.h; path = include/hltypes/hstream.h; sourceTree = "<group>"; };
 		D1522F3E140F7A310012F290 /* libhltypes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhltypes.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1681B7218D7612F0088FC68 /* iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = iOS.xcconfig; path = xcconfig/iOS.xcconfig; sourceTree = "<group>"; };
+		D1681B7318D7612F0088FC68 /* Mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Mac.xcconfig; path = xcconfig/Mac.xcconfig; sourceTree = "<group>"; };
 		D1BAE0F1183B91D100BC2434 /* hdbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdbase.h; path = include/hltypes/hdbase.h; sourceTree = "<group>"; };
 		D1BAE0F2183B91D100BC2434 /* hrdir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hrdir.h; path = include/hltypes/hrdir.h; sourceTree = "<group>"; };
 		D1BAE0F5183B91FC00BC2434 /* hdbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hdbase.cpp; path = src/hdbase.cpp; sourceTree = "<group>"; };
@@ -159,7 +161,7 @@
 		0867D691FE84028FC02AAC07 /* libhltypes */ = {
 			isa = PBXGroup;
 			children = (
-				7F42F71411EB111E00B1C1DF /* Info.plist */,
+				D1681B7818D7627D0088FC68 /* config */,
 				7F42F69C11EB0B9A00B1C1DF /* include */,
 				7F42F69511EB0B8500B1C1DF /* src */,
 				D1E909FD163694FE00EB27EE /* Frameworks */,
@@ -218,6 +220,16 @@
 				C9F9313814DA87C300954F90 /* hltypesUtil.h */,
 			);
 			name = include;
+			sourceTree = "<group>";
+		};
+		D1681B7818D7627D0088FC68 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				7F42F71411EB111E00B1C1DF /* Info.plist */,
+				D1681B7218D7612F0088FC68 /* iOS.xcconfig */,
+				D1681B7318D7612F0088FC68 /* Mac.xcconfig */,
+			);
+			name = config;
 			sourceTree = "<group>";
 		};
 		D1E909F0163693A500EB27EE /* platform */ = {
@@ -451,6 +463,7 @@
 		};
 		7F7A5604129D435000E0ED12 /* App Store */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -495,6 +508,7 @@
 		};
 		C981CCAE132AE98F0072B5A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -539,6 +553,7 @@
 		};
 		C981CCB0132AE9960072B5A9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -561,6 +576,7 @@
 		};
 		D1522F4A140F7A310012F290 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
@@ -570,7 +586,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
 				SDKROOT = iphoneos;
@@ -580,6 +595,7 @@
 		};
 		D1522F4C140F7A310012F290 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
@@ -588,7 +604,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
 				SDKROOT = iphoneos;
@@ -599,6 +614,7 @@
 		};
 		D1522F4D140F7A310012F290 /* App Store */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
@@ -607,7 +623,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hltypes;
 				SDKROOT = iphoneos;
@@ -618,6 +633,7 @@
 		};
 		D1F27A9B177A2D0E00E5C131 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
@@ -634,6 +650,7 @@
 		};
 		D1F27A9D177A2D0E00E5C131 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/libhltypes_ios.dst;
@@ -650,6 +667,7 @@
 		};
 		D1F27A9E177A2D0E00E5C131 /* App Store */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/libhltypes_ios.dst;
@@ -675,7 +693,7 @@
 				7F7A5604129D435000E0ED12 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "hltypes" */ = {
 			isa = XCConfigurationList;
@@ -685,7 +703,7 @@
 				7F7A5603129D435000E0ED12 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		D1522F48140F7A310012F290 /* Build configuration list for PBXNativeTarget "hltypes (iOS)" */ = {
 			isa = XCConfigurationList;
@@ -695,7 +713,7 @@
 				D1522F4D140F7A310012F290 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		D1F27A99177A2D0E00E5C131 /* Build configuration list for PBXNativeTarget "hltypes (Mac)" */ = {
 			isa = XCConfigurationList;
@@ -705,7 +723,7 @@
 				D1F27A9E177A2D0E00E5C131 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

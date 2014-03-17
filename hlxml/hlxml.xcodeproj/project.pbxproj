@@ -41,6 +41,8 @@
 		7F42F71411EB111E00B1C1DF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* hlxml.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hlxml.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9F9315914DA8CDF00954F90 /* hltypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = hltypes.framework; path = "../../__build__/angels/Build/Products/Debug-LLVM/hltypes.framework"; sourceTree = "<group>"; };
+		D1681BA418D768190088FC68 /* iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = iOS.xcconfig; path = xcconfig/iOS.xcconfig; sourceTree = "<group>"; };
+		D1681BA518D768190088FC68 /* Mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Mac.xcconfig; path = xcconfig/Mac.xcconfig; sourceTree = "<group>"; };
 		D186227514F9630200639D7C /* tinyxml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = tinyxml.framework; path = ../../tinyxml/build/Release/tinyxml.framework; sourceTree = "<group>"; };
 		D186227714F9638400639D7C /* TinyXml_Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyXml_Document.cpp; path = xmlsystems/TinyXml/TinyXml_Document.cpp; sourceTree = "<group>"; };
 		D186227814F9638400639D7C /* TinyXml_Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyXml_Document.h; path = xmlsystems/TinyXml/TinyXml_Document.h; sourceTree = "<group>"; };
@@ -87,7 +89,7 @@
 		0867D691FE84028FC02AAC07 /* libhlxml */ = {
 			isa = PBXGroup;
 			children = (
-				7F42F71411EB111E00B1C1DF /* Info.plist */,
+				D1681B7918D7628C0088FC68 /* config */,
 				7F42F69C11EB0B9A00B1C1DF /* include */,
 				7F42F69511EB0B8500B1C1DF /* src */,
 				C9F9314514DA8B7500954F90 /* xmlsystems */,
@@ -139,6 +141,16 @@
 				D186227C14F9638400639D7C /* TinyXml_Property.h */,
 			);
 			name = tinyxml;
+			sourceTree = "<group>";
+		};
+		D1681B7918D7628C0088FC68 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				D1681BA418D768190088FC68 /* iOS.xcconfig */,
+				D1681BA518D768190088FC68 /* Mac.xcconfig */,
+				7F42F71411EB111E00B1C1DF /* Info.plist */,
+			);
+			name = config;
 			sourceTree = "<group>";
 		};
 		D1E1DD6A140E58E600499A97 /* Frameworks */ = {
@@ -317,6 +329,7 @@
 		};
 		7F7A5604129D435000E0ED12 /* App Store */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681BA518D768190088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -369,6 +382,7 @@
 		};
 		C981CCAE132AE98F0072B5A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681BA518D768190088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -421,6 +435,7 @@
 		};
 		C981CCB0132AE9960072B5A9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681BA518D768190088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -447,6 +462,7 @@
 		};
 		D1E1DD74140E58E700499A97 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681BA418D768190088FC68 /* iOS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -461,7 +477,6 @@
 				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hlxml;
 				SDKROOT = iphoneos;
@@ -471,6 +486,7 @@
 		};
 		D1E1DD76140E58E700499A97 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681BA418D768190088FC68 /* iOS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -484,7 +500,6 @@
 				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hlxml;
 				SDKROOT = iphoneos;
@@ -495,6 +510,7 @@
 		};
 		D1E1DD77140E58E700499A97 /* App Store */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681BA418D768190088FC68 /* iOS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -508,7 +524,6 @@
 				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = hlxml;
 				SDKROOT = iphoneos;
@@ -519,6 +534,7 @@
 		};
 		D1F27ABB177A2D3C00E5C131 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681BA518D768190088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -541,6 +557,7 @@
 		};
 		D1F27ABD177A2D3C00E5C131 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681BA518D768190088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -563,6 +580,7 @@
 		};
 		D1F27ABE177A2D3C00E5C131 /* App Store */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681BA518D768190088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
