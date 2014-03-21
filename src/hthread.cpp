@@ -141,7 +141,7 @@ namespace hltypes
 			i < 100)
 		{
 			hthread::sleep(50);
-			i++;
+			++i;
 		}
 		if (i >= 100)
 		{
@@ -153,7 +153,7 @@ namespace hltypes
 				i < 100)
 			{
 				hthread::sleep(50);
-				i++;
+				++i;
 			}
 		}
 #endif

@@ -100,7 +100,7 @@ namespace hltypes
 					fclose(f);
 					return true;
 				}
-				attempts--;
+				--attempts;
 				if (attempts <= 0)
 				{
 					break;

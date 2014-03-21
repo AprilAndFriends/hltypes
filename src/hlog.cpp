@@ -83,7 +83,7 @@ namespace hltypes
 		hstr newFilename = _get_file_name(filename, fileIndex);
 		if (hfile::hsize(newFilename) > MAX_FILE_SIZE)
 		{
-			fileIndex++;
+			++fileIndex;
 			newFilename = _get_file_name(filename, fileIndex);
 			hfile::create_new(newFilename); // clears the file
 		}

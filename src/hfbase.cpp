@@ -125,7 +125,7 @@ namespace hltypes
 			{
 				break;
 			}
-			attempts--;
+			--attempts;
 			if (attempts <= 0)
 			{
 				break;

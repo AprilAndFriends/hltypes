@@ -157,7 +157,7 @@ namespace hltypes
 		{
 			out += String(s, p - s);
 			s = p + delimiter_len;
-			n--;
+			--n;
 		}
 		out += String(s);
 		if (remove_empty)
@@ -183,11 +183,11 @@ namespace hltypes
 		Array<String> out;
 		const char *s = stdstr::c_str(), *p;
 		int delimiter_len = strlen(delimiter);
-		for (p = s + strlen(s) - 1; p != s && n > 0; p--)
+		for (p = s + strlen(s) - 1; p != s && n > 0; --p)
 		{
 			if (strncmp(p, delimiter, delimiter_len) == 0)
 			{
-				n--;
+				--n;
 			}
 		}
 		if (s != p)
@@ -295,9 +295,9 @@ namespace hltypes
 		int i = 0;
 		if (s[i] == '-')
 		{
-			i++;
+			++i;
 		}
-		for (; s[i] != '\0'; i++)
+		for (; s[i] != '\0'; ++i)
 		{
 			if (!isdigit(s[i]))
 			{
@@ -318,9 +318,9 @@ namespace hltypes
 		int i = 0;
 		if (s[i] == '-')
 		{
-			i++;
+			++i;
 		}
-		for (; s[i] != '\0'; i++)
+		for (; s[i] != '\0'; ++i)
 		{
 			if (s[i] == '.')
 			{
@@ -350,7 +350,7 @@ namespace hltypes
 		{
 			return false;
 		}
-		for (int i = 0; s[i] != '\0'; i++)
+		for (int i = 0; s[i] != '\0'; ++i)
 		{
 			if (!isxdigit(s[i]))
 			{
@@ -370,7 +370,7 @@ namespace hltypes
 		const char* cstr = stdstr::c_str();
 		while (*cstr == c)
 		{
-			cstr++;
+			++cstr;
 		}
 		return cstr;
 	}
@@ -386,7 +386,7 @@ namespace hltypes
 		int i = len - 1;
 		while (i >= 0 && cstr[i] == c)
 		{
-			i--;
+			--i;
 		}
 		return stdstr::substr(0, i + 1);
 	}
@@ -440,7 +440,7 @@ namespace hltypes
 			{
 				i += 4;
 			}
-			start_index++;
+			++start_index;
 		}
 #ifdef _DEBUG
 		if (str[i] == 0 && count > 0)
@@ -468,7 +468,7 @@ namespace hltypes
 			{
 				i += 4;
 			}
-			size++;
+			++size;
 		}
 #ifdef _DEBUG
 		if (size < count)
@@ -512,7 +512,7 @@ namespace hltypes
 			{
 				i += 4;
 			}
-			result++;
+			++result;
 		}
 		return result;
 	}
@@ -592,7 +592,7 @@ namespace hltypes
 		{
 			if (temp(i, -1).starts_with(substr))
 			{
-				c++;
+				++c;
 				i += strlen(substr) - 1;
 			}
 		}
@@ -1036,7 +1036,7 @@ namespace hltypes
 		String result;
 		if (string != NULL)
 		{
-			for (int i = 0; string[i] != 0; i++)
+			for (int i = 0; string[i] != 0; ++i)
 			{
 				_FROM_UNICODE_FAST(result, string[i]);
 			}
@@ -1050,7 +1050,7 @@ namespace hltypes
 		if (string != NULL)
 		{
 			unsigned int code;
-			for (int i = 0; string[i] != 0; i++)
+			for (int i = 0; string[i] != 0; ++i)
 			{
 				code = string[i];
 				_FROM_UNICODE_FAST(result, code);

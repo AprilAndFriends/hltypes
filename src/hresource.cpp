@@ -84,7 +84,7 @@ namespace hltypes
 				zip::close(this, this->archivefile);
 				this->archivefile = NULL;
 			}
-			attempts--;
+			--attempts;
 			if (attempts <= 0)
 			{
 				break;

@@ -115,13 +115,13 @@ namespace hltypes
 /// @param[in] min Start value.
 /// @param[in] max Final value.
 /// @note Iterates from min to max - 1.
-#define for_iter(name, min, max) for (int name = min; name < max; name++)
+#define for_iter(name, min, max) for (int name = min; name < max; ++name)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] max Start value.
 /// @param[in] min Final value.
 /// @note Iterates from max - 1 to min.
-#define for_iter_r(name, max, min) for (int name = max - 1; name >= min; name--)
+#define for_iter_r(name, max, min) for (int name = max - 1; name >= min; --name)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] min Start value.
@@ -142,14 +142,14 @@ namespace hltypes
 /// @param[in] max Final value.
 /// @param[in] step Value to increase iterator.
 /// @note Iterates from min to max - 1.
-#define for_itert(type, name, min, max) for (type name = min; name < max; name++)
+#define for_itert(type, name, min, max) for (type name = min; name < max; ++name)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] type Type of the iteration variable.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] max Start value.
 /// @param[in] min Final value.
 /// @note Iterates from max - 1 to min.
-#define for_itert_r(type, name, max, min) for (type name = max - 1; name >= min; name--)
+#define for_itert_r(type, name, max, min) for (type name = max - 1; name >= min; --name)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] type Type of the iteration variable.
 /// @param[in] name Name of the iteration variable.
@@ -180,7 +180,7 @@ namespace hltypes
 /// @param[in] min Final value.
 /// @note Iterates from max - 1 to min.
 /// @note The iteration variable has to be declared previously.
-#define for_iterx_r(name, max, min) for (name = max - 1; name >= min; name--)
+#define for_iterx_r(name, max, min) for (name = max - 1; name >= min; --name)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] min Start value.

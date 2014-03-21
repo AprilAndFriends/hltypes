@@ -20,15 +20,15 @@
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a Map.
-#define foreach_map(type_key, type_value, name, container) for (std::map<type_key, type_value >::iterator name = container.begin(); name != container.end(); name++)
-#define foreachc_map(type_key, type_value, name, container) for (std::map<type_key, type_value >::const_iterator name = container.begin(); name != container.end(); name++)
+#define foreach_map(type_key, type_value, name, container) for (std::map<type_key, type_value >::iterator name = container.begin(); name != container.end(); ++name)
+#define foreachc_map(type_key, type_value, name, container) for (std::map<type_key, type_value >::const_iterator name = container.begin(); name != container.end(); ++name)
 /// @brief Provides a simpler syntax to iterate through a Map with String as key.
-#define foreach_m(type, name, container) for (std::map<hstr, type >::iterator name = container.begin(); name != container.end(); name++)
-#define foreachc_m(type, name, container) for (std::map<hstr, type >::const_iterator name = container.begin(); name != container.end(); name++)
+#define foreach_m(type, name, container) for (std::map<hstr, type >::iterator name = container.begin(); name != container.end(); ++name)
+#define foreachc_m(type, name, container) for (std::map<hstr, type >::const_iterator name = container.begin(); name != container.end(); ++name)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
-#define __foreach_this_map_it(name) for (iterator_map_t name = stdmap::begin(); name != stdmap::end(); name++)
+#define __foreach_this_map_it(name) for (iterator_map_t name = stdmap::begin(); name != stdmap::end(); ++name)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
-#define __foreach_other_map_it(name, other) for (iterator_map_t name = other.begin(); name != other.end(); name++)
+#define __foreach_other_map_it(name, other) for (iterator_map_t name = other.begin(); name != other.end(); ++name)
 /// @brief Alias for simpler code.
 #define stdmap std::map<K, V>
 
@@ -112,7 +112,7 @@ namespace hltypes
 		Array<V> values(Array<K> keys)
 		{
 			Array<V> result;
-			for (iterator_map_key_t it = keys.begin(); it != keys.end(); it++) // don't change, requires a const iterator
+			for (iterator_map_key_t it = keys.begin(); it != keys.end(); ++it) // don't change, requires a const iterator
 			{
 				result += stdmap::operator[](*it);
 			}
