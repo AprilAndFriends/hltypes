@@ -23,11 +23,11 @@
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a list.
-#define foreach_l(type, name, container) for (std::list<type>::iterator name = (container).begin(); name != (container).end(); name++)
-#define foreachc_l(type, name, container) for (std::list<type>::const_iterator name = (container).begin(); name != (container).end(); name++)
+#define foreach_l(type, name, container) for (std::list<type>::iterator name = (container).begin(); name != (container).end(); ++name)
+#define foreachc_l(type, name, container) for (std::list<type>::const_iterator name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to reverse iterate through a list.
-#define foreach_lr(type, name, container) for (std::list<type>::reverse_iterator name = (container).rbegin(); name != (container).rend(); name++)
-#define foreachc_lr(type, name, container) for (std::list<type>::reverse_const_iterator name = (container).rbegin(); name != (container).rend(); name++)
+#define foreach_lr(type, name, container) for (std::list<type>::reverse_iterator name = (container).rbegin(); name != (container).rend(); ++name)
+#define foreachc_lr(type, name, container) for (std::list<type>::reverse_const_iterator name = (container).rbegin(); name != (container).rend(); ++name)
 /// @brief Alias for simpler code.
 #define stdlist std::list<T>
 
@@ -163,7 +163,7 @@ namespace hltypes
 				{
 					return i;
 				}
-				it++;
+				++it;
 			}
 			return -1;
 		}
@@ -180,7 +180,7 @@ namespace hltypes
 				{
 					result.push_back(i);
 				}
-				it++;
+				++it;
 			}
 			return result;
 		}
@@ -234,7 +234,7 @@ namespace hltypes
 			{
 				if (element == stdlist::at(i))
 				{
-					result++;
+					++result;
 				}
 			}
 			return result;
@@ -1501,11 +1501,11 @@ namespace hltypes
 		{
 			for_iter (i, 0, count)
 			{
-				it++;
+				++it;
 			}
 			for_iter (i, count, 0)
 			{
-				it--;
+				--it;
 			}
 			return it;
 		}
@@ -1518,11 +1518,11 @@ namespace hltypes
 		{
 			for_iter (i, 0, count)
 			{
-				it++;
+				++it;
 			}
 			for_iter (i, count, 0)
 			{
-				it--;
+				--it;
 			}
 			return it;
 		}
