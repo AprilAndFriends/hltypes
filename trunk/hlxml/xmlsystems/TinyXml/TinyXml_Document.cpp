@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.21
 /// 
 /// @section LICENSE
 /// 
@@ -24,10 +24,7 @@ namespace hlxml
 	TinyXml_Document::TinyXml_Document(chstr filename) : Document(filename), rootNode(NULL)
 	{
 		hstr realFilename = hrdir::normalize(filename);
-		// loading goes through hresource because of Android's way of handling resources
-		hresource file(realFilename);
-		hstr data = file.read();
-		file.close();
+		hstr data = hresource::hread(this->filename);
 		this->document = new TiXmlDocument();
 		this->document->Parse(data.c_str());
 		if (this->document->Error())
@@ -88,11 +85,13 @@ namespace hlxml
 		{
 			return NULL;
 		}
-		if (!this->nodes.has_key(node))
+		TinyXml_Node* newNode = this->nodes.try_get_by_key(node, NULL);
+		if (newNode == NULL)
 		{
-			this->nodes[node] = new TinyXml_Node(this, node);
+			newNode = new TinyXml_Node(this, node);
+			this->nodes[node] = newNode;
 		}
-		return this->nodes[node];
+		return newNode;
 	}
 
 }
