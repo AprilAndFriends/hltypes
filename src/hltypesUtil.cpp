@@ -352,11 +352,11 @@ void create_crc32_table()
 		{
 			if ((sum & 1) != 0)
 			{
-				sum = (sum >> 1) ^ polynome;
+				sum = ((sum >> 1) & 0x7FFFFFFF) ^ polynome;
 			}
 			else
 			{
-				sum >>= 1;
+				sum = ((sum >> 1) & 0x7FFFFFFF);
 			}
 		}
 		crc32_table[i] = sum;
@@ -370,7 +370,7 @@ unsigned int calc_crc32(unsigned char* data, long size)
 	unsigned int crc = 0xFFFFFFFF;
 	for_itert (long, i, 0, size)
 	{
-		crc = (crc >> 8) ^ crc32_table[(crc ^ data[i]) & 0xFF];
+		crc = ((crc >> 8) & 0xFFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
 	}
 	return ((crc & 0xFFFFFFFF) ^ 0xFFFFFFFF);
 }
