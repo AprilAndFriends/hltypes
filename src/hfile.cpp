@@ -154,9 +154,17 @@ namespace hltypes
 	{
 		String old_name = Dir::normalize(old_filename);
 		String new_name = Dir::normalize(new_filename);
-		if (!File::exists(old_name) || !overwrite && File::exists(new_name))
+		if (!File::exists(old_name))
 		{
 			return false;
+		}
+		if (File::exists(new_name))
+		{
+			if (!overwrite)
+			{
+				return false;
+			}
+			File::remove(new_name);
 		}
 		Dir::create(Dir::basedir(new_name));
 #ifdef _WIN32
