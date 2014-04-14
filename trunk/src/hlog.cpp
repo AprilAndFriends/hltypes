@@ -225,6 +225,10 @@ namespace hltypes
 	void Log::finalize(bool clearFile)
 	{
 #ifdef _WIN32
+		if (Log::filename == "" || !hfile::exists(Log::filename))
+		{
+			return;
+		}
 		hfile file;
 		if (clearFile)
 		{
