@@ -433,7 +433,8 @@ hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
 /// @param[in] a First element.
 /// @param[in] b Second element.
 /// @return The lesser of two elements.
-template <class T> T hmin(T a, T b)
+template <class T>
+inline T hmin(T a, T b)
 {
 	return (a < b ? a : b);
 }
@@ -441,7 +442,8 @@ template <class T> T hmin(T a, T b)
 /// @param[in] a First element.
 /// @param[in] b Second element.
 /// @return The greater of two elements.
-template <class T> T hmax(T a, T b)
+template <class T>
+inline T hmax(T a, T b)
 {
 	return (a > b ? a : b);
 }
@@ -450,14 +452,16 @@ template <class T> T hmax(T a, T b)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return Clamped value.
-template <class T> T hclamp(T value, T min, T max)
+template <class T>
+inline T hclamp(T value, T min, T max)
 {
 	return (value < min ? min : (value > max ? max : value));
 }
 /// @brief Swaps the values of two elements.
 /// @param[in,out] a First element.
 /// @param[in,out] b Second element.
-template <class T> void hswap(T& a, T& b)
+template <class T>
+inline void hswap(T& a, T& b)
 {
 	T temp = a;
 	a = b;
@@ -466,7 +470,8 @@ template <class T> void hswap(T& a, T& b)
 /// @brief Returns Signum of the value.
 /// @param[in] value The value.
 /// @return Signum of the value.
-template <class T> int hsgn(T value)
+template <class T>
+inline int hsgn(T value)
 {
 	return (value == 0 ? 0 : value >= 0 ? 1 : -1);
 }
@@ -475,7 +480,8 @@ template <class T> int hsgn(T value)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is between minimum and maximum.
-template <class T> bool is_between(T value, T min, T max)
+template <class T>
+inline bool is_between(T value, T min, T max)
 {
 	return (value >= min && value <= max);
 }
@@ -484,7 +490,8 @@ template <class T> bool is_between(T value, T min, T max)
 /// @param[in] min Minimum exclusive boundary.
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is between minimum and maximum.
-template <class T> bool is_within(T value, T min, T max)
+template <class T>
+inline bool is_within(T value, T min, T max)
 {
 	return (value > min && value < max);
 }
@@ -493,7 +500,8 @@ template <class T> bool is_within(T value, T min, T max)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is inside of minimum and maximum.
-template <class T> bool is_in_range(T value, T min, T max)
+template <class T>
+inline bool is_in_range(T value, T min, T max)
 {
 	return (value >= min && value < max);
 }
@@ -502,7 +510,8 @@ template <class T> bool is_in_range(T value, T min, T max)
 /// @param[in] min Minimum exclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is inside of minimum and maximum.
-template <class T> bool is_inside(T value, T min, T max) // I'd like to be inside
+template <class T>
+inline bool is_inside(T value, T min, T max) // I'd like to be inside
 {
 	return (value > min && value <= max);
 }

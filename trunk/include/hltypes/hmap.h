@@ -20,11 +20,11 @@
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a Map.
-#define foreach_map(type_key, type_value, name, container) for (std::map<type_key, type_value >::iterator name = container.begin(); name != container.end(); ++name)
-#define foreachc_map(type_key, type_value, name, container) for (std::map<type_key, type_value >::const_iterator name = container.begin(); name != container.end(); ++name)
+#define foreach_map(type_key, type_value, name, container) for (std::map< type_key, type_value >::iterator name = container.begin(); name != container.end(); ++name)
+#define foreachc_map(type_key, type_value, name, container) for (std::map< type_key, type_value >::const_iterator name = container.begin(); name != container.end(); ++name)
 /// @brief Provides a simpler syntax to iterate through a Map with String as key.
-#define foreach_m(type, name, container) for (std::map<hstr, type >::iterator name = container.begin(); name != container.end(); ++name)
-#define foreachc_m(type, name, container) for (std::map<hstr, type >::const_iterator name = container.begin(); name != container.end(); ++name)
+#define foreach_m(type, name, container) for (std::map< hstr, type >::iterator name = container.begin(); name != container.end(); ++name)
+#define foreachc_m(type, name, container) for (std::map< hstr, type >::const_iterator name = container.begin(); name != container.end(); ++name)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
 #define __foreach_this_map_it(name) for (iterator_map_t name = stdmap::begin(); name != stdmap::end(); ++name)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
@@ -35,59 +35,60 @@
 namespace hltypes
 {
 	/// @brief Encapsulates std::map and adds high level methods.
-	template <class K, class V> class Map : public stdmap
+	template <class K, class V>
+	class Map : public stdmap
 	{
 	private:
-		typedef typename std::map<K, V>::const_iterator iterator_map_t;
+		typedef typename stdmap::const_iterator iterator_map_t;
 		typedef typename std::vector<K>::const_iterator iterator_map_key_t;
 	public:
 		/// @brief Empty constructor.
-		Map() : stdmap()
+		inline Map() : stdmap()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Map to copy.
-		Map(const Map<K, V>& other) : stdmap(other)
+		inline Map(const Map<K, V>& other) : stdmap(other)
 		{
 		}
 		/// @brief Destructor.
-		~Map()
+		inline ~Map()
 		{
 		}
 		/// @brief Returns value with specified key.
 		/// @param[in] key Key of the value.
 		/// @return Value with specified key.
-		V& operator[](const K& key)
+		inline V& operator[](const K& key)
 		{
 			return stdmap::operator[](key);
 		}
 		/// @brief Same as key_of.
 		/// @see key_of
-		K operator()(const V& value) const
+		inline K operator()(const V& value) const
 		{
 			return this->key_of(value);
 		}
 		/// @brief Same as equals.
 		/// @see equals
-		bool operator==(const Map<K, V>& other) const
+		inline bool operator==(const Map<K, V>& other) const
 		{
 			return this->equals(other);
 		}
 		/// @brief Same as nequals.
 		/// @see nequals
-		bool operator!=(const Map<K, V>& other) const
+		inline bool operator!=(const Map<K, V>& other) const
 		{
 			return this->nequals(other);
 		}
 		/// @brief Returns the number of values in the Map.
 		/// @return The number of values in the Map.
-		int size() const
+		inline int size() const
 		{
 			return stdmap::size();
 		}
 		/// @brief Returns an Array with all keys.
 		/// @return An Array with all keys.
-		Array<K> keys() const
+		inline Array<K> keys() const
 		{
 			Array<K> result;
 			__foreach_this_map_it(it)
@@ -98,7 +99,7 @@ namespace hltypes
 		}
 		/// @brief Returns an Array with all values.
 		/// @return An Array with all values.
-		Array<V> values() const
+		inline Array<V> values() const
 		{
 			Array<V> result;
 			__foreach_this_map_it(it)
@@ -109,7 +110,7 @@ namespace hltypes
 		}
 		/// @brief Returns an Array with all values in the same order as the given corresponding keys.
 		/// @return An Array with all values in the same order as the given corresponding keys.
-		Array<V> values(Array<K> keys)
+		inline Array<V> values(Array<K> keys)
 		{
 			Array<V> result;
 			for (iterator_map_key_t it = keys.begin(); it != keys.end(); ++it) // don't change, requires a const iterator
@@ -121,7 +122,7 @@ namespace hltypes
 		/// @brief Compares the contents of two Maps for being equal.
 		/// @param[in] other Another Map.
 		/// @return True if number of keys and values are equal and all pairs of keys and values are equal.
-		bool equals(const Map<K, V>& other) const
+		inline bool equals(const Map<K, V>& other) const
 		{
 			if (this->size() != other.size())
 			{
@@ -145,7 +146,7 @@ namespace hltypes
 		/// @brief Compares the contents of two Maps for being not equal.
 		/// @param[in] other Another Map.
 		/// @return True if number of keys and values are not equal or at least one pair of keys and values is not equal.
-		bool nequals(const Map<K, V>& other) const
+		inline bool nequals(const Map<K, V>& other) const
 		{
 			if (this->size() != other.size())
 			{
@@ -169,7 +170,7 @@ namespace hltypes
 		/// @brief Returns key of specified value.
 		/// @param[in] value Value with the given key.
 		/// @return Key of specified value.
-		K key_of(const V& value) const
+		inline K key_of(const V& value) const
 		{
 			__foreach_this_map_it(it)
 			{
@@ -183,21 +184,21 @@ namespace hltypes
 		/// @brief Returns value of specified key.
 		/// @param[in] key Key of the given value.
 		/// @return Value of specified key.
-		V value_of(const K& key) const
+		inline V value_of(const K& key) const
 		{
 			return stdmap::find(key)->second;
 		}
 		/// @brief Checks for existence of a key.
 		/// @param[in] key Key to check.
 		/// @return True if key is present.
-		bool has_key(const K& key) const
+		inline bool has_key(const K& key) const
 		{
 			return (stdmap::find(key) != stdmap::end());
 		}
 		/// @brief Checks for existence of all keys.
 		/// @param[in] keys Array of keys to check.
 		/// @return True if all keys are present.
-		bool has_keys(const Array<K>& keys) const
+		inline bool has_keys(const Array<K>& keys) const
 		{
 			iterator_map_t end = stdmap::end();
 			for_iter (i, 0, keys.size())
@@ -213,7 +214,7 @@ namespace hltypes
 		/// @param[in] keys C-type array of keys to check.
 		/// @param[in] count Number of keys to check.
 		/// @return True if all keys are present.
-		bool has_keys(const K keys[], const int count) const
+		inline bool has_keys(const K keys[], const int count) const
 		{
 			iterator_map_t end = stdmap::end();
 			for_iter (i, 0, count)
@@ -228,7 +229,7 @@ namespace hltypes
 		/// @brief Checks for existence of a value.
 		/// @param[in] value Value to check.
 		/// @return True if value is present.
-		bool has_value(const V& value) const
+		inline bool has_value(const V& value) const
 		{
 			__foreach_this_map_it(it)
 			{
@@ -242,7 +243,7 @@ namespace hltypes
 		/// @brief Checks for existence of all values.
 		/// @param[in] values Array of values to check.
 		/// @return True if all values are present.
-		bool has_values(const Array<V>& values) const
+		inline bool has_values(const Array<V>& values) const
 		{
 			for_iter (i, 0, values.size())
 			{
@@ -257,7 +258,7 @@ namespace hltypes
 		/// @param[in] values C-type array of values to check.
 		/// @param[in] count Number of values to check.
 		/// @return True if all values are present.
-		bool has_values(const V values[], const int count) const
+		inline bool has_values(const V values[], const int count) const
 		{
 			for_iter (i, 0, count)
 			{
@@ -271,21 +272,21 @@ namespace hltypes
 		/// @brief Adds a new pair of key and value into the Map.
 		/// @param[in] key Key of the entry.
 		/// @param[in] value Value of the entry.
-		void insert(const K& key, const V& value)
+		inline void insert(const K& key, const V& value)
 		{
 			stdmap::operator[](key) = value;
 		}
 		/// @brief Adds all pairs of keys and values from another Map into this one.
 		/// @param[in] other Another Map.
 		/// @note Entries with already existing keys will not be overwritten.
-		void insert(const Map<K, V>& other)
+		inline void insert(const Map<K, V>& other)
 		{
 			stdmap::insert(other.begin(), other.end());
 		}
 		/// @brief Adds all pairs of keys and values from another Map into this one.
 		/// @param[in] other Another Map.
 		/// @note Entries with already existing keys will be overwritten. In comparison to insert, this function is doing a barrel roll.
-		void inject(const Map<K, V>& other)
+		inline void inject(const Map<K, V>& other)
 		{
 			__foreach_other_map_it(it, other)
 			{
@@ -294,7 +295,7 @@ namespace hltypes
 		}
 		/// @brief Removes a pair of key and value specified by a key.
 		/// @param[in] key Key of the entry.
-		void remove_key(const K& key)
+		inline void remove_key(const K& key)
 		{
 			if (this->has_key(key))
 			{
@@ -303,7 +304,7 @@ namespace hltypes
 		}
 		/// @brief Removes all pairs of key and value specified by an Array of keys.
 		/// @param[in] keys Array of keys.
-		void remove_keys(const Array<K>& keys)
+		inline void remove_keys(const Array<K>& keys)
 		{
 			for_iter (i, 0, keys.size())
 			{
@@ -315,7 +316,7 @@ namespace hltypes
 		}
 		/// @brief Removes a pair of key and value specified by a value.
 		/// @param[in] value Value of the entry.
-		void remove_value(const V& value)
+		inline void remove_value(const V& value)
 		{
 			if (this->has_value(value))
 			{
@@ -325,7 +326,7 @@ namespace hltypes
 		}
 		/// @brief Removes all pairs of key and value specified by an Array of values.
 		/// @param[in] values Array of values.
-		void remove_values(const Array<V>& values)
+		inline void remove_values(const Array<V>& values)
 		{
 			for_iter (i, 0, values.size())
 			{
@@ -342,7 +343,7 @@ namespace hltypes
 		/// @brief Gets a random element in Map.
 		/// @param[out] value Value of selected random entry.
 		/// @return Random element or NULL if Map is empty.
-		K random(V* value = NULL) const
+		inline K random(V* value = NULL) const
 		{
 			if (this->size() == 0)
 			{
@@ -358,7 +359,7 @@ namespace hltypes
 		/// @brief Gets a Map of random elements selected from this one.
 		/// @param[in] count Number of random elements.
 		/// @return Map of random elements selected from this one.
-		Map<K, V> random(int count) const
+		inline Map<K, V> random(int count) const
 		{
 			if (count >= this->size())
 			{
@@ -380,7 +381,7 @@ namespace hltypes
 		/// @brief Gets a random element in Map and removes it.
 		/// @param[out] value Value of selected random entry.
 		/// @return Random element or NULL if Map is empty.
-		K pop_random(V* value = NULL)
+		inline K pop_random(V* value = NULL)
 		{
 			if (this->size() == 0)
 			{
@@ -397,7 +398,7 @@ namespace hltypes
 		/// @brief Gets a Map of random elements selected from this one and removes them.
 		/// @param[in] count Number of random elements.
 		/// @return Map of random elements selected from this one.
-		Map<K, V> pop_random(int count)
+		inline Map<K, V> pop_random(int count)
 		{
 			if (count >= this->size())
 			{
@@ -419,20 +420,20 @@ namespace hltypes
 		}
 		/// @brief Same as pop_random.
 		/// @see pop_random().
-		K remove_random(V* value = NULL)
+		inline K remove_random(V* value = NULL)
 		{
 			return this->pop_random(value);
 		}
 		/// @brief Same as pop_random.
 		/// @see pop_random(const int count).
-		Map<K, V> remove_random(const int count)
+		inline Map<K, V> remove_random(const int count)
 		{
 			return this->pop_random(count);
 		}
 		/// @brief Finds and returns new Map with entries that match the condition.
 		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return New Map with all matching elements.
-		Map<K, V> find_all(bool (*condition_function)(K, V)) const
+		inline Map<K, V> find_all(bool (*condition_function)(K, V)) const
 		{
 			Map<K, V> result;
 			__foreach_this_map_it(it)
@@ -447,7 +448,7 @@ namespace hltypes
 		/// @brief Checks if at least one entry matches the condition.
 		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return True if at least one entry matches the condition.
-		bool matches_any(bool (*condition_function)(K, V)) const
+		inline bool matches_any(bool (*condition_function)(K, V)) const
 		{
 			__foreach_this_map_it(it)
 			{
@@ -461,7 +462,7 @@ namespace hltypes
 		/// @brief Checks if all entries match the condition.
 		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return True if all entries match the condition.
-		bool matches_all(bool (*condition_function)(K, V)) const
+		inline bool matches_all(bool (*condition_function)(K, V)) const
 		{
 			__foreach_this_map_it(it)
 			{
@@ -476,7 +477,7 @@ namespace hltypes
 		/// @return A new Map with all keys and values cast into the type L and S.
 		/// @note Make sure all keys can be cast into type L and all values into type S.
 		template <class L, class S>
-		Map<L, S> cast() const
+		inline Map<L, S> cast() const
 		{
 			Map<L, S> result;
 			__foreach_this_map_it(it)
@@ -490,7 +491,7 @@ namespace hltypes
 		/// @return A new Map with all keys and values cast into the type L and S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class L, class S>
-		Map<L, S> dyn_cast(bool include_nulls = false) const
+		inline Map<L, S> dyn_cast(bool include_nulls = false) const
 		{
 			Map<L, S> result;
 			L key;
@@ -511,7 +512,7 @@ namespace hltypes
 		/// @note If dynamic casting fails, it won't be included in the result.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class L, class S>
-		Map<L, S> dyn_cast_key() const
+		inline Map<L, S> dyn_cast_key() const
 		{
 			Map<L, S> result;
 			L key;
@@ -530,7 +531,7 @@ namespace hltypes
 		/// @return A new Map with all keys and values cast into the type L and S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class L, class S>
-		Map<L, S> dyn_cast_value(bool include_nulls = false) const
+		inline Map<L, S> dyn_cast_value(bool include_nulls = false) const
 		{
 			Map<L, S> result;
 			S value;
@@ -548,13 +549,13 @@ namespace hltypes
 		/// @param[in] key Key to retrieve the value of.
 		/// @param[in] defaultValue Default value to return if key does not exist.
 		/// @return Value stored at key or given default value.
-		V try_get_by_key(K key, V defaultValue) const
+		inline V try_get_by_key(K key, V defaultValue) const
 		{
 			return (this->has_key(key) ? stdmap::find(key)->second : defaultValue);
 		}
 		/// @brief Same as insert.
 		/// @see insert(const Map<K, V>& other)
-		Map<K, V>& operator+=(const Map<K, V>& other)
+		inline Map<K, V>& operator+=(const Map<K, V>& other)
 		{
 			this->insert(other);
 			return (*this);
@@ -563,7 +564,7 @@ namespace hltypes
 		/// @param[in] other Second Map to merge with.
 		/// @return New Map with elements of second Map added at the end of first Map.
 		/// @note Entries with already existing keys in the first map will not be overwritten.
-		Map<K, V> operator+(const Map<K, V>& other) const
+		inline Map<K, V> operator+(const Map<K, V>& other) const
 		{
 			Map<K, V> result(*this);
 			result += other;

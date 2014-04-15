@@ -212,7 +212,7 @@ namespace hltypes
 
 		/// @brief Gets special descriptor.
 		/// @return Special descriptor.
-		virtual String _descriptor() { return "stream"; }
+		virtual inline String _descriptor() { return "stream"; }
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.

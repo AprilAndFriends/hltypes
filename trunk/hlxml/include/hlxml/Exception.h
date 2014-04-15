@@ -28,6 +28,7 @@ namespace hlxml
 	{
 	public:
 		_XMLException(chstr msg, Node* node, chstr type, const char* file, int line);
+
 	};
 
 	#define XMLException(msg, node) _XMLException(msg, node, "XMLException", __FILE__, __LINE__)

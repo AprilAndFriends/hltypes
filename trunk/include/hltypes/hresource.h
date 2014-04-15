@@ -72,13 +72,13 @@ namespace hltypes
 		
 		/// @brief Gets the interal current working directory within a possible archive.
 		/// @return Interal current working directory.
-		static String getCwd() { return cwd; }
+		static inline String getCwd() { return cwd; }
 		/// @brief Sets the interal current working directory within a possible archive.
 		/// @param[in] value New value.
-		static void setCwd(const String& value) { cwd = value; }
+		static inline void setCwd(const String& value) { cwd = value; }
 		/// @brief Gets the resource archive's filename.
 		/// @return Resource archive's filename.
-		static String getArchive() { return archive; }
+		static inline String getArchive() { return archive; }
 		/// @brief Sets the resource archive's filename.
 		/// @param[in] value New value.
 		static void setArchive(const String& value);

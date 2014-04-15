@@ -34,16 +34,16 @@ namespace hltypes
 		virtual ~exception();
 		/// @brief Gets the exception message.
 		/// @return The exception message.
-		virtual String message() { return this->msg; }
+		inline virtual String message() { return this->msg; }
 		/// @brief Same as message.
 		/// @see message
-		String getErrorText() { return this->message(); }
+		inline String getErrorText() { return this->message(); }
 		/// @brief Same as message.
 		/// @see message
-		String getMessage() { return this->message(); }
+		inline String getMessage() { return this->message(); }
 		/// @brief Same as message.
 		/// @see message
-		String getErrorMessage() { return this->message(); }
+		inline String getErrorMessage() { return this->message(); }
 		
 	protected:
 		/// @brief Exception message.
