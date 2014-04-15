@@ -28,10 +28,10 @@ namespace hltypes
 	public:
 		/// @brief Sets flag for creating directories with full access permissions on Win32 (Vista and later).
 		/// @return flag for creating directories with full access permissions on Win32 (Vista and later)
-		static bool getWin32FullDirectoryPermissions() { return win32FullDirectoryPermissions; }
+		static inline bool getWin32FullDirectoryPermissions() { return win32FullDirectoryPermissions; }
 		/// @brief Sets flag for creating directories with full access permissions on Win32 (Vista and later).
 		/// @param[in] value New value.
-		static void setWin32FullDirectoryPermissions(bool value) { win32FullDirectoryPermissions = value; }
+		static inline void setWin32FullDirectoryPermissions(bool value) { win32FullDirectoryPermissions = value; }
 
 		/// @brief Creates a directory.
 		/// @param[in] dirname Name of the directory.
@@ -116,10 +116,10 @@ namespace hltypes
 	protected:
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
-		Dir() : DirBase() { }
+		inline Dir() : DirBase() { }
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
-		~Dir() { }
+		inline ~Dir() { }
 
 		/// @brief Flag for creating directories with full access permissions on Win32 (Vista and later).
 		static bool win32FullDirectoryPermissions;

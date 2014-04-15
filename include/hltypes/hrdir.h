@@ -70,10 +70,10 @@ namespace hltypes
 
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
-		ResourceDir() : DirBase() { }
+		inline ResourceDir() : DirBase() { }
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
-		~ResourceDir() { }
+		inline ~ResourceDir() { }
 
 		/// @brief Checks if the prefix matches the resource path and removes it.
 		/// @param[in,out] path The resource path which gets modified.
