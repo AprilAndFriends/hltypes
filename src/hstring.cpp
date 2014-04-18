@@ -95,12 +95,12 @@
 
 // MacOS 10.9 SDK has problems linking to tolower/toupper for some reason, so this is used... sigh..
 #ifdef __APPLE__
-	inline int __tolower__(int c)
+	HL_INLINE int __tolower__(int c)
 	{
 		return tolower(c);
 	}
 
-	inline int __toupper__(int c)
+	HL_INLINE int __toupper__(int c)
 	{
 		return toupper(c);
 	}
