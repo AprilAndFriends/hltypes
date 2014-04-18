@@ -61,40 +61,35 @@ namespace hltypes
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.01
 
-#ifndef _DEBUG
-#define HL_INLINE inline
-#else
-#define HL_INLINE
-#endif
 /// @brief Utility macro for quick getter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_GET(type, name, capsName) HL_INLINE type get ## capsName() { return this->name; }
+#define HL_DEFINE_GET(type, name, capsName) inline type get ## capsName() { return this->name; }
 /// @brief Utility macro for quick getter definition.
 /// @param[in] classe Template class.
 /// @param[in] type1 First template type argument.
 /// @param[in] type2 Second template type argument.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_GET2(classe, type1, type2, name, capsName) HL_INLINE classe<type1, type2> get ## capsName() { return this->name; }
+#define HL_DEFINE_GET2(classe, type1, type2, name, capsName) inline classe<type1, type2> get ## capsName() { return this->name; }
 /// @brief Utility macro for quick getter (with "is") definition.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 /// @note This is meant for use with bool only.
-#define HL_DEFINE_IS(name, capsName) HL_INLINE bool is ## capsName() { return this->name; }
+#define HL_DEFINE_IS(name, capsName) inline bool is ## capsName() { return this->name; }
 /// @brief Utility macro for quick setter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_SET(type, name, capsName) HL_INLINE void set ## capsName(type value) { this->name = value; }
+#define HL_DEFINE_SET(type, name, capsName) inline void set ## capsName(type value) { this->name = value; }
 /// @brief Utility macro for quick setter definition.
 /// @param[in] classe Template class.
 /// @param[in] type1 First template type argument.
 /// @param[in] type2 Second template type argument.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_SET2(classe, type1, type2, name, capsName) HL_INLINE void set ## capsName(classe<type1, type2> value) { this->name = value; }
+#define HL_DEFINE_SET2(classe, type1, type2, name, capsName) inline void set ## capsName(classe<type1, type2> value) { this->name = value; }
 /// @brief Utility macro for quick getter and setter definition.
 /// @param[in] classe Template class.
 /// @param[in] type1 First template type argument.
@@ -439,7 +434,7 @@ hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
 /// @param[in] b Second element.
 /// @return The lesser of two elements.
 template <class T>
-HL_INLINE T hmin(T a, T b)
+inline T hmin(T a, T b)
 {
 	return (a < b ? a : b);
 }
@@ -448,7 +443,7 @@ HL_INLINE T hmin(T a, T b)
 /// @param[in] b Second element.
 /// @return The greater of two elements.
 template <class T>
-HL_INLINE T hmax(T a, T b)
+inline T hmax(T a, T b)
 {
 	return (a > b ? a : b);
 }
@@ -458,7 +453,7 @@ HL_INLINE T hmax(T a, T b)
 /// @param[in] max Maximum inclusive boundary.
 /// @return Clamped value.
 template <class T>
-HL_INLINE T hclamp(T value, T min, T max)
+inline T hclamp(T value, T min, T max)
 {
 	return (value < min ? min : (value > max ? max : value));
 }
@@ -466,7 +461,7 @@ HL_INLINE T hclamp(T value, T min, T max)
 /// @param[in,out] a First element.
 /// @param[in,out] b Second element.
 template <class T>
-HL_INLINE void hswap(T& a, T& b)
+inline void hswap(T& a, T& b)
 {
 	T temp = a;
 	a = b;
@@ -476,7 +471,7 @@ HL_INLINE void hswap(T& a, T& b)
 /// @param[in] value The value.
 /// @return Signum of the value.
 template <class T>
-HL_INLINE int hsgn(T value)
+inline int hsgn(T value)
 {
 	return (value == 0 ? 0 : value >= 0 ? 1 : -1);
 }
@@ -486,7 +481,7 @@ HL_INLINE int hsgn(T value)
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is between minimum and maximum.
 template <class T>
-HL_INLINE bool is_between(T value, T min, T max)
+inline bool is_between(T value, T min, T max)
 {
 	return (value >= min && value <= max);
 }
@@ -496,7 +491,7 @@ HL_INLINE bool is_between(T value, T min, T max)
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is between minimum and maximum.
 template <class T>
-HL_INLINE bool is_within(T value, T min, T max)
+inline bool is_within(T value, T min, T max)
 {
 	return (value > min && value < max);
 }
@@ -506,7 +501,7 @@ HL_INLINE bool is_within(T value, T min, T max)
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is inside of minimum and maximum.
 template <class T>
-HL_INLINE bool is_in_range(T value, T min, T max)
+inline bool is_in_range(T value, T min, T max)
 {
 	return (value >= min && value < max);
 }
@@ -516,7 +511,7 @@ HL_INLINE bool is_in_range(T value, T min, T max)
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is inside of minimum and maximum.
 template <class T>
-HL_INLINE bool is_inside(T value, T min, T max) // I'd like to be inside
+inline bool is_inside(T value, T min, T max) // I'd like to be inside
 {
 	return (value > min && value <= max);
 }

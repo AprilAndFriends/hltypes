@@ -40,32 +40,32 @@ namespace hltypes
 
 		/// @brief Checks if log level Write is turned on.
 		/// @return True if log level Write is turned on.
-		static HL_INLINE bool isLevelWrite() { return level_write; }
+		static inline bool isLevelWrite() { return level_write; }
 		/// @brief Sets the log level Write.
 		/// @param[in] value Whether to turn it on or off.
-		static HL_INLINE void setLevelWrite(bool value) { level_write = value; }
+		static inline void setLevelWrite(bool value) { level_write = value; }
 		/// @brief Checks if log level Error is turned on.
 		/// @return True if log level Error is turned on.
-		static HL_INLINE bool isLevelError() { return level_error; }
+		static inline bool isLevelError() { return level_error; }
 		/// @brief Sets the log level Error.
 		/// @param[in] value Whether to turn it on or off.
-		static HL_INLINE void setLevelError(bool value) { level_error = value; }
+		static inline void setLevelError(bool value) { level_error = value; }
 		/// @brief Checks if log level Warn is turned on.
 		/// @return True if log level Warn is turned on.
-		static HL_INLINE bool isLevelWarn() { return level_warn; }
+		static inline bool isLevelWarn() { return level_warn; }
 		/// @brief Sets the log level Warn.
 		/// @param[in] value Whether to turn it on or off.
-		static HL_INLINE void setLevelWarn(bool value) { level_warn = value; }
+		static inline void setLevelWarn(bool value) { level_warn = value; }
 		/// @brief Checks if log level Debug is turned on.
 		/// @return True if log level Debug is turned on.
-		static HL_INLINE bool isLevelDebug() { return level_debug; }
+		static inline bool isLevelDebug() { return level_debug; }
 		/// @brief Sets the log level Debug.
 		/// @param[in] value Whether to turn it on or off.
-		static HL_INLINE void setLevelDebug(bool value) { level_debug = value; }
+		static inline void setLevelDebug(bool value) { level_debug = value; }
 		/// @brief Sets the current tag filters.
 		/// @param[in] value New tag filters.
 		/// @note If value is an empty Array, the no filtering will be used.
-		static HL_INLINE void setTagFilters(Array<String> value) { tag_filters = value; }
+		static inline void setTagFilters(Array<String> value) { tag_filters = value; }
 		/// @brief Sets all logging levels at once.
 		/// @param[in] write Value for Log level Write.
 		/// @param[in] write Value for Log level Error.
@@ -80,7 +80,7 @@ namespace hltypes
 		/// @brief Sets the callback function that is called after logging.
 		/// @param[in] function Callback function.
 		/// @note The callback is called in a thread-safe manner.
-		static HL_INLINE void setCallbackFunction(void (*function)(const String&, const String&)) { callback_function = function; }
+		static inline void setCallbackFunction(void (*function)(const String&, const String&)) { callback_function = function; }
 
 		/// @brief Logs a message on the log level Write.
 		/// @param[in] tag The message tag.
@@ -137,10 +137,10 @@ namespace hltypes
 
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
-		HL_INLINE Log() { }
+		inline Log() { }
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
-		HL_INLINE ~Log() { }
+		inline ~Log() { }
 
 		/// @brief Executes the actual message loggging.
 		/// @param[in] tag The message tag.
