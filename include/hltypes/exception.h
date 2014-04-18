@@ -15,7 +15,6 @@
 #ifndef HLTYPES_EXCEPTION_H
 #define HLTYPES_EXCEPTION_H
 
-#include "hltypesUtil.h"
 #include "hstring.h"
 
 #include "hltypesExport.h"
@@ -35,16 +34,16 @@ namespace hltypes
 		virtual ~exception();
 		/// @brief Gets the exception message.
 		/// @return The exception message.
-		HL_INLINE virtual String message() { return this->msg; }
+		inline virtual String message() { return this->msg; }
 		/// @brief Same as message.
 		/// @see message
-		HL_INLINE String getErrorText() { return this->message(); }
+		inline String getErrorText() { return this->message(); }
 		/// @brief Same as message.
 		/// @see message
-		HL_INLINE String getMessage() { return this->message(); }
+		inline String getMessage() { return this->message(); }
 		/// @brief Same as message.
 		/// @see message
-		HL_INLINE String getErrorMessage() { return this->message(); }
+		inline String getErrorMessage() { return this->message(); }
 		
 	protected:
 		/// @brief Exception message.
