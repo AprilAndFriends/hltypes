@@ -34,10 +34,10 @@ namespace hltypes
 		virtual ~Thread();
 		/// @brief Sets function.
 		/// @param[in] value New function.
-		inline void setFunction(void (*value)(Thread*)) { this->function = value; }
+		HL_INLINE void setFunction(void (*value)(Thread*)) { this->function = value; }
 		/// @brief Gets whether the thread is running.
 		/// @return True if the thread is running.
-		inline bool isRunning() { return this->running; }
+		HL_INLINE bool isRunning() { return this->running; }
 		/// @brief Starts the thread processing.
 		void start();
 		/// @brief Stops the thread processing.

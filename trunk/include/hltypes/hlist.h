@@ -42,23 +42,23 @@ namespace hltypes
 		typedef typename stdlist::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline List() : stdlist()
+		HL_INLINE List() : stdlist()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other List to copy.
-		inline List(const List<T>& other) : stdlist(other)
+		HL_INLINE List(const List<T>& other) : stdlist(other)
 		{
 		}
 		/// @brief Destructor.
-		inline ~List()
+		HL_INLINE ~List()
 		{
 		}
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
 		/// @return Element at specified position.
 		/// @note Does not work with bool as T, use List::at directly instead.
-		inline T& operator[](const int index)
+		HL_INLINE T& operator[](const int index)
 		{
 			if (index < 0)
 			{
@@ -70,7 +70,7 @@ namespace hltypes
 		/// @param[in] index Index of the element.
 		/// @return Element at specified position.
 		/// @note Does not work with bool as T, use List::at directly instead.
-		inline const T& operator[](const int index) const
+		HL_INLINE const T& operator[](const int index) const
 		{
 			if (index < 0)
 			{
@@ -82,7 +82,7 @@ namespace hltypes
 		/// @param[in] start Start index of the elements to copy.
 		/// @param[in] count Number of elements to copy.
 		/// @return Sublist created from the current List.
-		inline List<T> operator()(const int start, const int count) const
+		HL_INLINE List<T> operator()(const int start, const int count) const
 		{
 			List<T> result;
 			if (count > 0)
@@ -98,26 +98,26 @@ namespace hltypes
 		}
 		/// @brief Same as equals.
 		/// @see equals
-		inline bool operator==(const List<T>& other) const
+		HL_INLINE bool operator==(const List<T>& other) const
 		{
 			return this->equals(other);
 		}
 		/// @brief Same as nequals.
 		/// @see nequals
-		inline bool operator!=(const List<T>& other) const
+		HL_INLINE bool operator!=(const List<T>& other) const
 		{
 			return this->nequals(other);
 		}
 		/// @brief Returns the number of elements in the List.
 		/// @return The number of elements in the List.
-		inline int size() const
+		HL_INLINE int size() const
 		{
 			return (int)stdlist::size();
 		}
 		/// @brief Compares the contents of two Lists for being equal.
 		/// @param[in] other Another List.
 		/// @return True if number of elements are equal and all pairs of elements at the same positions are equal.
-		inline bool equals(const List<T>& other) const
+		HL_INLINE bool equals(const List<T>& other) const
 		{
 			if (this->size() != other.size())
 			{
@@ -136,7 +136,7 @@ namespace hltypes
 		/// @brief Compares the contents of two Lists for being not equal.
 		/// @param[in] other Another List.
 		/// @return True if number of elements are not equal or at least one pair of elements at the same positions is not equal.
-		inline bool nequals(const List<T>& other) const
+		HL_INLINE bool nequals(const List<T>& other) const
 		{
 			if (this->size() != other.size())
 			{
@@ -155,7 +155,7 @@ namespace hltypes
 		/// @brief Gets index of the given element.
 		/// @param[in] element Element to search for.
 		/// @return Index of the given element or -1 if element could not be found.
-		inline int index_of(T element) const
+		HL_INLINE int index_of(T element) const
 		{
 			const_iterator_t it = stdlist::begin();
 			for_iter (i, 0, this->size())
@@ -171,7 +171,7 @@ namespace hltypes
 		/// @brief Gets all indexes of the given element.
 		/// @param[in] element Element to search for.
 		/// @return Index of the given element or -1 if element could not be found.
-		inline List<int> indexes_of(T element) const
+		HL_INLINE List<int> indexes_of(T element) const
 		{
 			List<int> result;
 			const_iterator_t it = stdlist::begin();
@@ -188,14 +188,14 @@ namespace hltypes
 		/// @brief Checks existence of element in List.
 		/// @param[in] element Element to search for.
 		/// @return True if element is in List.
-		inline bool contains(const T& element) const
+		HL_INLINE bool contains(const T& element) const
 		{
 			return (this->index_of(element) >= 0);
 		}
 		/// @brief Checks existence of elements in List.
 		/// @param[in] other List with elements to search for.
 		/// @return True if all elements are in List.
-		inline bool contains(const List<T>& other) const
+		HL_INLINE bool contains(const List<T>& other) const
 		{
 			int index;
 			for_iter (i, 0, other.size())
@@ -212,7 +212,7 @@ namespace hltypes
 		/// @param[in] other C-type array with elements to search for.
 		/// @param[in] count How many elements the C-type array has.
 		/// @return True if all elements are in List.
-		inline bool contains(const T other[], int count) const
+		HL_INLINE bool contains(const T other[], int count) const
 		{
 			int index;
 			for_iter (i, 0, count)
@@ -228,7 +228,7 @@ namespace hltypes
 		/// @brief Counts occurrences of element in List.
 		/// @param[in] element Element to search for.
 		/// @return Number of occurrences of given element.
-		inline int count(T element) const
+		HL_INLINE int count(T element) const
 		{
 			int result = 0;
 			for_iter (i, 0, this->size())
@@ -244,7 +244,7 @@ namespace hltypes
 		/// @param[in] index Position where to insert the new element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline void insert_at(const int index, const T& element, const int times = 1)
+		HL_INLINE void insert_at(const int index, const T& element, const int times = 1)
 		{
 			if (index > this->size())
 			{
@@ -255,7 +255,7 @@ namespace hltypes
 		/// @brief Inserts all elements of another List into this one.
 		/// @param[in] index Position where to insert the new elements.
 		/// @param[in] other List of elements to insert.
-		inline void insert_at(const int index, const List<T>& other)
+		HL_INLINE void insert_at(const int index, const List<T>& other)
 		{
 			if (index > this->size())
 			{
@@ -267,7 +267,7 @@ namespace hltypes
 		/// @param[in] index Position where to insert the new elements.
 		/// @param[in] other List of elements to insert.
 		/// @param[in] count Number of elements to insert.
-		inline void insert_at(const int index, const List<T>& other, const int count)
+		HL_INLINE void insert_at(const int index, const List<T>& other, const int count)
 		{
 			if (index > this->size())
 			{
@@ -285,7 +285,7 @@ namespace hltypes
 		/// @param[in] other List of elements to insert.
 		/// @param[in] start Start index of the elements to insert.
 		/// @param[in] count Number of elements to insert.
-		inline void insert_at(const int index, const List<T>& other, const int start, const int count)
+		HL_INLINE void insert_at(const int index, const List<T>& other, const int start, const int count)
 		{
 			if (index > this->size())
 			{
@@ -302,7 +302,7 @@ namespace hltypes
 		/// @param[in] index Position where to insert the new elements.
 		/// @param[in] other C-type array of elements to insert.
 		/// @param[in] count Number of elements to insert.
-		inline void insert_at(const int index, const T other[], const int count)
+		HL_INLINE void insert_at(const int index, const T other[], const int count)
 		{
 			stdlist::insert(this->_iterator_plus(stdlist::begin(), index), other, other + count);
 		}
@@ -311,14 +311,14 @@ namespace hltypes
 		/// @param[in] other C-type array of elements to insert.
 		/// @param[in] start Start index of the elements to insert.
 		/// @param[in] count Number of elements to insert.
-		inline void insert_at(const int index, const T other[], const int start, const int count)
+		HL_INLINE void insert_at(const int index, const T other[], const int start, const int count)
 		{
 			stdlist::insert(this->_iterator_plus(stdlist::begin(), index), other + start, other + (start + count));
 		}
 		/// @brief Removes element at given index.
 		/// @param[in] index Index of element to remove.
 		/// @return The removed element.
-		inline T remove_at(const int index)
+		HL_INLINE T remove_at(const int index)
 		{
 			if (index >= this->size())
 			{
@@ -333,7 +333,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to remove.
 		/// @return List of all removed elements.
 		/// @note Elements in the returned List are in the same order as in the orignal List.
-		inline List<T> remove_at(const int index, const int count)
+		HL_INLINE List<T> remove_at(const int index, const int count)
 		{
 			if (index >= this->size() || index + count > this->size())
 			{
@@ -349,7 +349,7 @@ namespace hltypes
 		}
 		/// @brief Removes first occurrence of element in List.
 		/// @param[in] element Element to remove.
-		inline void remove(T element)
+		HL_INLINE void remove(T element)
 		{
 			int index = this->index_of(element);
 			if (index < 0)
@@ -360,7 +360,7 @@ namespace hltypes
 		}
 		/// @brief Removes first occurrence of each element in another List from this one.
 		/// @param[in] other List of elements to remove.
-		inline void remove(const List<T>& other)
+		HL_INLINE void remove(const List<T>& other)
 		{
 			int index;
 			for_iter (i, 0, other.size())
@@ -376,7 +376,7 @@ namespace hltypes
 		/// @brief Removes all occurrences of element in List.
 		/// @param[in] element Element to remove.
 		/// @return Number of elements removed.
-		inline int remove_all(const T& element)
+		HL_INLINE int remove_all(const T& element)
 		{
 			List<int> indexes = this->indexes_of(element);
 			iterator_t it = stdlist::begin();
@@ -389,7 +389,7 @@ namespace hltypes
 		/// @brief Removes all occurrences of each element in another List from this one.
 		/// @param[in] other List of elements to remove.
 		/// @return Number of elements removed.
-		inline int remove_all(const List<T>& other)
+		HL_INLINE int remove_all(const List<T>& other)
 		{
 			List<int> indexes;
 			iterator_t it;
@@ -408,27 +408,27 @@ namespace hltypes
 		}
 		/// @brief Adds element at the end of List.
 		/// @param[in] element Element to add.
-		inline void push_back(const T& element)
+		HL_INLINE void push_back(const T& element)
 		{
 			stdlist::push_back(element);
 		}
 		/// @brief Adds element at the end of List n times.
 		/// @param[in] element Element to add.
 		/// @param[in] times Number of times to add the element.
-		inline void push_back(const T& element, int times)
+		HL_INLINE void push_back(const T& element, int times)
 		{
 			this->insert_at(this->size(), element, times);
 		}
 		/// @brief Adds all elements from another List at the end of this one.
 		/// @param[in] other List of elements to add.
-		inline void push_back(const List<T>& other)
+		HL_INLINE void push_back(const List<T>& other)
 		{
 			this->insert_at(this->size(), other);
 		}
 		/// @brief Adds all elements from another List at the end of this one.
 		/// @param[in] other List of elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void push_back(const List<T>& other, const int count)
+		HL_INLINE void push_back(const List<T>& other, const int count)
 		{
 			this->insert_at(this->size(), other, count);
 		}
@@ -436,14 +436,14 @@ namespace hltypes
 		/// @param[in] other List of elements to add.
 		/// @param[in] start Start index of the elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void push_back(const List<T>& other, const int start, const int count)
+		HL_INLINE void push_back(const List<T>& other, const int start, const int count)
 		{
 			this->insert_at(this->size(), other, start, count);
 		}
 		/// @brief Adds all elements from a C-type array at the end of List.
 		/// @param[in] other C-type array of elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void push_back(const T other[], const int count)
+		HL_INLINE void push_back(const T other[], const int count)
 		{
 			this->insert_at(this->size(), other, count);
 		}
@@ -451,27 +451,27 @@ namespace hltypes
 		/// @param[in] other C-type array of elements to add.
 		/// @param[in] start Start index of the elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void push_back(const T other[], const int start, const int count)
+		HL_INLINE void push_back(const T other[], const int start, const int count)
 		{
 			this->insert_at(this->size(), other, start, count);
 		}
 		/// @brief Adds element at the beginning of List n times.
 		/// @param[in] element Element to add.
 		/// @param[in] times Number of times to add the element.
-		inline void push_front(const T& element, int times = 1)
+		HL_INLINE void push_front(const T& element, int times = 1)
 		{
 			this->insert_at(0, element, times);
 		}
 		/// @brief Adds all elements from another List at the beginning of this one.
 		/// @param[in] other List of elements to add.
-		inline void push_front(const List<T>& other)
+		HL_INLINE void push_front(const List<T>& other)
 		{
 			this->insert_at(0, other);
 		}
 		/// @brief Adds all elements from another List at the beginning of this one.
 		/// @param[in] other List of elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void push_front(const List<T>& other, const int count)
+		HL_INLINE void push_front(const List<T>& other, const int count)
 		{
 			this->insert_at(0, other, count);
 		}
@@ -479,14 +479,14 @@ namespace hltypes
 		/// @param[in] other List of elements to add.
 		/// @param[in] start Start index of the elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void push_front(const List<T>& other, const int start, const int count)
+		HL_INLINE void push_front(const List<T>& other, const int start, const int count)
 		{
 			this->insert_at(0, other, start, count);
 		}
 		/// @brief Adds all elements from a C-type array at the beginning of List.
 		/// @param[in] other C-type array of elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void push_front(const T other[], const int count)
+		HL_INLINE void push_front(const T other[], const int count)
 		{
 			this->insert_at(0, other, count);
 		}
@@ -494,13 +494,13 @@ namespace hltypes
 		/// @param[in] other C-type array of elements to add.
 		/// @param[in] start Start index of the elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void push_front(const T other[], const int start, const int count)
+		HL_INLINE void push_front(const T other[], const int start, const int count)
 		{
 			this->insert_at(0, other, start, count);
 		}
 		/// @brief Removes first element of List.
 		/// @return The removed element.
-		inline T pop_front()
+		HL_INLINE T pop_front()
 		{
 			if (this->size() == 0)
 			{
@@ -512,7 +512,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to remove.
 		/// @return List of all removed elements.
 		/// @note Elements in the returned List are in the same order as in the orignal List.
-		inline List<T> pop_front(const int count)
+		HL_INLINE List<T> pop_front(const int count)
 		{
 			if (count > this->size())
 			{
@@ -527,7 +527,7 @@ namespace hltypes
 		}
 		/// @brief Removes last element of List.
 		/// @return The removed element.
-		inline T pop_back()
+		HL_INLINE T pop_back()
 		{
 			if (this->size() == 0)
 			{
@@ -541,7 +541,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to remove.
 		/// @return List of all removed elements.
 		/// @note Elements in the returned List are in the same order as in the orignal List.
-		inline List<T> pop_back(const int count)
+		HL_INLINE List<T> pop_back(const int count)
 		{
 			if (count > this->size())
 			{
@@ -556,14 +556,14 @@ namespace hltypes
 		}
 		/// @brief Unites elements of this List with an element.
 		/// @param[in] element Element to unite with.
-		inline void unite(const T& element)
+		HL_INLINE void unite(const T& element)
 		{
 			this->insert_at(this->size(), element);
 			this->remove_duplicates();
 		}
 		/// @brief Unites elements of this List with another one.
 		/// @param[in] other List to unite with.
-		inline void unite(const List<T>& other)
+		HL_INLINE void unite(const List<T>& other)
 		{
 			this->insert_at(this->size(), other);
 			this->remove_duplicates();
@@ -571,7 +571,7 @@ namespace hltypes
 		/// @brief Creates a new List as union of this List with an element.
 		/// @param[in] element Element to unite with.
 		/// @return A new List.
-		inline List<T> united(const T& element) const
+		HL_INLINE List<T> united(const T& element) const
 		{
 			List<T> result(*this);
 			result.unite(element);
@@ -580,7 +580,7 @@ namespace hltypes
 		/// @brief Creates a new List as union of this List with another one.
 		/// @param[in] other List to unite with.
 		/// @return A new List.
-		inline List<T> united(const List<T>& other) const
+		HL_INLINE List<T> united(const List<T>& other) const
 		{
 			List<T> result(*this);
 			result.unite(other);
@@ -588,7 +588,7 @@ namespace hltypes
 		}
 		/// @brief Intersects elements of this List with another one.
 		/// @param[in] other List to intersect with.
-		inline void intersect(const List<T>& other)
+		HL_INLINE void intersect(const List<T>& other)
 		{
 			List<T> result;
 			for_iter (i, 0, this->size())
@@ -603,7 +603,7 @@ namespace hltypes
 		/// @brief Creates a new List as intersection of this List with another one.
 		/// @param[in] other List to intersect with.
 		/// @return A new List.
-		inline List<T> intersected(const List<T>& other) const
+		HL_INLINE List<T> intersected(const List<T>& other) const
 		{
 			List<T> result(*this);
 			result.intersect(other);
@@ -612,7 +612,7 @@ namespace hltypes
 		/// @brief Differentiates elements of this List with an element.
 		/// @param[in] other Element to differentiate with.
 		/// @note Unlike remove, this method ignores if the element is not in this List.
-		inline void differentiate(const T& element)
+		HL_INLINE void differentiate(const T& element)
 		{
 			int index = 0;
 			while (true)
@@ -628,7 +628,7 @@ namespace hltypes
 		/// @brief Differentiates elements of this List with another one.
 		/// @param[in] other List to differentiate with.
 		/// @note Unlike remove, this method ignore elements of other List that are not in this one.
-		inline void differentiate(const List<T>& other)
+		HL_INLINE void differentiate(const List<T>& other)
 		{
 			int index;
 			for_iter (i, 0, other.size())
@@ -648,7 +648,7 @@ namespace hltypes
 		/// @param[in] other Element to differentiate with.
 		/// @return A new List.
 		/// @note Unlike remove, this method ignores if the element is not in this List.
-		inline List<T> differentiated(const T& element) const
+		HL_INLINE List<T> differentiated(const T& element) const
 		{
 			List<T> result(*this);
 			result.differentiate(element);
@@ -658,14 +658,14 @@ namespace hltypes
 		/// @param[in] other List to differentiate with.
 		/// @return A new List.
 		/// @note Unlike remove, this method ignore elements of other List that are not in this one.
-		inline List<T> differentiated(const List<T>& other) const
+		HL_INLINE List<T> differentiated(const List<T>& other) const
 		{
 			List<T> result(*this);
 			result.differentiate(other);
 			return result;
 		}
 		/// @brief Reverses order of elements.
-		inline void reverse()
+		HL_INLINE void reverse()
 		{
 			if (this->size() > 0)
 			{
@@ -674,14 +674,14 @@ namespace hltypes
 		}
 		/// @brief Creates new List with reversed order of elements.
 		/// @return A new List.
-		inline List<T> reversed() const
+		HL_INLINE List<T> reversed() const
 		{
 			List<T> result(*this);
 			result.reverse();
 			return result;
 		}
 		/// @brief Removes duplicates in List.
-		inline void remove_duplicates()
+		HL_INLINE void remove_duplicates()
 		{
 			List<int> indexes;
 			iterator_t it = stdlist::begin();
@@ -696,7 +696,7 @@ namespace hltypes
 		}
 		/// @brief Creates new List without duplicates.
 		/// @return A new List.
-		inline List<T> removed_duplicates() const
+		HL_INLINE List<T> removed_duplicates() const
 		{
 			List<T> result(*this);
 			result.remove_duplicates();
@@ -704,7 +704,7 @@ namespace hltypes
 		}
 		/// @brief Sorts elements in List.
 		/// @note The sorting order is ascending.
-		inline void sort()
+		HL_INLINE void sort()
 		{
 			if (this->size() > 0)
 			{
@@ -715,7 +715,7 @@ namespace hltypes
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
 		/// @note The sorting order is ascending.
 		/// @note compare_function should return true if first element is less than the second element.
-		inline void sort(bool (*compare_function)(T, T))
+		HL_INLINE void sort(bool (*compare_function)(T, T))
 		{
 			if (this->size() > 0)
 			{
@@ -725,7 +725,7 @@ namespace hltypes
 		/// @brief Creates new sorted List.
 		/// @return A new List.
 		/// @note The sorting order is ascending.
-		inline List<T> sorted() const
+		HL_INLINE List<T> sorted() const
 		{
 			List<T> result(*this);
 			result.sort();
@@ -736,20 +736,20 @@ namespace hltypes
 		/// @return A new List.
 		/// @note The sorting order is ascending.
 		/// @note compare_function should return true if first element is less than the second element.
-		inline List<T> sorted(bool (*compare_function)(T, T)) const
+		HL_INLINE List<T> sorted(bool (*compare_function)(T, T)) const
 		{
 			List<T> result(*this);
 			result.sort(compare_function);
 			return result;
 		}
 		/// @brief Randomizes order of elements in List.
-		inline void randomize()
+		HL_INLINE void randomize()
 		{
 			std::random_shuffle(stdlist::begin(), stdlist::end());
 		}
 		/// @brief Creates a new List with randomized order of elements.
 		/// @return A new List.
-		inline List<T> randomized() const
+		HL_INLINE List<T> randomized() const
 		{
 			List<T> result(*this);
 			result.randomize();
@@ -757,7 +757,7 @@ namespace hltypes
 		}
 		/// @brief Finds minimum element in List.
 		/// @return Minimum Element.
-		inline T min() const
+		HL_INLINE T min() const
 		{
 			if (this->size() == 0)
 			{
@@ -769,7 +769,7 @@ namespace hltypes
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
 		/// @return Minimum Element.
 		/// @note compare_function should return true if first element is less than second element.
-		inline T min(bool (*compare_function)(T, T)) const
+		HL_INLINE T min(bool (*compare_function)(T, T)) const
 		{
 			if (this->size() == 0)
 			{
@@ -779,7 +779,7 @@ namespace hltypes
 		}
 		/// @brief Finds maximum element in List.
 		/// @return Maximum Element.
-		inline T max() const
+		HL_INLINE T max() const
 		{
 			if (this->size() == 0)
 			{
@@ -791,7 +791,7 @@ namespace hltypes
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
 		/// @return Maximum Element.
 		/// @note compare_function should return true if first element is greater than second element.
-		inline T max(bool (*compare_function)(T, T)) const
+		HL_INLINE T max(bool (*compare_function)(T, T)) const
 		{
 			if (this->size() == 0)
 			{
@@ -801,7 +801,7 @@ namespace hltypes
 		}
 		/// @brief Gets a random element in List.
 		/// @return Random element.
-		inline T random() const
+		HL_INLINE T random() const
 		{
 			if (this->size() == 0)
 			{
@@ -813,7 +813,7 @@ namespace hltypes
 		/// @param[in] count Number of random elements.
 		/// @param[in] unique Whether to force all random values to be unique.
 		/// @return List of random elements selected from this one.
-		inline List<T> random(int count, bool unique = false) const
+		HL_INLINE List<T> random(int count, bool unique = false) const
 		{
 			List<T> result;
 			if (!unique)
@@ -847,7 +847,7 @@ namespace hltypes
 		}
 		/// @brief Gets a random element in List and removes it.
 		/// @return Random element.
-		inline T pop_random()
+		HL_INLINE T pop_random()
 		{
 			if (this->size() == 0)
 			{
@@ -861,7 +861,7 @@ namespace hltypes
 		/// @param[in] count Number of random elements.
 		/// @param[in] unique Whether to force all random values to be unique.
 		/// @return List of random elements selected from this one.
-		inline List<T> pop_random(int count, bool unique = false)
+		HL_INLINE List<T> pop_random(int count, bool unique = false)
 		{
 			List<T> result;
 			if (!unique)
@@ -898,7 +898,7 @@ namespace hltypes
 		/// @param[in] separator Separator string between elements.
 		/// @return String or joined elements separater by separator string.
 		/// @note Make sure your elements can be cast into String or are already String.
-		inline String join(const String& separator) const
+		HL_INLINE String join(const String& separator) const
 		{
 			String result;
 			if (this->size() > 0)
@@ -914,7 +914,7 @@ namespace hltypes
 		/// @brief Finds and returns new List of elements that match the condition.
 		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return New List with all matching elements.
-		inline List<T> find_all(bool (*condition_function)(T))
+		HL_INLINE List<T> find_all(bool (*condition_function)(T))
 		{
 			List<T> result;
 			for_iter (i, 0, this->size())
@@ -929,7 +929,7 @@ namespace hltypes
 		/// @brief Finds and returns first occurrence of element that matches the condition.
 		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return Pointer to element that matches the condition or NULL if no element was found.
-		inline T* find_first(bool (*condition_function)(T))
+		HL_INLINE T* find_first(bool (*condition_function)(T))
 		{
 			for_iter (i, 0, this->size())
 			{
@@ -943,7 +943,7 @@ namespace hltypes
 		/// @brief Checks if at least one element matches the condition.
 		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return True if at least one element matches the condition.
-		inline bool matches_any(bool (*condition_function)(T))
+		HL_INLINE bool matches_any(bool (*condition_function)(T))
 		{
 			for_iter (i, 0, this->size())
 			{
@@ -957,7 +957,7 @@ namespace hltypes
 		/// @brief Checks if all elements match the condition.
 		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return True if all elements match the condition.
-		inline bool matches_all(bool (*condition_function)(T))
+		HL_INLINE bool matches_all(bool (*condition_function)(T))
 		{
 			for_iter (i, 0, this->size())
 			{
@@ -972,7 +972,7 @@ namespace hltypes
 		/// @return A new List with all elements cast into type S.
 		/// @note Make sure all elements in the List can be cast into type S.
 		template <class S>
-		inline List<S> cast()
+		HL_INLINE List<S> cast()
 		{
 			List<S> result;
 			for_iter (i, 0, this->size())
@@ -986,7 +986,7 @@ namespace hltypes
 		/// @return A new List with all elements cast into type S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class S>
-		inline List<S> dyn_cast(bool include_nulls = false)
+		HL_INLINE List<S> dyn_cast(bool include_nulls = false)
 		{
 			List<S> result;
 			S value;
@@ -1003,425 +1003,425 @@ namespace hltypes
 		}
 		/// @brief Accesses first element of List.
 		/// @return The first element.
-		inline T& first()
+		HL_INLINE T& first()
 		{
 			return stdlist::front();
 		}
 		/// @brief Accesses last element of List.
 		/// @return The last element.
-		inline T& last()
+		HL_INLINE T& last()
 		{
 			return stdlist::back();
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T& element)
-		inline bool includes(const T& element) const
+		HL_INLINE bool includes(const T& element) const
 		{
 			return this->contains(element);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const List<T>& other)
-		inline bool includes(const List<T>& other) const
+		HL_INLINE bool includes(const List<T>& other) const
 		{
 			return this->contains(other);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T other[], int count)
-		inline bool includes(const T other[], int count) const
+		HL_INLINE bool includes(const T other[], int count) const
 		{
 			return this->contains(other, count);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T& element)
-		inline bool has(const T& element) const
+		HL_INLINE bool has(const T& element) const
 		{
 			return this->contains(element);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const List<T>& other)
-		inline bool has(const List<T>& other) const
+		HL_INLINE bool has(const List<T>& other) const
 		{
 			return this->contains(other);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T other[], int count)
-		inline bool has(const T other[], int count) const
+		HL_INLINE bool has(const T other[], int count) const
 		{
 			return this->contains(other, count);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T& element)
-		inline bool has_element(const T& element) const
+		HL_INLINE bool has_element(const T& element) const
 		{
 			return this->contains(element);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const List<T>& other)
-		inline bool has_element(const List<T>& other) const
+		HL_INLINE bool has_element(const List<T>& other) const
 		{
 			return this->contains(other);
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T other[], int count)
-		inline bool has_element(const T other[], int count) const
+		HL_INLINE bool has_element(const T other[], int count) const
 		{
 			return this->contains(other, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T& element)
-		inline void add(const T& element)
+		HL_INLINE void add(const T& element)
 		{
 			this->push_back(element);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T& element, int times)
-		inline void add(const T& element, int times)
+		HL_INLINE void add(const T& element, int times)
 		{
 			this->push_back(element, times);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other)
-		inline void add(const List<T>& other)
+		HL_INLINE void add(const List<T>& other)
 		{
 			this->push_back(other);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other, const int count)
-		inline void add(const List<T>& other, const int count)
+		HL_INLINE void add(const List<T>& other, const int count)
 		{
 			this->push_back(other, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other, const int start, const int count)
-		inline void add(const List<T>& other, const int start, const int count)
+		HL_INLINE void add(const List<T>& other, const int start, const int count)
 		{
 			this->push_back(other, start, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T other[], const int count)
-		inline void add(const T other[], const int count)
+		HL_INLINE void add(const T other[], const int count)
 		{
 			this->push_back(other, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T other[], const int start, const int count)
-		inline void add(const T other[], const int start, const int count)
+		HL_INLINE void add(const T other[], const int start, const int count)
 		{
 			this->push_back(other, start, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T& element)
-		inline void append(const T& element)
+		HL_INLINE void append(const T& element)
 		{
 			this->push_back(element);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T& element, int times)
-		inline void append(const T& element, int times)
+		HL_INLINE void append(const T& element, int times)
 		{
 			this->push_back(element, times);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other)
-		inline void append(const List<T>& other)
+		HL_INLINE void append(const List<T>& other)
 		{
 			this->push_back(other);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other, const int count)
-		inline void append(const List<T>& other, const int count)
+		HL_INLINE void append(const List<T>& other, const int count)
 		{
 			this->push_back(other, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other, const int start, const int count)
-		inline void append(const List<T>& other, const int start, const int count)
+		HL_INLINE void append(const List<T>& other, const int start, const int count)
 		{
 			this->push_back(other, start, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T other[], const int count)
-		inline void append(const T other[], const int count)
+		HL_INLINE void append(const T other[], const int count)
 		{
 			this->push_back(other, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T other[], const int start, const int count)
-		inline void append(const T other[], const int start, const int count)
+		HL_INLINE void append(const T other[], const int start, const int count)
 		{
 			this->push_back(other, start, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T& element).
-		inline void push_last(const T& element)
+		HL_INLINE void push_last(const T& element)
 		{
 			this->push_back(element);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T& element, int times).
-		inline void push_last(const T& element, int times)
+		HL_INLINE void push_last(const T& element, int times)
 		{
 			this->push_back(element, times);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other).
-		inline void push_last(const List<T>& other)
+		HL_INLINE void push_last(const List<T>& other)
 		{
 			this->push_back(other);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other, const int count).
-		inline void push_last(const List<T>& other, const int count)
+		HL_INLINE void push_last(const List<T>& other, const int count)
 		{
 			this->push_back(other, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other, const int start, const int count).
-		inline void push_last(const List<T>& other, const int start, const int count)
+		HL_INLINE void push_last(const List<T>& other, const int start, const int count)
 		{
 			this->push_back(other, start, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T other[], const int count).
-		inline void push_last(const T other[], const int count)
+		HL_INLINE void push_last(const T other[], const int count)
 		{
 			this->push_back(other, count);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T other[], const int start, const int count).
-		inline void push_last(const T other[], const int start, const int count)
+		HL_INLINE void push_last(const T other[], const int start, const int count)
 		{
 			this->push_back(other, start, count);
 		}
 		/// @brief Same as push_front.
 		/// @see push_front(const T& element, int times).
-		inline void push_first(const T& element, int times = 1)
+		HL_INLINE void push_first(const T& element, int times = 1)
 		{
 			this->push_front(element, times);
 		}
 		/// @brief Same as push_front.
 		/// @see push_front(const List<T>& other).
-		inline void push_first(const List<T>& other)
+		HL_INLINE void push_first(const List<T>& other)
 		{
 			this->push_front(other);
 		}
 		/// @brief Same as push_front.
 		/// @see push_front(const List<T>& other, const int count).
-		inline void push_first(const List<T>& other, const int count)
+		HL_INLINE void push_first(const List<T>& other, const int count)
 		{
 			this->push_front(other, count);
 		}
 		/// @brief Same as push_front.
 		/// @see push_front(const List<T>& other, const int start, const int count).
-		inline void push_first(const List<T>& other, const int start, const int count)
+		HL_INLINE void push_first(const List<T>& other, const int start, const int count)
 		{
 			this->push_front(other, start, count);
 		}
 		/// @brief Same as push_front.
 		/// @see push_front(const T other[], const int count).
-		inline void push_first(const T other[], const int count)
+		HL_INLINE void push_first(const T other[], const int count)
 		{
 			this->push_front(other, count);
 		}
 		/// @brief Same as push_front.
 		/// @see push_front(const T other[], const int start, const int count).
-		inline void push_first(const T other[], const int start, const int count)
+		HL_INLINE void push_first(const T other[], const int start, const int count)
 		{
 			this->push_front(other, start, count);
 		}
 		/// @brief Same as pop_front.
 		/// @see pop_front().
-		inline T pop_first()
+		HL_INLINE T pop_first()
 		{
 			return this->pop_front();
 		}
 		/// @brief Same as pop_front.
 		/// @see pop_front(const int count).
-		inline List<T> pop_first(const int count)
+		HL_INLINE List<T> pop_first(const int count)
 		{
 			return this->pop_front(count);
 		}
 		/// @brief Same as pop_back.
 		/// @see pop_back().
-		inline T pop_last()
+		HL_INLINE T pop_last()
 		{
 			return this->pop_back();
 		}
 		/// @brief Same as pop_back.
 		/// @see pop_back(const int count).
-		inline List<T> pop_last(const int count)
+		HL_INLINE List<T> pop_last(const int count)
 		{
 			return this->pop_back(count);
 		}
 		/// @brief Same as pop_front.
 		/// @see pop_front().
-		inline T remove_front()
+		HL_INLINE T remove_front()
 		{
 			return this->pop_front();
 		}
 		/// @brief Same as pop_front.
 		/// @see pop_front(const int count).
-		inline List<T> remove_front(const int count)
+		HL_INLINE List<T> remove_front(const int count)
 		{
 			return this->pop_front(count);
 		}
 		/// @brief Same as pop_back.
 		/// @see pop_back().
-		inline T remove_back()
+		HL_INLINE T remove_back()
 		{
 			return this->pop_back();
 		}
 		/// @brief Same as pop_back.
 		/// @see pop_back(const int count).
-		inline List<T> remove_back(const int count)
+		HL_INLINE List<T> remove_back(const int count)
 		{
 			return this->pop_back(count);
 		}
 		/// @brief Same as pop_front.
 		/// @see pop_front().
-		inline T remove_first()
+		HL_INLINE T remove_first()
 		{
 			return this->pop_front();
 		}
 		/// @brief Same as pop_front.
 		/// @see pop_front(const int count).
-		inline List<T> remove_first(const int count)
+		HL_INLINE List<T> remove_first(const int count)
 		{
 			return this->pop_front(count);
 		}
 		/// @brief Same as pop_back.
 		/// @see pop_back().
-		inline T remove_last()
+		HL_INLINE T remove_last()
 		{
 			return this->pop_back();
 		}
 		/// @brief Same as pop_back.
 		/// @see pop_back(const int count).
-		inline List<T> remove_last(const int count)
+		HL_INLINE List<T> remove_last(const int count)
 		{
 			return this->pop_back(count);
 		}
 		/// @brief Same as pop_random.
 		/// @see pop_random().
-		inline T remove_random()
+		HL_INLINE T remove_random()
 		{
 			return this->pop_random();
 		}
 		/// @brief Same as pop_random.
 		/// @see pop_random(const int count).
-		inline List<T> remove_random(const int count)
+		HL_INLINE List<T> remove_random(const int count)
 		{
 			return this->pop_random(count);
 		}
 		/// @brief Same as remove_at.
 		/// @see remove_at(const int index)
-		inline T pop(const int index)
+		HL_INLINE T pop(const int index)
 		{
 			return this->remove_at(index);
 		}
 		/// @brief Same as remove_at.
 		/// @see remove_at(const int index, const int count)
-		inline List<T> pop(const int index, const int count)
+		HL_INLINE List<T> pop(const int index, const int count)
 		{
 			return this->remove_at(index, count);
 		}
 		/// @brief Same as remove_at.
 		/// @see remove_at(const int index)
-		inline T pop_at(const int index)
+		HL_INLINE T pop_at(const int index)
 		{
 			return this->remove_at(index);
 		}
 		/// @brief Same as remove_at.
 		/// @see remove_at(const int index, const int count)
-		inline List<T> pop_at(const int index, const int count)
+		HL_INLINE List<T> pop_at(const int index, const int count)
 		{
 			return this->remove_at(index, count);
 		}
 		/// @brief Same as remove_all.
 		/// @see remove_all(T& element)
-		inline int pop_all(T& element)
+		HL_INLINE int pop_all(T& element)
 		{
 			return this->remove_all(element);
 		}
 		/// @brief Same as remove_all.
 		/// @see remove_all(const List<T>& other)
-		inline int pop_all(const List<T>& other)
+		HL_INLINE int pop_all(const List<T>& other)
 		{
 			return this->remove_all(other);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T& element)
-		inline List<T>& operator<<(const T& element)
+		HL_INLINE List<T>& operator<<(const T& element)
 		{
 			this->push_back(element);
 			return (*this);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other)
-		inline List<T>& operator<<(const List<T>& other)
+		HL_INLINE List<T>& operator<<(const List<T>& other)
 		{
 			this->push_back(other);
 			return (*this);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const T& element)
-		inline List<T>& operator+=(const T& element)
+		HL_INLINE List<T>& operator+=(const T& element)
 		{
 			this->push_back(element);
 			return (*this);
 		}
 		/// @brief Same as push_back.
 		/// @see push_back(const List<T>& other)
-		inline List<T>& operator+=(const List<T>& other)
+		HL_INLINE List<T>& operator+=(const List<T>& other)
 		{
 			this->push_back(other);
 			return (*this);
 		}
 		/// @brief Same as remove.
 		/// @see remove(T element)
-		inline List<T>& operator-=(T element)
+		HL_INLINE List<T>& operator-=(T element)
 		{
 			this->remove(element);
 			return (*this);
 		}
 		/// @brief Same as remove.
 		/// @see remove(const List<T>& other)
-		inline List<T>& operator-=(const List<T>& other)
+		HL_INLINE List<T>& operator-=(const List<T>& other)
 		{
 			this->remove(other);
 			return (*this);
 		}
 		/// @brief Same as unite.
 		/// @see unite(const T& element)
-		inline List<T>& operator|=(const T& element)
+		HL_INLINE List<T>& operator|=(const T& element)
 		{
 			this->unite(element);
 			return (*this);
 		}
 		/// @brief Same as unite.
 		/// @see unite(const List<T>& other)
-		inline List<T>& operator|=(const List<T>& other)
+		HL_INLINE List<T>& operator|=(const List<T>& other)
 		{
 			this->unite(other);
 			return (*this);
 		}
 		/// @brief Same as intersect.
 		/// @see intersect(const List<T>& other)
-		inline List<T>& operator&=(const List<T>& other)
+		HL_INLINE List<T>& operator&=(const List<T>& other)
 		{
 			this->intersect(other);
 			return (*this);
 		}
 		/// @brief Same as differentiate.
 		/// @see differentiate(const T& element)
-		inline List<T>& operator/=(const T& element)
+		HL_INLINE List<T>& operator/=(const T& element)
 		{
 			this->differentiate(element);
 			return (*this);
 		}
 		/// @brief Same as differentiate.
 		/// @see differentiate(const List<T>& other)
-		inline List<T>& operator/=(const List<T>& other)
+		HL_INLINE List<T>& operator/=(const List<T>& other)
 		{
 			this->differentiate(other);
 			return (*this);
@@ -1429,7 +1429,7 @@ namespace hltypes
 		/// @brief Merges a List with an element.
 		/// @param[in] element Element to merge with.
 		/// @return New List with element added at the end of List.
-		inline List<T> operator+(const T& element) const
+		HL_INLINE List<T> operator+(const T& element) const
 		{
 			List<T> result(*this);
 			result += element;
@@ -1438,7 +1438,7 @@ namespace hltypes
 		/// @brief Merges two Lists.
 		/// @param[in] other Second List to merge with.
 		/// @return New List with elements of second List added at the end of first List.
-		inline List<T> operator+(const List<T>& other) const
+		HL_INLINE List<T> operator+(const List<T>& other) const
 		{
 			List<T> result(*this);
 			result += other;
@@ -1447,7 +1447,7 @@ namespace hltypes
 		/// @brief Removes element from List.
 		/// @param[in] element Element to remove.
 		/// @return New List with elements of first List without given element.
-		inline List<T> operator-(T element) const
+		HL_INLINE List<T> operator-(T element) const
 		{
 			List<T> result(*this);
 			result -= element;
@@ -1456,7 +1456,7 @@ namespace hltypes
 		/// @brief Removes second List from first List.
 		/// @param[in] other List to remove.
 		/// @return New List with elements of first List without the elements of second List.
-		inline List<T> operator-(const List<T>& other) const
+		HL_INLINE List<T> operator-(const List<T>& other) const
 		{
 			List<T> result(*this);
 			result -= other;
@@ -1464,31 +1464,31 @@ namespace hltypes
 		}
 		/// @brief Same as united.
 		/// @see united(const T& element)
-		inline List<T> operator|(const T& element) const
+		HL_INLINE List<T> operator|(const T& element) const
 		{
 			return this->united(element);
 		}
 		/// @brief Same as united.
 		/// @see united(const List<T>& other)
-		inline List<T> operator|(const List<T>& other) const
+		HL_INLINE List<T> operator|(const List<T>& other) const
 		{
 			return this->united(other);
 		}
 		/// @brief Same as intersected.
 		/// @see intersected(const List<T>& other)
-		inline List<T> operator&(const List<T>& other) const
+		HL_INLINE List<T> operator&(const List<T>& other) const
 		{
 			return this->intersected(other);
 		}
 		/// @brief Same as differentiated.
 		/// @see differentiated(const T& element)
-		inline List<T> operator/(const T& element) const
+		HL_INLINE List<T> operator/(const T& element) const
 		{
 			return this->differentiated(element);
 		}
 		/// @brief Same as differentiated.
 		/// @see differentiated(const List<T>& other)
-		inline List<T> operator/(const List<T>& other) const
+		HL_INLINE List<T> operator/(const List<T>& other) const
 		{
 			return this->differentiated(other);
 		}
@@ -1498,7 +1498,7 @@ namespace hltypes
 		/// @param[in] it Current const iterator.
 		/// @param[in] count Number of elements to move.
 		/// @return Moved const iterator.
-		inline const_iterator_t _const_iterator_plus(const_iterator_t it, int count) const
+		HL_INLINE const_iterator_t _const_iterator_plus(const_iterator_t it, int count) const
 		{
 			for_iter (i, 0, count)
 			{
@@ -1515,7 +1515,7 @@ namespace hltypes
 		/// @param[in] it Current iterator.
 		/// @param[in] count Number of elements to move.
 		/// @return Moved iterator.
-		inline iterator_t _iterator_plus(iterator_t it, int count)
+		HL_INLINE iterator_t _iterator_plus(iterator_t it, int count)
 		{
 			for_iter (i, 0, count)
 			{
