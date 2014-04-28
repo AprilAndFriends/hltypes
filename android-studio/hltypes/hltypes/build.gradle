@@ -31,18 +31,3 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }
-
-task buildNative(type: Exec) {
-    if (System.env.ANDROID_NDK != null) {
-        def ndkBuild = new File(System.env.ANDROID_NDK, 'ndk-build')
-        workingDir "../../src"
-        executable ndkBuild
-    } else {
-        doLast {
-            println '##################'
-            println 'Skipping NDK build'
-            println 'Reason: ANDROID_NDK not set.'
-            println '##################'
-        }
-    }
-}
