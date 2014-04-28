@@ -1,0 +1,48 @@
+apply plugin: 'android-library'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion '19.0.3'
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 19
+        versionCode 2310
+        versionName "2.3.1"
+        ndk {
+            moduleName "hltypes"
+        }
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    sourceSets {
+        main {
+            jni {
+                srcDirs = []
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+}
+
+task buildNative(type: Exec) {
+    if (System.env.ANDROID_NDK != null) {
+        def ndkBuild = new File(System.env.ANDROID_NDK, 'ndk-build')
+        workingDir "../../src"
+        executable ndkBuild
+    } else {
+        doLast {
+            println '##################'
+            println 'Skipping NDK build'
+            println 'Reason: ANDROID_NDK not set.'
+            println '##################'
+        }
+    }
+}
