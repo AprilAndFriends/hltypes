@@ -27,9 +27,7 @@ namespace hltypes
 {
 	template <class T> class Array;
 	/// @brief Provides high level file handling.
-	/// @author Kresimir Spes
-	/// @author Boris Mikic
-	/// @author Ivan Vucica
+	/// @note When writing, \\r may be used, but \\r will be removed during read.
 	class hltypesExport File : public FileBase
 	{
 	public:
