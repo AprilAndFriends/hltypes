@@ -1,6 +1,7 @@
 apply plugin: 'android-library'
 
 android {
+    target = 'android-9'
     compileSdkVersion 19
     buildToolsVersion '19.0.3'
 
@@ -11,6 +12,7 @@ android {
         versionName "2.3.1"
         ndk {
             moduleName "hltypes"
+            cFlags "-I../../../../include/hltypes"
         }
     }
     buildTypes {
@@ -22,7 +24,8 @@ android {
     sourceSets {
         main {
             jni {
-                srcDirs = []
+                //srcDirs = ["../../../../src", "../../../../include/hltypes"]
+                srcDirs = ["src/main/jni"]
             }
         }
     }
@@ -31,3 +34,116 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }
+
+//////////////
+// NDK Support
+//////////////
+// If using this, Android studio will fail run the following to set the environment variable for android studio:
+// launchctl setenv ANDROID_NDK_HOME /Users/boos_patrick/Development/Android/android-ndk-r8e
+// otherwise remove the dependsOn part and run ./gradlew buildNative from the command line
+
+//task copyNativeLibs(type: Copy, dependsOn: 'buildNative') {
+//    dependsOn 'buildNative'
+//    from(new File('libs')) { include '**/*.so' }
+//    into new File(buildDir, 'native-libs')
+//}
+/*
+
+tasks.withType(Compile) { compileTask -> compileTask.dependsOn copyNativeLibs }
+
+clean.dependsOn 'cleanCopyNativeLibs'
+
+tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
+    pkgTask.jniFolders = new HashSet<File>()
+    pkgTask.jniFolders.add(new File(buildDir, 'native-libs'))
+}
+
+task buildNative(type: Exec) {
+    if (System.env.ANDROID_NDK_HOME != null) {
+        def ndkBuild = new File(System.env.ANDROID_NDK_HOME, 'ndk-build')
+        //workingDir "src/main/jni"
+        commandLine ndkBuild
+    } else {
+        doLast {
+            println '##################'
+            println 'Skipping NDK build'
+            println 'Reason: ANDROID_NDK_HOME not set.'
+            println '##################'
+        }
+    }
+}
+*/
+
+
+
+
+//////////////
+// NDK Support
+//////////////
+// If using this, Android studio will fail run the following to set the environment variable for android studio:
+// export ANDROID_NDK_HOME=/Android/android-ndk-r8e (Linux)
+// launchctl setenv ANDROID_NDK_HOME /Android/android-ndk-r8e (Mac)
+// or, better, add the export to the .profile of your user home and re-login
+//task copyNativeLibs(type: Copy, dependsOn: 'buildNative') {
+//    from(new File('src/main/libs')) { include '**/*.so' }
+//    into new File(buildDir, 'native-libs')
+//}
+/*
+tasks.withType(JavaCompile) { compileTask -> compileTask.dependsOn copyNativeLibs }
+clean.dependsOn 'cleanCopyNativeLibs'
+tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
+    pkgTask.jniFolders = new HashSet<File>()
+    pkgTask.jniFolders.add(new File(projectDir, 'native-libs'))
+}
+task buildNative(type: Exec) {
+    def ndkBuild;
+    def ndkBuildingDir = new File("src/main");
+//    def ndkSourcesDir = new File(ndkBuildingDir, "jni")
+//    def ndkOutputDir = new File(buildDir, 'native-libs')
+    def hasNdk = false;
+    if (System.env.ANDROID_NDK_HOME != null) {
+        hasNdk = true;
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            ndkBuild = new File(System.env.ANDROID_NDK_HOME, 'ndk-build.cmd')
+        } else {
+            ndkBuild = new File(System.env.ANDROID_NDK_HOME, 'ndk-build')
+        }
+    }
+//    inputs.files fileTree(ndkSourcesDir)
+//    outputs.dir ndkOutputDir
+    commandLine ndkBuild, "--directory", ndkBuildingDir
+    doFirst {
+        if (!hasNdk) {
+            logger.error('##################')
+            logger.error("Failed NDK build")
+            logger.error('Reason: Reason: ANDROID_NDK_HOME not set.')
+            logger.error('##################')
+        }
+        assert hasNdk : "ANDROID_NDK_HOME not set."
+    }
+}
+task cleanNative(type: Exec) {
+    def ndkBuild;
+    def ndkBuildingDir = new File("src/main");
+    def hasNdk = false;
+    if (System.env.ANDROID_NDK_HOME != null) {
+        hasNdk = true;
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            ndkBuild = new File(System.env.ANDROID_NDK_HOME, 'ndk-build.cmd')
+        } else {
+            ndkBuild = new File(System.env.ANDROID_NDK_HOME, 'ndk-build')
+        }
+    }
+    commandLine ndkBuild, "--directory", ndkBuildingDir, "clean"
+    doFirst {
+        if (!hasNdk) {
+            logger.error('##################')
+            logger.error("Failed NDK build")
+            logger.error('Reason: Reason: ANDROID_NDK_HOME not set.')
+            logger.error('##################')
+        }
+        assert hasNdk : "ANDROID_NDK_HOME not set."
+    }
+}
+clean.dependsOn 'cleanNative'
+*/
