@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.3
+/// @version 2.32
 /// 
 /// @section LICENSE
 /// 
@@ -79,8 +79,11 @@ namespace hltypes
 		/// @brief Sets the resource archive's filename.
 		/// @param[in] value New value.
 		static void setArchive(const String& value);
-		/// @brief Gets the resource archive's filename.
-		/// @return Resource archive's filename.
+		/// @brief Checks if the archive is an actual ZIP archive.
+		/// @return True if the archive is an actual ZIP archive.
+		static inline bool isZipArchive() { return zipArchive; }
+		/// @brief Checks if compiled with ZIP support.
+		/// @return True if compiled with ZIP support.
 		static bool hasZip();
 
 	protected:
@@ -93,6 +96,8 @@ namespace hltypes
 		static String cwd;
 		/// @brief Defines the resource archive's filename.
 		static String archive;
+		/// @brief Defines whether the archive is set to an actual file.
+		static bool zipArchive;
 
 		/// @brief Updates internal data size.
 		void _update_data_size();

@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.3
+/// @version 2.32
 /// 
 /// @section LICENSE
 /// 
@@ -27,6 +27,7 @@ namespace hltypes
 	static unsigned char _read_buffer[READ_BUFFER_SIZE] = {0};
 #endif
 	String Resource::archive = "";
+	bool Resource::zipArchive = false;
 
 	void Resource::setArchive(const String& value)
 	{
@@ -39,6 +40,18 @@ namespace hltypes
 		zip::setArchive(value);
 #endif
 		archive = value;
+#ifdef _ZIPRESOURCE
+		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
+		if (a != NULL)
+		{
+			zipArchive = true;
+			zip::close(NULL, a);
+		}
+		else
+		{
+			zipArchive = false;
+		}
+#endif
 	}
 
 	Resource::Resource(const String& filename) : FileBase(filename), data_position(0), archivefile(NULL)
@@ -60,94 +73,111 @@ namespace hltypes
 	
 	void Resource::open(const String& filename)
 	{
-#ifndef _ZIPRESOURCE
-		this->_fopen(Resource::make_full_path(filename), READ, 0, FileBase::repeats, FileBase::timeout);
-#else
-		if (this->is_open())
+#ifdef _ZIPRESOURCE
+		if (Resource::zipArchive)
 		{
-			this->close();
-		}
-		this->filename = Dir::normalize(filename);
-		this->encryption_offset = 0;
-		int attempts = Resource::repeats + 1;
-		while (true)
-		{
-			this->archivefile = zip::open(this);
-			if (this->archivefile != NULL)
+			if (this->is_open())
 			{
-				this->cfile = zip::fopen(this->archivefile, Resource::make_full_path(this->filename));
-				if (this->cfile != NULL)
+				this->close();
+			}
+			this->filename = Dir::normalize(filename);
+			this->encryption_offset = 0;
+			int attempts = Resource::repeats + 1;
+			while (true)
+			{
+				this->archivefile = zip::open(this);
+				if (this->archivefile != NULL)
+				{
+					this->cfile = zip::fopen(this->archivefile, Resource::make_full_path(this->filename));
+					if (this->cfile != NULL)
+					{
+						break;
+					}
+					// file wasn't found so let's rather close the archive
+					zip::close(this, this->archivefile);
+					this->archivefile = NULL;
+				}
+				--attempts;
+				if (attempts <= 0)
 				{
 					break;
 				}
-				// file wasn't found so let's rather close the archive
-				zip::close(this, this->archivefile);
-				this->archivefile = NULL;
+				Thread::sleep(Resource::timeout);
 			}
-			--attempts;
-			if (attempts <= 0)
+			if (this->archivefile == NULL)
 			{
-				break;
+				throw resource_not_found(this->_descriptor());
 			}
-			Thread::sleep(Resource::timeout);
+			if (this->cfile == NULL)
+			{
+				throw resource_not_found(this->_descriptor());
+			}
+			this->_update_data_size();
 		}
-		if (this->archivefile == NULL)
-		{
-			throw resource_not_found(this->_descriptor());
-		}
-		if (this->cfile == NULL)
-		{
-			throw resource_not_found(this->_descriptor());
-		}
-		this->_update_data_size();
+		else
 #endif
+		{
+			this->_fopen(Resource::make_full_path(filename), READ, 0, FileBase::repeats, FileBase::timeout);
+		}
 	}
 	
 	void Resource::close()
 	{
-#ifndef _ZIPRESOURCE
-		this->_fclose();
-#else
-		this->_check_availability();
-		zip::fclose(this->cfile);
-		this->cfile = NULL;
-		zip::close(this, this->archivefile);
-		this->archivefile = NULL;
-		this->data_size = 0;
+#ifdef _ZIPRESOURCE
+		if (Resource::zipArchive)
+		{
+			this->_check_availability();
+			zip::fclose(this->cfile);
+			this->cfile = NULL;
+			zip::close(this, this->archivefile);
+			this->archivefile = NULL;
+			this->data_size = 0;
+		}
+		else
 #endif
+		{
+			this->_fclose();
+		}
 		this->data_position = 0;
 	}
 	
 	bool Resource::hasZip()
 	{
-#ifndef _ZIPRESOURCE
-		return false;
-#else
+#ifdef _ZIPRESOURCE
 		return true;
+#else
+		return false;
 #endif
 	}
 
 	void Resource::_update_data_size()
 	{
-#ifndef _ZIPRESOURCE
-		long position = this->_position();
-		this->_fseek(0, END);
-		this->data_size = this->_position();
-		this->_fseek(position, START);
-#else
-		this->data_size = zip::fsize(this->archivefile, this->filename);
+#ifdef _ZIPRESOURCE
+		if (Resource::zipArchive)
+		{
+			this->data_size = zip::fsize(this->archivefile, this->filename);
+		}
+		else
 #endif
+		{
+			long position = this->_position();
+			this->_fseek(0, END);
+			this->data_size = this->_position();
+			this->_fseek(position, START);
+		}
 	}
 
 	long Resource::_read(void* buffer, int size, int count)
 	{
-#ifndef _ZIPRESOURCE
-		return this->_fread(buffer, size, count);
-#else
-		int read_count = size * count;
-		this->data_position += read_count;
-		return zip::fread(this->cfile, buffer, read_count);
+#ifdef _ZIPRESOURCE
+		if (Resource::zipArchive)
+		{
+			int read_count = size * count;
+			this->data_position += read_count;
+			return zip::fread(this->cfile, buffer, read_count);
+		}
 #endif
+		return this->_fread(buffer, size, count);
 	}
 	
 	long Resource::_write(const void* buffer, int size, int count)
@@ -157,104 +187,115 @@ namespace hltypes
 
 	bool Resource::_is_open()
 	{
-#ifndef _ZIPRESOURCE
-		return this->_fis_open();
-#else
-		return (this->archivefile != NULL && this->cfile != NULL);
+#ifdef _ZIPRESOURCE
+		if (Resource::zipArchive)
+		{
+			return (this->archivefile != NULL && this->cfile != NULL);
+		}
 #endif
+		return this->_fis_open();
 	}
 	
 	long Resource::_position()
 	{
-#ifndef _ZIPRESOURCE
-		return this->_fposition();
-#else
-		return this->data_position;
+#ifdef _ZIPRESOURCE
+		if (Resource::zipArchive)
+		{
+			return this->data_position;
+		}
 #endif
+		return this->_fposition();
 	}
 	
 	void Resource::_seek(long offset, SeekMode seek_mode)
 	{
-#ifndef _ZIPRESOURCE
-		this->_fseek(offset, seek_mode);
-#else
-		// zip can only read forward and doesn't really have seeking
-		long target = offset;
-		switch (seek_mode)
+#ifdef _ZIPRESOURCE
+		if (Resource::zipArchive)
 		{
-		case CURRENT:
-			target = offset + this->data_position;
-			break;
-		case START:
-			target = offset;
-			break;
-		case END:
-			target = this->data_size + offset;
-			break;
-		}
-		if (target >= this->data_position)
-		{
-			target -= this->data_position;
+			// zip can only read forward and doesn't really have seeking
+			long target = offset;
+			switch (seek_mode)
+			{
+			case CURRENT:
+				target = offset + this->data_position;
+				break;
+			case START:
+				target = offset;
+				break;
+			case END:
+				target = this->data_size + offset;
+				break;
+			}
+			if (target >= this->data_position)
+			{
+				target -= this->data_position;
+			}
+			else
+			{
+				// reopening the file as the target position was already passed
+				this->cfile = zip::freopen(this->cfile, this->archivefile, Resource::make_full_path(this->filename));
+				this->data_position = 0;
+			}
+			if (target > 0)
+			{
+				// seeking in a compressed stream is not possible so the data has to be read and then discarded
+				// the buffer can be static, because this data isn't used so there will be no threading problems
+				unsigned char* buffer = _read_buffer;
+				if (target > READ_BUFFER_SIZE)
+				{
+					buffer = new unsigned char[target];
+				}
+				this->_read(buffer, 1, target);
+				if (target > READ_BUFFER_SIZE)
+				{
+					delete [] buffer;
+				}
+			}
 		}
 		else
-		{
-			// reopening the file as the target position was already passed
-			this->cfile = zip::freopen(this->cfile, this->archivefile, Resource::make_full_path(this->filename));
-			this->data_position = 0;
-		}
-		if (target > 0)
-		{
-			// seeking in a compressed stream is not possible so the data has to be read and then discarded
-			// the buffer can be static, because this data isn't used so there will be no threading problems
-			unsigned char* buffer = _read_buffer;
-			if (target > READ_BUFFER_SIZE)
-			{
-				buffer = new unsigned char[target];
-			}
-			this->_read(buffer, 1, target);
-			if (target > READ_BUFFER_SIZE)
-			{
-				delete [] buffer;
-			}
-		}
 #endif
+		{
+			this->_fseek(offset, seek_mode);
+		}
 	}
 	
 	bool Resource::exists(const String& filename, bool case_sensitive)
 	{
-#ifndef _ZIPRESOURCE
-		return FileBase::_fexists(Resource::make_full_path(filename), case_sensitive);
-#else
-		bool result = false;
-		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
-		if (a != NULL)
+#ifdef _ZIPRESOURCE
+		if (Resource::zipArchive)
 		{
-			void* f = zip::fopen(a, Resource::make_full_path(filename));
-			if (f != NULL)
+			bool result = false;
+			void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
+			if (a != NULL)
 			{
-				zip::fclose(f);
-				result = true;
-			}
-			if (!result && !case_sensitive)
-			{
-				hstr name = filename;
-				hstr basedir = ResourceDir::basedir(name);
-				hstr basename = ResourceDir::basename(name);
-				Array<String> files = ResourceDir::files(basedir);
-				foreach (String, it, files)
+				void* f = zip::fopen(a, Resource::make_full_path(filename));
+				if (f != NULL)
 				{
-					if ((*it).lower() == basename.lower())
+					zip::fclose(f);
+					result = true;
+				}
+				if (!result && !case_sensitive)
+				{
+					hstr name = filename;
+					hstr basedir = ResourceDir::basedir(name);
+					hstr basename = ResourceDir::basename(name);
+					Array<String> files = ResourceDir::files(basedir);
+					foreach (String, it, files)
 					{
-						name = ResourceDir::join_path(basedir, (*it));
-						result = true;
-						break;
+						if ((*it).lower() == basename.lower())
+						{
+							name = ResourceDir::join_path(basedir, (*it));
+							result = true;
+							break;
+						}
 					}
 				}
+				zip::close(NULL, a);
 			}
-			zip::close(NULL, a);
+			return result;
 		}
-		return result;
 #endif
+		return FileBase::_fexists(Resource::make_full_path(filename), case_sensitive);
 	}
 	
 	long Resource::hsize(const String& filename)
@@ -274,22 +315,24 @@ namespace hltypes
 
 	FileInfo Resource::get_info(const String& filename)
 	{
-#ifndef _ZIPRESOURCE
-		return File::get_info(Resource::make_full_path(filename));
-#else
-		FileInfo info;
-		bool result = false;
-		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
-		if (a != NULL)
+#ifdef _ZIPRESOURCE
+		if (Resource::zipArchive)
 		{
-			info = zip::finfo(a, Resource::make_full_path(filename));
-			zip::close(NULL, a);
-			FileInfo archive = File::get_info(Resource::archive);
-			info.creation_time = archive.creation_time;
-			info.access_time = archive.access_time;
+			FileInfo info;
+			bool result = false;
+			void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
+			if (a != NULL)
+			{
+				info = zip::finfo(a, Resource::make_full_path(filename));
+				zip::close(NULL, a);
+				FileInfo archive = File::get_info(Resource::archive);
+				info.creation_time = archive.creation_time;
+				info.access_time = archive.access_time;
+			}
+			return info;
 		}
-		return info;
 #endif
+		return File::get_info(Resource::make_full_path(filename));
 	}
 
 	String Resource::make_full_path(const String& filename)
