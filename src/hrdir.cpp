@@ -116,8 +116,8 @@ namespace hltypes
 			}
 		}
 		else
-		{
 #endif
+		{
 			result = ResourceDir::_remove_cwd(Dir::directories(name, false)).removed_duplicates();
 		}
 		if (prepend_dir)
