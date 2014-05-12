@@ -70,16 +70,10 @@ namespace hltypes
 	Array<String> ResourceDir::contents(const String& dirname, bool prepend_dir)
 	{
 		Array<String> result;
-#ifdef _ZIPRESOURCE
-		if (Resource::isZipArchive())
+		result = ResourceDir::directories(dirname, false) + ResourceDir::files(dirname, false);
+		if (!Resource::isZipArchive())
 		{
-			result = ResourceDir::directories(dirname, false) + ResourceDir::files(dirname, false);
-		}
-		else
-#endif
-		{
-			String name = Resource::make_full_path(dirname);
-			result = ResourceDir::_remove_cwd(Dir::directories(name, false) + Dir::files(name, false)).removed_duplicates();
+			result.remove_duplicates();
 		}
 		if (prepend_dir)
 		{
@@ -205,6 +199,17 @@ namespace hltypes
 	Array<String> ResourceDir::_remove_cwd(Array<String> paths)
 	{
 		String cwd = Resource::getCwd() + "/";
+		if (!Resource::isZipArchive())
+		{
+			if (cwd != "/" && cwd != "./")
+			{
+				cwd = Resource::getArchive() + "/" + cwd;
+			}
+			else
+			{
+				cwd = Resource::getArchive();
+			}
+		}
 		if (cwd != "/" && cwd != "./")
 		{
 			for_iter (i, 0, paths.size())
