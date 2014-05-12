@@ -338,7 +338,7 @@ namespace hltypes
 	String Resource::make_full_path(const String& filename)
 	{
 		String path = hdir::join_path(Resource::cwd, filename);
-		if (!Resource::zipArchive)
+		if (!Resource::zipArchive && Resource::archive != "" && Resource::archive != ".")
 		{
 			path = hdir::join_path(Resource::archive, path);
 		}
