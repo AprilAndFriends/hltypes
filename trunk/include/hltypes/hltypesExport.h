@@ -31,6 +31,10 @@
 				#define hltypesExport __declspec(dllimport)
 				#define hltypesFnExport __declspec(dllimport)
 			#endif
+			#ifdef _WINRT
+				#define hltypesSpecialExport
+				#define hltypesMemberExport hltypesExport
+			#endif
 		#else
 			#define hltypesExport __attribute__ ((visibility("default")))
 			#define hltypesFnExport __attribute__ ((visibility("default")))
@@ -42,6 +46,10 @@
 		#else
 			#define DEPRECATED_ATTRIBUTE __attribute__((deprecated))
 		#endif
+	#endif
+	#ifndef hltypesSpecialExport
+		#define hltypesSpecialExport hltypesExport
+		#define hltypesMemberExport
 	#endif
 
 #endif
