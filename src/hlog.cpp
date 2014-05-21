@@ -230,6 +230,7 @@ namespace hltypes
 			return;
 		}
 		hfile file;
+		hstr filename;
 		if (clearFile)
 		{
 			file.open(Log::filename, File::WRITE);
@@ -240,7 +241,15 @@ namespace hltypes
 		}
 		for_iter (i, 0, fileIndex + 1)
 		{
-			file.write(hfile::hread(_get_file_name(Log::filename, i)));
+			filename = _get_file_name(Log::filename, i);
+			if (hfile::exists(filename))
+			{
+				file.write(hfile::hread(filename));
+			}
+			else
+			{
+				file.write("\n[ERROR]\n\nLog segment file '" + filename + "' not found!!\n\n[-----]\n\n");
+			}
 		}
 		file.close(); // to flush everything
 		hdir::remove(Log::filename + ".hlog");
