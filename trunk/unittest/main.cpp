@@ -1,5 +1,4 @@
 /// @file
-/// @author  Kresimir Spes
 /// @version 1.0
 /// 
 /// @section LICENSE

@@ -1,8 +1,4 @@
 /// @file
-/// @author  Kresimir Spes
-/// @author  Boris Mikic
-/// @author  Ivan Vucica
-/// @author  Domagoj Cerjan
 /// @version 2.3
 /// 
 /// @section LICENSE
