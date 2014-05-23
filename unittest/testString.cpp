@@ -1,7 +1,4 @@
 /// @file
-/// @author  Kresimir Spes
-/// @author  Boris Mikic
-/// @author  Domagoj Cerjan
 /// @version 1.0
 /// 
 /// @section LICENSE
