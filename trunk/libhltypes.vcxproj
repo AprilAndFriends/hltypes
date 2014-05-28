@@ -247,5 +247,15 @@
     <ClInclude Include="include\hltypes\hplatform.h" />
     <ClInclude Include="src\zipaccess.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="lib\zip\libzip.vcxproj">
+      <Project>{c21e5b3f-f2ef-4f4a-8f30-00a2da05f3d9}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
