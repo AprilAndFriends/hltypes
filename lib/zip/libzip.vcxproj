@@ -87,6 +87,16 @@
     <ClInclude Include="zip.h" />
     <ClInclude Include="zipint.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\zlib\contrib\vstudio11\zlib\zlib.vcxproj">
+      <Project>{60f89955-91c6-3a36-8000-13c592fec2df}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C21E5B3F-F2EF-4F4A-8F30-00A2DA05F3D9}</ProjectGuid>
     <RootNamespace>gtypes</RootNamespace>
