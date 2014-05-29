@@ -58,14 +58,14 @@
     <ClInclude Include="include\hlxml\Property.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="xmlsystems\TinyXml\TinyXml_Document.h">
-      <Filter>Header Files\TinyXml</Filter>
+    <ClInclude Include="src\xmlsystems\TinyXml\TinyXml_Document.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="xmlsystems\TinyXml\TinyXml_Node.h">
-      <Filter>Header Files\TinyXml</Filter>
+    <ClInclude Include="src\xmlsystems\TinyXml\TinyXml_Node.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="xmlsystems\TinyXml\TinyXml_Property.h">
-      <Filter>Header Files\TinyXml</Filter>
+    <ClInclude Include="src\xmlsystems\TinyXml\TinyXml_Property.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
