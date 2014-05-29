@@ -321,6 +321,7 @@
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/../../tinyxml",
 					"${SRCROOT}/../include",
+					"${SRCROOT}/../lib/tinyxml",
 				);
 				PRODUCT_NAME = hlxml;
 			};
@@ -355,6 +356,7 @@
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/../../tinyxml",
 					"${SRCROOT}/../include",
+					"${SRCROOT}/../lib/tinyxml",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = hlxml;
@@ -391,6 +393,7 @@
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/../../tinyxml",
 					"${SRCROOT}/../include",
+					"${SRCROOT}/../lib/tinyxml",
 				);
 				PRODUCT_NAME = hlxml;
 			};
