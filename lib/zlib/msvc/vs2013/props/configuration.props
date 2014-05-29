@@ -6,9 +6,9 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <CompileAs>CompileAsC</CompileAs>
       <StringPooling>true</StringPooling>
       <FloatingPointExceptions>false</FloatingPointExceptions>
+      <CompileAs>CompileAsC</CompileAs>
     </ClCompile>
     <Link>
       <ModuleDefinitionFile>../../win32/zlib.def</ModuleDefinitionFile>
