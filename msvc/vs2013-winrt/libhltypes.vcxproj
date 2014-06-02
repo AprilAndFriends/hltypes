@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugS|Win32">
+      <Configuration>DebugS</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseS|Win32">
+      <Configuration>ReleaseS</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugS|ARM">
+      <Configuration>DebugS</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseS|ARM">
+      <Configuration>ReleaseS</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E4D373BF-E227-48B9-99E6-84987E8674EC}</ProjectGuid>
+    <RootNamespace>hltypes</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <ApplicationType>Windows Store</ApplicationType>
+    <ApplicationTypeRevision>8.1</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="props\default.props" />
+  <Import Project="props-generic\platform-$(Platform).props" />
+  <Import Project="props-generic\configurations.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="props-generic\build-defaults.props" />
+  <Import Project="props\configuration.props" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <CompileAsWinRT>true</CompileAsWinRT>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\exception.cpp" />
+    <ClCompile Include="..\..\src\hdbase.cpp" />
+    <ClCompile Include="..\..\src\hdir.cpp" />
+    <ClCompile Include="..\..\src\hfbase.cpp" />
+    <ClCompile Include="..\..\src\hlog.cpp" />
+    <ClCompile Include="..\..\src\hrdir.cpp" />
+    <ClCompile Include="..\..\src\hresource.cpp" />
+    <ClCompile Include="..\..\src\hsbase.cpp" />
+    <ClCompile Include="..\..\src\hfile.cpp" />
+    <ClCompile Include="..\..\src\hstream.cpp" />
+    <ClCompile Include="..\..\src\hmutex.cpp" />
+    <ClCompile Include="..\..\src\hstring.cpp" />
+    <ClCompile Include="..\..\src\hthread.cpp" />
+    <ClCompile Include="..\..\src\hltypesUtil.cpp" />
+    <ClCompile Include="..\..\src\platform\Win32_platform.cpp" />
+    <ClCompile Include="..\..\src\platform\WinRT_platform.cpp" />
+    <ClCompile Include="..\..\src\zipaccess.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\hltypes\exception.h" />
+    <ClInclude Include="..\..\include\hltypes\harray.h" />
+    <ClInclude Include="..\..\include\hltypes\hdbase.h" />
+    <ClInclude Include="..\..\include\hltypes\hdeque.h" />
+    <ClInclude Include="..\..\include\hltypes\hdir.h" />
+    <ClInclude Include="..\..\include\hltypes\hfbase.h" />
+    <ClInclude Include="..\..\include\hltypes\hlog.h" />
+    <ClInclude Include="..\..\include\hltypes\hrdir.h" />
+    <ClInclude Include="..\..\include\hltypes\hresource.h" />
+    <ClInclude Include="..\..\include\hltypes\hsbase.h" />
+    <ClInclude Include="..\..\include\hltypes\hfile.h" />
+    <ClInclude Include="..\..\include\hltypes\hstream.h" />
+    <ClInclude Include="..\..\include\hltypes\hlist.h" />
+    <ClInclude Include="..\..\include\hltypes\hltypesExport.h" />
+    <ClInclude Include="..\..\include\hltypes\hmap.h" />
+    <ClInclude Include="..\..\include\hltypes\hmutex.h" />
+    <ClInclude Include="..\..\include\hltypes\hstring.h" />
+    <ClInclude Include="..\..\include\hltypes\hthread.h" />
+    <ClInclude Include="..\..\include\hltypes\hltypesUtil.h" />
+    <ClInclude Include="..\..\include\hltypes\hplatform.h" />
+    <ClInclude Include="..\..\src\zipaccess.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\fileproperties.rc">
+      <ExcludedFromBuild Condition="'$(ConfigurationType)'=='StaticLibrary'">true</ExcludedFromBuild>
+    </ResourceCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
