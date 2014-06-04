@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_ZipResource' or
+                                  '$(Configuration)'=='DebugS_ZipResource' or
+                                  '$(Configuration)'=='Release_ZipResource' or
+                                  '$(Configuration)'=='ReleaseS_ZipResource'">
+    <ClCompile>
+      <PreprocessorDefinitions>_ZIPRESOURCE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link Condition="'$(Platform)'=='Win32'">
+      <AdditionalDependencies>libzip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86'">
+      <AdditionalDependencies>-lzip;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>
