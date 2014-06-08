@@ -47,6 +47,10 @@
 #define O_BINARY 0
 #endif
 
+#ifndef _WIN32
+#include <unistd.h>
+#endif
+
 
 
 int
