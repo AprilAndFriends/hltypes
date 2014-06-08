@@ -413,7 +413,6 @@
 			buildSettings = {
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
 				OTHER_CFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-ffast-math",
@@ -440,7 +439,6 @@
 			buildSettings = {
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
 				OTHER_CFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-ffast-math",
@@ -466,7 +464,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
 				ONLY_ACTIVE_ARCH = YES;
 				WARNING_CFLAGS = "-w";
 			};
@@ -499,6 +496,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					_IOS,
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -520,6 +518,7 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = _IOS;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = zlib;
@@ -538,6 +537,7 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = _IOS;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = zlib;
@@ -551,6 +551,7 @@
 			baseConfigurationReference = D1681B7C18D763470088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -565,6 +566,7 @@
 			baseConfigurationReference = D1681B7C18D763470088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = zlib;
@@ -578,6 +580,7 @@
 			baseConfigurationReference = D1681B7C18D763470088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = zlib;
