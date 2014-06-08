@@ -3,6 +3,10 @@
  * For conditions of distribution and use, see copyright notice in zlib.h
  */
 
+#ifdef _IOS // needed in newer XCode versions, might be required on Mac OS X as well
+#include <unistd.h>
+#endif
+
 #include "gzguts.h"
 
 /* Local functions */
