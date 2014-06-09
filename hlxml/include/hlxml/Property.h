@@ -8,7 +8,7 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Represents a generic XML property.
+/// Represents an XML node's property.
 
 #ifndef HLXML_PROPERTY_H
 #define HLXML_PROPERTY_H
@@ -25,21 +25,32 @@ namespace hlxml
 {
 	class Node;
 
+	/// @brief Represents an XML node's property.
 	class hlxmlExport Property
 	{
 	public:
 		friend class Node;
 
+		/// @brief Destructor.
 		virtual ~Property();
 
+		/// @return Name of the Property.
 		hstr name();
+		/// @return Value of the Property.
 		hstr value();
+		/// @return The next sibling Property within the Node.
+		/// @note This returns NULL if there are no more Properties.
 		Property* next();
 
 	protected:
+		/// @brief The Node has this Property.
 		Node* node;
+		/// @brief The TinyXML property.
 		TiXmlAttribute* prop;
 
+		/// @brief Constructor.
+		/// @param[in] node The Node has this Property.
+		/// @param[in] prop The TinyXML property.
 		Property(Node* node, TiXmlAttribute* prop);
 
 	};
