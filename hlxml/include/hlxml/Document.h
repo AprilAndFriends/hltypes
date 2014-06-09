@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.2
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -18,29 +18,34 @@
 
 #include "hlxmlExport.h"
 
+class TiXmlDocument;
+class TiXmlNode;
+
 namespace hlxml
 {
 	extern hstr logTag;
 
-	class Document;
 	class Node;
 	
-	hlxmlFnExport Document* open(chstr filename);
-	hlxmlFnExport void close(Document* document);
-
 	class hlxmlExport Document
 	{
 	public:
+		friend class Node;
+
+		Document(chstr filename);
 		virtual ~Document();
 
 		HL_DEFINE_GET(hstr, filename, Filename);
 
-		virtual Node* root(chstr type = "") = 0;
+		Node* root(chstr type = "");
 
 	protected:
+		TiXmlDocument* document;
 		hstr filename;
-	
-		Document(chstr filename);
+		Node* rootNode;
+		hmap<TiXmlNode*, Node*> nodes;
+
+		Node* _node(TiXmlNode* node);
 
 	};
 }
