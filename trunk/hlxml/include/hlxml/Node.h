@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.2
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -13,19 +13,27 @@
 #ifndef HLXML_NODE_H
 #define HLXML_NODE_H
 
+#include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
 
 #include "hlxmlExport.h"
+
+class TiXmlNode;
+class TiXmlAttribute;
 
 #define foreach_xmlnode(nodeName, rootName) for (hlxml::Node* nodeName = rootName->iterChildren(); nodeName != NULL; nodeName = nodeName->next())
 
 namespace hlxml
 {
+	class Document;
 	class Property;
 
 	class hlxmlExport Node
 	{
 	public:
+		friend class Document;
+		friend class Property;
+
 		enum Type
 		{
 			// TODO
@@ -34,12 +42,11 @@ namespace hlxml
 			TYPE_TEXT
 		};
 
-		Node();
 		virtual ~Node();
 
-		virtual hstr getFilename() = 0;
-		virtual int getLine() = 0;
-		virtual Type getType() = 0;
+		hstr getFilename();
+		int getLine();
+		Type getType();
 
 		bool pbool(chstr propertyName);
 		bool pbool(chstr propertyName, bool defaultValue);
@@ -52,20 +59,25 @@ namespace hlxml
 		
 		bool pexists(chstr propertyName);
 		
-		virtual void setProperty(chstr name, chstr value) = 0;
-		virtual Node* next() = 0;
-		virtual Node* iterChildren() = 0;
-		virtual Property* iterProperties() = 0;
-	
+		Node* next();
+		Node* iterChildren();
+		Property* iterProperties();
+
 		bool operator==(const char* name);
 		bool operator!=(const char* name);
 		bool operator==(chstr name);
 		bool operator!=(chstr name);
 		
 	protected:
-		virtual const char* _findProperty(chstr propertyName, bool ignoreError = false);
-		virtual bool _equals(const char* name) = 0;
-	
+		Document* document;
+		TiXmlNode* node;
+		hmap<TiXmlAttribute*, Property*> props;
+
+		Node(Document* document, TiXmlNode* node);
+
+		Property* _prop(TiXmlAttribute* prop);
+		const char* _findProperty(chstr propertyName, bool ignoreError = false);
+
 	};
 
 }

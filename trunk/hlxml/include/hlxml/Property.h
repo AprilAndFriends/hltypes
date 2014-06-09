@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.2
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -19,17 +19,28 @@
 
 #define foreach_xmlproperty(propertyName, nodeName) for (hlxml::Property* propertyName = nodeName->iterProperties(); propertyName != NULL; propertyName = propertyName->next())
 
+class TiXmlAttribute;
+
 namespace hlxml
 {
+	class Node;
+
 	class hlxmlExport Property
 	{
 	public:
-		Property();
+		friend class Node;
+
 		virtual ~Property();
 
-		virtual hstr name() = 0;
-		virtual hstr value() = 0;
-		virtual Property* next() = 0;
+		hstr name();
+		hstr value();
+		Property* next();
+
+	protected:
+		Node* node;
+		TiXmlAttribute* prop;
+
+		Property(Node* node, TiXmlAttribute* prop);
 
 	};
 
