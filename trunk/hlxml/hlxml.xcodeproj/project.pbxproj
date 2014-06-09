@@ -13,18 +13,6 @@
 		D1981C29140F80960057C3AF /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
 		D1981C2A140F80960057C3AF /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7C140E593900499A97 /* Node.cpp */; };
 		D1981C2B140F80960057C3AF /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7D140E593900499A97 /* Property.cpp */; };
-		D1B4866F19334D47004674EB /* TinyXml_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1B4866919334D47004674EB /* TinyXml_Document.cpp */; };
-		D1B4867019334D47004674EB /* TinyXml_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1B4866919334D47004674EB /* TinyXml_Document.cpp */; };
-		D1B4867119334D47004674EB /* TinyXml_Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1B4866919334D47004674EB /* TinyXml_Document.cpp */; };
-		D1B4867219334D47004674EB /* TinyXml_Document.h in Headers */ = {isa = PBXBuildFile; fileRef = D1B4866A19334D47004674EB /* TinyXml_Document.h */; };
-		D1B4867319334D47004674EB /* TinyXml_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1B4866B19334D47004674EB /* TinyXml_Node.cpp */; };
-		D1B4867419334D47004674EB /* TinyXml_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1B4866B19334D47004674EB /* TinyXml_Node.cpp */; };
-		D1B4867519334D47004674EB /* TinyXml_Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1B4866B19334D47004674EB /* TinyXml_Node.cpp */; };
-		D1B4867619334D47004674EB /* TinyXml_Node.h in Headers */ = {isa = PBXBuildFile; fileRef = D1B4866C19334D47004674EB /* TinyXml_Node.h */; };
-		D1B4867719334D47004674EB /* TinyXml_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1B4866D19334D47004674EB /* TinyXml_Property.cpp */; };
-		D1B4867819334D47004674EB /* TinyXml_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1B4866D19334D47004674EB /* TinyXml_Property.cpp */; };
-		D1B4867919334D47004674EB /* TinyXml_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1B4866D19334D47004674EB /* TinyXml_Property.cpp */; };
-		D1B4867A19334D47004674EB /* TinyXml_Property.h in Headers */ = {isa = PBXBuildFile; fileRef = D1B4866E19334D47004674EB /* TinyXml_Property.h */; };
 		D1E1DD7E140E593900499A97 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7A140E593900499A97 /* Document.cpp */; };
 		D1E1DD7F140E593900499A97 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
 		D1E1DD80140E593900499A97 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7C140E593900499A97 /* Node.cpp */; };
@@ -47,12 +35,6 @@
 		D1681BA418D768190088FC68 /* iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = iOS.xcconfig; path = xcconfig/iOS.xcconfig; sourceTree = "<group>"; };
 		D1681BA518D768190088FC68 /* Mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Mac.xcconfig; path = xcconfig/Mac.xcconfig; sourceTree = "<group>"; };
 		D186227514F9630200639D7C /* tinyxml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = tinyxml.framework; path = ../../tinyxml/build/Release/tinyxml.framework; sourceTree = "<group>"; };
-		D1B4866919334D47004674EB /* TinyXml_Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyXml_Document.cpp; path = src/xmlsystems/TinyXml/TinyXml_Document.cpp; sourceTree = "<group>"; };
-		D1B4866A19334D47004674EB /* TinyXml_Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyXml_Document.h; path = src/xmlsystems/TinyXml/TinyXml_Document.h; sourceTree = "<group>"; };
-		D1B4866B19334D47004674EB /* TinyXml_Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyXml_Node.cpp; path = src/xmlsystems/TinyXml/TinyXml_Node.cpp; sourceTree = "<group>"; };
-		D1B4866C19334D47004674EB /* TinyXml_Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyXml_Node.h; path = src/xmlsystems/TinyXml/TinyXml_Node.h; sourceTree = "<group>"; };
-		D1B4866D19334D47004674EB /* TinyXml_Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyXml_Property.cpp; path = src/xmlsystems/TinyXml/TinyXml_Property.cpp; sourceTree = "<group>"; };
-		D1B4866E19334D47004674EB /* TinyXml_Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyXml_Property.h; path = src/xmlsystems/TinyXml/TinyXml_Property.h; sourceTree = "<group>"; };
 		D1E1DD69140E58E600499A97 /* libhlxml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhlxml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1E1DD7A140E593900499A97 /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = src/Document.cpp; sourceTree = "<group>"; };
 		D1E1DD7B140E593900499A97 /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Exception.cpp; path = src/Exception.cpp; sourceTree = "<group>"; };
@@ -95,7 +77,6 @@
 				D1681B7918D7628C0088FC68 /* config */,
 				7F42F69C11EB0B9A00B1C1DF /* include */,
 				7F42F69511EB0B8500B1C1DF /* src */,
-				C9F9314514DA8B7500954F90 /* xmlsystems */,
 				D1E1DD6A140E58E600499A97 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -125,27 +106,6 @@
 			name = include;
 			sourceTree = "<group>";
 		};
-		C9F9314514DA8B7500954F90 /* xmlsystems */ = {
-			isa = PBXGroup;
-			children = (
-				C9F9314614DA8B8100954F90 /* tinyxml */,
-			);
-			name = xmlsystems;
-			sourceTree = "<group>";
-		};
-		C9F9314614DA8B8100954F90 /* tinyxml */ = {
-			isa = PBXGroup;
-			children = (
-				D1B4866919334D47004674EB /* TinyXml_Document.cpp */,
-				D1B4866A19334D47004674EB /* TinyXml_Document.h */,
-				D1B4866B19334D47004674EB /* TinyXml_Node.cpp */,
-				D1B4866C19334D47004674EB /* TinyXml_Node.h */,
-				D1B4866D19334D47004674EB /* TinyXml_Property.cpp */,
-				D1B4866E19334D47004674EB /* TinyXml_Property.h */,
-			);
-			name = tinyxml;
-			sourceTree = "<group>";
-		};
 		D1681B7918D7628C0088FC68 /* config */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,10 +133,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1E1DD87140E594B00499A97 /* Document.h in Headers */,
-				D1B4867A19334D47004674EB /* TinyXml_Property.h in Headers */,
-				D1B4867219334D47004674EB /* TinyXml_Document.h in Headers */,
 				D1E1DD88140E594B00499A97 /* Exception.h in Headers */,
-				D1B4867619334D47004674EB /* TinyXml_Node.h in Headers */,
 				D1E1DD89140E594B00499A97 /* hlxmlExport.h in Headers */,
 				D1E1DD8A140E594B00499A97 /* Node.h in Headers */,
 				D1E1DD8B140E594C00499A97 /* Property.h in Headers */,
@@ -271,9 +228,6 @@
 			files = (
 				D1E1DD7E140E593900499A97 /* Document.cpp in Sources */,
 				D1E1DD7F140E593900499A97 /* Exception.cpp in Sources */,
-				D1B4867719334D47004674EB /* TinyXml_Property.cpp in Sources */,
-				D1B4866F19334D47004674EB /* TinyXml_Document.cpp in Sources */,
-				D1B4867319334D47004674EB /* TinyXml_Node.cpp in Sources */,
 				D1E1DD80140E593900499A97 /* Node.cpp in Sources */,
 				D1E1DD81140E593900499A97 /* Property.cpp in Sources */,
 			);
@@ -285,9 +239,6 @@
 			files = (
 				D1981C28140F80960057C3AF /* Document.cpp in Sources */,
 				D1981C29140F80960057C3AF /* Exception.cpp in Sources */,
-				D1B4867919334D47004674EB /* TinyXml_Property.cpp in Sources */,
-				D1B4867119334D47004674EB /* TinyXml_Document.cpp in Sources */,
-				D1B4867519334D47004674EB /* TinyXml_Node.cpp in Sources */,
 				D1981C2A140F80960057C3AF /* Node.cpp in Sources */,
 				D1981C2B140F80960057C3AF /* Property.cpp in Sources */,
 			);
@@ -299,9 +250,6 @@
 			files = (
 				D1F27AB2177A2D3C00E5C131 /* Document.cpp in Sources */,
 				D1F27AB3177A2D3C00E5C131 /* Exception.cpp in Sources */,
-				D1B4867819334D47004674EB /* TinyXml_Property.cpp in Sources */,
-				D1B4867019334D47004674EB /* TinyXml_Document.cpp in Sources */,
-				D1B4867419334D47004674EB /* TinyXml_Node.cpp in Sources */,
 				D1F27AB4177A2D3C00E5C131 /* Node.cpp in Sources */,
 				D1F27AB5177A2D3C00E5C131 /* Property.cpp in Sources */,
 			);

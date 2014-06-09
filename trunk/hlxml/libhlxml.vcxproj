@@ -114,9 +114,6 @@
     <ClCompile Include="src\Exception.cpp" />
     <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\Property.cpp" />
-    <ClCompile Include="src\xmlsystems\TinyXml\TinyXml_Document.cpp" />
-    <ClCompile Include="src\xmlsystems\TinyXml\TinyXml_Node.cpp" />
-    <ClCompile Include="src\xmlsystems\TinyXml\TinyXml_Property.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\hlxml\Document.h" />
@@ -124,9 +121,6 @@
     <ClInclude Include="include\hlxml\hlxmlExport.h" />
     <ClInclude Include="include\hlxml\Node.h" />
     <ClInclude Include="include\hlxml\Property.h" />
-    <ClInclude Include="src\xmlsystems\TinyXml\TinyXml_Document.h" />
-    <ClInclude Include="src\xmlsystems\TinyXml\TinyXml_Node.h" />
-    <ClInclude Include="src\xmlsystems\TinyXml\TinyXml_Property.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="fileproperties.rc">
