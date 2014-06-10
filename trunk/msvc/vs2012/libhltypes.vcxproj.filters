@@ -13,132 +13,132 @@
       <UniqueIdentifier>{814a87b5-7a1c-48e5-8611-4a675c5548ed}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\platform">
-      <UniqueIdentifier>{0c1a1717-e97f-40d6-9a0b-1d5f8fa41582}</UniqueIdentifier>
+      <UniqueIdentifier>{8cfcf4ed-7029-4757-b9ac-72fe63152145}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\exception.cpp">
+    <ClCompile Include="..\..\src\exception.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hdir.cpp">
+    <ClCompile Include="..\..\src\hdir.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hfile.cpp">
+    <ClCompile Include="..\..\src\hfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hlog.cpp">
+    <ClCompile Include="..\..\src\hmutex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hmutex.cpp">
+    <ClCompile Include="..\..\src\hstring.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hstring.cpp">
+    <ClCompile Include="..\..\src\hthread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hthread.cpp">
+    <ClCompile Include="..\..\src\hsbase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hsbase.cpp">
+    <ClCompile Include="..\..\src\hstream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hstream.cpp">
+    <ClCompile Include="..\..\src\hltypesUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hltypesUtil.cpp">
+    <ClCompile Include="..\..\src\hresource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hresource.cpp">
+    <ClCompile Include="..\..\src\hfbase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hfbase.cpp">
+    <ClCompile Include="..\..\src\hlog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\platform\Android_platform.cpp">
+    <ClCompile Include="..\..\src\platform\Android_platform.cpp">
       <Filter>Source Files\platform</Filter>
     </ClCompile>
-    <ClCompile Include="src\platform\Win32_platform.cpp">
+    <ClCompile Include="..\..\src\platform\Win32_platform.cpp">
       <Filter>Source Files\platform</Filter>
     </ClCompile>
-    <ClCompile Include="src\platform\WinRT_platform.cpp">
+    <ClCompile Include="..\..\src\platform\WinRT_platform.cpp">
       <Filter>Source Files\platform</Filter>
     </ClCompile>
-    <ClCompile Include="src\zipaccess.cpp">
+    <ClCompile Include="..\..\src\zipaccess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hrdir.cpp">
+    <ClCompile Include="..\..\src\hrdir.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hdbase.cpp">
+    <ClCompile Include="..\..\src\hdbase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\hltypes\exception.h">
+    <ClInclude Include="..\..\include\hltypes\exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\harray.h">
+    <ClInclude Include="..\..\include\hltypes\harray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hdeque.h">
+    <ClInclude Include="..\..\include\hltypes\hdeque.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hdir.h">
+    <ClInclude Include="..\..\include\hltypes\hdir.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hfile.h">
+    <ClInclude Include="..\..\include\hltypes\hfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hlist.h">
+    <ClInclude Include="..\..\include\hltypes\hlist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hlog.h">
+    <ClInclude Include="..\..\include\hltypes\hltypesExport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hltypesExport.h">
+    <ClInclude Include="..\..\include\hltypes\hmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hmap.h">
+    <ClInclude Include="..\..\include\hltypes\hmutex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hmutex.h">
+    <ClInclude Include="..\..\include\hltypes\hstring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hstring.h">
+    <ClInclude Include="..\..\include\hltypes\hthread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hthread.h">
+    <ClInclude Include="..\..\include\hltypes\hstream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hstream.h">
+    <ClInclude Include="..\..\include\hltypes\hsbase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hsbase.h">
+    <ClInclude Include="..\..\include\hltypes\hltypesUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hltypesUtil.h">
+    <ClInclude Include="..\..\include\hltypes\hresource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hresource.h">
+    <ClInclude Include="..\..\include\hltypes\hfbase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hfbase.h">
+    <ClInclude Include="..\..\include\hltypes\hplatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hplatform.h">
+    <ClInclude Include="..\..\include\hltypes\hlog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\zipaccess.h">
+    <ClInclude Include="..\..\src\zipaccess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hdbase.h">
+    <ClInclude Include="..\..\include\hltypes\hrdir.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hltypes\hrdir.h">
+    <ClInclude Include="..\..\include\hltypes\hdbase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="fileproperties.rc">
+    <ResourceCompile Include="..\..\fileproperties.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
