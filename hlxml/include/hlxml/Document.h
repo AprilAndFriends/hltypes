@@ -15,6 +15,7 @@
 
 #include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
+#include <hltypes/hmap.h>
 
 #include "hlxmlExport.h"
 
