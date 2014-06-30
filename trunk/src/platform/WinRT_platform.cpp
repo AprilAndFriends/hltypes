@@ -18,11 +18,11 @@ namespace hltypes
 #ifdef _DEBUG
 		if (tag != "")
 		{
-			OutputDebugString(("[" + tag + "] " + message + "\n").w_str().c_str());
+			OutputDebugStringW(("[" + tag + "] " + message + "\n").w_str().c_str());
 		}
 		else
 		{
-			OutputDebugString((message + "\n").w_str().c_str());
+			OutputDebugStringW((message + "\n").w_str().c_str());
 		}
 #endif
 	}
