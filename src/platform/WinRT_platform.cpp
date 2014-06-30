@@ -14,8 +14,6 @@ namespace hltypes
 {
 	void _platform_print(const String& tag, const String& message, int level)
 	{
-		// using console style printing invalidates WACK certification so it is used only in Debug builds
-#ifdef _DEBUG
 		if (tag != "")
 		{
 			OutputDebugStringW(("[" + tag + "] " + message + "\n").w_str().c_str());
@@ -24,7 +22,6 @@ namespace hltypes
 		{
 			OutputDebugStringW((message + "\n").w_str().c_str());
 		}
-#endif
 	}
 
 }
