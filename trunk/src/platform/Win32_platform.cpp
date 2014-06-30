@@ -46,14 +46,14 @@ namespace hltypes
 		if (tag != "")
 		{
 			printf("[%s] %s\n", tag.c_str(), message.c_str());
-#if defined(_MSC_VER) && defined(_DEBUG) // prints in the debug output panel of Visual Studio
+#ifdef _MSC_VER // prints in the output panel of Visual Studio
 			OutputDebugStringW(("[" + tag + "] " + message + "\n").w_str().c_str());
 #endif
 		}
 		else
 		{
 			printf("%s\n", message.c_str());
-#if defined(_MSC_VER) && defined(_DEBUG) // prints in the debug output panel of Visual Studio
+#ifdef _MSC_VER // prints in the output panel of Visual Studio
 			OutputDebugStringW((message + "\n").w_str().c_str());
 #endif
 		}
