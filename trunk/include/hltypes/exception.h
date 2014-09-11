@@ -57,22 +57,22 @@ namespace hltypes
 	/// @brief Alias for simpler code.
 	#define hl_exception(msg) hltypes::exception(msg, __FILE__, __LINE__)
 	
-	/// @brief Defines a file-not-found exception.
-	class hltypesExport _file_not_found : public exception
+	/// @brief Defines a file-could-not-open exception.
+	class hltypesExport _file_could_not_open : public exception
 	{
 	public:
 		/// @brief Basic constructor.
 		/// @param[in] filename Name of the file.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		_file_not_found(const String& filename, bool is_resource, const char* source_file, int line_number);
-		~_file_not_found();
+		_file_could_not_open(const String& filename, bool is_resource, const char* source_file, int line_number);
+		~_file_could_not_open();
 		
 	};
 	/// @brief Alias for simpler code.
-	#define file_not_found(filename) hltypes::_file_not_found(filename, false, __FILE__, __LINE__)
+	#define file_could_not_open(filename) hltypes::_file_could_not_open(filename, false, __FILE__, __LINE__)
 	/// @brief Alias for simpler code.
-	#define resource_not_found(filename) hltypes::_file_not_found(filename, true, __FILE__, __LINE__)
+	#define resource_not_found(filename) hltypes::_file_could_not_open(filename, true, __FILE__, __LINE__)
 	
 	/// @brief Defines a file-not-open exception.
 	class hltypesExport _file_not_open : public exception

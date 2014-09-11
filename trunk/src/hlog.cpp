@@ -103,19 +103,31 @@ namespace hltypes
 	void Log::setFilename(const String& filename, bool clearFile)
 	{
 		Log::filename = Dir::normalize(filename);
+#ifdef _WIN32
+		log_mutex.lock();
 		if (clearFile)
 		{
-#ifdef _WIN32
 			hdir::remove(filename + ".hlog"); // left over from last run, delete
-#endif
 			hfile::create_new(Log::filename);
+			log_mutex.unlock();
 		}
-#ifdef _WIN32
 		else if (hdir::exists(filename + ".hlog"))
 		{
+			log_mutex.unlock();
 			Log::finalize(clearFile); // left over from last run, merge
 		}
+		else
+		{
+			log_mutex.unlock();
+		}
 		fileExtension = hfile::extension_of(filename);
+#else
+		log_mutex.lock();
+		if (clearFile)
+		{
+			hfile::create_new(Log::filename);
+		}
+		log_mutex.unlock();
 #endif
 	}
 	
