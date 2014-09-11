@@ -75,6 +75,7 @@ namespace hltypes
 
 	hstr _get_current_file_name(chstr filename)
 	{
+		log_mutex.lock();
 		if (!hdir::exists(filename + ".hlog"))
 		{
 			hdir::create(filename + ".hlog");
@@ -86,6 +87,7 @@ namespace hltypes
 			newFilename = _get_file_name(filename, fileIndex);
 			hfile::create_new(newFilename); // clears the file
 		}
+		log_mutex.unlock();
 		return newFilename;
 	}
 #endif
@@ -230,6 +232,7 @@ namespace hltypes
 		}
 		hfile file;
 		hstr filename;
+		log_mutex.lock();
 		if (clearFile)
 		{
 			file.open(Log::filename, File::WRITE);
@@ -252,6 +255,7 @@ namespace hltypes
 		}
 		file.close(); // to flush everything
 		hdir::remove(Log::filename + ".hlog");
+		log_mutex.unlock();
 		fileIndex = 0;
 #endif
 	}
