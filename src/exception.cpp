@@ -37,10 +37,10 @@ namespace hltypes
 #endif
 	}
 
-	_file_not_found::_file_not_found(const String& filename, bool is_resource, const char* source_file, int line_number) :
+	_file_could_not_open::_file_could_not_open(const String& filename, bool is_resource, const char* source_file, int line_number) :
 		exception("", source_file, line_number)
 	{
-		String message = hsprintf("'%s' not found!", filename.c_str());
+		String message = hsprintf("'%s' could not be opened!", filename.c_str());
 		try
 		{
 			String dir = DirBase::basedir(filename);
@@ -48,9 +48,14 @@ namespace hltypes
 			Array<String> files = (!is_resource ? Dir::files(dir) : ResourceDir::files(dir));
 			foreach (String, it, files)
 			{
+				if ((*it) == basename)
+				{
+					message += " File appears to be in use.";
+					throw exception("", "", 0);
+				}
 				if ((*it).lower() == basename.lower())
 				{
-					message += " But there is file with a different case: " + Dir::join_path(dir, (*it));
+					message += " But there is a file with a different case: " + Dir::join_path(dir, (*it));
 					throw exception("", "", 0);
 				}
 			}
@@ -77,13 +82,17 @@ namespace hltypes
 					throw exception("", "", 0);
 				}
 			}
+			message += " File not found!";
 		}
 		catch (exception&) // is this inception or exception, I am confused
 		{
 		}
+#ifdef _WIN32 // could be useful
+		message += " System error: " + hstr(strerror(errno));
+#endif
 		this->_setInternalMessage(message, source_file, line_number);
 	}
-	_file_not_found::~_file_not_found()
+	_file_could_not_open::~_file_could_not_open()
 	{
 	}
 	
