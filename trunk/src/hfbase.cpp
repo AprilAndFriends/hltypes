@@ -133,7 +133,7 @@ namespace hltypes
 		}
 		if (this->cfile == NULL)
 		{
-			throw file_not_found(this->_descriptor());
+			throw file_could_not_open(this->_descriptor());
 		}
 		this->_update_data_size();
 	}
