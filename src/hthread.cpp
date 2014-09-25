@@ -110,8 +110,8 @@ namespace hltypes
 		{
 			this->running = true;
 			(*this->function)(this);
-			this->running = false;
 		}
+		this->running = false;
 	}
 
 	void Thread::join()
