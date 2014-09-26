@@ -21,6 +21,8 @@
 
 namespace hltypes
 {
+	class Stream;
+
 	template <class T> class Array;
 	/// @brief Provides a base class for streaming.
 	class hltypesExport StreamBase
@@ -107,16 +109,25 @@ namespace hltypes
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
 		/// @note If return value differs from parameter count, it can indicate a writing error.
-		int write_raw(void* buffer, int count);
+		virtual int write_raw(void* buffer, int count);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
-		int write_raw(StreamBase& other, int count);
+		virtual int write_raw(StreamBase& stream, int count);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @return Number of bytes written.
-		int write_raw(StreamBase& other);
+		virtual int write_raw(StreamBase& stream);
+		/// @brief Writes raw data to the stream from another stream.
+		/// @param[in] stream Another stream.
+		/// @param[in] count Number of bytes to write.
+		/// @return Number of bytes written.
+		virtual int write_raw(Stream& stream, int count);
+		/// @brief Writes raw data to the stream from another stream.
+		/// @param[in] stream Another stream.
+		/// @return Number of bytes written.
+		virtual int write_raw(Stream& stream);
 
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c Character to dump.

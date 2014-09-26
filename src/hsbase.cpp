@@ -11,7 +11,9 @@
 
 #include "exception.h"
 #include "harray.h"
+#include "hfbase.h"
 #include "hsbase.h"
+#include "hstream.h"
 #include "hstring.h"
 
 #define BUFFER_SIZE 4096
@@ -184,17 +186,33 @@ namespace hltypes
 		stream.read_raw(buffer, count);
 		stream.seek(-count);
 		int result = this->_write(buffer, 1, count);
-		delete [] buffer;
+		delete[] buffer;
 		this->_update_data_size();
 		return result;
 	}
-	
+
 	int StreamBase::write_raw(StreamBase& stream)
 	{
 		this->_check_availability();
 		return this->write_raw(stream, stream.size() - stream.position());
 	}
-	
+
+	int StreamBase::write_raw(Stream& stream, int count)
+	{
+		this->_check_availability();
+		long position = stream.position();
+		count = hmin(count, (int)(stream.size() - position));
+		int result = this->_write(&stream[position], 1, count);
+		this->_update_data_size();
+		return result;
+	}
+
+	int StreamBase::write_raw(Stream& stream)
+	{
+		this->_check_availability();
+		return this->write_raw(stream, stream.size() - stream.position());
+	}
+
 	void StreamBase::_update_data_size()
 	{
 		long position = this->_position();
