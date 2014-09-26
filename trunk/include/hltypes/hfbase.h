@@ -22,6 +22,8 @@
 
 namespace hltypes
 {
+	class Stream;
+
 	/// @brief Used for information about files.
 	struct hltypesExport FileInfo
 	{
