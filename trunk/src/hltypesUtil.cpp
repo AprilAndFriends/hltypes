@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -12,6 +12,7 @@
 #ifndef _WIN32
 #include <sys/time.h>
 #endif
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -46,6 +47,19 @@ unsigned int get_system_tick_count()
 unsigned int get_system_time()
 {
 	return (unsigned int)time(NULL);
+}
+
+hstr get_environment_variable(chstr name)
+{
+#ifdef _WIN32
+#ifndef _WINRT
+	return hstr::from_unicode(_wgetenv(name.w_str().c_str()));
+#else
+	return ""; // WinRT does not support environment variables
+#endif
+#else
+	return hstr(getenv(name.c_str()));
+#endif
 }
 
 int hrand(int min, int max)
@@ -266,27 +280,27 @@ double hhypotd(int a, int b)
 	return sqrt((double)a * a + (double)b * b);
 }
 
-float hhypotSquared(float a, float b)
+float hhypot_squared(float a, float b)
 {
 	return (a * a + b * b);
 }
 
-double hhypotSquared(double a, double b)
+double hhypot_squared(double a, double b)
 {
 	return (a * a + b * b);
 }
 
-int hhypotSquared(int a, int b)
+int hhypot_squared(int a, int b)
 {
 	return (a * a + b * b);
 }
 
-float hhypotSquaredf(int a, int b)
+float hhypotf_squared(int a, int b)
 {
 	return (float)(a * a + b * b);
 }
 
-double hhypotSquaredd(int a, int b)
+double hhypotd_squared(int a, int b)
 {
 	return (double)(a * a + b * b);
 }
@@ -311,25 +325,39 @@ int hcmpd(double a, double b, double tolerance)
 	return (heqd(a, b, tolerance) ? 0 : (a > b ? 1 : -1));
 }
 
+unsigned int hpotceil(unsigned int value)
+{
+	value--;
+	value |= value >> 1;
+	value |= value >> 2;
+	value |= value >> 4;
+	value |= value >> 8;
+	value |= value >> 16;
+	value++;
+	return value;
+}
+
+unsigned int hpotfloor(unsigned int value)
+{
+	unsigned int result = hpotceil(value);
+	if (value < result)
+	{
+		result >>= 1;
+	}
+	return result;
+}
+
 // DEPRECATED
 #include "hdir.h"
 hstr get_basedir(chstr path)	{ return hdir::basedir(path); }
 hstr get_basename(chstr path)	{ return hdir::basename(path); }
 hstr systemize_path(chstr path)	{ return hdir::systemize(path); }
 hstr normalize_path(chstr path)	{ return hdir::normalize(path); }
-
-hstr get_environment_variable(chstr name)
-{
-#ifdef _WIN32
-#ifndef _WINRT
-	return hstr::from_unicode(_wgetenv(name.w_str().c_str()));
-#else
-	return ""; // WinRT does not support environment variables
-#endif
-#else
-	return hstr(getenv(name.c_str()));
-#endif
-}
+float hhypotSquared(float a, float b) { return hhypot_squared(a, b); }
+double hhypotSquared(double a, double b) { return hhypot_squared(a, b); }
+int hhypotSquared(int a, int b) { return hhypot_squared(a, b); }
+float hhypotSquaredf(int a, int b) { return hhypotf_squared(a, b); }
+double hhypotSquaredd(int a, int b) { return hhypotd_squared(a, b); }
 
 // CRC32 stuff
 

@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -20,9 +20,8 @@
 
 namespace hltypes
 {
-	StreamBase::StreamBase(unsigned char encryption_offset) : data_size(0)
+	StreamBase::StreamBase() : data_size(0)
 	{
-		this->encryption_offset = encryption_offset;
 	}
 	
 	StreamBase::~StreamBase()
@@ -361,22 +360,7 @@ namespace hltypes
 		this->dump(size);
 		if (size > 0)
 		{
-			if (this->encryption_offset == 0)
-			{
-				this->_write(str.c_str(), 1, size);
-			}
-			else
-			{
-				const char* string = str.c_str();
-				char* c = new char[size];
-				memset(c, 0, size * sizeof(char));
-				for_iter (i, 0, size)
-				{
-					c[i] = string[i] - this->encryption_offset;
-				}
-				this->_write(c, 1, size);
-				delete [] c;
-			}
+			this->_write(str.c_str(), 1, size);
 		}
 		this->_update_data_size();
 	}
@@ -537,13 +521,6 @@ namespace hltypes
 				count = size;
 			}
 			this->_read(c, 1, count);
-			if (this->encryption_offset != 0)
-			{
-				for_iter (i, 0, count)
-				{
-					c[i] += this->encryption_offset;
-				}
-			}
 			size -= BUFFER_SIZE;
 			str += String(c);
 		}

@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -26,9 +26,9 @@ int (*f_remove)(const char* filename) = remove;
 
 namespace hltypes
 {
-	File::File(const String& filename, AccessMode access_mode, unsigned char encryption_offset) : FileBase(filename, encryption_offset)
+	File::File(const String& filename, AccessMode access_mode) : FileBase(filename)
 	{
-		this->open(filename, access_mode, encryption_offset);
+		this->open(filename, access_mode);
 	}
 	
 	File::File() : FileBase()
@@ -43,9 +43,9 @@ namespace hltypes
 		}
 	}
 	
-	void File::open(const String& filename, AccessMode access_mode, unsigned char encryption_offset)
+	void File::open(const String& filename, AccessMode access_mode)
 	{
-		this->_fopen(filename, access_mode, encryption_offset, FileBase::repeats, FileBase::timeout);
+		this->_fopen(filename, access_mode, FileBase::repeats, FileBase::timeout);
 	}
 	
 	void File::close()

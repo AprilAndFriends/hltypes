@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -17,12 +17,12 @@
 
 namespace hltypes
 {
-	Stream::Stream(unsigned char encryption_offset) : StreamBase(encryption_offset)
+	Stream::Stream(long initial_capacity) : StreamBase()
 	{
-		this->current_size = 16;
+		this->current_size = initial_capacity;
 		this->stream_size = 0;
 		this->stream_position = 0;
-		// using malloc because realloc is needed later
+		// using malloc because realloc is used later
 		this->stream = (unsigned char*)malloc(this->current_size * sizeof(unsigned char));
 	}
 	
@@ -37,17 +37,17 @@ namespace hltypes
 	void Stream::clear()
 	{
 		long old_size = this->current_size;
-		this->current_size = 16;
+		this->current_size = 16L;
 		this->stream_size = 0;
 		this->stream_position = 0;
 		unsigned char* new_stream = (unsigned char*)realloc(this->stream, this->current_size * sizeof(unsigned char));
-		if (new_stream == NULL) // could not reallocate enough memory
-		{
-			this->current_size = old_size;
-		}
-		else
+		if (new_stream != NULL)
 		{
 			this->stream = new_stream;
+		}
+		else // could not reallocate enough memory
+		{
+			this->current_size = old_size;
 		}
 		this->_update_data_size();
 	}
@@ -60,16 +60,26 @@ namespace hltypes
 	int Stream::write_raw(StreamBase& stream, int count)
 	{
 		this->_check_availability();
-		count = hmin(count, (int)(stream.size() - stream.position()));
-		this->_try_resize_buffer(count);
-		int result = stream.read_raw(&this->stream[this->stream_position], count);
-		stream.seek(-result);
-		this->stream_position += result;
-		if (this->stream_position > this->stream_size)
+		int result = 0;
+		if (count > 0)
 		{
-			this->stream_size = this->stream_position;
+			long size = (long)count;
+			this->_try_resize_buffer(size);
+			if (size > 0)
+			{
+				result = stream.read_raw(&this->stream[this->stream_position], (int)size);
+				if (result > 0)
+				{
+					stream.seek(-result);
+					this->stream_position += result;
+					if (this->stream_position > this->stream_size)
+					{
+						this->stream_size = this->stream_position;
+					}
+					this->_update_data_size();
+				}
+			}
 		}
-		this->_update_data_size();
 		return result;
 	}
 
@@ -104,15 +114,18 @@ namespace hltypes
 	
 	long Stream::_read(void* buffer, int size, int count)
 	{
-		long read_size = hclamp((long)(size * count), 0L, this->stream_size - this->stream_position);
-		memcpy(buffer, &this->stream[this->stream_position], read_size);
-		this->stream_position += read_size;
+		long read_size = hclamp((long)size * count, 0L, this->stream_size - this->stream_position);
+		if (read_size > 0)
+		{
+			memcpy(buffer, &this->stream[this->stream_position], read_size);
+			this->stream_position += read_size;
+		}
 		return read_size;
 	}
 
 	long Stream::_write(const void* buffer, int size, int count)
 	{
-		long write_size = hmax(size * count, 0);
+		long write_size = hmax((long)size * count, 0L);
 		if (write_size > 0)
 		{
 			this->_try_resize_buffer(write_size);
@@ -152,24 +165,21 @@ namespace hltypes
 		}
 	}
 	
-	void Stream::_try_resize_buffer(long write_size)
+	void Stream::_try_resize_buffer(long& write_size)
 	{
 		if (write_size > this->current_size - this->stream_position)
 		{
 			long old_size = this->current_size;
-			while (write_size > this->current_size - this->stream_position)
-			{
-				this->current_size *= 2;
-			}
+			this->current_size = hpotceil(write_size + this->stream_position);
 			unsigned char* new_stream = (unsigned char*)realloc(this->stream, this->current_size * sizeof(unsigned char));
-			if (new_stream == NULL) // could not reallocate enough memory
+			if (new_stream != NULL)
+			{
+				this->stream = new_stream;
+			}
+			else // could not reallocate enough memory
 			{
 				this->current_size = old_size;
 				write_size = this->current_size - this->stream_position;
-			}
-			else
-			{
-				this->stream = new_stream;
 			}
 		}
 	}
