@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -203,6 +203,11 @@ hltypesFnExport unsigned int get_system_time();
 /// @brief Number of miliseconds passed since the system boot.
 /// @note Useful for rand operations, like setting the rand generator with srand().
 hltypesFnExport unsigned int get_system_tick_count();
+/// @brief Gets an environment variable as String.
+/// @param[in] env The environment variable.
+/// @return Environment variable as String.
+/// @note May not be available on all platforms (e.g. WinRT does not support it).
+hltypesFnExport hstr get_environment_variable(chstr name);
 /// @brief Returns a random int number.
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
@@ -359,27 +364,27 @@ hltypesFnExport double hhypotd(int a, int b);
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The float squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport float hhypotSquared(float a, float b);
+hltypesFnExport float hhypot_squared(float a, float b);
 /// @brief Calculates the double squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The double squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport double hhypotSquared(double a, double b);
+hltypesFnExport double hhypot_squared(double a, double b);
 /// @brief Calculates the int squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The int squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport int hhypotSquared(int a, int b);
+hltypesFnExport int hhypot_squared(int a, int b);
 /// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The float squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport float hhypotSquaredf(int a, int b);
+hltypesFnExport float hhypotf_squared(int a, int b);
 /// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The double squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport double hhypotSquaredd(int a, int b);
+hltypesFnExport double hhypotd_squared(int a, int b);
 /// @brief Compares 2 float values within using a tolerance factor.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
@@ -400,16 +405,25 @@ hltypesFnExport int hcmpf(float a, float b, float tolerance = HL_E_TOLERANCE);
 /// @param[in] b Second double value.
 /// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
 hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE);
-/// @brief Gets an environment variable as String.
-/// @param[in] env The environment variable.
-/// @return Environment variable as String.
-hltypesFnExport hstr get_environment_variable(chstr name);
+/// @brief Returns the next power-of-two value of the given number.
+/// @param[in] value the number to check.
+/// @return The next power-of-two value of the given number.
+hltypesFnExport unsigned int hpotceil(unsigned int value);
+/// @brief Returns the previous power-of-two value of the given number.
+/// @param[in] value the number to check.
+/// @return The previous power-of-two value of the given number.
+hltypesFnExport unsigned int hpotfloor(unsigned int value);
 
 // DEPRECATED
 DEPRECATED_ATTRIBUTE hltypesFnExport hstr get_basedir(chstr path);
 DEPRECATED_ATTRIBUTE hltypesFnExport hstr get_basename(chstr path);
 DEPRECATED_ATTRIBUTE hltypesFnExport hstr systemize_path(chstr path);
 DEPRECATED_ATTRIBUTE hltypesFnExport hstr normalize_path(chstr path);
+DEPRECATED_ATTRIBUTE hltypesFnExport float hhypotSquared(float a, float b);
+DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotSquared(double a, double b);
+DEPRECATED_ATTRIBUTE hltypesFnExport int hhypotSquared(int a, int b);
+DEPRECATED_ATTRIBUTE hltypesFnExport float hhypotSquaredf(int a, int b);
+DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotSquaredd(int a, int b);
 
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.
@@ -477,8 +491,9 @@ inline int hsgn(T value)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is between minimum and maximum.
+/// @note The "ii" at the end indicates "inclusive minimum, inclusive maximum".
 template <class T>
-inline bool is_between(T value, T min, T max)
+inline bool is_between_ii(T value, T min, T max)
 {
 	return (value >= min && value <= max);
 }
@@ -487,8 +502,9 @@ inline bool is_between(T value, T min, T max)
 /// @param[in] min Minimum exclusive boundary.
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is between minimum and maximum.
+/// @note The "ee" at the end indicates "exclusive minimum, exclusive maximum".
 template <class T>
-inline bool is_within(T value, T min, T max)
+inline bool is_between_ee(T value, T min, T max)
 {
 	return (value > min && value < max);
 }
@@ -497,8 +513,9 @@ inline bool is_within(T value, T min, T max)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is inside of minimum and maximum.
+/// @note The "ie" at the end indicates "inclusive minimum, exclusive maximum".
 template <class T>
-inline bool is_in_range(T value, T min, T max)
+inline bool is_between_ie(T value, T min, T max)
 {
 	return (value >= min && value < max);
 }
@@ -507,10 +524,16 @@ inline bool is_in_range(T value, T min, T max)
 /// @param[in] min Minimum exclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is inside of minimum and maximum.
+/// @note The "ei" at the end indicates "exclusive minimum, inclusive maximum".
 template <class T>
-inline bool is_inside(T value, T min, T max) // I'd like to be inside
+inline bool is_between_ei(T value, T min, T max) // I'd like to be inside
 {
 	return (value > min && value <= max);
 }
+
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_between(T value, T min, T max) { return is_between_ii(value, min, max); }
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_within(T value, T min, T max) { return is_between_ee(value, min, max); }
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_in_range(T value, T min, T max) { return is_between_ie(value, min, max); }
+template <class T> DEPRECATED_ATTRIBUTE inline bool is_inside(T value, T min, T max) { return is_between_ei(value, min, max); }
 
 #endif

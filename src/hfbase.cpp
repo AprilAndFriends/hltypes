@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -33,12 +33,12 @@ namespace hltypes
 	{
 	}
 
-	FileBase::FileBase(const String& filename, unsigned char encryption_offset) : StreamBase(encryption_offset), cfile(NULL)
+	FileBase::FileBase(const String& filename) : StreamBase(), cfile(NULL)
 	{
 		this->filename = Dir::normalize(filename);
 	}
 	
-	FileBase::FileBase(unsigned char encryption_offset) : StreamBase(encryption_offset), cfile(NULL)
+	FileBase::FileBase() : StreamBase(), cfile(NULL)
 	{
 	}
 	
@@ -82,14 +82,13 @@ namespace hltypes
 		return this->filename;
 	}
 	
-	void FileBase::_fopen(const String& filename, AccessMode access_mode, unsigned char encryption_offset, int repeats, float timeout)
+	void FileBase::_fopen(const String& filename, AccessMode access_mode, int repeats, float timeout)
 	{
 		if (this->is_open())
 		{
 			this->_fclose();
 		}
 		this->filename = Dir::normalize(filename);
-		this->encryption_offset = encryption_offset;
 		hstr mode = "rb";
 		switch (access_mode)
 		{

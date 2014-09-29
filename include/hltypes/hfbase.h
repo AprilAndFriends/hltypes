@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -70,11 +70,9 @@ namespace hltypes
 		
 		/// @brief Constructor with filename.
 		/// @param[in] filename Name of the file (may include path).
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
-		FileBase(const String& filename, unsigned char encryption_offset = 0);
+		FileBase(const String& filename);
 		/// @brief Basic constructor.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
-		FileBase(unsigned char encryption_offset = 0);
+		FileBase();
 		/// @brief Destructor.
 		~FileBase();
 
@@ -107,9 +105,10 @@ namespace hltypes
 		/// @brief Opens an OS file.
 		/// @param[in] filename Name of the file (may include path).
 		/// @param[in] access_mode File access mode.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
+		/// @param[in] repeats Number of repeated attempts to access a file.
+		/// @param[in] timeout Timeout in miliseconds between repeated attempts to access a file.
 		/// @note If this instance is already working with an opened file handle, that file handle will be closed.
-		void _fopen(const String& filename, AccessMode access_mode, unsigned char encryption_offset, int repeats, float timeout);
+		void _fopen(const String& filename, AccessMode access_mode, int repeats, float timeout);
 		/// @brief Closes file.
 		void _fclose();
 		/// @brief Reads data from the file.

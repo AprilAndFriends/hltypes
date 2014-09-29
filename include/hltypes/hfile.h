@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -31,8 +31,7 @@ namespace hltypes
 		/// @brief Constructor that immediately opens a file.
 		/// @param[in] filename Name of the file (may include path).
 		/// @param[in] access_mode File access mode.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
-		File(const String& filename, AccessMode access_mode = READ, unsigned char encryption_offset = 0);
+		File(const String& filename, AccessMode access_mode = READ);
 		/// @brief Basic constructor.
 		File();
 		/// @brief Destructor.
@@ -40,9 +39,8 @@ namespace hltypes
 		/// @brief Opens a file.
 		/// @param[in] filename Name of the file (may include path).
 		/// @param[in] access_mode File access mode.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
 		/// @note If this instance is already working with an opened file handle, that file handle will be closed.
-		void open(const String& filename, AccessMode access_mode = READ, unsigned char encryption_offset = 0);
+		void open(const String& filename, AccessMode access_mode = READ);
 		/// @brief Closes file.
 		void close();
 		

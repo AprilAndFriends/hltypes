@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.32
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -80,7 +80,6 @@ namespace hltypes
 				this->close();
 			}
 			this->filename = Dir::normalize(filename);
-			this->encryption_offset = 0;
 			int attempts = Resource::repeats + 1;
 			while (true)
 			{
@@ -116,7 +115,7 @@ namespace hltypes
 		else
 #endif
 		{
-			this->_fopen(Resource::make_full_path(filename), READ, 0, FileBase::repeats, FileBase::timeout);
+			this->_fopen(Resource::make_full_path(filename), READ, FileBase::repeats, FileBase::timeout);
 		}
 	}
 	

@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -24,7 +24,9 @@ namespace hltypes
 	{
 	public:
 		/// @brief Basic constructor.
-		Stream(unsigned char encryption_offset = 0);
+		/// @param[in] initial_capacity Initial capacity of the internal buffer.
+		/// @note initial_capacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
+		Stream(long initial_capacity = 16);
 		/// @brief Destructor.
 		~Stream();
 		/// @brief Clears the stream.
@@ -95,7 +97,7 @@ namespace hltypes
 		void _seek(long offset, SeekMode seek_mode = CURRENT);
 		/// @brief Resizes internal buffer if necessary.
 		/// @param[in] write_size Number of bytes that is needed for the next write.
-		void _try_resize_buffer(long write_size);
+		void _try_resize_buffer(long& write_size);
 
 	};
 }

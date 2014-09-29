@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.3
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -40,8 +40,7 @@ namespace hltypes
 		};
 		
 		/// @brief Basic constructor.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
-		StreamBase(unsigned char encryption_offset = 0);
+		StreamBase();
 		/// @brief Destructor.
 		virtual ~StreamBase();
 
@@ -212,8 +211,6 @@ namespace hltypes
 	protected:
 		/// @brief Data size, mostly used for optimization and faster "eof" detection.
 		long data_size;
-		/// @brief Byte value offset while reading/writing that serves as simple binary encryption.
-		unsigned char encryption_offset;
 
 		/// @brief Updates internal data size.
 		virtual void _update_data_size();
