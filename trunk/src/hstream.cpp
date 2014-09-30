@@ -25,7 +25,29 @@ namespace hltypes
 		// using malloc because realloc is used later
 		this->stream = (unsigned char*)malloc(this->current_size * sizeof(unsigned char));
 	}
-	
+
+	Stream::Stream(unsigned char* initial_data, long initial_data_size) : StreamBase()
+	{
+		this->current_size = initial_data_size;
+		this->stream_size = initial_data_size;
+		this->stream_position = 0;
+		// using malloc because realloc is used later
+		this->stream = (unsigned char*)malloc(this->current_size * sizeof(unsigned char));
+		memcpy(this->stream, initial_data, initial_data_size);
+		this->_update_data_size();
+	}
+
+	Stream::Stream(unsigned char* initial_data, long initial_data_size, long initial_capacity) : StreamBase()
+	{
+		this->current_size = initial_capacity;
+		this->stream_size = initial_data_size;
+		this->stream_position = 0;
+		// using malloc because realloc is used later
+		this->stream = (unsigned char*)malloc(this->current_size * sizeof(unsigned char));
+		memcpy(this->stream, initial_data, initial_data_size);
+		this->_update_data_size();
+	}
+
 	Stream::~Stream()
 	{
 		if (this->stream != NULL)
