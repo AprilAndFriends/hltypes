@@ -23,10 +23,21 @@ namespace hltypes
 	class hltypesExport Stream : public StreamBase
 	{
 	public:
-		/// @brief Basic constructor.
+		/// @brief Constructor.
 		/// @param[in] initial_capacity Initial capacity of the internal buffer.
 		/// @note initial_capacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
 		Stream(long initial_capacity = 16);
+		/// @brief Constructor.
+		/// @param[in] initial_data Initial data in the stream.
+		/// @param[in] initial_data_size Initial data's size.
+		/// @note initial_data is copied into the stream.
+		Stream(unsigned char* initial_data, long initial_data_size);
+		/// @brief Constructor.
+		/// @param[in] initial_data Initial data in the stream.
+		/// @param[in] initial_data_size Initial data's size.
+		/// @param[in] initial_capacity Initial capacity of the internal buffer.
+		/// @note initial_data is copied into the stream. initial_capacity will be corrected to initial_data_size if less than initial_data_size.
+		Stream(unsigned char* initial_data, long initial_data_size, long initial_capacity);
 		/// @brief Destructor.
 		~Stream();
 		/// @brief Clears the stream.
