@@ -39,7 +39,7 @@ namespace hltypes
 
 	Stream::Stream(unsigned char* initial_data, long initial_data_size, long initial_capacity) : StreamBase()
 	{
-		this->current_size = initial_capacity;
+		this->current_size = hmax(initial_capacity, initial_data_size);
 		this->stream_size = initial_data_size;
 		this->stream_position = 0;
 		// using malloc because realloc is used later
