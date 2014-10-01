@@ -37,17 +37,31 @@ namespace hltypes
 		DWORD dwFlags = 0;
 	} THREADNAME_INFO;
 #pragma pack(pop)
+
+	static void SetThreadName(DWORD id, chstr name)
+	{
+		THREADNAME_INFO info;
+		info.szName = (char*)name.c_str();
+		info.dwThreadID = id;
+		__try
+		{
+			RaiseException(0x406D1388, 0, sizeof(info) / sizeof(ULONG_PTR), (ULONG_PTR*)&info);
+		}
+		__except (EXCEPTION_CONTINUE_EXECUTION)
+		{
+		}
+	}
 #endif
 
 #ifdef _WIN32
-	unsigned long WINAPI async_call(void* param)
+	static unsigned long WINAPI async_call(void* param)
 	{
 		Thread* t = (Thread*)param;
 		t->execute();
 		return 0;
 	}
 #else
-	void* async_call(void* param)
+	static void* async_call(void* param)
 	{
 		Thread* t = (Thread*)param;
 		t->execute();
@@ -104,32 +118,25 @@ namespace hltypes
 		this->running = true;
 #ifdef _WIN32
 #ifndef _WINRT
-		this->id = CreateThread(0, 0, &async_call, this, 0, 0);
+		HANDLE handle = CreateThread(0, 0, &async_call, this, 0, 0);
+		this->id = handle;
+#ifdef _MSC_VER
+		if (this->name != "")
+		{
+			SetThreadName(GetThreadId(handle), this->name);
+		}
+#endif
 #else
 		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(
 			ref new WorkItemHandler([&](IAsyncAction^ work_item)
 			{
+				SetThreadName(GetCurrentThreadId(), this->name);
 				this->execute();
 			}),
 			WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
 #endif
 #else
 		pthread_create((pthread_t*)this->id, NULL, &async_call, this);
-#endif
-#if defined(_WIN32) && defined(_MSC_VER)
-		if (this->name != "")
-		{
-			THREADNAME_INFO info;
-			info.szName = this->name.c_str();
-			info.dwThreadID = (DWORD)GetThreadId(this->id);
-			__try
-			{
-				RaiseException(0x406D1388, 0, sizeof(info) / sizeof(ULONG_PTR), (ULONG_PTR*)&info);
-			}
-			__except (EXCEPTION_CONTINUE_EXECUTION)
-			{
-			}
-		}
 #endif
 	}
 	
