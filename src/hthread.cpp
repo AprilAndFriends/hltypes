@@ -146,7 +146,11 @@ namespace hltypes
 	void Thread::execute()
 	{
 #ifndef _WIN32
+#ifdef __APPLE__
 		pthread_setname_np(this->name.c_str());
+#else
+		pthread_setname_np(*((pthread_t*) this->id), this->name.c_str());
+#endif
 #endif
 		if (this->function != NULL)
 		{
