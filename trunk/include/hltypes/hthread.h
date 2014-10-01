@@ -13,10 +13,6 @@
 #ifndef HLTYPES_THREAD_H
 #define HLTYPES_THREAD_H
 
-#ifndef _WIN32
-#include <pthread.h>
-#endif
-
 #include "hltypesExport.h"
 
 namespace hltypes
