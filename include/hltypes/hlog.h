@@ -14,8 +14,9 @@
 #define HLTYPES_LOG_H
 
 #include "harray.h"
-#include "hstring.h"
 #include "hltypesExport.h"
+#include "hstring.h"
+#include "hmutex.h"
 
 namespace hltypes
 {
@@ -131,7 +132,14 @@ namespace hltypes
 		/// @brief Filename for logging to files.
 		static String filename;
 		/// @brief Callback function for logging.
-		static void (*callback_function)(const String&, const String&);
+		static void(*callback_function)(const String&, const String&);
+		/// @brief Mutex to ensure thread-safe handling
+		static hmutex mutex;
+		/// @brief Used for segmented Win32 log files.
+		static int file_index;
+		/// @brief Used for segmented Win32 log files.
+		static hstr file_extension;
+
 
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
@@ -146,6 +154,10 @@ namespace hltypes
 		/// @param[in] level Log level (required for Android).
 		/// @return True if the message could be logged.
 		static bool _system_log(const String& tag, const String& message, int level);
+		/// @brief Used for segmented Win32 log files.
+		static hstr Log::_get_file_name(chstr filename, int index);
+		/// @brief Used for segmented Win32 log files.
+		static hstr Log::_get_current_file_name(chstr filename);
 
 	};
 }

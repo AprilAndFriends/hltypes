@@ -6,28 +6,26 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
+#ifndef _WIN32
+#include <pthread.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "exception.h"
+#include "hlog.h"
 #include "hltypesUtil.h"
 #include "hmutex.h"
 #include "hplatform.h"
+#include "hthread.h"
 
 namespace hltypes
 {
-	Mutex::Mutex()
+	Mutex::Mutex(const String& name) : handle(NULL), locked(false)
 	{
+		this->name = name;
 #ifdef _WIN32
-#ifndef _WINRT // WinXP does not have CreateMutexEx()
-		this->handle = CreateMutex(0, 0, 0);
-#else
-		this->handle = CreateMutexEx(NULL, NULL, 0, SYNCHRONIZE);
-#endif
-		if (this->handle == 0)
-		{
-			throw hl_exception("Could not create mutex.");
-		}
+		this->handle = (CRITICAL_SECTION*)malloc(sizeof(CRITICAL_SECTION));
+		InitializeCriticalSectionAndSpinCount((CRITICAL_SECTION*)this->handle, 0);
 #else
 		this->handle = (pthread_mutex_t*)malloc(sizeof(pthread_mutex_t));
 		pthread_mutex_init((pthread_mutex_t*)this->handle, 0);
@@ -37,18 +35,28 @@ namespace hltypes
 	Mutex::~Mutex()
 	{
 #ifdef _WIN32
-		CloseHandle(this->handle);
+		DeleteCriticalSection((CRITICAL_SECTION*)this->handle);
+		free((CRITICAL_SECTION*)this->handle);
 #else
 		pthread_mutex_destroy((pthread_mutex_t*)this->handle);
 		free((pthread_mutex_t*)this->handle);
-		this->handle = NULL;
 #endif
+		this->handle = NULL;
 	}
 
 	void Mutex::lock()
 	{
 #ifdef _WIN32
-		WaitForSingleObjectEx(this->handle, INFINITE, FALSE);
+		EnterCriticalSection((CRITICAL_SECTION*)this->handle);
+		if (this->locked)
+		{
+			hlog::warnf("hmutex", "'%s' is deadlocked!", (this->name != "" ? this->name : hsprintf("<0x%p>", this)).c_str());
+			while (true) // simulating a deadlock
+			{
+				Thread::sleep(1.0f);
+			}
+		}
+		this->locked = true;
 #else
 		pthread_mutex_lock((pthread_mutex_t*)this->handle);
 #endif
@@ -57,7 +65,8 @@ namespace hltypes
 	void Mutex::unlock()
 	{
 #ifdef _WIN32
-		ReleaseMutex(this->handle);
+		this->locked = false;
+		LeaveCriticalSection((CRITICAL_SECTION*)this->handle);
 #else
 		pthread_mutex_unlock((pthread_mutex_t*)this->handle);
 #endif
