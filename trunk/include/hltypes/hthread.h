@@ -14,6 +14,7 @@
 #define HLTYPES_THREAD_H
 
 #include "hltypesExport.h"
+#include "hstring.h"
 
 namespace hltypes
 {
