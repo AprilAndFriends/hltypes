@@ -140,12 +140,14 @@ namespace hltypes
 #else
 		pthread_t* thread = (pthread_t*)this->id;
 		pthread_create(thread, NULL, &async_call, this);
-		pthread_setname_np(*thread, this->name.c_str());
 #endif
 	}
 	
 	void Thread::execute()
 	{
+#ifndef _WIN32
+		pthread_setname_np(this->name.c_str());
+#endif
 		if (this->function != NULL)
 		{
 			this->running = true;
