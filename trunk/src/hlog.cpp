@@ -38,8 +38,6 @@
 
 namespace hltypes
 {
-	static hmutex log_mutex;
-	
 #ifdef _ANDROID
 	int Log::LevelWrite = (int)ANDROID_LOG_INFO;
 	int Log::LevelError = (int)ANDROID_LOG_ERROR;
@@ -63,34 +61,30 @@ namespace hltypes
 	Array<String> Log::tag_filters;
 	String Log::filename;
 	void (*Log::callback_function)(const String&, const String&) = NULL;
+	hmutex Log::mutex;
+	int Log::file_index = 0;
+	hstr Log::file_extension;
 
-#ifdef _WIN32
-	static int fileIndex = 0;
-	static hstr fileExtension;
-
-	hstr _get_file_name(chstr filename, int index)
+	hstr Log::_get_file_name(chstr filename, int index)
 	{
-		return (filename + ".hlog/" + hstr(index) + "." + fileExtension);
+		return (filename + ".hlog/" + hstr(index) + "." + Log::file_extension);
 	}
 
-	hstr _get_current_file_name(chstr filename)
+	hstr Log::_get_current_file_name(chstr filename)
 	{
-		log_mutex.lock();
 		if (!hdir::exists(filename + ".hlog"))
 		{
 			hdir::create(filename + ".hlog");
 		}
-		hstr newFilename = _get_file_name(filename, fileIndex);
+		hstr newFilename = Log::_get_file_name(filename, Log::file_index);
 		if (hfile::hsize(newFilename) > MAX_FILE_SIZE)
 		{
-			++fileIndex;
-			newFilename = _get_file_name(filename, fileIndex);
+			++Log::file_index;
+			newFilename = Log::_get_file_name(filename, Log::file_index);
 			hfile::create_new(newFilename); // clears the file
 		}
-		log_mutex.unlock();
 		return newFilename;
 	}
-#endif
 	
 	void Log::setLevels(bool write, bool error, bool warn, bool debug)
 	{
@@ -104,30 +98,30 @@ namespace hltypes
 	{
 		Log::filename = Dir::normalize(filename);
 #ifdef _WIN32
-		log_mutex.lock();
+		Log::mutex.lock();
 		if (clearFile)
 		{
 			hdir::remove(filename + ".hlog"); // left over from last run, delete
 			hfile::create_new(Log::filename);
-			log_mutex.unlock();
+			Log::mutex.unlock();
 		}
 		else if (hdir::exists(filename + ".hlog"))
 		{
-			log_mutex.unlock();
+			Log::mutex.unlock();
 			Log::finalize(clearFile); // left over from last run, merge
 		}
 		else
 		{
-			log_mutex.unlock();
+			Log::mutex.unlock();
 		}
-		fileExtension = hfile::extension_of(filename);
+		Log::file_extension = hfile::extension_of(filename);
 #else
-		log_mutex.lock();
+		Log::mutex.lock();
 		if (clearFile)
 		{
 			hfile::create_new(Log::filename);
 		}
-		log_mutex.unlock();
+		Log::mutex.unlock();
 #endif
 	}
 	
@@ -153,7 +147,7 @@ namespace hltypes
 		{
 			return false;
 		}
-		log_mutex.lock();
+		Log::mutex.lock();
 		_platform_print(tag, message, LEVEL_PLATFORM(level));
 		if (Log::filename != "")
 		{
@@ -162,7 +156,7 @@ namespace hltypes
 #ifndef _WIN32
 				hfile file(Log::filename, hfile::APPEND);
 #else
-				hfile file(_get_current_file_name(Log::filename), hfile::APPEND);
+				hfile file(Log::_get_current_file_name(Log::filename), hfile::APPEND);
 #endif
 				String log_message = (tag != "" ? "[" + tag + "] " + message : message);
 				file.writef("%s\n", log_message.c_str());
@@ -170,7 +164,7 @@ namespace hltypes
 			catch (hltypes::exception& e)
 			{
 				_platform_print("FATAL", e.getMessage(), LevelError);
-				log_mutex.unlock();
+				Log::mutex.unlock();
 				throw e;
 			}
 		}
@@ -184,10 +178,10 @@ namespace hltypes
 		catch (hltypes::exception& e)
 		{
 			_platform_print("FATAL", e.getMessage(), LevelError);
-			log_mutex.unlock();
+			Log::mutex.unlock();
 			throw e;
 		}
-		log_mutex.unlock();
+		Log::mutex.unlock();
 		return true;
 	}
 	
@@ -244,7 +238,7 @@ namespace hltypes
 		}
 		hfile file;
 		hstr filename;
-		log_mutex.lock();
+		Log::mutex.lock();
 		if (clearFile)
 		{
 			file.open(Log::filename, File::WRITE);
@@ -253,9 +247,9 @@ namespace hltypes
 		{
 			file.open(Log::filename, File::APPEND);
 		}
-		for_iter (i, 0, fileIndex + 1)
+		for_iter (i, 0, Log::file_index + 1)
 		{
-			filename = _get_file_name(Log::filename, i);
+			filename = Log::_get_file_name(Log::filename, i);
 			if (hfile::exists(filename))
 			{
 				file.write(hfile::hread(filename));
@@ -267,8 +261,8 @@ namespace hltypes
 		}
 		file.close(); // to flush everything
 		hdir::remove(Log::filename + ".hlog");
-		log_mutex.unlock();
-		fileIndex = 0;
+		Log::mutex.unlock();
+		Log::file_index = 0;
 #endif
 	}
 
