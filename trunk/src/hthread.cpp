@@ -31,18 +31,20 @@ namespace hltypes
 #pragma pack(push, 8)
 	typedef struct _THREADNAME_INFO
 	{
-		DWORD dwType = 0x1000;
-		LPCSTR szName = NULL;
-		DWORD dwThreadID = 0;
-		DWORD dwFlags = 0;
+		DWORD dwType;
+		LPCSTR szName;
+		DWORD dwThreadID;
+		DWORD dwFlags;
 	} THREADNAME_INFO;
 #pragma pack(pop)
 
 	static void SetThreadName(DWORD id, chstr name)
 	{
 		THREADNAME_INFO info;
+		info.dwType = 0x1000;
 		info.szName = (char*)name.c_str();
 		info.dwThreadID = id;
+		info.dwFlags = 0;
 		__try
 		{
 			RaiseException(0x406D1388, 0, sizeof(info) / sizeof(ULONG_PTR), (ULONG_PTR*)&info);
