@@ -27,21 +27,34 @@ using namespace Windows::System::Threading;
 
 namespace hltypes
 {
+#if defined(_WIN32) && defined(_MSC_VER)
+#pragma pack(push, 8)
+	typedef struct _THREADNAME_INFO
+	{
+		DWORD dwType = 0x1000;
+		LPCSTR szName = NULL;
+		DWORD dwThreadID = 0;
+		DWORD dwFlags = 0;
+	} THREADNAME_INFO;
+#pragma pack(pop)
+#endif
+
 #ifdef _WIN32
 	unsigned long WINAPI async_call(void* param)
-#else
-	void* async_call(void* param)
-#endif
 	{
 		Thread* t = (Thread*)param;
 		t->execute();
-#ifdef _WIN32
 		return 0;
+	}
 #else
+	void* async_call(void* param)
+	{
+		Thread* t = (Thread*)param;
+		t->execute();
 		pthread_exit(NULL);
 		return NULL;
-#endif
 	}
+#endif
 
 #ifdef _WINRT
 	struct AsyncActionWrapper
@@ -55,9 +68,10 @@ namespace hltypes
 	};
 #endif
 	
-	Thread::Thread(void (*function)(Thread*)) : running(false), id(0)
+	Thread::Thread(void (*function)(Thread*), const String& name) : running(false), id(0)
 	{
 		this->function = function;
+		this->name = name;
 #ifndef _WIN32
 		this->id = (pthread_t*)malloc(sizeof(pthread_t));
 #endif
@@ -101,6 +115,21 @@ namespace hltypes
 #endif
 #else
 		pthread_create((pthread_t*)this->id, NULL, &async_call, this);
+#endif
+#if defined(_WIN32) && defined(_MSC_VER)
+		if (this->name != "")
+		{
+			THREADNAME_INFO info;
+			info.szName = this->name.c_str();
+			info.dwThreadID = (DWORD)GetThreadId(this->id);
+			__try
+			{
+				RaiseException(0x406D1388, 0, sizeof(info) / sizeof(ULONG_PTR), (ULONG_PTR*)&info);
+			}
+			__except (EXCEPTION_CONTINUE_EXECUTION)
+			{
+			}
+		}
 #endif
 	}
 	
@@ -212,4 +241,5 @@ namespace hltypes
 		usleep(miliseconds * 1000);
 #endif
 	}
+
 }

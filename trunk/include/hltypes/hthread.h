@@ -27,12 +27,16 @@ namespace hltypes
 	public:
 		/// @brief Basic constructor.
 		/// @param[in] function Function pointer for the callback.
-		Thread(void (*function)(Thread*));
+		/// @param[in] name Name for the thread.
+		Thread(void (*function)(Thread*), const String& name = "");
 		/// @brief Destructor.
 		virtual ~Thread();
 		/// @brief Sets function.
 		/// @param[in] value New function.
 		inline void setFunction(void (*value)(Thread*)) { this->function = value; }
+		/// @brief Gets the thread name.
+		/// @return Thread name.
+		inline String getName() { return this->name; }
 		/// @brief Gets whether the thread is running.
 		/// @return True if the thread is running.
 		inline bool isRunning() { return this->running; }
@@ -57,6 +61,9 @@ namespace hltypes
 		void (*function)(Thread*);
 		/// @brief The internal OS handle ID for the thread.
 		void* id;
+		/// @brief Thread name.
+		/// @note Usually used for debugging purposes.
+		String name;
 		/// @brief Flag that determines whether the thread is running or not.
 		volatile bool running;
 		
