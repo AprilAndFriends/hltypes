@@ -22,15 +22,25 @@ namespace hlxml
 {
 	class Node;
 
+	/// @brief Defines a generic XML exception.
 	class hlxmlExport _XMLException : public hltypes::exception
 	{
 	public:
+		/// @brief Basic constructor.
+		/// @param[in] msg Error message.
+		/// @param[in] node The affected Node.
+		/// @param[in] type Exception type
+		/// @param[in] source_file Name of the source file.
+		/// @param[in] line_number Number of the line.
 		_XMLException(chstr msg, Node* node, chstr type, const char* file, int line);
 
 	};
 
+	/// @brief Alias for simpler code.
 	#define XMLException(msg, node) _XMLException(msg, node, "XMLException", __FILE__, __LINE__)
+	/// @brief Alias for simpler code.
 	#define XMLPropertyNotExistsException(element, node) _XMLException(hstr("XML property doesn't exist: ") + element, node, "XMLPropertyNotExistsException", __FILE__, __LINE__)
+	/// @brief Alias for simpler code.
 	#define XMLUnknownClassException(element, node) _XMLException(hstr("Unknown class detected in XML file: ") + element, node, "XMLUnknownClassException", __FILE__, __LINE__)
 
 }
