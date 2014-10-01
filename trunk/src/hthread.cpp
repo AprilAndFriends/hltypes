@@ -136,7 +136,9 @@ namespace hltypes
 			WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
 #endif
 #else
-		pthread_create((pthread_t*)this->id, NULL, &async_call, this);
+		pthread_t* thread = (pthread_t*)this->id;
+		pthread_create(thread, NULL, &async_call, this);
+		pthread_setname_np(*thread, this->name.c_str());
 #endif
 	}
 	
