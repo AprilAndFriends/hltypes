@@ -155,9 +155,9 @@ namespace hltypes
 		/// @return True if the message could be logged.
 		static bool _system_log(const String& tag, const String& message, int level);
 		/// @brief Used for segmented Win32 log files.
-		static hstr Log::_get_file_name(chstr filename, int index);
+		static hstr _get_file_name(chstr filename, int index);
 		/// @brief Used for segmented Win32 log files.
-		static hstr Log::_get_current_file_name(chstr filename);
+		static hstr _get_current_file_name(chstr filename);
 
 	};
 }
