@@ -17,6 +17,7 @@
 
 #include "hlxmlExport.h"
 
+/// @brief Provides a simpler syntax to iterate through the properties of a node.
 #define foreach_xmlproperty(propertyName, nodeName) for (hlxml::Property* propertyName = nodeName->iterProperties(); propertyName != NULL; propertyName = propertyName->next())
 
 class TiXmlAttribute;
@@ -38,8 +39,10 @@ namespace hlxml
 		hstr name();
 		/// @return Value of the Property.
 		hstr value();
-		/// @return The next sibling Property within the Node.
-		/// @note This returns NULL if there are no more Properties.
+		/// @brief Gets the next sibling Property in the current iteration.
+		/// @return The next sibling Property of this Property or NULL if this is the last one.
+		/// @note Use this only if you called iterProperties() on this Property's parent node previously to continue the iteration.
+		/// @see Node::iterProperties()
 		Property* next();
 
 	protected:
@@ -49,8 +52,8 @@ namespace hlxml
 		TiXmlAttribute* prop;
 
 		/// @brief Constructor.
-		/// @param[in] node The Node has this Property.
-		/// @param[in] prop The TinyXML property.
+		/// @param[in] node The Node this Property belongs to.
+		/// @param[in] prop The TinyXML attribute.
 		Property(Node* node, TiXmlAttribute* prop);
 
 	};
