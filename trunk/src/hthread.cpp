@@ -83,7 +83,7 @@ namespace hltypes
 		}
 	};
 #endif
-	
+
 	Thread::Thread(void (*function)(Thread*), const String& name) : running(false), id(0)
 	{
 		this->function = function;
@@ -140,17 +140,16 @@ namespace hltypes
 #else
 		pthread_t* thread = (pthread_t*)this->id;
 		pthread_create(thread, NULL, &async_call, this);
+#ifndef __APPLE__
+		pthread_setname_np(*thread, this->name.c_str());
+#endif
 #endif
 	}
-	
+
 	void Thread::execute()
 	{
-#ifndef _WIN32
-#ifdef __APPLE__
+#if !defined(_WIN32) && defined(__APPLE__)
 		pthread_setname_np(this->name.c_str());
-#else
-		pthread_setname_np(*((pthread_t*) this->id), this->name.c_str());
-#endif
 #endif
 		if (this->function != NULL)
 		{
@@ -204,7 +203,7 @@ namespace hltypes
 		pthread_join(*((pthread_t*)this->id), 0);
 #endif
 	}
-	
+
 	void Thread::resume()
 	{
 #ifdef _WIN32
@@ -215,7 +214,7 @@ namespace hltypes
 #endif
 #endif
 	}
-	
+
 	void Thread::pause()
 	{
 #ifdef _WIN32
@@ -226,7 +225,7 @@ namespace hltypes
 #endif
 #endif
 	}
-	
+
 	void Thread::stop()
 	{
 		if (this->running)
@@ -245,7 +244,7 @@ namespace hltypes
 #endif
 		}
 	}
-	
+
 	void Thread::sleep(float miliseconds)
 	{
 #ifdef _WIN32
