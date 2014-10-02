@@ -8,7 +8,7 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Represents a generic XML node.
+/// Represents an XML node.
 
 #ifndef HLXML_NODE_H
 #define HLXML_NODE_H
@@ -48,7 +48,7 @@ namespace hlxml
 		};
 
 		/// @brief Destructor.
-		virtual ~Node();
+		~Node();
 
 		/// @brief Gets the filename of the Document to which this Node belongs to.
 		hstr getFilename();

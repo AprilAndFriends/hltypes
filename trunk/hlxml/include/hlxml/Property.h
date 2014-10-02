@@ -33,7 +33,7 @@ namespace hlxml
 		friend class Node;
 
 		/// @brief Destructor.
-		virtual ~Property();
+		~Property();
 
 		/// @return Name of the Property.
 		hstr name();
