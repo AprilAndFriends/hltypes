@@ -65,6 +65,12 @@ namespace hltypes
 #else
 	static void* async_call(void* param)
 	{
+#ifdef __APPLE__
+		if (this->getName() != "")
+		{
+			pthread_setname_np(this->getName().c_str());
+		}
+#endif
 		Thread* t = (Thread*)param;
 		t->execute();
 		pthread_exit(NULL);
@@ -129,28 +135,29 @@ namespace hltypes
 		}
 #endif
 #else
-		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(
-			ref new WorkItemHandler([&](IAsyncAction^ work_item)
+		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(ref new WorkItemHandler([&](IAsyncAction^ work_item)
+		{
+			if (this->name != "")
 			{
 				SetThreadName(GetCurrentThreadId(), this->name);
-				this->execute();
-			}),
-			WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
+			}
+			this->execute();
+		}), WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
 #endif
 #else
 		pthread_t* thread = (pthread_t*)this->id;
 		pthread_create(thread, NULL, &async_call, this);
 #ifndef __APPLE__
-		pthread_setname_np(*thread, this->name.c_str());
+		if (this->name != "")
+		{
+			pthread_setname_np(*thread, this->name.c_str());
+		}
 #endif
 #endif
 	}
 
 	void Thread::execute()
 	{
-#if !defined(_WIN32) && defined(__APPLE__)
-		pthread_setname_np(this->name.c_str());
-#endif
 		if (this->function != NULL)
 		{
 			this->running = true;
