@@ -65,13 +65,13 @@ namespace hltypes
 #else
 	static void* async_call(void* param)
 	{
+		Thread* t = (Thread*)param;
 #ifdef __APPLE__
-		if (this->getName() != "")
+		if (t->getName() != "")
 		{
-			pthread_setname_np(this->getName().c_str());
+			pthread_setname_np(t->getName().c_str());
 		}
 #endif
-		Thread* t = (Thread*)param;
 		t->execute();
 		pthread_exit(NULL);
 		return NULL;
