@@ -8,6 +8,8 @@
 
 #ifndef _WIN32
 #include <semaphore.h>
+#include <fcntl.h>
+#include <errno.h>
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,8 +32,11 @@ namespace hltypes
 		this->handle = CreateSemaphoreExW(NULL, this->max_count, this->max_count, L"", 0, 0); // this->name is NOT a system name!
 #endif
 #else
-		this->handle = (sem_t*)malloc(sizeof(sem_t));
-		sem_init((sem_t*)this->handle, 0, this->max_count);
+		this->handle = sem_open(this->name.c_str(), O_CREAT|O_EXCL, this->max_count);
+		if (this->handle == SEM_FAILED)
+		{
+			hlog::writef("semaphore", "Error creating POSIX semaphore '%s'! errno = %s", this->name.c_str(), hstr(strerror(errno)).c_str());
+		}
 #endif
 	}
 
@@ -40,8 +45,7 @@ namespace hltypes
 #ifdef _WIN32
 		CloseHandle(this->handle);
 #else
-		sem_destroy((sem_t*)this->handle);
-		free((sem_t*)this->handle);
+		sem_close((sem_t*)this->handle);
 #endif
 		this->handle = NULL;
 	}
