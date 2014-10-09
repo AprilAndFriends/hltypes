@@ -34,6 +34,10 @@
 		D115F7C314AD4FA600C78558 /* hstream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C114AD4FA600C78558 /* hstream.cpp */; };
 		D115F7C714AD4FB400C78558 /* hsbase.h in Headers */ = {isa = PBXBuildFile; fileRef = D115F7C514AD4FB400C78558 /* hsbase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D115F7C814AD4FB400C78558 /* hstream.h in Headers */ = {isa = PBXBuildFile; fileRef = D115F7C614AD4FB400C78558 /* hstream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D11D1EA419E6A8E900C630FA /* hsemaphore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D11D1EA319E6A8E900C630FA /* hsemaphore.cpp */; };
+		D11D1EA519E6A8EE00C630FA /* hsemaphore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D11D1EA319E6A8E900C630FA /* hsemaphore.cpp */; };
+		D11D1EA619E6A8EE00C630FA /* hsemaphore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D11D1EA319E6A8E900C630FA /* hsemaphore.cpp */; };
+		D11D1EA819E6A90200C630FA /* hsemaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = D11D1EA719E6A90200C630FA /* hsemaphore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D122D39A14AD51F200F2886F /* hsbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C014AD4FA600C78558 /* hsbase.cpp */; };
 		D122D39B14AD51F200F2886F /* hstream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C114AD4FA600C78558 /* hstream.cpp */; };
 		D1981C14140F7F5C0057C3AF /* hthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23531291377B0035EDF5 /* hthread.cpp */; };
@@ -110,6 +114,8 @@
 		D115F7C114AD4FA600C78558 /* hstream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hstream.cpp; path = src/hstream.cpp; sourceTree = "<group>"; };
 		D115F7C514AD4FB400C78558 /* hsbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsbase.h; path = include/hltypes/hsbase.h; sourceTree = "<group>"; };
 		D115F7C614AD4FB400C78558 /* hstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hstream.h; path = include/hltypes/hstream.h; sourceTree = "<group>"; };
+		D11D1EA319E6A8E900C630FA /* hsemaphore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hsemaphore.cpp; path = src/hsemaphore.cpp; sourceTree = "<group>"; };
+		D11D1EA719E6A90200C630FA /* hsemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsemaphore.h; path = include/hltypes/hsemaphore.h; sourceTree = "<group>"; };
 		D1522F3E140F7A310012F290 /* libhltypes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhltypes.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1681B7218D7612F0088FC68 /* iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = iOS.xcconfig; path = xcconfig/iOS.xcconfig; sourceTree = "<group>"; };
 		D1681B7318D7612F0088FC68 /* Mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Mac.xcconfig; path = xcconfig/Mac.xcconfig; sourceTree = "<group>"; };
@@ -184,6 +190,7 @@
 				D115F7C114AD4FA600C78558 /* hstream.cpp */,
 				7FAB23531291377B0035EDF5 /* hthread.cpp */,
 				7FAB23541291377B0035EDF5 /* hmutex.cpp */,
+				D11D1EA319E6A8E900C630FA /* hsemaphore.cpp */,
 				C981D01B14FFC5FE0032F321 /* hfbase.cpp */,
 				C965F5BA14F3897B009F0EE5 /* hresource.cpp */,
 				7F79A50F125CB34400B22DA2 /* hdir.cpp */,
@@ -198,6 +205,7 @@
 		7F42F69C11EB0B9A00B1C1DF /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D11D1EA719E6A90200C630FA /* hsemaphore.h */,
 				D1BAE0F1183B91D100BC2434 /* hdbase.h */,
 				D1BAE0F2183B91D100BC2434 /* hrdir.h */,
 				D1E909EA1636912400EB27EE /* hlog.h */,
@@ -274,6 +282,7 @@
 				7F469C7412088BEE009781BB /* exception.h in Headers */,
 				7F340ED0120AE72900F01926 /* hmap.h in Headers */,
 				7F79A512125CB34F00B22DA2 /* hdir.h in Headers */,
+				D11D1EA819E6A90200C630FA /* hsemaphore.h in Headers */,
 				7FAB235A1291378A0035EDF5 /* hmutex.h in Headers */,
 				C981D02014FFC6270032F321 /* hfbase.h in Headers */,
 				D1BAE104183B921400BC2434 /* zipaccess.h in Headers */,
@@ -382,6 +391,7 @@
 				7FAB23561291377B0035EDF5 /* hmutex.cpp in Sources */,
 				D115F7C214AD4FA600C78558 /* hsbase.cpp in Sources */,
 				D115F7C314AD4FA600C78558 /* hstream.cpp in Sources */,
+				D11D1EA419E6A8E900C630FA /* hsemaphore.cpp in Sources */,
 				C9F9314014DA88B400954F90 /* hltypesUtil.cpp in Sources */,
 				C965F5BB14F3897B009F0EE5 /* hresource.cpp in Sources */,
 				D1D34304186250360040AA7F /* Apple_platform.mm in Sources */,
@@ -406,6 +416,7 @@
 				D1981C16140F7F5C0057C3AF /* hdir.cpp in Sources */,
 				D1981C17140F7F5C0057C3AF /* exception.cpp in Sources */,
 				D1981C18140F7F5C0057C3AF /* hfile.cpp in Sources */,
+				D11D1EA519E6A8EE00C630FA /* hsemaphore.cpp in Sources */,
 				D1981C19140F7F5C0057C3AF /* hstring.cpp in Sources */,
 				C9F9314114DA88B400954F90 /* hltypesUtil.cpp in Sources */,
 				D1D34306186250360040AA7F /* Apple_platform.mm in Sources */,
@@ -430,6 +441,7 @@
 				D1F27A91177A2D0E00E5C131 /* exception.cpp in Sources */,
 				D1F27A92177A2D0E00E5C131 /* hfile.cpp in Sources */,
 				D1F27A93177A2D0E00E5C131 /* hstring.cpp in Sources */,
+				D11D1EA619E6A8EE00C630FA /* hsemaphore.cpp in Sources */,
 				D1F27A94177A2D0E00E5C131 /* hltypesUtil.cpp in Sources */,
 				D1D34302186241AF0040AA7F /* Mac_platform.mm in Sources */,
 				D1D34305186250360040AA7F /* Apple_platform.mm in Sources */,
