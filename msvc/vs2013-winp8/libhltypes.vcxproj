@@ -49,11 +49,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="props-generic\build-defaults.props" />
   <Import Project="props\configuration.props" />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <CompileAsWinRT>true</CompileAsWinRT>
-    </ClCompile>
-  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\exception.cpp" />
     <ClCompile Include="..\..\src\hdbase.cpp" />
