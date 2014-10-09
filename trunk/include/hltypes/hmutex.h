@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.4
+/// @version 2.5
 /// 
 /// @section LICENSE
 /// 
@@ -19,11 +19,11 @@
 namespace hltypes
 {
 	/// @brief Provides functionality of a Mutex for multithreading.
-	/// @todo Finish the class and fix remaining problems.
 	class hltypesExport Mutex
 	{
 	public:
 		/// @brief Basic constructor.
+		/// @param[in] name The internal name.
 		Mutex(const String& name = "");
 		/// @brief Destructor.
 		~Mutex();
