@@ -59,6 +59,12 @@ namespace hltypes
 	static unsigned long WINAPI async_call(void* param)
 	{
 		Thread* t = (Thread*)param;
+#ifdef _MSC_VER
+		if (t->getName() != "")
+		{
+			SetThreadName(GetCurrentThreadId(), t->getName());
+		}
+#endif
 		t->execute();
 		return 0;
 	}
@@ -126,14 +132,7 @@ namespace hltypes
 		this->running = true;
 #ifdef _WIN32
 #ifndef _WINRT
-		HANDLE handle = CreateThread(0, 0, &async_call, this, 0, 0);
-		this->id = handle;
-#ifdef _MSC_VER
-		if (this->name != "")
-		{
-			SetThreadName(GetThreadId(handle), this->name);
-		}
-#endif
+		this->id = CreateThread(0, 0, &async_call, this, 0, 0);
 #else
 		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(ref new WorkItemHandler([&](IAsyncAction^ work_item)
 		{
