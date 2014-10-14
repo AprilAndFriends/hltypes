@@ -9,6 +9,7 @@
       <StringPooling>true</StringPooling>
       <FloatingPointExceptions>false</FloatingPointExceptions>
       <CompileAs>CompileAsC</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <ModuleDefinitionFile>../../win32/zlib.def</ModuleDefinitionFile>
