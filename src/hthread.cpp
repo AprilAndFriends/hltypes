@@ -15,8 +15,8 @@
 
 #include "harray.h"
 #include "hlog.h"
-#include "hmutex.h"
 #include "hltypesUtil.h"
+#include "hmutex.h"
 #include "hplatform.h"
 #include "hthread.h"
 
