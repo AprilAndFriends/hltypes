@@ -1110,22 +1110,22 @@ namespace hltypes
 
 }
 
-hstr operator+(const char* s1, chstr s2)
+hltypes::String operator+(const char* s1, const hltypes::String& s2)
 {
-	return (hstr(s1) + s2);
+	return (hltypes::String(s1) + s2);
 }
 
-hstr operator+(char* s1, chstr s2)
+hltypes::String operator+(char* s1, const hltypes::String& s2)
 {
-	return (hstr(s1) + s2);
+	return (hltypes::String(s1) + s2);
 }
 
-hstr operator+(char s1, chstr s2)
+hltypes::String operator+(char s1, const hltypes::String& s2)
 {
-	return (hstr(s1) + s2);
+	return (hltypes::String(s1) + s2);
 }
 
-hstr hvsprintf(const char* format, va_list args)
+hltypes::String hvsprintf(const char* format, va_list args)
 {
 	int size = 256; // safe assumption that most strings will be under 257 characters
 	char* c = new char[size + 1];
@@ -1153,16 +1153,16 @@ hstr hvsprintf(const char* format, va_list args)
 		throw hl_exception("Resulting string for hsprintf is longer than 2^16 (65536) characters!");
 	}
 #endif
-	hstr result(c);
+	hltypes::String result(c);
 	delete [] c;
 	return result;
 }
 
-hstr hsprintf(const char* format, ...)
+hltypes::String hsprintf(const char* format, ...)
 {
 	va_list args;
 	va_start(args, format);
-	hstr result(hvsprintf(format, args));
+	hltypes::String result(hvsprintf(format, args));
 	va_end(args);
 	return result;
 }

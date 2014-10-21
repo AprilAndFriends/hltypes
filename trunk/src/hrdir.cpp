@@ -34,8 +34,8 @@ namespace hltypes
 			bool result = ResourceDir::directories(ResourceDir::basedir(name)).contains(ResourceDir::basename(name));
 			if (!result && !case_sensitive)
 			{
-				hstr basedir = ResourceDir::basedir(name);
-				hstr basename = ResourceDir::basename(name);
+				String basedir = ResourceDir::basedir(name);
+				String basename = ResourceDir::basename(name);
 				Array<String> directories = ResourceDir::directories(basedir);
 				foreach (String, it, directories)
 				{

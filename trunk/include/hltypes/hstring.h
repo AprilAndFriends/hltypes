@@ -538,22 +538,22 @@ typedef const hltypes::String& chstr;
 /// @param[in] s1 C-type string to merge.
 /// @param[in] s2 String to merge.
 /// @return Merged String.
-hstr hltypesFnExport operator+(const char* s1, chstr s2);
+hltypes::String hltypesFnExport operator+(const char* s1, const hltypes::String& s2);
 /// @brief Merges a C-type string and a String into a new String.
 /// @param[in] s1 C-type string to merge.
 /// @param[in] s2 String to merge.
 /// @return Merged String.
-hstr hltypesFnExport operator+(char* s1, chstr s2);
+hltypes::String hltypesFnExport operator+(char* s1, const hltypes::String& s2);
 /// @brief Applies formatting to a string.
 /// @param[in] format C-type string containing format.
 /// @param[in] args Variable argument list.
 /// @return Formatted String.
-hstr hltypesFnExport hvsprintf(const char* format, va_list args);
+hltypes::String hltypesFnExport hvsprintf(const char* format, va_list args);
 /// @brief Applies formatting to a string.
 /// @param[in] format C-type string containing format.
 /// @param[in] ... Formatting arguments.
 /// @return Formatted String.
-hstr hltypesFnExport hsprintf(const char* format, ...);
+hltypes::String hltypesFnExport hsprintf(const char* format, ...);
 
 #endif
 

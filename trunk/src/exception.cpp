@@ -30,7 +30,7 @@ namespace hltypes
 	{
 		this->msg = hsprintf("[%s:%d] %s", Dir::basename(source_file).c_str(), line_number, message.c_str());
 #ifdef _WINRT // because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
-		if (hlog::isLevelDebug() && message != "")
+		if (Log::isLevelDebug() && message != "")
 		{
 			hltypes::_platform_print("FATAL", this->msg, 1000);
 		}
@@ -88,7 +88,7 @@ namespace hltypes
 		{
 		}
 #ifdef _WIN32 // could be useful
-		message += " System error: " + hstr(strerror(errno));
+		message += " System error: " + String(strerror(errno));
 #endif
 		this->_setInternalMessage(message, source_file, line_number);
 	}

@@ -506,7 +506,7 @@ namespace hltypes
 		return (c != 0);
 	}
 
-	String StreamBase::load_hstr()
+	String StreamBase::load_string()
 	{
 		this->_check_availability();
 		int size = this->load_int();
@@ -525,11 +525,6 @@ namespace hltypes
 			str += String(c);
 		}
 		return str;
-	}
-
-	String StreamBase::load_string()
-	{
-		return this->load_hstr();
 	}
 
 }

@@ -61,27 +61,27 @@ namespace hltypes
 	Array<String> Log::tag_filters;
 	String Log::filename;
 	void (*Log::callback_function)(const String&, const String&) = NULL;
-	hmutex Log::mutex;
+	Mutex Log::mutex;
 	int Log::file_index = 0;
-	hstr Log::file_extension;
+	String Log::file_extension;
 
-	hstr Log::_get_file_name(chstr filename, int index)
+	String Log::_get_file_name(const hltypes::String& filename, int index)
 	{
-		return (filename + ".hlog/" + hstr(index) + "." + Log::file_extension);
+		return (filename + ".hlog/" + String(index) + "." + Log::file_extension);
 	}
 
-	hstr Log::_get_current_file_name(chstr filename)
+	String Log::_get_current_file_name(const hltypes::String& filename)
 	{
-		if (!hdir::exists(filename + ".hlog"))
+		if (!Dir::exists(filename + ".hlog"))
 		{
-			hdir::create(filename + ".hlog");
+			Dir::create(filename + ".hlog");
 		}
-		hstr newFilename = Log::_get_file_name(filename, Log::file_index);
-		if (hfile::hsize(newFilename) > MAX_FILE_SIZE)
+		String newFilename = Log::_get_file_name(filename, Log::file_index);
+		if (File::hsize(newFilename) > MAX_FILE_SIZE)
 		{
 			++Log::file_index;
 			newFilename = Log::_get_file_name(filename, Log::file_index);
-			hfile::create_new(newFilename); // clears the file
+			File::create_new(newFilename); // clears the file
 		}
 		return newFilename;
 	}
@@ -97,31 +97,30 @@ namespace hltypes
 	void Log::setFilename(const String& filename, bool clearFile)
 	{
 		Log::filename = Dir::normalize(filename);
+		Mutex::ScopeLock lock(&Log::mutex);
 #ifdef _WIN32
-		Log::mutex.lock();
 		if (clearFile)
 		{
-			hdir::remove(filename + ".hlog"); // left over from last run, delete
-			hfile::create_new(Log::filename);
-			Log::mutex.unlock();
+			Dir::remove(filename + ".hlog"); // left over from last run, delete
+			File::create_new(Log::filename);
+			lock.release();
 		}
-		else if (hdir::exists(filename + ".hlog"))
+		else if (Dir::exists(filename + ".hlog"))
 		{
-			Log::mutex.unlock();
+			lock.release();
 			Log::finalize(clearFile); // left over from last run, merge
 		}
 		else
 		{
-			Log::mutex.unlock();
+			lock.release();
 		}
-		Log::file_extension = hfile::extension_of(filename);
+		Log::file_extension = File::extension_of(filename);
 #else
-		Log::mutex.lock();
 		if (clearFile)
 		{
-			hfile::create_new(Log::filename);
+			File::create_new(Log::filename);
 		}
-		Log::mutex.unlock();
+		lock.release();
 #endif
 	}
 	
@@ -154,9 +153,9 @@ namespace hltypes
 			try
 			{
 #ifndef _WIN32
-				hfile file(Log::filename, hfile::APPEND);
+				File file(Log::filename, File::APPEND);
 #else
-				hfile file(Log::_get_current_file_name(Log::filename), hfile::APPEND);
+				File file(Log::_get_current_file_name(Log::filename), File::APPEND);
 #endif
 				String log_message = (tag != "" ? "[" + tag + "] " + message : message);
 				file.writef("%s\n", log_message.c_str());
@@ -232,12 +231,12 @@ namespace hltypes
 	void Log::finalize(bool clearFile)
 	{
 #ifdef _WIN32
-		if (Log::filename == "" || !hfile::exists(Log::filename))
+		if (Log::filename == "" || !File::exists(Log::filename))
 		{
 			return;
 		}
-		hfile file;
-		hstr filename;
+		File file;
+		String filename;
 		Log::mutex.lock();
 		if (clearFile)
 		{
@@ -250,9 +249,9 @@ namespace hltypes
 		for_iter (i, 0, Log::file_index + 1)
 		{
 			filename = Log::_get_file_name(Log::filename, i);
-			if (hfile::exists(filename))
+			if (File::exists(filename))
 			{
-				file.write(hfile::hread(filename));
+				file.write(File::hread(filename));
 			}
 			else
 			{
@@ -260,7 +259,7 @@ namespace hltypes
 			}
 		}
 		file.close(); // to flush everything
-		hdir::remove(Log::filename + ".hlog");
+		Dir::remove(Log::filename + ".hlog");
 		Log::mutex.unlock();
 		Log::file_index = 0;
 #endif

@@ -33,8 +33,8 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (archive != value)
 		{
-			hrdir::cacheDirectories.clear();
-			hrdir::cacheFiles.clear();
+			ResourceDir::cacheDirectories.clear();
+			ResourceDir::cacheFiles.clear();
 		}
 		zip::setArchive(value);
 #endif
@@ -274,9 +274,9 @@ namespace hltypes
 				}
 				if (!result && !case_sensitive)
 				{
-					hstr name = filename;
-					hstr basedir = ResourceDir::basedir(name);
-					hstr basename = ResourceDir::basename(name);
+					String name = filename;
+					String basedir = ResourceDir::basedir(name);
+					String basename = ResourceDir::basename(name);
 					Array<String> files = ResourceDir::files(basedir);
 					foreach (String, it, files)
 					{

@@ -134,11 +134,11 @@ namespace hltypes
 		/// @brief Callback function for logging.
 		static void(*callback_function)(const String&, const String&);
 		/// @brief Mutex to ensure thread-safe handling
-		static hmutex mutex;
+		static Mutex mutex;
 		/// @brief Used for segmented Win32 log files.
 		static int file_index;
 		/// @brief Used for segmented Win32 log files.
-		static hstr file_extension;
+		static String file_extension;
 
 
 		/// @brief Basic constructor.
@@ -155,9 +155,9 @@ namespace hltypes
 		/// @return True if the message could be logged.
 		static bool _system_log(const String& tag, const String& message, int level);
 		/// @brief Used for segmented Win32 log files.
-		static hstr _get_file_name(chstr filename, int index);
+		static String _get_file_name(const String& filename, int index);
 		/// @brief Used for segmented Win32 log files.
-		static hstr _get_current_file_name(chstr filename);
+		static String _get_current_file_name(const String& filename);
 
 	};
 }
