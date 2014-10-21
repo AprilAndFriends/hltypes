@@ -47,7 +47,6 @@ namespace hltypes
 #else
 		sem_close((sem_t*)this->handle);
 #endif
-		this->handle = NULL;
 	}
 
 	void Semaphore::lock()
