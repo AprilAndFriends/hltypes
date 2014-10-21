@@ -20,16 +20,16 @@
 
 namespace hltypes
 {
-	Mutex::ScopeLock::ScopeLock(Mutex* mutex, bool log_on_auto_unlock) : mutex(NULL)
+	Mutex::ScopeLock::ScopeLock(Mutex* mutex, bool log_unhandled_unlocks) : mutex(NULL)
 	{
-		this->log_on_auto_unlock = log_on_auto_unlock;
+		this->log_unhandled_unlocks = log_unhandled_unlocks;
 		this->acquire(this->mutex);
 	}
 
 	Mutex::ScopeLock::~ScopeLock()
 	{
 		Mutex* mutex = this->mutex;
-		if (this->release() && this->log_on_auto_unlock && mutex != NULL)
+		if (this->release() && this->log_unhandled_unlocks && mutex != NULL)
 		{
 #ifdef _WIN32
 			String address = hsprintf("<0x%p>", this);
