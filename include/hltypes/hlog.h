@@ -140,7 +140,6 @@ namespace hltypes
 		/// @brief Used for segmented Win32 log files.
 		static String file_extension;
 
-
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
 		inline Log() { }
