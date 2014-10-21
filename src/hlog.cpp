@@ -222,13 +222,13 @@ namespace hltypes
 	void Log::finalize(bool clearFile)
 	{
 #ifdef _WIN32
+		Mutex::ScopeLock lock(&Log::mutex);
 		if (Log::filename == "" || !File::exists(Log::filename))
 		{
 			return;
 		}
 		File file;
 		String filename;
-		Mutex::ScopeLock lock(&Log::mutex);
 		if (clearFile)
 		{
 			file.open(Log::filename, File::WRITE);
