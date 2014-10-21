@@ -327,13 +327,13 @@ int hcmpd(double a, double b, double tolerance)
 
 unsigned int hpotceil(unsigned int value)
 {
-	value--;
+	--value;
 	value |= value >> 1;
 	value |= value >> 2;
 	value |= value >> 4;
 	value |= value >> 8;
 	value |= value >> 16;
-	value++;
+	++value;
 	return value;
 }
 

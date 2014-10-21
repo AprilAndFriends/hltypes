@@ -23,7 +23,7 @@ namespace hltypes
 	Mutex::ScopeLock::ScopeLock(Mutex* mutex, bool log_unhandled_unlocks) : mutex(NULL)
 	{
 		this->log_unhandled_unlocks = log_unhandled_unlocks;
-		this->acquire(this->mutex);
+		this->acquire(mutex);
 	}
 
 	Mutex::ScopeLock::~ScopeLock()
