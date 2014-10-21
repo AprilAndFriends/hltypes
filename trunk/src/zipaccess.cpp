@@ -78,44 +78,36 @@ namespace hltypes
 
 		void* fopen(void* archivefile, const String& filename)
 		{
-			access_mutex.lock();
-			void* file = zip_fopen((struct zip*)archivefile, filename.c_str(), 0);
-			access_mutex.unlock();
-			return file;
+			Mutex::ScopeLock lock(&access_mutex);
+			return zip_fopen((struct zip*)archivefile, filename.c_str(), 0);
 		}
 
 		void fclose(void* file)
 		{
-			access_mutex.lock();
+			Mutex::ScopeLock lock(&access_mutex);
 			zip_fclose((struct zip_file*)file);
-			access_mutex.unlock();
 		}
 
 		long fread(void* file, void* buffer, int count)
 		{
-			access_mutex.lock();
-			long result = zip_fread((struct zip_file*)file, buffer, count);
-			access_mutex.unlock();
-			return result;
+			Mutex::ScopeLock lock(&access_mutex);
+			return zip_fread((struct zip_file*)file, buffer, count);
 		}
 
 		long fsize(void* archivefile, const String& filename)
 		{
 			struct zip_stat stat;
 			stat.size = 0;
-			access_mutex.lock();
+			Mutex::ScopeLock lock(&access_mutex);
 			zip_stat((struct zip*)archivefile, Resource::make_full_path(filename).c_str(), 0, &stat);
-			access_mutex.unlock();
 			return stat.size;
 		}
 
 		void* freopen(void* file, void* archivefile, const String& filename)
 		{
-			access_mutex.lock();
+			Mutex::ScopeLock lock(&access_mutex);
 			zip_fclose((struct zip_file*)file);
-			file = zip_fopen((struct zip*)archivefile, filename.c_str(), 0);
-			access_mutex.unlock();
-			return file;
+			return zip_fopen((struct zip*)archivefile, filename.c_str(), 0);
 		}
 
 		Array<String> getFiles(void* archivefile)
@@ -135,9 +127,8 @@ namespace hltypes
 			struct zip_stat stat;
 			stat.size = 0;
 			stat.mtime = 0;
-			access_mutex.lock();
+			Mutex::ScopeLock lock(&access_mutex);
 			zip_stat((struct zip*)archivefile, Resource::make_full_path(filename).c_str(), 0, &stat);
-			access_mutex.unlock();
 			FileInfo info;
 			info.size = stat.size;
 			info.modification_time = stat.mtime;

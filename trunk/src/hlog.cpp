@@ -103,16 +103,11 @@ namespace hltypes
 		{
 			Dir::remove(filename + ".hlog"); // left over from last run, delete
 			File::create_new(Log::filename);
-			lock.release();
 		}
 		else if (Dir::exists(filename + ".hlog"))
 		{
 			lock.release();
 			Log::finalize(clearFile); // left over from last run, merge
-		}
-		else
-		{
-			lock.release();
 		}
 		Log::file_extension = File::extension_of(filename);
 #else
@@ -120,7 +115,6 @@ namespace hltypes
 		{
 			File::create_new(Log::filename);
 		}
-		lock.release();
 #endif
 	}
 	
@@ -146,7 +140,7 @@ namespace hltypes
 		{
 			return false;
 		}
-		Log::mutex.lock();
+		Mutex::ScopeLock lock(&Log::mutex);
 		_platform_print(tag, message, LEVEL_PLATFORM(level));
 		if (Log::filename != "")
 		{
@@ -163,7 +157,6 @@ namespace hltypes
 			catch (hltypes::exception& e)
 			{
 				_platform_print("FATAL", e.getMessage(), LevelError);
-				Log::mutex.unlock();
 				throw e;
 			}
 		}
@@ -177,10 +170,8 @@ namespace hltypes
 		catch (hltypes::exception& e)
 		{
 			_platform_print("FATAL", e.getMessage(), LevelError);
-			Log::mutex.unlock();
 			throw e;
 		}
-		Log::mutex.unlock();
 		return true;
 	}
 	
@@ -237,7 +228,7 @@ namespace hltypes
 		}
 		File file;
 		String filename;
-		Log::mutex.lock();
+		Mutex::ScopeLock lock(&Log::mutex);
 		if (clearFile)
 		{
 			file.open(Log::filename, File::WRITE);
@@ -260,7 +251,6 @@ namespace hltypes
 		}
 		file.close(); // to flush everything
 		Dir::remove(Log::filename + ".hlog");
-		Log::mutex.unlock();
 		Log::file_index = 0;
 #endif
 	}
