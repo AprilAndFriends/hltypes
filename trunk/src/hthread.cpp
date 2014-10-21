@@ -123,7 +123,6 @@ namespace hltypes
 #else
 			free((pthread_t*)this->id);
 #endif
-			this->id = NULL;
 		}
 	}
 
