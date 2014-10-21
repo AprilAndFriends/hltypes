@@ -35,7 +35,7 @@ namespace hltypes
 		this->handle = sem_open(this->name.c_str(), O_CREAT|O_EXCL, this->max_count);
 		if (this->handle == SEM_FAILED)
 		{
-			hlog::writef("semaphore", "Error creating POSIX semaphore '%s'! errno = %s", this->name.c_str(), hstr(strerror(errno)).c_str());
+			Log::writef("semaphore", "Error creating POSIX semaphore '%s'! errno = %s", this->name.c_str(), String(strerror(errno)).c_str());
 		}
 #endif
 	}

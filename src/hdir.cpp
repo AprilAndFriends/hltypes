@@ -200,8 +200,8 @@ namespace hltypes
 		}
 		if (!result && !case_sensitive)
 		{
-			hstr basedir = Dir::basedir(name);
-			hstr basename = Dir::basename(name);
+			String basedir = Dir::basedir(name);
+			String basename = Dir::basename(name);
 			Array<String> directories = Dir::directories(basedir);
 			foreach (String, it, directories)
 			{

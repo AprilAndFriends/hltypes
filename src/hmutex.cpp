@@ -20,6 +20,48 @@
 
 namespace hltypes
 {
+	Mutex::ScopeLock::ScopeLock(Mutex* mutex, bool log_on_auto_unlock) : mutex(NULL)
+	{
+		this->log_on_auto_unlock = log_on_auto_unlock;
+		this->acquire(this->mutex);
+	}
+
+	Mutex::ScopeLock::~ScopeLock()
+	{
+		Mutex* mutex = this->mutex;
+		if (this->release() && this->log_on_auto_unlock && mutex != NULL)
+		{
+#ifdef _WIN32
+			String address = hsprintf("<0x%p>", this);
+#else
+			String address = hsprintf("<%p>", this); // on Unix %p adds the 0x
+#endif
+			Log::warnf("hmutex", "'%s' has been scope-unlocked automatically!", (mutex->name != "" ? mutex->name : address).c_str());
+		}
+	}
+
+	bool Mutex::ScopeLock::acquire(Mutex* mutex)
+	{
+		if (this->mutex == NULL && mutex != NULL)
+		{
+			this->mutex = mutex;
+			this->mutex->lock();
+			return true;
+		}
+		return false;
+	}
+
+	bool Mutex::ScopeLock::release()
+	{
+		if (this->mutex != NULL)
+		{
+			this->mutex->unlock();
+			this->mutex = NULL;
+			return true;
+		}
+		return false;
+	}
+
 	Mutex::Mutex(const String& name) : handle(NULL), locked(false)
 	{
 		this->name = name;
@@ -56,7 +98,7 @@ namespace hltypes
 		EnterCriticalSection((CRITICAL_SECTION*)this->handle);
 		if (this->locked)
 		{
-			hlog::warnf("hmutex", "'%s' is deadlocked!", (this->name != "" ? this->name : hsprintf("<0x%p>", this)).c_str());
+			Log::warnf("hmutex", "'%s' is deadlocked!", (this->name != "" ? this->name : hsprintf("<0x%p>", this)).c_str());
 			while (true) // simulating a deadlock
 			{
 				Thread::sleep(1.0f);

@@ -22,7 +22,7 @@ namespace hltypes
 {
 	template <class T> class Array;
 	class StreamBase;
-	extern hstr logTag;
+	extern String logTag;
 }
 
 /// @brief Used for optimized and quick calculation from RAD to DEG.
@@ -207,7 +207,7 @@ hltypesFnExport unsigned int get_system_tick_count();
 /// @param[in] env The environment variable.
 /// @return Environment variable as String.
 /// @note May not be available on all platforms (e.g. WinRT does not support it).
-hltypesFnExport hstr get_environment_variable(chstr name);
+hltypesFnExport hltypes::String get_environment_variable(const hltypes::String& name);
 /// @brief Returns a random int number.
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
@@ -415,10 +415,10 @@ hltypesFnExport unsigned int hpotceil(unsigned int value);
 hltypesFnExport unsigned int hpotfloor(unsigned int value);
 
 // DEPRECATED
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr get_basedir(chstr path);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr get_basename(chstr path);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr systemize_path(chstr path);
-DEPRECATED_ATTRIBUTE hltypesFnExport hstr normalize_path(chstr path);
+DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String get_basedir(const hltypes::String& path);
+DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String get_basename(const hltypes::String& path);
+DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String systemize_path(const hltypes::String& path);
+DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String normalize_path(const hltypes::String& path);
 DEPRECATED_ATTRIBUTE hltypesFnExport float hhypotSquared(float a, float b);
 DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotSquared(double a, double b);
 DEPRECATED_ATTRIBUTE hltypesFnExport int hhypotSquared(int a, int b);

@@ -38,7 +38,7 @@ namespace hltypes
 	} THREADNAME_INFO;
 #pragma pack(pop)
 
-	static void SetThreadName(DWORD id, chstr name)
+	static void SetThreadName(DWORD id, const String& name)
 	{
 		THREADNAME_INFO info;
 		info.dwType = 0x1000;
@@ -188,7 +188,7 @@ namespace hltypes
 			action->Status != AsyncStatus::Error &&
 			i < 100)
 		{
-			hthread::sleep(50);
+			Thread::sleep(50);
 			++i;
 		}
 		if (i >= 100)
@@ -200,7 +200,7 @@ namespace hltypes
 				action->Status != AsyncStatus::Error &&
 				i < 100)
 			{
-				hthread::sleep(50);
+				Thread::sleep(50);
 				++i;
 			}
 		}

@@ -26,7 +26,7 @@
 
 namespace hltypes
 {
-	hstr logTag = "hltypes";
+	String logTag = "hltypes";
 }
 
 unsigned int get_system_tick_count()
@@ -49,16 +49,16 @@ unsigned int get_system_time()
 	return (unsigned int)time(NULL);
 }
 
-hstr get_environment_variable(chstr name)
+hltypes::String get_environment_variable(const hltypes::String& name)
 {
 #ifdef _WIN32
 #ifndef _WINRT
-	return hstr::from_unicode(_wgetenv(name.w_str().c_str()));
+	return hltypes::String::from_unicode(_wgetenv(name.w_str().c_str()));
 #else
 	return ""; // WinRT does not support environment variables
 #endif
 #else
-	return hstr(getenv(name.c_str()));
+	return hltypes::String(getenv(name.c_str()));
 #endif
 }
 
@@ -349,10 +349,10 @@ unsigned int hpotfloor(unsigned int value)
 
 // DEPRECATED
 #include "hdir.h"
-hstr get_basedir(chstr path)	{ return hdir::basedir(path); }
-hstr get_basename(chstr path)	{ return hdir::basename(path); }
-hstr systemize_path(chstr path)	{ return hdir::systemize(path); }
-hstr normalize_path(chstr path)	{ return hdir::normalize(path); }
+hltypes::String get_basedir(const hltypes::String& path)	{ return hltypes::Dir::basedir(path); }
+hltypes::String get_basename(const hltypes::String& path)	{ return hltypes::Dir::basename(path); }
+hltypes::String systemize_path(const hltypes::String& path)	{ return hltypes::Dir::systemize(path); }
+hltypes::String normalize_path(const hltypes::String& path)	{ return hltypes::Dir::normalize(path); }
 float hhypotSquared(float a, float b) { return hhypot_squared(a, b); }
 double hhypotSquared(double a, double b) { return hhypot_squared(a, b); }
 int hhypotSquared(int a, int b) { return hhypot_squared(a, b); }
@@ -401,7 +401,7 @@ unsigned int calc_crc32(unsigned char* data, long size)
 	return ((crc & 0xFFFFFFFF) ^ 0xFFFFFFFF);
 }
 
-unsigned int calc_crc32(hsbase* stream, long size)
+unsigned int calc_crc32(hltypes::StreamBase* stream, long size)
 {
 	if (size <= 0)
 	{
@@ -414,7 +414,7 @@ unsigned int calc_crc32(hsbase* stream, long size)
 	return result;
 }
 
-unsigned int calc_crc32(hsbase* stream)
+unsigned int calc_crc32(hltypes::StreamBase* stream)
 {
 	return calc_crc32(stream, stream->size() - stream->position());
 }

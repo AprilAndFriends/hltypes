@@ -21,7 +21,7 @@ namespace hltypes
 {
 	String DirBase::basedir(const String& path)
 	{
-		harray<String> result = DirBase::split_path(path);
+		Array<String> result = DirBase::split_path(path);
 		if (result.size() < 2)
 		{
 			return ".";
@@ -32,8 +32,8 @@ namespace hltypes
 
 	String DirBase::basename(const String& path)
 	{
-		harray<String> result = DirBase::split_path(path);
-		return (result.size() > 0 ? result.remove_last() : hstr(""));
+		Array<String> result = DirBase::split_path(path);
+		return (result.size() > 0 ? result.remove_last() : String());
 	}
 
 	String DirBase::systemize(const String& path)
@@ -54,8 +54,8 @@ namespace hltypes
 
 	String DirBase::normalize(const String& path)
 	{
-		harray<String> directories = DirBase::split_path(path);
-		harray<String> result;
+		Array<String> directories = DirBase::split_path(path);
+		Array<String> result;
 		while (directories.size() > 0)
 		{
 			if (directories.first() == ".")
@@ -120,7 +120,7 @@ namespace hltypes
 		{
 			return "";
 		}
-		hstr path;
+		String path;
 		while (paths.size() > 1)
 		{
 			path = paths.remove_last();

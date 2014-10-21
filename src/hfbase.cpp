@@ -89,7 +89,7 @@ namespace hltypes
 			this->_fclose();
 		}
 		this->filename = Dir::normalize(filename);
-		hstr mode = "rb";
+		String mode = "rb";
 		switch (access_mode)
 		{
 		case READ:
@@ -199,8 +199,8 @@ namespace hltypes
 		}
 		if (!result && !case_sensitive)
 		{
-			hstr basedir = Dir::basedir(name);
-			hstr basename = Dir::basename(name);
+			String basedir = Dir::basedir(name);
+			String basename = Dir::basename(name);
 			Array<String> files = Dir::files(basedir);
 			foreach (String, it, files)
 			{

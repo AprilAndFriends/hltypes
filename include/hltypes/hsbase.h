@@ -203,11 +203,12 @@ namespace hltypes
 		bool load_bool();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded String.
-		String load_hstr();
+		String load_string();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded String.
-		String load_string();
-		
+		/// @see load_string()
+		DEPRECATED_ATTRIBUTE String load_hstr() { return this->load_string(); }
+
 	protected:
 		/// @brief Data size, mostly used for optimization and faster "eof" detection.
 		long data_size;

@@ -22,6 +22,32 @@ namespace hltypes
 	class hltypesExport Mutex
 	{
 	public:
+		/// @brief Utility class for exception-safe Mutex-locking within a scope.
+		class hltypesExport ScopeLock
+		{
+		public:
+			/// @brief Basic constructor.
+			/// @param[in] mutex The mutex to lock.
+			/// @param[in] log_on_auto_unlock Whether to log an automatic unlock when the ScopeLock is destroyed by going out of scope (usually on an exception).
+			ScopeLock(Mutex* mutex = NULL, bool log_on_auto_unlock = false);
+			/// @brief Destructor.
+			~ScopeLock();
+			/// @brief Locks the Mutex.
+			/// @param[in] mutex The mutex to lock.
+			/// @return True if lock succeeded. False if there is already an assigned Mutex.
+			bool acquire(Mutex* mutex);
+			/// @brief Unlocks the Mutex.
+			/// @return True if unlock succeeded. False if there is no assigned Mutex.
+			bool release();
+
+		protected:
+			/// @brief The Mutex.
+			Mutex* mutex;
+			/// @brief Log-on-auto-unlock flag.
+			bool log_on_auto_unlock;
+
+		};
+
 		/// @brief Basic constructor.
 		/// @param[in] name The internal name.
 		Mutex(const String& name = "");
