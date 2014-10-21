@@ -89,7 +89,6 @@ namespace hltypes
 		pthread_mutex_destroy((pthread_mutex_t*)this->handle);
 		free((pthread_mutex_t*)this->handle);
 #endif
-		this->handle = NULL;
 	}
 
 	void Mutex::lock()
