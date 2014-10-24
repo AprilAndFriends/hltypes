@@ -231,17 +231,20 @@ namespace hltypes
 		memset(&data, 0, sizeof(WIN32_FILE_ATTRIBUTE_DATA));
 		if (GetFileAttributesExW(filename.w_str().c_str(), GetFileExInfoStandard, &data) != 0)
 		{
+			#define WINDOWS_TICK 10000000ULL
+			#define SEC_TO_UNIX_EPOCH 11644473600ULL
+
 			info.size = data.nFileSizeLow;
 			ULARGE_INTEGER ull;
 			ull.LowPart = data.ftCreationTime.dwLowDateTime;
 			ull.HighPart = data.ftCreationTime.dwHighDateTime;
-			info.creation_time = (unsigned long)(ull.QuadPart / 10000000ULL - 11644473600ULL); // mystical runes,
+			info.creation_time = (unsigned long)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
 			ull.LowPart = data.ftLastAccessTime.dwLowDateTime;
 			ull.HighPart = data.ftLastAccessTime.dwHighDateTime;
-			info.access_time = (unsigned long)(ull.QuadPart / 10000000ULL - 11644473600ULL); // arcane powers
+			info.access_time = (unsigned long)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
 			ull.LowPart = data.ftLastWriteTime.dwLowDateTime;
 			ull.HighPart = data.ftLastWriteTime.dwHighDateTime;
-			info.modification_time = (unsigned long)(ull.QuadPart / 10000000ULL - 11644473600ULL); // and voodoo magic!
+			info.modification_time = (unsigned long)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
 		}
 #else
 		struct stat s;
