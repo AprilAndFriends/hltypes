@@ -56,7 +56,7 @@ namespace hltypes
 /// @note This uses atan2.
 #define datan(value) (atan2(value) * HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
-#define HL_E_TOLERANCE 0.01
+#define HL_E_TOLERANCE 0.0001
 
 /// @brief Utility macro for quick getter definition.
 /// @param[in] type Variable type.
