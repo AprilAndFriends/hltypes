@@ -97,7 +97,7 @@ namespace hltypes
 		EnterCriticalSection((CRITICAL_SECTION*)this->handle);
 		if (this->locked)
 		{
-			Log::warnf("hmutex", "'%s' is deadlocked!", (this->name != "" ? this->name : hsprintf("<0x%p>", this)).c_str());
+			hltypes::_platform_print("hmutex", hsprintf("'%s' is deadlocked!", (this->name != "" ? this->name : hsprintf("<0x%p>", this)).c_str()), 1000);
 			while (true) // simulating a deadlock
 			{
 				Thread::sleep(1.0f);
