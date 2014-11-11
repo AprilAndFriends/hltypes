@@ -81,11 +81,15 @@ namespace hltypes
 		/// @param[in] start Start index of the elements to copy.
 		/// @param[in] count Number of elements to copy.
 		/// @return Subdeque created from the current Deque.
-		inline Deque<T> operator()(const int start, const int count) const
+		inline Deque<T> operator()(int start, const int count) const
 		{
 			Deque<T> result;
 			if (count > 0)
 			{
+				if (start < 0)
+				{
+					start += this->size();
+				}
 				if (start >= this->size() || start + count > this->size())
 				{
 					throw container_range_error(start, count);
