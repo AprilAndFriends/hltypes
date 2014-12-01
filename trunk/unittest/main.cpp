@@ -24,5 +24,9 @@ public:
 // run all tests
 int main(int argc, char **argv)
 {
-	return UnitTest::RunAllTests();
+	int ret = UnitTest::RunAllTests();
+#ifdef _MAC
+    getchar();
+#endif
+    return ret;
 }

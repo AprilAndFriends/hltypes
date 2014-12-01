@@ -224,4 +224,3 @@ TEST(Map_cast)
 	CHECK(b[100] == "22");
 	CHECK(b[-54321] == "-3");
 }
-

@@ -23,17 +23,17 @@
 hstr output;
 hmutex mutex;
 
-void f1()
+void f1(hthread* t)
 {
 	output += "1 ";
 }
 
-void f2()
+void f2(hthread* t)
 {
 	output += "2 ";
 }
 
-void f3()
+void f3(hthread* t)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -44,7 +44,7 @@ void f3()
 	}
 }
 
-void f4()
+void f4(hthread* t)
 {
 	for (int i = 0; i < 10; i++)
 	{
