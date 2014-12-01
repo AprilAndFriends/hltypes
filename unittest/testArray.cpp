@@ -391,10 +391,9 @@ TEST(Array_difference)
 	b += 4;
 	b += 5;
 	harray<int> c = a.differentiated(b);
-	CHECK(c.size() == 3);
+	CHECK(c.size() == 2);
 	CHECK(c[0] == 0);
 	CHECK(c[1] == 1);
-	CHECK(c[2] == 3);
 	CHECK(c == (a / b));
 	a.differentiate(b);
 	CHECK(a == c);
@@ -444,7 +443,6 @@ bool over_9000(int i) { return (i > 9000); }
 
 TEST(Array_match)
 {
-	int* result;
 	harray<int> a;
 	a += 0;
 	a += -1;
@@ -482,3 +480,113 @@ TEST(Array_cast)
 	CHECK(b[3] == "-3");
 }
 
+TEST(Array_incorrect_negative_index_exception)
+{
+    harray<int> test;
+    int value;
+    
+    try
+    {
+        value = test[-1];
+    }
+    catch (hltypes::exception& e)
+    {
+        CHECK(true);
+        return;
+    }
+    catch (std::exception& e)
+    {
+        printf("ERROR: harray indexing resulted in STL exception instead of hltypes exception! msg: %s\n", e.what());
+        CHECK(false);
+        return;
+    }
+    
+    printf("ERROR: negative out of bounds harray indexing test didn't throw any exceptions!\n");
+    CHECK(false);
+}
+
+TEST(Array_correct_negative_index_exception)
+{
+    harray<int> test;
+    test += 1;
+    test += 2;
+    test += 3;
+    int value;
+    
+    try
+    {
+        value = test[-1];
+    }
+    catch (hltypes::exception& e)
+    {
+        printf("ERROR: hltypes exception throw where it should've returned last value: %s\n", e.message().c_str());
+        CHECK(false);
+        return;
+    }
+    catch (std::exception& e)
+    {
+        printf("ERROR: harray indexing resulted in STL exception instead of hltypes exception! msg: %s\n", e.what());
+        CHECK(false);
+        return;
+    }
+
+    CHECK(value == 3);
+}
+
+TEST(Array_positive_index_exception)
+{
+    harray<int> test;
+    int value;
+    test += 1;
+    test += 2;
+    test += 3;
+    
+    try
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            value = test[i];
+        }
+    }
+    catch (hltypes::exception& e)
+    {
+        CHECK(true);
+        return;
+    }
+    catch (std::exception& e)
+    {
+        printf("ERROR: harray indexing resulted in STL exception instead of hltypes exception! msg: %s\n", e.what());
+        CHECK(false);
+        return;
+    }
+    
+    printf("ERROR: positive array out of bounds harray indexing test didn't throw any exceptions!\n");
+    CHECK(false);
+}
+
+TEST(Array_out_of_bounds_assignment_exception)
+{
+    harray<int> test;
+    test += 1;
+    test += 2;
+    test += 3;
+    
+    try
+    {
+        test[4] = 5;
+    }
+    catch (hltypes::exception& e)
+    {
+        CHECK(true);
+        return;
+    }
+    catch (std::exception& e)
+    {
+        printf("ERROR: harray indexing resulted in STL exception instead of hltypes exception! msg: %s\n", e.what());
+        CHECK(false);
+        return;
+    }
+    
+    printf("ERROR: array out of bounds harray asignment test didn't throw any exceptions!\n");
+    CHECK(false);
+}

@@ -133,7 +133,7 @@ TEST(Stream_serialization)
 	s.rewind();
 	int i = s.load_int();
 	short si = s.load_short();
-	hstr str = s.load_hstr();
+	hstr str = s.load_string();
 	float e = s.load_float();
 	double d = s.load_double();
 	bool b = s.load_bool();

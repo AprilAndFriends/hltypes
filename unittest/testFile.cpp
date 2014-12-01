@@ -148,7 +148,7 @@ TEST(File_serialization)
 	f.open(filename);
 	int i = f.load_int();
 	short s = f.load_short();
-	hstr str = f.load_hstr();
+	hstr str = f.load_string();
 	float e = f.load_float();
 	double d = f.load_double();
 	bool b = f.load_bool();
@@ -234,7 +234,7 @@ TEST(File_static_copy)
 	f.open(new_filename);
 	int i = f.load_int();
 	short s = f.load_short();
-	hstr str = f.load_hstr();
+	hstr str = f.load_string();
 	float e = f.load_float();
 	double d = f.load_double();
 	bool b = f.load_bool();
