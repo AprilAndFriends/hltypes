@@ -56,6 +56,8 @@ namespace hlxml
 		int getLine();
 		/// @brief Gets the type of the Node.
 		Type getType();
+		/// @brief Gets the value of the Node.
+		hstr getValue();
 
 		/// @brief Gets a given property value as bool.
 		/// @param[in] propertyName Name of the property.
