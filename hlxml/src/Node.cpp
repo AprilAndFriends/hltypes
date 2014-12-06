@@ -56,6 +56,11 @@ namespace hlxml
 		return TYPE_ELEMENT;
 	}
 
+	hstr Node::getValue()
+	{
+		return hstr(this->node->Value());
+	}
+
 	bool Node::pbool(chstr propertyName)
 	{
 		return (bool)hstr(this->_findProperty(propertyName));
