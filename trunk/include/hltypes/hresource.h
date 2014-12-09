@@ -30,7 +30,7 @@ namespace hltypes
 	public:
 		/// @brief Constructor that immediately opens a resource file.
 		/// @param[in] filename Name of the resource file (may include path).
-		Resource(const String& filename);
+		DEPRECATED_ATTRIBUTE Resource(const String& filename);
 		/// @brief Basic constructor.
 		Resource();
 		/// @brief Destructor.

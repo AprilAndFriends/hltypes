@@ -15,6 +15,7 @@ int (*f_remove)(const char* filename) = remove;
 #include "exception.h"
 #include "hdir.h"
 #include "hfile.h"
+#include "hlog.h"
 #include "hstring.h"
 #include "hthread.h"
 
@@ -28,6 +29,7 @@ namespace hltypes
 {
 	File::File(const String& filename, AccessMode access_mode) : FileBase(filename)
 	{
+		hlog::warnf(hltypes::logTag, "Opening file '%s' in hfile constructor is deprecated and unsafe! Use hfile::open() instead.", filename.c_str());
 		this->open(filename, access_mode);
 	}
 	
@@ -186,8 +188,10 @@ namespace hltypes
 			return false;
 		}
 		Dir::create(Dir::basedir(new_name));
-		File old_file(old_name);
-		File new_file(new_name, File::WRITE);
+		File old_file;
+		old_file.open(old_name);
+		File new_file;
+		new_file.open(new_name, File::WRITE);
 		int count;
 		unsigned char c[BUFFER_SIZE] = {0};
 		while (!old_file.eof())

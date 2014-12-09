@@ -146,10 +146,11 @@ namespace hltypes
 		{
 			try
 			{
+				File file;
 #ifndef _WIN32
-				File file(Log::filename, File::APPEND);
+				file.open(Log::filename, File::APPEND);
 #else
-				File file(Log::_get_current_file_name(Log::filename), File::APPEND);
+				file.open(Log::_get_current_file_name(Log::filename), File::APPEND);
 #endif
 				String log_message = (tag != "" ? "[" + tag + "] " + message : message);
 				file.writef("%s\n", log_message.c_str());
