@@ -9,6 +9,7 @@
 #include "exception.h"
 #include "hdir.h"
 #include "hfile.h"
+#include "hlog.h"
 #include "hrdir.h"
 #include "hresource.h"
 #include "hthread.h"
@@ -55,6 +56,7 @@ namespace hltypes
 
 	Resource::Resource(const String& filename) : FileBase(filename), data_position(0), archivefile(NULL)
 	{
+		hlog::warnf(hltypes::logTag, "Opening file '%s' in hresource constructor is deprecated and unsafe! Use hresource::open() instead.", filename.c_str());
 		this->open(this->filename);
 	}
 	

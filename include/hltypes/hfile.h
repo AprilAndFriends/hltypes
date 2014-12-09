@@ -31,7 +31,7 @@ namespace hltypes
 		/// @brief Constructor that immediately opens a file.
 		/// @param[in] filename Name of the file (may include path).
 		/// @param[in] access_mode File access mode.
-		File(const String& filename, AccessMode access_mode = READ);
+		DEPRECATED_ATTRIBUTE File(const String& filename, AccessMode access_mode = READ);
 		/// @brief Basic constructor.
 		File();
 		/// @brief Destructor.
