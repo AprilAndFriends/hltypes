@@ -300,17 +300,23 @@ namespace hltypes
 	
 	long Resource::hsize(const String& filename)
 	{
-		return Resource(filename).size();
+		Resource file;
+		file.open(filename);
+		return file.size();
 	}
 	
 	String Resource::hread(const String& filename, int count)
 	{
-		return Resource(filename).read(count);
+		Resource file;
+		file.open(filename);
+		return file.read(count);
 	}
 	
 	String Resource::hread(const String& filename, const String& delimiter)
 	{
-		return Resource(filename).read(delimiter);
+		Resource file;
+		file.open(filename);
+		return file.read(delimiter);
 	}
 
 	FileInfo Resource::get_info(const String& filename)

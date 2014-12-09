@@ -189,8 +189,8 @@ namespace hltypes
 		}
 		Dir::create(Dir::basedir(new_name));
 		File old_file;
-		old_file.open(old_name);
 		File new_file;
+		old_file.open(old_name);
 		new_file.open(new_name, File::WRITE);
 		int count;
 		unsigned char c[BUFFER_SIZE] = {0};
@@ -209,22 +209,30 @@ namespace hltypes
 	
 	String File::hread(const String& filename, int count)
 	{
-		return File(filename).read(count);
+		File file;
+		file.open(filename);
+		return file.read(count);
 	}
 	
 	String File::hread(const String& filename, const String& delimiter)
 	{
-		return File(filename).read(delimiter);
+		File file;
+		file.open(filename);
+		return file.read(delimiter);
 	}
 	
 	void File::hwrite(const String& filename, const String& text)
 	{
-		File(filename, WRITE).write(text);
+		File file;
+		file.open(filename, WRITE);
+		file.write(text);
 	}
 	
 	void File::happend(const String& filename, const String& text)
 	{
-		File(filename, APPEND).write(text);
+		File file;
+		file.open(filename, APPEND);
+		file.write(text);
 	}
 
 	FileInfo File::get_info(const String& filename)
