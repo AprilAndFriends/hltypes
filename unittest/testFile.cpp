@@ -20,7 +20,8 @@
 TEST(File_read_write)
 {
 	hstr filename = "test.txt";
-	hfile f(filename, hfile::WRITE);
+	hfile f;
+	f.open(filename, hfile::WRITE);
 	f.write("This is a test.");
 	f.open(filename, hfile::READ);
 	hstr text = f.read();
@@ -40,7 +41,8 @@ TEST(File_read_write)
 TEST(File_read_line)
 {
 	hstr filename = "test.txt";
-	hfile f(filename, hfile::WRITE);
+	hfile f;
+	f.open(filename, hfile::WRITE);
 	f.write_line("This is a test.");
 	f.write_line("This is also a test.");
 	f.write_line("This is another test.");
@@ -62,7 +64,8 @@ TEST(File_read_line)
 TEST(File_read_delimiter)
 {
 	hstr filename = "test.txt";
-	hfile f(filename, hfile::WRITE);
+	hfile f;
+	f.open(filename, hfile::WRITE);
 	f.write(hstr('a', 4090));
 	f.write(hstr('b', 10));
 	f.open(filename, hfile::READ);
@@ -73,7 +76,8 @@ TEST(File_read_delimiter)
 TEST(File_writef)
 {
 	hstr filename = "test.txt";
-	hfile f(filename, hfile::WRITE);
+	hfile f;
+	f.open(filename, hfile::WRITE);
 	f.writef("This is a %d %s %4.2f %s.", 0, "formatted", 3.14f, "file");
 	f.open(filename, hfile::READ);
 	hstr text = f.read();
@@ -83,7 +87,8 @@ TEST(File_writef)
 TEST(File_read_write_raw)
 {
 	hstr filename = "raw.txt";
-	hfile f(filename, hfile::WRITE);
+	hfile f;
+	f.open(filename, hfile::WRITE);
 	unsigned char a[10] = {'\0'};
 	a[0] = 'R';
 	a[1] = 'a';
@@ -137,7 +142,8 @@ TEST(File_seek_position_size)
 TEST(File_serialization)
 {
 	hstr filename = "test.txt/";
-	hfile f(filename, hfile::WRITE);
+	hfile f;
+	f.open(filename, hfile::WRITE);
 	f.dump(1234);
 	f.dump((short)4321);
 	f.dump(hstr("testing"));
@@ -220,7 +226,8 @@ TEST(File_static_copy)
 	CHECK(hfile::exists(new_filename));
 	hstr text = hfile::hread(new_filename);
 	CHECK(text == "This is a copy test.");
-	hfile f(old_filename, hfile::WRITE);
+	hfile f;
+	f.open(old_filename, hfile::WRITE);
 	f.dump(1234);
 	f.dump((short)4321);
 	f.dump(hstr("testing"));
