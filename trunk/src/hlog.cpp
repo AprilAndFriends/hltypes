@@ -158,7 +158,9 @@ namespace hltypes
 			catch (hltypes::exception& e)
 			{
 				_platform_print("FATAL", e.getMessage(), LevelError);
+#ifdef _DEBUG
 				throw e;
+#endif
 			}
 		}
 		try
