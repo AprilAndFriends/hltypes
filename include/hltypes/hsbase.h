@@ -130,84 +130,84 @@ namespace hltypes
 
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c Character to dump.
-		void dump(char c);
+		virtual void dump(char c);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c Unsigned character to dump.
-		void dump(unsigned char c);
+		virtual void dump(unsigned char c);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param i Int to dump.
-		void dump(int i);
+		virtual void dump(int i);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param i Unsigned int to dump.
-		void dump(unsigned int i);
+		virtual void dump(unsigned int i);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param l Long to dump.
-		void dump(long l);
+		virtual void dump(long l);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param l Unsigned long to dump.
-		void dump(unsigned long l);
+		virtual void dump(unsigned long l);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param s Short int to dump.
-		void dump(short s);
+		virtual void dump(short s);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param s Unsigned short int to dump.
-		void dump(unsigned short s);
+		virtual void dump(unsigned short s);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param f Float to dump.
-		void dump(float f);
+		virtual void dump(float f);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param d Double to dump.
-		void dump(double d);
+		virtual void dump(double d);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param b Bool to dump.
-		void dump(bool b);
+		virtual void dump(bool b);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param str String to dump.
-		void dump(const String& str);
+		virtual void dump(const String& str);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c C-type string to dump.
-		void dump(const char* c);
+		virtual void dump(const char* c);
 
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded character.
-		char load_char();
+		virtual char load_char();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded unsigned character.
-		unsigned char load_uchar();
+		virtual unsigned char load_uchar();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded int.
-		int load_int();
+		virtual int load_int();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded unsigned int.
-		unsigned int load_uint();
+		virtual unsigned int load_uint();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded long.
-		long load_long();
+		virtual long load_long();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded unsigned long.
-		unsigned long load_ulong();
+		virtual unsigned long load_ulong();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded short int.
-		short load_short();
+		virtual short load_short();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded unsigned short int.
-		unsigned short load_ushort();
+		virtual unsigned short load_ushort();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded float.
-		float load_float();
+		virtual float load_float();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded double.
-		double load_double();
+		virtual double load_double();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded bool.
-		bool load_bool();
+		virtual bool load_bool();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded String.
-		String load_string();
+		virtual String load_string();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded String.
 		/// @see load_string()
-		DEPRECATED_ATTRIBUTE String load_hstr() { return this->load_string(); }
+		DEPRECATED_ATTRIBUTE virtual String load_hstr() { return this->load_string(); }
 
 	protected:
 		/// @brief Data size, mostly used for optimization and faster "eof" detection.
