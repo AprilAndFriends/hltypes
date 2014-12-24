@@ -243,7 +243,7 @@ namespace hltypes
 
 	void StreamBase::dump(char c)
 	{
-		this->dump((int8_t)c);
+		this->dump((uint8_t)c);
 	}
 
 	void StreamBase::dump(unsigned char c)
