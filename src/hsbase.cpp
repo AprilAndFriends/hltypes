@@ -241,14 +241,12 @@ namespace hltypes
 		}
 	}
 
-	void StreamBase::dump(int8_t c)
+	void StreamBase::dump(char c)
 	{
-		this->_check_availability();
-		this->_write(&c, 1);
-		this->_update_data_size();
+		this->dump((int8_t)c);
 	}
 
-	void StreamBase::dump(uint8_t c)
+	void StreamBase::dump(unsigned char c)
 	{
 		this->_check_availability();
 		this->_write(&c, 1);
@@ -369,15 +367,15 @@ namespace hltypes
 		this->dump(String(c));
 	}
 
-	int8_t StreamBase::load_int8()
+	char StreamBase::load_int8()
 	{
-		return (int8_t)this->load_uint8();
+		return (char)this->load_uint8();
 	}
 
-	uint8_t StreamBase::load_uint8()
+	unsigned char StreamBase::load_uint8()
 	{
 		this->_check_availability();
-		uint8_t c;
+		unsigned char c;
 		this->_read(&c, 1);
 		return c;
 	}

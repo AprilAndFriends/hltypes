@@ -133,10 +133,12 @@ namespace hltypes
 
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c int8 to dump.
-		virtual void dump(int8_t c);
+		/// @note Not using uint8_t because it is problematic with int8_t which is signed char and not char.
+		virtual void dump(char c);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param c unsigned int8 to dump.
-		virtual void dump(uint8_t c);
+		/// @param c unsigned char to dump.
+		/// @note Not using uint8_t because it is problematic with int8_t which is signed char and not char.
+		virtual void dump(unsigned char c);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param s int16 to dump.
 		virtual void dump(int16_t s);
@@ -172,11 +174,11 @@ namespace hltypes
 		virtual void dump(const char* c);
 
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded int8.
-		virtual int8_t load_int8();
+		/// @return Loaded char.
+		virtual char load_int8();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded unsigned int8.
-		virtual uint8_t load_uint8();
+		/// @return Loaded unsigned char.
+		virtual unsigned char load_uint8();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded int16.
 		virtual int16_t load_int16();
@@ -209,8 +211,8 @@ namespace hltypes
 		virtual String load_string();
 		
 		DEPRECATED_ATTRIBUTE virtual String load_hstr() { return this->load_string(); }
-		DEPRECATED_ATTRIBUTE virtual int8_t load_char() { return this->load_int8(); }
-		DEPRECATED_ATTRIBUTE virtual uint8_t load_uchar() { return this->load_uint8(); }
+		DEPRECATED_ATTRIBUTE virtual char load_char() { return this->load_int8(); }
+		DEPRECATED_ATTRIBUTE virtual unsigned char load_uchar() { return this->load_uint8(); }
 		DEPRECATED_ATTRIBUTE virtual int16_t load_short() { return this->load_int16(); }
 		DEPRECATED_ATTRIBUTE virtual uint16_t load_ushort() { return this->load_uint16(); }
 		DEPRECATED_ATTRIBUTE virtual int32_t load_int() { return this->load_int32(); }
