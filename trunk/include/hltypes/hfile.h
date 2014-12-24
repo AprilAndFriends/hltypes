@@ -108,6 +108,9 @@ namespace hltypes
 		static FileInfo get_info(const String& filename);
 		
 	protected:
+		/// @brief Updates internal data size.
+		void _update_data_size();
+
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] count Number of elements to read.
