@@ -23,10 +23,10 @@ namespace hltypes
 
 	FileInfo::FileInfo()
 	{
-		this->size = 0;
-		this->creation_time = 0;
-		this->access_time = 0;
-		this->modification_time = 0;
+		this->size = 0LL;
+		this->creation_time = 0LL;
+		this->access_time = 0LL;
+		this->modification_time = 0LL;
 	}
 
 	FileInfo::~FileInfo()
@@ -145,14 +145,14 @@ namespace hltypes
 		this->data_size = 0;
 	}
 	
-	long FileBase::_fread(void* buffer, int size, int count)
+	int32_t FileBase::_fread(void* buffer, int32_t count)
 	{
-		return fread(buffer, size, count, (FILE*)this->cfile);
+		return (int32_t)fread(buffer, 1, count, (FILE*)this->cfile);
 	}
 	
-	long FileBase::_fwrite(const void* buffer, int size, int count)
+	int32_t FileBase::_fwrite(const void* buffer, int32_t count)
 	{
-		return fwrite(buffer, size, count, (FILE*)this->cfile);
+		return (int32_t)fwrite(buffer, 1, count, (FILE*)this->cfile);
 	}
 	
 	bool FileBase::_fis_open()
@@ -160,27 +160,32 @@ namespace hltypes
 		return (this->cfile != NULL);
 	}
 	
-	long FileBase::_fposition()
+	int64_t FileBase::_fposition()
 	{
-		return ftell((FILE*)this->cfile);
+		fpos_t position = 0;
+		if (fgetpos((FILE*)this->cfile, &position) != 0)
+		{
+			return -1;
+		}
+		return (int64_t)position;
 	}
 	
-	void FileBase::_fseek(long offset, SeekMode seek_mode)
+	bool FileBase::_fseek(int64_t offset, SeekMode seek_mode)
 	{
-		int mode = SEEK_CUR;
+		fpos_t position = 0;
 		switch (seek_mode)
 		{
 		case CURRENT:
-			mode = SEEK_CUR;
+			position = this->_fposition();
 			break;
 		case START:
-			mode = SEEK_SET;
 			break;
 		case END:
-			mode = SEEK_END;
+			position = this->size();
 			break;
 		}
-		fseek((FILE*)this->cfile, offset, mode);
+		position += offset;
+		return (fsetpos((FILE*)this->cfile, &position) == 0);
 	}
 	
 	bool FileBase::_fexists(const String& filename, bool case_sensitive)

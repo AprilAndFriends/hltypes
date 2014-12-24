@@ -1142,19 +1142,19 @@ hltypes::String hvsprintf(const char* format, va_list args)
 			break;
 		}
 		size *= 2; // not enough characters, double current buffer
-		delete [] c;
+		delete[] c;
 		c = new char[size + 1];
 		c[0] = '\0';
 	}
 #ifdef _DEBUG
 	if (i == 8)
 	{
-		delete [] c;
+		delete[] c;
 		throw hl_exception("Resulting string for hsprintf is longer than 2^16 (65536) characters!");
 	}
 #endif
 	hltypes::String result(c);
-	delete [] c;
+	delete[] c;
 	return result;
 }
 

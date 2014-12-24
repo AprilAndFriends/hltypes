@@ -55,14 +55,14 @@ namespace hltypes
 		this->_fclose();
 	}
 	
-	long File::_read(void* buffer, int size, int count)
+	int32_t File::_read(void* buffer, int32_t count)
 	{
-		return this->_fread(buffer, size, count);
+		return this->_fread(buffer, count);
 	}
 	
-	long File::_write(const void* buffer, int size, int count)
+	int32_t File::_write(const void* buffer, int32_t count)
 	{
-		return this->_fwrite(buffer, size, count);
+		return this->_fwrite(buffer, count);
 	}
 	
 	bool File::_is_open()
@@ -70,14 +70,14 @@ namespace hltypes
 		return this->_fis_open();
 	}
 	
-	long File::_position()
+	int64_t File::_position()
 	{
 		return this->_fposition();
 	}
 	
-	void File::_seek(long offset, SeekMode seek_mode)
+	bool File::_seek(int64_t offset, SeekMode seek_mode)
 	{
-		this->_fseek(offset, seek_mode);
+		return this->_fseek(offset, seek_mode);
 	}
 	
 	bool File::create(const String& filename)
@@ -202,12 +202,12 @@ namespace hltypes
 		return true;
 	}
 	
-	long File::hsize(const String& filename)
+	int64_t File::hsize(const String& filename)
 	{
 		return File::get_info(filename).size; // uses get_info to avoid opening the file
 	}
 	
-	String File::hread(const String& filename, int count)
+	String File::hread(const String& filename, int32_t count)
 	{
 		File file;
 		file.open(filename);
@@ -243,28 +243,27 @@ namespace hltypes
 		memset(&data, 0, sizeof(WIN32_FILE_ATTRIBUTE_DATA));
 		if (GetFileAttributesExW(filename.w_str().c_str(), GetFileExInfoStandard, &data) != 0)
 		{
-			#define WINDOWS_TICK 10000000ULL
-			#define SEC_TO_UNIX_EPOCH 11644473600ULL
-
-			info.size = data.nFileSizeLow;
+#define WINDOWS_TICK 10000000ULL
+#define SEC_TO_UNIX_EPOCH 11644473600ULL
+			info.size = (int64_t)data.nFileSizeLow;
 			ULARGE_INTEGER ull;
 			ull.LowPart = data.ftCreationTime.dwLowDateTime;
 			ull.HighPart = data.ftCreationTime.dwHighDateTime;
-			info.creation_time = (unsigned long)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
+			info.creation_time = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
 			ull.LowPart = data.ftLastAccessTime.dwLowDateTime;
 			ull.HighPart = data.ftLastAccessTime.dwHighDateTime;
-			info.access_time = (unsigned long)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
+			info.access_time = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
 			ull.LowPart = data.ftLastWriteTime.dwLowDateTime;
 			ull.HighPart = data.ftLastWriteTime.dwHighDateTime;
-			info.modification_time = (unsigned long)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
+			info.modification_time = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
 		}
 #else
 		struct stat s;
 		stat(filename.c_str(), &s);
-		info.size = s.st_size;
-		info.creation_time = s.st_ctime;
-		info.access_time = s.st_atime;
-		info.modification_time = s.st_mtime;
+		info.size = (int64_t)s.st_size;
+		info.creation_time = (int64_t)s.st_ctime;
+		info.access_time = (int64_t)s.st_atime;
+		info.modification_time = (int64_t)s.st_mtime;
 #endif
 		return info;
 	}

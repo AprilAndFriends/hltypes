@@ -13,6 +13,7 @@
 #ifndef HLTYPES_STREAM_BASE_H
 #define HLTYPES_STREAM_BASE_H
 
+#include <stdint.h>
 #include <stdio.h>
 
 #include "harray.h"
@@ -50,15 +51,17 @@ namespace hltypes
 		/// @brief Seeks to position in data.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seek_mode Seeking mode.
-		void seek(long offset, SeekMode seek_mode = CURRENT);
+		/// @return True if successful.
+		bool seek(int64_t offset, SeekMode seek_mode = CURRENT);
 		/// @brief Seeks to position 0.
-		void rewind();
+		/// @return True if successful.
+		bool rewind();
 		/// @brief Gets current position in data.
 		/// @return Current position in data.
-		long position();
+		int64_t position();
 		/// @brief Gets size of the data in bytes.
 		/// @return Size of the data in bytes.
-		long size();
+		int64_t size();
 		/// @brief Checks if data has reached the end.
 		/// @return True if data has reached the end.
 		bool eof();
@@ -72,7 +75,7 @@ namespace hltypes
 		/// @brief Reads n bytes from the stream.
 		/// @param[in] count Number of bytes to read.
 		/// @return The read string.
-		String read(int count);
+		String read(int32_t count);
 		/// @brief Reads one line from the stream.
 		/// @return The read line.
 		/// @note \\n is not included in the returned String.
@@ -102,56 +105,56 @@ namespace hltypes
 		/// @param[in] count Number of bytes to read.
 		/// @return Number of bytes read.
 		/// @note If return value differs from parameter count, it can indicate a reading error or that end of file has been reached.
-		int read_raw(void* buffer, int count);
+		int32_t read_raw(void* buffer, int32_t count);
 		/// @brief Writes raw data to the stream.
 		/// @param[in] buffer Pointer to raw data buffer.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
 		/// @note If return value differs from parameter count, it can indicate a writing error.
-		virtual int write_raw(void* buffer, int count);
+		virtual int32_t write_raw(void* buffer, int32_t count);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
-		virtual int write_raw(StreamBase& stream, int count);
+		virtual int32_t write_raw(StreamBase& stream, int32_t count);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @return Number of bytes written.
-		virtual int write_raw(StreamBase& stream);
+		virtual int32_t write_raw(StreamBase& stream);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
-		virtual int write_raw(Stream& stream, int count);
+		virtual int32_t write_raw(Stream& stream, int32_t count);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @return Number of bytes written.
-		virtual int write_raw(Stream& stream);
+		virtual int32_t write_raw(Stream& stream);
 
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param c Character to dump.
-		virtual void dump(char c);
+		/// @param c int8 to dump.
+		virtual void dump(int8_t c);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param c Unsigned character to dump.
-		virtual void dump(unsigned char c);
+		/// @param c unsigned int8 to dump.
+		virtual void dump(uint8_t c);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param i Int to dump.
-		virtual void dump(int i);
+		/// @param s int16 to dump.
+		virtual void dump(int16_t s);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param i Unsigned int to dump.
-		virtual void dump(unsigned int i);
+		/// @param s unsigned int16 int to dump.
+		virtual void dump(uint16_t s);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param l Long to dump.
-		virtual void dump(long l);
+		/// @param i int32 to dump.
+		virtual void dump(int32_t i);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param l Unsigned long to dump.
-		virtual void dump(unsigned long l);
+		/// @param i unsigned int32 to dump.
+		virtual void dump(uint32_t i);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param s Short int to dump.
-		virtual void dump(short s);
+		/// @param l int64 to dump.
+		virtual void dump(int64_t l);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param s Unsigned short int to dump.
-		virtual void dump(unsigned short s);
+		/// @param l unsigned int64 to dump.
+		virtual void dump(uint64_t l);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param f Float to dump.
 		virtual void dump(float f);
@@ -169,29 +172,29 @@ namespace hltypes
 		virtual void dump(const char* c);
 
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded character.
-		virtual char load_char();
+		/// @return Loaded int8.
+		virtual int8_t load_int8();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded unsigned character.
-		virtual unsigned char load_uchar();
+		/// @return Loaded unsigned int8.
+		virtual uint8_t load_uint8();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded int.
-		virtual int load_int();
+		/// @return Loaded int16.
+		virtual int16_t load_int16();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded unsigned int.
-		virtual unsigned int load_uint();
+		/// @return Loaded unsigned int16.
+		virtual uint16_t load_uint16();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded long.
-		virtual long load_long();
+		/// @return Loaded int32.
+		virtual int32_t load_int32();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded unsigned long.
-		virtual unsigned long load_ulong();
+		/// @return Loaded unsigned int32.
+		virtual uint32_t load_uint32();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded short int.
-		virtual short load_short();
+		/// @return Loaded int64.
+		virtual int64_t load_int64();
 		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded unsigned short int.
-		virtual unsigned short load_ushort();
+		/// @return Loaded unsigned int64.
+		virtual uint64_t load_uint64();
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded float.
 		virtual float load_float();
@@ -204,14 +207,20 @@ namespace hltypes
 		/// @brief Loads data from file in a platform-aware format.
 		/// @return Loaded String.
 		virtual String load_string();
-		/// @brief Loads data from file in a platform-aware format.
-		/// @return Loaded String.
-		/// @see load_string()
+		
 		DEPRECATED_ATTRIBUTE virtual String load_hstr() { return this->load_string(); }
+		DEPRECATED_ATTRIBUTE virtual int8_t load_char() { return this->load_int8(); }
+		DEPRECATED_ATTRIBUTE virtual uint8_t load_uchar() { return this->load_uint8(); }
+		DEPRECATED_ATTRIBUTE virtual int16_t load_short() { return this->load_int16(); }
+		DEPRECATED_ATTRIBUTE virtual uint16_t load_ushort() { return this->load_uint16(); }
+		DEPRECATED_ATTRIBUTE virtual int32_t load_int() { return this->load_int32(); }
+		DEPRECATED_ATTRIBUTE virtual uint32_t load_uint() { return this->load_uint32(); }
+		DEPRECATED_ATTRIBUTE virtual int64_t load_long() { return this->load_int64(); }
+		DEPRECATED_ATTRIBUTE virtual uint64_t load_ulong() { return this->load_uint64(); }
 
 	protected:
 		/// @brief Data size, mostly used for optimization and faster "eof" detection.
-		long data_size;
+		int64_t data_size;
 
 		/// @brief Updates internal data size.
 		virtual void _update_data_size();
@@ -223,26 +232,25 @@ namespace hltypes
 		virtual inline String _descriptor() { return "stream"; }
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
-		virtual long _read(void* buffer, int size, int count) = 0;
+		virtual int32_t _read(void* buffer, int32_t count) = 0;
 		/// @brief Writes data to the stream.
 		/// @param[in] src Source data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		virtual long _write(const void* buffer, int size, int count) = 0;
+		virtual int32_t _write(const void* buffer, int32_t count) = 0;
 		/// @brief Checks if data is "open".
 		/// @return True if data is "open".
 		virtual bool _is_open() = 0;
 		/// @brief Gets current position in data.
 		/// @return Current position in data.
-		virtual long _position() = 0;
+		virtual int64_t _position() = 0;
 		/// @brief Seeks to position in data.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seek_mode Seeking mode.
-		virtual void _seek(long offset, SeekMode seek_mode = CURRENT) = 0;
+		/// @return True if successful.
+		virtual bool _seek(int64_t offset, SeekMode seek_mode = CURRENT) = 0;
 
 	};
 }

@@ -12,6 +12,7 @@
 #include "exception.h"
 #include "harray.h"
 #include "hfbase.h"
+#include "hlog.h"
 #include "hsbase.h"
 #include "hstream.h"
 #include "hstring.h"
@@ -33,24 +34,24 @@ namespace hltypes
 		return this->_is_open();
 	}
 	
-	void StreamBase::seek(long offset, SeekMode seek_mode)
+	bool StreamBase::seek(int64_t offset, SeekMode seek_mode)
 	{
 		this->_check_availability();
-		this->_seek(offset, seek_mode);
+		return this->_seek(offset, seek_mode);
 	}
 	
-	void StreamBase::rewind()
+	bool StreamBase::rewind()
 	{
-		this->seek(0, START);
+		return this->seek(0, START);
 	}
 	
-	long StreamBase::position()
+	int64_t StreamBase::position()
 	{
 		this->_check_availability();
 		return this->_position();
 	}
 	
-	long StreamBase::size()
+	int64_t StreamBase::size()
 	{
 		this->_check_availability();
 		return this->data_size;
@@ -68,16 +69,17 @@ namespace hltypes
 		this->_check_availability();
 		String result;
 		Array<String> parts;
-		int count;
+		int32_t read;
 		int index;
+		char c[BUFFER_SIZE + 1];
 		while (!this->eof())
 		{
-			char c[BUFFER_SIZE + 1] = {'\0'};
-			count = this->_read(c, 1, BUFFER_SIZE);
-			if (count == 0)
+			read = this->_read(c, BUFFER_SIZE);
+			if (read == 0)
 			{
 				break;
 			}
+			c[read] = '\0';
 			result += c;
 			if (delimiter != "")
 			{
@@ -94,26 +96,27 @@ namespace hltypes
 		return result;
 	}
 	
-	String StreamBase::read(int count)
+	String StreamBase::read(int32_t count)
 	{
 		this->_check_availability();
 		String result;
-		int current = BUFFER_SIZE;
-		int read;
+		int32_t current = BUFFER_SIZE;
+		int32_t read;
+		char c[BUFFER_SIZE + 1];
 		while (count > 0)
 		{
-			char c[BUFFER_SIZE + 1] = {'\0'};
 			if (count <= BUFFER_SIZE)
 			{
 				current = count;
 			}
-			read = this->_read(c, 1, current);
+			read = this->_read(c, current);
 			if (read == 0)
 			{
 				break;
 			}
-			count -= BUFFER_SIZE;
+			c[read] = '\0';
 			result += String(c);
+			count -= BUFFER_SIZE;
 		}
 		return result;
 	}
@@ -131,21 +134,21 @@ namespace hltypes
 	void StreamBase::write(const String& text)
 	{
 		this->_check_availability();
-		this->_write(text.c_str(), 1, text.size());
+		this->_write(text.c_str(), text.size());
 		this->_update_data_size();
 	}
 	
 	void StreamBase::write(const char* text)
 	{
 		this->_check_availability();
-		this->_write(text, 1, strlen(text));
+		this->_write(text, strlen(text));
 		this->_update_data_size();
 	}
 	
 	void StreamBase::write_line(const String& text)
 	{
 		this->_check_availability();
-		this->_write((text + "\n").c_str(), 1, text.size() + 1);
+		this->_write((text + "\n").c_str(), text.size() + 1);
 		this->_update_data_size();
 	}
 	
@@ -163,58 +166,68 @@ namespace hltypes
 		this->write(result);
 	}
 
-	int StreamBase::read_raw(void* buffer, int count)
+	int32_t StreamBase::read_raw(void* buffer, int32_t count)
 	{
 		this->_check_availability();
-		return this->_read(buffer, 1, count);
+		return this->_read(buffer, count);
 	}
 	
-	int StreamBase::write_raw(void* buffer, int count)
+	int32_t StreamBase::write_raw(void* buffer, int32_t count)
 	{
 		this->_check_availability();
-		int result = this->_write(buffer, 1, count);
+		int32_t result = this->_write(buffer, count);
 		this->_update_data_size();
 		return result;
 	}
 		
-	int StreamBase::write_raw(StreamBase& stream, int count)
+	int32_t StreamBase::write_raw(StreamBase& stream, int32_t count)
 	{
 		this->_check_availability();
-		count = hmin(count, (int)(stream.size() - stream.position()));
+		count = (int32_t)hmin((int64_t)count, stream.size() - stream.position());
 		unsigned char* buffer = new unsigned char[count];
 		stream.read_raw(buffer, count);
 		stream.seek(-count);
-		int result = this->_write(buffer, 1, count);
+		int32_t result = this->_write(buffer, count);
 		delete[] buffer;
 		this->_update_data_size();
 		return result;
 	}
 
-	int StreamBase::write_raw(StreamBase& stream)
+	int32_t StreamBase::write_raw(StreamBase& stream)
 	{
 		this->_check_availability();
-		return this->write_raw(stream, stream.size() - stream.position());
+		if (stream.size() - stream.position() > INT_MAX)
+		{
+			Log::error(hltypes::logTag, "Data too large for writing in: " + stream._descriptor());
+			return 0;
+		}
+		return this->write_raw(stream, (int32_t)(stream.size() - stream.position()));
 	}
 
-	int StreamBase::write_raw(Stream& stream, int count)
+	int32_t StreamBase::write_raw(Stream& stream, int32_t count)
 	{
 		this->_check_availability();
-		long position = stream.position();
-		count = hmin(count, (int)(stream.size() - position));
-		int result = this->_write(&stream[position], 1, count);
+		int64_t position = stream.position();
+		count = (int32_t)hmin((int64_t)count, stream.size() - position);
+		int32_t result = this->_write(&stream[(int32_t)position], count);
 		this->_update_data_size();
 		return result;
 	}
 
-	int StreamBase::write_raw(Stream& stream)
+	int32_t StreamBase::write_raw(Stream& stream)
 	{
 		this->_check_availability();
-		return this->write_raw(stream, stream.size() - stream.position());
+		if (stream.size() - stream.position() > INT_MAX)
+		{
+			Log::error(hltypes::logTag, "Data too large for writing in: " + stream._descriptor());
+			return 0;
+		}
+		return this->write_raw(stream, (int32_t)(stream.size() - stream.position()));
 	}
 
 	void StreamBase::_update_data_size()
 	{
-		long position = this->_position();
+		int64_t position = this->_position();
 		this->_seek(0, END);
 		this->data_size = this->_position();
 		this->_seek(position, START);
@@ -228,64 +241,70 @@ namespace hltypes
 		}
 	}
 
-	void StreamBase::dump(char c)
+	void StreamBase::dump(int8_t c)
 	{
 		this->_check_availability();
-		this->_write(&c, 1, 1);
+		this->_write(&c, 1);
 		this->_update_data_size();
 	}
 
-	void StreamBase::dump(unsigned char c)
+	void StreamBase::dump(uint8_t c)
 	{
 		this->_check_availability();
-		this->_write(&c, 1, 1);
+		this->_write(&c, 1);
 		this->_update_data_size();
 	}
 
-	void StreamBase::dump(int i)
+	void StreamBase::dump(int16_t s)
 	{
-		this->dump((unsigned int)i);
+		this->dump((uint16_t)s);
 	}
 
-	void StreamBase::dump(unsigned int i)
+	void StreamBase::dump(uint16_t s)
 	{
 		this->_check_availability();
 #ifndef __BIG_ENDIAN__
-		this->_write(&i, 1, 4);
+		this->_write(&s, 2);
+#else
+		unsigned char bytes[2] = {0};
+		bytes[1] = (s >> 8) & 0xFF;
+		bytes[0] = s & 0xFF;
+		this->_write(bytes, 2);
+#endif
+		this->_update_data_size();
+	}
+
+	void StreamBase::dump(int32_t i)
+	{
+		this->dump((uint32_t)i);
+	}
+
+	void StreamBase::dump(uint32_t i)
+	{
+		this->_check_availability();
+#ifndef __BIG_ENDIAN__
+		this->_write(&i, 4);
 #else
 		unsigned char bytes[4] = {0};
 		bytes[3] = (i >> 24) & 0xFF;
 		bytes[2] = (i >> 16) & 0xFF;
 		bytes[1] = (i >> 8) & 0xFF;
 		bytes[0] = i & 0xFF;
-		this->_write(bytes, 1, 4);
+		this->_write(bytes, 4);
 #endif
 		this->_update_data_size();
 	}
 
-	void StreamBase::dump(long l)
+	void StreamBase::dump(int64_t l)
 	{
-		this->dump((unsigned long)l);
+		this->dump((uint64_t)l);
 	}
 
-	void StreamBase::dump(unsigned long l)
+	void StreamBase::dump(uint64_t l)
 	{
 		this->_check_availability();
 #ifndef __BIG_ENDIAN__
-		if (sizeof(unsigned long) == 8) // long should be 8 bytes
-		{
-			this->_write(&l, 1, 8);
-		}
-		else if (sizeof(unsigned long) == 4) // will work with 4 bytes as well
-		{
-			this->_write(&l, 1, 4);
-			unsigned char bytes[4] = {0};
-			this->_write(bytes, 1, 4);
-		}
-		else // other sizes are unacceptable
-		{
-			throw file_long_error(this->_descriptor());
-		}
+		this->_write(&l, 8);
 #else
 		unsigned char bytes[8] = {0};
 		bytes[7] = (l >> 56) & 0xFF;
@@ -296,26 +315,7 @@ namespace hltypes
 		bytes[2] = (l >> 16) & 0xFF;
 		bytes[1] = (l >> 8) & 0xFF;
 		bytes[0] = l & 0xFF;
-		this->_write(bytes, 1, 8);
-#endif
-		this->_update_data_size();
-	}
-
-	void StreamBase::dump(short s)
-	{
-		this->dump((unsigned short)s);
-	}
-
-	void StreamBase::dump(unsigned short s)
-	{
-		this->_check_availability();
-#ifndef __BIG_ENDIAN__
-		this->_write(&s, 1, 2);
-#else
-		unsigned char bytes[2] = {0};
-		bytes[1] = (s >> 8) & 0xFF;
-		bytes[0] = s & 0xFF;
-		this->_write(bytes, 1, 2);
+		this->_write(bytes, 8);
 #endif
 		this->_update_data_size();
 	}
@@ -324,11 +324,11 @@ namespace hltypes
 	{
 #ifndef __BIG_ENDIAN__
 		this->_check_availability();
-		this->_write((unsigned char*)&f, 1, 4);
+		this->_write((unsigned char*)&f, 4);
 		this->_update_data_size();
 #else
 		// some data voodoo magic
-		this->dump(*((unsigned int*)&f));
+		this->dump(*((uint32_t*)&f));
 #endif
 	}
 
@@ -336,12 +336,11 @@ namespace hltypes
 	{
 #ifndef __BIG_ENDIAN__
 		this->_check_availability();
-		this->_write((unsigned char*)&d, 1, 8);
+		this->_write((unsigned char*)&d, 8);
 		this->_update_data_size();
 #else
-		// some more data voodoo magic, but this time we make 100% sure it uses 8 bytes
-		this->dump(*((unsigned int*)&d));
-		this->dump(*((unsigned int*)&d + sizeof(d) / 2));
+		// some more data voodoo magic
+		this->dump(*((uint64_t*)&d));
 #endif
 	}
 
@@ -349,18 +348,18 @@ namespace hltypes
 	{
 		this->_check_availability();
 		unsigned char c = (b ? 1 : 0);
-		this->_write(&c, 1, 1);
+		this->_write(&c, 1);
 		this->_update_data_size();
 	}
 
 	void StreamBase::dump(const String& str)
 	{
 		this->_check_availability();
-		int size = str.size();
+		int32_t size = str.size();
 		this->dump(size);
 		if (size > 0)
 		{
-			this->_write(str.c_str(), 1, size);
+			this->_write(str.c_str(), size);
 		}
 		this->_update_data_size();
 	}
@@ -370,36 +369,53 @@ namespace hltypes
 		this->dump(String(c));
 	}
 
-	char StreamBase::load_char()
+	int8_t StreamBase::load_int8()
+	{
+		return (int8_t)this->load_uint8();
+	}
+
+	uint8_t StreamBase::load_uint8()
 	{
 		this->_check_availability();
-		char c;
-		this->_read(&c, 1, 1);
+		uint8_t c;
+		this->_read(&c, 1);
 		return c;
 	}
 
-	unsigned char StreamBase::load_uchar()
+	int16_t StreamBase::load_int16()
 	{
-		this->_check_availability();
-		unsigned char c;
-		this->_read(&c, 1, 1);
-		return c;
+		return (int16_t)this->load_uint16();
 	}
 
-	int StreamBase::load_int()
-	{
-		return (int)this->load_uint();
-	}
-
-	unsigned int StreamBase::load_uint()
+	uint16_t StreamBase::load_uint16()
 	{
 		this->_check_availability();
-		unsigned int i = 0;
+		uint16_t s = 0;
 #ifndef __BIG_ENDIAN__
-		this->_read((unsigned char*)&i, 1, 4);
+		this->_read((unsigned char*)&s, 2);
+#else
+		unsigned char bytes[2] = {0};
+		this->_read(bytes, 2);
+		s |= bytes[1] << 8;
+		s |= bytes[0];
+#endif
+		return s;
+	}
+
+	int32_t StreamBase::load_int32()
+	{
+		return (int32_t)this->load_uint32();
+	}
+
+	uint32_t StreamBase::load_uint32()
+	{
+		this->_check_availability();
+		uint32_t i = 0;
+#ifndef __BIG_ENDIAN__
+		this->_read((unsigned char*)&i, 4);
 #else
 		unsigned char bytes[4] = {0};
-		this->_read(bytes, 4, 1);
+		this->_read(bytes, 4);
 		i |= bytes[3] << 24;
 		i |= bytes[2] << 16;
 		i |= bytes[1] << 8;
@@ -408,33 +424,20 @@ namespace hltypes
 		return i;
 	}
 
-	long StreamBase::load_long()
+	int64_t StreamBase::load_int64()
 	{
-		return (long)this->load_ulong();
+		return (int64_t)this->load_uint64();
 	}
 
-	unsigned long StreamBase::load_ulong()
+	uint64_t StreamBase::load_uint64()
 	{
 		this->_check_availability();
-		unsigned long l = 0;
+		uint64_t l = 0;
 #ifndef __BIG_ENDIAN__
-		if (sizeof(unsigned long) == 8) // long should be 8 bytes
-		{
-			this->_read((unsigned char*)&l, 1, 8);
-		}
-		else if (sizeof(unsigned long) == 4) // will work with 4 bytes as well
-		{
-			this->_read((unsigned char*)&l, 1, 4);
-			unsigned char bytes[4] = {0};
-			this->_read(bytes, 1, 4);
-		}
-		else // other sizes are unacceptable
-		{
-			throw file_long_error(this->_descriptor());
-		}
+		this->_read((unsigned char*)&l, 8);
 #else
 		unsigned char bytes[8] = {0};
-		this->_read(bytes, 8, 1);
+		this->_read(bytes, 8);
 		l |= bytes[7] << 56;
 		l |= bytes[6] << 48;
 		l |= bytes[5] << 40;
@@ -447,35 +450,15 @@ namespace hltypes
 		return l;
 	}
 
-	short StreamBase::load_short()
-	{
-		return (int)this->load_ushort();
-	}
-
-	unsigned short StreamBase::load_ushort()
-	{
-		this->_check_availability();
-		unsigned short s = 0;
-#ifndef __BIG_ENDIAN__
-		this->_read((unsigned char*)&s, 1, 2);
-#else
-		unsigned char bytes[2] = {0};
-		this->_read(bytes, 1, 2);
-		s |= bytes[1] << 8;
-		s |= bytes[0];
-#endif
-		return s;
-	}
-
 	float StreamBase::load_float()
 	{
 		float f;
 #ifndef __BIG_ENDIAN__
 		this->_check_availability();
-		this->_read((unsigned char*)&f, 1, 4);
+		this->_read((unsigned char*)&f, 4);
 #else
-		// data voodoo magic, the float was stored as uint
-		unsigned int i = this->load_uint();
+		// data voodoo magic, the float was stored as uint32
+		uint32_t i = this->load_uint32();
 		f = *((float*)&i);
 #endif
 		return f;
@@ -486,14 +469,11 @@ namespace hltypes
 		double d;
 #ifndef __BIG_ENDIAN__
 		this->_check_availability();
-		this->_read((unsigned char*)&d, 1, 8);
+		this->_read((unsigned char*)&d, 8);
 #else
-		// some more data voodoo magic, the double was stored as 2 uints
-		int halfSize = sizeof(d) / 2;
-		unsigned int i = this->load_uint();
-		memcpy((unsigned char*)&d, &i, halfSize);
-		i = this->load_uint();
-		memcpy((unsigned char*)&d + halfSize, &i, halfSize);
+		// data voodoo magic, the double was stored as uint64
+		uint64_t l = this->load_uint64();
+		d = *((double*)&l);
 #endif
 		return d;
 	}
@@ -502,29 +482,14 @@ namespace hltypes
 	{
 		this->_check_availability();
 		unsigned char c;
-		this->_read(&c, 1, 1);
+		this->_read(&c, 1);
 		return (c != 0);
 	}
 
 	String StreamBase::load_string()
 	{
 		this->_check_availability();
-		int size = this->load_int();
-		String str;
-		int count = BUFFER_SIZE;
-		char c[BUFFER_SIZE + 1];
-		while (size > 0)
-		{
-			memset(&c, 0, (BUFFER_SIZE + 1) * sizeof(char));
-			if (size < BUFFER_SIZE)
-			{
-				count = size;
-			}
-			this->_read(c, 1, count);
-			size -= BUFFER_SIZE;
-			str += String(c);
-		}
-		return str;
+		return this->read(this->load_int32());
 	}
 
 }

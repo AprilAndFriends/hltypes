@@ -13,6 +13,7 @@
 #ifndef HLTYPES_FILE_BASE_H
 #define HLTYPES_FILE_BASE_H
 
+#include <stdint.h>
 #include <stdio.h>
 
 #include "hsbase.h"
@@ -28,14 +29,13 @@ namespace hltypes
 	struct hltypesExport FileInfo
 	{
 		/// @brief File size.
-		/// @note Only files up to 4 GB for now.
-		unsigned long size;
+		int64_t size;
 		/// @brief The time the file was created.
-		unsigned long creation_time;
+		int64_t creation_time;
 		/// @brief The time the file was last accessed.
-		unsigned long access_time;
+		int64_t access_time;
 		/// @brief The time the file was last modified.
-		unsigned long modification_time;
+		int64_t modification_time;
 
 		/// @brief Constructor.
 		FileInfo();
@@ -113,26 +113,25 @@ namespace hltypes
 		void _fclose();
 		/// @brief Reads data from the file.
 		/// @param[in] src Destination data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
-		long _fread(void* buffer, int size, int count);
+		int32_t _fread(void* buffer, int32_t count);
 		/// @brief Writes data to the file.
 		/// @param[in] src Source data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		long _fwrite(const void* buffer, int size, int count);
+		int32_t _fwrite(const void* buffer, int32_t count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
 		bool _fis_open();
 		/// @brief Gets current position in file.
 		/// @return Current position in file.
-		long _fposition();
+		int64_t _fposition();
 		/// @brief Seeks to position in file.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seek_mode Seeking mode.
-		void _fseek(long offset, SeekMode seek_mode = CURRENT);
+		/// @return True if successful.
+		bool _fseek(int64_t offset, SeekMode seek_mode = CURRENT);
 
 		/// @brief Checks if a file exists.
 		/// @param[in] filename Name of the file.

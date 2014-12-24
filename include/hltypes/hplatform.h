@@ -51,7 +51,7 @@
 #define _HL_TRY_DELETE_ARRAY(name) \
 	if (name != NULL) \
 	{ \
-		delete [] name; \
+		delete[] name; \
 		name = NULL; \
 	}
 #define _HL_TRY_RELEASE(name) \

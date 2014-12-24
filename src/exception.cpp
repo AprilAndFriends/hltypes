@@ -114,15 +114,6 @@ namespace hltypes
 	{
 	}
 	
-	_file_long_error::_file_long_error(const String& filename, const char* source_file, int line_number) :
-		exception("", source_file, line_number)
-	{
-		this->_setInternalMessage(hsprintf("'%s' tried to dump/load long that is not 8 or 4 bytes!", filename.c_str()), source_file, line_number);
-	}
-	_file_long_error::~_file_long_error()
-	{
-	}
-	
 	_resource_not_exists::_resource_not_exists(const String& type, const String& name, const String& container, const char* source_file, int line_number) :
 		exception("", source_file, line_number)
 	{
