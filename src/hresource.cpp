@@ -155,15 +155,10 @@ namespace hltypes
 		if (Resource::zipArchive)
 		{
 			this->data_size = (int64_t)zip::fsize(this->archivefile, this->filename);
+			return;
 		}
-		else
 #endif
-		{
-			int64_t position = this->_position();
-			this->_fseek(0, END);
-			this->data_size = this->_position();
-			this->_fseek(position, START);
-		}
+		this->data_size = File::get_info(this->filename).size;
 	}
 
 	int32_t Resource::_read(void* buffer, int32_t count)

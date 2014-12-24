@@ -55,6 +55,11 @@ namespace hltypes
 		this->_fclose();
 	}
 	
+	void File::_update_data_size()
+	{
+		this->data_size = File::get_info(this->filename).size;
+	}
+
 	int32_t File::_read(void* buffer, int32_t count)
 	{
 		return this->_fread(buffer, count);
