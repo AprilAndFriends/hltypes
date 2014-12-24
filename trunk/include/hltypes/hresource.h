@@ -50,10 +50,10 @@ namespace hltypes
 		static bool exists(const String& filename, bool case_sensitive = true);
 		/// @brief Opens file, gets size and closes file.
 		/// @see size
-		static long hsize(const String& filename);
+		static int64_t hsize(const String& filename);
 		/// @brief Opens file, reads data and closes file.
 		/// @see read(int count)
-		static String hread(const String& filename, int count);
+		static String hread(const String& filename, int32_t count);
 		/// @brief Opens file, reads data and closes file.
 		/// @see read
 		static String hread(const String& filename, const String& delimiter = "");
@@ -87,7 +87,7 @@ namespace hltypes
 
 	protected:
 		/// @brief Data position;
-		int data_position;
+		int64_t data_position;
 		/// @brief OS archive file handle.
 		void* archivefile;
 
@@ -103,26 +103,24 @@ namespace hltypes
 
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] sound Number of elements to read.
 		/// @return Number of bytes read.
-		long _read(void* buffer, int size, int count);
+		int32_t _read(void* buffer, int32_t count);
 		/// @brief Writes data to the stream.
 		/// @param[in] src Source data buffer.
-		/// @param[in] size Size in bytes of a single buffer element.
 		/// @param[in] sound Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		long _write(const void* buffer, int size, int count);
+		int32_t _write(const void* buffer, int32_t count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
 		bool _is_open();
 		/// @brief Gets current position in file.
 		/// @return Current position in file.
-		long _position();
+		int64_t _position();
 		/// @brief Seeks to position in file.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seek_mode Seeking mode.
-		void _seek(long offset, SeekMode seek_mode = CURRENT);
+		bool _seek(int64_t offset, SeekMode seek_mode = CURRENT);
 		
 	};
 

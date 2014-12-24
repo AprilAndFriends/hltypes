@@ -104,21 +104,6 @@ namespace hltypes
 	/// @brief Alias for simpler code.
 	#define file_not_writeable(filename) hltypes::_file_not_writeable(filename, __FILE__, __LINE__)
 	
-	/// @brief Defines a file-long-error exception.
-	class hltypesExport _file_long_error : public exception
-	{
-	public:
-		/// @brief Basic constructor.
-		/// @param[in] filename Name of the file.
-		/// @param[in] source_file Name of the source file.
-		/// @param[in] line_number Number of the line.
-		_file_long_error(const String& filename, const char* source_file, int line_number);
-		~_file_long_error();
-		
-	};
-	/// @brief Alias for simpler code.
-	#define file_long_error(filename) hltypes::_file_long_error(filename, __FILE__, __LINE__)
-	
 	/// @brief Defines a resource-not-exists exception.
 	class hltypesExport _resource_not_exists : public exception
 	{

@@ -29,24 +29,24 @@ namespace hltypes
 	String logTag = "hltypes";
 }
 
-unsigned int get_system_tick_count()
+uint64_t get_system_tick_count()
 {
 #ifdef _WIN32
 #ifndef _WINRT // because GetTickCount64() is not available pre-Vista
 	return GetTickCount();
 #else
-	return (unsigned int)GetTickCount64();
+	return (uint64_t)GetTickCount64();
 #endif
 #else
 	timeval tv = {0, 0};
 	gettimeofday(&tv, NULL);
-	return (unsigned int)(tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	return (uint64_t)(tv.tv_sec * 1000 + tv.tv_usec / 1000);
 #endif
 }
 
-unsigned int get_system_time()
+uint64_t get_system_time()
 {
-	return (unsigned int)time(NULL);
+	return (uint64_t)time(NULL);
 }
 
 hltypes::String get_environment_variable(const hltypes::String& name)
@@ -62,20 +62,20 @@ hltypes::String get_environment_variable(const hltypes::String& name)
 #endif
 }
 
-int hrand(int min, int max)
+int32_t hrand(int32_t min, int32_t max)
 {
 	if (max <= min)
 	{
 		return min;
 	}
 #ifdef _WIN32
-	return (min + rand() * (max - min) / (RAND_MAX + 1));
+	return (int32_t)(min + rand() * (max - min) / (RAND_MAX + 1));
 #else
-	return (min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min));
+	return (int32_t)(min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min));
 #endif
 }
 
-int hrand(int max)
+int32_t hrand(int32_t max)
 {
 	if (max <= 0)
 	{
@@ -84,7 +84,7 @@ int hrand(int max)
 #ifdef _WIN32
 	return (rand() * max / (RAND_MAX + 1));
 #else
-	return ((((double)rand()) / ((double)RAND_MAX + 1)) * max);
+	return (int32_t)((((double)rand()) / ((double)RAND_MAX + 1)) * max);
 #endif
 }
 
@@ -140,12 +140,12 @@ double hrandd(double max)
 #endif
 }
 
-int hfloor(float value)
+int32_t hfloor(float value)
 {
 	return (int)(value > 0.0f || value == (int)value ? value : value - 1);
 }
 
-int hfloor(double value)
+int32_t hfloor(double value)
 {
 	return (int)(value > 0.0 || value == (int)value ? value : value - 1);
 }
@@ -160,12 +160,12 @@ double hfloord(double value)
 	return (double)hfloor(value);
 }
 
-int hceil(float value)
+int32_t hceil(float value)
 {
 	return (int)(value < 0.0f || value == (int)value ? value : value + 1);
 }
 
-int hceil(double value)
+int32_t hceil(double value)
 {
 	return (int)(value < 0.0 || value == (int)value ? value : value + 1);
 }
@@ -180,12 +180,12 @@ double hceild(double value)
 	return (double)hceil(value);
 }
 
-int hround(float value)
+int32_t hround(float value)
 {
 	return hfloor(value + 0.5);
 }
 
-int hround(double value)
+int32_t hround(double value)
 {
 	return hfloor(value + 0.5);
 }
@@ -200,7 +200,12 @@ double hroundd(double value)
 	return (double)hround(value);
 }
 
-int habs(int value)
+int32_t habs(int32_t value)
+{
+	return abs(value);
+}
+
+int64_t habs(int64_t value)
 {
 	return abs(value);
 }
@@ -225,7 +230,12 @@ long double habs(long double value)
 	return fabs(value);
 }
 
-int hmod(int i, int m)
+int32_t hmod(int32_t i, int32_t m)
+{
+	return (i >= 0 ? i % m : (m - (-i % m)) % m);
+}
+
+int64_t hmod(int64_t i, int64_t m)
 {
 	return (i >= 0 ? i % m : (m - (-i % m)) % m);
 }
@@ -270,12 +280,12 @@ double hhypot(double a, double b)
 	return sqrt(a * a + b * b);
 }
 
-float hhypot(int a, int b)
+float hhypot(int32_t a, int32_t b)
 {
 	return (float)sqrt((float)a * a + (float)b * b);
 }
 
-double hhypotd(int a, int b)
+double hhypotd(int32_t a, int32_t b)
 {
 	return sqrt((double)a * a + (double)b * b);
 }
@@ -290,17 +300,17 @@ double hhypot_squared(double a, double b)
 	return (a * a + b * b);
 }
 
-int hhypot_squared(int a, int b)
+int32_t hhypot_squared(int32_t a, int32_t b)
 {
 	return (a * a + b * b);
 }
 
-float hhypotf_squared(int a, int b)
+float hhypotf_squared(int32_t a, int32_t b)
 {
 	return (float)(a * a + b * b);
 }
 
-double hhypotd_squared(int a, int b)
+double hhypotd_squared(int32_t a, int32_t b)
 {
 	return (double)(a * a + b * b);
 }
@@ -325,7 +335,7 @@ int hcmpd(double a, double b, double tolerance)
 	return (heqd(a, b, tolerance) ? 0 : (a > b ? 1 : -1));
 }
 
-unsigned int hpotceil(unsigned int value)
+int32_t hpotceil(int32_t value)
 {
 	--value;
 	value |= value >> 1;
@@ -337,9 +347,32 @@ unsigned int hpotceil(unsigned int value)
 	return value;
 }
 
-unsigned int hpotfloor(unsigned int value)
+int64_t hpotceil(int64_t value)
 {
-	unsigned int result = hpotceil(value);
+	--value;
+	value |= value >> 1;
+	value |= value >> 2;
+	value |= value >> 4;
+	value |= value >> 8;
+	value |= value >> 16;
+	value |= value >> 32;
+	++value;
+	return value;
+}
+
+int32_t hpotfloor(int32_t value)
+{
+	int32_t result = hpotceil(value);
+	if (value < result)
+	{
+		result >>= 1;
+	}
+	return result;
+}
+
+int64_t hpotfloor(int64_t value)
+{
+	int64_t result = hpotceil(value);
 	if (value < result)
 	{
 		result >>= 1;
@@ -355,13 +388,13 @@ hltypes::String systemize_path(const hltypes::String& path)	{ return hltypes::Di
 hltypes::String normalize_path(const hltypes::String& path)	{ return hltypes::Dir::normalize(path); }
 float hhypotSquared(float a, float b) { return hhypot_squared(a, b); }
 double hhypotSquared(double a, double b) { return hhypot_squared(a, b); }
-int hhypotSquared(int a, int b) { return hhypot_squared(a, b); }
-float hhypotSquaredf(int a, int b) { return hhypotf_squared(a, b); }
-double hhypotSquaredd(int a, int b) { return hhypotd_squared(a, b); }
+int32_t hhypotSquared(int32_t a, int32_t b) { return hhypot_squared(a, b); }
+float hhypotSquaredf(int32_t a, int32_t b) { return hhypotf_squared(a, b); }
+double hhypotSquaredd(int32_t a, int32_t b) { return hhypotd_squared(a, b); }
 
 // CRC32 stuff
 
-static unsigned int crc32_table[256];
+static uint32_t crc32_table[256] = {0};
 static bool crc32_table_created = false;
 void create_crc32_table()
 {
@@ -369,8 +402,8 @@ void create_crc32_table()
 	{
 		return;
 	}
-	unsigned int polynome = 0xEDB88320;
-	unsigned int sum;
+	uint32_t polynome = 0xEDB88320;
+	uint32_t sum;
 	for_iter (i, 0, 256)
 	{
 		sum = i;
@@ -390,18 +423,18 @@ void create_crc32_table()
 	crc32_table_created = true;
 }
 
-unsigned int calc_crc32(unsigned char* data, long size)
+uint32_t calc_crc32(unsigned char* data, uint32_t size)
 {
 	create_crc32_table();
-	unsigned int crc = 0xFFFFFFFF;
-	for_itert (long, i, 0, size)
+	uint32_t crc = 0xFFFFFFFF;
+	for_itert (uint32_t, i, 0, size)
 	{
 		crc = ((crc >> 8) & 0xFFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
 	}
 	return ((crc & 0xFFFFFFFF) ^ 0xFFFFFFFF);
 }
 
-unsigned int calc_crc32(hltypes::StreamBase* stream, long size)
+uint32_t calc_crc32(hltypes::StreamBase* stream, uint32_t size)
 {
 	if (size <= 0)
 	{
@@ -409,13 +442,13 @@ unsigned int calc_crc32(hltypes::StreamBase* stream, long size)
 	}
 	unsigned char* data = new unsigned char[size];
 	stream->read_raw(data, size);
-	unsigned int result = calc_crc32(data, size);
-	delete [] data;
+	uint32_t result = calc_crc32(data, size);
+	delete[] data;
 	return result;
 }
 
-unsigned int calc_crc32(hltypes::StreamBase* stream)
+uint32_t calc_crc32(hltypes::StreamBase* stream)
 {
-	return calc_crc32(stream, stream->size() - stream->position());
+	return calc_crc32(stream, (uint32_t)(stream->size() - stream->position()));
 }
 

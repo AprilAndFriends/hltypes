@@ -88,19 +88,19 @@ namespace hltypes
 			zip_fclose((struct zip_file*)file);
 		}
 
-		long fread(void* file, void* buffer, int count)
+		int32_t fread(void* file, void* buffer, int32_t count)
 		{
 			Mutex::ScopeLock lock(&access_mutex);
-			return zip_fread((struct zip_file*)file, buffer, count);
+			return (int32_t)zip_fread((struct zip_file*)file, buffer, count);
 		}
 
-		long fsize(void* archivefile, const String& filename)
+		int64_t fsize(void* archivefile, const String& filename)
 		{
 			struct zip_stat stat;
 			stat.size = 0;
 			Mutex::ScopeLock lock(&access_mutex);
 			zip_stat((struct zip*)archivefile, Resource::make_full_path(filename).c_str(), 0, &stat);
-			return stat.size;
+			return (int64_t)stat.size;
 		}
 
 		void* freopen(void* file, void* archivefile, const String& filename)

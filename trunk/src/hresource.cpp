@@ -24,6 +24,7 @@ namespace hltypes
 #else
 	String Resource::cwd = "assets";
 #define READ_BUFFER_SIZE 65536
+#define READ_BUFFER_SIZE_X 16777216 // to avoid using something like INT32_MAX
 	static unsigned char _read_buffer[READ_BUFFER_SIZE] = {0};
 #endif
 	String Resource::archive = "";
@@ -113,12 +114,10 @@ namespace hltypes
 				throw resource_not_found(this->_descriptor());
 			}
 			this->_update_data_size();
+			return;
 		}
-		else
 #endif
-		{
-			this->_fopen(Resource::make_full_path(filename), READ, FileBase::repeats, FileBase::timeout);
-		}
+		this->_fopen(Resource::make_full_path(filename), READ, FileBase::repeats, FileBase::timeout);
 	}
 	
 	void Resource::close()
@@ -155,32 +154,31 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			this->data_size = zip::fsize(this->archivefile, this->filename);
+			this->data_size = (int64_t)zip::fsize(this->archivefile, this->filename);
 		}
 		else
 #endif
 		{
-			long position = this->_position();
+			int64_t position = this->_position();
 			this->_fseek(0, END);
 			this->data_size = this->_position();
 			this->_fseek(position, START);
 		}
 	}
 
-	long Resource::_read(void* buffer, int size, int count)
+	int32_t Resource::_read(void* buffer, int32_t count)
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			int read_count = size * count;
-			this->data_position += read_count;
-			return zip::fread(this->cfile, buffer, read_count);
+			this->data_position += count;
+			return zip::fread(this->cfile, buffer, count);
 		}
 #endif
-		return this->_fread(buffer, size, count);
+		return this->_fread(buffer, count);
 	}
 	
-	long Resource::_write(const void* buffer, int size, int count)
+	int32_t Resource::_write(const void* buffer, int32_t count)
 	{
 		throw file_not_writeable(this->filename);
 	}
@@ -196,7 +194,7 @@ namespace hltypes
 		return this->_fis_open();
 	}
 	
-	long Resource::_position()
+	int64_t Resource::_position()
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
@@ -207,13 +205,13 @@ namespace hltypes
 		return this->_fposition();
 	}
 	
-	void Resource::_seek(long offset, SeekMode seek_mode)
+	bool Resource::_seek(int64_t offset, SeekMode seek_mode)
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
 			// zip can only read forward and doesn't really have seeking
-			long target = offset;
+			int64_t target = offset;
 			switch (seek_mode)
 			{
 			case CURRENT:
@@ -243,20 +241,36 @@ namespace hltypes
 				unsigned char* buffer = _read_buffer;
 				if (target > READ_BUFFER_SIZE)
 				{
-					buffer = new unsigned char[target];
+					// required for files over 2GB
+					if (target > READ_BUFFER_SIZE_X)
+					{
+						buffer = new unsigned char[READ_BUFFER_SIZE_X];
+					}
+					else
+					{
+						buffer = new unsigned char[(int32_t)target];
+					}
 				}
-				this->_read(buffer, 1, target);
+				int32_t count = 0;
+				while (target > 0)
+				{
+					count = (int32_t)hmin(target, (int64_t)READ_BUFFER_SIZE_X);
+					if (this->_read(buffer, count) == 0)
+					{
+						break;
+					}
+					target -= READ_BUFFER_SIZE_X;
+				}
 				if (target > READ_BUFFER_SIZE)
 				{
-					delete [] buffer;
+					delete[] buffer;
 				}
+				return true;
 			}
+			return false;
 		}
-		else
 #endif
-		{
-			this->_fseek(offset, seek_mode);
-		}
+		return this->_fseek(offset, seek_mode);
 	}
 	
 	bool Resource::exists(const String& filename, bool case_sensitive)
@@ -298,14 +312,14 @@ namespace hltypes
 		return FileBase::_fexists(Resource::make_full_path(filename), case_sensitive);
 	}
 	
-	long Resource::hsize(const String& filename)
+	int64_t Resource::hsize(const String& filename)
 	{
 		Resource file;
 		file.open(filename);
 		return file.size();
 	}
 	
-	String Resource::hread(const String& filename, int count)
+	String Resource::hread(const String& filename, int32_t count)
 	{
 		Resource file;
 		file.open(filename);
