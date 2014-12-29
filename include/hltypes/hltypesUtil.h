@@ -433,17 +433,6 @@ hltypesFnExport int hpotfloor(int value);
 /// @return The previous power-of-two value of the given number.
 hltypesFnExport int64_t hpotfloor(int64_t value);
 
-// DEPRECATED
-DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String get_basedir(const hltypes::String& path);
-DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String get_basename(const hltypes::String& path);
-DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String systemize_path(const hltypes::String& path);
-DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String normalize_path(const hltypes::String& path);
-DEPRECATED_ATTRIBUTE hltypesFnExport float hhypotSquared(float a, float b);
-DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotSquared(double a, double b);
-DEPRECATED_ATTRIBUTE hltypesFnExport int hhypotSquared(int a, int b);
-DEPRECATED_ATTRIBUTE hltypesFnExport float hhypotSquaredf(int a, int b);
-DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotSquaredd(int a, int b);
-
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.
 /// @param[in] size Size of the data stream.
