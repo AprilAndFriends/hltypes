@@ -14,10 +14,10 @@
 
 namespace hlxml
 {
-	_XMLException::_XMLException(chstr msg, Node* node, chstr type, const char* file, int line) :
-		hltypes::exception((node == NULL ? msg : msg + ", in file " + node->getFilename() + ", line " + hstr(node->getLine())),
-		file, line)
+	_XMLException::_XMLException(chstr message, Node* node, const char* file, int line) :
+		hexception("", file, line)
 	{
+		this->_setInternalMessage((node == NULL ? message : message + ", in file " + node->getFilename() + ", line " + hstr(node->getLine())), file, line);
 	}
 
 }
