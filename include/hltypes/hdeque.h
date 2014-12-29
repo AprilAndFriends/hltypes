@@ -92,7 +92,7 @@ namespace hltypes
 				}
 				if (start >= this->size() || start + count > this->size())
 				{
-					throw container_range_error(start, count);
+					throw ContainerRangeException(start, count);
 				}
 				const_iterator_t it = stddeque::begin() + start;
 				result.assign(it, it + count);
@@ -247,7 +247,7 @@ namespace hltypes
 		{
 			if (index > this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			stddeque::insert(stddeque::begin() + index, times, element);
 		}
@@ -258,7 +258,7 @@ namespace hltypes
 		{
 			if (index > this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			stddeque::insert(stddeque::begin() + index, other.begin(), other.end());
 		}
@@ -270,11 +270,11 @@ namespace hltypes
 		{
 			if (index > this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			if (count > other.size())
 			{
-				throw container_range_error(0, count);
+				throw ContainerRangeException(0, count);
 			}
 			const_iterator_t it = other.begin();
 			stddeque::insert(stddeque::begin() + index, it, it + count);
@@ -288,11 +288,11 @@ namespace hltypes
 		{
 			if (index > this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			if (start >= other.size() || start + count > other.size())
 			{
-				throw container_range_error(start, count);
+				throw ContainerRangeException(start, count);
 			}
 			const_iterator_t it = other.begin() + start;
 			stddeque::insert(stddeque::begin() + index, it, it + count);
@@ -321,7 +321,7 @@ namespace hltypes
 		{
 			if (index >= this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			T result = stddeque::at(index);
 			stddeque::erase(stddeque::begin() + index);
@@ -336,7 +336,7 @@ namespace hltypes
 		{
 			if (index >= this->size() || index + count > this->size())
 			{
-				throw container_range_error(index, count);
+				throw ContainerRangeException(index, count);
 			}
 			Deque<T> result;
 			iterator_t it = stddeque::begin();
@@ -353,7 +353,7 @@ namespace hltypes
 			int index = this->index_of(element);
 			if (index < 0)
 			{
-				throw container_element_not_found();
+				throw ContainerElementNotFoundException();
 			}
 			stddeque::erase(stddeque::begin() + index);
 		}
@@ -367,7 +367,7 @@ namespace hltypes
 				index = this->index_of(other.at(i));
 				if (index < 0)
 				{
-					throw container_element_not_found();
+					throw ContainerElementNotFoundException();
 				}
 				stddeque::erase(stddeque::begin() + index);
 			}
@@ -503,7 +503,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_index_error(0);
+				throw ContainerIndexException(0);
 			}
 			return this->remove_at(0);
 		}
@@ -515,7 +515,7 @@ namespace hltypes
 		{
 			if (count > this->size())
 			{
-				throw container_range_error(0, count);
+				throw ContainerRangeException(0, count);
 			}
 			Deque<T> result;
 			iterator_t begin = stddeque::begin();
@@ -530,7 +530,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_index_error(0);
+				throw ContainerIndexException(0);
 			}
 			T element = stddeque::back();
 			stddeque::pop_back();
@@ -544,7 +544,7 @@ namespace hltypes
 		{
 			if (count > this->size())
 			{
-				throw container_range_error(0, count);
+				throw ContainerRangeException(0, count);
 			}
 			Deque<T> result;
 			iterator_t end = stddeque::end();
@@ -760,7 +760,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("min()");
+				throw ContainerEmptyException("min()");
 			}
 			return (*std::min_element(stddeque::begin(), stddeque::end()));
 		}
@@ -772,7 +772,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("min()");
+				throw ContainerEmptyException("min()");
 			}
 			return (*std::min_element(stddeque::begin(), stddeque::end(), compare_function));
 		}
@@ -782,7 +782,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("max()");
+				throw ContainerEmptyException("max()");
 			}
 			return (*std::max_element(stddeque::begin(), stddeque::end()));
 		}
@@ -794,7 +794,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("max()");
+				throw ContainerEmptyException("max()");
 			}
 			return (*std::max_element(stddeque::begin(), stddeque::end(), compare_function));
 		}
@@ -804,7 +804,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("random()");
+				throw ContainerEmptyException("random()");
 			}
 			return stddeque::at(hrand(this->size()));
 		}
@@ -826,7 +826,7 @@ namespace hltypes
 			{
 				if (count > this->size())
 				{
-					throw container_range_error(0, count);
+					throw ContainerRangeException(0, count);
 				}
 				if (count == this->size())
 				{
@@ -850,7 +850,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("pop_random()");
+				throw ContainerEmptyException("pop_random()");
 			}
 			T result = stddeque::at(hrand(this->size()));
 			this->remove(result);
@@ -874,7 +874,7 @@ namespace hltypes
 			{
 				if (count > this->size())
 				{
-					throw container_range_error(0, count);
+					throw ContainerRangeException(0, count);
 				}
 				if (count == this->size())
 				{
