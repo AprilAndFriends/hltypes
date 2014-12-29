@@ -60,12 +60,12 @@ namespace hltypes
 		this->data_size = File::get_info(this->filename).size;
 	}
 
-	int32_t File::_read(void* buffer, int32_t count)
+	int File::_read(void* buffer, int count)
 	{
 		return this->_fread(buffer, count);
 	}
 	
-	int32_t File::_write(const void* buffer, int32_t count)
+	int File::_write(const void* buffer, int count)
 	{
 		return this->_fwrite(buffer, count);
 	}
@@ -212,7 +212,7 @@ namespace hltypes
 		return File::get_info(filename).size; // uses get_info to avoid opening the file
 	}
 	
-	String File::hread(const String& filename, int32_t count)
+	String File::hread(const String& filename, int count)
 	{
 		File file;
 		file.open(filename);

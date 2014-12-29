@@ -145,14 +145,14 @@ namespace hltypes
 		this->data_size = 0;
 	}
 	
-	int32_t FileBase::_fread(void* buffer, int32_t count)
+	int FileBase::_fread(void* buffer, int count)
 	{
-		return (int32_t)fread(buffer, 1, count, (FILE*)this->cfile);
+		return (int)fread(buffer, 1, count, (FILE*)this->cfile);
 	}
 	
-	int32_t FileBase::_fwrite(const void* buffer, int32_t count)
+	int FileBase::_fwrite(const void* buffer, int count)
 	{
-		return (int32_t)fwrite(buffer, 1, count, (FILE*)this->cfile);
+		return (int)fwrite(buffer, 1, count, (FILE*)this->cfile);
 	}
 	
 	bool FileBase::_fis_open()

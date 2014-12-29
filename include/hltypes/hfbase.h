@@ -115,12 +115,12 @@ namespace hltypes
 		/// @param[in] src Destination data buffer.
 		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
-		int32_t _fread(void* buffer, int32_t count);
+		int _fread(void* buffer, int count);
 		/// @brief Writes data to the file.
 		/// @param[in] src Source data buffer.
 		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		int32_t _fwrite(const void* buffer, int32_t count);
+		int _fwrite(const void* buffer, int count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
 		bool _fis_open();
