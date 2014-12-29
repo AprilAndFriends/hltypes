@@ -346,7 +346,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("random()");
+				throw ContainerEmptyException("random()");
 			}
 			K key = this->keys()[hrand(this->size())];
 			if (value != NULL)
@@ -384,7 +384,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("pop_random()");
+				throw ContainerEmptyException("pop_random()");
 			}
 			K key = this->keys()[hrand(this->size())];
 			if (value != NULL)
