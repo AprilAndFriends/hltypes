@@ -237,7 +237,7 @@ namespace hltypes
 	{
 		if (!this->is_open())
 		{
-			throw file_not_open(this->_descriptor());
+			throw FileNotOpenException(this->_descriptor());
 		}
 	}
 

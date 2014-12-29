@@ -108,7 +108,7 @@ namespace hltypes
 			}
 			if (index < 0 || index >= this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			return stdvector::at(index);
 		}
@@ -124,7 +124,7 @@ namespace hltypes
 			}
 			if (index < 0 || index >= this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			return stdvector::at(index);
 		}
@@ -143,7 +143,7 @@ namespace hltypes
 				}
 				if (start >= this->size() || start + count > this->size())
 				{
-					throw container_range_error(start, count);
+					throw ContainerRangeException(start, count);
 				}
 				const_iterator_t it = stdvector::begin() + start;
 				result.assign(it, it + count);
@@ -298,7 +298,7 @@ namespace hltypes
 		{
 			if (index > this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			stdvector::insert(stdvector::begin() + index, times, element);
 		}
@@ -309,7 +309,7 @@ namespace hltypes
 		{
 			if (index > this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			stdvector::insert(stdvector::begin() + index, other.begin(), other.end());
 		}
@@ -321,11 +321,11 @@ namespace hltypes
 		{
 			if (index > this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			if (count > other.size())
 			{
-				throw container_range_error(0, count);
+				throw ContainerRangeException(0, count);
 			}
 			const_iterator_t it = other.begin();
 			stdvector::insert(stdvector::begin() + index, it, it + count);
@@ -339,11 +339,11 @@ namespace hltypes
 		{
 			if (index > this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			if (start >= other.size() || start + count > other.size())
 			{
-				throw container_range_error(start, count);
+				throw ContainerRangeException(start, count);
 			}
 			const_iterator_t it = other.begin() + start;
 			stdvector::insert(stdvector::begin() + index, it, it + count);
@@ -372,7 +372,7 @@ namespace hltypes
 		{
 			if (index >= this->size())
 			{
-				throw container_index_error(index);
+				throw ContainerIndexException(index);
 			}
 			T result = stdvector::at(index);
 			stdvector::erase(stdvector::begin() + index);
@@ -387,7 +387,7 @@ namespace hltypes
 		{
 			if (index >= this->size() || index + count > this->size())
 			{
-				throw container_range_error(index, count);
+				throw ContainerRangeException(index, count);
 			}
 			Array<T> result;
 			iterator_t it = stdvector::begin();
@@ -404,7 +404,7 @@ namespace hltypes
 			int index = this->index_of(element);
 			if (index < 0)
 			{
-				throw container_element_not_found();
+				throw ContainerElementNotFoundException();
 			}
 			stdvector::erase(stdvector::begin() + index);
 		}
@@ -418,7 +418,7 @@ namespace hltypes
 				index = this->index_of(other.at(i));
 				if (index < 0)
 				{
-					throw container_element_not_found();
+					throw ContainerElementNotFoundException();
 				}
 				stdvector::erase(stdvector::begin() + index);
 			}
@@ -554,7 +554,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_index_error(0);
+				throw ContainerIndexException(0);
 			}
 			return this->remove_at(0);
 		}
@@ -566,7 +566,7 @@ namespace hltypes
 		{
 			if (count > this->size())
 			{
-				throw container_range_error(0, count);
+				throw ContainerRangeException(0, count);
 			}
 			Array<T> result;
 			iterator_t begin = stdvector::begin();
@@ -581,7 +581,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_index_error(0);
+				throw ContainerIndexException(0);
 			}
 			T element = stdvector::back();
 			stdvector::pop_back();
@@ -595,7 +595,7 @@ namespace hltypes
 		{
 			if (count > this->size())
 			{
-				throw container_range_error(0, count);
+				throw ContainerRangeException(0, count);
 			}
 			Array<T> result;
 			iterator_t end = stdvector::end();
@@ -811,7 +811,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("min()");
+				throw ContainerEmptyException("min()");
 			}
 			return (*std::min_element(stdvector::begin(), stdvector::end()));
 		}
@@ -823,7 +823,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("min()");
+				throw ContainerEmptyException("min()");
 			}
 			return (*std::min_element(stdvector::begin(), stdvector::end(), compare_function));
 		}
@@ -833,7 +833,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("max()");
+				throw ContainerEmptyException("max()");
 			}
 			return (*std::max_element(stdvector::begin(), stdvector::end()));
 		}
@@ -845,7 +845,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("max()");
+				throw ContainerEmptyException("max()");
 			}
 			return (*std::max_element(stdvector::begin(), stdvector::end(), compare_function));
 		}
@@ -855,7 +855,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("random()");
+				throw ContainerEmptyException("random()");
 			}
 			return stdvector::at(hrand(this->size()));
 		}
@@ -877,7 +877,7 @@ namespace hltypes
 			{
 				if (count > this->size())
 				{
-					throw container_range_error(0, count);
+					throw ContainerRangeException(0, count);
 				}
 				if (count == this->size())
 				{
@@ -901,7 +901,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw container_empty_error("pop_random()");
+				throw ContainerEmptyException("pop_random()");
 			}
 			T result = stdvector::at(hrand(this->size()));
 			this->remove(result);
@@ -925,7 +925,7 @@ namespace hltypes
 			{
 				if (count > this->size())
 				{
-					throw container_range_error(0, count);
+					throw ContainerRangeException(0, count);
 				}
 				if (count == this->size())
 				{

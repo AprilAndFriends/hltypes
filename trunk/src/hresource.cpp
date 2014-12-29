@@ -175,7 +175,7 @@ namespace hltypes
 	
 	int Resource::_write(const void* buffer, int count)
 	{
-		throw file_not_writeable(this->filename);
+		throw FileNotWriteableException(this->filename);
 	}
 
 	bool Resource::_is_open()

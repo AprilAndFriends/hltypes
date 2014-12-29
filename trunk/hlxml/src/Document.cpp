@@ -27,7 +27,7 @@ namespace hlxml
 		this->filename = filename;
 		if (!hresource::exists(this->filename))
 		{
-			throw resource_not_found(this->filename);
+			throw ResourceFileCouldNotOpenException(this->filename);
 		}
 		hstr realFilename = hrdir::normalize(this->filename);
 		hstr data = hresource::hread(this->filename);
