@@ -88,10 +88,10 @@ namespace hltypes
 			zip_fclose((struct zip_file*)file);
 		}
 
-		int32_t fread(void* file, void* buffer, int32_t count)
+		int fread(void* file, void* buffer, int count)
 		{
 			Mutex::ScopeLock lock(&access_mutex);
-			return (int32_t)zip_fread((struct zip_file*)file, buffer, count);
+			return (int)zip_fread((struct zip_file*)file, buffer, count);
 		}
 
 		int64_t fsize(void* archivefile, const String& filename)

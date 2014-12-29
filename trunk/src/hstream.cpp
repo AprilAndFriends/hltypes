@@ -17,33 +17,33 @@
 
 namespace hltypes
 {
-	Stream::Stream(int32_t initial_capacity) : StreamBase()
+	Stream::Stream(int initial_capacity) : StreamBase()
 	{
 		this->capacity = (int64_t)initial_capacity;
 		this->stream_size = 0;
 		this->stream_position = 0;
 		// using malloc because realloc is used later
-		this->stream = (unsigned char*)malloc((int32_t)this->capacity);
+		this->stream = (unsigned char*)malloc((int)this->capacity);
 	}
 
-	Stream::Stream(unsigned char* initial_data, int32_t initial_data_size) : StreamBase()
+	Stream::Stream(unsigned char* initial_data, int initial_data_size) : StreamBase()
 	{
 		this->capacity = (int64_t)initial_data_size;
 		this->stream_size = (int64_t)initial_data_size;
 		this->stream_position = 0;
 		// using malloc because realloc is used later
-		this->stream = (unsigned char*)malloc((int32_t)this->capacity);
+		this->stream = (unsigned char*)malloc((int)this->capacity);
 		memcpy(this->stream, initial_data, initial_data_size);
 		this->_update_data_size();
 	}
 
-	Stream::Stream(unsigned char* initial_data, int32_t initial_data_size, int32_t initial_capacity) : StreamBase()
+	Stream::Stream(unsigned char* initial_data, int initial_data_size, int initial_capacity) : StreamBase()
 	{
 		this->capacity = (int64_t)hmax(initial_capacity, initial_data_size);
 		this->stream_size = (int64_t)initial_data_size;
 		this->stream_position = 0;
 		// using malloc because realloc is used later
-		this->stream = (unsigned char*)malloc((int32_t)this->capacity);
+		this->stream = (unsigned char*)malloc((int)this->capacity);
 		memcpy(this->stream, initial_data, initial_data_size);
 		this->_update_data_size();
 	}
@@ -56,7 +56,7 @@ namespace hltypes
 		}
 	}
 	
-	void Stream::clear(int32_t initial_capacity)
+	void Stream::clear(int initial_capacity)
 	{
 		this->stream_size = 0;
 		this->stream_position = 0;
@@ -64,7 +64,7 @@ namespace hltypes
 		this->_update_data_size();
 	}
 	
-	bool Stream::set_capacity(int32_t new_capacity)
+	bool Stream::set_capacity(int new_capacity)
 	{
 		if (this->capacity != new_capacity)
 		{
@@ -84,15 +84,15 @@ namespace hltypes
 		return true;
 	}
 
-	int32_t Stream::write_raw(void* buffer, int32_t count)
+	int Stream::write_raw(void* buffer, int count)
 	{
 		return StreamBase::write_raw(buffer, count);
 	}
 
-	int32_t Stream::write_raw(StreamBase& stream, int32_t count)
+	int Stream::write_raw(StreamBase& stream, int count)
 	{
 		this->_check_availability();
-		int32_t result = 0;
+		int result = 0;
 		if (count > 0)
 		{
 			this->_try_increase_capacity(count);
@@ -114,25 +114,25 @@ namespace hltypes
 		return result;
 	}
 
-	int32_t Stream::write_raw(StreamBase& stream)
+	int Stream::write_raw(StreamBase& stream)
 	{
 		return StreamBase::write_raw(stream);
 	}
 
-	int32_t Stream::write_raw(Stream& stream, int32_t count)
+	int Stream::write_raw(Stream& stream, int count)
 	{
 		return StreamBase::write_raw(stream, count);
 	}
 
-	int32_t Stream::write_raw(Stream& stream)
+	int Stream::write_raw(Stream& stream)
 	{
 		return StreamBase::write_raw(stream);
 	}
 
-	int32_t Stream::prepare_manual_write_raw(int32_t count)
+	int Stream::prepare_manual_write_raw(int count)
 	{
 		this->_check_availability();
-		int32_t result = 0;
+		int result = 0;
 		if (count > 0)
 		{
 			this->_try_increase_capacity(count);
@@ -149,10 +149,10 @@ namespace hltypes
 		return result;
 	}
 
-	int32_t Stream::fill(unsigned char value, int32_t count)
+	int Stream::fill(unsigned char value, int count)
 	{
 		this->_check_availability();
-		int32_t result = 0;
+		int result = 0;
 		if (count > 0)
 		{
 			this->_try_increase_capacity(count);
@@ -171,11 +171,11 @@ namespace hltypes
 		return result;
 	}
 
-	const unsigned char& Stream::operator[](int32_t index)
+	const unsigned char& Stream::operator[](int index)
 	{
 		if (index < 0)
 		{
-			index = (int32_t)((int64_t)index + this->stream_size);
+			index = (int)((int64_t)index + this->stream_size);
 		}
 		return this->stream[index];
 	}
@@ -185,9 +185,9 @@ namespace hltypes
 		this->data_size = this->stream_size;
 	}
 	
-	int32_t Stream::_read(void* buffer, int32_t count)
+	int Stream::_read(void* buffer, int count)
 	{
-		int32_t read_size = (int32_t)hclamp((int64_t)count, 0LL, this->stream_size - this->stream_position);
+		int read_size = (int)hclamp((int64_t)count, 0LL, this->stream_size - this->stream_position);
 		if (read_size > 0)
 		{
 			memcpy(buffer, &this->stream[this->stream_position], read_size);
@@ -196,9 +196,9 @@ namespace hltypes
 		return read_size;
 	}
 
-	int32_t Stream::_write(const void* buffer, int32_t count)
+	int Stream::_write(const void* buffer, int count)
 	{
-		int32_t result = 0;
+		int result = 0;
 		if (count > 0)
 		{
 			this->_try_increase_capacity(count);
@@ -243,12 +243,12 @@ namespace hltypes
 		return true;
 	}
 	
-	bool Stream::_try_increase_capacity(int32_t& write_size)
+	bool Stream::_try_increase_capacity(int& write_size)
 	{
-		if (write_size > this->capacity - this->stream_position && !this->set_capacity(hpotceil((int32_t)(write_size + this->stream_position))))
+		if (write_size > this->capacity - this->stream_position && !this->set_capacity(hpotceil((int)(write_size + this->stream_position))))
 		{
 			// could not reallocate enough memory, reduce write_size
-			write_size = (int32_t)hmax(this->capacity - this->stream_position, 0LL);
+			write_size = (int)hmax(this->capacity - this->stream_position, 0LL);
 			return false;
 		}
 		return true;

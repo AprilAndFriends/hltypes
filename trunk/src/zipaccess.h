@@ -25,7 +25,7 @@ namespace hltypes
 		void close(Resource* resource, void* archive);
 		void* fopen(void* archivefile, const String& filename);
 		void fclose(void* file);
-		int32_t fread(void* file, void* buffer, int32_t count);
+		int fread(void* file, void* buffer, int count);
 		int64_t fsize(void* archivefile, const String& filename);
 		void* freopen(void* file, void* archivefile, const String& filename);
 		Array<String> getFiles(void* archivefile);

@@ -161,7 +161,7 @@ namespace hltypes
 		this->data_size = File::get_info(this->filename).size;
 	}
 
-	int32_t Resource::_read(void* buffer, int32_t count)
+	int Resource::_read(void* buffer, int count)
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
@@ -173,7 +173,7 @@ namespace hltypes
 		return this->_fread(buffer, count);
 	}
 	
-	int32_t Resource::_write(const void* buffer, int32_t count)
+	int Resource::_write(const void* buffer, int count)
 	{
 		throw file_not_writeable(this->filename);
 	}
@@ -243,13 +243,13 @@ namespace hltypes
 					}
 					else
 					{
-						buffer = new unsigned char[(int32_t)target];
+						buffer = new unsigned char[(int)target];
 					}
 				}
-				int32_t count = 0;
+				int count = 0;
 				while (target > 0)
 				{
-					count = (int32_t)hmin(target, (int64_t)READ_BUFFER_SIZE_X);
+					count = (int)hmin(target, (int64_t)READ_BUFFER_SIZE_X);
 					if (this->_read(buffer, count) == 0)
 					{
 						break;
@@ -314,7 +314,7 @@ namespace hltypes
 		return file.size();
 	}
 	
-	String Resource::hread(const String& filename, int32_t count)
+	String Resource::hread(const String& filename, int count)
 	{
 		Resource file;
 		file.open(filename);

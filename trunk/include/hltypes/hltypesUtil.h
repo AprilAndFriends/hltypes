@@ -215,12 +215,12 @@ hltypesFnExport hltypes::String get_environment_variable(const hltypes::String& 
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between min inclusively and max exclusively.
 /// @note Returns min if max is equal or less than min.
-hltypesFnExport int32_t hrand(int32_t min, int32_t max);
+hltypesFnExport int hrand(int min, int max);
 /// @brief Returns a random int number.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between 0 inclusively and max exclusively.
 /// @note Returns 0 if max is equal or less than 0.
-hltypesFnExport int32_t hrand(int32_t max);
+hltypesFnExport int hrand(int max);
 /// @brief Returns a random float number.
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
@@ -246,11 +246,11 @@ hltypesFnExport double hrandd(double max);
 /// @brief Floors a float value.
 /// @param[in] value The value to be floored.
 /// @return Rounded value as integer.
-hltypesFnExport int32_t hfloor(float value);
+hltypesFnExport int hfloor(float value);
 /// @brief Floors a double value.
 /// @param[in] value The value to be floored.
 /// @return Rounded value as integer.
-hltypesFnExport int32_t hfloor(double value);
+hltypesFnExport int hfloor(double value);
 /// @brief Floors a float value.
 /// @param[in] value The value to be floored.
 /// @return Rounded value as float.
@@ -262,11 +262,11 @@ hltypesFnExport double hfloord(double value);
 /// @brief Ceils a float value.
 /// @param[in] value The value to be ceiled.
 /// @return Rounded value as integer.
-hltypesFnExport int32_t hceil(float value);
+hltypesFnExport int hceil(float value);
 /// @brief Ceils a double value.
 /// @param[in] value The value to be ceiled.
 /// @return Rounded value as integer.
-hltypesFnExport int32_t hceil(double value);
+hltypesFnExport int hceil(double value);
 /// @brief Ceils a float value.
 /// @param[in] value The value to be ceiled.
 /// @return Rounded value as float.
@@ -278,11 +278,11 @@ hltypesFnExport double hceild(double value);
 /// @brief Rounds a float value to the nearest integer value.
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as integer.
-hltypesFnExport int32_t hround(float value);
+hltypesFnExport int hround(float value);
 /// @brief Rounds a double value to the nearest integer value.
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as integer.
-hltypesFnExport int32_t hround(double value);
+hltypesFnExport int hround(double value);
 /// @brief Rounds a float value to the nearest integer value.
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as float.
@@ -294,7 +294,7 @@ hltypesFnExport double hroundd(double value);
 /// @brief Gets absolute value.
 /// @param[in] value The value to be absoluted.
 /// @return Absoluted value.
-hltypesFnExport int32_t habs(int32_t value);
+hltypesFnExport int habs(int value);
 /// @brief Gets absolute value.
 /// @param[in] value The value to be absoluted.
 /// @return Absoluted value.
@@ -319,7 +319,7 @@ hltypesFnExport long double habs(long double value);
 /// @param[in] i Integer value.
 /// @param[in] m Modulo value.
 /// @return The always-positive value of i mod m.
-hltypesFnExport int32_t hmod(int32_t i, int32_t m);
+hltypesFnExport int hmod(int i, int m);
 /// @brief Gets the always-positive value of i mod m.
 /// @param[in] i Integer value.
 /// @param[in] m Modulo value.
@@ -365,12 +365,12 @@ hltypesFnExport double hhypot(double a, double b);
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The float length of the hypotenuse of a right-angles triangle.
-hltypesFnExport float hhypot(int32_t a, int32_t b);
+hltypesFnExport float hhypot(int a, int b);
 /// @brief Calculates the double length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The double length of the hypotenuse of a right-angles triangle.
-hltypesFnExport double hhypotd(int32_t a, int32_t b);
+hltypesFnExport double hhypotd(int a, int b);
 /// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
@@ -385,17 +385,17 @@ hltypesFnExport double hhypot_squared(double a, double b);
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The int squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport int32_t hhypot_squared(int32_t a, int32_t b);
+hltypesFnExport int hhypot_squared(int a, int b);
 /// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The float squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport float hhypotf_squared(int32_t a, int32_t b);
+hltypesFnExport float hhypotf_squared(int a, int b);
 /// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The double squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport double hhypotd_squared(int32_t a, int32_t b);
+hltypesFnExport double hhypotd_squared(int a, int b);
 /// @brief Compares 2 float values within using a tolerance factor.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
@@ -419,7 +419,7 @@ hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE)
 /// @brief Returns the next power-of-two value of the given number.
 /// @param[in] value the number to check.
 /// @return The next power-of-two value of the given number.
-hltypesFnExport int32_t hpotceil(int32_t value);
+hltypesFnExport int hpotceil(int value);
 /// @brief Returns the next power-of-two value of the given number.
 /// @param[in] value the number to check.
 /// @return The next power-of-two value of the given number.
@@ -427,7 +427,7 @@ hltypesFnExport int64_t hpotceil(int64_t value);
 /// @brief Returns the previous power-of-two value of the given number.
 /// @param[in] value the number to check.
 /// @return The previous power-of-two value of the given number.
-hltypesFnExport int32_t hpotfloor(int32_t value);
+hltypesFnExport int hpotfloor(int value);
 /// @brief Returns the previous power-of-two value of the given number.
 /// @param[in] value the number to check.
 /// @return The previous power-of-two value of the given number.
@@ -440,24 +440,24 @@ DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String systemize_path(const hltype
 DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String normalize_path(const hltypes::String& path);
 DEPRECATED_ATTRIBUTE hltypesFnExport float hhypotSquared(float a, float b);
 DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotSquared(double a, double b);
-DEPRECATED_ATTRIBUTE hltypesFnExport int32_t hhypotSquared(int32_t a, int32_t b);
-DEPRECATED_ATTRIBUTE hltypesFnExport float hhypotSquaredf(int32_t a, int32_t b);
-DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotSquaredd(int32_t a, int32_t b);
+DEPRECATED_ATTRIBUTE hltypesFnExport int hhypotSquared(int a, int b);
+DEPRECATED_ATTRIBUTE hltypesFnExport float hhypotSquaredf(int a, int b);
+DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotSquaredd(int a, int b);
 
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.
 /// @param[in] size Size of the data stream.
 /// @return CRC32 value of the stream.
-hltypesFnExport uint32_t calc_crc32(unsigned char* data, uint32_t size);
+hltypesFnExport unsigned int calc_crc32(unsigned char* data, unsigned int size);
 /// @brief Calculates CRC32 from a StreamBase.
 /// @param[in] stream StreamBase from which to calculate the CRC32.
 /// @param[in] size Number of bytes to read for CRC32.
 /// @return CRC32 value of the StreamBase.
-hltypesFnExport uint32_t calc_crc32(hltypes::StreamBase* stream, uint32_t size);
+hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream, unsigned int size);
 /// @brief Calculates CRC32 from a StreamBase.
 /// @param[in] stream StreamBase from which to calculate the CRC32.
 /// @return CRC32 value of the StreamBase.
-hltypesFnExport uint32_t calc_crc32(hltypes::StreamBase* stream);
+hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
 
 /// @brief Returns the lesser of two elements.
 /// @param[in] a First element.

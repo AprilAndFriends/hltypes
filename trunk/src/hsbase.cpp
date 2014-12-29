@@ -69,7 +69,7 @@ namespace hltypes
 		this->_check_availability();
 		String result;
 		Array<String> parts;
-		int32_t read;
+		int read;
 		int index;
 		char c[BUFFER_SIZE + 1];
 		while (!this->eof())
@@ -96,12 +96,12 @@ namespace hltypes
 		return result;
 	}
 	
-	String StreamBase::read(int32_t count)
+	String StreamBase::read(int count)
 	{
 		this->_check_availability();
 		String result;
-		int32_t current = BUFFER_SIZE;
-		int32_t read;
+		int current = BUFFER_SIZE;
+		int read;
 		char c[BUFFER_SIZE + 1];
 		while (count > 0)
 		{
@@ -166,34 +166,34 @@ namespace hltypes
 		this->write(result);
 	}
 
-	int32_t StreamBase::read_raw(void* buffer, int32_t count)
+	int StreamBase::read_raw(void* buffer, int count)
 	{
 		this->_check_availability();
 		return this->_read(buffer, count);
 	}
 	
-	int32_t StreamBase::write_raw(void* buffer, int32_t count)
+	int StreamBase::write_raw(void* buffer, int count)
 	{
 		this->_check_availability();
-		int32_t result = this->_write(buffer, count);
+		int result = this->_write(buffer, count);
 		this->_update_data_size();
 		return result;
 	}
 		
-	int32_t StreamBase::write_raw(StreamBase& stream, int32_t count)
+	int StreamBase::write_raw(StreamBase& stream, int count)
 	{
 		this->_check_availability();
-		count = (int32_t)hmin((int64_t)count, stream.size() - stream.position());
+		count = (int)hmin((int64_t)count, stream.size() - stream.position());
 		unsigned char* buffer = new unsigned char[count];
 		stream.read_raw(buffer, count);
 		stream.seek(-count);
-		int32_t result = this->_write(buffer, count);
+		int result = this->_write(buffer, count);
 		delete[] buffer;
 		this->_update_data_size();
 		return result;
 	}
 
-	int32_t StreamBase::write_raw(StreamBase& stream)
+	int StreamBase::write_raw(StreamBase& stream)
 	{
 		this->_check_availability();
 		if (stream.size() - stream.position() > INT_MAX)
@@ -201,20 +201,20 @@ namespace hltypes
 			Log::error(hltypes::logTag, "Data too large for writing in: " + stream._descriptor());
 			return 0;
 		}
-		return this->write_raw(stream, (int32_t)(stream.size() - stream.position()));
+		return this->write_raw(stream, (int)(stream.size() - stream.position()));
 	}
 
-	int32_t StreamBase::write_raw(Stream& stream, int32_t count)
+	int StreamBase::write_raw(Stream& stream, int count)
 	{
 		this->_check_availability();
 		int64_t position = stream.position();
-		count = (int32_t)hmin((int64_t)count, stream.size() - position);
-		int32_t result = this->_write(&stream[(int32_t)position], count);
+		count = (int)hmin((int64_t)count, stream.size() - position);
+		int result = this->_write(&stream[(int)position], count);
 		this->_update_data_size();
 		return result;
 	}
 
-	int32_t StreamBase::write_raw(Stream& stream)
+	int StreamBase::write_raw(Stream& stream)
 	{
 		this->_check_availability();
 		if (stream.size() - stream.position() > INT_MAX)
@@ -222,7 +222,7 @@ namespace hltypes
 			Log::error(hltypes::logTag, "Data too large for writing in: " + stream._descriptor());
 			return 0;
 		}
-		return this->write_raw(stream, (int32_t)(stream.size() - stream.position()));
+		return this->write_raw(stream, (int)(stream.size() - stream.position()));
 	}
 
 	void StreamBase::_update_data_size()
@@ -243,7 +243,7 @@ namespace hltypes
 
 	void StreamBase::dump(char c)
 	{
-		this->dump((uint8_t)c);
+		this->dump((unsigned char)c);
 	}
 
 	void StreamBase::dump(unsigned char c)
@@ -253,12 +253,12 @@ namespace hltypes
 		this->_update_data_size();
 	}
 
-	void StreamBase::dump(int16_t s)
+	void StreamBase::dump(short s)
 	{
-		this->dump((uint16_t)s);
+		this->dump((unsigned short)s);
 	}
 
-	void StreamBase::dump(uint16_t s)
+	void StreamBase::dump(unsigned short s)
 	{
 		this->_check_availability();
 #ifndef __BIG_ENDIAN__
@@ -272,12 +272,12 @@ namespace hltypes
 		this->_update_data_size();
 	}
 
-	void StreamBase::dump(int32_t i)
+	void StreamBase::dump(int i)
 	{
-		this->dump((uint32_t)i);
+		this->dump((unsigned int)i);
 	}
 
-	void StreamBase::dump(uint32_t i)
+	void StreamBase::dump(unsigned int i)
 	{
 		this->_check_availability();
 #ifndef __BIG_ENDIAN__
@@ -326,7 +326,7 @@ namespace hltypes
 		this->_update_data_size();
 #else
 		// some data voodoo magic
-		this->dump(*((uint32_t*)&f));
+		this->dump(*((unsigned int*)&f));
 #endif
 	}
 
@@ -353,7 +353,7 @@ namespace hltypes
 	void StreamBase::dump(const String& str)
 	{
 		this->_check_availability();
-		int32_t size = str.size();
+		int size = str.size();
 		this->dump(size);
 		if (size > 0)
 		{
@@ -380,15 +380,15 @@ namespace hltypes
 		return c;
 	}
 
-	int16_t StreamBase::load_int16()
+	short StreamBase::load_int16()
 	{
-		return (int16_t)this->load_uint16();
+		return (short)this->load_uint16();
 	}
 
-	uint16_t StreamBase::load_uint16()
+	unsigned short StreamBase::load_uint16()
 	{
 		this->_check_availability();
-		uint16_t s = 0;
+		unsigned short s = 0;
 #ifndef __BIG_ENDIAN__
 		this->_read((unsigned char*)&s, 2);
 #else
@@ -400,15 +400,15 @@ namespace hltypes
 		return s;
 	}
 
-	int32_t StreamBase::load_int32()
+	int StreamBase::load_int32()
 	{
-		return (int32_t)this->load_uint32();
+		return (int)this->load_uint32();
 	}
 
-	uint32_t StreamBase::load_uint32()
+	unsigned int StreamBase::load_uint32()
 	{
 		this->_check_availability();
-		uint32_t i = 0;
+		unsigned int i = 0;
 #ifndef __BIG_ENDIAN__
 		this->_read((unsigned char*)&i, 4);
 #else
@@ -456,7 +456,7 @@ namespace hltypes
 		this->_read((unsigned char*)&f, 4);
 #else
 		// data voodoo magic, the float was stored as uint32
-		uint32_t i = this->load_uint32();
+		unsigned int i = this->load_uint32();
 		f = *((float*)&i);
 #endif
 		return f;

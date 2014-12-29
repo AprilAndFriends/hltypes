@@ -53,7 +53,7 @@ namespace hltypes
 		static int64_t hsize(const String& filename);
 		/// @brief Opens file, reads data and closes file.
 		/// @see read(int count)
-		static String hread(const String& filename, int32_t count);
+		static String hread(const String& filename, int count);
 		/// @brief Opens file, reads data and closes file.
 		/// @see read
 		static String hread(const String& filename, const String& delimiter = "");
@@ -105,12 +105,12 @@ namespace hltypes
 		/// @param[in] src Destination data buffer.
 		/// @param[in] sound Number of elements to read.
 		/// @return Number of bytes read.
-		int32_t _read(void* buffer, int32_t count);
+		int _read(void* buffer, int count);
 		/// @brief Writes data to the stream.
 		/// @param[in] src Source data buffer.
 		/// @param[in] sound Number of elements contained in buffer.
 		/// @return Number of bytes written.
-		int32_t _write(const void* buffer, int32_t count);
+		int _write(const void* buffer, int count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
 		bool _is_open();
