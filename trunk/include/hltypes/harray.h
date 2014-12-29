@@ -104,12 +104,12 @@ namespace hltypes
 		{
 			if (index < 0)
 			{
-                index += this->size();
+				index += this->size();
 			}
-            if (index < 0 || index >= this->size())
-            {
-                throw container_index_error(index);
-            }
+			if (index < 0 || index >= this->size())
+			{
+				throw container_index_error(index);
+			}
 			return stdvector::at(index);
 		}
 		/// @brief Returns element at specified position.

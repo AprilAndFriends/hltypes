@@ -277,12 +277,6 @@ namespace hltypes
 		return true;
 	}
 	
-	bool Dir::create_path(const String& path)
-	{
-		String name = Dir::basedir(path);
-		return (name != "" && name != "." && Dir::create(name));
-	}
-	
 	Array<String> Dir::entries(const String& dirname, bool prepend_dir)
 	{
 		String name = Dir::normalize(dirname);
@@ -430,12 +424,5 @@ namespace hltypes
 		return winrtcwd;
 #endif
 	}
-
-	// DEPRECATED
-	bool Dir::resource_exists(const String& dirname)									{ return ResourceDir::exists(dirname); }
-	Array<String> Dir::resource_entries(const String& dirname, bool prepend_dir)		{ return ResourceDir::entries(dirname, prepend_dir); }
-	Array<String> Dir::resource_contents(const String& dirname, bool prepend_dir)		{ return ResourceDir::contents(dirname, prepend_dir); }
-	Array<String> Dir::resource_directories(const String& dirname, bool prepend_dir)	{ return ResourceDir::directories(dirname, prepend_dir); }
-	Array<String> Dir::resource_files(const String& dirname, bool prepend_dir)			{ return ResourceDir::files(dirname, prepend_dir); }
 
 }

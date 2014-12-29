@@ -380,18 +380,6 @@ int64_t hpotfloor(int64_t value)
 	return result;
 }
 
-// DEPRECATED
-#include "hdir.h"
-hltypes::String get_basedir(const hltypes::String& path)	{ return hltypes::Dir::basedir(path); }
-hltypes::String get_basename(const hltypes::String& path)	{ return hltypes::Dir::basename(path); }
-hltypes::String systemize_path(const hltypes::String& path)	{ return hltypes::Dir::systemize(path); }
-hltypes::String normalize_path(const hltypes::String& path)	{ return hltypes::Dir::normalize(path); }
-float hhypotSquared(float a, float b) { return hhypot_squared(a, b); }
-double hhypotSquared(double a, double b) { return hhypot_squared(a, b); }
-int hhypotSquared(int a, int b) { return hhypot_squared(a, b); }
-float hhypotSquaredf(int a, int b) { return hhypotf_squared(a, b); }
-double hhypotSquaredd(int a, int b) { return hhypotd_squared(a, b); }
-
 // CRC32 stuff
 
 static unsigned int crc32_table[256] = {0};

@@ -100,17 +100,6 @@ namespace hltypes
 		/// @return Current working directory.
 		static String cwd();
 
-		/// @brief Creates the parent path of the given directory or file.
-		/// @param[in] path Path of a directory or file.
-		/// @return True if parent path was created.
-		/// @note use Dir::create(Dir::basedir(path)) instead
-		DEPRECATED_ATTRIBUTE static bool create_path(const String& path);
-		DEPRECATED_ATTRIBUTE static bool resource_exists(const String& dirname);
-		DEPRECATED_ATTRIBUTE static Array<String> resource_entries(const String& dirname, bool prepend_dir = false);
-		DEPRECATED_ATTRIBUTE static Array<String> resource_contents(const String& dirname, bool prepend_dir = false);
-		DEPRECATED_ATTRIBUTE static Array<String> resource_directories(const String& dirname, bool prepend_dir = false);
-		DEPRECATED_ATTRIBUTE static Array<String> resource_files(const String& dirname, bool prepend_dir = false);
-
 	protected:
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
