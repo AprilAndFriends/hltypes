@@ -155,7 +155,7 @@ namespace hltypes
 				String log_message = (tag != "" ? "[" + tag + "] " + message : message);
 				file.writef("%s\n", log_message.c_str());
 			}
-			catch (hltypes::exception& e)
+			catch (_Exception& e)
 			{
 				_platform_print("FATAL", e.getMessage(), LevelError);
 #ifdef _DEBUG
@@ -170,7 +170,7 @@ namespace hltypes
 				(*Log::callback_function)(tag, message);
 			}
 		}
-		catch (hltypes::exception& e)
+		catch (_Exception& e)
 		{
 			_platform_print("FATAL", e.getMessage(), LevelError);
 			throw e;
