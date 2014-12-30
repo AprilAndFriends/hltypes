@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -56,7 +56,7 @@ namespace hltypes
 #endif
 
 #ifdef _WIN32
-	static unsigned long WINAPI async_call(void* param)
+	static unsigned long WINAPI _asyncCall(void* param)
 	{
 		Thread* t = (Thread*)param;
 #ifdef _MSC_VER
@@ -69,7 +69,7 @@ namespace hltypes
 		return 0;
 	}
 #else
-	static void* async_call(void* param)
+	static void* _asyncCall(void* param)
 	{
 		Thread* t = (Thread*)param;
 #ifdef __APPLE__
@@ -88,10 +88,10 @@ namespace hltypes
 	struct AsyncActionWrapper
 	{
 	public:
-		IAsyncAction^ async_action;
-		AsyncActionWrapper(IAsyncAction^ async_action)
+		IAsyncAction^ asyncAction;
+		AsyncActionWrapper(IAsyncAction^ asyncAction)
 		{
-			this->async_action = async_action;
+			this->asyncAction = asyncAction;
 		}
 	};
 #endif
@@ -131,9 +131,9 @@ namespace hltypes
 		this->running = true;
 #ifdef _WIN32
 #ifndef _WINRT
-		this->id = CreateThread(0, 0, &async_call, this, 0, 0);
+		this->id = CreateThread(0, 0, &_asyncCall, this, 0, 0);
 #else
-		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(ref new WorkItemHandler([&](IAsyncAction^ work_item)
+		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(ref new WorkItemHandler([&](IAsyncAction^ workItem)
 		{
 			if (this->name != "")
 			{
@@ -144,7 +144,7 @@ namespace hltypes
 #endif
 #else
 		pthread_t* thread = (pthread_t*)this->id;
-		pthread_create(thread, NULL, &async_call, this);
+		pthread_create(thread, NULL, &_asyncCall, this);
 #ifndef __APPLE__
 		if (this->name != "")
 		{
@@ -180,7 +180,7 @@ namespace hltypes
 		{
 			return;
 		}
-		IAsyncAction^ action = ((AsyncActionWrapper*)this->id)->async_action;
+		IAsyncAction^ action = ((AsyncActionWrapper*)this->id)->asyncAction;
 		int i = 0;
 		while (action->Status != AsyncStatus::Completed &&
 			action->Status != AsyncStatus::Canceled &&
@@ -216,6 +216,7 @@ namespace hltypes
 		ResumeThread(this->id);
 #else
 		// not available in WinRT
+		Log::warn(hltypes::logTag, "Thread::resume() is not available on WinRT.");
 #endif
 #endif
 	}
@@ -227,6 +228,7 @@ namespace hltypes
 		SuspendThread(this->id);
 #else
 		// not available in WinRT
+		Log::warn(hltypes::logTag, "Thread::pause() is not available on WinRT.");
 #endif
 #endif
 	}
@@ -240,7 +242,7 @@ namespace hltypes
 #ifndef _WINRT
 			TerminateThread(this->id, 0);
 #else
-			((AsyncActionWrapper*)this->id)->async_action->Cancel();
+			((AsyncActionWrapper*)this->id)->asyncAction->Cancel();
 #endif
 #elif defined(_ANDROID)
 			pthread_kill(*((pthread_t*)this->id), 0);
@@ -250,16 +252,16 @@ namespace hltypes
 		}
 	}
 
-	void Thread::sleep(float miliseconds)
+	void Thread::sleep(float milliseconds)
 	{
 #ifdef _WIN32
 #ifndef _WINRT
-		Sleep((int)miliseconds);
+		Sleep((int)milliseconds);
 #else
-		WaitForSingleObjectEx(GetCurrentThread(), (int)miliseconds, 0);
+		WaitForSingleObjectEx(GetCurrentThread(), (int)milliseconds, 0);
 #endif
 #else
-		usleep(miliseconds * 1000);
+		usleep(milliseconds * 1000);
 #endif
 	}
 
