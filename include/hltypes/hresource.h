@@ -44,10 +44,10 @@ namespace hltypes
 		
 		/// @brief Checks if a resource file exists.
 		/// @param[in] filename Name of the resource file.
-		/// @param[in] case_sensitive Whether to check case sensitive files if file was not found.
+		/// @param[in] caseSensitive Whether to check case sensitive files if file was not found.
 		/// @return True if resource file exists.
-		/// @note Disabling case_sensitive is somewhat costly if the given file is not found at first.
-		static bool exists(const String& filename, bool case_sensitive = true);
+		/// @note Disabling caseSensitive is somewhat costly if the given file is not found at first.
+		static bool exists(const String& filename, bool caseSensitive = true);
 		/// @brief Opens file, gets size and closes file.
 		/// @see size
 		static int64_t hsize(const String& filename);
@@ -99,7 +99,7 @@ namespace hltypes
 		static bool zipArchive;
 
 		/// @brief Updates internal data size.
-		void _update_data_size();
+		void _updateDataSize();
 
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
@@ -119,8 +119,8 @@ namespace hltypes
 		int64_t _position();
 		/// @brief Seeks to position in file.
 		/// @param[in] offset Seeking offset in bytes.
-		/// @param[in] seek_mode Seeking mode.
-		bool _seek(int64_t offset, SeekMode seek_mode = CURRENT);
+		/// @param[in] seekMode Seeking mode.
+		bool _seek(int64_t offset, SeekMode seekMode = CURRENT);
 		
 	};
 

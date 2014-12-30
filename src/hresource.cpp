@@ -113,7 +113,7 @@ namespace hltypes
 			{
 				throw ResourceFileCouldNotOpenException(this->_descriptor());
 			}
-			this->_update_data_size();
+			this->_updateDataSize();
 			return;
 		}
 #endif
@@ -125,12 +125,12 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			this->_check_availability();
+			this->_validate();
 			zip::fclose(this->cfile);
 			this->cfile = NULL;
 			zip::close(this, this->archivefile);
 			this->archivefile = NULL;
-			this->data_size = 0;
+			this->dataSize = 0;
 		}
 		else
 #endif
@@ -149,16 +149,16 @@ namespace hltypes
 #endif
 	}
 
-	void Resource::_update_data_size()
+	void Resource::_updateDataSize()
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			this->data_size = (int64_t)zip::fsize(this->archivefile, this->filename);
+			this->dataSize = (int64_t)zip::fsize(this->archivefile, this->filename);
 			return;
 		}
 #endif
-		this->data_size = File::get_info(this->filename).size;
+		this->dataSize = File::get_info(this->filename).size;
 	}
 
 	int Resource::_read(void* buffer, int count)
@@ -200,14 +200,14 @@ namespace hltypes
 		return this->_fposition();
 	}
 	
-	bool Resource::_seek(int64_t offset, SeekMode seek_mode)
+	bool Resource::_seek(int64_t offset, SeekMode seekMode)
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
 			// zip can only read forward and doesn't really have seeking
 			int64_t target = offset;
-			switch (seek_mode)
+			switch (seekMode)
 			{
 			case CURRENT:
 				target = offset + this->data_position;
@@ -216,7 +216,7 @@ namespace hltypes
 				target = offset;
 				break;
 			case END:
-				target = this->data_size + offset;
+				target = this->dataSize + offset;
 				break;
 			}
 			if (target >= this->data_position)
@@ -265,10 +265,10 @@ namespace hltypes
 			return false;
 		}
 #endif
-		return this->_fseek(offset, seek_mode);
+		return this->_fseek(offset, seekMode);
 	}
 	
-	bool Resource::exists(const String& filename, bool case_sensitive)
+	bool Resource::exists(const String& filename, bool caseSensitive)
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
@@ -283,7 +283,7 @@ namespace hltypes
 					zip::fclose(f);
 					result = true;
 				}
-				if (!result && !case_sensitive)
+				if (!result && !caseSensitive)
 				{
 					String name = filename;
 					String baseDir = ResourceDir::baseDir(name);
@@ -304,7 +304,7 @@ namespace hltypes
 			return result;
 		}
 #endif
-		return FileBase::_fexists(Resource::make_full_path(filename), case_sensitive);
+		return FileBase::_fexists(Resource::make_full_path(filename), caseSensitive);
 	}
 	
 	int64_t Resource::hsize(const String& filename)

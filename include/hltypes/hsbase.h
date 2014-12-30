@@ -50,9 +50,9 @@ namespace hltypes
 		bool is_open();
 		/// @brief Seeks to position in data.
 		/// @param[in] offset Seeking offset in bytes.
-		/// @param[in] seek_mode Seeking mode.
+		/// @param[in] seekMode Seeking mode.
 		/// @return True if successful.
-		bool seek(int64_t offset, SeekMode seek_mode = CURRENT);
+		bool seek(int64_t offset, SeekMode seekMode = CURRENT);
 		/// @brief Seeks to position 0.
 		/// @return True if successful.
 		bool rewind();
@@ -222,12 +222,12 @@ namespace hltypes
 
 	protected:
 		/// @brief Data size, mostly used for optimization and faster "eof" detection.
-		int64_t data_size;
+		int64_t dataSize;
 
 		/// @brief Updates internal data size.
-		virtual void _update_data_size();
+		virtual void _updateDataSize();
 		/// @brief Checks if object can be used.
-		virtual void _check_availability();
+		virtual void _validate();
 
 		/// @brief Gets special descriptor.
 		/// @return Special descriptor.
@@ -250,9 +250,9 @@ namespace hltypes
 		virtual int64_t _position() = 0;
 		/// @brief Seeks to position in data.
 		/// @param[in] offset Seeking offset in bytes.
-		/// @param[in] seek_mode Seeking mode.
+		/// @param[in] seekMode Seeking mode.
 		/// @return True if successful.
-		virtual bool _seek(int64_t offset, SeekMode seek_mode = CURRENT) = 0;
+		virtual bool _seek(int64_t offset, SeekMode seekMode = CURRENT) = 0;
 
 	};
 }
