@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -22,6 +22,7 @@
 #include "hltypesUtil.h"
 #include "hplatform.h"
 #include "hresource.h"
+#include "hstream.h"
 #include "hstring.h"
 
 namespace hltypes
@@ -29,7 +30,25 @@ namespace hltypes
 	String logTag = "hltypes";
 }
 
-uint64_t get_system_tick_count()
+// DEPRECATED
+DEPRECATED_ATTRIBUTE uint64_t get_system_time() { return htime(); }
+DEPRECATED_ATTRIBUTE uint64_t get_system_tick_count() { return htickCount(); }
+DEPRECATED_ATTRIBUTE hltypes::String get_environment_variable(const hltypes::String& name) { return henv(name); }
+DEPRECATED_ATTRIBUTE float hhypot_squared(float a, float b) { return hhypotSquared(a, b); }
+DEPRECATED_ATTRIBUTE double hhypot_squared(double a, double b) { return hhypotSquared(a, b); }
+DEPRECATED_ATTRIBUTE int hhypot_squared(int a, int b) { return hhypotSquared(a, b); }
+DEPRECATED_ATTRIBUTE float hhypotf_squared(int a, int b) { return hhypotfSquared(a, b); }
+DEPRECATED_ATTRIBUTE double hhypotd_squared(int a, int b) { return hhypotdSquared(a, b); }
+DEPRECATED_ATTRIBUTE unsigned int calc_crc32(unsigned char* data, unsigned int size) { return hcrc32(data, size); }
+DEPRECATED_ATTRIBUTE unsigned int calc_crc32(hltypes::StreamBase* stream, unsigned int size) { return hcrc32(stream, size); }
+DEPRECATED_ATTRIBUTE unsigned int calc_crc32(hltypes::StreamBase* stream) { return hcrc32(stream); }
+
+uint64_t htime()
+{
+	return (uint64_t)time(NULL);
+}
+
+uint64_t htickCount()
 {
 #ifdef _WIN32
 #ifndef _WINRT // because GetTickCount64() is not available pre-Vista
@@ -44,12 +63,7 @@ uint64_t get_system_tick_count()
 #endif
 }
 
-uint64_t get_system_time()
-{
-	return (uint64_t)time(NULL);
-}
-
-hltypes::String get_environment_variable(const hltypes::String& name)
+hltypes::String henv(const hltypes::String& name)
 {
 #ifdef _WIN32
 #ifndef _WINRT
@@ -290,27 +304,27 @@ double hhypotd(int a, int b)
 	return sqrt((double)a * a + (double)b * b);
 }
 
-float hhypot_squared(float a, float b)
+float hhypotSquared(float a, float b)
 {
 	return (a * a + b * b);
 }
 
-double hhypot_squared(double a, double b)
+double hhypotSquared(double a, double b)
 {
 	return (a * a + b * b);
 }
 
-int hhypot_squared(int a, int b)
+int hhypotSquared(int a, int b)
 {
 	return (a * a + b * b);
 }
 
-float hhypotf_squared(int a, int b)
+float hhypotfSquared(int a, int b)
 {
 	return (float)(a * a + b * b);
 }
 
-double hhypotd_squared(int a, int b)
+double hhypotdSquared(int a, int b)
 {
 	return (double)(a * a + b * b);
 }
@@ -382,11 +396,11 @@ int64_t hpotfloor(int64_t value)
 
 // CRC32 stuff
 
-static unsigned int crc32_table[256] = {0};
-static bool crc32_table_created = false;
-void create_crc32_table()
+static unsigned int crc32Table[256] = {0};
+static bool crc32TableCreated = false;
+void createCrc32Table()
 {
-	if (crc32_table_created)
+	if (crc32TableCreated)
 	{
 		return;
 	}
@@ -406,37 +420,54 @@ void create_crc32_table()
 				sum = ((sum >> 1) & 0x7FFFFFFF);
 			}
 		}
-		crc32_table[i] = sum;
+		crc32Table[i] = sum;
 	}
-	crc32_table_created = true;
+	crc32TableCreated = true;
 }
 
-unsigned int calc_crc32(unsigned char* data, unsigned int size)
+unsigned int hcrc32(unsigned char* data, unsigned int size)
 {
-	create_crc32_table();
+	createCrc32Table();
 	unsigned int crc = 0xFFFFFFFF;
 	for_itert (unsigned int, i, 0, size)
 	{
-		crc = ((crc >> 8) & 0xFFFFFF) ^ crc32_table[(crc ^ data[i]) & 0xFF];
+		crc = ((crc >> 8) & 0xFFFFFF) ^ crc32Table[(crc ^ data[i]) & 0xFF];
 	}
 	return ((crc & 0xFFFFFFFF) ^ 0xFFFFFFFF);
 }
 
-unsigned int calc_crc32(hltypes::StreamBase* stream, unsigned int size)
+unsigned int hcrc32(hltypes::StreamBase* stream, unsigned int size)
 {
+	size = hmin(size, (unsigned int)(stream->size() - stream->position()));
 	if (size <= 0)
 	{
 		return 0;
 	}
 	unsigned char* data = new unsigned char[size];
-	stream->read_raw(data, size);
-	unsigned int result = calc_crc32(data, size);
+	int read = stream->read_raw(data, size);
+	if (read == 0)
+	{
+		delete[] data;
+		return 0;
+	}
+	stream->seek(-read);
+	unsigned int result = hcrc32(data, size);
 	delete[] data;
 	return result;
 }
 
-unsigned int calc_crc32(hltypes::StreamBase* stream)
+unsigned int hcrc32(hltypes::StreamBase* stream)
 {
-	return calc_crc32(stream, (unsigned int)(stream->size() - stream->position()));
+	return hcrc32(stream, (unsigned int)(stream->size() - stream->position()));
+}
+
+unsigned int hcrc32(hltypes::Stream* stream, unsigned int size)
+{
+	return hcrc32((unsigned char*)&stream[(int)stream->position()], hmin(size, (unsigned int)(stream->size() - stream->position())));
+}
+
+unsigned int hcrc32(hltypes::Stream* stream)
+{
+	return hcrc32((unsigned char*)&stream[(int)stream->position()], (unsigned int)(stream->size() - stream->position()));
 }
 
