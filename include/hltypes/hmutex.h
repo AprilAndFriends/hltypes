@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -28,8 +28,8 @@ namespace hltypes
 		public:
 			/// @brief Basic constructor.
 			/// @param[in] mutex The mutex to lock.
-			/// @param[in] log_unhandled_unlocks Whether to log an automatic unlock when the ScopeLock is destroyed by going out of scope (usually on an exception).
-			ScopeLock(Mutex* mutex = NULL, bool log_unhandled_unlocks = false);
+			/// @param[in] logUnhandledUnlocks Whether to log an automatic unlock when the ScopeLock is destroyed by going out of scope (usually on an exception).
+			ScopeLock(Mutex* mutex = NULL, bool logUnhandledUnlocks = false);
 			/// @brief Destructor.
 			~ScopeLock();
 			/// @brief Locks the Mutex.
@@ -44,7 +44,7 @@ namespace hltypes
 			/// @brief The Mutex.
 			Mutex* mutex;
 			/// @brief Log-on-auto-unlock flag.
-			bool log_unhandled_unlocks;
+			bool logUnhandledUnlocks;
 
 		};
 

@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -23,14 +23,14 @@ namespace hltypes
 	{
 	public:
 		/// @brief Basic constructor.
-		/// @param[in] max_count The max lock count.
+		/// @param[in] maxCount The max lock count.
 		/// @param[in] name The internal name.
-		Semaphore(int max_count, const String& name = "");
+		Semaphore(int maxCount, const String& name = "");
 		/// @brief Destructor.
 		~Semaphore();
 		/// @brief Returns the semaphore name.
 		/// @return The semaphore name.
-		inline int getMaxCount() { return this->max_count; }
+		inline int getMaxCount() { return this->maxCount; }
 		/// @brief Returns the semaphore name.
 		/// @return The semaphore name.
 		inline String getName() { return this->name; }
@@ -45,7 +45,7 @@ namespace hltypes
 		/// @brief Semaphore OS handle.
 		void* handle;
 		/// @brief Semaphore max count.
-		int max_count;
+		int maxCount;
 		/// @brief Semaphore name.
 		String name;
 

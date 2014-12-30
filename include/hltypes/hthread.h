@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -50,8 +50,8 @@ namespace hltypes
 		/// @brief Joins thread.
 		void join();
 		/// @brief Puts current thread to sleep.
-		/// @param[in] miliseconds How long to sleep in miliseconds.
-		static void sleep(float miliseconds);
+		/// @param[in] milliseconds How long to sleep in milliseconds.
+		static void sleep(float milliseconds);
 		
 	protected:
 		/// @brief The callback function of the thread.
