@@ -30,7 +30,7 @@ namespace hltypes
 			if (currentArchive != NULL && activeHandles[currentArchive].size() == 0)
 			{
 				zip_close((struct zip*)currentArchive);
-				activeHandles.remove_key(currentArchive);
+				activeHandles.removeKey(currentArchive);
 				currentArchive = NULL;
 			}
 			Array<void*> handles = activeHandles.keys();
@@ -39,7 +39,7 @@ namespace hltypes
 				if (activeHandles[*it].size() == 0)
 				{
 					zip_close((struct zip*)(*it));
-					activeHandles.remove_key((*it));
+					activeHandles.removeKey((*it));
 				}
 			}
 		}
@@ -72,7 +72,7 @@ namespace hltypes
 			if (currentArchive != archive && references.size() == 0)
 			{
 				zip_close((struct zip*)archive);
-				activeHandles.remove_key(archive);
+				activeHandles.removeKey(archive);
 			}
 		}
 
