@@ -157,7 +157,8 @@ namespace hltypes
 			return;
 		}
 #endif
-		this->dataSize = File::hinfo(this->filename).size;
+		// using hinfo, because an implementation with _position() and _seek() can cause problems faulty
+		this->dataSize = Resource::hinfo(this->filename).size;
 	}
 
 	int Resource::_read(void* buffer, int count)
