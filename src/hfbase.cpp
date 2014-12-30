@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -24,9 +24,9 @@ namespace hltypes
 	FileInfo::FileInfo()
 	{
 		this->size = 0LL;
-		this->creation_time = 0LL;
-		this->access_time = 0LL;
-		this->modification_time = 0LL;
+		this->creationTime = 0LL;
+		this->accessTime = 0LL;
+		this->modificationTime = 0LL;
 	}
 
 	FileInfo::~FileInfo()
@@ -45,13 +45,13 @@ namespace hltypes
 	FileBase::~FileBase()
 	{
 		// this measure is not universal for all derived classes!
-		if (this->_fis_open())
+		if (this->_fisOpen())
 		{
 			this->_fclose();
 		}
 	}
 
-	String FileBase::extension_of(const String& path)
+	String FileBase::extensionOf(const String& path)
 	{
 		if (Dir::baseName(path).contains("."))
 		{
@@ -64,7 +64,7 @@ namespace hltypes
 		return "";
 	}
 
-	String FileBase::no_extension(const String& path)
+	String FileBase::withoutExtension(const String& path)
 	{
 		if (Dir::baseName(path).contains("."))
 		{
@@ -84,7 +84,7 @@ namespace hltypes
 	
 	void FileBase::_fopen(const String& filename, AccessMode access_mode, int repeats, float timeout)
 	{
-		if (this->is_open())
+		if (this->_isOpen())
 		{
 			this->_fclose();
 		}
@@ -155,7 +155,7 @@ namespace hltypes
 		return (int)fwrite(buffer, 1, count, (FILE*)this->cfile);
 	}
 	
-	bool FileBase::_fis_open()
+	bool FileBase::_fisOpen()
 	{
 		return (this->cfile != NULL);
 	}

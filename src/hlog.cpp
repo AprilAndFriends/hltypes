@@ -78,11 +78,11 @@ namespace hltypes
 			Dir::create(filename + ".hlog");
 		}
 		String newFilename = Log::_makeFilename(filename, Log::fileIndex);
-		if (File::hsize(newFilename) > MAX_FILE_SIZE)
+		if (File::hinfo(newFilename).size > MAX_FILE_SIZE)
 		{
 			++Log::fileIndex;
 			newFilename = Log::_makeFilename(filename, Log::fileIndex);
-			File::create_new(newFilename); // clears the file
+			File::createNew(newFilename); // clears the file
 		}
 		return newFilename;
 	}
@@ -103,18 +103,18 @@ namespace hltypes
 		if (clearFile)
 		{
 			Dir::remove(filename + ".hlog"); // left over from last run, delete
-			File::create_new(Log::filename);
+			File::createNew(Log::filename);
 		}
 		else if (Dir::exists(filename + ".hlog"))
 		{
 			lock.release();
 			Log::finalize(clearFile); // left over from last run, merge
 		}
-		Log::fileExtension = File::extension_of(filename);
+		Log::fileExtension = File::extensionOf(filename);
 #else
 		if (clearFile)
 		{
-			File::create_new(Log::filename);
+			File::createNew(Log::filename);
 		}
 #endif
 	}

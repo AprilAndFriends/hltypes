@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -23,19 +23,17 @@
 
 namespace hltypes
 {
-	class Stream;
-
 	/// @brief Used for information about files.
 	struct hltypesExport FileInfo
 	{
 		/// @brief File size.
 		int64_t size;
 		/// @brief The time the file was created.
-		int64_t creation_time;
+		int64_t creationTime;
 		/// @brief The time the file was last accessed.
-		int64_t access_time;
+		int64_t accessTime;
 		/// @brief The time the file was last modified.
-		int64_t modification_time;
+		int64_t modificationTime;
 
 		/// @brief Constructor.
 		FileInfo();
@@ -86,11 +84,14 @@ namespace hltypes
 		/// @brief Gets the extension of the filename.
 		/// @param[in] filename The path.
 		/// @return Extension of the filename.
-		static String extension_of(const String& path);
+		static String extensionOf(const String& path);
 		/// @brief Gets the filename with the extension (with the prepended directory path).
 		/// @param[in] filename The path.
 		/// @return Filename with the extension (with the prepended directory path).
-		static String no_extension(const String& path);
+		static String withoutExtension(const String& path);
+
+		DEPRECATED_ATTRIBUTE static String extension_of(const String& path) { return FileBase::extensionOf(path); }
+		DEPRECATED_ATTRIBUTE static String no_extension(const String& path) { return FileBase::withoutExtension(path); }
 
 	protected:
 		/// @brief Current filename.
@@ -123,7 +124,7 @@ namespace hltypes
 		int _fwrite(const void* buffer, int count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
-		bool _fis_open();
+		virtual bool _fisOpen();
 		/// @brief Gets current position in file.
 		/// @return Current position in file.
 		int64_t _fposition();

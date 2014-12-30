@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -48,9 +48,6 @@ namespace hltypes
 		/// @return True if resource file exists.
 		/// @note Disabling caseSensitive is somewhat costly if the given file is not found at first.
 		static bool exists(const String& filename, bool caseSensitive = true);
-		/// @brief Opens file, gets size and closes file.
-		/// @see size
-		static int64_t hsize(const String& filename);
 		/// @brief Opens file, reads data and closes file.
 		/// @see read(int count)
 		static String hread(const String& filename, int count);
@@ -60,11 +57,11 @@ namespace hltypes
 		/// @brief Gets the file information provided by the implementation.
 		/// @param[in] filename The filename of the file.
 		/// @return File information provided by the implementation.
-		static FileInfo get_info(const String& filename);
+		static FileInfo hinfo(const String& filename);
 		/// @brief Create a full filename.
 		/// @params[in] filename Original filename.
 		/// @return Full filename.
-		static String make_full_path(const String& filename);
+		static String makeFullPath(const String& filename);
 		
 		/// @brief Gets the interal current working directory within a possible archive.
 		/// @return Interal current working directory.
@@ -85,9 +82,12 @@ namespace hltypes
 		/// @return True if compiled with ZIP support.
 		static bool hasZip();
 
+		DEPRECATED_ATTRIBUTE static FileInfo get_info(const String& filename) { return Resource::hinfo(filename); }
+		DEPRECATED_ATTRIBUTE static int64_t hsize(const String& filename) { return Resource::hinfo(filename).size; } // use hinfo like this to get the size
+
 	protected:
 		/// @brief Data position;
-		int64_t data_position;
+		int64_t dataPosition;
 		/// @brief OS archive file handle.
 		void* archivefile;
 
@@ -113,7 +113,7 @@ namespace hltypes
 		int _write(const void* buffer, int count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
-		bool _is_open();
+		bool _isOpen();
 		/// @brief Gets current position in file.
 		/// @return Current position in file.
 		int64_t _position();

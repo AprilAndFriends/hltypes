@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -39,7 +39,7 @@ namespace hltypes
 	
 	File::~File()
 	{
-		if (this->is_open())
+		if (this->_isOpen())
 		{
 			this->close();
 		}
@@ -57,7 +57,11 @@ namespace hltypes
 	
 	void File::_updateDataSize()
 	{
-		this->dataSize = File::get_info(this->filename).size;
+		// using the seeking method as it's more reliable while the file is open for writing, because _updateDataSize() is only called on open files
+		int64_t position = this->_position();
+		this->_fseek(0, END);
+		this->dataSize = this->_position();
+		this->_fseek(position, START);
 	}
 
 	int File::_read(void* buffer, int count)
@@ -70,9 +74,9 @@ namespace hltypes
 		return this->_fwrite(buffer, count);
 	}
 	
-	bool File::_is_open()
+	bool File::_isOpen()
 	{
-		return this->_fis_open();
+		return this->_fisOpen();
 	}
 	
 	int64_t File::_position()
@@ -115,7 +119,7 @@ namespace hltypes
 		return false;
 	}
 	
-	bool File::create_new(const String& filename)
+	bool File::createNew(const String& filename)
 	{
 		return (File::create(filename) || File::clear(filename));
 	}
@@ -197,7 +201,7 @@ namespace hltypes
 		File newFile;
 		oldFile.open(oldName);
 		newFile.open(newName, File::WRITE);
-		int count;
+		int count = 0;
 		unsigned char c[BUFFER_SIZE] = {0};
 		while (!oldFile.eof())
 		{
@@ -205,11 +209,6 @@ namespace hltypes
 			fwrite(c, 1, count, (FILE*)newFile.cfile);
 		}
 		return true;
-	}
-	
-	int64_t File::hsize(const String& filename)
-	{
-		return File::get_info(filename).size; // uses get_info to avoid opening the file
 	}
 	
 	String File::hread(const String& filename, int count)
@@ -240,10 +239,10 @@ namespace hltypes
 		file.write(text);
 	}
 
-	FileInfo File::get_info(const String& filename)
+	FileInfo File::hinfo(const String& filename)
 	{
 		FileInfo info;
-#if defined(_WIN32)
+#ifdef _WIN32
 		WIN32_FILE_ATTRIBUTE_DATA data;
 		memset(&data, 0, sizeof(WIN32_FILE_ATTRIBUTE_DATA));
 		if (GetFileAttributesExW(filename.w_str().c_str(), GetFileExInfoStandard, &data) != 0)
@@ -254,21 +253,21 @@ namespace hltypes
 			ULARGE_INTEGER ull;
 			ull.LowPart = data.ftCreationTime.dwLowDateTime;
 			ull.HighPart = data.ftCreationTime.dwHighDateTime;
-			info.creation_time = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
+			info.creationTime = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
 			ull.LowPart = data.ftLastAccessTime.dwLowDateTime;
 			ull.HighPart = data.ftLastAccessTime.dwHighDateTime;
-			info.access_time = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
+			info.accessTime = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
 			ull.LowPart = data.ftLastWriteTime.dwLowDateTime;
 			ull.HighPart = data.ftLastWriteTime.dwHighDateTime;
-			info.modification_time = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
+			info.modificationTime = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
 		}
 #else
 		struct stat s;
 		stat(filename.c_str(), &s);
 		info.size = (int64_t)s.st_size;
-		info.creation_time = (int64_t)s.st_ctime;
-		info.access_time = (int64_t)s.st_atime;
-		info.modification_time = (int64_t)s.st_mtime;
+		info.creationTime = (int64_t)s.st_ctime;
+		info.accessTime = (int64_t)s.st_atime;
+		info.modificationTime = (int64_t)s.st_mtime;
 #endif
 		return info;
 	}

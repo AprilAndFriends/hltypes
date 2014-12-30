@@ -50,7 +50,7 @@ namespace hltypes
 			return result;
 		}
 #endif
-		return Dir::exists(Resource::make_full_path(name), caseSensitive);
+		return Dir::exists(Resource::makeFullPath(name), caseSensitive);
 	}
 	
 	Array<String> ResourceDir::entries(const String& dirName, bool prependDir)
@@ -82,7 +82,7 @@ namespace hltypes
 	
 	Array<String> ResourceDir::directories(const String& dirName, bool prependDir)
 	{
-		String name = Resource::make_full_path(dirName);
+		String name = Resource::makeFullPath(dirName);
 		Array<String> result;
 #ifdef _ZIPRESOURCE
 		if (Resource::isZipArchive())
@@ -121,7 +121,7 @@ namespace hltypes
 
 	Array<String> ResourceDir::files(const String& dirName, bool prependDir)
 	{
-		String name = Resource::make_full_path(dirName);
+		String name = Resource::makeFullPath(dirName);
 		Array<String> result;
 #ifdef _ZIPRESOURCE
 		if (Resource::isZipArchive())
