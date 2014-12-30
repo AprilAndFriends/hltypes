@@ -107,11 +107,11 @@ namespace hltypes
 			}
 			if (this->archivefile == NULL)
 			{
-				throw resource_not_found(this->_descriptor());
+				throw ResourceFileCouldNotOpenException(this->_descriptor());
 			}
 			if (this->cfile == NULL)
 			{
-				throw resource_not_found(this->_descriptor());
+				throw ResourceFileCouldNotOpenException(this->_descriptor());
 			}
 			this->_update_data_size();
 			return;
