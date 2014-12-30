@@ -91,7 +91,7 @@ namespace hlxml
 		{
 			return NULL;
 		}
-		Node* newNode = this->nodes.try_get_by_key(node, NULL);
+		Node* newNode = this->nodes.tryGet(node, NULL);
 		if (newNode == NULL)
 		{
 			newNode = new Node(this, node);
