@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -25,7 +25,7 @@ namespace hltypes
 	String Resource::cwd = "assets";
 #define READ_BUFFER_SIZE 65536
 #define READ_BUFFER_SIZE_X 16777216 // to avoid using something like INT32_MAX
-	static unsigned char _read_buffer[READ_BUFFER_SIZE] = {0};
+	static unsigned char _readBuffer[READ_BUFFER_SIZE] = {0};
 #endif
 	String Resource::archive = "";
 	bool Resource::zipArchive = false;
@@ -55,19 +55,19 @@ namespace hltypes
 #endif
 	}
 
-	Resource::Resource(const String& filename) : FileBase(filename), data_position(0), archivefile(NULL)
+	Resource::Resource(const String& filename) : FileBase(filename), dataPosition(0), archivefile(NULL)
 	{
 		hlog::warnf(hltypes::logTag, "Opening file '%s' in hresource constructor is deprecated and unsafe! Use hresource::open() instead.", filename.c_str());
 		this->open(this->filename);
 	}
 	
-	Resource::Resource() : FileBase(), data_position(0), archivefile(NULL)
+	Resource::Resource() : FileBase(), dataPosition(0), archivefile(NULL)
 	{
 	}
 
 	Resource::~Resource()
 	{
-		if (this->is_open())
+		if (this->_isOpen())
 		{
 			this->close();
 		}
@@ -78,7 +78,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			if (this->is_open())
+			if (this->_isOpen())
 			{
 				this->close();
 			}
@@ -89,7 +89,7 @@ namespace hltypes
 				this->archivefile = zip::open(this);
 				if (this->archivefile != NULL)
 				{
-					this->cfile = zip::fopen(this->archivefile, Resource::make_full_path(this->filename));
+					this->cfile = zip::fopen(this->archivefile, Resource::makeFullPath(this->filename));
 					if (this->cfile != NULL)
 					{
 						break;
@@ -117,7 +117,7 @@ namespace hltypes
 			return;
 		}
 #endif
-		this->_fopen(Resource::make_full_path(filename), READ, FileBase::repeats, FileBase::timeout);
+		this->_fopen(Resource::makeFullPath(filename), READ, FileBase::repeats, FileBase::timeout);
 	}
 	
 	void Resource::close()
@@ -131,13 +131,12 @@ namespace hltypes
 			zip::close(this, this->archivefile);
 			this->archivefile = NULL;
 			this->dataSize = 0;
+			this->dataPosition = 0;
+			return;
 		}
-		else
 #endif
-		{
-			this->_fclose();
-		}
-		this->data_position = 0;
+		this->_fclose();
+		this->dataPosition = 0;
 	}
 	
 	bool Resource::hasZip()
@@ -158,7 +157,7 @@ namespace hltypes
 			return;
 		}
 #endif
-		this->dataSize = File::get_info(this->filename).size;
+		this->dataSize = File::hinfo(this->filename).size;
 	}
 
 	int Resource::_read(void* buffer, int count)
@@ -166,7 +165,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			this->data_position += count;
+			this->dataPosition += count;
 			return zip::fread(this->cfile, buffer, count);
 		}
 #endif
@@ -178,7 +177,7 @@ namespace hltypes
 		throw FileNotWriteableException(this->filename);
 	}
 
-	bool Resource::_is_open()
+	bool Resource::_isOpen()
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
@@ -186,7 +185,7 @@ namespace hltypes
 			return (this->archivefile != NULL && this->cfile != NULL);
 		}
 #endif
-		return this->_fis_open();
+		return this->_fisOpen();
 	}
 	
 	int64_t Resource::_position()
@@ -194,7 +193,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			return this->data_position;
+			return this->dataPosition;
 		}
 #endif
 		return this->_fposition();
@@ -210,7 +209,7 @@ namespace hltypes
 			switch (seekMode)
 			{
 			case CURRENT:
-				target = offset + this->data_position;
+				target = offset + this->dataPosition;
 				break;
 			case START:
 				target = offset;
@@ -219,21 +218,21 @@ namespace hltypes
 				target = this->dataSize + offset;
 				break;
 			}
-			if (target >= this->data_position)
+			if (target >= this->dataPosition)
 			{
-				target -= this->data_position;
+				target -= this->dataPosition;
 			}
 			else
 			{
 				// reopening the file as the target position was already passed
-				this->cfile = zip::freopen(this->cfile, this->archivefile, Resource::make_full_path(this->filename));
-				this->data_position = 0;
+				this->cfile = zip::freopen(this->cfile, this->archivefile, Resource::makeFullPath(this->filename));
+				this->dataPosition = 0;
 			}
 			if (target > 0)
 			{
 				// seeking in a compressed stream is not possible so the data has to be read and then discarded
 				// the buffer can be static, because this data isn't used so there will be no threading problems
-				unsigned char* buffer = _read_buffer;
+				unsigned char* buffer = _readBuffer;
 				if (target > READ_BUFFER_SIZE)
 				{
 					// required for files over 2GB
@@ -277,7 +276,7 @@ namespace hltypes
 			void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
 			if (a != NULL)
 			{
-				void* f = zip::fopen(a, Resource::make_full_path(filename));
+				void* f = zip::fopen(a, Resource::makeFullPath(filename));
 				if (f != NULL)
 				{
 					zip::fclose(f);
@@ -304,14 +303,7 @@ namespace hltypes
 			return result;
 		}
 #endif
-		return FileBase::_fexists(Resource::make_full_path(filename), caseSensitive);
-	}
-	
-	int64_t Resource::hsize(const String& filename)
-	{
-		Resource file;
-		file.open(filename);
-		return file.size();
+		return FileBase::_fexists(Resource::makeFullPath(filename), caseSensitive);
 	}
 	
 	String Resource::hread(const String& filename, int count)
@@ -328,7 +320,7 @@ namespace hltypes
 		return file.read(delimiter);
 	}
 
-	FileInfo Resource::get_info(const String& filename)
+	FileInfo Resource::hinfo(const String& filename)
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
@@ -338,19 +330,19 @@ namespace hltypes
 			void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
 			if (a != NULL)
 			{
-				info = zip::finfo(a, Resource::make_full_path(filename));
+				info = zip::finfo(a, Resource::makeFullPath(filename));
 				zip::close(NULL, a);
-				FileInfo archive = File::get_info(Resource::archive);
-				info.creation_time = archive.creation_time;
-				info.access_time = archive.access_time;
+				FileInfo archive = File::hinfo(Resource::archive);
+				info.creationTime = archive.creationTime;
+				info.accessTime = archive.accessTime;
 			}
 			return info;
 		}
 #endif
-		return File::get_info(Resource::make_full_path(filename));
+		return File::hinfo(Resource::makeFullPath(filename));
 	}
 
-	String Resource::make_full_path(const String& filename)
+	String Resource::makeFullPath(const String& filename)
 	{
 		String path = hdir::joinPath(Resource::cwd, filename);
 		if (!Resource::zipArchive && Resource::archive != "" && Resource::archive != ".")

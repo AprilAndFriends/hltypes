@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -51,7 +51,7 @@ namespace hltypes
 		/// @brief Creates a file or clears the file if it already exists.
 		/// @param[in] filename Name of the file.
 		/// @return True if a new file was created or cleared. False if file could not be created.
-		static bool create_new(const String& filename);
+		static bool createNew(const String& filename);
 		/// @brief Removes a file.
 		/// @param[in] filename Name of the file.
 		/// @return True if file exists and was removed.
@@ -87,9 +87,6 @@ namespace hltypes
 		/// @return True if file was copied. False if old file does not exist or file with the new name already exists.
 		/// @note If path does not exist, it will be created.
 		static bool copy(const String& old_filename, const String& new_filename, bool overwrite = false);
-		/// @brief Opens file, gets size and closes file.
-		/// @see size
-		static int64_t hsize(const String& filename);
 		/// @brief Opens file, reads data and closes file.
 		/// @see read(int count)
 		static String hread(const String& filename, int count);
@@ -105,8 +102,12 @@ namespace hltypes
 		/// @brief Gets the file information provided by the OS.
 		/// @param[in] filename The filename of the file.
 		/// @return File information provided by the OS.
-		static FileInfo get_info(const String& filename);
-		
+		static FileInfo hinfo(const String& filename);
+
+		DEPRECATED_ATTRIBUTE static bool create_new(const String& filename) { return File::createNew(filename); }
+		DEPRECATED_ATTRIBUTE static FileInfo get_info(const String& filename) { return File::hinfo(filename); }
+		DEPRECATED_ATTRIBUTE static int64_t hsize(const String& filename) { return File::hinfo(filename).size; } // use hinfo like this to get the size
+
 	protected:
 		/// @brief Updates internal data size.
 		void _updateDataSize();
@@ -123,7 +124,7 @@ namespace hltypes
 		int _write(const void* buffer, int count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
-		bool _is_open();
+		bool _isOpen();
 		/// @brief Gets current position in file.
 		/// @return Current position in file.
 		int64_t _position();

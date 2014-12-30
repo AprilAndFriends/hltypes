@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -28,16 +28,16 @@ namespace hltypes
 		/// @note initialCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
 		Stream(int initialCapacity = 16);
 		/// @brief Constructor.
-		/// @param[in] initial_data Initial data in the stream.
+		/// @param[in] initialData Initial data in the stream.
 		/// @param[in] initialDataSize Initial data's size.
-		/// @note initial_data is copied into the stream.
-		Stream(unsigned char* initial_data, int initialDataSize);
+		/// @note initialData is copied into the stream.
+		Stream(unsigned char* initialData, int initialDataSize);
 		/// @brief Constructor.
-		/// @param[in] initial_data Initial data in the stream.
+		/// @param[in] initialData Initial data in the stream.
 		/// @param[in] initialDataSize Initial data's size.
 		/// @param[in] initialCapacity Initial capacity of the internal buffer.
-		/// @note initial_data is copied into the stream. initialCapacity will be corrected to initialDataSize if less than initialDataSize.
-		Stream(unsigned char* initial_data, int initialDataSize, int initialCapacity);
+		/// @note initialData is copied into the stream. initialCapacity will be corrected to initialDataSize if less than initialDataSize.
+		Stream(unsigned char* initialData, int initialDataSize, int initialCapacity);
 		/// @brief Destructor.
 		~Stream();
 		/// @brief Clears the stream.
@@ -45,41 +45,41 @@ namespace hltypes
 		/// @note initialCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
 		void clear(int initialCapacity = 16LL);
 		/// @brief Resizes internal buffer.
-		/// @param[in] new_capacity New capacity of the internal buffer.
+		/// @param[in] newCapacity New capacity of the internal buffer.
 		/// @return True if internal buffer was resized or already the same size that was requested.
 		/// @note This does not change the data stream size. Use this to avoid allocation of too much data if not needed.
-		/// @note If new_capacity is smaller than the stream size, data will be lost and the stream will be resized.
-		bool set_capacity(int new_capacity);
+		/// @note If newCapacity is smaller than the stream size, data will be lost and the stream will be resized.
+		bool setCapacity(int newCapacity);
 		/// @brief Writes raw data to the stream.
 		/// @param[in] buffer Pointer to raw data buffer.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
 		/// @note If return value differs from parameter count, it can indicate a writing error.
-		int write_raw(void* buffer, int count);
+		int writeRaw(void* buffer, int count);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
-		int write_raw(StreamBase& stream, int count);
+		int writeRaw(StreamBase& stream, int count);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @return Number of bytes written.
-		int write_raw(StreamBase& stream);
+		int writeRaw(StreamBase& stream);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
-		virtual int write_raw(Stream& stream, int count);
+		int writeRaw(Stream& stream, int count);
 		/// @brief Writes raw data to the stream from another stream.
 		/// @param[in] stream Another stream.
 		/// @return Number of bytes written.
-		virtual int write_raw(Stream& stream);
+		int writeRaw(Stream& stream);
 		/// @brief Prepares stream for manual writing without using write_raw() directly.
 		/// @param[in] count Number of bytes to prepare. Stream size is increased if necessary, but contains garbage data.
 		/// @return Number of bytes ready to be written.
 		/// @note Use this when you intend to manually write data. This does not change the current position and seeking has to be done manually as well.
 		/// @see write_raw()
-		int prepare_manual_write_raw(int count);
+		int prepareManualWriteRaw(int count);
 		/// @brief Writes a certain value into the buffer.
 		/// @param[in] value The value.
 		/// @param[in] count Number of bytes to write.
@@ -95,9 +95,9 @@ namespace hltypes
 		/// @brief Data stream container.
 		unsigned char* stream;
 		/// @brief Data stream size.
-		int64_t stream_size;
+		int64_t streamSize;
 		/// @brief writing position;
-		int64_t stream_position;
+		int64_t streamPosition;
 		/// @brief Capacity data of stream container.
 		int64_t capacity;
 
@@ -116,7 +116,7 @@ namespace hltypes
 		int _write(const void* buffer, int count);
 		/// @brief Checks if stream is open.
 		/// @return True if stream is open.
-		bool _is_open();
+		bool _isOpen();
 		/// @brief Gets current position in stream.
 		/// @return Current position in stream.
 		int64_t _position();
@@ -127,7 +127,7 @@ namespace hltypes
 		/// @brief Resizes internal buffer if necessary.
 		/// @param[in,out] write_size Number of bytes that is needed for the next write.
 		/// @note This does not change the data stream size. Use this to avoid allocation of too much data if not needed.
-		bool _try_increase_capacity(int& write_size);
+		bool _tryIncreaseCapacity(int& write_size);
 
 	};
 }

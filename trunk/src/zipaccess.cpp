@@ -99,7 +99,7 @@ namespace hltypes
 			struct zip_stat stat;
 			stat.size = 0;
 			Mutex::ScopeLock lock(&access_mutex);
-			zip_stat((struct zip*)archivefile, Resource::make_full_path(filename).c_str(), 0, &stat);
+			zip_stat((struct zip*)archivefile, Resource::makeFullPath(filename).c_str(), 0, &stat);
 			return (int64_t)stat.size;
 		}
 
@@ -128,10 +128,10 @@ namespace hltypes
 			stat.size = 0;
 			stat.mtime = 0;
 			Mutex::ScopeLock lock(&access_mutex);
-			zip_stat((struct zip*)archivefile, Resource::make_full_path(filename).c_str(), 0, &stat);
+			zip_stat((struct zip*)archivefile, Resource::makeFullPath(filename).c_str(), 0, &stat);
 			FileInfo info;
 			info.size = stat.size;
-			info.modification_time = stat.mtime;
+			info.modificationTime = stat.mtime;
 			return info;
 		}
 

@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -29,9 +29,9 @@ namespace hltypes
 	{
 	}
 	
-	bool StreamBase::is_open()
+	bool StreamBase::isOpen()
 	{
-		return this->_is_open();
+		return this->_isOpen();
 	}
 	
 	bool StreamBase::seek(int64_t offset, SeekMode seekMode)
@@ -121,12 +121,12 @@ namespace hltypes
 		return result;
 	}
 
-	String StreamBase::read_line()
+	String StreamBase::readLine()
 	{
 		return this->read("\n");
 	}
 	
-	Array<String> StreamBase::read_lines()
+	Array<String> StreamBase::readLines()
 	{
 		return this->read().split("\n", -1, false);
 	}
@@ -145,16 +145,16 @@ namespace hltypes
 		this->_updateDataSize();
 	}
 	
-	void StreamBase::write_line(const String& text)
+	void StreamBase::writeLine(const String& text)
 	{
 		this->_validate();
 		this->_write((text + "\n").c_str(), text.size() + 1);
 		this->_updateDataSize();
 	}
 	
-	void StreamBase::write_line(const char* text)
+	void StreamBase::writeLine(const char* text)
 	{
-		this->write_line(String(text));
+		this->writeLine(String(text));
 	}
 	
 	void StreamBase::writef(const char* format, ...)
@@ -166,13 +166,13 @@ namespace hltypes
 		this->write(result);
 	}
 
-	int StreamBase::read_raw(void* buffer, int count)
+	int StreamBase::readRaw(void* buffer, int count)
 	{
 		this->_validate();
 		return this->_read(buffer, count);
 	}
 	
-	int StreamBase::write_raw(void* buffer, int count)
+	int StreamBase::writeRaw(void* buffer, int count)
 	{
 		this->_validate();
 		int result = this->_write(buffer, count);
@@ -180,12 +180,12 @@ namespace hltypes
 		return result;
 	}
 		
-	int StreamBase::write_raw(StreamBase& stream, int count)
+	int StreamBase::writeRaw(StreamBase& stream, int count)
 	{
 		this->_validate();
 		count = (int)hmin((int64_t)count, stream.size() - stream.position());
 		unsigned char* buffer = new unsigned char[count];
-		stream.read_raw(buffer, count);
+		stream.readRaw(buffer, count);
 		stream.seek(-count);
 		int result = this->_write(buffer, count);
 		delete[] buffer;
@@ -193,7 +193,7 @@ namespace hltypes
 		return result;
 	}
 
-	int StreamBase::write_raw(StreamBase& stream)
+	int StreamBase::writeRaw(StreamBase& stream)
 	{
 		this->_validate();
 		if (stream.size() - stream.position() > INT_MAX)
@@ -201,10 +201,10 @@ namespace hltypes
 			Log::error(hltypes::logTag, "Data too large for writing in: " + stream._descriptor());
 			return 0;
 		}
-		return this->write_raw(stream, (int)(stream.size() - stream.position()));
+		return this->writeRaw(stream, (int)(stream.size() - stream.position()));
 	}
 
-	int StreamBase::write_raw(Stream& stream, int count)
+	int StreamBase::writeRaw(Stream& stream, int count)
 	{
 		this->_validate();
 		int64_t position = stream.position();
@@ -214,7 +214,7 @@ namespace hltypes
 		return result;
 	}
 
-	int StreamBase::write_raw(Stream& stream)
+	int StreamBase::writeRaw(Stream& stream)
 	{
 		this->_validate();
 		if (stream.size() - stream.position() > INT_MAX)
@@ -222,7 +222,7 @@ namespace hltypes
 			Log::error(hltypes::logTag, "Data too large for writing in: " + stream._descriptor());
 			return 0;
 		}
-		return this->write_raw(stream, (int)(stream.size() - stream.position()));
+		return this->writeRaw(stream, (int)(stream.size() - stream.position()));
 	}
 
 	void StreamBase::_updateDataSize()
@@ -235,7 +235,7 @@ namespace hltypes
 
 	void StreamBase::_validate()
 	{
-		if (!this->is_open())
+		if (!this->_isOpen())
 		{
 			throw FileNotOpenException(this->_descriptor());
 		}
@@ -367,12 +367,12 @@ namespace hltypes
 		this->dump(String(c));
 	}
 
-	char StreamBase::load_int8()
+	char StreamBase::loadInt8()
 	{
-		return (char)this->load_uint8();
+		return (char)this->loadUint8();
 	}
 
-	unsigned char StreamBase::load_uint8()
+	unsigned char StreamBase::loadUint8()
 	{
 		this->_validate();
 		unsigned char c;
@@ -380,12 +380,12 @@ namespace hltypes
 		return c;
 	}
 
-	short StreamBase::load_int16()
+	short StreamBase::loadInt16()
 	{
-		return (short)this->load_uint16();
+		return (short)this->loadUint16();
 	}
 
-	unsigned short StreamBase::load_uint16()
+	unsigned short StreamBase::loadUint16()
 	{
 		this->_validate();
 		unsigned short s = 0;
@@ -400,12 +400,12 @@ namespace hltypes
 		return s;
 	}
 
-	int StreamBase::load_int32()
+	int StreamBase::loadInt32()
 	{
-		return (int)this->load_uint32();
+		return (int)this->loadUint32();
 	}
 
-	unsigned int StreamBase::load_uint32()
+	unsigned int StreamBase::loadUint32()
 	{
 		this->_validate();
 		unsigned int i = 0;
@@ -422,12 +422,12 @@ namespace hltypes
 		return i;
 	}
 
-	int64_t StreamBase::load_int64()
+	int64_t StreamBase::loadInt64()
 	{
-		return (int64_t)this->load_uint64();
+		return (int64_t)this->loadUint64();
 	}
 
-	uint64_t StreamBase::load_uint64()
+	uint64_t StreamBase::loadUint64()
 	{
 		this->_validate();
 		uint64_t l = 0;
@@ -448,7 +448,7 @@ namespace hltypes
 		return l;
 	}
 
-	float StreamBase::load_float()
+	float StreamBase::loadFloat()
 	{
 		float f;
 #ifndef __BIG_ENDIAN__
@@ -456,13 +456,13 @@ namespace hltypes
 		this->_read((unsigned char*)&f, 4);
 #else
 		// data voodoo magic, the float was stored as uint32
-		unsigned int i = this->load_uint32();
+		unsigned int i = this->loadUint32();
 		f = *((float*)&i);
 #endif
 		return f;
 	}
 
-	double StreamBase::load_double()
+	double StreamBase::loadDouble()
 	{
 		double d;
 #ifndef __BIG_ENDIAN__
@@ -470,13 +470,13 @@ namespace hltypes
 		this->_read((unsigned char*)&d, 8);
 #else
 		// data voodoo magic, the double was stored as uint64
-		uint64_t l = this->load_uint64();
+		uint64_t l = this->loadUint64();
 		d = *((double*)&l);
 #endif
 		return d;
 	}
 
-	bool StreamBase::load_bool()
+	bool StreamBase::loadBool()
 	{
 		this->_validate();
 		unsigned char c;
@@ -484,10 +484,10 @@ namespace hltypes
 		return (c != 0);
 	}
 
-	String StreamBase::load_string()
+	String StreamBase::loadString()
 	{
 		this->_validate();
-		return this->read(this->load_int32());
+		return this->read(this->loadInt32());
 	}
 
 }

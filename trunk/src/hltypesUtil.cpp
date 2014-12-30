@@ -444,7 +444,7 @@ unsigned int hcrc32(hltypes::StreamBase* stream, unsigned int size)
 		return 0;
 	}
 	unsigned char* data = new unsigned char[size];
-	int read = stream->read_raw(data, size);
+	int read = stream->readRaw(data, size);
 	if (read == 0)
 	{
 		delete[] data;
