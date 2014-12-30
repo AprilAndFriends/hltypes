@@ -131,12 +131,12 @@ TEST(Stream_serialization)
 	s.dump(1.23456789999999);
 	s.dump(false);
 	s.rewind();
-	int i = s.load_int();
-	short si = s.load_short();
-	hstr str = s.load_string();
-	float e = s.load_float();
-	double d = s.load_double();
-	bool b = s.load_bool();
+	int i = s.loadInt();
+	short si = s.loadShort();
+	hstr str = s.loadString();
+	float e = s.loadFloat();
+	double d = s.loadDouble();
+	bool b = s.loadBool();
 	CHECK(i == 1234);
 	CHECK(si == 4321);
 	CHECK(str == "testing");
