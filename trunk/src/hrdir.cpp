@@ -87,7 +87,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::isZipArchive())
 		{
-			if (ResourceDir::cacheDirectories.has_key(name))
+			if (ResourceDir::cacheDirectories.hasKey(name))
 			{
 				result = ResourceDir::cacheDirectories[name];
 			}
@@ -126,7 +126,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::isZipArchive())
 		{
-			if (ResourceDir::cacheFiles.has_key(name))
+			if (ResourceDir::cacheFiles.hasKey(name))
 			{
 				result = ResourceDir::cacheFiles[name];
 			}
