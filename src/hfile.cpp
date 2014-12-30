@@ -57,11 +57,8 @@ namespace hltypes
 	
 	void File::_updateDataSize()
 	{
-		// using the seeking method as it's more reliable while the file is open for writing, because _updateDataSize() is only called on open files
-		int64_t position = this->_position();
-		this->_fseek(0, END);
-		this->dataSize = this->_position();
-		this->_fseek(position, START);
+		// using hinfo, because an implementation with _position() and _seek() can cause problems faulty
+		this->dataSize = File::hinfo(this->filename).size;
 	}
 
 	int File::_read(void* buffer, int count)
