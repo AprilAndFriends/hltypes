@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -40,7 +40,7 @@ namespace hltypes
 		SetConsoleTextAttribute(consoleHandle, color | FOREGROUND_INTENSITY);
 	}
 
-	void _platform_print(const String& tag, const String& message, int level)
+	void _platformPrint(const String& tag, const String& message, int level)
 	{
 		_setLevelColor(level);
 		if (tag != "")

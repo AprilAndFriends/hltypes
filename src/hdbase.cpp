@@ -41,8 +41,8 @@ namespace hltypes
 		String result = path.replace('\\', '/');
 		if (result.contains("//"))
 		{
-#ifdef _DEBUG // using _platform_print() directory to avoid possible deadlock when saving to file during logging
-			hltypes::_platform_print(hltypes::logTag, "The path '" + result + "' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", LEVEL_WARN);
+#ifdef _DEBUG // using _platformPrint() directory to avoid possible deadlock when saving to file during logging
+			hltypes::_platformPrint(hltypes::logTag, "The path '" + result + "' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", LEVEL_WARN);
 #endif
 			for (int i = 0; i < 1000 && result.contains("//"); ++i) // to prevent an infinite loop
 			{

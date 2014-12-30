@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -71,7 +71,7 @@ namespace hltypes
 	/// @param[in] tag The message tag.
 	/// @param[in] message The message to log.
 	/// @param[in] level Log level (required for Android).
-	void _platform_print(const String& tag, const String& message, int level);
+	void _platformPrint(const String& tag, const String& message, int level);
 
 }
 

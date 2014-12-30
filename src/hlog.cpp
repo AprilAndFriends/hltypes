@@ -142,7 +142,7 @@ namespace hltypes
 			return false;
 		}
 		Mutex::ScopeLock lock(&Log::mutex);
-		_platform_print(tag, message, LEVEL_PLATFORM(level));
+		_platformPrint(tag, message, LEVEL_PLATFORM(level));
 		if (Log::filename != "")
 		{
 			try
@@ -158,7 +158,7 @@ namespace hltypes
 			}
 			catch (_Exception& e)
 			{
-				_platform_print("FATAL", e.getMessage(), LevelError);
+				_platformPrint("FATAL", e.getMessage(), LevelError);
 #ifdef _DEBUG
 				throw e;
 #endif
@@ -173,7 +173,7 @@ namespace hltypes
 		}
 		catch (_Exception& e)
 		{
-			_platform_print("FATAL", e.getMessage(), LevelError);
+			_platformPrint("FATAL", e.getMessage(), LevelError);
 			throw e;
 		}
 		return true;
