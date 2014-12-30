@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -65,7 +65,7 @@ namespace hltypes
 		/// @see key_of
 		inline K operator()(const V& value) const
 		{
-			return this->key_of(value);
+			return this->keyOf(value);
 		}
 		/// @brief Same as equals.
 		/// @see equals
@@ -128,7 +128,7 @@ namespace hltypes
 				return false;
 			}
 			Array<K> keys = other.keys();
-			if (!this->has_keys(keys))
+			if (!this->hasAllKeys(keys))
 			{
 				return false;
 			}
@@ -152,7 +152,7 @@ namespace hltypes
 				return true;
 			}
 			Array<K> keys = other.keys();
-			if (!this->has_keys(keys))
+			if (!this->hasAllKeys(keys))
 			{
 				return true;
 			}
@@ -169,7 +169,7 @@ namespace hltypes
 		/// @brief Returns key of specified value.
 		/// @param[in] value Value with the given key.
 		/// @return Key of specified value.
-		inline K key_of(const V& value) const
+		inline K keyOf(const V& value) const
 		{
 			__foreach_this_map_it(it)
 			{
@@ -183,21 +183,52 @@ namespace hltypes
 		/// @brief Returns value of specified key.
 		/// @param[in] key Key of the given value.
 		/// @return Value of specified key.
-		inline V value_of(const K& key) const
+		inline V valueOf(const K& key) const
 		{
 			return stdmap::find(key)->second;
 		}
 		/// @brief Checks for existence of a key.
 		/// @param[in] key Key to check.
 		/// @return True if key is present.
-		inline bool has_key(const K& key) const
+		inline bool hasKey(const K& key) const
 		{
 			return (stdmap::find(key) != stdmap::end());
+		}
+		/// @brief Checks for existence of a key within an Array of keys.
+		/// @param[in] keys Array of keys to check.
+		/// @return True if any key is present.
+		inline bool hasAnyKey(const Array<K>& keys) const
+		{
+			iterator_map_t end = stdmap::end();
+			for_iter (i, 0, keys.size())
+			{
+				if (stdmap::find(keys.at(i)) != end)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		/// @brief Checks for existence of a key within an Array of keys.
+		/// @param[in] keys C-type array of keys to check.
+		/// @param[in] count Number of keys to check.
+		/// @return True if any key is present.
+		inline bool hasAnyKey(const K keys[], const int count) const
+		{
+			iterator_map_t end = stdmap::end();
+			for_iter (i, 0, count)
+			{
+				if (stdmap::find(keys[i]) != end)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 		/// @brief Checks for existence of all keys.
 		/// @param[in] keys Array of keys to check.
 		/// @return True if all keys are present.
-		inline bool has_keys(const Array<K>& keys) const
+		inline bool hasAllKeys(const Array<K>& keys) const
 		{
 			iterator_map_t end = stdmap::end();
 			for_iter (i, 0, keys.size())
@@ -213,7 +244,7 @@ namespace hltypes
 		/// @param[in] keys C-type array of keys to check.
 		/// @param[in] count Number of keys to check.
 		/// @return True if all keys are present.
-		inline bool has_keys(const K keys[], const int count) const
+		inline bool hasAllKeys(const K keys[], const int count) const
 		{
 			iterator_map_t end = stdmap::end();
 			for_iter (i, 0, count)
@@ -228,7 +259,7 @@ namespace hltypes
 		/// @brief Checks for existence of a value.
 		/// @param[in] value Value to check.
 		/// @return True if value is present.
-		inline bool has_value(const V& value) const
+		inline bool hasValue(const V& value) const
 		{
 			__foreach_this_map_it(it)
 			{
@@ -239,14 +270,43 @@ namespace hltypes
 			}
 			return false;
 		}
-		/// @brief Checks for existence of all values.
+		/// @brief Checks for existence of a values in an Array of values.
 		/// @param[in] values Array of values to check.
-		/// @return True if all values are present.
-		inline bool has_values(const Array<V>& values) const
+		/// @return True if any values are present.
+		inline bool hasAnyValue(const Array<V>& values) const
 		{
 			for_iter (i, 0, values.size())
 			{
-				if (!this->has_value(values.at(i)))
+				if (this->hasValue(values.at(i)))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		/// @brief Checks for existence of a values in an Array of values.
+		/// @param[in] values C-type array of values to check.
+		/// @param[in] count Number of values to check.
+		/// @return True if any values are present.
+		inline bool hasAnyValue(const V values[], const int count) const
+		{
+			for_iter (i, 0, count)
+			{
+				if (this->hasValue(values[i]))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		/// @brief Checks for existence of all values.
+		/// @param[in] values Array of values to check.
+		/// @return True if all values are present.
+		inline bool hasAllValues(const Array<V>& values) const
+		{
+			for_iter (i, 0, values.size())
+			{
+				if (!this->hasValue(values.at(i)))
 				{
 					return false;
 				}
@@ -257,11 +317,11 @@ namespace hltypes
 		/// @param[in] values C-type array of values to check.
 		/// @param[in] count Number of values to check.
 		/// @return True if all values are present.
-		inline bool has_values(const V values[], const int count) const
+		inline bool hasAllValues(const V values[], const int count) const
 		{
 			for_iter (i, 0, count)
 			{
-				if (!this->has_value(values[i]))
+				if (!this->hasValue(values[i]))
 				{
 					return false;
 				}
@@ -294,39 +354,51 @@ namespace hltypes
 		}
 		/// @brief Removes a pair of key and value specified by a key.
 		/// @param[in] key Key of the entry.
-		inline void remove_key(const K& key)
+		/// @return True if key was present and removed.
+		inline bool removeKey(const K& key)
 		{
-			if (this->has_key(key))
+			if (this->hasKey(key))
 			{
 				stdmap::erase(key);
+				return true;
 			}
+			return false;
 		}
 		/// @brief Removes all pairs of key and value specified by an Array of keys.
 		/// @param[in] keys Array of keys.
-		inline void remove_keys(const Array<K>& keys)
+		/// @return How many keys were removed.
+		inline int removeKeys(const Array<K>& keys)
 		{
+			int result = 0;
 			for_iter (i, 0, keys.size())
 			{
-				if (this->has_key(keys.at(i)))
+				if (this->hasKey(keys.at(i)))
 				{
 					stdmap::erase(keys.at(i));
+					++result;
 				}
 			}
+			return result;
 		}
 		/// @brief Removes a pair of key and value specified by a value.
 		/// @param[in] value Value of the entry.
-		inline void remove_value(const V& value)
+		/// @return True if value was present and removed.
+		inline bool removeValue(const V& value)
 		{
-			if (this->has_value(value))
+			if (this->hasValue(value))
 			{
-				K result = this->key_of(value);
+				K result = this->keyOf(value);
 				stdmap::erase(result);
+				return true;
 			}
+			return false;
 		}
 		/// @brief Removes all pairs of key and value specified by an Array of values.
 		/// @param[in] values Array of values.
-		inline void remove_values(const Array<V>& values)
+		/// @return How many values were removed.
+		inline int removeValues(const Array<V>& values)
 		{
+			int result = 0;
 			for_iter (i, 0, values.size())
 			{
 				__foreach_this_map_it(it)
@@ -334,10 +406,12 @@ namespace hltypes
 					if (it->second == values.at(i))
 					{
 						stdmap::erase(it->first);
+						++result;
 						break;
 					}
 				}
 			}
+			return result;
 		}
 		/// @brief Gets a random element in Map.
 		/// @param[out] value Value of selected random entry.
@@ -380,7 +454,7 @@ namespace hltypes
 		/// @brief Gets a random element in Map and removes it.
 		/// @param[out] value Value of selected random entry.
 		/// @return Random element or NULL if Map is empty.
-		inline K pop_random(V* value = NULL)
+		inline K removeRandom(V* value = NULL)
 		{
 			if (this->size() == 0)
 			{
@@ -397,7 +471,7 @@ namespace hltypes
 		/// @brief Gets a Map of random elements selected from this one and removes them.
 		/// @param[in] count Number of random elements.
 		/// @return Map of random elements selected from this one.
-		inline Map<K, V> pop_random(int count)
+		inline Map<K, V> removeRandom(int count)
 		{
 			if (count >= this->size())
 			{
@@ -417,27 +491,15 @@ namespace hltypes
 			}
 			return result;
 		}
-		/// @brief Same as pop_random.
-		/// @see pop_random().
-		inline K remove_random(V* value = NULL)
-		{
-			return this->pop_random(value);
-		}
-		/// @brief Same as pop_random.
-		/// @see pop_random(const int count).
-		inline Map<K, V> remove_random(const int count)
-		{
-			return this->pop_random(count);
-		}
 		/// @brief Finds and returns new Map with entries that match the condition.
-		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
+		/// @param[in] conditionFunction Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return New Map with all matching elements.
-		inline Map<K, V> find_all(bool (*condition_function)(K, V)) const
+		inline Map<K, V> findAll(bool (*conditionFunction)(K, V)) const
 		{
 			Map<K, V> result;
 			__foreach_this_map_it(it)
 			{
-				if (condition_function(it->first, it->second))
+				if (conditionFunction(it->first, it->second))
 				{
 					result[it->first] = it->second;
 				}
@@ -445,13 +507,13 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Checks if at least one entry matches the condition.
-		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
+		/// @param[in] conditionFunction Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return True if at least one entry matches the condition.
-		inline bool matches_any(bool (*condition_function)(K, V)) const
+		inline bool matchesAny(bool (*conditionFunction)(K, V)) const
 		{
 			__foreach_this_map_it(it)
 			{
-				if (condition_function(it->first, it->second))
+				if (conditionFunction(it->first, it->second))
 				{
 					return true;
 				}
@@ -459,13 +521,13 @@ namespace hltypes
 			return false;
 		}
 		/// @brief Checks if all entries match the condition.
-		/// @param[in] condition_function Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
+		/// @param[in] conditionFunction Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return True if all entries match the condition.
-		inline bool matches_all(bool (*condition_function)(K, V)) const
+		inline bool matchesAll(bool (*conditionFunction)(K, V)) const
 		{
 			__foreach_this_map_it(it)
 			{
-				if (!condition_function(it->first, it->second))
+				if (!conditionFunction(it->first, it->second))
 				{
 					return false;
 				}
@@ -486,11 +548,11 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Returns a new Map with all keys and values dynamically cast into the type L and S.
-		/// @param[in] include_nulls Whether to include value NULLs that failed to cast.
+		/// @param[in] includeNulls Whether to include value NULLs that failed to cast.
 		/// @return A new Map with all keys and values cast into the type L and S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class L, class S>
-		inline Map<L, S> dyn_cast(bool include_nulls = false) const
+		inline Map<L, S> dynamicCast(bool includeNulls = false) const
 		{
 			Map<L, S> result;
 			L key;
@@ -499,7 +561,7 @@ namespace hltypes
 			{
 				key = dynamic_cast<L>(it->first);
 				value = dynamic_cast<S>(it->second);
-				if (key != NULL && (value != NULL || include_nulls))
+				if (key != NULL && (value != NULL || includeNulls))
 				{
 					result[key] = value;
 				}
@@ -511,7 +573,7 @@ namespace hltypes
 		/// @note If dynamic casting fails, it won't be included in the result.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class L, class S>
-		inline Map<L, S> dyn_cast_key() const
+		inline Map<L, S> dynamicCastKeys() const
 		{
 			Map<L, S> result;
 			L key;
@@ -526,18 +588,18 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Returns a new Map with all keys and values cast into the type L and dynamically into S.
-		/// @param[in] include_nulls Whether to include value NULLs that failed to cast.
+		/// @param[in] includeNulls Whether to include value NULLs that failed to cast.
 		/// @return A new Map with all keys and values cast into the type L and S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
 		template <class L, class S>
-		inline Map<L, S> dyn_cast_value(bool include_nulls = false) const
+		inline Map<L, S> dynamicCastValues(bool includeNulls = false) const
 		{
 			Map<L, S> result;
 			S value;
 			__foreach_this_map_it(it)
 			{
 				value = dynamic_cast<S>(it->second);
-				if (value != NULL || include_nulls)
+				if (value != NULL || includeNulls)
 				{
 					result[(L)it->first] = value;
 				}
@@ -548,9 +610,9 @@ namespace hltypes
 		/// @param[in] key Key to retrieve the value of.
 		/// @param[in] defaultValue Default value to return if key does not exist.
 		/// @return Value stored at key or given default value.
-		inline V try_get_by_key(K key, V defaultValue) const
+		inline V tryGet(K key, V defaultValue) const
 		{
-			return (this->has_key(key) ? stdmap::find(key)->second : defaultValue);
+			return (this->hasKey(key) ? stdmap::find(key)->second : defaultValue);
 		}
 		/// @brief Same as insert.
 		/// @see insert(const Map<K, V>& other)
@@ -569,6 +631,30 @@ namespace hltypes
 			result += other;
 			return result;
 		}
+
+		DEPRECATED_ATTRIBUTE inline K key_of(const V& value) const															{ return this->keyOf(value); }
+		DEPRECATED_ATTRIBUTE inline V value_of(const K& key) const															{ return this->valueOf(key); }
+		DEPRECATED_ATTRIBUTE inline bool has_key(const K& key) const														{ return this->hasKey(key); }
+		DEPRECATED_ATTRIBUTE inline bool has_keys(const Array<K>& keys) const												{ return this->hasAllKeys(keys); }
+		DEPRECATED_ATTRIBUTE inline bool has_keys(const K keys[], const int count) const									{ return this->hasAllKeys(keys, count); }
+		DEPRECATED_ATTRIBUTE inline bool has_value(const V& value) const													{ return this->hasValue(value); }
+		DEPRECATED_ATTRIBUTE inline bool has_values(const Array<V>& values) const											{ return this->hasAllValues(values); }
+		DEPRECATED_ATTRIBUTE inline bool has_values(const V values[], const int count) const								{ return this->hasAllValues(values, count); }
+		DEPRECATED_ATTRIBUTE inline bool remove_key(const K& key)															{ return this->removeKey(key); }
+		DEPRECATED_ATTRIBUTE inline int remove_keys(const Array<K>& keys)													{ return this->removeKeys(keys); }
+		DEPRECATED_ATTRIBUTE inline bool remove_value(const V& value)														{ return this->removeValue(value); }
+		DEPRECATED_ATTRIBUTE inline int remove_values(const Array<V>& values)												{ return this->removeValues(values); }
+		DEPRECATED_ATTRIBUTE inline K pop_random(V* value = NULL)															{ return this->removeRandom(value); }
+		DEPRECATED_ATTRIBUTE inline Map<K, V> pop_random(int count)															{ return this->removeRandom(count); }
+		DEPRECATED_ATTRIBUTE inline K remove_random(V* value = NULL)														{ return this->removeRandom(value); }
+		DEPRECATED_ATTRIBUTE inline Map<K, V> remove_random(const int count)												{ return this->removeRandom(count); }
+		DEPRECATED_ATTRIBUTE inline Map<K, V> find_all(bool(*conditionFunction)(K, V)) const								{ return this->findAll(conditionFunction); }
+		DEPRECATED_ATTRIBUTE inline bool matches_any(bool(*conditionFunction)(K, V)) const									{ return this->matchesAny(conditionFunction); }
+		DEPRECATED_ATTRIBUTE inline bool matches_all(bool(*conditionFunction)(K, V)) const									{ return this->matchesAll(conditionFunction); }
+		DEPRECATED_ATTRIBUTE inline V try_get_by_key(K key, V defaultValue) const											{ return this->tryGet(key, defaultValue); }
+		template <class L, class S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast(bool includeNulls = false) const			{ return this->dynamicCast<L, S>(includeNulls); }
+		template <class L, class S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast_key() const								{ return this->dynamicCastKeys<L, S>(); }
+		template <class L, class S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast_value(bool includeNulls = false) const	{ return this->dynamicCastValues<L, S>(includeNulls); }
 
 	};
 	

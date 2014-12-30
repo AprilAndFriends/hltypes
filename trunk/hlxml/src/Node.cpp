@@ -147,7 +147,7 @@ namespace hlxml
 		{
 			return NULL;
 		}
-		if (!this->props.has_key(prop))
+		if (!this->props.hasKey(prop))
 		{
 			this->props[prop] = new Property(this, prop);
 		}
