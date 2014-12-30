@@ -489,7 +489,7 @@ TEST(Array_incorrect_negative_index_exception)
     {
         value = test[-1];
     }
-    catch (hltypes::_Exception& e)
+    catch (hexception& e)
     {
         CHECK(true);
         return;
@@ -517,7 +517,7 @@ TEST(Array_correct_negative_index_exception)
     {
         value = test[-1];
     }
-    catch (hltypes::_Exception& e)
+    catch (hexception& e)
     {
         printf("ERROR: hltypes exception throw where it should've returned last value: %s\n", e.getMessage().c_str());
         CHECK(false);
@@ -548,7 +548,7 @@ TEST(Array_positive_index_exception)
             value = test[i];
         }
     }
-    catch (hltypes::_Exception& e)
+    catch (hexception& e)
     {
         CHECK(true);
         return;
@@ -575,7 +575,7 @@ TEST(Array_out_of_bounds_assignment_exception)
     {
         test[4] = 5;
     }
-    catch (hltypes::_Exception& e)
+    catch (hexception& e)
     {
         CHECK(true);
         return;
