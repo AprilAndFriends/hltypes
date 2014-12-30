@@ -9,8 +9,8 @@
 #include <string.h>
 #include <stdarg.h>
 
-#include "exception.h"
 #include "harray.h"
+#include "hexception.h"
 #include "hfbase.h"
 #include "hlog.h"
 #include "hsbase.h"

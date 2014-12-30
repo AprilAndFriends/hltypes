@@ -12,9 +12,9 @@
 #include <unittest++/UnitTest++.h>
 #endif
 
-#include <hltypes/exception.h>
 #include <hltypes/harray.h>
 #include <hltypes/hdir.h>
+#include <hltypes/hexception.h>
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
 

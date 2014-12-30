@@ -16,7 +16,7 @@
 #include <algorithm>
 #include <vector>
 
-#include "exception.h"
+#include "hexception.h"
 #include "hltypesUtil.h"
 #include "hplatform.h"
 #include "hstring.h"
