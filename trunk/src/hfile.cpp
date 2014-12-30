@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 // prevents recursive calls of hfile::rename and hfile::remove as these functions are called via these pointers
-int (*f_rename)(const char* old_name, const char* new_name) = rename;
+int (*f_rename)(const char* oldName, const char* newName) = rename;
 int (*f_remove)(const char* filename) = remove;
 
 #include "hdir.h"
@@ -90,7 +90,7 @@ namespace hltypes
 		String name = Dir::normalize(filename);
 		if (!File::exists(name))
 		{
-			Dir::create(Dir::basedir(name));
+			Dir::create(Dir::baseDir(name));
 			int attempts = File::repeats + 1;
 			while (true)
 			{
@@ -154,55 +154,55 @@ namespace hltypes
 		return false;
 	}
 	
-	bool File::rename(const String& old_filename, const String& new_filename, bool overwrite)
+	bool File::rename(const String& oldFilename, const String& newFilename, bool overwrite)
 	{
-		String old_name = Dir::normalize(old_filename);
-		String new_name = Dir::normalize(new_filename);
-		if (!File::exists(old_name))
+		String oldName = Dir::normalize(oldFilename);
+		String newName = Dir::normalize(newFilename);
+		if (!File::exists(oldName))
 		{
 			return false;
 		}
-		if (File::exists(new_name))
+		if (File::exists(newName))
 		{
 			if (!overwrite)
 			{
 				return false;
 			}
-			File::remove(new_name);
+			File::remove(newName);
 		}
-		Dir::create(Dir::basedir(new_name));
+		Dir::create(Dir::baseDir(newName));
 #ifdef _WIN32
-		return (_wrename(old_name.w_str().c_str(), new_name.w_str().c_str()) == 0);
+		return (_wrename(oldName.w_str().c_str(), newName.w_str().c_str()) == 0);
 #else
-		return (f_rename(old_name.c_str(), new_name.c_str()) == 0); // TODO - should be ported to Unix systems as well
+		return (f_rename(oldName.c_str(), newName.c_str()) == 0); // TODO - should be ported to Unix systems as well
 #endif
 	}
 	
 	bool File::move(const String& filename, const String& path, bool overwrite)
 	{
 		String name = Dir::normalize(filename);
-		return File::rename(name, Dir::join_path(path, Dir::basename(name), false), overwrite);
+		return File::rename(name, Dir::joinPath(path, Dir::baseName(name), false), overwrite);
 	}
 	
-	bool File::copy(const String& old_filename, const String& new_filename, bool overwrite)
+	bool File::copy(const String& oldFilename, const String& newFilename, bool overwrite)
 	{
-		String old_name = Dir::normalize(old_filename);
-		String new_name = Dir::normalize(new_filename);
-		if (!File::exists(old_name) || !overwrite && File::exists(new_name))
+		String oldName = Dir::normalize(oldFilename);
+		String newName = Dir::normalize(newFilename);
+		if (!File::exists(oldName) || !overwrite && File::exists(newName))
 		{
 			return false;
 		}
-		Dir::create(Dir::basedir(new_name));
-		File old_file;
-		File new_file;
-		old_file.open(old_name);
-		new_file.open(new_name, File::WRITE);
+		Dir::create(Dir::baseDir(newName));
+		File oldFile;
+		File newFile;
+		oldFile.open(oldName);
+		newFile.open(newName, File::WRITE);
 		int count;
 		unsigned char c[BUFFER_SIZE] = {0};
-		while (!old_file.eof())
+		while (!oldFile.eof())
 		{
-			count = fread(c, 1, BUFFER_SIZE, (FILE*)old_file.cfile);
-			fwrite(c, 1, count, (FILE*)new_file.cfile);
+			count = fread(c, 1, BUFFER_SIZE, (FILE*)oldFile.cfile);
+			fwrite(c, 1, count, (FILE*)newFile.cfile);
 		}
 		return true;
 	}

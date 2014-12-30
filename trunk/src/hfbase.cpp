@@ -53,7 +53,7 @@ namespace hltypes
 
 	String FileBase::extension_of(const String& path)
 	{
-		if (Dir::basename(path).contains("."))
+		if (Dir::baseName(path).contains("."))
 		{
 			int index = path.rfind(".");
 			if (index >= 0)
@@ -66,7 +66,7 @@ namespace hltypes
 
 	String FileBase::no_extension(const String& path)
 	{
-		if (Dir::basename(path).contains("."))
+		if (Dir::baseName(path).contains("."))
 		{
 			int index = path.rfind(".");
 			if (index >= 0)
@@ -204,14 +204,14 @@ namespace hltypes
 		}
 		if (!result && !case_sensitive)
 		{
-			String basedir = Dir::basedir(name);
-			String basename = Dir::basename(name);
-			Array<String> files = Dir::files(basedir);
+			String baseDir = Dir::baseDir(name);
+			String baseName = Dir::baseName(name);
+			Array<String> files = Dir::files(baseDir);
 			foreach (String, it, files)
 			{
-				if ((*it).lower() == basename.lower())
+				if ((*it).lower() == baseName.lower())
 				{
-					name = Dir::join_path(basedir, (*it));
+					name = Dir::joinPath(baseDir, (*it));
 					result = true;
 					break;
 				}

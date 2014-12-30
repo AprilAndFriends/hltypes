@@ -286,14 +286,14 @@ namespace hltypes
 				if (!result && !case_sensitive)
 				{
 					String name = filename;
-					String basedir = ResourceDir::basedir(name);
-					String basename = ResourceDir::basename(name);
-					Array<String> files = ResourceDir::files(basedir);
+					String baseDir = ResourceDir::baseDir(name);
+					String baseName = ResourceDir::baseName(name);
+					Array<String> files = ResourceDir::files(baseDir);
 					foreach (String, it, files)
 					{
-						if ((*it).lower() == basename.lower())
+						if ((*it).lower() == baseName.lower())
 						{
-							name = ResourceDir::join_path(basedir, (*it));
+							name = ResourceDir::joinPath(baseDir, (*it));
 							result = true;
 							break;
 						}
@@ -352,10 +352,10 @@ namespace hltypes
 
 	String Resource::make_full_path(const String& filename)
 	{
-		String path = hdir::join_path(Resource::cwd, filename);
+		String path = hdir::joinPath(Resource::cwd, filename);
 		if (!Resource::zipArchive && Resource::archive != "" && Resource::archive != ".")
 		{
-			path = hdir::join_path(Resource::archive, path);
+			path = hdir::joinPath(Resource::archive, path);
 		}
 		return Dir::normalize(path);
 	}

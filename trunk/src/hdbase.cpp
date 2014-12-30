@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -19,20 +19,20 @@
 
 namespace hltypes
 {
-	String DirBase::basedir(const String& path)
+	String DirBase::baseDir(const String& path)
 	{
-		Array<String> result = DirBase::split_path(path);
+		Array<String> result = DirBase::splitPath(path);
 		if (result.size() < 2)
 		{
 			return ".";
 		}
 		result.remove_last();
-		return DirBase::join_paths(result, false);
+		return DirBase::joinPaths(result, false);
 	}
 
-	String DirBase::basename(const String& path)
+	String DirBase::baseName(const String& path)
 	{
-		Array<String> result = DirBase::split_path(path);
+		Array<String> result = DirBase::splitPath(path);
 		return (result.size() > 0 ? result.remove_last() : String());
 	}
 
@@ -54,7 +54,7 @@ namespace hltypes
 
 	String DirBase::normalize(const String& path)
 	{
-		Array<String> directories = DirBase::split_path(path);
+		Array<String> directories = DirBase::splitPath(path);
 		Array<String> result;
 		while (directories.size() > 0)
 		{
@@ -87,10 +87,10 @@ namespace hltypes
 		{
 			return ".";
 		}
-		return DirBase::join_paths(result);
+		return DirBase::joinPaths(result);
 	}
 		
-	String DirBase::join_path(const String& path1, const String& path2, bool systemize_result)
+	String DirBase::joinPath(const String& path1, const String& path2, bool systemizeResult)
 	{
 		String result;
 		bool slash1 = path1.ends_with("/");
@@ -107,14 +107,14 @@ namespace hltypes
 		{
 			result = path1.substr(0, path1.size() - 1) + path2;
 		}
-		if (systemize_result)
+		if (systemizeResult)
 		{
 			result = systemize(result);
 		}
 		return result;
 	}
 
-	String DirBase::join_paths(Array<String> paths, bool systemize_result)
+	String DirBase::joinPaths(Array<String> paths, bool systemizeResult)
 	{
 		if (paths.size() == 0)
 		{
@@ -124,23 +124,23 @@ namespace hltypes
 		while (paths.size() > 1)
 		{
 			path = paths.remove_last();
-			paths[paths.size() - 1] = DirBase::join_path(paths.last(), path, systemize_result);
+			paths[paths.size() - 1] = DirBase::joinPath(paths.last(), path, systemizeResult);
 		}
 		return paths[0];
 	}
 
-	Array<String> DirBase::split_path(const String& path)
+	Array<String> DirBase::splitPath(const String& path)
 	{
 		return DirBase::systemize(path).rtrim('/').split('/');
 	}
 
-	void DirBase::_prepend_directory(const String& dirname, Array<String>& entries)
+	void DirBase::_prependDirectory(const String& dirname, Array<String>& entries)
 	{
 		if (dirname != "")
 		{
 			foreach (String, it, entries)
 			{
-				(*it) = DirBase::join_path(dirname, (*it));
+				(*it) = DirBase::joinPath(dirname, (*it));
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -21,9 +21,9 @@ namespace hltypes
 	Map<String, Array<String> > ResourceDir::cacheDirectories;
 	Map<String, Array<String> > ResourceDir::cacheFiles;
 
-	bool ResourceDir::exists(const String& dirname, bool case_sensitive)
+	bool ResourceDir::exists(const String& dirName, bool caseSensitive)
 	{
-		String name = ResourceDir::normalize(dirname);
+		String name = ResourceDir::normalize(dirName);
 		if (name == "" || name == ".")
 		{
 			return true;
@@ -31,17 +31,17 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::isZipArchive())
 		{
-			bool result = ResourceDir::directories(ResourceDir::basedir(name)).contains(ResourceDir::basename(name));
-			if (!result && !case_sensitive)
+			bool result = ResourceDir::directories(ResourceDir::baseDir(name)).contains(ResourceDir::baseName(name));
+			if (!result && !caseSensitive)
 			{
-				String basedir = ResourceDir::basedir(name);
-				String basename = ResourceDir::basename(name);
-				Array<String> directories = ResourceDir::directories(basedir);
+				String baseDir = ResourceDir::baseDir(name);
+				String baseName = ResourceDir::baseName(name);
+				Array<String> directories = ResourceDir::directories(baseDir);
 				foreach (String, it, directories)
 				{
-					if ((*it).lower() == basename.lower())
+					if ((*it).lower() == baseName.lower())
 					{
-						name = ResourceDir::join_path(basedir, (*it));
+						name = ResourceDir::joinPath(baseDir, (*it));
 						result = true;
 						break;
 					}
@@ -50,39 +50,39 @@ namespace hltypes
 			return result;
 		}
 #endif
-		return Dir::exists(Resource::make_full_path(name), case_sensitive);
+		return Dir::exists(Resource::make_full_path(name), caseSensitive);
 	}
 	
-	Array<String> ResourceDir::entries(const String& dirname, bool prepend_dir)
+	Array<String> ResourceDir::entries(const String& dirName, bool prependDir)
 	{
-		Array<String> result = ResourceDir::contents(dirname, false);
+		Array<String> result = ResourceDir::contents(dirName, false);
 		result += String(".");
 		result += String("..");
-		if (prepend_dir)
+		if (prependDir)
 		{
-			ResourceDir::_prepend_directory(dirname, result);
+			ResourceDir::_prependDirectory(dirName, result);
 		}
 		return result;
 	}
 	
-	Array<String> ResourceDir::contents(const String& dirname, bool prepend_dir)
+	Array<String> ResourceDir::contents(const String& dirName, bool prependDir)
 	{
 		Array<String> result;
-		result = ResourceDir::directories(dirname, false) + ResourceDir::files(dirname, false);
+		result = ResourceDir::directories(dirName, false) + ResourceDir::files(dirName, false);
 		if (!Resource::isZipArchive())
 		{
 			result.remove_duplicates();
 		}
-		if (prepend_dir)
+		if (prependDir)
 		{
-			ResourceDir::_prepend_directory(dirname, result);
+			ResourceDir::_prependDirectory(dirName, result);
 		}
 		return result;
 	}
 	
-	Array<String> ResourceDir::directories(const String& dirname, bool prepend_dir)
+	Array<String> ResourceDir::directories(const String& dirName, bool prependDir)
 	{
-		String name = Resource::make_full_path(dirname);
+		String name = Resource::make_full_path(dirName);
 		Array<String> result;
 #ifdef _ZIPRESOURCE
 		if (Resource::isZipArchive())
@@ -93,12 +93,12 @@ namespace hltypes
 			}
 			else
 			{
-				Array<String> files = ResourceDir::_get_internal_files();
+				Array<String> files = ResourceDir::_getInternalFiles();
 				String current;
 				foreach (String, it, files)
 				{
 					current = (*it);
-					if (ResourceDir::_check_dir_prefix(current, name) && current != "" && current.contains('/'))
+					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && current.contains('/'))
 					{
 						result += current.split('/', 1).first();
 					}
@@ -110,18 +110,18 @@ namespace hltypes
 		else
 #endif
 		{
-			result = ResourceDir::_remove_cwd(Dir::directories(name, false)).removed_duplicates();
+			result = ResourceDir::_removeCwd(Dir::directories(name, false)).removed_duplicates();
 		}
-		if (prepend_dir)
+		if (prependDir)
 		{
-			ResourceDir::_prepend_directory(dirname, result);
+			ResourceDir::_prependDirectory(dirName, result);
 		}
 		return result;
 	}
 
-	Array<String> ResourceDir::files(const String& dirname, bool prepend_dir)
+	Array<String> ResourceDir::files(const String& dirName, bool prependDir)
 	{
-		String name = Resource::make_full_path(dirname);
+		String name = Resource::make_full_path(dirName);
 		Array<String> result;
 #ifdef _ZIPRESOURCE
 		if (Resource::isZipArchive())
@@ -132,12 +132,12 @@ namespace hltypes
 			}
 			else
 			{
-				Array<String> files = ResourceDir::_get_internal_files();
+				Array<String> files = ResourceDir::_getInternalFiles();
 				String current;
 				foreach (String, it, files)
 				{
 					current = (*it);
-					if (ResourceDir::_check_dir_prefix(current, name) && current != "" && !current.contains('/'))
+					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && !current.contains('/'))
 					{
 						result += current;
 					}
@@ -149,16 +149,16 @@ namespace hltypes
 		else
 #endif
 		{
-			result = ResourceDir::_remove_cwd(Dir::files(name, false)).removed_duplicates();
+			result = ResourceDir::_removeCwd(Dir::files(name, false)).removed_duplicates();
 		}
-		if (prepend_dir)
+		if (prependDir)
 		{
-			ResourceDir::_prepend_directory(dirname, result);
+			ResourceDir::_prependDirectory(dirName, result);
 		}
 		return result;
 	}
 
-	bool ResourceDir::_check_dir_prefix(String& path, const String& prefix)
+	bool ResourceDir::_checkDirPrefix(String& path, const String& prefix)
 	{
 		if (prefix == "" || prefix == ".")
 		{
@@ -180,7 +180,7 @@ namespace hltypes
 		return false;
 	}
 	
-	Array<String> ResourceDir::_get_internal_files()
+	Array<String> ResourceDir::_getInternalFiles()
 	{
 		Array<String> files;
 #ifdef _ZIPRESOURCE
@@ -194,7 +194,7 @@ namespace hltypes
 		return files;
 	}
 
-	Array<String> ResourceDir::_remove_cwd(Array<String> paths)
+	Array<String> ResourceDir::_removeCwd(Array<String> paths)
 	{
 		String cwd = Resource::getCwd() + "/";
 		if (!Resource::isZipArchive())

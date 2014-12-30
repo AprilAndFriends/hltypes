@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -28,7 +28,7 @@ namespace hltypes
 
 	void _Exception::_setInternalMessage(const String& message, const char* sourceFile, int lineNumber)
 	{
-		this->message = hsprintf("[%s:%d] %s", Dir::basename(sourceFile).c_str(), lineNumber, message.c_str());
+		this->message = hsprintf("[%s:%d] %s", Dir::baseName(sourceFile).c_str(), lineNumber, message.c_str());
 #ifdef _WINRT // because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
 		if (Log::isLevelDebug() && message != "")
 		{
@@ -43,42 +43,42 @@ namespace hltypes
 		String message = hsprintf("'%s' could not be opened!", filename.c_str());
 		try
 		{
-			String dir = DirBase::basedir(filename);
-			String basename = DirBase::basename(filename);
-			Array<String> files = (!isResource ? Dir::files(dir) : ResourceDir::files(dir));
+			String baseDir = DirBase::baseDir(filename);
+			String baseName = DirBase::baseName(filename);
+			Array<String> files = (!isResource ? Dir::files(baseDir) : ResourceDir::files(baseDir));
 			foreach (String, it, files)
 			{
-				if ((*it) == basename)
+				if ((*it) == baseName)
 				{
 					message += " File appears to be in use.";
 					throw _Exception("", "", 0);
 				}
-				if ((*it).lower() == basename.lower())
+				if ((*it).lower() == baseName.lower())
 				{
-					message += " But there is a file with a different case: " + Dir::join_path(dir, (*it));
+					message += " But there is a file with a different case: " + Dir::joinPath(baseDir, (*it));
 					throw _Exception("", "", 0);
 				}
 			}
-			Array<String> dirs = Dir::split_path(dir);
+			Array<String> dirs = Dir::splitPath(baseDir);
 			String path;
 			Array<String> directories;
 			for_iter (i, 0, dirs.size())
 			{
-				path = Dir::join_paths(dirs(0, dirs.size() - i));
+				path = Dir::joinPaths(dirs(0, dirs.size() - i));
 				if (!isResource ? !Dir::exists(path) && Dir::exists(path, false) : !ResourceDir::exists(path) && ResourceDir::exists(path, false))
 				{
-					dir = Dir::join_paths(dirs(0, dirs.size() - 1 - i));
-					basename = dirs[dirs.size() - 1 - i];
-					Array<String> directories = (!isResource ? Dir::directories(dir) : ResourceDir::directories(dir));
+					baseDir = Dir::joinPaths(dirs(0, dirs.size() - 1 - i));
+					baseName = dirs[dirs.size() - 1 - i];
+					Array<String> directories = (!isResource ? Dir::directories(baseDir) : ResourceDir::directories(baseDir));
 					foreach (String, it, directories)
 					{
-						if ((*it).lower() == basename.lower())
+						if ((*it).lower() == baseName.lower())
 						{
-							basename = (*it);
+							baseName = (*it);
 							break;
 						}
 					}
-					message += " But part of the path seems to have a different case: " + Dir::join_path(dir, basename);
+					message += " But part of the path seems to have a different case: " + Dir::joinPath(baseDir, baseName);
 					throw _Exception("", "", 0);
 				}
 			}
