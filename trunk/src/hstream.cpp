@@ -17,35 +17,35 @@
 
 namespace hltypes
 {
-	Stream::Stream(int initial_capacity) : StreamBase()
+	Stream::Stream(int initialCapacity) : StreamBase()
 	{
-		this->capacity = (int64_t)initial_capacity;
+		this->capacity = (int64_t)initialCapacity;
 		this->stream_size = 0;
 		this->stream_position = 0;
 		// using malloc because realloc is used later
 		this->stream = (unsigned char*)malloc((int)this->capacity);
 	}
 
-	Stream::Stream(unsigned char* initial_data, int initial_data_size) : StreamBase()
+	Stream::Stream(unsigned char* initial_data, int initialDataSize) : StreamBase()
 	{
-		this->capacity = (int64_t)initial_data_size;
-		this->stream_size = (int64_t)initial_data_size;
+		this->capacity = (int64_t)initialDataSize;
+		this->stream_size = (int64_t)initialDataSize;
 		this->stream_position = 0;
 		// using malloc because realloc is used later
 		this->stream = (unsigned char*)malloc((int)this->capacity);
-		memcpy(this->stream, initial_data, initial_data_size);
-		this->_update_data_size();
+		memcpy(this->stream, initial_data, initialDataSize);
+		this->_updateDataSize();
 	}
 
-	Stream::Stream(unsigned char* initial_data, int initial_data_size, int initial_capacity) : StreamBase()
+	Stream::Stream(unsigned char* initial_data, int initialDataSize, int initialCapacity) : StreamBase()
 	{
-		this->capacity = (int64_t)hmax(initial_capacity, initial_data_size);
-		this->stream_size = (int64_t)initial_data_size;
+		this->capacity = (int64_t)hmax(initialCapacity, initialDataSize);
+		this->stream_size = (int64_t)initialDataSize;
 		this->stream_position = 0;
 		// using malloc because realloc is used later
 		this->stream = (unsigned char*)malloc((int)this->capacity);
-		memcpy(this->stream, initial_data, initial_data_size);
-		this->_update_data_size();
+		memcpy(this->stream, initial_data, initialDataSize);
+		this->_updateDataSize();
 	}
 
 	Stream::~Stream()
@@ -56,12 +56,12 @@ namespace hltypes
 		}
 	}
 	
-	void Stream::clear(int initial_capacity)
+	void Stream::clear(int initialCapacity)
 	{
 		this->stream_size = 0;
 		this->stream_position = 0;
-		this->set_capacity(initial_capacity);
-		this->_update_data_size();
+		this->set_capacity(initialCapacity);
+		this->_updateDataSize();
 	}
 	
 	bool Stream::set_capacity(int new_capacity)
@@ -78,7 +78,7 @@ namespace hltypes
 			if (this->stream_size > this->capacity)
 			{
 				this->stream_size = this->capacity;
-				this->_update_data_size();
+				this->_updateDataSize();
 			}
 		}
 		return true;
@@ -91,7 +91,7 @@ namespace hltypes
 
 	int Stream::write_raw(StreamBase& stream, int count)
 	{
-		this->_check_availability();
+		this->_validate();
 		int result = 0;
 		if (count > 0)
 		{
@@ -106,7 +106,7 @@ namespace hltypes
 					if (this->stream_size < this->stream_position)
 					{
 						this->stream_size = this->stream_position;
-						this->_update_data_size();
+						this->_updateDataSize();
 					}
 				}
 			}
@@ -131,7 +131,7 @@ namespace hltypes
 
 	int Stream::prepare_manual_write_raw(int count)
 	{
-		this->_check_availability();
+		this->_validate();
 		int result = 0;
 		if (count > 0)
 		{
@@ -142,7 +142,7 @@ namespace hltypes
 				if (this->stream_size < this->stream_position + count)
 				{
 					this->stream_size = this->stream_position + count;
-					this->_update_data_size();
+					this->_updateDataSize();
 				}
 			}
 		}
@@ -151,7 +151,7 @@ namespace hltypes
 
 	int Stream::fill(unsigned char value, int count)
 	{
-		this->_check_availability();
+		this->_validate();
 		int result = 0;
 		if (count > 0)
 		{
@@ -164,7 +164,7 @@ namespace hltypes
 				if (this->stream_size < this->stream_position)
 				{
 					this->stream_size = this->stream_position;
-					this->_update_data_size();
+					this->_updateDataSize();
 				}
 			}
 		}
@@ -180,9 +180,9 @@ namespace hltypes
 		return this->stream[index];
 	}
 	
-	void Stream::_update_data_size()
+	void Stream::_updateDataSize()
 	{
-		this->data_size = this->stream_size;
+		this->dataSize = this->stream_size;
 	}
 	
 	int Stream::_read(void* buffer, int count)
@@ -226,9 +226,9 @@ namespace hltypes
 		return this->stream_position;
 	}
 	
-	bool Stream::_seek(int64_t offset, SeekMode seek_mode)
+	bool Stream::_seek(int64_t offset, SeekMode seekMode)
 	{
-		switch (seek_mode)
+		switch (seekMode)
 		{
 		case CURRENT:
 			this->stream_position = hclamp(this->stream_position + offset, 0LL, this->stream_size);

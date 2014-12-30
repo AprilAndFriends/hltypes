@@ -24,26 +24,26 @@ namespace hltypes
 	{
 	public:
 		/// @brief Constructor.
-		/// @param[in] initial_capacity Initial capacity of the internal buffer.
-		/// @note initial_capacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
-		Stream(int initial_capacity = 16);
+		/// @param[in] initialCapacity Initial capacity of the internal buffer.
+		/// @note initialCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
+		Stream(int initialCapacity = 16);
 		/// @brief Constructor.
 		/// @param[in] initial_data Initial data in the stream.
-		/// @param[in] initial_data_size Initial data's size.
+		/// @param[in] initialDataSize Initial data's size.
 		/// @note initial_data is copied into the stream.
-		Stream(unsigned char* initial_data, int initial_data_size);
+		Stream(unsigned char* initial_data, int initialDataSize);
 		/// @brief Constructor.
 		/// @param[in] initial_data Initial data in the stream.
-		/// @param[in] initial_data_size Initial data's size.
-		/// @param[in] initial_capacity Initial capacity of the internal buffer.
-		/// @note initial_data is copied into the stream. initial_capacity will be corrected to initial_data_size if less than initial_data_size.
-		Stream(unsigned char* initial_data, int initial_data_size, int initial_capacity);
+		/// @param[in] initialDataSize Initial data's size.
+		/// @param[in] initialCapacity Initial capacity of the internal buffer.
+		/// @note initial_data is copied into the stream. initialCapacity will be corrected to initialDataSize if less than initialDataSize.
+		Stream(unsigned char* initial_data, int initialDataSize, int initialCapacity);
 		/// @brief Destructor.
 		~Stream();
 		/// @brief Clears the stream.
-		/// @param[in] initial_capacity Initial capacity of the internal buffer.
-		/// @note initial_capacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
-		void clear(int initial_capacity = 16LL);
+		/// @param[in] initialCapacity Initial capacity of the internal buffer.
+		/// @note initialCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
+		void clear(int initialCapacity = 16LL);
 		/// @brief Resizes internal buffer.
 		/// @param[in] new_capacity New capacity of the internal buffer.
 		/// @return True if internal buffer was resized or already the same size that was requested.
@@ -102,7 +102,7 @@ namespace hltypes
 		int64_t capacity;
 
 		/// @brief Updates internal data size.
-		void _update_data_size();
+		void _updateDataSize();
 
 		/// @brief Reads data from the stream.
 		/// @param[in] buffer Destination data buffer.
@@ -122,8 +122,8 @@ namespace hltypes
 		int64_t _position();
 		/// @brief Seeks to position in stream.
 		/// @param[in] offset Seeking offset in bytes.
-		/// @param[in] seek_mode Seeking mode.
-		bool _seek(int64_t offset, SeekMode seek_mode = CURRENT);
+		/// @param[in] seekMode Seeking mode.
+		bool _seek(int64_t offset, SeekMode seekMode = CURRENT);
 		/// @brief Resizes internal buffer if necessary.
 		/// @param[in,out] write_size Number of bytes that is needed for the next write.
 		/// @note This does not change the data stream size. Use this to avoid allocation of too much data if not needed.

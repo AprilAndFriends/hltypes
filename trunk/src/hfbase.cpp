@@ -134,15 +134,15 @@ namespace hltypes
 		{
 			throw FileCouldNotOpenException(this->_descriptor());
 		}
-		this->_update_data_size();
+		this->_updateDataSize();
 	}
 	
 	void FileBase::_fclose()
 	{
-		this->_check_availability();
+		this->_validate();
 		fclose((FILE*)this->cfile);
 		this->cfile = NULL;
-		this->data_size = 0;
+		this->dataSize = 0;
 	}
 	
 	int FileBase::_fread(void* buffer, int count)
@@ -170,10 +170,10 @@ namespace hltypes
 		return (int64_t)position;
 	}
 	
-	bool FileBase::_fseek(int64_t offset, SeekMode seek_mode)
+	bool FileBase::_fseek(int64_t offset, SeekMode seekMode)
 	{
 		fpos_t position = 0;
-		switch (seek_mode)
+		switch (seekMode)
 		{
 		case CURRENT:
 			position = this->_fposition();
@@ -188,7 +188,7 @@ namespace hltypes
 		return (fsetpos((FILE*)this->cfile, &position) == 0);
 	}
 	
-	bool FileBase::_fexists(const String& filename, bool case_sensitive)
+	bool FileBase::_fexists(const String& filename, bool caseSensitive)
 	{
 		String name = Dir::normalize(filename);
 		bool result = false;
@@ -202,7 +202,7 @@ namespace hltypes
 			fclose(f);
 			result = true;
 		}
-		if (!result && !case_sensitive)
+		if (!result && !caseSensitive)
 		{
 			String baseDir = Dir::baseDir(name);
 			String baseName = Dir::baseName(name);

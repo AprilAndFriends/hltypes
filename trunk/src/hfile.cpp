@@ -55,9 +55,9 @@ namespace hltypes
 		this->_fclose();
 	}
 	
-	void File::_update_data_size()
+	void File::_updateDataSize()
 	{
-		this->data_size = File::get_info(this->filename).size;
+		this->dataSize = File::get_info(this->filename).size;
 	}
 
 	int File::_read(void* buffer, int count)
@@ -80,9 +80,9 @@ namespace hltypes
 		return this->_fposition();
 	}
 	
-	bool File::_seek(int64_t offset, SeekMode seek_mode)
+	bool File::_seek(int64_t offset, SeekMode seekMode)
 	{
-		return this->_fseek(offset, seek_mode);
+		return this->_fseek(offset, seekMode);
 	}
 	
 	bool File::create(const String& filename)
@@ -130,9 +130,9 @@ namespace hltypes
 #endif
 	}
 	
-	bool File::exists(const String& filename, bool case_sensitive) // such an sensitive method
+	bool File::exists(const String& filename, bool caseSensitive) // such an sensitive method
 	{
-		return FileBase::_fexists(filename, case_sensitive);
+		return FileBase::_fexists(filename, caseSensitive);
 	}
 	
 	bool File::clear(const String& filename)

@@ -129,16 +129,16 @@ namespace hltypes
 		int64_t _fposition();
 		/// @brief Seeks to position in file.
 		/// @param[in] offset Seeking offset in bytes.
-		/// @param[in] seek_mode Seeking mode.
+		/// @param[in] seekMode Seeking mode.
 		/// @return True if successful.
-		bool _fseek(int64_t offset, SeekMode seek_mode = CURRENT);
+		bool _fseek(int64_t offset, SeekMode seekMode = CURRENT);
 
 		/// @brief Checks if a file exists.
 		/// @param[in] filename Name of the file.
-		/// @param[in] case_sensitive Whether to check case sensitive files if file was not found.
+		/// @param[in] caseSensitive Whether to check case sensitive files if file was not found.
 		/// @return True if file exists.
-		/// @note Disabling case_sensitive is somewhat costly if the given file is not found at first.
-		static bool _fexists(const String& filename, bool case_sensitive = true);
+		/// @note Disabling caseSensitive is somewhat costly if the given file is not found at first.
+		static bool _fexists(const String& filename, bool caseSensitive = true);
 
 		/// @brief Defines the number of repeated attempts to access a file.
 		static int repeats;
