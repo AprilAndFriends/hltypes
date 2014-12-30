@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -24,7 +24,7 @@
 #endif
 
 // prevents recursive calls of Dir::rename as this function is called via this pointer
-int (*d_rename)(const char* old_name, const char* new_name) = rename;
+int (*d_rename)(const char* oldName, const char* newName) = rename;
 
 #include "harray.h"
 #include "hdir.h"
@@ -123,27 +123,27 @@ namespace hltypes
 #endif
 	}
 	
-	static bool hremove(const String& dirname)
+	static bool hremove(const String& dirName)
 	{
 #ifdef _WIN32
-		return (_wremove(dirname.w_str().c_str()) != 0);
+		return (_wremove(dirName.w_str().c_str()) != 0);
 #else
-		return (remove(dirname.c_str()) != 0); // TODO - should be ported to Unix systems as well
+		return (remove(dirName.c_str()) != 0); // TODO - should be ported to Unix systems as well
 #endif
 	}
 	
-	static bool hrmdir(const String& dirname)
+	static bool hrmdir(const String& dirName)
 	{
 #ifdef _WIN32
-		return (_wrmdir(dirname.w_str().c_str()) != 0);
+		return (_wrmdir(dirName.w_str().c_str()) != 0);
 #else
-		return (_rmdir(dirname.c_str()) != 0); // TODO - should be ported to Unix systems as well
+		return (_rmdir(dirName.c_str()) != 0); // TODO - should be ported to Unix systems as well
 #endif
 	}
 	
-	bool Dir::create(const String& dirname)
+	bool Dir::create(const String& dirName)
 	{
-		String name = Dir::normalize(dirname);
+		String name = Dir::normalize(dirName);
 		if (name == "" || Dir::exists(name))
 		{
 			return false;
@@ -155,21 +155,21 @@ namespace hltypes
 			hmkdir(path);
 			foreach (String, it, folders)
 			{
-				path = Dir::join_path(path, (*it), false);
+				path = Dir::joinPath(path, (*it), false);
 				hmkdir(path);
 			}
 		}
-		return Dir::exists(dirname);
+		return Dir::exists(dirName);
 	}
 	
-	bool Dir::create_new(const String& dirname)
+	bool Dir::createNew(const String& dirName)
 	{
-		return (Dir::create(dirname) || Dir::clear(dirname));
+		return (Dir::create(dirName) || Dir::clear(dirName));
 	}
 	
-	bool Dir::remove(const String& dirname)
+	bool Dir::remove(const String& dirName)
 	{
-		String name = Dir::normalize(dirname);
+		String name = Dir::normalize(dirName);
 		if (name == "" || !Dir::exists(name))
 		{
 			return false;
@@ -177,20 +177,20 @@ namespace hltypes
 		Array<String> directories = Dir::directories(name);
 		foreach (String, it, directories)
 		{
-			Dir::remove(Dir::join_path(name, (*it), false));
+			Dir::remove(Dir::joinPath(name, (*it), false));
 		}
 		Array<String> files = Dir::files(name);
 		foreach (String, it, files)
 		{
-			File::remove(Dir::join_path(name, (*it), false));
+			File::remove(Dir::joinPath(name, (*it), false));
 		}
 		hrmdir(name);
 		return Dir::exists(name);
 	}
 	
-	bool Dir::exists(const String& dirname, bool case_sensitive)
+	bool Dir::exists(const String& dirName, bool caseSensitive)
 	{
-		String name = Dir::normalize(dirname);
+		String name = Dir::normalize(dirName);
 		bool result = false;
 		DIR* dir = _opendir(name);
 		if (dir != NULL)
@@ -198,16 +198,16 @@ namespace hltypes
 			_closedir(dir);
 			result = true;
 		}
-		if (!result && !case_sensitive)
+		if (!result && !caseSensitive)
 		{
-			String basedir = Dir::basedir(name);
-			String basename = Dir::basename(name);
-			Array<String> directories = Dir::directories(basedir);
+			String baseDir = Dir::baseDir(name);
+			String baseName = Dir::baseName(name);
+			Array<String> directories = Dir::directories(baseDir);
 			foreach (String, it, directories)
 			{
-				if ((*it).lower() == basename.lower())
+				if ((*it).lower() == baseName.lower())
 				{
-					name = Dir::join_path(basedir, (*it));
+					name = Dir::joinPath(baseDir, (*it));
 					result = true;
 					break;
 				}
@@ -216,9 +216,9 @@ namespace hltypes
 		return result;
 	}
 	
-	bool Dir::clear(const String& dirname)
+	bool Dir::clear(const String& dirName)
 	{
-		String name = Dir::normalize(dirname);
+		String name = Dir::normalize(dirName);
 		if (name == "" || !Dir::exists(name))
 		{
 			return false;
@@ -226,60 +226,60 @@ namespace hltypes
 		Array<String> directories = Dir::directories(name);
 		foreach (String, it, directories)
 		{
-			Dir::remove(Dir::join_path(name, (*it), false));
+			Dir::remove(Dir::joinPath(name, (*it), false));
 		}
 		Array<String> files = Dir::files(name);
 		foreach (String, it, files)
 		{
-			File::remove(Dir::join_path(name, (*it), false));
+			File::remove(Dir::joinPath(name, (*it), false));
 		}
 		return (directories.size() > 0 || files.size() > 0);
 	}
 	
-	bool Dir::rename(const String& old_dirname, const String& new_dirname)
+	bool Dir::rename(const String& oldDirName, const String& newDirName)
 	{
-		String old_name = Dir::normalize(old_dirname);
-		String new_name = Dir::normalize(new_dirname);
-		if (!Dir::exists(old_name) || Dir::exists(new_name))
+		String oldName = Dir::normalize(oldDirName);
+		String newName = Dir::normalize(newDirName);
+		if (!Dir::exists(oldName) || Dir::exists(newName))
 		{
 			return false;
 		}
-		Dir::create(Dir::basedir(new_name));
-		return (d_rename(old_name.c_str(), new_name.c_str()) == 0);
+		Dir::create(Dir::baseDir(newName));
+		return (d_rename(oldName.c_str(), newName.c_str()) == 0);
 	}
 	
-	bool Dir::move(const String& dirname, const String& path)
+	bool Dir::move(const String& dirName, const String& path)
 	{
-		String name = Dir::normalize(dirname);
+		String name = Dir::normalize(dirName);
 		String path_name = Dir::normalize(path);
-		return Dir::rename(name, Dir::join_path(path_name, Dir::basename(name), false));
+		return Dir::rename(name, Dir::joinPath(path_name, Dir::baseName(name), false));
 	}
 	
-	bool Dir::copy(const String& old_dirname, const String& new_dirname)
+	bool Dir::copy(const String& oldDirName, const String& newDirName)
 	{
-		String old_name = Dir::normalize(old_dirname);
-		String new_name = Dir::normalize(new_dirname);
-		if (!Dir::exists(old_name) || Dir::exists(new_name))
+		String oldName = Dir::normalize(oldDirName);
+		String newName = Dir::normalize(newDirName);
+		if (!Dir::exists(oldName) || Dir::exists(newName))
 		{
 			return false;
 		}
-		Dir::create(new_name);
-		Array<String> directories = Dir::directories(old_name);
+		Dir::create(newName);
+		Array<String> directories = Dir::directories(oldName);
 		foreach (String, it, directories)
 		{
-			Dir::copy(Dir::join_path(old_name, (*it), false), Dir::join_path(new_name, (*it), false));
+			Dir::copy(Dir::joinPath(oldName, (*it), false), Dir::joinPath(newName, (*it), false));
 		}
-		Array<String> files = Dir::files(old_name);
+		Array<String> files = Dir::files(oldName);
 		foreach (String, it, files)
 		{
-			File::copy(Dir::join_path(old_name, (*it), false), Dir::join_path(new_name, (*it), false));
+			File::copy(Dir::joinPath(oldName, (*it), false), Dir::joinPath(newName, (*it), false));
 		}
 		return true;
 	}
 	
-	Array<String> Dir::entries(const String& dirname, bool prepend_dir)
+	Array<String> Dir::entries(const String& dirName, bool prependDir)
 	{
-		String name = Dir::normalize(dirname);
+		String name = Dir::normalize(dirName);
 		Array<String> result;
 		if (Dir::exists(name))
 		{
@@ -299,16 +299,16 @@ namespace hltypes
 			}
 			_closedir(dir);
 		}
-		if (prepend_dir)
+		if (prependDir)
 		{
-			Dir::_prepend_directory(name, result);
+			Dir::_prependDirectory(name, result);
 		}
 		return result;
 	}
 	
-	Array<String> Dir::contents(const String& dirname, bool prepend_dir)
+	Array<String> Dir::contents(const String& dirName, bool prependDir)
 	{
-		String name = Dir::normalize(dirname);
+		String name = Dir::normalize(dirName);
 		Array<String> result;
 		if (Dir::exists(name))
 		{
@@ -328,16 +328,16 @@ namespace hltypes
 			}
 			_closedir(dir);
 		}
-		if (prepend_dir)
+		if (prependDir)
 		{
-			Dir::_prepend_directory(name, result);
+			Dir::_prependDirectory(name, result);
 		}
 		return result;
 	}
 	
-	Array<String> Dir::directories(const String& dirname, bool prepend_dir)
+	Array<String> Dir::directories(const String& dirName, bool prependDir)
 	{
-		String name = Dir::normalize(dirname);
+		String name = Dir::normalize(dirName);
 		String current;
 		Array<String> result;
 		if (Dir::exists(name))
@@ -346,7 +346,7 @@ namespace hltypes
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				current = Dir::join_path(name, String::from_unicode(entry->d_name), false);
+				current = Dir::joinPath(name, String::from_unicode(entry->d_name), false);
 				if (Dir::exists(current))
 				{
 					result += String::from_unicode(entry->d_name);
@@ -362,16 +362,16 @@ namespace hltypes
 			}
 			_closedir(dir);
 		}
-		if (prepend_dir)
+		if (prependDir)
 		{
-			Dir::_prepend_directory(name, result);
+			Dir::_prependDirectory(name, result);
 		}
 		return result;
 	}
 	
-	Array<String> Dir::files(const String& dirname, bool prepend_dir)
+	Array<String> Dir::files(const String& dirName, bool prependDir)
 	{
-		String name = Dir::normalize(dirname);
+		String name = Dir::normalize(dirName);
 		String current;
 		Array<String> result;
 		if (Dir::exists(name))
@@ -380,7 +380,7 @@ namespace hltypes
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				current = Dir::join_path(name, String::from_unicode(entry->d_name), false);
+				current = Dir::joinPath(name, String::from_unicode(entry->d_name), false);
 				if (File::exists(current))
 				{
 					result += String::from_unicode(entry->d_name);
@@ -396,21 +396,21 @@ namespace hltypes
 			}
 			_closedir(dir);
 		}
-		if (prepend_dir)
+		if (prependDir)
 		{
-			Dir::_prepend_directory(name, result);
+			Dir::_prependDirectory(name, result);
 		}
 		return result;
 	}
 
-	void Dir::chdir(const String& dirname)
+	void Dir::chdir(const String& dirName)
 	{
 #ifdef _WIN32
 #ifndef _WINRT
-		_wchdir(Dir::systemize(dirname).w_str().c_str());
+		_wchdir(Dir::systemize(dirName).w_str().c_str());
 #endif
 #else
-		_chdir(Dir::systemize(dirname).c_str());
+		_chdir(Dir::systemize(dirName).c_str());
 #endif
 	}
 
