@@ -34,21 +34,21 @@ TEST(Stream_read_write)
 TEST(Stream_read_line)
 {
 	hstream s;
-	s.write_line("This is a test.");
-	s.write_line("This is also a test.");
-	s.write_line("This is another test.");
+	s.writeLine("This is a test.");
+	s.writeLine("This is also a test.");
+	s.writeLine("This is another test.");
 	s.rewind();
 	hstr text = s.read();
 	CHECK(text == "This is a test.\nThis is also a test.\nThis is another test.\n");
 	s.rewind();
-	text = s.read_line();
+	text = s.readLine();
 	CHECK(text == "This is a test.");
-	text = s.read_line();
+	text = s.readLine();
 	CHECK(text == "This is also a test.");
-	text = s.read_line();
+	text = s.readLine();
 	CHECK(text == "This is another test.");
 	s.rewind();
-	harray<hstr> lines = s.read_lines();
+	harray<hstr> lines = s.readLines();
 	CHECK(lines[0] == "This is a test." && lines[1] == "This is also a test." && lines[2] == "This is another test.");
 }
 
@@ -84,10 +84,10 @@ TEST(Stream_read_write_raw)
 	a[6] = 's';
 	a[7] = 't';
 	a[8] = '.';
-	s.write_raw(a, 5);
+	s.writeRaw(a, 5);
 	s.rewind();
 	unsigned char b[6] = {'\0'};
-	s.read_raw(b, 5);
+	s.readRaw(b, 5);
 	hstr str = hstr((char*)b);
 	CHECK(str == "Raw t");
 }

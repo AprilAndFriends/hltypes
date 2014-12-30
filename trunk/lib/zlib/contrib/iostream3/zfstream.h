@@ -267,7 +267,7 @@ public:
    *  @return  True if file is open.
   */
   bool
-  is_open() { return sb.is_open(); }
+  is_open() { return sb.isOpen(); }
 
   /**
    *  @brief  Open gzipped file.
@@ -356,7 +356,7 @@ public:
    *  @return  True if file is open.
   */
   bool
-  is_open() { return sb.is_open(); }
+  is_open() { return sb.isOpen(); }
 
   /**
    *  @brief  Open gzipped file.
