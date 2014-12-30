@@ -32,7 +32,7 @@ namespace hltypes
 #ifdef _WINRT // because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
 		if (Log::isLevelDebug() && message != "")
 		{
-			hltypes::_platform_print("FATAL", this->message, 1000);
+			hltypes::_platformPrint("FATAL", this->message, 1000);
 		}
 #endif
 	}

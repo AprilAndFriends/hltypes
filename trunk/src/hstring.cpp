@@ -979,8 +979,8 @@ namespace hltypes
 #ifdef _DEBUG
 			if (!checked && code > 0xFFFF)
 			{
-				hltypes::_platform_print(hltypes::logTag, "String uses Unicode characters above 0xFFFF:", 1000);
-				hltypes::_platform_print(hltypes::logTag, *this, 1000); // usually causes a stack overflow
+				hltypes::_platformPrint(hltypes::logTag, "String uses Unicode characters above 0xFFFF:", 1000);
+				hltypes::_platformPrint(hltypes::logTag, *this, 1000); // usually causes a stack overflow
 				checked = true;
 			}
 #endif

@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 ///
 /// @section LICENSE
 ///
@@ -14,7 +14,7 @@
 
 namespace hltypes
 {
-	void _platform_print(const String& tag, const String& message, int level)
+	void _platformPrint(const String& tag, const String& message, int level)
 	{
 		// hltypes on Mac supports XCodeColors plugin to colorize output when
 		// debugging in XCode :)
@@ -39,7 +39,7 @@ namespace hltypes
 			{
 				const char* result = getenv("XcodeColors");
 				XCodeColorsInstalled = result != NULL && strcmp(result, "YES") == 0 ? 1 : 0;
-				_platform_print(tag, message, level);
+				_platformPrint(tag, message, level);
 				return;
 			}
 			
