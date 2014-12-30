@@ -8,7 +8,7 @@
 
 #include <tinyxml.h>
 
-#include <hltypes/exception.h>
+#include <hltypes/hexception.h>
 #include <hltypes/hlog.h>
 #include <hltypes/hrdir.h>
 #include <hltypes/hresource.h>

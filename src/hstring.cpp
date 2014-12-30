@@ -13,8 +13,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "exception.h"
 #include "harray.h"
+#include "hexception.h"
 #include "hlog.h"
 #include "hltypesUtil.h"
 #include "hstring.h"

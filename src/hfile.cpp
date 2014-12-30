@@ -12,8 +12,8 @@
 int (*f_rename)(const char* old_name, const char* new_name) = rename;
 int (*f_remove)(const char* filename) = remove;
 
-#include "exception.h"
 #include "hdir.h"
+#include "hexception.h"
 #include "hfile.h"
 #include "hlog.h"
 #include "hstring.h"
