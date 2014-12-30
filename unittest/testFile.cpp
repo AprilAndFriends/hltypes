@@ -43,21 +43,21 @@ TEST(File_read_line)
 	hstr filename = "test.txt";
 	hfile f;
 	f.open(filename, hfile::WRITE);
-	f.write_line("This is a test.");
-	f.write_line("This is also a test.");
-	f.write_line("This is another test.");
+	f.writeLine("This is a test.");
+	f.writeLine("This is also a test.");
+	f.writeLine("This is another test.");
 	f.open(filename, hfile::READ);
 	hstr text = f.read();
 	CHECK(text == "This is a test.\nThis is also a test.\nThis is another test.\n");
 	f.open(filename, hfile::READ);
-	text = f.read_line();
+	text = f.readLine();
 	CHECK(text == "This is a test.");
-	text = f.read_line();
+	text = f.readLine();
 	CHECK(text == "This is also a test.");
-	text = f.read_line();
+	text = f.readLine();
 	CHECK(text == "This is another test.");
 	f.open(filename, hfile::READ);
-	harray<hstr> lines = f.read_lines();
+	harray<hstr> lines = f.readLines();
 	CHECK(lines[0] == "This is a test." && lines[1] == "This is also a test." && lines[2] == "This is another test.");
 }
 
@@ -99,11 +99,11 @@ TEST(File_read_write_raw)
 	a[6] = 's';
 	a[7] = 't';
 	a[8] = '.';
-	f.write_raw(a, 5);
+	f.writeRaw(a, 5);
 	f.close();
 	f.open(filename, hfile::READ);
 	unsigned char b[6] = {'\0'};
-	f.read_raw(b, 5);
+	f.readRaw(b, 5);
 	hstr str = hstr((char*)b);
 	CHECK(str == "Raw t");
 	f.close();
