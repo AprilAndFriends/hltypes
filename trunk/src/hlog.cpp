@@ -19,6 +19,7 @@
 #include "hplatform.h"
 #include "hstring.h"
 
+// required for Win32 only actually
 #define MAX_FILE_SIZE 131072
 
 #if defined(_ANDROID) && !defined(_DEBUG)
@@ -50,37 +51,37 @@ namespace hltypes
 	int Log::LevelDebug = 1;
 #endif
 
-	bool Log::level_write = true;
-	bool Log::level_error = true;
-	bool Log::level_warn = true;
+	bool Log::levelWrite = true;
+	bool Log::levelError = true;
+	bool Log::levelWarn = true;
 #ifndef _DEBUG
-	bool Log::level_debug = false;
+	bool Log::levelDebug = false;
 #else
-	bool Log::level_debug = true;
+	bool Log::levelDebug = true;
 #endif
-	Array<String> Log::tag_filters;
+	Array<String> Log::tagFilters;
 	String Log::filename;
-	void (*Log::callback_function)(const String&, const String&) = NULL;
+	void (*Log::callbackFunction)(const String&, const String&) = NULL;
 	Mutex Log::mutex;
-	int Log::file_index = 0;
-	String Log::file_extension;
+	int Log::fileIndex = 0;
+	String Log::fileExtension;
 
-	String Log::_get_file_name(const hltypes::String& filename, int index)
+	String Log::_makeFilename(const hltypes::String& filename, int index)
 	{
-		return (filename + ".hlog/" + String(index) + "." + Log::file_extension);
+		return (filename + ".hlog/" + String(index) + "." + Log::fileExtension);
 	}
 
-	String Log::_get_current_file_name(const hltypes::String& filename)
+	String Log::_makeCurrentFilename(const hltypes::String& filename)
 	{
 		if (!Dir::exists(filename + ".hlog"))
 		{
 			Dir::create(filename + ".hlog");
 		}
-		String newFilename = Log::_get_file_name(filename, Log::file_index);
+		String newFilename = Log::_makeFilename(filename, Log::fileIndex);
 		if (File::hsize(newFilename) > MAX_FILE_SIZE)
 		{
-			++Log::file_index;
-			newFilename = Log::_get_file_name(filename, Log::file_index);
+			++Log::fileIndex;
+			newFilename = Log::_makeFilename(filename, Log::fileIndex);
 			File::create_new(newFilename); // clears the file
 		}
 		return newFilename;
@@ -88,10 +89,10 @@ namespace hltypes
 	
 	void Log::setLevels(bool write, bool error, bool warn, bool debug)
 	{
-		Log::level_write = write;
-		Log::level_error = error;
-		Log::level_warn = warn;
-		Log::level_debug = debug;
+		Log::levelWrite = write;
+		Log::levelError = error;
+		Log::levelWarn = warn;
+		Log::levelDebug = debug;
 	}
 	
 	void Log::setFilename(const String& filename, bool clearFile)
@@ -109,7 +110,7 @@ namespace hltypes
 			lock.release();
 			Log::finalize(clearFile); // left over from last run, merge
 		}
-		Log::file_extension = File::extension_of(filename);
+		Log::fileExtension = File::extension_of(filename);
 #else
 		if (clearFile)
 		{
@@ -118,25 +119,25 @@ namespace hltypes
 #endif
 	}
 	
-	bool Log::_system_log(const String& tag, const String& message, int level) // level is needed for Android
+	bool Log::_systemLog(const String& tag, const String& message, int level) // level is needed for Android
 	{
-		if (level == LevelWrite && !Log::level_write)
+		if (level == LevelWrite && !Log::levelWrite)
 		{
 			return false;
 		}
-		if (level == LevelError && !Log::level_error)
+		if (level == LevelError && !Log::levelError)
 		{
 			return false;
 		}
-		if (level == LevelWarn && !Log::level_warn)
+		if (level == LevelWarn && !Log::levelWarn)
 		{
 			return false;
 		}
-		if (level == LevelDebug && !Log::level_debug)
+		if (level == LevelDebug && !Log::levelDebug)
 		{
 			return false;
 		}
-		if (tag != "" && Log::tag_filters.size() > 0 && !Log::tag_filters.contains(tag))
+		if (tag != "" && Log::tagFilters.size() > 0 && !Log::tagFilters.contains(tag))
 		{
 			return false;
 		}
@@ -150,7 +151,7 @@ namespace hltypes
 #ifndef _WIN32
 				file.open(Log::filename, File::APPEND);
 #else
-				file.open(Log::_get_current_file_name(Log::filename), File::APPEND);
+				file.open(Log::_makeCurrentFilename(Log::filename), File::APPEND);
 #endif
 				String log_message = (tag != "" ? "[" + tag + "] " + message : message);
 				file.writef("%s\n", log_message.c_str());
@@ -165,9 +166,9 @@ namespace hltypes
 		}
 		try
 		{
-			if (Log::callback_function != NULL)
+			if (Log::callbackFunction != NULL)
 			{
-				(*Log::callback_function)(tag, message);
+				(*Log::callbackFunction)(tag, message);
 			}
 		}
 		catch (_Exception& e)
@@ -180,22 +181,22 @@ namespace hltypes
 	
 	bool Log::write(const String& tag, const String& message)
 	{
-		return Log::_system_log(tag, message, LevelWrite);
+		return Log::_systemLog(tag, message, LevelWrite);
 	}
 	
 	bool Log::error(const String& tag, const String& message)
 	{
-		return Log::_system_log(tag, "ERROR: " + message, LevelError);
+		return Log::_systemLog(tag, "ERROR: " + message, LevelError);
 	}
 	
 	bool Log::warn(const String& tag, const String& message)
 	{
-		return Log::_system_log(tag, "WARNING: " + message, LevelWarn);
+		return Log::_systemLog(tag, "WARNING: " + message, LevelWarn);
 	}
 	
 	bool Log::debug(const String& tag, const String& message)
 	{
-		return Log::_system_log(tag, "DEBUG: " + message, LevelDebug);
+		return Log::_systemLog(tag, "DEBUG: " + message, LevelDebug);
 	}
 	
 	bool Log::writef(const String& tag, const char* format, ...)
@@ -240,9 +241,9 @@ namespace hltypes
 		{
 			file.open(Log::filename, File::APPEND);
 		}
-		for_iter (i, 0, Log::file_index + 1)
+		for_iter (i, 0, Log::fileIndex + 1)
 		{
-			filename = Log::_get_file_name(Log::filename, i);
+			filename = Log::_makeFilename(Log::filename, i);
 			if (File::exists(filename))
 			{
 				file.write(File::hread(filename));
@@ -254,7 +255,7 @@ namespace hltypes
 		}
 		file.close(); // to flush everything
 		Dir::remove(Log::filename + ".hlog");
-		Log::file_index = 0;
+		Log::fileIndex = 0;
 #endif
 	}
 
