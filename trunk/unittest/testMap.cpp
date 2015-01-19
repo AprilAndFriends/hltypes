@@ -37,10 +37,10 @@ TEST(Map_adding)
 	CHECK(a.has_value(2));
 	CHECK(a.has_value(7));
 	CHECK(!a.has_value(6));
-	CHECK(a.has_key("a"));
-	CHECK(a.has_key("abc"));
-	CHECK(a.has_key("test"));
-	CHECK(!a.has_key("key"));
+	CHECK(a.hasKey("a"));
+	CHECK(a.hasKey("abc"));
+	CHECK(a.hasKey("test"));
+	CHECK(!a.hasKey("key"));
 	harray<int> values = a.values();
 	CHECK(values.size() == 3);
 	CHECK(values.contains(1));
@@ -71,9 +71,9 @@ TEST(Map_removing)
 	a["B"] = 2;
 	a["C"] = 7;
 	harray<hstr> keys = a.keys();
-	CHECK(a.has_key("A"));
+	CHECK(a.hasKey("A"));
 	a.remove_key("A");
-	CHECK(!a.has_key("A"));
+	CHECK(!a.hasKey("A"));
 	CHECK(!a.has_keys(keys));
 	a["A"] = 1;
 	harray<int> values = a.values();
@@ -97,19 +97,19 @@ TEST(Map_structure)
 	b["A"] = 5;
 	b["D"] = 6;
 	CHECK(a["A"] == 1);
-	CHECK(!a.has_key("D"));
-	CHECK(a.try_get_by_key("E", 10) == 10);
-	CHECK(a.try_get_by_key("E", 5) == 5);
+	CHECK(!a.hasKey("D"));
+	CHECK(a.tryGet("E", 10) == 10);
+	CHECK(a.tryGet("E", 5) == 5);
 	a.insert(b); // does not overwrite already existing keys
 	CHECK(a["A"] == 1);
 	CHECK(a["D"] == 6);
 	b["E"] = 8;
-	CHECK(!a.has_key("E"));
+	CHECK(!a.hasKey("E"));
 	a.inject(b); // overwrites already existing keys
 	CHECK(a["A"] == 5);
 	CHECK(a["D"] == 6);
 	CHECK(a["E"] == 8);
-	CHECK(a.try_get_by_key("E", 10) == 8);
+	CHECK(a.tryGet("E", 10) == 8);
 }
 
 TEST(Map_iteration)
@@ -155,7 +155,7 @@ TEST(Map_random)
 	a[3] = 13;
 	int value;
 	int key = a.random(&value);
-	CHECK(a.has_key(key));
+	CHECK(a.hasKey(key));
 	CHECK(a.has_value(value));
 	hmap<int, int> b = a.random(2);
 	CHECK(b.size() == 2);
@@ -215,10 +215,10 @@ TEST(Map_cast)
 	CHECK(b.has_keys(keys));
 	harray<hstr> values = a.values().cast<hstr>();
 	CHECK(b.has_values(values));
-	CHECK(b.has_key(1));
-	CHECK(b.has_key(5));
-	CHECK(b.has_key(100));
-	CHECK(b.has_key(-54321));
+	CHECK(b.hasKey(1));
+	CHECK(b.hasKey(5));
+	CHECK(b.hasKey(100));
+	CHECK(b.hasKey(-54321));
 	CHECK(b[1] == "0");
 	CHECK(b[5] == "-10");
 	CHECK(b[100] == "22");
