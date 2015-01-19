@@ -75,6 +75,7 @@ namespace hltypes
 	
 	void Resource::open(const String& filename)
 	{
+		this->resourceFilename = Dir::normalize(filename);
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
@@ -82,7 +83,7 @@ namespace hltypes
 			{
 				this->close();
 			}
-			this->filename = Dir::normalize(filename);
+			this->filename = this->resourceFilename;
 			int attempts = Resource::repeats + 1;
 			while (true)
 			{
@@ -158,7 +159,7 @@ namespace hltypes
 		}
 #endif
 		// using hinfo, because an implementation with _position() and _seek() can cause problems faulty
-		this->dataSize = Resource::hinfo(this->filename).size;
+		this->dataSize = Resource::hinfo(this->resourceFilename).size;
 	}
 
 	int Resource::_read(void* buffer, int count)
