@@ -83,7 +83,7 @@ namespace hltypes
 			result += c;
 			if (delimiter != "")
 			{
-				index = result.find(delimiter);
+				index = (int)result.find(delimiter);
 				if (index >= 0)
 				{
 					this->_seek(index - result.size() + delimiter.size(), CURRENT);
@@ -141,7 +141,7 @@ namespace hltypes
 	void StreamBase::write(const char* text)
 	{
 		this->_validate();
-		this->_write(text, strlen(text));
+		this->_write(text, (int)strlen(text));
 		this->_updateDataSize();
 	}
 	

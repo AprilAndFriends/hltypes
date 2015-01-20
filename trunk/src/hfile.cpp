@@ -202,7 +202,7 @@ namespace hltypes
 		unsigned char c[BUFFER_SIZE] = {0};
 		while (!oldFile.eof())
 		{
-			count = fread(c, 1, BUFFER_SIZE, (FILE*)oldFile.cfile);
+			count = (int)fread(c, 1, BUFFER_SIZE, (FILE*)oldFile.cfile);
 			fwrite(c, 1, count, (FILE*)newFile.cfile);
 		}
 		return true;

@@ -55,7 +55,7 @@ namespace hltypes
 	{
 		if (Dir::baseName(path).contains("."))
 		{
-			int index = path.rfind(".");
+			int index = (int)path.rfind(".");
 			if (index >= 0)
 			{
 				return path(index + 1, -1);
@@ -68,7 +68,7 @@ namespace hltypes
 	{
 		if (Dir::baseName(path).contains("."))
 		{
-			int index = path.rfind(".");
+			int index = (int)path.rfind(".");
 			if (index >= 0)
 			{
 				return path.substr(0, index);
