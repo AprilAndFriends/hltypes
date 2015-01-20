@@ -83,7 +83,7 @@ namespace hltypes
 		/// @return The number of values in the Map.
 		inline int size() const
 		{
-			return stdmap::size();
+			return (int)stdmap::size();
 		}
 		/// @brief Returns an Array with all keys.
 		/// @return An Array with all keys.

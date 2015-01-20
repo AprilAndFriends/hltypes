@@ -141,17 +141,17 @@ namespace hltypes
 
 	Array<char> String::split() const
 	{
-		return Array<char>(stdstr::c_str(), stdstr::size());
+		return Array<char>(stdstr::c_str(), (int)stdstr::size());
 	}
 	
 	Array<String> String::split(const char* delimiter, unsigned int n, bool remove_empty) const
 	{
 		Array<String> out;
 		const char *s = stdstr::c_str(), *p;
-		int delimiter_len = strlen(delimiter);
+		int delimiter_len = (int)strlen(delimiter);
 		while ((p = strstr(s, delimiter)) != 0 && n > 0)
 		{
-			out += String(s, p - s);
+			out += String(s, (int)(p - s));
 			s = p + delimiter_len;
 			--n;
 		}
@@ -178,7 +178,7 @@ namespace hltypes
 	{
 		Array<String> out;
 		const char *s = stdstr::c_str(), *p;
-		int delimiter_len = strlen(delimiter);
+		int delimiter_len = (int)strlen(delimiter);
 		for (p = s + strlen(s) - 1; p != s && n > 0; --p)
 		{
 			if (strncmp(p, delimiter, delimiter_len) == 0)
@@ -188,12 +188,12 @@ namespace hltypes
 		}
 		if (s != p)
 		{
-			out += String(s, p - s + 1);
+			out += String(s, (int)(p - s + 1));
 			s = p + 1 + delimiter_len;
 		}
 		while ((p = strstr(s, delimiter)) != 0)
 		{
-			out += String(s, p - s);
+			out += String(s, (int)(p - s));
 			s = p + delimiter_len;
 		}
 		out += String(s);
@@ -217,7 +217,7 @@ namespace hltypes
 	
 	bool String::split(const char* delimiter, String& out_left, String& out_right) const
 	{
-		int index = this->find(delimiter);
+		int index = (int)this->find(delimiter);
 		if (index < 0)
 		{
 			return false;
@@ -229,7 +229,7 @@ namespace hltypes
 	
 	bool String::rsplit(const char* delimiter, String& out_left, String& out_right) const
 	{
-		int index = this->rfind(delimiter);
+		int index = (int)this->rfind(delimiter);
 		if (index < 0)
 		{
 			return false;
@@ -247,7 +247,7 @@ namespace hltypes
 	bool String::ends_with(const char* s) const
 	{
 		const char* thiss = stdstr::c_str();
-		int thislen = this->size(), slen = strlen(s);
+		int thislen = this->size(), slen = (int)strlen(s);
 		if (slen > thislen)
 		{
 			return false;
@@ -373,7 +373,7 @@ namespace hltypes
 
 	String String::rtrim(char c) const
 	{
-		int len = stdstr::size();
+		int len = (int)stdstr::size();
 		if (len == 0)
 		{
 			return "";
@@ -392,7 +392,7 @@ namespace hltypes
 		const char* s = stdstr::c_str();
 		const char* p;
 		String out;
-		int what_len = strlen(what);
+		int what_len = (int)strlen(what);
 		if (what_len == 0)
 		{
 			return *this;
@@ -668,7 +668,7 @@ namespace hltypes
 	
 	bool String::contains_any(const char* s) const
 	{
-		int size = strlen(s);
+		int size = (int)strlen(s);
 		for_iter (i, 0, size)
 		{
 			if (stdstr::find(s[i]) != stdstr::npos)
@@ -686,7 +686,7 @@ namespace hltypes
 	
 	bool String::contains_all(const char* s) const
 	{
-		int size = strlen(s);
+		int size = (int)strlen(s);
 		for_iter (i, 0, size)
 		{
 			if (stdstr::find(s[i]) != stdstr::npos)
@@ -706,7 +706,7 @@ namespace hltypes
 	{
 		if (count < 0)
 		{
-			count = stdstr::size() + count + 1;
+			count = (int)stdstr::size() + count + 1;
 		}
 		return stdstr::substr(start, count);
 	}
@@ -715,7 +715,7 @@ namespace hltypes
 	{
 		if (count < 0)
 		{
-			count = stdstr::size() + count + 1;
+			count = (int)stdstr::size() + count + 1;
 		}
 		if (step == 1)
 		{
