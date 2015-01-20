@@ -216,7 +216,7 @@ double hroundd(double value)
 
 int habs(int value)
 {
-	return abs(value);
+	return value >= 0 ? value : -value;
 }
 
 int64_t habs(int64_t value)
