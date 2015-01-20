@@ -196,9 +196,10 @@ namespace hltypes
 	int StreamBase::writeRaw(StreamBase& stream)
 	{
 		this->_validate();
-		if (stream.size() - stream.position() > INT_MAX)
+		int size = (int)(stream.size() - stream.position());
+		if (size > INT_MAX)
 		{
-			Log::error(hltypes::logTag, "Data too large for writing in: " + stream._descriptor());
+			Log::errorf(hltypes::logTag, "Data too large for writing in %s: %d bytes", stream._descriptor().c_str(), size);
 			return 0;
 		}
 		return this->writeRaw(stream, (int)(stream.size() - stream.position()));
@@ -217,9 +218,10 @@ namespace hltypes
 	int StreamBase::writeRaw(Stream& stream)
 	{
 		this->_validate();
-		if (stream.size() - stream.position() > INT_MAX)
+		int size = (int)(stream.size() - stream.position());
+		if (size > INT_MAX)
 		{
-			Log::error(hltypes::logTag, "Data too large for writing in: " + stream._descriptor());
+			Log::errorf(hltypes::logTag, "Data too large for writing in %s: %d bytes", stream._descriptor().c_str(), size);
 			return 0;
 		}
 		return this->writeRaw(stream, (int)(stream.size() - stream.position()));
