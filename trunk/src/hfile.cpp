@@ -48,6 +48,8 @@ namespace hltypes
 	void File::open(const String& filename, AccessMode access_mode)
 	{
 		this->_fopen(filename, access_mode, FileBase::repeats, FileBase::timeout);
+		// initial size must be set manually with hinfo(), because _updateDataSize() uses seeking which requires the size again
+		this->dataSize = File::hinfo(this->filename).size;
 	}
 	
 	void File::close()
@@ -55,12 +57,6 @@ namespace hltypes
 		this->_fclose();
 	}
 	
-	void File::_updateDataSize()
-	{
-		// using hinfo, because an implementation with _position() and _seek() can cause problems faulty
-		this->dataSize = File::hinfo(this->filename).size;
-	}
-
 	int File::_read(void* buffer, int count)
 	{
 		return this->_fread(buffer, count);
