@@ -88,7 +88,7 @@ namespace hltypes
 	protected:
 		/// @brief Data position;
 		int64_t dataPosition;
-		///
+		/// internal filename
 		hstr resourceFilename;
 		/// @brief OS archive file handle.
 		void* archivefile;
