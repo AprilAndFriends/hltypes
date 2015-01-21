@@ -151,7 +151,9 @@ namespace hltypes
 	
 	int FileBase::_fwrite(const void* buffer, int count)
 	{
-		return (int)fwrite(buffer, 1, count, (FILE*)this->cfile);
+		int result = (int)fwrite(buffer, 1, count, (FILE*)this->cfile);
+		this->dataSize = hmax(this->dataSize, this->_fposition());
+		return result;
 	}
 	
 	bool FileBase::_fisOpen()
