@@ -109,9 +109,6 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE static int64_t hsize(const String& filename) { return File::hinfo(filename).size; } // use hinfo like this to get the size
 
 	protected:
-		/// @brief Updates internal data size.
-		void _updateDataSize();
-
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] count Number of elements to read.

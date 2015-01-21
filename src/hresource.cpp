@@ -119,6 +119,7 @@ namespace hltypes
 		}
 #endif
 		this->_fopen(Resource::makeFullPath(filename), READ, FileBase::repeats, FileBase::timeout);
+		this->_updateDataSize();
 	}
 	
 	void Resource::close()
@@ -158,7 +159,7 @@ namespace hltypes
 			return;
 		}
 #endif
-		// using hinfo, because an implementation with _position() and _seek() can cause problems faulty
+		// using hinfo, because the default FileBase implementation with _position() and _seek() can cause problems and Resources are always read-only anyway
 		this->dataSize = Resource::hinfo(this->resourceFilename).size;
 	}
 

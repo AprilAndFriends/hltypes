@@ -134,7 +134,6 @@ namespace hltypes
 		{
 			throw FileCouldNotOpenException(this->_descriptor());
 		}
-		this->_updateDataSize();
 	}
 	
 	void FileBase::_fclose()
@@ -172,13 +171,13 @@ namespace hltypes
 	
 	bool FileBase::_fseek(int64_t offset, SeekMode seekMode)
 	{
-		fpos_t position = 0;
+		fpos_t position = this->_fposition();
 		switch (seekMode)
 		{
 		case CURRENT:
-			position = this->_fposition();
 			break;
 		case START:
+			position = 0;
 			break;
 		case END:
 			position = this->size();
