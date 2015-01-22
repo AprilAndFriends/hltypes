@@ -220,7 +220,7 @@ namespace hltypes
 				memcpy(&this->stream[(int)this->streamPosition], buffer, count);
 				result = count;
 				this->streamPosition += result;
-				this->streamSize = hmin(this->streamSize, this->streamPosition);
+				this->streamSize = hmax(this->streamSize, this->streamPosition);
 			}
 		}
 		return result;
