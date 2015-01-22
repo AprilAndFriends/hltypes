@@ -41,9 +41,9 @@ namespace hltypes
 		/// @brief Destructor.
 		~Stream();
 		/// @brief Clears the stream.
-		/// @param[in] initialCapacity Initial capacity of the internal buffer.
-		/// @note initialCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
-		void clear(int initialCapacity = 16LL);
+		/// @param[in] newCapacity New capacity of the internal buffer.
+		/// @note newCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
+		void clear(int newCapacity = 16LL);
 		/// @brief Resizes internal buffer.
 		/// @param[in] newCapacity New capacity of the internal buffer.
 		/// @return True if internal buffer was resized or already the same size that was requested.
@@ -86,6 +86,11 @@ namespace hltypes
 		/// @return Number of bytes written.
 		/// @note If return value differs from parameter count, it can indicate a writing error.
 		int fill(unsigned char value, int count);
+		/// @brief Truncates the stream and removes data.
+		/// @param[in] targetSize The size the stream should be truncated to.
+		/// @return True if stream was truncated/reduced.
+		/// @note If size is greater or equal than the current size, the stream size will stay unchanged.
+		bool truncate(int64_t targetSize);
 		/// @brief Gets a direct reference to the internal steam.
 		/// @param[in] index Reference to a specific element.
 		/// @return Direct reference to the internal steam.

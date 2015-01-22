@@ -56,11 +56,11 @@ namespace hltypes
 		}
 	}
 	
-	void Stream::clear(int initialCapacity)
+	void Stream::clear(int newCapacity)
 	{
 		this->streamSize = 0;
 		this->streamPosition = 0;
-		this->setCapacity(initialCapacity);
+		this->setCapacity(newCapacity);
 		this->_updateDataSize();
 	}
 	
@@ -171,6 +171,19 @@ namespace hltypes
 		return result;
 	}
 
+	bool Stream::truncate(int64_t targetSize)
+	{
+		this->_validate();
+		if (targetSize >= this->size())
+		{
+			return false;
+		}
+		this->streamSize = hmax(targetSize, (int64_t)0);
+		this->streamPosition = hmin(this->streamPosition, this->streamSize);
+		this->_updateDataSize();
+		return true;
+	}
+
 	const unsigned char& Stream::operator[](int index)
 	{
 		if (index < 0)
@@ -207,10 +220,7 @@ namespace hltypes
 				memcpy(&this->stream[(int)this->streamPosition], buffer, count);
 				result = count;
 				this->streamPosition += result;
-				if (this->streamSize < this->streamPosition)
-				{
-					this->streamSize = this->streamPosition;
-				}
+				this->streamSize = hmin(this->streamSize, this->streamPosition);
 			}
 		}
 		return result;
