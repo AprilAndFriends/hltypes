@@ -256,7 +256,11 @@ namespace hltypes
 		}
 #else
 		struct stat s;
-		stat(filename.c_str(), &s);
+		int ret = stat(filename.c_str(), &s);
+		if (ret != 0)
+		{
+			throw Exception("stat() failed on '" + filename + "'!");
+		}
 		info.size = (int64_t)s.st_size;
 		info.creationTime = (int64_t)s.st_ctime;
 		info.accessTime = (int64_t)s.st_atime;
