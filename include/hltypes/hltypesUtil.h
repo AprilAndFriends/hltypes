@@ -492,7 +492,7 @@ inline T hclamp(T value, T min, T max)
 template <class T>
 inline void hswap(T& a, T& b)
 {
-	T& temp = a;
+	T temp = a;
 	a = b;
 	b = temp;
 }
