@@ -38,7 +38,7 @@ namespace hltypes
 
 	String DirBase::systemize(const String& path)
 	{
-		String result = path.replace('\\', '/');
+		String result = path.replaced('\\', '/');
 		if (result.contains("//"))
 		{
 #ifdef _DEBUG // using _platformPrint() directory to avoid possible deadlock when saving to file during logging
@@ -46,7 +46,7 @@ namespace hltypes
 #endif
 			for (int i = 0; i < 1000 && result.contains("//"); ++i) // to prevent an infinite loop
 			{
-				result = result.replace("//", "/");
+				result = result.replaced("//", "/");
 			}
 		}
 		return result;
@@ -93,8 +93,8 @@ namespace hltypes
 	String DirBase::joinPath(const String& path1, const String& path2, bool systemizeResult)
 	{
 		String result;
-		bool slash1 = path1.ends_with("/");
-		bool slash2 = path2.starts_with("/");
+		bool slash1 = path1.endsWith("/");
+		bool slash2 = path2.startsWith("/");
 		if (!slash1 && !slash2)
 		{
 			result = path1 + "/" + path2;
@@ -105,7 +105,7 @@ namespace hltypes
 		}
 		else // (slash1 && slash2)
 		{
-			result = path1.substr(0, path1.size() - 1) + path2;
+			result = path1.subString(0, path1.size() - 1) + path2;
 		}
 		if (systemizeResult)
 		{
@@ -131,7 +131,7 @@ namespace hltypes
 
 	Array<String> DirBase::splitPath(const String& path)
 	{
-		return DirBase::systemize(path).rtrim('/').split('/');
+		return DirBase::systemize(path).trimmedRight('/').split('/');
 	}
 
 	void DirBase::_prependDirectory(const String& dirname, Array<String>& entries)

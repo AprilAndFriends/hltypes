@@ -32,7 +32,7 @@ namespace hlxml
 		hstr realFilename = hrdir::normalize(this->filename);
 		hstr data = hresource::hread(this->filename);
 		this->document = new TiXmlDocument();
-		this->document->Parse(data.c_str());
+		this->document->Parse(data.cStr());
 		if (this->document->Error())
 		{
 			hstr desc = this->document->ErrorDesc();
@@ -45,11 +45,11 @@ namespace hlxml
 				if (lines.size() >= row) // just in case!
 				{
 					desc += "\n----------------------------------------------------------\n";
-					desc += lines[row - 1].trim();
+					desc += lines[row - 1].trimmed();
 					desc += "\n----------------------------------------------------------";
 				}
 			}
-			throw XMLException(hsprintf("An error occcured parsing XML file '%s': %s", realFilename.c_str(), desc.c_str()), NULL);
+			throw XMLException(hsprintf("An error occcured parsing XML file '%s': %s", realFilename.cStr(), desc.cStr()), NULL);
 		}
 	}
 

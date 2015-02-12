@@ -29,7 +29,7 @@ namespace hltypes
 {
 	File::File(const String& filename, AccessMode access_mode) : FileBase(filename)
 	{
-		hlog::warnf(hltypes::logTag, "Opening file '%s' in hfile constructor is deprecated and unsafe! Use hfile::open() instead.", filename.c_str());
+		hlog::warnf(hltypes::logTag, "Opening file '%s' in hfile constructor is deprecated and unsafe! Use hfile::open() instead.", filename.cStr());
 		this->open(filename, access_mode);
 	}
 	
@@ -92,9 +92,9 @@ namespace hltypes
 			while (true)
 			{
 #ifdef _WIN32
-				FILE* f = _wfopen(name.w_str().c_str(), L"wb");
+				FILE* f = _wfopen(name.wcStr(), L"wb");
 #else
-				FILE* f = fopen(name.c_str(), "wb"); // TODO - should be ported to Unix systems as well
+				FILE* f = fopen(name.cStr(), "wb"); // TODO - should be ported to Unix systems as well
 #endif
 				if (f != NULL)
 				{
@@ -121,9 +121,9 @@ namespace hltypes
 	{
 		String name = Dir::normalize(filename);
 #ifdef _WIN32
-		return (_wremove(name.w_str().c_str()) == 0);
+		return (_wremove(name.wcStr()) == 0);
 #else
-		return (f_remove(name.c_str()) == 0); // TODO - should be ported to Unix systems as well
+		return (f_remove(name.cStr()) == 0); // TODO - should be ported to Unix systems as well
 #endif
 	}
 	
@@ -138,9 +138,9 @@ namespace hltypes
 		if (File::exists(name))
 		{
 #ifdef _WIN32
-			FILE* f = _wfopen(name.w_str().c_str(), L"wb");
+			FILE* f = _wfopen(name.wcStr(), L"wb");
 #else
-			FILE* f = fopen(name.c_str(), "wb"); // TODO - should be ported to Unix systems as well
+			FILE* f = fopen(name.cStr(), "wb"); // TODO - should be ported to Unix systems as well
 #endif
 			if (f != NULL)
 			{
@@ -169,9 +169,9 @@ namespace hltypes
 		}
 		Dir::create(Dir::baseDir(newName));
 #ifdef _WIN32
-		return (_wrename(oldName.w_str().c_str(), newName.w_str().c_str()) == 0);
+		return (_wrename(oldName.wcStr(), newName.wcStr()) == 0);
 #else
-		return (f_rename(oldName.c_str(), newName.c_str()) == 0); // TODO - should be ported to Unix systems as well
+		return (f_rename(oldName.cStr(), newName.cStr()) == 0); // TODO - should be ported to Unix systems as well
 #endif
 	}
 	
@@ -238,7 +238,7 @@ namespace hltypes
 #ifdef _WIN32
 		WIN32_FILE_ATTRIBUTE_DATA data;
 		memset(&data, 0, sizeof(WIN32_FILE_ATTRIBUTE_DATA));
-		if (GetFileAttributesExW(filename.w_str().c_str(), GetFileExInfoStandard, &data) != 0)
+		if (GetFileAttributesExW(filename.wcStr(), GetFileExInfoStandard, &data) != 0)
 		{
 #define WINDOWS_TICK 10000000ULL
 #define SEC_TO_UNIX_EPOCH 11644473600ULL
@@ -256,7 +256,7 @@ namespace hltypes
 		}
 #else
 		struct stat s;
-		int ret = stat(filename.c_str(), &s);
+		int ret = stat(filename.cStr(), &s);
 		if (ret != 0)
 		{
 			throw Exception("stat() failed on '" + filename + "'!");

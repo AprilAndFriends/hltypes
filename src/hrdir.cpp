@@ -162,13 +162,13 @@ namespace hltypes
 	{
 		if (prefix == "" || prefix == ".")
 		{
-			if (path.starts_with("./"))
+			if (path.startsWith("./"))
 			{
 				path = path(2, path.size() - 2);
 			}
 			return true;
 		}
-		if (path.starts_with(prefix + "/"))
+		if (path.startsWith(prefix + "/"))
 		{
 			path = path(prefix.size() + 1, path.size() - prefix.size() - 1);
 			if (path == "")
@@ -212,7 +212,7 @@ namespace hltypes
 		{
 			for_iter (i, 0, paths.size())
 			{
-				paths[i] = paths[i].replace(cwd, "");
+				paths[i] = paths[i].replaced(cwd, "");
 			}
 		}
 		return paths;

@@ -32,10 +32,10 @@ namespace hltypes
 		this->handle = CreateSemaphoreExW(NULL, this->maxCount, this->maxCount, L"", 0, 0); // this->name is NOT a system name!
 #endif
 #else
-		this->handle = sem_open(this->name.c_str(), O_CREAT|O_EXCL, this->maxCount);
+		this->handle = sem_open(this->name.cStr(), O_CREAT|O_EXCL, this->maxCount);
 		if (this->handle == SEM_FAILED)
 		{
-			Log::writef("semaphore", "Error creating POSIX semaphore '%s'! errno = %s", this->name.c_str(), String(strerror(errno)).c_str());
+			Log::writef("semaphore", "Error creating POSIX semaphore '%s'! errno = %s", this->name.cStr(), String(strerror(errno)).cStr());
 		}
 #endif
 	}

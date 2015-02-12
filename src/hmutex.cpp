@@ -36,7 +36,7 @@ namespace hltypes
 #else
 			String address = hsprintf("<%p>", this); // on Unix %p adds the 0x
 #endif
-			Log::warnf("hmutex", "'%s' has been scope-unlocked automatically!", (mutex->name != "" ? mutex->name : address).c_str());
+			Log::warnf("hmutex", "'%s' has been scope-unlocked automatically!", (mutex->name != "" ? mutex->name : address).cStr());
 		}
 	}
 
@@ -97,7 +97,7 @@ namespace hltypes
 		EnterCriticalSection((CRITICAL_SECTION*)this->handle);
 		if (this->locked)
 		{
-			hltypes::_platformPrint("hmutex", hsprintf("'%s' is deadlocked!", (this->name != "" ? this->name : hsprintf("<0x%p>", this)).c_str()), 1000);
+			hltypes::_platformPrint("hmutex", hsprintf("'%s' is deadlocked!", (this->name != "" ? this->name : hsprintf("<0x%p>", this)).cStr()), 1000);
 			while (true) // simulating a deadlock
 			{
 				Thread::sleep(1.0f);

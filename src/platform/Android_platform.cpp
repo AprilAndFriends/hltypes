@@ -18,11 +18,11 @@ namespace hltypes
 	{
 		if (tag != "")
 		{
-			__android_log_print(level, tag.c_str(), "[%s] %s", tag.c_str(), message.c_str());
+			__android_log_print(level, tag.cStr(), "[%s] %s", tag.cStr(), message.cStr());
 		}
 		else
 		{
-			__android_log_write(level, "", message.c_str());
+			__android_log_write(level, "", message.cStr());
 		}
 	}
 

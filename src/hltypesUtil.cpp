@@ -67,12 +67,12 @@ hltypes::String henv(const hltypes::String& name)
 {
 #ifdef _WIN32
 #ifndef _WINRT
-	return hltypes::String::from_unicode(_wgetenv(name.w_str().c_str()));
+	return hltypes::String::fromUnicode(_wgetenv(name.wcStr()));
 #else
 	return ""; // WinRT does not support environment variables
 #endif
 #else
-	return hltypes::String(getenv(name.c_str()));
+	return hltypes::String(getenv(name.cStr()));
 #endif
 }
 

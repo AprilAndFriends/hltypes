@@ -18,7 +18,7 @@
 #define _rmdir(name) ::rmdir(name)
 #define _chdir(name) ::chdir(name)
 #define _getcwd(buffer, size) ::getcwd(buffer, size)
-#define _opendir(name) opendir(name.c_str())
+#define _opendir(name) opendir(name.cStr())
 #define _readdir(dirp) readdir(dirp)
 #define _closedir(dirp) closedir(dirp)
 #endif
@@ -98,7 +98,7 @@ namespace hltypes
 					sa.nLength = sizeof(sa);
 					sa.lpSecurityDescriptor = &sd;
 					sa.bInheritHandle = false;
-					result = (CreateDirectory(path.w_str().c_str(), &sa) == TRUE);
+					result = (CreateDirectory(path.wcStr(), &sa) == TRUE);
 				}
 				LocalFree(acl);
 			}
@@ -117,27 +117,27 @@ namespace hltypes
 		}
 #endif
 #ifdef _WIN32
-		return (_wmkdir(path.w_str().c_str()) != 0);
+		return (_wmkdir(path.wcStr()) != 0);
 #else
-		return (_mkdir(path.c_str()) != 0); // TODO - should be ported to Unix systems as well
+		return (_mkdir(path.cStr()) != 0); // TODO - should be ported to Unix systems as well
 #endif
 	}
 	
 	static bool hremove(const String& dirName)
 	{
 #ifdef _WIN32
-		return (_wremove(dirName.w_str().c_str()) != 0);
+		return (_wremove(dirName.wcStr()) != 0);
 #else
-		return (remove(dirName.c_str()) != 0); // TODO - should be ported to Unix systems as well
+		return (remove(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
 #endif
 	}
 	
 	static bool hrmdir(const String& dirName)
 	{
 #ifdef _WIN32
-		return (_wrmdir(dirName.w_str().c_str()) != 0);
+		return (_wrmdir(dirName.wcStr()) != 0);
 #else
-		return (_rmdir(dirName.c_str()) != 0); // TODO - should be ported to Unix systems as well
+		return (_rmdir(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
 #endif
 	}
 	
@@ -205,7 +205,7 @@ namespace hltypes
 			Array<String> directories = Dir::directories(baseDir);
 			foreach (String, it, directories)
 			{
-				if ((*it).lower() == baseName.lower())
+				if ((*it).lowered() == baseName.lowered())
 				{
 					name = Dir::joinPath(baseDir, (*it));
 					result = true;
@@ -245,7 +245,7 @@ namespace hltypes
 			return false;
 		}
 		Dir::create(Dir::baseDir(newName));
-		return (d_rename(oldName.c_str(), newName.c_str()) == 0);
+		return (d_rename(oldName.cStr(), newName.cStr()) == 0);
 	}
 	
 	bool Dir::move(const String& dirName, const String& path)
@@ -287,7 +287,7 @@ namespace hltypes
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				result += String::from_unicode(entry->d_name);
+				result += String::fromUnicode(entry->d_name);
 			}
 			if (!result.contains("."))
 			{
@@ -316,7 +316,7 @@ namespace hltypes
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				result += String::from_unicode(entry->d_name);
+				result += String::fromUnicode(entry->d_name);
 			}
 			if (result.contains("."))
 			{
@@ -346,10 +346,10 @@ namespace hltypes
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				current = Dir::joinPath(name, String::from_unicode(entry->d_name), false);
+				current = Dir::joinPath(name, String::fromUnicode(entry->d_name), false);
 				if (Dir::exists(current))
 				{
-					result += String::from_unicode(entry->d_name);
+					result += String::fromUnicode(entry->d_name);
 				}
 			}
 			if (result.contains("."))
@@ -380,10 +380,10 @@ namespace hltypes
 			struct dirent* entry;
 			while ((entry = _readdir(dir)))
 			{
-				current = Dir::joinPath(name, String::from_unicode(entry->d_name), false);
+				current = Dir::joinPath(name, String::fromUnicode(entry->d_name), false);
 				if (File::exists(current))
 				{
-					result += String::from_unicode(entry->d_name);
+					result += String::fromUnicode(entry->d_name);
 				}
 			}
 			if (result.contains("."))
@@ -407,10 +407,10 @@ namespace hltypes
 	{
 #ifdef _WIN32
 #ifndef _WINRT
-		_wchdir(Dir::systemize(dirName).w_str().c_str());
+		_wchdir(Dir::systemize(dirName).wcStr());
 #endif
 #else
-		_chdir(Dir::systemize(dirName).c_str());
+		_chdir(Dir::systemize(dirName).cStr());
 #endif
 	}
 

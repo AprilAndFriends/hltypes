@@ -53,7 +53,7 @@ namespace hltypes
 				{
 					return NULL;
 				}
-				currentArchive = zip_open(archive.c_str(), 0, NULL);
+				currentArchive = zip_open(archive.cStr(), 0, NULL);
 				if (currentArchive == NULL)
 				{
 					return NULL;
@@ -79,7 +79,7 @@ namespace hltypes
 		void* fopen(void* archivefile, const String& filename)
 		{
 			Mutex::ScopeLock lock(&access_mutex);
-			return zip_fopen((struct zip*)archivefile, filename.c_str(), 0);
+			return zip_fopen((struct zip*)archivefile, filename.cStr(), 0);
 		}
 
 		void fclose(void* file)
@@ -99,7 +99,7 @@ namespace hltypes
 			struct zip_stat stat;
 			stat.size = 0;
 			Mutex::ScopeLock lock(&access_mutex);
-			zip_stat((struct zip*)archivefile, Resource::makeFullPath(filename).c_str(), 0, &stat);
+			zip_stat((struct zip*)archivefile, Resource::makeFullPath(filename).cStr(), 0, &stat);
 			return (int64_t)stat.size;
 		}
 
@@ -107,7 +107,7 @@ namespace hltypes
 		{
 			Mutex::ScopeLock lock(&access_mutex);
 			zip_fclose((struct zip_file*)file);
-			return zip_fopen((struct zip*)archivefile, filename.c_str(), 0);
+			return zip_fopen((struct zip*)archivefile, filename.cStr(), 0);
 		}
 
 		Array<String> getFiles(void* archivefile)
@@ -128,7 +128,7 @@ namespace hltypes
 			stat.size = 0;
 			stat.mtime = 0;
 			Mutex::ScopeLock lock(&access_mutex);
-			zip_stat((struct zip*)archivefile, Resource::makeFullPath(filename).c_str(), 0, &stat);
+			zip_stat((struct zip*)archivefile, Resource::makeFullPath(filename).cStr(), 0, &stat);
 			FileInfo info;
 			info.size = stat.size;
 			info.modificationTime = stat.mtime;
