@@ -115,7 +115,7 @@ static DIR* _opendir(chstr dirname)
 	if (dirp != NULL)
 	{
 		// take directory name...
-		WCSNCPY(dirp->pattern, dirname.wcStr(), MAX_PATH);
+		WCSNCPY(dirp->pattern, dirname.wStr().c_str(), MAX_PATH);
 		dirp->pattern[MAX_PATH] = '\0';
 		// ... and append search pattern to it
 		wchar_t* p = wcschr(dirp->pattern, '\0');

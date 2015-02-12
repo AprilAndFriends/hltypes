@@ -117,7 +117,7 @@ namespace hltypes
 		while (true)
 		{
 #ifdef _WIN32
-			this->cfile = _wfopen(this->filename.wcStr(), mode.wcStr());
+			this->cfile = _wfopen(this->filename.wStr().c_str(), mode.wStr().c_str());
 #else
 			this->cfile = fopen(this->filename.cStr(), mode.cStr()); // TODO - should be ported to Unix systems as well
 #endif
@@ -196,7 +196,7 @@ namespace hltypes
 		String name = Dir::normalize(filename);
 		bool result = false;
 #ifdef _WIN32
-		FILE* f = _wfopen(name.wcStr(), L"rb");
+		FILE* f = _wfopen(name.wStr().c_str(), L"rb");
 #else
 		FILE* f = fopen(name.cStr(), "rb"); // TODO - should be ported to Unix systems as well
 #endif
