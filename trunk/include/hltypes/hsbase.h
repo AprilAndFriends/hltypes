@@ -167,8 +167,8 @@ namespace hltypes
 		/// @param b Bool to dump.
 		virtual void dump(bool b);
 		/// @brief Dumps data to file in a platform-aware format.
-		/// @param str String to dump.
-		virtual void dump(const String& str);
+		/// @param string String to dump.
+		virtual void dump(const String& string);
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c C-type string to dump.
 		virtual void dump(const char* c);

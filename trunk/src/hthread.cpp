@@ -42,7 +42,7 @@ namespace hltypes
 	{
 		THREADNAME_INFO info;
 		info.dwType = 0x1000;
-		info.szName = (char*)name.c_str();
+		info.szName = (char*)name.cStr();
 		info.dwThreadID = id;
 		info.dwFlags = 0;
 		__try
@@ -75,7 +75,7 @@ namespace hltypes
 #ifdef __APPLE__
 		if (t->getName() != "")
 		{
-			pthread_setname_np(t->getName().c_str());
+			pthread_setname_np(t->getName().cStr());
 		}
 #endif
 		t->execute();
@@ -148,7 +148,7 @@ namespace hltypes
 #ifndef __APPLE__
 		if (this->name != "")
 		{
-			pthread_setname_np(*thread, this->name.c_str());
+			pthread_setname_np(*thread, this->name.cStr());
 		}
 #endif
 #endif

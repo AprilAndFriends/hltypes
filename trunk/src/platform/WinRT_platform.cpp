@@ -16,11 +16,11 @@ namespace hltypes
 	{
 		if (tag != "")
 		{
-			OutputDebugStringW(("[" + tag + "] " + message + "\n").w_str().c_str());
+			OutputDebugStringW(("[" + tag + "] " + message + "\n").wcStr());
 		}
 		else
 		{
-			OutputDebugStringW((message + "\n").w_str().c_str());
+			OutputDebugStringW((message + "\n").wcStr());
 		}
 	}
 

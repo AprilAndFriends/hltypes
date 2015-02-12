@@ -28,7 +28,7 @@ namespace hltypes
 
 	void _Exception::_setInternalMessage(const String& message, const char* sourceFile, int lineNumber)
 	{
-		this->message = hsprintf("[%s:%d] %s", Dir::baseName(sourceFile).c_str(), lineNumber, message.c_str());
+		this->message = hsprintf("[%s:%d] %s", Dir::baseName(sourceFile).cStr(), lineNumber, message.cStr());
 #ifdef _WINRT // because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
 		if (Log::isLevelDebug() && message != "")
 		{
@@ -40,7 +40,7 @@ namespace hltypes
 	_FileCouldNotOpenException::_FileCouldNotOpenException(const String& filename, bool isResource, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		String message = hsprintf("'%s' could not be opened!", filename.c_str());
+		String message = hsprintf("'%s' could not be opened!", filename.cStr());
 		try
 		{
 			String baseDir = DirBase::baseDir(filename);
@@ -53,7 +53,7 @@ namespace hltypes
 					message += " File appears to be in use.";
 					throw _Exception("", "", 0);
 				}
-				if ((*it).lower() == baseName.lower())
+				if ((*it).lowered() == baseName.lowered())
 				{
 					message += " But there is a file with a different case: " + Dir::joinPath(baseDir, (*it));
 					throw _Exception("", "", 0);
@@ -72,7 +72,7 @@ namespace hltypes
 					Array<String> directories = (!isResource ? Dir::directories(baseDir) : ResourceDir::directories(baseDir));
 					foreach (String, it, directories)
 					{
-						if ((*it).lower() == baseName.lower())
+						if ((*it).lowered() == baseName.lowered())
 						{
 							baseName = (*it);
 							break;
@@ -99,7 +99,7 @@ namespace hltypes
 	_FileNotOpenException::_FileNotOpenException(const String& filename, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("'%s' is not open!", filename.c_str()), sourceFile, lineNumber);
+		this->_setInternalMessage(hsprintf("'%s' is not open!", filename.cStr()), sourceFile, lineNumber);
 	}
 	_FileNotOpenException::~_FileNotOpenException()
 	{
@@ -108,7 +108,7 @@ namespace hltypes
 	_FileNotWriteableException::_FileNotWriteableException(const String& filename, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("'%s' is not writeable!", filename.c_str()), sourceFile, lineNumber);
+		this->_setInternalMessage(hsprintf("'%s' is not writeable!", filename.cStr()), sourceFile, lineNumber);
 	}
 	_FileNotWriteableException::~_FileNotWriteableException()
 	{
@@ -117,7 +117,7 @@ namespace hltypes
 	_ResourceNotExistsException::_ResourceNotExistsException(const String& type, const String& name, const String& container, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("'%s' '%s' does not exist in '%s'", name.c_str(), type.c_str(), container.c_str()), sourceFile, lineNumber);
+		this->_setInternalMessage(hsprintf("'%s' '%s' does not exist in '%s'", name.cStr(), type.cStr(), container.cStr()), sourceFile, lineNumber);
 	}
 	_ResourceNotExistsException::~_ResourceNotExistsException()
 	{
@@ -126,7 +126,7 @@ namespace hltypes
 	_ResourceAlreadyExistsException::_ResourceAlreadyExistsException(const String& type, const String& name, const String& container, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("'%s' '%s' already exists in '%s'", name.c_str(), type.c_str(), container.c_str()), sourceFile, lineNumber);
+		this->_setInternalMessage(hsprintf("'%s' '%s' already exists in '%s'", name.cStr(), type.cStr(), container.cStr()), sourceFile, lineNumber);
 	}
 	_ResourceAlreadyExistsException::~_ResourceAlreadyExistsException()
 	{
@@ -144,7 +144,7 @@ namespace hltypes
 	_ContainerEmptyException::_ContainerEmptyException(const String& functionName, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("'%s' cannot be used on a container with size = 0", functionName.c_str()), sourceFile, lineNumber);
+		this->_setInternalMessage(hsprintf("'%s' cannot be used on a container with size = 0", functionName.cStr()), sourceFile, lineNumber);
 	}
 	_ContainerEmptyException::~_ContainerEmptyException()
 	{
@@ -171,7 +171,7 @@ namespace hltypes
 	_ContainerKeyException::_ContainerKeyException(const String& key, const String& container, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("key '%s' not found in '%s'", key.c_str(), container.c_str()), sourceFile, lineNumber);
+		this->_setInternalMessage(hsprintf("key '%s' not found in '%s'", key.cStr(), container.cStr()), sourceFile, lineNumber);
 	}
 	_ContainerKeyException::~_ContainerKeyException()
 	{

@@ -45,16 +45,16 @@ namespace hltypes
 		_setLevelColor(level);
 		if (tag != "")
 		{
-			printf("[%s] %s\n", tag.c_str(), message.c_str());
+			printf("[%s] %s\n", tag.cStr(), message.cStr());
 #ifdef _MSC_VER // prints in the output panel of Visual Studio
-			OutputDebugStringW(("[" + tag + "] " + message + "\n").w_str().c_str());
+			OutputDebugStringW(("[" + tag + "] " + message + "\n").wcStr());
 #endif
 		}
 		else
 		{
-			printf("%s\n", message.c_str());
+			printf("%s\n", message.cStr());
 #ifdef _MSC_VER // prints in the output panel of Visual Studio
-			OutputDebugStringW((message + "\n").w_str().c_str());
+			OutputDebugStringW((message + "\n").wcStr());
 #endif
 		}
 	}

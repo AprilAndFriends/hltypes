@@ -92,7 +92,7 @@ namespace hltypes
 				}
 			}
 		}
-		result = result.replace("\r", "");
+		result = result.replaced("\r", "");
 		return result;
 	}
 	
@@ -134,7 +134,7 @@ namespace hltypes
 	void StreamBase::write(const String& text)
 	{
 		this->_validate();
-		this->_write(text.c_str(), text.size());
+		this->_write(text.cStr(), text.size());
 		this->_updateDataSize();
 	}
 	
@@ -148,7 +148,7 @@ namespace hltypes
 	void StreamBase::writeLine(const String& text)
 	{
 		this->_validate();
-		this->_write((text + "\n").c_str(), text.size() + 1);
+		this->_write((text + "\n").cStr(), text.size() + 1);
 		this->_updateDataSize();
 	}
 	
@@ -199,7 +199,7 @@ namespace hltypes
 		int size = (int)(stream.size() - stream.position());
 		if (size > INT_MAX)
 		{
-			Log::errorf(hltypes::logTag, "Data too large for writing in %s: %d bytes", stream._descriptor().c_str(), size);
+			Log::errorf(hltypes::logTag, "Data too large for writing in %s: %d bytes", stream._descriptor().cStr(), size);
 			return 0;
 		}
 		return this->writeRaw(stream, (int)(stream.size() - stream.position()));
@@ -221,7 +221,7 @@ namespace hltypes
 		int size = (int)(stream.size() - stream.position());
 		if (size > INT_MAX)
 		{
-			Log::errorf(hltypes::logTag, "Data too large for writing in %s: %d bytes", stream._descriptor().c_str(), size);
+			Log::errorf(hltypes::logTag, "Data too large for writing in %s: %d bytes", stream._descriptor().cStr(), size);
 			return 0;
 		}
 		return this->writeRaw(stream, (int)(stream.size() - stream.position()));
@@ -352,14 +352,14 @@ namespace hltypes
 		this->_updateDataSize();
 	}
 
-	void StreamBase::dump(const String& str)
+	void StreamBase::dump(const String& string)
 	{
 		this->_validate();
-		int size = str.size();
+		int size = string.size();
 		this->dump(size);
 		if (size > 0)
 		{
-			this->_write(str.c_str(), size);
+			this->_write(string.cStr(), size);
 		}
 		this->_updateDataSize();
 	}

@@ -53,6 +53,7 @@ namespace hltypes
 
 	String FileBase::extensionOf(const String& path)
 	{
+		// TODO - not UTF8 safe
 		if (Dir::baseName(path).contains("."))
 		{
 			int index = (int)path.rfind(".");
@@ -66,12 +67,13 @@ namespace hltypes
 
 	String FileBase::withoutExtension(const String& path)
 	{
+		// TODO - not UTF8 safe
 		if (Dir::baseName(path).contains("."))
 		{
 			int index = (int)path.rfind(".");
 			if (index >= 0)
 			{
-				return path.substr(0, index);
+				return path.subString(0, index);
 			}
 		}
 		return path;
@@ -115,9 +117,9 @@ namespace hltypes
 		while (true)
 		{
 #ifdef _WIN32
-			this->cfile = _wfopen(this->filename.w_str().c_str(), mode.w_str().c_str());
+			this->cfile = _wfopen(this->filename.wcStr(), mode.wcStr());
 #else
-			this->cfile = fopen(this->filename.c_str(), mode.c_str()); // TODO - should be ported to Unix systems as well
+			this->cfile = fopen(this->filename.cStr(), mode.cStr()); // TODO - should be ported to Unix systems as well
 #endif
 			if (this->cfile != NULL)
 			{
@@ -194,9 +196,9 @@ namespace hltypes
 		String name = Dir::normalize(filename);
 		bool result = false;
 #ifdef _WIN32
-		FILE* f = _wfopen(name.w_str().c_str(), L"rb");
+		FILE* f = _wfopen(name.wcStr(), L"rb");
 #else
-		FILE* f = fopen(name.c_str(), "rb"); // TODO - should be ported to Unix systems as well
+		FILE* f = fopen(name.cStr(), "rb"); // TODO - should be ported to Unix systems as well
 #endif
 		if (f != NULL)
 		{
@@ -210,7 +212,7 @@ namespace hltypes
 			Array<String> files = Dir::files(baseDir);
 			foreach (String, it, files)
 			{
-				if ((*it).lower() == baseName.lower())
+				if ((*it).lowered() == baseName.lowered())
 				{
 					name = Dir::joinPath(baseDir, (*it));
 					result = true;
@@ -224,7 +226,7 @@ namespace hltypes
 			struct stat stats;
 			// on UNIX fopen on a directory actually works so this check prevents
 			// errorously reporting the existence of a file if it's a directory
-			if (stat(name.c_str(), &stats) == 0 && (stats.st_mode & S_IFMT) == S_IFDIR)
+			if (stat(name.cStr(), &stats) == 0 && (stats.st_mode & S_IFMT) == S_IFDIR)
 			{
 				result = false;
 			}

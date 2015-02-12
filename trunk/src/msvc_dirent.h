@@ -85,7 +85,7 @@ typedef struct DIR
 	// file search handle
 	HANDLE search_handle;
 	// search pattern (3 = zero terminator + pattern "\\*")
-	wchar_t patt[MAX_PATH + 3];
+	wchar_t pattern[MAX_PATH + 3];
 } DIR;
 
 static DIR* _opendir(chstr dirname);
@@ -115,15 +115,15 @@ static DIR* _opendir(chstr dirname)
 	if (dirp != NULL)
 	{
 		// take directory name...
-		WCSNCPY(dirp->patt, dirname.w_str().c_str(), MAX_PATH);
-		dirp->patt[MAX_PATH] = '\0';
+		WCSNCPY(dirp->pattern, dirname.wcStr(), MAX_PATH);
+		dirp->pattern[MAX_PATH] = '\0';
 		// ... and append search pattern to it
-		wchar_t* p = wcschr(dirp->patt, '\0');
+		wchar_t* p = wcschr(dirp->pattern, '\0');
 		if (p == NULL)
 		{
-			p = dirp->patt;
+			p = dirp->pattern;
 		}
-		if (dirp->patt < p && *(p - 1) != '/' && *(p - 1) != ':')
+		if (dirp->pattern < p && *(p - 1) != '/' && *(p - 1) != ':')
 		{
 			*p++ = '/';
 		}
@@ -131,9 +131,9 @@ static DIR* _opendir(chstr dirname)
 		*p = '\0';
 		// open stream and retrieve first file
 #ifndef _WINRT
-		dirp->search_handle = FindFirstFileW(dirp->patt, &dirp->current.data);
+		dirp->search_handle = FindFirstFileW(dirp->pattern, &dirp->current.data);
 #else
-		dirp->search_handle = FindFirstFileEx(dirp->patt, FindExInfoBasic,
+		dirp->search_handle = FindFirstFileEx(dirp->pattern, FindExInfoBasic,
 			&dirp->current.data, FindExSearchNameMatch, NULL, FIND_FIRST_EX_LARGE_FETCH);
 #endif
 		if (dirp->search_handle == INVALID_HANDLE_VALUE)

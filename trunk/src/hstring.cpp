@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -144,37 +144,37 @@ namespace hltypes
 		return Array<char>(stdstr::c_str(), (int)stdstr::size());
 	}
 	
-	Array<String> String::split(const char* delimiter, unsigned int n, bool remove_empty) const
+	Array<String> String::split(const char* delimiter, unsigned int n, bool removeEmpty) const
 	{
 		Array<String> out;
 		const char *s = stdstr::c_str(), *p;
-		int delimiter_len = (int)strlen(delimiter);
+		int delimiterLength = (int)strlen(delimiter);
 		while ((p = strstr(s, delimiter)) != 0 && n > 0)
 		{
 			out += String(s, (int)(p - s));
-			s = p + delimiter_len;
+			s = p + delimiterLength;
 			--n;
 		}
 		out += String(s);
-		if (remove_empty)
+		if (removeEmpty)
 		{
 			out.remove_all("");
 		}
 		return out;
 	}
 	
-	Array<String> String::split(const char delimiter, unsigned int n, bool remove_empty) const
+	Array<String> String::split(const char delimiter, unsigned int n, bool removeEmpty) const
 	{
 		const char sp[2] = {delimiter, '\0'};
-		return this->split(sp, n, remove_empty);
+		return this->split(sp, n, removeEmpty);
 	}
 
-	Array<String> String::split(const String& delimiter, unsigned int n, bool remove_empty) const
+	Array<String> String::split(const String& delimiter, unsigned int n, bool removeEmpty) const
 	{
-		return this->split(delimiter.c_str(), n, remove_empty);
+		return this->split(delimiter.cStr(), n, removeEmpty);
 	}
 	
-	Array<String> String::rsplit(const char* delimiter, unsigned int n, bool remove_empty) const
+	Array<String> String::rsplit(const char* delimiter, unsigned int n, bool removeEmpty) const
 	{
 		Array<String> out;
 		const char *s = stdstr::c_str(), *p;
@@ -197,105 +197,116 @@ namespace hltypes
 			s = p + delimiter_len;
 		}
 		out += String(s);
-		if (remove_empty)
+		if (removeEmpty)
 		{
 			out.remove_all("");
 		}
 		return out;
 	}
 
-	Array<String> String::rsplit(const char delimiter, unsigned int n, bool remove_empty) const
+	Array<String> String::rsplit(const char delimiter, unsigned int n, bool removeEmpty) const
 	{
 		const char sp[2] = {delimiter, '\0'};
-		return this->rsplit(sp, n, remove_empty);
+		return this->rsplit(sp, n, removeEmpty);
 	}
 
-	Array<String> String::rsplit(const String& delimiter, unsigned int n, bool remove_empty) const
+	Array<String> String::rsplit(const String& delimiter, unsigned int n, bool removeEmpty) const
 	{
-		return this->rsplit(delimiter.c_str(), n, remove_empty);
+		return this->rsplit(delimiter.cStr(), n, removeEmpty);
 	}
 	
-	bool String::split(const char* delimiter, String& out_left, String& out_right) const
+	bool String::split(const char* delimiter, String& outLeft, String& outRight) const
 	{
 		int index = (int)this->find(delimiter);
 		if (index < 0)
 		{
 			return false;
 		}
-		out_left = stdstr::substr(0, index);
-		out_right = stdstr::substr(index + strlen(delimiter));
+		outLeft = stdstr::substr(0, index);
+		outRight = stdstr::substr(index + strlen(delimiter));
 		return true;
 	}
 	
-	bool String::rsplit(const char* delimiter, String& out_left, String& out_right) const
+	bool String::rsplit(const char* delimiter, String& outLeft, String& outRight) const
 	{
 		int index = (int)this->rfind(delimiter);
 		if (index < 0)
 		{
 			return false;
 		}
-		out_left = stdstr::substr(0, index);
-		out_right = stdstr::substr(index + strlen(delimiter));
+		outLeft = stdstr::substr(0, index);
+		outRight = stdstr::substr(index + strlen(delimiter));
 		return true;
 	}
 
-	bool String::starts_with(const char* s) const
+	bool String::startsWith(const char* string) const
 	{
-		return (strncmp(stdstr::c_str(), s, strlen(s)) == 0);
+		return (strncmp(stdstr::c_str(), string, strlen(string)) == 0);
 	}
 
-	bool String::ends_with(const char* s) const
+	bool String::startsWith(const String& string) const
 	{
-		const char* thiss = stdstr::c_str();
-		int thislen = this->size(), slen = (int)strlen(s);
-		if (slen > thislen)
+		return this->startsWith(string.cStr());
+	}
+
+	bool String::endsWith(const char* string) const
+	{
+		const char* cString = stdstr::c_str();
+		int thisLength = this->size();
+		int stringLength = (int)strlen(string);
+		if (stringLength > thisLength)
 		{
 			return false;
 		}
-		return (strcmp(thiss + thislen - slen, s) == 0);
+		return (strcmp(cString + thisLength - stringLength, string) == 0);
 	}
 
-	String String::lower() const
+	bool String::endsWith(const String& string) const
 	{
-		String s(*this);
-		std::transform(s.begin(), s.end(), s.begin(), __tolower__);
-		return s;
-	}
-	
-	String String::upper() const
-	{
-		String s(*this);
-		std::transform(s.begin(), s.end(), s.begin(), __toupper__);
-		return s;
+		return this->endsWith(string.cStr());
 	}
 
-	String String::reverse() const
+	String String::lowered() const
 	{
-		String s(*this);
-		std::reverse(s.begin(), s.end());
-		return s;
+		String result(*this);
+		std::transform(result.begin(), result.end(), result.begin(), __tolower__);
+		return result;
 	}
 	
-	bool String::is_digit() const
+	String String::uppered() const
+	{
+		String result(*this);
+		std::transform(result.begin(), result.end(), result.begin(), __toupper__);
+		return result;
+	}
+
+	String String::reversed() const
+	{
+		String result(*this);
+		std::reverse(result.begin(), result.end());
+		return result;
+	}
+	
+	bool String::isDigit() const
 	{
 		return (this->size() == 1 && isdigit(stdstr::c_str()[0]));
 	}
 	
-	bool String::is_int() const
+	bool String::isInt() const
 	{
-		const char* s = stdstr::c_str();
-		if (s[0] == '\0')
+		const char* string = stdstr::c_str();
+		if (string[0] == '\0')
 		{
 			return false;
 		}
 		int i = 0;
-		if (s[i] == '-')
+		if (string[i] == '-')
 		{
 			++i;
 		}
-		for (; s[i] != '\0'; ++i)
+		for (; string[i] != '\0'; ++i)
 		{
-			if (!isdigit(s[i]))
+			if (!isdigit(string[i]))
 			{
 				return false;
 			}
@@ -303,22 +314,22 @@ namespace hltypes
 		return true;
 	}
 
-	bool String::is_float(bool require_dot) const
+	bool String::isFloat(bool requireDot) const
 	{
-		const char* s = stdstr::c_str();
-		if (s[0] == '\0')
+		const char* string = stdstr::c_str();
+		if (string[0] == '\0')
 		{
 			return false;
 		}
 		bool foundDot = false;
 		int i = 0;
-		if (s[i] == '-')
+		if (string[i] == '-')
 		{
 			++i;
 		}
-		for (; s[i] != '\0'; ++i)
+		for (; string[i] != '\0'; ++i)
 		{
-			if (s[i] == '.')
+			if (string[i] == '.')
 			{
 				if (foundDot)
 				{
@@ -326,29 +337,29 @@ namespace hltypes
 				}
 				foundDot = true;
 			}
-			else if (!isdigit(s[i]))
+			else if (!isdigit(string[i]))
 			{
 				return false;
 			}
 		}
-		return (!require_dot || foundDot);
+		return (!requireDot || foundDot);
 	}
 
-	bool String::is_number() const
+	bool String::isNumber() const
 	{
-		return this->is_float(false);
+		return this->isFloat(false);
 	}
 
-	bool String::is_hex() const
+	bool String::isHex() const
 	{
-		const char* s = stdstr::c_str();
-		if (s[0] == '\0')
+		const char* string = stdstr::c_str();
+		if (string[0] == '\0')
 		{
 			return false;
 		}
-		for (int i = 0; s[i] != '\0'; ++i)
+		for (int i = 0; string[i] != '\0'; ++i)
 		{
-			if (!isxdigit(s[i]))
+			if (!isxdigit(string[i]))
 			{
 				return false;
 			}
@@ -356,79 +367,119 @@ namespace hltypes
 		return true;
 	}
 
-	String String::trim(char c) const
+	String String::trimmed(char c) const
 	{
-		return this->ltrim(c).rtrim(c);
+		return this->trimmedLeft(c).trimmedRight(c);
 	}
 
-	String String::ltrim(char c) const
+	String String::trimmedLeft(char c) const
 	{
-		const char* cstr = stdstr::c_str();
-		while (*cstr == c)
+		const char* string = stdstr::c_str();
+		while (*string == c)
 		{
-			++cstr;
+			++string;
 		}
-		return cstr;
+		return string;
 	}
 
-	String String::rtrim(char c) const
+	String String::trimmedRight(char c) const
 	{
-		int len = (int)stdstr::size();
-		if (len == 0)
+		int length = (int)stdstr::size();
+		if (length == 0)
 		{
 			return "";
 		}
-		const char* cstr = stdstr::c_str();
-		int i = len - 1;
-		while (i >= 0 && cstr[i] == c)
+		const char* string = stdstr::c_str();
+		int i = length - 1;
+		while (i >= 0 && string[i] == c)
 		{
 			--i;
 		}
 		return stdstr::substr(0, i + 1);
 	}
 
-	String String::replace(const char* what, const char* with_what) const
+	String String::replaced(const char* what, const char* withWhat) const
 	{
-		const char* s = stdstr::c_str();
-		const char* p;
+		const char* string = stdstr::c_str();
 		String out;
-		int what_len = (int)strlen(what);
-		if (what_len == 0)
+		int whatLength = (int)strlen(what);
+		if (whatLength == 0)
 		{
 			return *this;
 		}
-		while ((p = strstr(s, what)) != 0)
+		const char* p = NULL;
+		while ((p = strstr(string, what)) != 0)
 		{
-			out.append(s, p - s);
-			out.append(with_what);
-			s = p + what_len;
+			out.append(string, p - string);
+			out.append(withWhat);
+			string = p + whatLength;
 		}
-		out.append(s);
+		out.append(string);
 		return out;
 	}
 
-	String String::substr(int start, int count) const
+	String String::replaced(const String& what, const char* withWhat) const
+	{
+		return this->replaced(what.cStr(), withWhat);
+	}
+
+	String String::replaced(const char* what, const String& withWhat) const
+	{
+		return this->replaced(what, withWhat.cStr());
+	}
+
+	String String::replaced(const String& what, const String& withWhat) const
+	{
+		return this->replaced(what.cStr(), withWhat.cStr());
+	}
+
+	String String::replace(int pos1, int n1, const String& string)
+	{
+		return stdstr::replace(pos1, n1, string);
+	}
+
+	String String::replace(int pos1, int n1, const String& string, int pos2, int n2)
+	{
+		return stdstr::replace(pos1, n1, string, pos2, n2);
+	}
+
+	String String::replace(int pos1, int n1, const char* s)
+	{
+		return stdstr::replace(pos1, n1, s);
+	}
+
+	String String::replace(int pos1, int n1, const char* string, int n2)
+	{
+		return stdstr::replace(pos1, n1, string, n2);
+	}
+
+	String String::replace(int pos1, int n1, char c, int n2)
+	{
+		return stdstr::replace(pos1, n1, n2, c);
+	}
+
+	String String::subString(int start, int count) const
 	{
 		return stdstr::substr(start, count);
 	}
 	
-	String String::utf8_substr(int start, int count) const
+	String String::utf8SubString(int start, int count) const
 	{
 		String result;
-		const unsigned char* str = (const unsigned char*)stdstr::c_str();
-		int start_index = 0;
+		const unsigned char* string = (const unsigned char*)stdstr::c_str();
+		int startIndex = 0;
 		int i = 0;
-		while (str[i] != 0 && start_index < start)
+		while (string[i] != 0 && startIndex < start)
 		{
-			if (str[i] < 0x80)
+			if (string[i] < 0x80)
 			{
 				i += 1;
 			}
-			else if ((str[i] & 0xE0) == 0xC0)
+			else if ((string[i] & 0xE0) == 0xC0)
 			{
 				i += 2;
 			}
-			else if ((str[i] & 0xF0) == 0xE0)
+			else if ((string[i] & 0xF0) == 0xE0)
 			{
 				i += 3;
 			}
@@ -436,27 +487,27 @@ namespace hltypes
 			{
 				i += 4;
 			}
-			++start_index;
+			++startIndex;
 		}
 #ifdef _DEBUG
-		if (str[i] == 0 && count > 0)
+		if (string[i] == 0 && count > 0)
 		{
 			Log::warn(hltypes::logTag, "Parameter 'start' in utf8_substr() is after end of string: " + *this);
 		}
 #endif
-		int start_size = i;
+		int startSize = i;
 		int size = 0;
-		while (str[i] != 0 && size < count)
+		while (string[i] != 0 && size < count)
 		{
-			if (str[i] < 0x80)
+			if (string[i] < 0x80)
 			{
 				i += 1;
 			}
-			else if ((str[i] & 0xE0) == 0xC0)
+			else if ((string[i] & 0xE0) == 0xC0)
 			{
 				i += 2;
 			}
-			else if ((str[i] & 0xF0) == 0xE0)
+			else if ((string[i] & 0xF0) == 0xE0)
 			{
 				i += 3;
 			}
@@ -472,7 +523,7 @@ namespace hltypes
 			Log::warn(hltypes::logTag, "Parameter 'count' in utf8_substr() is out of bounds in string: " + *this);
 		}
 #endif
-		return String((const char*)&str[start_size], i - start_size);
+		return String((const char*)&string[startSize], i - startSize);
 	}
 	
 	int String::size() const
@@ -485,22 +536,22 @@ namespace hltypes
 		return (int)stdstr::size();
 	}
 
-	int String::utf8_size() const
+	int String::utf8Size() const
 	{
 		int result = 0;
-		const unsigned char* str = (const unsigned char*)stdstr::c_str();
+		const unsigned char* string = (const unsigned char*)stdstr::c_str();
 		int i = 0;
-		while (str[i] != 0)
+		while (string[i] != 0)
 		{
-			if (str[i] < 0x80)
+			if (string[i] < 0x80)
 			{
 				i += 1;
 			}
-			else if ((str[i] & 0xE0) == 0xC0)
+			else if ((string[i] & 0xE0) == 0xC0)
 			{
 				i += 2;
 			}
-			else if ((str[i] & 0xF0) == 0xE0)
+			else if ((string[i] & 0xF0) == 0xE0)
 			{
 				i += 3;
 			}
@@ -513,18 +564,18 @@ namespace hltypes
 		return result;
 	}
 	
-	int String::utf8_length() const
+	int String::utf8Length() const
 	{
-		return this->utf8_size();
+		return this->utf8Size();
 	}
 
-	bool String::is_ascii() const
+	bool String::isAscii() const
 	{
-		const unsigned char* str = (const unsigned char*)stdstr::c_str();
+		const unsigned char* string = (const unsigned char*)stdstr::c_str();
 		int i = 0;
-		while (str[i] != 0)
+		while (string[i] != 0)
 		{
-			if (str[i] > 0x7F)
+			if (string[i] > 0x7F)
 			{
 				return false;
 			}
@@ -532,7 +583,7 @@ namespace hltypes
 		return true;
 	}
 
-	String String::to_hex() const
+	String String::toHex() const
 	{
 		String hex = "";
 		for_iter (i, 0, this->size())
@@ -545,133 +596,83 @@ namespace hltypes
 	unsigned int String::unhex() const
 	{
 		unsigned int i = 0;
-		if (this->is_hex())
+		if (this->isHex())
 		{
-			sscanf(this->upper().c_str(), "%X", &i);
+			sscanf(this->uppered().cStr(), "%X", &i);
 		}
 		return i;
 	}
 
-	bool String::split(const char delimiter, String& out_left,String& out_right) const
+	bool String::split(const char delimiter, String& outLeft,String& outRight) const
 	{
-		const char sp[2] = {delimiter, '\0'};
-		return this->split(sp, out_left, out_right);
+		const char string[2] = { delimiter, '\0' };
+		return this->split(string, outLeft, outRight);
 	}
 		
-	bool String::split(const String& delimiter, String& out_left, String& out_right) const
+	bool String::split(const String& delimiter, String& outLeft, String& outRight) const
 	{
-		return this->split(delimiter.c_str(), out_left, out_right);
+		return this->split(delimiter.cStr(), outLeft, outRight);
 	}
 	
-	bool String::rsplit(const char delimiter, String& out_left, String& out_right) const
+	bool String::rsplit(const char delimiter, String& outLeft, String& outRight) const
 	{
-		const char sp[2] = {delimiter, '\0'};
-		return this->rsplit(sp, out_left, out_right);
+		const char string[2] = { delimiter, '\0' };
+		return this->rsplit(string, outLeft, outRight);
 	}
 	
-	bool String::rsplit(const String& delimiter, String& out_left, String& out_right) const
+	bool String::rsplit(const String& delimiter, String& outLeft, String& outRight) const
 	{
-		return this->rsplit(delimiter.c_str(), out_left, out_right);
+		return this->rsplit(delimiter.cStr(), outLeft, outRight);
 	}
 	
-	int String::count(const char substr) const
+	int String::count(const char c) const
 	{
-		char c[2] = {substr, 0};
-		return count(c);
+		char string[2] = { c, '\0' };
+		return this->count(string);
 	}
 	
-	int String::count(const char* substr) const
+	int String::count(const char* string) const
 	{
-		int c = 0;
-		String temp = stdstr::c_str();
+		int result = 0;
+		String thisString = stdstr::c_str();
 		for_iter (i, 0, this->size())
 		{
-			if (temp(i, -1).starts_with(substr))
+			if (thisString(i, -1).startsWith(string))
 			{
-				++c;
-				i += strlen(substr) - 1;
+				++result;
+				i += strlen(string) - 1;
 			}
 		}
-		return c;
+		return result;
 	}
 	
-	int String::count(const String& substr) const
+	int String::count(const String& string) const
 	{
-		return this->count(substr.c_str());
+		return this->count(string.cStr());
 	}
 
-	bool String::starts_with(const String& s) const
-	{
-		return this->starts_with(s.c_str());
-	}
-
-	bool String::ends_with(const String& s) const
-	{
-		return this->ends_with(s.c_str());
-	}
-
-	String String::replace(const String& what, const char* with_what) const
-	{
-		return this->replace(what.c_str(), with_what);
-	}
-	
-	String String::replace(const char* what, const String& with_what) const
-	{
-		return this->replace(what, with_what.c_str());
-	}
-	
-	String String::replace(const String& what, const String& with_what) const
-	{
-		return this->replace(what.c_str(), with_what.c_str());
-	}
-	
-	String String::replace(int pos1, int n1, const String& str)
-	{
-		return stdstr::replace(pos1, n1, str);
-	}
-	
-	String String::replace(int pos1, int n1, const String& str, int pos2, int n2)
-	{
-		return stdstr::replace(pos1, n1, str, pos2, n2);
-	}
-	
-	String String::replace(int pos1, int n1, const char* s)
-	{
-		return stdstr::replace(pos1, n1, s);
-	}
-	
-	String String::replace(int pos1, int n1, const char* s, int n2)
-	{
-		return stdstr::replace(pos1, n1, s, n2);
-	}
-	
-	String String::replace(int pos1, int n1, char c, int n2)
-	{
-		return stdstr::replace(pos1, n1, n2, c);
-	}
-	
 	bool String::contains(const char c) const
 	{
-		char st[2] = {c, '\0'};
-		return this->contains(st);
+		char string[2] = { c, '\0' };
+		return this->contains(string);
 	}
 	
-	bool String::contains(const char* s) const
+	bool String::contains(const char* string) const
 	{
-		return (stdstr::find(s) != stdstr::npos);
+		return (stdstr::find(string) != stdstr::npos);
 	}
 	
-	bool String::contains(const String& s) const
+	bool String::contains(const String& string) const
 	{
-		return this->contains(s.c_str());
+		return this->contains(string.cStr());
 	}
 	
-	bool String::contains_any(const char* s) const
+	bool String::containsAny(const char* string) const
 	{
-		int size = (int)strlen(s);
+		int size = (int)strlen(string);
 		for_iter (i, 0, size)
 		{
-			if (stdstr::find(s[i]) != stdstr::npos)
+			if (stdstr::find(string[i]) != stdstr::npos)
 			{
 				return true;
 			}
@@ -679,17 +680,17 @@ namespace hltypes
 		return false;
 	}
 	
-	bool String::contains_any(const String& s) const
+	bool String::containsAny(const String& string) const
 	{
-		return this->contains_any(s.c_str());
+		return this->containsAny(string.cStr());
 	}
 	
-	bool String::contains_all(const char* s) const
+	bool String::containsAll(const char* string) const
 	{
-		int size = (int)strlen(s);
+		int size = (int)strlen(string);
 		for_iter (i, 0, size)
 		{
-			if (stdstr::find(s[i]) != stdstr::npos)
+			if (stdstr::find(string[i]) != stdstr::npos)
 			{
 				return false;
 			}
@@ -697,9 +698,9 @@ namespace hltypes
 		return true;
 	}
 	
-	bool String::contains_all(const String& s) const
+	bool String::containsAll(const String& string) const
 	{
-		return this->contains_all(s.c_str());
+		return this->containsAll(string.cStr());
 	}
 	
 	String String::operator()(int start, int count) const
@@ -774,7 +775,7 @@ namespace hltypes
 	
 	String::operator bool() const
 	{
-		return (*this != "" && *this != "0" && this->lower() != "false");
+		return (*this != "" && *this != "0" && this->lowered() != "false");
 	}
 	
 	void String::operator=(const float f)
@@ -791,14 +792,14 @@ namespace hltypes
 		stdstr::operator=(s);
 	}
 	
-	void String::operator=(const std::string& s)
+	void String::operator=(const std::string& string)
 	{
-		stdstr::operator=(s);
+		stdstr::operator=(string);
 	}
 	
-	void String::operator=(const char* s)
+	void String::operator=(const char* string)
 	{
-		stdstr::operator=(s);
+		stdstr::operator=(string);
 	}
 	
 	void String::operator=(const int i)
@@ -826,38 +827,35 @@ namespace hltypes
 		stdstr::append(s);
 	}
 	
-	void String::operator+=(const std::string& s)
+	void String::operator+=(const std::string& string)
 	{
-		stdstr::append(s);
+		stdstr::append(string);
 	}
 	
-	void String::operator+=(const char* s)
+	void String::operator+=(const char* string)
 	{
-		stdstr::append(s);
+		stdstr::append(string);
 	}
 	
 	void String::operator+=(const int i)
 	{
-		String s = i;
-		stdstr::append(s);
+		stdstr::append(String(i));
 	}
 	
 	void String::operator+=(const unsigned int i)
 	{
-		String s = i;
-		stdstr::append(s);
+		stdstr::append(String(i));
 	}
 	
 	void String::operator+=(const bool b)
 	{
-		String s = b;
-		stdstr::append(s);
+		stdstr::append(String(b));
 	}
 	
 	void String::operator+=(const char c)
 	{
-		char cstr[2] = {c, '\0'};
-		stdstr::append(cstr);
+		char string[2] = { c, '\0' };
+		stdstr::append(string);
 	}
 	
 	bool String::operator==(const float f) const
@@ -877,46 +875,46 @@ namespace hltypes
 	
 	bool String::operator==(const bool b) const
 	{
-		const char* cstr = stdstr::c_str();
-		return ((strcmp(cstr, "1")	 == 0 &&  b) ||
-				(strcmp(cstr, "0")	 == 0 && !b) ||
-				(strcmp(cstr, "true")  == 0 &&  b) ||
-				(strcmp(cstr, "false") == 0 && !b));
+		const char* string = stdstr::c_str();
+		return ((strcmp(string, "1") == 0 && b) ||
+				(strcmp(string, "0") == 0 && !b) ||
+				(strcmp(string, "true") == 0 && b) ||
+				(strcmp(string, "false") == 0 && !b));
 	}
 
-	bool String::operator==(const char* s) const
+	bool String::operator==(const char* string) const
 	{
-		return (strcmp(stdstr::c_str(), s) == 0);
+		return (strcmp(stdstr::c_str(), string) == 0);
 	}
 	
-	bool String::operator==(const std::string& s) const
+	bool String::operator==(const std::string& string) const
 	{
-		return (strcmp(stdstr::c_str(), s.c_str()) == 0);
+		return (strcmp(stdstr::c_str(), string.c_str()) == 0);
 	}
 
-	String String::operator+(const char* s) const
+	String String::operator+(const char* string) const
 	{
 		String result(*this);
-		result.append(s);
+		result.append(string);
 		return result;
 	}
 	
-	String String::operator+(char* s) const
+	String String::operator+(char* string) const
 	{ 
-		return this->operator+((const char*)s);
+		return this->operator+((const char*)string);
 	}
 	
-	String String::operator+(const String& s) const
+	String String::operator+(const String& string) const
 	{
 		String result(*this);
-		result.append(s);
+		result.append(string);
 		return result;
 	}
 	
-	String String::operator+(const std::string& s) const
+	String String::operator+(const std::string& string) const
 	{
 		String result(*this);
-		result.append(s);
+		result.append(string);
 		return result;
 	}
 	
@@ -927,7 +925,12 @@ namespace hltypes
 		return result;
 	}
 
-	std::basic_string<unsigned int> String::u_str() const
+	const char* String::cStr() const
+	{
+		return stdstr::c_str();
+	}
+
+	std::basic_string<unsigned int> String::uStr() const
 	{
 		std::basic_string<unsigned int> result;
 #ifdef __APPLE__ // bugfix for apple llvm compiler, has allocation problems in std::string with unsigned int combination
@@ -953,7 +956,12 @@ namespace hltypes
 		return result;
 	}
 
-	std::basic_string<wchar_t> String::w_str() const
+	const unsigned int* String::ucStr() const
+	{
+		return this->uStr().c_str();
+	}
+
+	std::basic_string<wchar_t> String::wStr() const
 	{
 		std::basic_string<wchar_t> result;
 #ifdef __APPLE__ // bugfix for apple llvm compiler, has allocation problems in std::string with unsigned int combination
@@ -990,27 +998,32 @@ namespace hltypes
 		return result;
 	}
 
-	unsigned int String::first_unicode_char(int index, int* character_size) const
+	const wchar_t* String::wcStr() const
+	{
+		return this->wStr().c_str();
+	}
+
+	unsigned int String::firstUnicodeChar(int index, int* byteCount) const
 	{
 		unsigned int result = 0;
 		const unsigned char* str = (const unsigned char*)stdstr::c_str();
 		int size = 0;
 		_TO_UNICODE_FAST(result, str, index, size);
-		if (character_size != NULL)
+		if (byteCount != NULL)
 		{
-			*character_size = size;
+			*byteCount = size;
 		}
 		return result;
 	}
 
-	String String::from_unicode(unsigned int value)
+	String String::fromUnicode(unsigned int value)
 	{
 		String result;
 		_FROM_UNICODE_FAST(result, value);
 		return result;
 	}
 
-	String String::from_unicode(wchar_t value)
+	String String::fromUnicode(wchar_t value)
 	{
 		String result;
 		unsigned int code = value;
@@ -1018,17 +1031,17 @@ namespace hltypes
 		return result;
 	}
 
-	String String::from_unicode(char value)
+	String String::fromUnicode(char value)
 	{
 		return value;
 	}
 
-	String String::from_unicode(unsigned char value)
+	String String::fromUnicode(unsigned char value)
 	{
 		return (char)value;
 	}
 
-	String String::from_unicode(const unsigned int* string)
+	String String::fromUnicode(const unsigned int* string)
 	{
 		String result;
 		if (string != NULL)
@@ -1041,7 +1054,7 @@ namespace hltypes
 		return result;
 	}
 
-	String String::from_unicode(const wchar_t* string)
+	String String::fromUnicode(const wchar_t* string)
 	{
 		String result;
 		if (string != NULL)
@@ -1056,17 +1069,17 @@ namespace hltypes
 		return result;
 	}
 
-	String String::from_unicode(const char* string)
+	String String::fromUnicode(const char* string)
 	{
 		return (string != NULL ? string : "");
 	}
 
-	String String::from_unicode(const unsigned char* string)
+	String String::fromUnicode(const unsigned char* string)
 	{
 		return (string != NULL ? (const char*)string : "");
 	}
 
-	String String::from_unicode(Array<unsigned int> chars)
+	String String::fromUnicode(Array<unsigned int> chars)
 	{
 		String result;
 		foreach (unsigned int, it, chars)
@@ -1076,7 +1089,7 @@ namespace hltypes
 		return result;
 	}
 
-	String String::from_unicode(Array<wchar_t> chars)
+	String String::fromUnicode(Array<wchar_t> chars)
 	{
 		String result;
 		unsigned int code;
@@ -1088,7 +1101,7 @@ namespace hltypes
 		return result;
 	}
 
-	String String::from_unicode(Array<char> chars)
+	String String::fromUnicode(Array<char> chars)
 	{
 		String result;
 		foreach (char, it, chars)
@@ -1098,7 +1111,7 @@ namespace hltypes
 		return result;
 	}
 
-	String String::from_unicode(Array<unsigned char> chars)
+	String String::fromUnicode(Array<unsigned char> chars)
 	{
 		String result;
 		foreach (unsigned char, it, chars)
@@ -1110,19 +1123,14 @@ namespace hltypes
 
 }
 
-hltypes::String operator+(const char* s1, const hltypes::String& s2)
+hltypes::String operator+(const char* string1, const hltypes::String& string2)
 {
-	return (hltypes::String(s1) + s2);
+	return (hltypes::String(string1) + string2);
 }
 
-hltypes::String operator+(char* s1, const hltypes::String& s2)
+hltypes::String operator+(char* string1, const hltypes::String& string2)
 {
-	return (hltypes::String(s1) + s2);
-}
-
-hltypes::String operator+(char s1, const hltypes::String& s2)
-{
-	return (hltypes::String(s1) + s2);
+	return (hltypes::String(string1) + string2);
 }
 
 hltypes::String hvsprintf(const char* format, va_list args)
@@ -1166,3 +1174,8 @@ hltypes::String hsprintf(const char* format, ...)
 	va_end(args);
 	return result;
 }
+
+hltypes::String hltypes::String::from_unicode(hltypes::Array<unsigned int> chars)	{ return hltypes::String::fromUnicode(chars); } // DEPRECATED
+hltypes::String hltypes::String::from_unicode(hltypes::Array<wchar_t> chars)		{ return hltypes::String::fromUnicode(chars); } // DEPRECATED
+hltypes::String hltypes::String::from_unicode(hltypes::Array<char> chars)			{ return hltypes::String::fromUnicode(chars); } // DEPRECATED
+hltypes::String hltypes::String::from_unicode(hltypes::Array<unsigned char> chars)	{ return hltypes::String::fromUnicode(chars); } // DEPRECATED
