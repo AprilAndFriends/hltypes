@@ -26,11 +26,11 @@ namespace hltypes
 		{
 			if (tag != "")
 			{
-				NSLog(@"[%s] %s", tag.c_str(), message.c_str());
+				NSLog(@"[%s] %s", tag.cStr(), message.cStr());
 			}
 			else
 			{
-				NSLog(@"%s", message.c_str());
+				NSLog(@"%s", message.cStr());
 			}
 		}
 		else
@@ -47,7 +47,7 @@ namespace hltypes
 			{
 				int i, len = tag.length(), r, g, b;
 				unsigned int x = 0;
-				const char* s = tag.c_str();
+				const char* s = tag.cStr();
 				for (i = 0; i < len; i++)
 				{
 					x += s[i] * (i + 1) * (i + 2);
@@ -64,32 +64,32 @@ namespace hltypes
 				
 				if      (level == Log::LevelWrite)
 				{
-					printf("\033[fg%d,%d,%d;[%s]\033[; %s\n", r, g, b, tag.c_str(), message.c_str());
+					printf("\033[fg%d,%d,%d;[%s]\033[; %s\n", r, g, b, tag.cStr(), message.cStr());
 				}
 				else if (level == Log::LevelError)
 				{
 					// red background and yellow foreground
-					printf("\033[bg255,0,0;\033[fg255,255,0;[%s] %s\033[;\n", tag.c_str(), message.c_str());
+					printf("\033[bg255,0,0;\033[fg255,255,0;[%s] %s\033[;\n", tag.cStr(), message.cStr());
 				}
 				else if (level == Log::LevelWarn)
 				{
 					// grey text and grey tag background
-					printf("\033[bg230,230,230;[%s]\033[; \033[fg128,128,128;%s\033[;\n", tag.c_str(), message.c_str());
+					printf("\033[bg230,230,230;[%s]\033[; \033[fg128,128,128;%s\033[;\n", tag.cStr(), message.cStr());
 				}
 				else if (level == Log::LevelDebug)
 				{
 					// blue background and dark blue text
-					printf("\033[bg204,255,255;\033[fg%d,%d,%d;[%s]\033[;\033[bg153,255,255; \033[fg0,0,255;%s\033[;\n", r, g, b, tag.c_str(), message.c_str());
+					printf("\033[bg204,255,255;\033[fg%d,%d,%d;[%s]\033[;\033[bg153,255,255; \033[fg0,0,255;%s\033[;\n", r, g, b, tag.cStr(), message.cStr());
 				}
 				else
 				{
 					// just in case!
-					printf("%s\n", message.c_str());
+					printf("%s\n", message.cStr());
 				}
 			}
 			else
 			{
-				printf("%s\n", message.c_str());
+				printf("%s\n", message.cStr());
 			}
 		}
 	}
