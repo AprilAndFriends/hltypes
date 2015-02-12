@@ -47,14 +47,14 @@ namespace hltypes
 		{
 			printf("[%s] %s\n", tag.cStr(), message.cStr());
 #ifdef _MSC_VER // prints in the output panel of Visual Studio
-			OutputDebugStringW(("[" + tag + "] " + message + "\n").wcStr());
+			OutputDebugStringW(("[" + tag + "] " + message + "\n").wStr().c_str());
 #endif
 		}
 		else
 		{
 			printf("%s\n", message.cStr());
 #ifdef _MSC_VER // prints in the output panel of Visual Studio
-			OutputDebugStringW((message + "\n").wcStr());
+			OutputDebugStringW((message + "\n").wStr().c_str());
 #endif
 		}
 	}

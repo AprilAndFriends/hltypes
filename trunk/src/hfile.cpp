@@ -92,7 +92,7 @@ namespace hltypes
 			while (true)
 			{
 #ifdef _WIN32
-				FILE* f = _wfopen(name.wcStr(), L"wb");
+				FILE* f = _wfopen(name.wStr().c_str(), L"wb");
 #else
 				FILE* f = fopen(name.cStr(), "wb"); // TODO - should be ported to Unix systems as well
 #endif
@@ -121,7 +121,7 @@ namespace hltypes
 	{
 		String name = Dir::normalize(filename);
 #ifdef _WIN32
-		return (_wremove(name.wcStr()) == 0);
+		return (_wremove(name.wStr().c_str()) == 0);
 #else
 		return (f_remove(name.cStr()) == 0); // TODO - should be ported to Unix systems as well
 #endif
@@ -138,7 +138,7 @@ namespace hltypes
 		if (File::exists(name))
 		{
 #ifdef _WIN32
-			FILE* f = _wfopen(name.wcStr(), L"wb");
+			FILE* f = _wfopen(name.wStr().c_str(), L"wb");
 #else
 			FILE* f = fopen(name.cStr(), "wb"); // TODO - should be ported to Unix systems as well
 #endif
@@ -169,7 +169,7 @@ namespace hltypes
 		}
 		Dir::create(Dir::baseDir(newName));
 #ifdef _WIN32
-		return (_wrename(oldName.wcStr(), newName.wcStr()) == 0);
+		return (_wrename(oldName.wStr().c_str(), newName.wStr().c_str()) == 0);
 #else
 		return (f_rename(oldName.cStr(), newName.cStr()) == 0); // TODO - should be ported to Unix systems as well
 #endif
@@ -238,7 +238,7 @@ namespace hltypes
 #ifdef _WIN32
 		WIN32_FILE_ATTRIBUTE_DATA data;
 		memset(&data, 0, sizeof(WIN32_FILE_ATTRIBUTE_DATA));
-		if (GetFileAttributesExW(filename.wcStr(), GetFileExInfoStandard, &data) != 0)
+		if (GetFileAttributesExW(filename.wStr().c_str(), GetFileExInfoStandard, &data) != 0)
 		{
 #define WINDOWS_TICK 10000000ULL
 #define SEC_TO_UNIX_EPOCH 11644473600ULL

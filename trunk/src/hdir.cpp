@@ -98,7 +98,7 @@ namespace hltypes
 					sa.nLength = sizeof(sa);
 					sa.lpSecurityDescriptor = &sd;
 					sa.bInheritHandle = false;
-					result = (CreateDirectory(path.wcStr(), &sa) == TRUE);
+					result = (CreateDirectory(path.wStr().c_str(), &sa) == TRUE);
 				}
 				LocalFree(acl);
 			}
@@ -117,7 +117,7 @@ namespace hltypes
 		}
 #endif
 #ifdef _WIN32
-		return (_wmkdir(path.wcStr()) != 0);
+		return (_wmkdir(path.wStr().c_str()) != 0);
 #else
 		return (_mkdir(path.cStr()) != 0); // TODO - should be ported to Unix systems as well
 #endif
@@ -126,7 +126,7 @@ namespace hltypes
 	static bool hremove(const String& dirName)
 	{
 #ifdef _WIN32
-		return (_wremove(dirName.wcStr()) != 0);
+		return (_wremove(dirName.wStr().c_str()) != 0);
 #else
 		return (remove(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
 #endif
@@ -135,7 +135,7 @@ namespace hltypes
 	static bool hrmdir(const String& dirName)
 	{
 #ifdef _WIN32
-		return (_wrmdir(dirName.wcStr()) != 0);
+		return (_wrmdir(dirName.wStr().c_str()) != 0);
 #else
 		return (_rmdir(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
 #endif
@@ -407,7 +407,7 @@ namespace hltypes
 	{
 #ifdef _WIN32
 #ifndef _WINRT
-		_wchdir(Dir::systemize(dirName).wcStr());
+		_wchdir(Dir::systemize(dirName).wStr().c_str());
 #endif
 #else
 		_chdir(Dir::systemize(dirName).cStr());

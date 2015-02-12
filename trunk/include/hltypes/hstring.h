@@ -467,15 +467,9 @@ namespace hltypes
 		/// @brief Creates an unicode (unsigned int) string.
 		/// @return A unicode (unsigned int) string.
 		hltypesMemberExport std::basic_string<unsigned int> uStr() const;
-		/// @brief Creates an unicode (unsigned int) string C-String.
-		/// @return A unicode (unsigned int) string as C-String.
-		hltypesMemberExport const unsigned int* ucStr() const;
 		/// @brief Creates a wchar string.
 		/// @return A wchar string.
 		hltypesMemberExport std::basic_string<wchar_t> wStr() const;
-		/// @brief Creates a wchar string C-String.
-		/// @return A wchar string C-String.
-		hltypesMemberExport const wchar_t* wcStr() const;
 		/// @brief Converts first UTF8 character into the corresponding character code.
 		/// @param[in] index The byte position of the first character in the string.
 		/// @param[out] byteCount Length of UTF8 character in bytes.

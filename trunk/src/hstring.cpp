@@ -956,11 +956,6 @@ namespace hltypes
 		return result;
 	}
 
-	const unsigned int* String::ucStr() const
-	{
-		return this->uStr().c_str();
-	}
-
 	std::basic_string<wchar_t> String::wStr() const
 	{
 		std::basic_string<wchar_t> result;
@@ -996,11 +991,6 @@ namespace hltypes
 			i += size;
 		}
 		return result;
-	}
-
-	const wchar_t* String::wcStr() const
-	{
-		return this->wStr().c_str();
 	}
 
 	unsigned int String::firstUnicodeChar(int index, int* byteCount) const
