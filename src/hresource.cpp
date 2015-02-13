@@ -293,7 +293,7 @@ namespace hltypes
 					Array<String> files = ResourceDir::files(baseDir);
 					foreach (String, it, files)
 					{
-						if ((*it).lower() == baseName.lower())
+						if ((*it).lowered() == baseName.lowered())
 						{
 							name = ResourceDir::joinPath(baseDir, (*it));
 							result = true;
