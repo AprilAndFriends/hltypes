@@ -41,7 +41,7 @@
 #include <wrl.h>
 #define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).wStr().c_str())
 #define _HL_HSTR_TO_PSTR_DEF(string) Platform::String^ p ## string = _HL_HSTR_TO_PSTR(string)
-#define _HL_PSTR_TO_HSTR(string) hltypes::String::from_unicode((string)->Data())
+#define _HL_PSTR_TO_HSTR(string) hltypes::String::fromUnicode((string)->Data())
 #define _HL_TRY_DELETE(name) \
 	if (name != NULL) \
 	{ \
