@@ -54,9 +54,9 @@ namespace hltypes
 	String FileBase::extensionOf(const String& path)
 	{
 		// TODO - not UTF8 safe
-		if (Dir::baseName(path).contains("."))
+		if (Dir::baseName(path).contains('.'))
 		{
-			int index = (int)path.rindexOf(".");
+			int index = path.rindexOf('.');
 			if (index >= 0)
 			{
 				return path(index + 1, -1);
@@ -68,9 +68,9 @@ namespace hltypes
 	String FileBase::withoutExtension(const String& path)
 	{
 		// TODO - not UTF8 safe
-		if (Dir::baseName(path).contains("."))
+		if (Dir::baseName(path).contains('.'))
 		{
-			int index = (int)path.rindexOf(".");
+			int index = path.rindexOf('.');
 			if (index >= 0)
 			{
 				return path.subString(0, index);
