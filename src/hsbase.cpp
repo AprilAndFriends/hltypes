@@ -83,7 +83,7 @@ namespace hltypes
 			result += c;
 			if (delimiter != "")
 			{
-				index = (int)result.find(delimiter);
+				index = (int)result.indexOf(delimiter);
 				if (index >= 0)
 				{
 					this->_seek(index - result.size() + delimiter.size(), CURRENT);
