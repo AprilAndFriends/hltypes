@@ -626,6 +626,9 @@ namespace hltypes
 		/// @return UTF8 string.
 		hltypesMemberExport static String fromUnicode(Array<unsigned char> chars);
 
+		// Potentially temp functionality, avoid
+		hltypesMemberExport void assign(const char* string, unsigned int length) { std::string::assign(string, length); }
+
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int find_first_of(const char c) const										{ return this->indexOfAny(c); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind_first_of(const char c) const										{ return this->rindexOfAny(c); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int find(const char c) const												{ return this->indexOf(c); }
