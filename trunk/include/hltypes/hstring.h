@@ -247,17 +247,17 @@ namespace hltypes
 		/// @param[in] c Character to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of the character searching from the back.
-		hltypesMemberExport int rindexOf(const char c, int start = 0) const;
+		hltypesMemberExport int rindexOf(const char c, int start = -1) const;
 		/// @brief Finds the first index of a character searching from the back.
 		/// @param[in] string C-string to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of the character searching from the back.
-		hltypesMemberExport int rindexOf(const char* string, int start = 0) const;
+		hltypesMemberExport int rindexOf(const char* string, int start = -1) const;
 		/// @brief Finds the first index of a character searching from the back.
 		/// @param[in] string String to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of the character searching from the back.
-		hltypesMemberExport int rindexOf(const String& string, int start = 0) const;
+		hltypesMemberExport int rindexOf(const String& string, int start = -1) const;
 		/// @brief Finds the first index of any character.
 		/// @param[in] string Characters as C-string to search for.
 		/// @param[in] start Starting index.
@@ -272,12 +272,12 @@ namespace hltypes
 		/// @param[in] string Characters as C-string to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of any of the characters searching from the back.
-		hltypesMemberExport int rindexOfAny(const char* string, int start = 0) const;
+		hltypesMemberExport int rindexOfAny(const char* string, int start = -1) const;
 		/// @brief Finds the first index of any character searching from the back.
 		/// @param[in] string Characters as String to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of any of the characters searching from the back.
-		hltypesMemberExport int rindexOfAny(const String& string, int start = 0) const;
+		hltypesMemberExport int rindexOfAny(const String& string, int start = -1) const;
 		/// @brief Counts the occurrences of a substring.
 		/// @param[in] c The character to look for.
 		/// @return Number of occurrences of the substring.
