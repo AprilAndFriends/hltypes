@@ -56,7 +56,7 @@ namespace hltypes
 		// TODO - not UTF8 safe
 		if (Dir::baseName(path).contains("."))
 		{
-			int index = (int)path.rfind(".");
+			int index = (int)path.rindexOf(".");
 			if (index >= 0)
 			{
 				return path(index + 1, -1);
@@ -70,7 +70,7 @@ namespace hltypes
 		// TODO - not UTF8 safe
 		if (Dir::baseName(path).contains("."))
 		{
-			int index = (int)path.rfind(".");
+			int index = (int)path.rindexOf(".");
 			if (index >= 0)
 			{
 				return path.subString(0, index);
