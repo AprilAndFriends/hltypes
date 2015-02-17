@@ -444,6 +444,10 @@ namespace hltypes
 		/// @brief Converts C-type string into String.
 		/// @param[in] string C-type string value.
 		/// @return This modified String.
+		hltypesMemberExport String operator=(char* string);
+		/// @brief Converts C-type string into String.
+		/// @param[in] string C-type string value.
+		/// @return This modified String.
 		hltypesMemberExport String operator=(const char* string);
 		/// @brief Assigns String to this one.
 		/// @param[in] string String value.
@@ -469,6 +473,9 @@ namespace hltypes
 		hltypesMemberExport void operator+=(const char c);
 		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
 		/// @param[in] string C-type string value.
+		hltypesMemberExport void operator+=(char* string);
+		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
+		/// @param[in] string C-type string value.
 		hltypesMemberExport void operator+=(const char* string);
 		/// @brief Concatenates a String at the end of this one.
 		/// @param[in] string String value.
@@ -477,6 +484,10 @@ namespace hltypes
 		/// @param[in] c Character value.
 		/// @return New String.
 		hltypesMemberExport String operator+(const char c) const;
+		/// @brief Merges String with a C-type string converted into String first.
+		/// @param[in] string C-type string value.
+		/// @return New String.
+		hltypesMemberExport String operator+(char* string) const;
 		/// @brief Merges String with a C-type string converted into String first.
 		/// @param[in] string C-type string value.
 		/// @return New String.

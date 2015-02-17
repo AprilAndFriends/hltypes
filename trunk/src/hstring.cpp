@@ -871,6 +871,12 @@ namespace hltypes
 		return *this;
 	}
 
+	String String::operator=(char* string)
+	{
+		stdstr::operator=(string);
+		return *this;
+	}
+
 	String String::operator=(const String& string)
 	{
 		stdstr::operator=(string.cStr());
@@ -910,11 +916,16 @@ namespace hltypes
 		stdstr::append(string);
 	}
 
-	void String::operator+=(const char* string)
+	void String::operator+=(char* string)
 	{
 		stdstr::append(string);
 	}
 	
+	void String::operator+=(const char* string)
+	{
+		stdstr::append(string);
+	}
+
 	void String::operator+=(const String& string)
 	{
 		stdstr::append(string.cStr());
@@ -924,6 +935,13 @@ namespace hltypes
 	{
 		String result(*this);
 		result.append(1, c);
+		return result;
+	}
+
+	String String::operator+(char* string) const
+	{
+		String result(*this);
+		result.append(string);
 		return result;
 	}
 
