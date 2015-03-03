@@ -829,14 +829,14 @@ namespace hltypes
 	String::operator int64_t() const
 	{
 		int64_t i = 0;
-		sscanf(stdstr::c_str(), "%ld", &i);
+		sscanf(stdstr::c_str(), "%lld", &i);
 		return i;
 	}
 
 	String::operator uint64_t() const
 	{
 		uint64_t i = 0;
-		sscanf(stdstr::c_str(), "%lu", &i);
+		sscanf(stdstr::c_str(), "%llu", &i);
 		return i;
 	}
 
@@ -894,7 +894,7 @@ namespace hltypes
 	String String::operator=(const int64_t i)
 	{
 		char string[64] = { '\0' };
-		sprintf(string, "%ld", i);
+		sprintf(string, "%lld", i);
 		stdstr::operator=(string);
 		return *this;
 	}
@@ -902,7 +902,7 @@ namespace hltypes
 	String String::operator=(const uint64_t i)
 	{
 		char string[64] = { '\0' };
-		sprintf(string, "%lu", i);
+		sprintf(string, "%llu", i);
 		stdstr::operator=(string);
 		return *this;
 	}
