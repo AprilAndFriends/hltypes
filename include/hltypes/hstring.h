@@ -14,6 +14,7 @@
 #define HLTYPES_STRING_H
 
 #include <stdarg.h>
+#include <stdint.h>
 #include <string>
 
 #include "hltypesExport.h"
@@ -41,25 +42,37 @@ namespace hltypes
 		/// @param[in] times How many times c should be added.
 		hltypesMemberExport String(const char c, const int times);
 		/// @brief Copy constructor.
-		/// @param[in] s A C-type string.
-		hltypesMemberExport String(const char* s);
+		/// @param[in] string A C-type string.
+		hltypesMemberExport String(const char* string);
 		/// @brief Copy constructor.
-		/// @param[in] s String to copy.
-		hltypesMemberExport String(const String& s);
+		/// @param[in] string String to copy.
+		hltypesMemberExport String(const String& string);
 		/// @brief Copy constructor.
-		/// @param[in] s A C-type string.
+		/// @param[in] string A C-type string.
 		/// @param[in] length How many characters to copy.
-		hltypesMemberExport String(const char* s, const int length);
+		hltypesMemberExport String(const char* string, const int length);
 		/// @brief Copy constructor.
-		/// @param[in] s String to copy.
+		/// @param[in] string String to copy.
 		/// @param[in] length How many characters to copy.
-		hltypesMemberExport String(const String& s, const int length);
+		hltypesMemberExport String(const String& string, const int length);
+		/// @brief Type constructor.
+		/// @param[in] s Short integer to create String of.
+		hltypesMemberExport String(const short s);
+		/// @brief Type constructor.
+		/// @param[in] s Unsigned short integer to create String of.
+		hltypesMemberExport String(const unsigned short s);
 		/// @brief Type constructor.
 		/// @param[in] i Integer to create String of.
 		hltypesMemberExport String(const int i);
 		/// @brief Type constructor.
 		/// @param[in] i Unsigned integer to create String of.
 		hltypesMemberExport String(const unsigned int i);
+		/// @brief Type constructor.
+		/// @param[in] i 64-bit integer to create String of.
+		hltypesMemberExport String(const int64_t i);
+		/// @brief Type constructor.
+		/// @param[in] i Unsigned 64-bit integer to create String of.
+		hltypesMemberExport String(const uint64_t i);
 		/// @brief Type constructor.
 		/// @param[in] f Float to create String of.
 		hltypesMemberExport String(const float f);
@@ -410,17 +423,33 @@ namespace hltypes
 		/// @param[in] index Index of the character.
 		/// @return A character.
 		hltypesMemberExport const char& operator[](int index) const;
-		/// @brief Casts String into float.
-		hltypesMemberExport operator float() const;
-		/// @brief Casts String into double.
-		hltypesMemberExport operator double() const;
+		/// @brief Casts String into short.
+		hltypesMemberExport operator short() const;
+		/// @brief Casts String into unsigned short.
+		hltypesMemberExport operator unsigned short() const;
 		/// @brief Casts String into int.
 		hltypesMemberExport operator int() const;
 		/// @brief Casts String into unsigned int.
 		hltypesMemberExport operator unsigned int() const;
+		/// @brief Casts String into 64-bit int.
+		hltypesMemberExport operator int64_t() const;
+		/// @brief Casts String into unsigned 64-bit int.
+		hltypesMemberExport operator uint64_t() const;
+		/// @brief Casts String into float.
+		hltypesMemberExport operator float() const;
+		/// @brief Casts String into double.
+		hltypesMemberExport operator double() const;
 		/// @brief Casts String into bool.
 		/// @note "false", "0" and "" are regarded as false, everything else is regarded as true.
 		hltypesMemberExport operator bool() const;
+		/// @brief Converts short into String.
+		/// @param[in] s Short value.
+		/// @return This modified String.
+		hltypesMemberExport String operator=(const short s);
+		/// @brief Converts unsigned short into String.
+		/// @param[in] s Unsigned short value.
+		/// @return This modified String.
+		hltypesMemberExport String operator=(const unsigned short s);
 		/// @brief Converts int into String.
 		/// @param[in] i Int value.
 		/// @return This modified String.
@@ -429,6 +458,14 @@ namespace hltypes
 		/// @param[in] i Unsigned int value.
 		/// @return This modified String.
 		hltypesMemberExport String operator=(const unsigned int i);
+		/// @brief Converts 64-bit int into String.
+		/// @param[in] i 64-bit int value.
+		/// @return This modified String.
+		hltypesMemberExport String operator=(const int64_t i);
+		/// @brief Converts unsigned 64-bit int into String.
+		/// @param[in] i Unsigned 64-bit int value.
+		/// @return This modified String.
+		hltypesMemberExport String operator=(const uint64_t i);
 		/// @brief Converts float into String.
 		/// @param[in] f Float value.
 		/// @return This modified String.
@@ -453,12 +490,24 @@ namespace hltypes
 		/// @param[in] string String value.
 		/// @return This modified String.
 		hltypesMemberExport String operator=(const String& string);
+		/// @brief Converts short into a String and concatenates the new String at the end of this one.
+		/// @param[in] s Short value.
+		hltypesMemberExport void operator+=(const short s);
+		/// @brief Converts unsigned short into a String and concatenates the new String at the end of this one.
+		/// @param[in] s Unsigned short value.
+		hltypesMemberExport void operator+=(const unsigned short s);
 		/// @brief Converts int into a String and concatenates the new String at the end of this one.
 		/// @param[in] i Int value.
 		hltypesMemberExport void operator+=(const int i);
 		/// @brief Converts unsigned int into a String and concatenates the new String at the end of this one.
 		/// @param[in] i Unsigned int value.
 		hltypesMemberExport void operator+=(const unsigned int i);
+		/// @brief Converts 64-bit int into a String and concatenates the new String at the end of this one.
+		/// @param[in] i 64-bit int value.
+		hltypesMemberExport void operator+=(const int64_t i);
+		/// @brief Converts unsigned 64-bit int into a String and concatenates the new String at the end of this one.
+		/// @param[in] i Unsigned 64-bit int value.
+		hltypesMemberExport void operator+=(const uint64_t i);
 		/// @brief Converts float into a String and concatenates the new String at the end of this one.
 		/// @param[in] f Float value.
 		hltypesMemberExport void operator+=(const float f);
@@ -497,9 +546,13 @@ namespace hltypes
 		/// @return New String.
 		hltypesMemberExport String operator+(const String& string) const;
 		/// @brief Compares String for equivalency.
-		/// @param[in] f Float value.
+		/// @param[in] s Short value.
 		/// @return True if value converted into String is equal to this one.
-		hltypesMemberExport bool operator==(const float f) const;
+		hltypesMemberExport bool operator==(const short s) const;
+		/// @brief Compares String for equivalency.
+		/// @param[in] s Unsigned short value.
+		/// @return True if value converted into String is equal to this one.
+		hltypesMemberExport bool operator==(const unsigned short s) const;
 		/// @brief Compares String for equivalency.
 		/// @param[in] i Int value.
 		/// @return True if value converted into String is equal to this one.
@@ -508,6 +561,22 @@ namespace hltypes
 		/// @param[in] i Unsigned int value.
 		/// @return True if value converted into String is equal to this one.
 		hltypesMemberExport bool operator==(const unsigned int i) const;
+		/// @brief Compares String for equivalency.
+		/// @param[in] i 64-bit int value.
+		/// @return True if value converted into String is equal to this one.
+		hltypesMemberExport bool operator==(const int64_t i) const;
+		/// @brief Compares String for equivalency.
+		/// @param[in] i Unsigned 64-bit int value.
+		/// @return True if value converted into String is equal to this one.
+		hltypesMemberExport bool operator==(const uint64_t i) const;
+		/// @brief Compares String for equivalency.
+		/// @param[in] f Float value.
+		/// @return True if value converted into String is equal to this one.
+		hltypesMemberExport bool operator==(const float f) const;
+		/// @brief Compares String for equivalency.
+		/// @param[in] d Double value.
+		/// @return True if value converted into String is equal to this one.
+		hltypesMemberExport bool operator==(const double d) const;
 		/// @brief Compares String for equivalency.
 		/// @param[in] b bool value.
 		/// @return True if value converted into String is equal to this one.
@@ -521,9 +590,13 @@ namespace hltypes
 		/// @return True if other String is equal to this one.
 		hltypesMemberExport bool operator==(const String& string) const;
 		/// @brief Compares String for non-equivalency.
-		/// @param[in] f Float value.
+		/// @param[in] s Short value.
 		/// @return True if value converted into String is not equal to this one.
-		hltypesMemberExport bool operator!=(const float f) const;
+		hltypesMemberExport bool operator!=(const short s) const;
+		/// @brief Compares String for non-equivalency.
+		/// @param[in] s Unsigned short value.
+		/// @return True if value converted into String is not equal to this one.
+		hltypesMemberExport bool operator!=(const unsigned short s) const;
 		/// @brief Compares String for non-equivalency.
 		/// @param[in] i Int value.
 		/// @return True if value converted into String is not equal to this one.
@@ -532,6 +605,22 @@ namespace hltypes
 		/// @param[in] i Unsigned int value.
 		/// @return True if value converted into String is not equal to this one.
 		hltypesMemberExport bool operator!=(const unsigned int i) const;
+		/// @brief Compares String for non-equivalency.
+		/// @param[in] i 64-bit int value.
+		/// @return True if value converted into String is not equal to this one.
+		hltypesMemberExport bool operator!=(const int64_t i) const;
+		/// @brief Compares String for non-equivalency.
+		/// @param[in] i Unsigned 64-bit int value.
+		/// @return True if value converted into String is not equal to this one.
+		hltypesMemberExport bool operator!=(const uint64_t i) const;
+		/// @brief Compares String for non-equivalency.
+		/// @param[in] f Float value.
+		/// @return True if value converted into String is not equal to this one.
+		hltypesMemberExport bool operator!=(const float f) const;
+		/// @brief Compares String for non-equivalency.
+		/// @param[in] d Double value.
+		/// @return True if value converted into String is not equal to this one.
+		hltypesMemberExport bool operator!=(const double d) const;
 		/// @brief Compares String for non-equivalency.
 		/// @param[in] b bool value.
 		/// @return True if value converted into String is not equal to this one.

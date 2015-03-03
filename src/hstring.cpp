@@ -112,29 +112,33 @@ namespace hltypes
 	String::String() : stdstr() { }
 	String::String(const char c) : stdstr(1, c) { }
 	String::String(const char c, const int times) : stdstr(times, c) { }
-	String::String(const char* s) : stdstr(s) { }
-	String::String(const String& s) : stdstr(s) { }
-	String::String(const char* s, const int length) : stdstr(s, length) { }
-	String::String(const String& s, const int length) : stdstr(s, length) { }
+	String::String(const char* string) : stdstr(string) { }
+	String::String(const String& string) : stdstr(string) { }
+	String::String(const char* string, const int length) : stdstr(string, length) { }
+	String::String(const String& string, const int length) : stdstr(string, length) { }
+	String::String(const short s) { this->operator=(s); }
+	String::String(const unsigned short s) { this->operator=(s); }
 	String::String(const int i) { this->operator=(i); }
 	String::String(const unsigned int i) { this->operator=(i); }
+	String::String(const int64_t i) { this->operator=(i); }
+	String::String(const uint64_t i) { this->operator=(i); }
 	String::String(const float f) { this->operator=(f); }
 	String::String(const float f, int precision)
 	{
 		char fmt[16];
-		char s[64];
+		char string[64];
 		sprintf(fmt, "%%.%df", precision);
-		sprintf(s, fmt, f);
-		stdstr::operator=(s);
+		sprintf(string, fmt, f);
+		stdstr::operator=(string);
 	}
 	String::String(const double d) { this->operator=(d); }
 	String::String(const double d, int precision)
 	{
 		char fmt[16];
-		char s[64];
+		char string[64];
 		sprintf(fmt, "%%.%dlf", precision);
-		sprintf(s, fmt, d);
-		stdstr::operator=(s);
+		sprintf(string, fmt, d);
+		stdstr::operator=(string);
 	}
 	String::~String() { }
 
@@ -794,68 +798,128 @@ namespace hltypes
 		return stdstr::at(index);
 	}
 	
-	String::operator float() const
+	String::operator short() const
 	{
-		float f = 0.0f;
-		sscanf(stdstr::c_str(), "%f", &f);
-		return f;
+		short s = 0;
+		sscanf(stdstr::c_str(), "%hd", &s);
+		return s;
 	}
-	
-	String::operator double() const
+
+	String::operator unsigned short() const
 	{
-		double d = 0.0;
-		sscanf(stdstr::c_str(), "%lf", &d);
-		return d;
+		unsigned short s = 0;
+		sscanf(stdstr::c_str(), "%hu", &s);
+		return s;
 	}
-	
+
 	String::operator int() const
 	{
 		int i = 0;
 		sscanf(stdstr::c_str(), "%d", &i);
 		return i;
 	}
-	
+
 	String::operator unsigned int() const
 	{
 		unsigned int i = 0;
 		sscanf(stdstr::c_str(), "%u", &i);
 		return i;
 	}
-	
+
+	String::operator int64_t() const
+	{
+		int64_t i = 0;
+		sscanf(stdstr::c_str(), "%ld", &i);
+		return i;
+	}
+
+	String::operator uint64_t() const
+	{
+		uint64_t i = 0;
+		sscanf(stdstr::c_str(), "%lu", &i);
+		return i;
+	}
+
+	String::operator float() const
+	{
+		float f = 0.0f;
+		sscanf(stdstr::c_str(), "%f", &f);
+		return f;
+	}
+
+	String::operator double() const
+	{
+		double d = 0.0;
+		sscanf(stdstr::c_str(), "%lf", &d);
+		return d;
+	}
+
 	String::operator bool() const
 	{
 		return (*this != "" && *this != "0" && this->lowered() != "false");
 	}
 	
+	String String::operator=(const short s)
+	{
+		char string[64] = { '\0' };
+		sprintf(string, "%hd", s);
+		stdstr::operator=(string);
+		return *this;
+	}
+
+	String String::operator=(const unsigned short s)
+	{
+		char string[64] = { '\0' };
+		sprintf(string, "%hu", s);
+		stdstr::operator=(string);
+		return *this;
+	}
+
 	String String::operator=(const int i)
 	{
-		char s[64] = { '\0' };
-		sprintf(s, "%d", i);
-		stdstr::operator=(s);
+		char string[64] = { '\0' };
+		sprintf(string, "%d", i);
+		stdstr::operator=(string);
 		return *this;
 	}
 
 	String String::operator=(const unsigned int i)
 	{
-		char s[64] = { '\0' };
-		sprintf(s, "%u", i);
-		stdstr::operator=(s);
+		char string[64] = { '\0' };
+		sprintf(string, "%u", i);
+		stdstr::operator=(string);
+		return *this;
+	}
+
+	String String::operator=(const int64_t i)
+	{
+		char string[64] = { '\0' };
+		sprintf(string, "%ld", i);
+		stdstr::operator=(string);
+		return *this;
+	}
+
+	String String::operator=(const uint64_t i)
+	{
+		char string[64] = { '\0' };
+		sprintf(string, "%lu", i);
+		stdstr::operator=(string);
 		return *this;
 	}
 
 	String String::operator=(const float f)
 	{
-		char s[64] = {'\0'};
-		sprintf(s, "%f", f);
-		stdstr::operator=(s);
+		char string[64] = { '\0' };
+		sprintf(string, "%f", f);
+		stdstr::operator=(string);
 		return *this;
 	}
 	
 	String String::operator=(const double d)
 	{
-		char s[64] = {'\0'};
-		sprintf(s, "%lf", d);
-		stdstr::operator=(s);
+		char string[64] = { '\0' };
+		sprintf(string, "%lf", d);
+		stdstr::operator=(string);
 		return *this;
 	}
 	
@@ -883,12 +947,32 @@ namespace hltypes
 		return *this;
 	}
 
+	void String::operator+=(const short s)
+	{
+		stdstr::append(String(s));
+	}
+
+	void String::operator+=(const unsigned short s)
+	{
+		stdstr::append(String(s));
+	}
+
 	void String::operator+=(const int i)
 	{
 		stdstr::append(String(i));
 	}
 
 	void String::operator+=(const unsigned int i)
+	{
+		stdstr::append(String(i));
+	}
+
+	void String::operator+=(const int64_t i)
+	{
+		stdstr::append(String(i));
+	}
+
+	void String::operator+=(const uint64_t i)
 	{
 		stdstr::append(String(i));
 	}
@@ -959,21 +1043,46 @@ namespace hltypes
 		return result;
 	}
 
-	bool String::operator==(const float f) const
+	bool String::operator==(const short s) const
 	{
-		return heqf((float)*this, f);
+		return ((short)*this == s);
 	}
-	
+
+	bool String::operator==(const unsigned short s) const
+	{
+		return ((unsigned short)*this == s);
+	}
+
 	bool String::operator==(const int i) const
 	{
 		return ((int)*this == i);
 	}
-	
+
 	bool String::operator==(const unsigned int i) const
 	{
 		return ((unsigned int)*this == i);
 	}
-	
+
+	bool String::operator==(const int64_t i) const
+	{
+		return ((int64_t)*this == i);
+	}
+
+	bool String::operator==(const uint64_t i) const
+	{
+		return ((uint64_t)*this == i);
+	}
+
+	bool String::operator==(const float f) const
+	{
+		return heqf((float)*this, f);
+	}
+
+	bool String::operator==(const double d) const
+	{
+		return heqd((double)*this, d);
+	}
+
 	bool String::operator==(const bool b) const
 	{
 		const char* string = stdstr::c_str();
@@ -993,9 +1102,14 @@ namespace hltypes
 		return (strcmp(stdstr::c_str(), string.cStr()) == 0);
 	}
 
-	bool String::operator!=(const float f) const
+	bool String::operator!=(const short s) const
 	{
-		return !(this->operator==(f));
+		return !(this->operator==(s));
+	}
+
+	bool String::operator!=(const unsigned short s) const
+	{
+		return !(this->operator==(s));
 	}
 
 	bool String::operator!=(const int i) const
@@ -1006,6 +1120,26 @@ namespace hltypes
 	bool String::operator!=(const unsigned int i) const
 	{
 		return !(this->operator==(i));
+	}
+
+	bool String::operator!=(const int64_t i) const
+	{
+		return !(this->operator==(i));
+	}
+
+	bool String::operator!=(const uint64_t i) const
+	{
+		return !(this->operator==(i));
+	}
+
+	bool String::operator!=(const float f) const
+	{
+		return !(this->operator==(f));
+	}
+
+	bool String::operator!=(const double d) const
+	{
+		return !(this->operator==(d));
 	}
 
 	bool String::operator!=(const bool b) const
