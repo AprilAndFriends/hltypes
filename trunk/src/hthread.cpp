@@ -265,4 +265,15 @@ namespace hltypes
 #endif
 	}
 
+	Thread::Thread(const Thread& other)
+	{
+		throw ObjectCannotCopyException("hltypes::Thread");
+	}
+
+	Thread& Thread::operator=(Thread& other)
+	{
+		throw ObjectCannotAssignException("hltypes::Thread");
+		return (*this);
+	}
+
 }

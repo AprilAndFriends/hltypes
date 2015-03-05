@@ -130,6 +130,14 @@ namespace hltypes
 		/// @param[in] seekMode Seeking mode.
 		bool _seek(int64_t offset, SeekMode seekMode = CURRENT);
 
+	private:
+		/// @brief Copy constructor.
+		/// @note Usage is not allowed and it will throw an exception.
+		File(const File& other);
+		/// @brief Assignment operator.
+		/// @note Usage is not allowed and it will throw an exception.
+		File& operator=(File& other);
+
 	};
 }
 

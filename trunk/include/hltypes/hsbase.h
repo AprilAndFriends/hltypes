@@ -278,6 +278,14 @@ namespace hltypes
 		/// @return True if successful.
 		virtual bool _seek(int64_t offset, SeekMode seekMode = CURRENT) = 0;
 
+	private:
+		/// @brief Copy constructor.
+		/// @note Usage is not allowed and it will throw an exception.
+		StreamBase(const StreamBase& other);
+		/// @brief Assignment operator.
+		/// @note Usage is not allowed and it will throw an exception.
+		StreamBase& operator=(StreamBase& other);
+
 	};
 }
 

@@ -177,4 +177,22 @@ namespace hltypes
 	{
 	}
 	
+	_ObjectCannotCopyException::_ObjectCannotCopyException(const String& name, const char* sourceFile, int lineNumber) :
+		_Exception("", sourceFile, lineNumber)
+	{
+		this->_setInternalMessage(hsprintf("cannot create copy of object of class '%s'", name.cStr()), sourceFile, lineNumber);
+	}
+	_ObjectCannotCopyException::~_ObjectCannotCopyException()
+	{
+	}
+
+	_ObjectCannotAssignException::_ObjectCannotAssignException(const String& name, const char* sourceFile, int lineNumber) :
+		_Exception("", sourceFile, lineNumber)
+	{
+		this->_setInternalMessage(hsprintf("cannot assign object of class '%s'", name.cStr()), sourceFile, lineNumber);
+	}
+	_ObjectCannotAssignException::~_ObjectCannotAssignException()
+	{
+	}
+
 }

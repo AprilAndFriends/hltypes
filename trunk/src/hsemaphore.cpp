@@ -67,5 +67,15 @@ namespace hltypes
 #endif
 	}
 	
-}
+	Semaphore::Semaphore(const Semaphore& other)
+	{
+		throw ObjectCannotCopyException("hltypes::Semaphore");
+	}
 
+	Semaphore& Semaphore::operator=(Semaphore& other)
+	{
+		throw ObjectCannotAssignException("hltypes::Semaphore");
+		return (*this);
+	}
+
+}

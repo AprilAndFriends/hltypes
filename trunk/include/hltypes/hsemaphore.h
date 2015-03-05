@@ -49,6 +49,14 @@ namespace hltypes
 		/// @brief Semaphore name.
 		String name;
 
+	private:
+		/// @brief Copy constructor.
+		/// @note Usage is not allowed and it will throw an exception.
+		Semaphore(const Semaphore& other);
+		/// @brief Assignment operator.
+		/// @note Usage is not allowed and it will throw an exception.
+		Semaphore& operator=(Semaphore& other);
+
 	};
 }
 

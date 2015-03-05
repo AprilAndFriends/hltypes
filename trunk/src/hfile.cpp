@@ -269,4 +269,15 @@ namespace hltypes
 		return info;
 	}
 
+	File::File(const File& other)
+	{
+		throw ObjectCannotCopyException("hltypes::File");
+	}
+
+	File& File::operator=(File& other)
+	{
+		throw ObjectCannotAssignException("hltypes::File");
+		return (*this);
+	}
+
 }

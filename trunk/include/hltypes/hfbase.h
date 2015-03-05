@@ -146,6 +146,14 @@ namespace hltypes
 		/// @brief Defines the timeout in miliseconds between repeated attempts to access a file.
 		static float timeout;
 
+	private:
+		/// @brief Copy constructor.
+		/// @note Usage is not allowed and it will throw an exception.
+		FileBase(const FileBase& other);
+		/// @brief Assignment operator.
+		/// @note Usage is not allowed and it will throw an exception.
+		FileBase& operator=(FileBase& other);
+
 	};
 
 }

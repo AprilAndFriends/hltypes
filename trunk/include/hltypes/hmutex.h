@@ -71,6 +71,14 @@ namespace hltypes
 		/// @brief Used internallly on Win32 so the much faster critical sections can be used instead of mutices and semaphores.
 		bool locked;
 
+	private:
+		/// @brief Copy constructor.
+		/// @note Usage is not allowed and it will throw an exception.
+		Mutex(const Mutex& other);
+		/// @brief Assignment operator.
+		/// @note Usage is not allowed and it will throw an exception.
+		Mutex& operator=(Mutex& other);
+
 	};
 }
 
