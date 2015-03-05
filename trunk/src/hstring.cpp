@@ -19,6 +19,10 @@
 #include "hltypesUtil.h"
 #include "hstring.h"
 
+#ifdef __APPLE__
+#import <TargetConditionals.h>
+#endif
+
 /*
 7	U+7F		0xxxxxxx
 11	U+7FF		110xxxxx	10xxxxxx
@@ -1378,6 +1382,9 @@ hltypes::String operator+(char* string1, const hltypes::String& string2)
 hltypes::String hvsprintf(const char* format, va_list args)
 {
 	int size = 256; // safe assumption that most strings will be under 257 characters
+#if defined(_IOS) && TARGET_IPHONE_SIMULATOR
+	size = 1024; // iOS simulator sometimes crashes when callin vsnprintf twice, so in this case, just limit output
+#endif
 	char* c = new char[size + 1];
 	c[0] = '\0';
 	int count = 0;
@@ -1391,10 +1398,13 @@ hltypes::String hvsprintf(const char* format, va_list args)
 			c[count] = '\0'; // terminate string
 			break;
 		}
+#if defined(_IOS) && TARGET_IPHONE_SIMULATOR
+		break; // don't re-iterate on iOS simulator, crashes sometimes on second call to vsprintf, all other platforms confirmed ok.
+#endif
 		size *= 2; // not enough characters, double current buffer
 		delete[] c;
 		c = new char[size + 1];
-		c[0] = '\0';
+        c[0] = '\0';
 	}
 #ifdef _DEBUG
 	if (i == 8)

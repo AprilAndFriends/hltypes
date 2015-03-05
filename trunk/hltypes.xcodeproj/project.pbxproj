@@ -116,7 +116,7 @@
 /* Begin PBXFileReference section */
 		7F340ECF120AE72900F01926 /* hmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hmap.h; path = include/hltypes/hmap.h; sourceTree = "<group>"; };
 		7F42F69611EB0B9400B1C1DF /* hfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hfile.cpp; path = src/hfile.cpp; sourceTree = SOURCE_ROOT; };
-		7F42F69711EB0B9500B1C1DF /* hstring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hstring.cpp; path = src/hstring.cpp; sourceTree = SOURCE_ROOT; };
+		7F42F69711EB0B9500B1C1DF /* hstring.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = hstring.cpp; path = src/hstring.cpp; sourceTree = SOURCE_ROOT; };
 		7F42F69D11EB0BAA00B1C1DF /* harray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = harray.h; path = include/hltypes/harray.h; sourceTree = SOURCE_ROOT; };
 		7F42F69E11EB0BAA00B1C1DF /* hfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hfile.h; path = include/hltypes/hfile.h; sourceTree = SOURCE_ROOT; };
 		7F42F69F11EB0BAA00B1C1DF /* hltypesExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hltypesExport.h; path = include/hltypes/hltypesExport.h; sourceTree = SOURCE_ROOT; };
@@ -582,6 +582,10 @@
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_MAC,
+					"$(inherited)",
+				);
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
@@ -612,6 +616,10 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_MAC,
+					"$(inherited)",
+				);
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
@@ -636,6 +644,10 @@
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_MAC,
+					"$(inherited)",
+				);
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
@@ -758,6 +770,10 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_IOS,
+					"$(inherited)",
+				);
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				PRODUCT_NAME = hltypes;
@@ -771,6 +787,10 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_IOS,
+					"$(inherited)",
+				);
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				PRODUCT_NAME = hltypes;
@@ -784,6 +804,10 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_IOS,
+					"$(inherited)",
+				);
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				PRODUCT_NAME = hltypes;
@@ -797,6 +821,10 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_MAC,
+					"$(inherited)",
+				);
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				PRODUCT_NAME = hltypes;
@@ -809,6 +837,10 @@
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_MAC,
+					"$(inherited)",
+				);
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				PRODUCT_NAME = hltypes;
@@ -821,6 +853,10 @@
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_MAC,
+					"$(inherited)",
+				);
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				PRODUCT_NAME = hltypes;
