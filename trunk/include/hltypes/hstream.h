@@ -28,19 +28,22 @@ namespace hltypes
 		/// @note initialCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
 		Stream(int initialCapacity = 16);
 		/// @brief Constructor.
-		/// @param[in] initialData Initial data in the stream.
+		/// @param[in] initialData Initial data in the Stream.
 		/// @param[in] initialDataSize Initial data's size.
-		/// @note initialData is copied into the stream.
+		/// @note initialData is copied into the Stream.
 		Stream(unsigned char* initialData, int initialDataSize);
 		/// @brief Constructor.
-		/// @param[in] initialData Initial data in the stream.
+		/// @param[in] initialData Initial data in the Stream.
 		/// @param[in] initialDataSize Initial data's size.
 		/// @param[in] initialCapacity Initial capacity of the internal buffer.
-		/// @note initialData is copied into the stream. initialCapacity will be corrected to initialDataSize if less than initialDataSize.
+		/// @note initialData is copied into the Stream. initialCapacity will be corrected to initialDataSize if less than initialDataSize.
 		Stream(unsigned char* initialData, int initialDataSize, int initialCapacity);
+		/// @brief Copy constructor.
+		/// @param[in] other Other Stream.
+		Stream(const Stream& other);
 		/// @brief Destructor.
 		~Stream();
-		/// @brief Clears the stream.
+		/// @brief Clears the Stream.
 		/// @param[in] newCapacity New capacity of the internal buffer.
 		/// @note newCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
 		void clear(int newCapacity = 16LL);
@@ -48,33 +51,33 @@ namespace hltypes
 		/// @param[in] newCapacity New capacity of the internal buffer.
 		/// @return True if internal buffer was resized or already the same size that was requested.
 		/// @note This does not change the data stream size. Use this to avoid allocation of too much data if not needed.
-		/// @note If newCapacity is smaller than the stream size, data will be lost and the stream will be resized.
+		/// @note If newCapacity is smaller than the stream size, data will be lost and the Stream will be resized.
 		bool setCapacity(int newCapacity);
-		/// @brief Writes raw data to the stream.
+		/// @brief Writes raw data to the Stream.
 		/// @param[in] buffer Pointer to raw data buffer.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
 		/// @note If return value differs from parameter count, it can indicate a writing error.
 		int writeRaw(void* buffer, int count);
-		/// @brief Writes raw data to the stream from another stream.
-		/// @param[in] stream Another stream.
+		/// @brief Writes raw data to the Stream from another Stream.
+		/// @param[in] stream Another Stream.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
 		int writeRaw(StreamBase& stream, int count);
-		/// @brief Writes raw data to the stream from another stream.
-		/// @param[in] stream Another stream.
+		/// @brief Writes raw data to the Stream from another Stream.
+		/// @param[in] stream Another Stream.
 		/// @return Number of bytes written.
 		int writeRaw(StreamBase& stream);
-		/// @brief Writes raw data to the stream from another stream.
-		/// @param[in] stream Another stream.
+		/// @brief Writes raw data to the Stream from another Stream.
+		/// @param[in] stream Another Stream.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
 		int writeRaw(Stream& stream, int count);
-		/// @brief Writes raw data to the stream from another stream.
-		/// @param[in] stream Another stream.
+		/// @brief Writes raw data to the Stream from another Stream.
+		/// @param[in] stream Another Stream.
 		/// @return Number of bytes written.
 		int writeRaw(Stream& stream);
-		/// @brief Prepares stream for manual writing without using write_raw() directly.
+		/// @brief Prepares Stream for manual writing without using write_raw() directly.
 		/// @param[in] count Number of bytes to prepare. Stream size is increased if necessary, but contains garbage data.
 		/// @return Number of bytes ready to be written.
 		/// @note Use this when you intend to manually write data. This does not change the current position and seeking has to be done manually as well.
@@ -86,15 +89,19 @@ namespace hltypes
 		/// @return Number of bytes written.
 		/// @note If return value differs from parameter count, it can indicate a writing error.
 		int fill(unsigned char value, int count);
-		/// @brief Truncates the stream and removes data.
-		/// @param[in] targetSize The size the stream should be truncated to.
-		/// @return True if stream was truncated/reduced.
+		/// @brief Truncates the Stream and removes data.
+		/// @param[in] targetSize The size the Stream should be truncated to.
+		/// @return True if Stream was truncated/reduced.
 		/// @note If size is greater or equal than the current size, the stream size will stay unchanged.
 		bool truncate(int64_t targetSize);
 		/// @brief Gets a direct reference to the internal steam.
 		/// @param[in] index Reference to a specific element.
 		/// @return Direct reference to the internal steam.
 		const unsigned char& operator[](int index);
+		/// @brief Copies the other Stream into this one.
+		/// @param[in] other Other Stream.
+		/// @return This modified Stream.
+		Stream& operator=(Stream& other);
 
 	protected:
 		/// @brief Data stream container.
@@ -109,23 +116,23 @@ namespace hltypes
 		/// @brief Updates internal data size.
 		void _updateDataSize();
 
-		/// @brief Reads data from the stream.
+		/// @brief Reads data from the Stream.
 		/// @param[in] buffer Destination data buffer.
 		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
 		int _read(void* buffer, int count);
-		/// @brief Writes data to the stream.
+		/// @brief Writes data to the Stream.
 		/// @param[in] buffer Source data buffer.
 		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
 		int _write(const void* buffer, int count);
-		/// @brief Checks if stream is open.
-		/// @return True if stream is open.
+		/// @brief Checks if Stream is open.
+		/// @return True if Stream is open.
 		bool _isOpen();
-		/// @brief Gets current position in stream.
-		/// @return Current position in stream.
+		/// @brief Gets current position in Stream.
+		/// @return Current position in Stream.
 		int64_t _position();
-		/// @brief Seeks to position in stream.
+		/// @brief Seeks to position in Stream.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.
 		bool _seek(int64_t offset, SeekMode seekMode = CURRENT);

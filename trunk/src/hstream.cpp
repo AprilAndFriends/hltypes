@@ -48,6 +48,11 @@ namespace hltypes
 		this->_updateDataSize();
 	}
 
+	Stream::Stream(const Stream& other) : StreamBase()
+	{
+		this->operator=((Stream&)other);
+	}
+
 	Stream::~Stream()
 	{
 		if (this->stream != NULL)
@@ -191,6 +196,17 @@ namespace hltypes
 			index = (int)((int64_t)index + this->streamSize);
 		}
 		return this->stream[index];
+	}
+
+	Stream& Stream::operator=(Stream& other)
+	{
+		this->streamSize = other.streamSize;
+		this->streamPosition = other.streamPosition;
+		this->setCapacity((int)other.capacity);
+		// using malloc because realloc is used later
+		memcpy(this->stream, &other[0], (int)other.dataSize);
+		this->_updateDataSize();
+		return (*this);
 	}
 	
 	void Stream::_updateDataSize()
