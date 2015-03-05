@@ -64,6 +64,14 @@ namespace hltypes
 		/// @brief Flag that determines whether the thread is running or not.
 		volatile bool running;
 		
+	private:
+		/// @brief Copy constructor.
+		/// @note Usage is not allowed and it will throw an exception.
+		Thread(const Thread& other);
+		/// @brief Assignment operator.
+		/// @note Usage is not allowed and it will throw an exception.
+		Thread& operator=(Thread& other);
+
 	};
 }
 

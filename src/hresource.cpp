@@ -355,5 +355,16 @@ namespace hltypes
 		return Dir::normalize(path);
 	}
 
+	Resource::Resource(const Resource& other)
+	{
+		throw ObjectCannotCopyException("hltypes::Resource");
+	}
+
+	Resource& Resource::operator=(Resource& other)
+	{
+		throw ObjectCannotAssignException("hltypes::Resource");
+		return (*this);
+	}
+
 }
 

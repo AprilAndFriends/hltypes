@@ -235,4 +235,15 @@ namespace hltypes
 		return result;
 	}
 	
+	FileBase::FileBase(const FileBase& other)
+	{
+		throw ObjectCannotCopyException("hltypes::FileBase");
+	}
+
+	FileBase& FileBase::operator=(FileBase& other)
+	{
+		throw ObjectCannotAssignException("hltypes::FileBase");
+		return (*this);
+	}
+
 }

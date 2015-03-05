@@ -240,6 +240,42 @@ namespace hltypes
 	/// @brief Alias for simpler code.
 	#define ContainerKeyException(key, container) hltypes::_ContainerKeyException(key, container, __FILE__, __LINE__)
 
+	/// @brief Defines a key-error exception.
+	class hltypesExport _ObjectCannotCopyException : public _Exception
+	{
+	public:
+		/// @brief Basic constructor.
+		/// @param[in] name Class name.
+		/// @param[in] sourceFile Name of the source file.
+		/// @param[in] lineNumber Number of the line.
+		_ObjectCannotCopyException(const String& name, const char* sourceFile, int lineNumber);
+		~_ObjectCannotCopyException();
+		/// @brief Gets the exception type.
+		/// @return The exception type.
+		inline String getType() { return "ObjectCannotCopyException"; }
+
+	};
+	/// @brief Alias for simpler code.
+	#define ObjectCannotCopyException(name) hltypes::_ObjectCannotCopyException(name, __FILE__, __LINE__)
+
+	/// @brief Defines a key-error exception.
+	class hltypesExport _ObjectCannotAssignException : public _Exception
+	{
+	public:
+		/// @brief Basic constructor.
+		/// @param[in] name Class name.
+		/// @param[in] sourceFile Name of the source file.
+		/// @param[in] lineNumber Number of the line.
+		_ObjectCannotAssignException(const String& name, const char* sourceFile, int lineNumber);
+		~_ObjectCannotAssignException();
+		/// @brief Gets the exception type.
+		/// @return The exception type.
+		inline String getType() { return "ObjectCannotAssignException"; }
+
+	};
+	/// @brief Alias for simpler code.
+	#define ObjectCannotAssignException(name) hltypes::_ObjectCannotAssignException(name, __FILE__, __LINE__)
+
 }
 
 typedef hltypes::_Exception hexception;

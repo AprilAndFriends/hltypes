@@ -492,4 +492,15 @@ namespace hltypes
 		return this->read(this->loadInt32());
 	}
 
+	StreamBase::StreamBase(const StreamBase& other)
+	{
+		throw ObjectCannotCopyException("hltypes::StreamBase");
+	}
+
+	StreamBase& StreamBase::operator=(StreamBase& other)
+	{
+		throw ObjectCannotAssignException("hltypes::StreamBase");
+		return (*this);
+	}
+
 }

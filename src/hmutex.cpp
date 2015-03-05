@@ -119,5 +119,15 @@ namespace hltypes
 #endif
 	}
 	
-}
+	Mutex::Mutex(const Mutex& other)
+	{
+		throw ObjectCannotCopyException("hltypes::Mutex");
+	}
 
+	Mutex& Mutex::operator=(Mutex& other)
+	{
+		throw ObjectCannotAssignException("hltypes::Mutex");
+		return (*this);
+	}
+
+}
