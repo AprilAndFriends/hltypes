@@ -167,12 +167,14 @@
     <ClCompile Include="..\..\src\hstring.cpp" />
     <ClCompile Include="..\..\src\hthread.cpp" />
     <ClCompile Include="..\..\src\hltypesUtil.cpp" />
+    <ClCompile Include="..\..\src\hversion.cpp" />
     <ClCompile Include="..\..\src\platform\Android_platform.cpp" />
     <ClCompile Include="..\..\src\platform\Win32_platform.cpp" />
     <ClCompile Include="..\..\src\platform\WinRT_platform.cpp" />
     <ClCompile Include="..\..\src\zipaccess.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\hltypes\hcontainer.h" />
     <ClInclude Include="..\..\include\hltypes\hexception.h" />
     <ClInclude Include="..\..\include\hltypes\harray.h" />
     <ClInclude Include="..\..\include\hltypes\hdbase.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="..\..\include\hltypes\hthread.h" />
     <ClInclude Include="..\..\include\hltypes\hltypesUtil.h" />
     <ClInclude Include="..\..\include\hltypes\hplatform.h" />
+    <ClInclude Include="..\..\include\hltypes\hversion.h" />
     <ClInclude Include="..\..\src\zipaccess.h" />
   </ItemGroup>
   <ItemGroup>
