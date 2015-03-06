@@ -58,7 +58,7 @@ namespace hltypes
 		/// @param[in] index Index of the element.
 		/// @return Element at specified position.
 		/// @note Does not work with bool as T, use Deque::at directly instead.
-		inline T& operator[](const int index)
+		inline T& operator[](int index)
 		{
 			if (index < 0)
 			{
@@ -74,7 +74,7 @@ namespace hltypes
 		/// @param[in] index Index of the element.
 		/// @return Element at specified position.
 		/// @note Does not work with bool as T, use Deque::at directly instead.
-		inline const T& operator[](const int index) const
+		inline const T& operator[](int index) const
 		{
 			if (index < 0)
 			{
