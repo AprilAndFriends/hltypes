@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <vector>
 
+#include "hcontainer.h"
 #include "hexception.h"
 #include "hltypesUtil.h"
 #include "hplatform.h"
@@ -34,38 +35,38 @@ namespace hltypes
 {
 	/// @brief Encapsulates std::vector and adds high level methods.
 	template <class T>
-	class Array : public stdvector
+	class Array : public stdvector, public Container<stdvector, T>
 	{
 	private:
 		typedef typename stdvector::iterator iterator_t;
 		typedef typename stdvector::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline Array() : stdvector()
+		inline Array() : stdvector(), Container<stdvector, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Array to copy.
-		inline Array(const Array<T>& other) : stdvector(other)
+		inline Array(const Array<T>& other) : stdvector(other), Container<stdvector, T>(other)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
-		inline Array(const T& element) : stdvector()
+		inline Array(const T& element) : stdvector(), Container<stdvector, T>(element)
 		{
 			this->insert_at(0, element);
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline Array(const T& element, int times) : stdvector()
+		inline Array(const T& element, int times) : stdvector(), Container<stdvector, T>(element, times)
 		{
 			this->insert_at(0, element, times);
 		}
 		/// @brief Constructor from another Array.
 		/// @param[in] other Array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const Array<T>& other, const int count) : stdvector()
+		inline Array(const Array<T>& other, const int count) : stdvector(), Container<stdvector, T>(other, count)
 		{
 			this->insert_at(0, other, count);
 		}
@@ -73,14 +74,14 @@ namespace hltypes
 		/// @param[in] other Array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const Array<T>& other, const int start, const int count) : stdvector()
+		inline Array(const Array<T>& other, const int start, const int count) : stdvector(), Container<stdvector, T>(other, start, count)
 		{
 			this->insert_at(0, other, start, count);
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const T other[], const int count) : stdvector()
+		inline Array(const T other[], const int count) : stdvector(), Container<stdvector, T>(other, count)
 		{
 			this->insert_at(0, other, count);
 		}
@@ -88,7 +89,7 @@ namespace hltypes
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const T other[], const int start, const int count) : stdvector()
+		inline Array(const T other[], const int start, const int count) : stdvector(), Container<stdvector, T>(other, start, count)
 		{
 			this->insert_at(0, other, start, count);
 		}

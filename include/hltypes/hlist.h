@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <list>
 
+#include "hcontainer.h"
 #include "hexception.h"
 #include "hltypesUtil.h"
 #include "hplatform.h"
@@ -34,19 +35,19 @@ namespace hltypes
 {
 	/// @brief Encapsulates std::list and adds high level methods.
 	template <class T>
-	class List : public stdlist
+	class List : public stdlist, public Container<stdlist, T>
 	{
 	private:
 		typedef typename stdlist::iterator iterator_t;
 		typedef typename stdlist::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline List() : stdlist()
+		inline List() : stdlist(), Container<stdlist, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other List to copy.
-		inline List(const List<T>& other) : stdlist(other)
+		inline List(const List<T>& other) : stdlist(other), Container<stdlist, T>(other)
 		{
 		}
 		/// @brief Destructor.
@@ -61,7 +62,11 @@ namespace hltypes
 		{
 			if (index < 0)
 			{
-				return (*this->_iterator_plus(stdlist::begin(), this->size() + index));
+				index += this->size();
+			}
+			if (index < 0 || index >= this->size())
+			{
+				throw ContainerIndexException(index);
 			}
 			return (*this->_iterator_plus(stdlist::begin(), index));
 		}
@@ -73,7 +78,11 @@ namespace hltypes
 		{
 			if (index < 0)
 			{
-				return (*this->_const_iterator_plus(stdlist::begin(), this->size() + index));
+				index += this->size();
+			}
+			if (index < 0 || index >= this->size())
+			{
+				throw ContainerIndexException(index);
 			}
 			return (*this->_const_iterator_plus(stdlist::begin(), index));
 		}
