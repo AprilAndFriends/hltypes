@@ -35,19 +35,19 @@ namespace hltypes
 {
 	/// @brief Encapsulates std::list and adds high level methods.
 	template <class T>
-	class List : public stdlist, public Container<stdlist, T>
+	class List : public Container<stdlist, T>
 	{
 	private:
 		typedef typename stdlist::iterator iterator_t;
 		typedef typename stdlist::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline List() : stdlist(), Container<stdlist, T>()
+		inline List() : Container<stdlist, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other List to copy.
-		inline List(const List<T>& other) : stdlist(other), Container<stdlist, T>(other)
+		inline List(const List<T>& other) : Container<stdlist, T>(other)
 		{
 		}
 		/// @brief Destructor.
@@ -119,50 +119,6 @@ namespace hltypes
 		inline bool operator!=(const List<T>& other) const
 		{
 			return this->nequals(other);
-		}
-		/// @brief Returns the number of elements in the List.
-		/// @return The number of elements in the List.
-		inline int size() const
-		{
-			return (int)stdlist::size();
-		}
-		/// @brief Compares the contents of two Lists for being equal.
-		/// @param[in] other Another List.
-		/// @return True if number of elements are equal and all pairs of elements at the same positions are equal.
-		inline bool equals(const List<T>& other) const
-		{
-			if (this->size() != other.size())
-			{
-				return false;
-			}
-			for_iter (i, 0, this->size())
-			{
-				// making sure operator== is used, not !=
-				if (!(stdlist::at(i) == other.at(i)))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		/// @brief Compares the contents of two Lists for being not equal.
-		/// @param[in] other Another List.
-		/// @return True if number of elements are not equal or at least one pair of elements at the same positions is not equal.
-		inline bool nequals(const List<T>& other) const
-		{
-			if (this->size() != other.size())
-			{
-				return true;
-			}
-			for_iter (i, 0, this->size())
-			{
-				// making sure operator!= is used, not ==
-				if (stdlist::at(i) != other.at(i))
-				{
-					return true;
-				}
-			}
-			return false;
 		}
 		/// @brief Gets index of the given element.
 		/// @param[in] element Element to search for.

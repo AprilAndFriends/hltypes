@@ -35,38 +35,38 @@ namespace hltypes
 {
 	/// @brief Encapsulates std::vector and adds high level methods.
 	template <class T>
-	class Array : public stdvector, public Container<stdvector, T>
+	class Array : public Container<stdvector, T>
 	{
 	private:
 		typedef typename stdvector::iterator iterator_t;
 		typedef typename stdvector::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline Array() : stdvector(), Container<stdvector, T>()
+		inline Array() : Container<stdvector, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Array to copy.
-		inline Array(const Array<T>& other) : stdvector(other), Container<stdvector, T>(other)
+		inline Array(const Array<T>& other) : Container<stdvector, T>(other)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
-		inline Array(const T& element) : stdvector(), Container<stdvector, T>(element)
+		inline Array(const T& element) : Container<stdvector, T>(element)
 		{
 			this->insert_at(0, element);
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline Array(const T& element, int times) : stdvector(), Container<stdvector, T>(element, times)
+		inline Array(const T& element, int times) : Container<stdvector, T>(element, times)
 		{
 			this->insert_at(0, element, times);
 		}
 		/// @brief Constructor from another Array.
 		/// @param[in] other Array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const Array<T>& other, const int count) : stdvector(), Container<stdvector, T>(other, count)
+		inline Array(const Array<T>& other, const int count) : Container<stdvector, T>(other, count)
 		{
 			this->insert_at(0, other, count);
 		}
@@ -74,14 +74,14 @@ namespace hltypes
 		/// @param[in] other Array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const Array<T>& other, const int start, const int count) : stdvector(), Container<stdvector, T>(other, start, count)
+		inline Array(const Array<T>& other, const int start, const int count) : Container<stdvector, T>(other, start, count)
 		{
 			this->insert_at(0, other, start, count);
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const T other[], const int count) : stdvector(), Container<stdvector, T>(other, count)
+		inline Array(const T other[], const int count) : Container<stdvector, T>(other, count)
 		{
 			this->insert_at(0, other, count);
 		}
@@ -89,7 +89,7 @@ namespace hltypes
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const T other[], const int start, const int count) : stdvector(), Container<stdvector, T>(other, start, count)
+		inline Array(const T other[], const int start, const int count) : Container<stdvector, T>(other, start, count)
 		{
 			this->insert_at(0, other, start, count);
 		}
@@ -162,50 +162,6 @@ namespace hltypes
 		inline bool operator!=(const Array<T>& other) const
 		{
 			return this->nequals(other);
-		}
-		/// @brief Returns the number of elements in the Array.
-		/// @return The number of elements in the Array.
-		inline int size() const
-		{
-			return (int)stdvector::size();
-		}
-		/// @brief Compares the contents of two Arrays for being equal.
-		/// @param[in] other Another Array.
-		/// @return True if number of elements are equal and all pairs of elements at the same positions are equal.
-		inline bool equals(const Array<T>& other) const
-		{
-			if (this->size() != other.size())
-			{
-				return false;
-			}
-			for_iter (i, 0, this->size())
-			{
-				// making sure operator== is used, not !=
-				if (!(stdvector::at(i) == other.at(i)))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		/// @brief Compares the contents of two Arrays for being not equal.
-		/// @param[in] other Another Array.
-		/// @return True if number of elements are not equal or at least one pair of elements at the same positions is not equal.
-		inline bool nequals(const Array<T>& other) const
-		{
-			if (this->size() != other.size())
-			{
-				return true;
-			}
-			for_iter (i, 0, this->size())
-			{
-				// making sure operator!= is used, not ==
-				if (stdvector::at(i) != other.at(i))
-				{
-					return true;
-				}
-			}
-			return false;
 		}
 		/// @brief Gets index of the given element.
 		/// @param[in] element Element to search for.

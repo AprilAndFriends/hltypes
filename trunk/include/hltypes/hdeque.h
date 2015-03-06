@@ -35,19 +35,19 @@ namespace hltypes
 {
 	/// @brief Encapsulates std::deque and adds high level methods.
 	template <class T>
-	class Deque : public stddeque, public Container<stddeque, T>
+	class Deque : public Container<stddeque, T>
 	{
 	private:
 		typedef typename stddeque::iterator iterator_t;
 		typedef typename stddeque::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline Deque() : stddeque(), Container<stddeque, T>()
+		inline Deque() : Container<stddeque, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Deque to copy.
-		inline Deque(const Deque<T>& other) : stddeque(other), Container<stddeque, T>(other)
+		inline Deque(const Deque<T>& other) : Container<stddeque, T>(other)
 		{
 		}
 		/// @brief Destructor.
@@ -119,50 +119,6 @@ namespace hltypes
 		inline bool operator!=(const Deque<T>& other) const
 		{
 			return this->nequals(other);
-		}
-		/// @brief Returns the number of elements in the Deque.
-		/// @return The number of elements in the Deque.
-		inline int size() const
-		{
-			return (int)stddeque::size();
-		}
-		/// @brief Compares the contents of two Deques for being equal.
-		/// @param[in] other Another Deque.
-		/// @return True if number of elements are equal and all pairs of elements at the same positions are equal.
-		inline bool equals(const Deque<T>& other) const
-		{
-			if (this->size() != other.size())
-			{
-				return false;
-			}
-			for_iter (i, 0, this->size())
-			{
-				// making sure operator== is used, not !=
-				if (!(stddeque::at(i) == other.at(i)))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		/// @brief Compares the contents of two Deques for being not equal.
-		/// @param[in] other Another Deque.
-		/// @return True if number of elements are not equal or at least one pair of elements at the same positions is not equal.
-		inline bool nequals(const Deque<T>& other) const
-		{
-			if (this->size() != other.size())
-			{
-				return true;
-			}
-			for_iter (i, 0, this->size())
-			{
-				// making sure operator!= is used, not ==
-				if (stddeque::at(i) != other.at(i))
-				{
-					return true;
-				}
-			}
-			return false;
 		}
 		/// @brief Gets index of the given element.
 		/// @param[in] element Element to search for.
