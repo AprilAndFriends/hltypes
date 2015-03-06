@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <deque>
 
+#include "hcontainer.h"
 #include "hexception.h"
 #include "hltypesUtil.h"
 #include "hplatform.h"
@@ -34,19 +35,19 @@ namespace hltypes
 {
 	/// @brief Encapsulates std::deque and adds high level methods.
 	template <class T>
-	class Deque : public stddeque
+	class Deque : public stddeque, public Container<stddeque, T>
 	{
 	private:
 		typedef typename stddeque::iterator iterator_t;
 		typedef typename stddeque::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline Deque() : stddeque()
+		inline Deque() : stddeque(), Container<stddeque, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Deque to copy.
-		inline Deque(const Deque<T>& other) : stddeque(other)
+		inline Deque(const Deque<T>& other) : stddeque(other), Container<stddeque, T>(other)
 		{
 		}
 		/// @brief Destructor.
@@ -61,7 +62,11 @@ namespace hltypes
 		{
 			if (index < 0)
 			{
-				return stddeque::at(this->size() + index);
+				index += this->size();
+			}
+			if (index < 0 || index >= this->size())
+			{
+				throw ContainerIndexException(index);
 			}
 			return stddeque::at(index);
 		}
@@ -73,7 +78,11 @@ namespace hltypes
 		{
 			if (index < 0)
 			{
-				return stddeque::at(this->size() + index);
+				index += this->size();
+			}
+			if (index < 0 || index >= this->size())
+			{
+				throw ContainerIndexException(index);
 			}
 			return stddeque::at(index);
 		}
