@@ -538,14 +538,12 @@ namespace hltypes
 		inline void intersect(const Container& other)
 		{
 			Container result;
-			T& element;
 			int size = this->size();
 			for_iter(i, 0, size)
 			{
-				T& element = this->at(i);
-				if (other.contains(element))
+				if (other.contains(this->at(i)))
 				{
-					result.addLast(element);
+					result.addLast(this->at(i));
 				}
 			}
 			STD::assign(result.begin(), result.end());
