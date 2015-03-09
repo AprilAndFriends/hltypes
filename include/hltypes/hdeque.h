@@ -29,62 +29,62 @@
 #define foreach_qr(type, name, container) for (std::deque< type >::reverse_iterator name = (container).rbegin(); name != (container).rend(); ++name)
 #define foreachc_qr(type, name, container) for (std::deque< type >::reverse_const_iterator name = (container).rbegin(); name != (container).rend(); ++name)
 /// @brief Alias for simpler code.
-#define stddeque std::deque<T>
+#define ContainerDeque Container<std::deque<T>, T>
 
 namespace hltypes
 {
 	/// @brief Encapsulates std::deque and adds high level methods.
 	template <class T>
-	class Deque : public Container<stddeque, T>
+	class Deque : public ContainerDeque
 	{
 	private:
-		typedef typename stddeque::iterator iterator_t;
-		typedef typename stddeque::const_iterator const_iterator_t;
+		typedef typename std::deque<T>::iterator iterator_t;
+		typedef typename std::deque<T>::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline Deque() : Container()
+		inline Deque() : ContainerDeque()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Container to copy.
-		inline Deque(const Container& other) : Container(other)
+		inline Deque(const ContainerDeque& other) : ContainerDeque(other)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
-		inline Deque(const T& element) : Container(element)
+		inline Deque(const T& element) : ContainerDeque(element)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline Deque(const T& element, int times) : Container(element, times)
+		inline Deque(const T& element, int times) : ContainerDeque(element, times)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const Container& other, const int count) : Container(other, count)
+		inline Deque(const ContainerDeque& other, const int count) : ContainerDeque(other, count)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const Container& other, const int start, const int count) : Container(other, start, count)
+		inline Deque(const ContainerDeque& other, const int start, const int count) : ContainerDeque(other, start, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const T other[], const int count) : Container(other, count)
+		inline Deque(const T other[], const int count) : ContainerDeque(other, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const T other[], const int start, const int count) : Container(other, start, count)
+		inline Deque(const T other[], const int start, const int count) : ContainerDeque(other, start, count)
 		{
 		}
 		/// @brief Destructor.
@@ -94,16 +94,16 @@ namespace hltypes
 		/// @brief Gets all indexes of the given element.
 		/// @param[in] element Element to search for.
 		/// @return All indexes of the given element.
-		inline Deque<int> indexes_of(T element) const
+		inline Deque<int> indexesOf(const T& element) const
 		{
-			return this->_indexesOf<Deque<int> >(element);
+			return this->template _indexesOf<Deque<int> >(element);
 		}
 		/// @brief Removes element at given index.
 		/// @param[in] index Index of element to remove.
 		/// @return The removed element.
 		inline T removeAt(int index)
 		{
-			return Container::removeAt(index);
+			return ContainerDeque::removeAt(index);
 		}
 		/// @brief Removes n elements at given index of Deque.
 		/// @param[in] index Start index of elements to remove.
@@ -112,13 +112,13 @@ namespace hltypes
 		/// @note Elements in the returned Deque are in the same order as in the orignal Deque.
 		inline Deque<T> removeAt(int index, int count)
 		{
-			return this->_removeAt<Deque<T> >(index, count);
+			return this->template _removeAt<Deque<T> >(index, count);
 		}
 		/// @brief Removes first element of Deque.
 		/// @return The removed element.
 		inline T removeFirst()
 		{
-			return Container::removeFirst();
+			return ContainerDeque::removeFirst();
 		}
 		/// @brief Removes n elements from the beginning of Deque.
 		/// @param[in] count Number of elements to remove.
@@ -126,13 +126,13 @@ namespace hltypes
 		/// @note Elements in the returned Deque are in the same order as in the orignal Deque.
 		inline Deque<T> removeFirst(const int count)
 		{
-			return this->_removeFirst<Deque<T> >(count);
+			return this->template _removeFirst<Deque<T> >(count);
 		}
 		/// @brief Removes last element of Deque.
 		/// @return The removed element.
 		inline T removeLast()
 		{
-			return Container::removeLast();
+			return ContainerDeque::removeLast();
 		}
 		/// @brief Removes n elements from the end of Deque.
 		/// @param[in] count Number of elements to remove.
@@ -140,40 +140,40 @@ namespace hltypes
 		/// @note Elements in the returned Deque are in the same order as in the orignal Deque.
 		inline Deque<T> removeLast(const int count)
 		{
-			return this->_removeLast<Deque<T> >(count);
+			return this->template _removeLast<Deque<T> >(count);
 		}
 		/// @brief Creates new Deque with reversed order of elements.
 		/// @return A new Deque.
 		inline Deque<T> reversed() const
 		{
-			this->_reversed<Deque<T> >();
+			return this->template _reversed<Deque<T> >();
 		}
 		/// @brief Creates new Deque without duplicates.
 		/// @return A new Deque.
-		inline Deque<T> removed_duplicates() const
+		inline Deque<T> removedDuplicates() const
 		{
-			this->_removedDuplicates<Deque<T> >();
+			return this->template _removedDuplicates<Deque<T> >();
 		}
 		/// @brief Creates a new Deque as union of this Deque with an element.
 		/// @param[in] element Element to unite with.
 		/// @return A new Deque.
 		inline Deque<T> united(const T& element) const
 		{
-			return this->_united<Deque<T> >(element);
+			return this->template _united<Deque<T> >(element);
 		}
 		/// @brief Creates a new Deque as union of this Deque with another one.
 		/// @param[in] other Deque to unite with.
 		/// @return A new Deque.
 		inline Deque<T> united(const Deque<T>& other) const
 		{
-			return this->_united<Deque<T> >(other);
+			return this->template _united<Deque<T> >(other);
 		}
 		/// @brief Creates a new Deque as intersection of this Deque with another one.
 		/// @param[in] other Deque to intersect with.
 		/// @return A new Deque.
 		inline Deque<T> intersected(const Deque<T>& other) const
 		{
-			return this->_intersected<Deque<T> >(other);
+			return this->template _intersected<Deque<T> >(other);
 		}
 		/// @brief Creates a new Deque as difference of this Deque with an element.
 		/// @param[in] other Element to differentiate with.
@@ -181,7 +181,7 @@ namespace hltypes
 		/// @note Unlike remove, this method ignores if the element is not in this Deque.
 		inline Deque<T> differentiated(const T& element) const
 		{
-			return this->_differentiated<Deque<T> >(element);
+			return this->template _differentiated<Deque<T> >(element);
 		}
 		/// @brief Creates a new Deque as difference of this Deque with another one.
 		/// @param[in] other Deque to differentiate with.
@@ -189,7 +189,7 @@ namespace hltypes
 		/// @note Unlike remove, this method ignore elements of other Deque that are not in this one.
 		inline Deque<T> differentiated(const Deque<T>& other) const
 		{
-			return this->_differentiated<Deque<T> >(other);
+			return this->template _differentiated<Deque<T> >(other);
 		}
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
@@ -213,7 +213,7 @@ namespace hltypes
 		/// @return Subdeque created from the current Deque.
 		inline Deque<T> operator()(int start, const int count) const
 		{
-			return this->_sub<Deque<T> >(start, count);
+			return this->template _sub<Deque<T> >(start, count);
 		}
 		/// @brief Same as equals.
 		/// @see equals
@@ -376,7 +376,7 @@ namespace hltypes
 		{
 			if (this->size() > 0)
 			{
-				std::stable_sort(stddeque::begin(), stddeque::end());
+				std::stable_sort(std::deque<T>::begin(), std::deque<T>::end());
 			}
 		}
 		/// @brief Sorts elements in Deque.
@@ -387,7 +387,7 @@ namespace hltypes
 		{
 			if (this->size() > 0)
 			{
-				std::stable_sort(stddeque::begin(), stddeque::end(), compare_function);
+				std::stable_sort(std::deque<T>::begin(), std::deque<T>::end(), compare_function);
 			}
 		}
 		/// @brief Creates new sorted Deque.
@@ -413,7 +413,7 @@ namespace hltypes
 		/// @brief Randomizes order of elements in Deque.
 		inline void randomize()
 		{
-			std::random_shuffle(stddeque::begin(), stddeque::end());
+			std::random_shuffle(std::deque<T>::begin(), std::deque<T>::end());
 		}
 		/// @brief Creates a new Deque with randomized order of elements.
 		/// @return A new Deque.
@@ -431,7 +431,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("min()");
 			}
-			return (*std::min_element(stddeque::begin(), stddeque::end()));
+			return (*std::min_element(std::deque<T>::begin(), std::deque<T>::end()));
 		}
 		/// @brief Finds minimum element in Deque.
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
@@ -443,7 +443,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("min()");
 			}
-			return (*std::min_element(stddeque::begin(), stddeque::end(), compare_function));
+			return (*std::min_element(std::deque<T>::begin(), std::deque<T>::end(), compare_function));
 		}
 		/// @brief Finds maximum element in Deque.
 		/// @return Maximum Element.
@@ -453,7 +453,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("max()");
 			}
-			return (*std::max_element(stddeque::begin(), stddeque::end()));
+			return (*std::max_element(std::deque<T>::begin(), std::deque<T>::end()));
 		}
 		/// @brief Finds maximum element in Deque.
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
@@ -465,7 +465,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("max()");
 			}
-			return (*std::max_element(stddeque::begin(), stddeque::end(), compare_function));
+			return (*std::max_element(std::deque<T>::begin(), std::deque<T>::end(), compare_function));
 		}
 		/// @brief Gets a random element in Deque.
 		/// @return Random element.
@@ -475,7 +475,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("random()");
 			}
-			return stddeque::at(hrand(this->size()));
+			return this->at(hrand(this->size()));
 		}
 		/// @brief Gets a Deque of random elements selected from this one.
 		/// @param[in] count Number of random elements.
@@ -488,7 +488,7 @@ namespace hltypes
 			{
 				for_iter (i, 0, count)
 				{
-					result.push_back(stddeque::at(hrand(this->size())));
+					result.push_back(this->at(hrand(this->size())));
 				}
 			}
 			else if (count > 0)
@@ -508,7 +508,7 @@ namespace hltypes
 				}
 				for_iter (i, 0, count)
 				{
-					result.push_back(stddeque::at(indexes.remove_at(hrand(indexes.size()))));
+					result.push_back(this->at(indexes.remove_at(hrand(indexes.size()))));
 				}
 			}
 			return result;
@@ -521,7 +521,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("pop_random()");
 			}
-			T result = stddeque::at(hrand(this->size()));
+			T result = this->at(hrand(this->size()));
 			this->remove(result);
 			return result;
 		}
@@ -536,7 +536,7 @@ namespace hltypes
 			{
 				for_iter (i, 0, count)
 				{
-					result.push_back(stddeque::at(hrand(this->size())));
+					result.push_back(this->at(hrand(this->size())));
 				}
 			}
 			else if (count > 0)
@@ -556,7 +556,7 @@ namespace hltypes
 				}
 				for_iter (i, 0, count)
 				{
-					result.push_back(stddeque::at(indexes.remove_at(hrand(indexes.size()))));
+					result.push_back(this->at(indexes.remove_at(hrand(indexes.size()))));
 				}
 			}
 			this->remove(result);
@@ -571,10 +571,10 @@ namespace hltypes
 			String result;
 			if (this->size() > 0)
 			{
-				result += String(stddeque::at(0));
+				result += String(this->at(0));
 				for_iter (i, 1, this->size())
 				{
-					result += separator + String(stddeque::at(i));
+					result += separator + String(this->at(i));
 				}
 			}
 			return result;
@@ -587,9 +587,9 @@ namespace hltypes
 			Deque<T> result;
 			for_iter (i, 0, this->size())
 			{
-				if (condition_function(stddeque::at(i)))
+				if (condition_function(this->at(i)))
 				{
-					result.push_back(stddeque::at(i));
+					result.push_back(this->at(i));
 				}
 			}
 			return result;
@@ -601,9 +601,9 @@ namespace hltypes
 		{
 			for_iter (i, 0, this->size())
 			{
-				if (condition_function(stddeque::at(i)))
+				if (condition_function(this->at(i)))
 				{
-					return &stddeque::at(i);
+					return &this->at(i);
 				}
 			}
 			return NULL;
@@ -615,7 +615,7 @@ namespace hltypes
 		{
 			for_iter (i, 0, this->size())
 			{
-				if (condition_function(stddeque::at(i)))
+				if (condition_function(this->at(i)))
 				{
 					return true;
 				}
@@ -629,7 +629,7 @@ namespace hltypes
 		{
 			for_iter (i, 0, this->size())
 			{
-				if (!condition_function(stddeque::at(i)))
+				if (!condition_function(this->at(i)))
 				{
 					return false;
 				}
@@ -645,7 +645,7 @@ namespace hltypes
 			Deque<S> result;
 			for_iter (i, 0, this->size())
 			{
-				result.push_back((S)stddeque::at(i));
+				result.push_back((S)this->at(i));
 			}
 			return result;
 		}
@@ -661,7 +661,7 @@ namespace hltypes
 			for_iter (i, 0, this->size())
 			{
 				// when seeing "dynamic_cast", I always think of fireballs
-				value = dynamic_cast<S>(stddeque::at(i));
+				value = dynamic_cast<S>(this->at(i));
 				if (value != NULL || include_nulls)
 				{
 					result.push_back(value);
@@ -673,13 +673,13 @@ namespace hltypes
 		/// @return The first element.
 		inline T& first()
 		{
-			return stddeque::front();
+			return std::deque<T>::front();
 		}
 		/// @brief Accesses last element of Deque.
 		/// @return The last element.
 		inline T& last()
 		{
-			return stddeque::back();
+			return std::deque<T>::back();
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T& element)
@@ -833,30 +833,32 @@ namespace hltypes
 		}
 
 		// DEPRECATED
-		inline T pop(int index)							{ return this->removeAt(index); }
-		inline Deque<T> pop(int index, int count)		{ return this->removeAt(index, count); }
-		inline T pop_at(int index)						{ return this->removeAt(index); }
-		inline Deque<T> pop_at(int index, int count)	{ return this->removeAt(index, count); }
-		inline T pop_front()							{ return this->removeFirst(); }
-		inline Deque<T> pop_front(const int count)		{ return this->removeFirst(count); }
-		inline T pop_first()							{ return this->removeFirst(); }
-		inline Deque<T> pop_first(const int count)		{ return this->removeFirst(count); }
-		inline T pop_back()								{ return this->removeLast(); }
-		inline Deque<T> pop_back(const int count)		{ return this->removeLast(count); }
-		inline T pop_last()								{ return this->removeLast(); }
-		inline Deque<T> pop_last(const int count)		{ return this->removeLast(count); }
-		inline T pop_all(T& element)					{ return this->removeAll(element); }
-		inline Deque<T> pop_all(const Deque<T>& other)	{ return this->removeAll(other); }
-		inline T remove_at(int index)					{ return this->removeAt(index); }
-		inline Deque<T> remove_at(int index, int count)	{ return this->removeAt(index, count); }
-		inline T remove_front()							{ return this->removeFirst(); }
-		inline Deque<T> remove_front(const int count)	{ return this->removeFirst(count); }
-		inline T remove_first()							{ return this->removeFirst(); }
-		inline Deque<T> remove_first(const int count)	{ return this->removeFirst(count); }
-		inline T remove_back()							{ return this->removeLast(); }
-		inline Deque<T> remove_back(const int count)	{ return this->removeLast(count); }
-		inline T remove_last()							{ return this->removeLast(); }
-		inline Deque<T> remove_last(const int count)	{ return this->removeLast(count); }
+		inline Deque<int> indexes_of(const T& element) const	{ return this->indexesOf(element); }
+		inline Deque<T> removed_duplicates() const				{ return this->removedDuplicates(); }
+		inline T pop(int index)									{ return this->removeAt(index); }
+		inline Deque<T> pop(int index, int count)				{ return this->removeAt(index, count); }
+		inline T pop_at(int index)								{ return this->removeAt(index); }
+		inline Deque<T> pop_at(int index, int count)			{ return this->removeAt(index, count); }
+		inline T pop_front()									{ return this->removeFirst(); }
+		inline Deque<T> pop_front(const int count)				{ return this->removeFirst(count); }
+		inline T pop_first()									{ return this->removeFirst(); }
+		inline Deque<T> pop_first(const int count)				{ return this->removeFirst(count); }
+		inline T pop_back()										{ return this->removeLast(); }
+		inline Deque<T> pop_back(const int count)				{ return this->removeLast(count); }
+		inline T pop_last()										{ return this->removeLast(); }
+		inline Deque<T> pop_last(const int count)				{ return this->removeLast(count); }
+		inline T pop_all(T& element)							{ return this->removeAll(element); }
+		inline Deque<T> pop_all(const Deque<T>& other)			{ return this->removeAll(other); }
+		inline T remove_at(int index)							{ return this->removeAt(index); }
+		inline Deque<T> remove_at(int index, int count)			{ return this->removeAt(index, count); }
+		inline T remove_front()									{ return this->removeFirst(); }
+		inline Deque<T> remove_front(const int count)			{ return this->removeFirst(count); }
+		inline T remove_first()									{ return this->removeFirst(); }
+		inline Deque<T> remove_first(const int count)			{ return this->removeFirst(count); }
+		inline T remove_back()									{ return this->removeLast(); }
+		inline Deque<T> remove_back(const int count)			{ return this->removeLast(count); }
+		inline T remove_last()									{ return this->removeLast(); }
+		inline Deque<T> remove_last(const int count)			{ return this->removeLast(count); }
 
 	};
 	

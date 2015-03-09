@@ -29,62 +29,62 @@
 #define foreach_r(type, name, container) for (std::vector< type >::reverse_iterator name = (container).rbegin(); name != (container).rend(); ++name)
 #define foreachc_r(type, name, container) for (std::vector< type >::reverse_const_iterator name = (container).rbegin(); name != (container).rend(); ++name)
 /// @brief Alias for simpler code.
-#define stdvector std::vector<T>
+#define ContainerArray Container<std::vector<T>, T>
 
 namespace hltypes
 {
 	/// @brief Encapsulates std::vector and adds high level methods.
 	template <class T>
-	class Array : public Container<stdvector, T>
+	class Array : public ContainerArray
 	{
 	private:
-		typedef typename stdvector::iterator iterator_t;
-		typedef typename stdvector::const_iterator const_iterator_t;
+		typedef typename std::vector<T>::iterator iterator_t;
+		typedef typename std::vector<T>::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline Array() : Container()
+		inline Array() : ContainerArray()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Container to copy.
-		inline Array(const Container& other) : Container(other)
+		inline Array(const ContainerArray& other) : ContainerArray(other)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
-		inline Array(const T& element) : Container(element)
+		inline Array(const T& element) : ContainerArray(element)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline Array(const T& element, int times) : Container(element, times)
+		inline Array(const T& element, int times) : ContainerArray(element, times)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const Container& other, const int count) : Container(other, count)
+		inline Array(const ContainerArray& other, const int count) : ContainerArray(other, count)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const Container& other, const int start, const int count) : Container(other, start, count)
+		inline Array(const ContainerArray& other, const int start, const int count) : ContainerArray(other, start, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const T other[], const int count) : Container(other, count)
+		inline Array(const T other[], const int count) : ContainerArray(other, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const T other[], const int start, const int count) : Container(other, start, count)
+		inline Array(const T other[], const int start, const int count) : ContainerArray(other, start, count)
 		{
 		}
 		/// @brief Destructor.
@@ -94,16 +94,16 @@ namespace hltypes
 		/// @brief Gets all indexes of the given element.
 		/// @param[in] element Element to search for.
 		/// @return All indexes of the given element.
-		inline Array<int> indexes_of(T element) const
+		inline Array<int> indexesOf(const T& element) const
 		{
-			return this->_indexesOf<Array<int> >(element);
+			return this->template _indexesOf<Array<int> >(element);
 		}
 		/// @brief Removes element at given index.
 		/// @param[in] index Index of element to remove.
 		/// @return The removed element.
 		inline T removeAt(int index)
 		{
-			return Container::removeAt(index);
+			return ContainerArray::removeAt(index);
 		}
 		/// @brief Removes n elements at given index of Array.
 		/// @param[in] index Start index of elements to remove.
@@ -112,13 +112,13 @@ namespace hltypes
 		/// @note Elements in the returned Array are in the same order as in the orignal Array.
 		inline Array<T> removeAt(int index, int count)
 		{
-			return this->_removeAt<Array<T> >(index, count);
+			return this->template _removeAt<Array<T> >(index, count);
 		}
 		/// @brief Removes first element of Array.
 		/// @return The removed element.
 		inline T removeFirst()
 		{
-			return Container::removeFirst();
+			return ContainerArray::removeFirst();
 		}
 		/// @brief Removes n elements from the beginning of Array.
 		/// @param[in] count Number of elements to remove.
@@ -126,13 +126,13 @@ namespace hltypes
 		/// @note Elements in the returned Array are in the same order as in the orignal Array.
 		inline Array<T> removeFirst(const int count)
 		{
-			return this->_removeFirst<Array<T> >(count);
+			return this->template _removeFirst<Array<T> >(count);
 		}
 		/// @brief Removes last element of Array.
 		/// @return The removed element.
 		inline T removeLast()
 		{
-			return Container::removeLast();
+			return ContainerArray::removeLast();
 		}
 		/// @brief Removes n elements from the end of Array.
 		/// @param[in] count Number of elements to remove.
@@ -140,40 +140,40 @@ namespace hltypes
 		/// @note Elements in the returned Array are in the same order as in the orignal Array.
 		inline Array<T> removeLast(const int count)
 		{
-			return this->_removeLast<Array<T> >(count);
+			return this->template _removeLast<Array<T> >(count);
 		}
 		/// @brief Creates new Array with reversed order of elements.
 		/// @return A new Array.
 		inline Array<T> reversed() const
 		{
-			return this->_reversed<Array<T> >();
+			return this->template _reversed<Array<T> >();
 		}
 		/// @brief Creates new Array without duplicates.
 		/// @return A new Array.
-		inline Array<T> removed_duplicates() const
+		inline Array<T> removedDuplicates() const
 		{
-			return this->_removedDuplicates<Array<T> >();
+			return this->template _removedDuplicates<Array<T> >();
 		}
 		/// @brief Creates a new Array as union of this Array with an element.
 		/// @param[in] element Element to unite with.
 		/// @return A new Array.
 		inline Array<T> united(const T& element) const
 		{
-			return this->_united<Array<T> >(element);
+			return this->template _united<Array<T> >(element);
 		}
 		/// @brief Creates a new Array as union of this Array with another one.
 		/// @param[in] other Array to unite with.
 		/// @return A new Array.
-		inline Array<T> united(const Array<T>& other) const
+		inline Array<T> united(const ContainerArray& other) const
 		{
-			return this->_united<Array<T> >(other);
+			return this->template _united<Array<T> >(other);
 		}
 		/// @brief Creates a new Array as intersection of this Array with another one.
 		/// @param[in] other Array to intersect with.
 		/// @return A new Array.
-		inline Array<T> intersected(const Array<T>& other) const
+		inline Array<T> intersected(const ContainerArray& other) const
 		{
-			return this->_intersected<Array<T> >(other);
+			return this->template _intersected<Array<T> >(other);
 		}
 		/// @brief Creates a new Array as difference of this Array with an element.
 		/// @param[in] other Element to differentiate with.
@@ -181,15 +181,15 @@ namespace hltypes
 		/// @note Unlike remove, this method ignores if the element is not in this Array.
 		inline Array<T> differentiated(const T& element) const
 		{
-			return this->_differentiated<Array<T> >(element);
+			return this->template _differentiated<Array<T> >(element);
 		}
 		/// @brief Creates a new Array as difference of this Array with another one.
 		/// @param[in] other Array to differentiate with.
 		/// @return A new Array.
 		/// @note Unlike remove, this method ignore elements of other Array that are not in this one.
-		inline Array<T> differentiated(const Array<T>& other) const
+		inline Array<T> differentiated(const ContainerArray& other) const
 		{
-			return this->_differentiated<Array<T> >(other);
+			return this->template _differentiated<Array<T> >(other);
 		}
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
@@ -213,7 +213,7 @@ namespace hltypes
 		/// @return Subarray created from the current Array.
 		inline Array<T> operator()(int start, const int count) const
 		{
-			return this->_sub<Array<T> >(start, count);
+			return this->template _sub<Array<T> >(start, count);
 		}
 		/// @brief Same as equals.
 		/// @see equals
@@ -376,7 +376,7 @@ namespace hltypes
 		{
 			if (this->size() > 0)
 			{
-				std::stable_sort(stdvector::begin(), stdvector::end());
+				std::stable_sort(std::vector<T>::begin(), std::vector<T>::end());
 			}
 		}
 		/// @brief Sorts elements in Array.
@@ -387,7 +387,7 @@ namespace hltypes
 		{
 			if (this->size() > 0)
 			{
-				std::stable_sort(stdvector::begin(), stdvector::end(), compare_function);
+				std::stable_sort(std::vector<T>::begin(), std::vector<T>::end(), compare_function);
 			}
 		}
 		/// @brief Creates new sorted Array.
@@ -413,7 +413,7 @@ namespace hltypes
 		/// @brief Randomizes order of elements in Array.
 		inline void randomize()
 		{
-			std::random_shuffle(stdvector::begin(), stdvector::end());
+			std::random_shuffle(std::vector<T>::begin(), std::vector<T>::end());
 		}
 		/// @brief Creates a new Array with randomized order of elements.
 		/// @return A new Array.
@@ -431,7 +431,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("min()");
 			}
-			return (*std::min_element(stdvector::begin(), stdvector::end()));
+			return (*std::min_element(std::vector<T>::begin(), std::vector<T>::end()));
 		}
 		/// @brief Finds minimum element in Array.
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
@@ -443,7 +443,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("min()");
 			}
-			return (*std::min_element(stdvector::begin(), stdvector::end(), compare_function));
+			return (*std::min_element(std::vector<T>::begin(), std::vector<T>::end(), compare_function));
 		}
 		/// @brief Finds maximum element in Array.
 		/// @return Maximum Element.
@@ -453,7 +453,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("max()");
 			}
-			return (*std::max_element(stdvector::begin(), stdvector::end()));
+			return (*std::max_element(std::vector<T>::begin(), std::vector<T>::end()));
 		}
 		/// @brief Finds maximum element in Array.
 		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
@@ -465,7 +465,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("max()");
 			}
-			return (*std::max_element(stdvector::begin(), stdvector::end(), compare_function));
+			return (*std::max_element(std::vector<T>::begin(), std::vector<T>::end(), compare_function));
 		}
 		/// @brief Gets a random element in Array.
 		/// @return Random element.
@@ -475,7 +475,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("random()");
 			}
-			return stdvector::at(hrand(this->size()));
+			return this->at(hrand(this->size()));
 		}
 		/// @brief Gets an Array of random elements selected from this one.
 		/// @param[in] count Number of random elements.
@@ -488,7 +488,7 @@ namespace hltypes
 			{
 				for_iter (i, 0, count)
 				{
-					result.push_back(stdvector::at(hrand(this->size())));
+					result.push_back(this->at(hrand(this->size())));
 				}
 			}
 			else if (count > 0)
@@ -508,7 +508,7 @@ namespace hltypes
 				}
 				for_iter (i, 0, count)
 				{
-					result.push_back(stdvector::at(indexes.remove_at(hrand(indexes.size()))));
+					result.push_back(this->at(indexes.remove_at(hrand(indexes.size()))));
 				}
 			}
 			return result;
@@ -521,7 +521,7 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("pop_random()");
 			}
-			T result = stdvector::at(hrand(this->size()));
+			T result = this->at(hrand(this->size()));
 			this->remove(result);
 			return result;
 		}
@@ -536,7 +536,7 @@ namespace hltypes
 			{
 				for_iter (i, 0, count)
 				{
-					result.push_back(stdvector::at(hrand(this->size())));
+					result.push_back(this->at(hrand(this->size())));
 				}
 			}
 			else if (count > 0)
@@ -556,7 +556,7 @@ namespace hltypes
 				}
 				for_iter (i, 0, count)
 				{
-					result.push_back(stdvector::at(indexes.remove_at(hrand(indexes.size()))));
+					result.push_back(this->at(indexes.remove_at(hrand(indexes.size()))));
 				}
 			}
 			this->remove(result);
@@ -571,10 +571,10 @@ namespace hltypes
 			String result;
 			if (this->size() > 0)
 			{
-				result += String(stdvector::at(0));
+				result += String(this->at(0));
 				for_iter (i, 1, this->size())
 				{
-					result += separator + String(stdvector::at(i));
+					result += separator + String(this->at(i));
 				}
 			}
 			return result;
@@ -587,9 +587,9 @@ namespace hltypes
 			Array<T> result;
 			for_iter (i, 0, this->size())
 			{
-				if (condition_function(stdvector::at(i)))
+				if (condition_function(this->at(i)))
 				{
-					result.push_back(stdvector::at(i));
+					result.push_back(this->at(i));
 				}
 			}
 			return result;
@@ -601,9 +601,9 @@ namespace hltypes
 		{
 			for_iter (i, 0, this->size())
 			{
-				if (condition_function(stdvector::at(i)))
+				if (condition_function(this->at(i)))
 				{
-					return &stdvector::at(i);
+					return &this->at(i);
 				}
 			}
 			return NULL;
@@ -615,7 +615,7 @@ namespace hltypes
 		{
 			for_iter (i, 0, this->size())
 			{
-				if (condition_function(stdvector::at(i)))
+				if (condition_function(this->at(i)))
 				{
 					return true;
 				}
@@ -629,7 +629,7 @@ namespace hltypes
 		{
 			for_iter (i, 0, this->size())
 			{
-				if (!condition_function(stdvector::at(i)))
+				if (!condition_function(this->at(i)))
 				{
 					return false;
 				}
@@ -645,7 +645,7 @@ namespace hltypes
 			Array<S> result;
 			for_iter (i, 0, this->size())
 			{
-				result.push_back((S)stdvector::at(i));
+				result.push_back((S)this->at(i));
 			}
 			return result;
 		}
@@ -661,7 +661,7 @@ namespace hltypes
 			for_iter (i, 0, this->size())
 			{
 				// when seeing "dynamic_cast", I always think of fireballs
-				value = dynamic_cast<S>(stdvector::at(i));
+				value = dynamic_cast<S>(this->at(i));
 				if (value != NULL || include_nulls)
 				{
 					result.push_back(value);
@@ -673,13 +673,13 @@ namespace hltypes
 		/// @return The first element.
 		inline T& first()
 		{
-			return stdvector::front();
+			return std::vector<T>::front();
 		}
 		/// @brief Accesses last element of Array.
 		/// @return The last element.
 		inline T& last()
 		{
-			return stdvector::back();
+			return std::vector<T>::back();
 		}
 		/// @brief Same as contains.
 		/// @see contains(const T& element)
@@ -833,30 +833,32 @@ namespace hltypes
 		}
 
 		// DEPRECATED
-		inline T pop(int index)							{ return this->removeAt(index); }
-		inline Array<T> pop(int index, int count)		{ return this->removeAt(index, count); }
-		inline T pop_at(int index)						{ return this->removeAt(index); }
-		inline Array<T> pop_at(int index, int count)	{ return this->removeAt(index, count); }
-		inline T pop_front()							{ return this->removeFirst(); }
-		inline Array<T> pop_front(const int count)		{ return this->removeFirst(count); }
-		inline T pop_first()							{ return this->removeFirst(); }
-		inline Array<T> pop_first(const int count)		{ return this->removeFirst(count); }
-		inline T pop_back()								{ return this->removeLast(); }
-		inline Array<T> pop_back(const int count)		{ return this->removeLast(count); }
-		inline T pop_last()								{ return this->removeLast(); }
-		inline Array<T> pop_last(const int count)		{ return this->removeLast(count); }
-		inline T pop_all(T& element)					{ return this->removeAll(element); }
-		inline Array<T> pop_all(const Array<T>& other)	{ return this->removeAll(other); }
-		inline T remove_at(int index)					{ return this->removeAt(index); }
-		inline Array<T> remove_at(int index, int count)	{ return this->removeAt(index, count); }
-		inline T remove_front()							{ return this->removeFirst(); }
-		inline Array<T> remove_front(const int count)	{ return this->removeFirst(count); }
-		inline T remove_first()							{ return this->removeFirst(); }
-		inline Array<T> remove_first(const int count)	{ return this->removeFirst(count); }
-		inline T remove_back()							{ return this->removeLast(); }
-		inline Array<T> remove_back(const int count)	{ return this->removeLast(count); }
-		inline T remove_last()							{ return this->removeLast(); }
-		inline Array<T> remove_last(const int count)	{ return this->removeLast(count); }
+		inline Array<int> indexes_of(const T& element) const	{ return this->indexesOf(element); }
+		inline Array<T> removed_duplicates() const				{ return this->removedDuplicates(); }
+		inline T pop(int index)									{ return this->removeAt(index); }
+		inline Array<T> pop(int index, int count)				{ return this->removeAt(index, count); }
+		inline T pop_at(int index)								{ return this->removeAt(index); }
+		inline Array<T> pop_at(int index, int count)			{ return this->removeAt(index, count); }
+		inline T pop_front()									{ return this->removeFirst(); }
+		inline Array<T> pop_front(const int count)				{ return this->removeFirst(count); }
+		inline T pop_first()									{ return this->removeFirst(); }
+		inline Array<T> pop_first(const int count)				{ return this->removeFirst(count); }
+		inline T pop_back()										{ return this->removeLast(); }
+		inline Array<T> pop_back(const int count)				{ return this->removeLast(count); }
+		inline T pop_last()										{ return this->removeLast(); }
+		inline Array<T> pop_last(const int count)				{ return this->removeLast(count); }
+		inline T pop_all(T& element)							{ return this->removeAll(element); }
+		inline Array<T> pop_all(const Array<T>& other)			{ return this->removeAll(other); }
+		inline T remove_at(int index)							{ return this->removeAt(index); }
+		inline Array<T> remove_at(int index, int count)			{ return this->removeAt(index, count); }
+		inline T remove_front()									{ return this->removeFirst(); }
+		inline Array<T> remove_front(const int count)			{ return this->removeFirst(count); }
+		inline T remove_first()									{ return this->removeFirst(); }
+		inline Array<T> remove_first(const int count)			{ return this->removeFirst(count); }
+		inline T remove_back()									{ return this->removeLast(); }
+		inline Array<T> remove_back(const int count)			{ return this->removeLast(count); }
+		inline T remove_last()									{ return this->removeLast(); }
+		inline Array<T> remove_last(const int count)			{ return this->removeLast(count); }
 
 	};
 	
