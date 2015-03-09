@@ -39,7 +39,7 @@ namespace hltypes
 		this->Build = build;
 	}
 	
-	void Version::set(harray<unsigned int> versions)
+	void Version::set(Array<unsigned int> versions)
 	{
 		if (versions.size() > 0)
 		{

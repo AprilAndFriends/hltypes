@@ -1,5 +1,5 @@
 /// @file
-/// @version 2.6
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -42,17 +42,154 @@ namespace hltypes
 		typedef typename stddeque::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline Deque() : Container<stddeque, T>()
+		inline Deque() : Container()
 		{
 		}
 		/// @brief Copy constructor.
-		/// @param[in] other Deque to copy.
-		inline Deque(const Deque<T>& other) : Container<stddeque, T>(other)
+		/// @param[in] other Container to copy.
+		inline Deque(const Container& other) : Container(other)
+		{
+		}
+		/// @brief Constructor from single element.
+		/// @param[in] element Element to insert.
+		inline Deque(const T& element) : Container(element)
+		{
+		}
+		/// @brief Constructor from single element.
+		/// @param[in] element Element to insert.
+		/// @param[in] times Number of times to insert element.
+		inline Deque(const T& element, int times) : Container(element, times)
+		{
+		}
+		/// @brief Constructor from another Container.
+		/// @param[in] other Container to copy.
+		/// @param[in] count Number of elements to copy.
+		inline Deque(const Container& other, const int count) : Container(other, count)
+		{
+		}
+		/// @brief Constructor from another Container.
+		/// @param[in] other Container to copy.
+		/// @param[in] start Start index of elements to copy.
+		/// @param[in] count Number of elements to copy.
+		inline Deque(const Container& other, const int start, const int count) : Container(other, start, count)
+		{
+		}
+		/// @brief Constructor from C-type array.
+		/// @param[in] other C-type array to copy.
+		/// @param[in] count Number of elements to copy.
+		inline Deque(const T other[], const int count) : Container(other, count)
+		{
+		}
+		/// @brief Constructor from C-type array.
+		/// @param[in] other C-type array to copy.
+		/// @param[in] start Start index of elements to copy.
+		/// @param[in] count Number of elements to copy.
+		inline Deque(const T other[], const int start, const int count) : Container(other, start, count)
 		{
 		}
 		/// @brief Destructor.
 		inline ~Deque()
 		{
+		}
+		/// @brief Gets all indexes of the given element.
+		/// @param[in] element Element to search for.
+		/// @return All indexes of the given element.
+		inline Deque<int> indexes_of(T element) const
+		{
+			return this->_indexesOf<Deque<int> >(element);
+		}
+		/// @brief Removes element at given index.
+		/// @param[in] index Index of element to remove.
+		/// @return The removed element.
+		inline T removeAt(int index)
+		{
+			return Container::removeAt(index);
+		}
+		/// @brief Removes n elements at given index of Deque.
+		/// @param[in] index Start index of elements to remove.
+		/// @param[in] count Number of elements to remove.
+		/// @return Deque of all removed elements.
+		/// @note Elements in the returned Deque are in the same order as in the orignal Deque.
+		inline Deque<T> removeAt(int index, int count)
+		{
+			return this->_removeAt<Deque<T> >(index, count);
+		}
+		/// @brief Removes first element of Deque.
+		/// @return The removed element.
+		inline T removeFirst()
+		{
+			return Container::removeFirst();
+		}
+		/// @brief Removes n elements from the beginning of Deque.
+		/// @param[in] count Number of elements to remove.
+		/// @return Deque of all removed elements.
+		/// @note Elements in the returned Deque are in the same order as in the orignal Deque.
+		inline Deque<T> removeFirst(const int count)
+		{
+			return this->_removeFirst<Deque<T> >(count);
+		}
+		/// @brief Removes last element of Deque.
+		/// @return The removed element.
+		inline T removeLast()
+		{
+			return Container::removeLast();
+		}
+		/// @brief Removes n elements from the end of Deque.
+		/// @param[in] count Number of elements to remove.
+		/// @return Deque of all removed elements.
+		/// @note Elements in the returned Deque are in the same order as in the orignal Deque.
+		inline Deque<T> removeLast(const int count)
+		{
+			return this->_removeLast<Deque<T> >(count);
+		}
+		/// @brief Creates new Deque with reversed order of elements.
+		/// @return A new Deque.
+		inline Deque<T> reversed() const
+		{
+			this->_reversed<Deque<T> >();
+		}
+		/// @brief Creates new Deque without duplicates.
+		/// @return A new Deque.
+		inline Deque<T> removed_duplicates() const
+		{
+			this->_removedDuplicates<Deque<T> >();
+		}
+		/// @brief Creates a new Deque as union of this Deque with an element.
+		/// @param[in] element Element to unite with.
+		/// @return A new Deque.
+		inline Deque<T> united(const T& element) const
+		{
+			return this->_united<Deque<T> >(element);
+		}
+		/// @brief Creates a new Deque as union of this Deque with another one.
+		/// @param[in] other Deque to unite with.
+		/// @return A new Deque.
+		inline Deque<T> united(const Deque<T>& other) const
+		{
+			return this->_united<Deque<T> >(other);
+		}
+		/// @brief Creates a new Deque as intersection of this Deque with another one.
+		/// @param[in] other Deque to intersect with.
+		/// @return A new Deque.
+		inline Deque<T> intersected(const Deque<T>& other) const
+		{
+			return this->_intersected<Deque<T> >(other);
+		}
+		/// @brief Creates a new Deque as difference of this Deque with an element.
+		/// @param[in] other Element to differentiate with.
+		/// @return A new Deque.
+		/// @note Unlike remove, this method ignores if the element is not in this Deque.
+		inline Deque<T> differentiated(const T& element) const
+		{
+			return this->_differentiated<Deque<T> >(element);
+		}
+		/// @brief Creates a new Deque as difference of this Deque with another one.
+		/// @param[in] other Deque to differentiate with.
+		/// @return A new Deque.
+		/// @note Unlike remove, this method ignore elements of other Deque that are not in this one.
+		inline Deque<T> differentiated(const Deque<T>& other) const
+		{
+			return this->_differentiated<Deque<T> >(other);
 		}
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
@@ -60,15 +197,7 @@ namespace hltypes
 		/// @note Does not work with bool as T, use Deque::at directly instead.
 		inline T& operator[](int index)
 		{
-			if (index < 0)
-			{
-				index += this->size();
-			}
-			if (index < 0 || index >= this->size())
-			{
-				throw ContainerIndexException(index);
-			}
-			return stddeque::at(index);
+			return this->at(index);
 		}
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
@@ -76,15 +205,7 @@ namespace hltypes
 		/// @note Does not work with bool as T, use Deque::at directly instead.
 		inline const T& operator[](int index) const
 		{
-			if (index < 0)
-			{
-				index += this->size();
-			}
-			if (index < 0 || index >= this->size())
-			{
-				throw ContainerIndexException(index);
-			}
-			return stddeque::at(index);
+			return this->at(index);
 		}
 		/// @brief Returns a subdeque.
 		/// @param[in] start Start index of the elements to copy.
@@ -92,21 +213,7 @@ namespace hltypes
 		/// @return Subdeque created from the current Deque.
 		inline Deque<T> operator()(int start, const int count) const
 		{
-			Deque<T> result;
-			if (count > 0)
-			{
-				if (start < 0)
-				{
-					start += this->size();
-				}
-				if (start >= this->size() || start + count > this->size())
-				{
-					throw ContainerRangeException(start, count);
-				}
-				const_iterator_t it = stddeque::begin() + start;
-				result.assign(it, it + count);
-			}
-			return result;
+			return this->_sub<Deque<T> >(start, count);
 		}
 		/// @brief Same as equals.
 		/// @see equals
@@ -120,551 +227,148 @@ namespace hltypes
 		{
 			return this->nequals(other);
 		}
-		/// @brief Gets index of the given element.
-		/// @param[in] element Element to search for.
-		/// @return Index of the given element or -1 if element could not be found.
-		inline int index_of(T element) const
+		/// @brief Same as push_back.
+		/// @see push_back(const T& element)
+		inline Deque<T>& operator<<(const T& element)
 		{
-			for_iter (i, 0, this->size())
-			{
-				if (element == stddeque::at(i))
-				{
-					return i;
-				}
-			}
-			return -1;
+			this->push_back(element);
+			return (*this);
 		}
-		/// @brief Gets all indexes of the given element.
-		/// @param[in] element Element to search for.
-		/// @return Index of the given element or -1 if element could not be found.
-		inline Deque<int> indexes_of(T element) const
+		/// @brief Same as push_back.
+		/// @see push_back(const Deque<T>& other)
+		inline Deque<T>& operator<<(const Deque<T>& other)
 		{
-			Deque<int> result;
-			for_iter (i, 0, this->size())
-			{
-				if (element == stddeque::at(i))
-				{
-					result.push_back(i);
-				}
-			}
+			this->push_back(other);
+			return (*this);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const T& element)
+		inline Deque<T>& operator+=(const T& element)
+		{
+			this->push_back(element);
+			return (*this);
+		}
+		/// @brief Same as push_back.
+		/// @see push_back(const Deque<T>& other)
+		inline Deque<T>& operator+=(const Deque<T>& other)
+		{
+			this->push_back(other);
+			return (*this);
+		}
+		/// @brief Same as remove.
+		/// @see remove(T element)
+		inline Deque<T>& operator-=(T element)
+		{
+			this->remove(element);
+			return (*this);
+		}
+		/// @brief Same as remove.
+		/// @see remove(const Deque<T>& other)
+		inline Deque<T>& operator-=(const Deque<T>& other)
+		{
+			this->remove(other);
+			return (*this);
+		}
+		/// @brief Same as unite.
+		/// @see unite(const T& element)
+		inline Deque<T>& operator|=(const T& element)
+		{
+			this->unite(element);
+			return (*this);
+		}
+		/// @brief Same as unite.
+		/// @see unite(const Deque<T>& other)
+		inline Deque<T>& operator|=(const Deque<T>& other)
+		{
+			this->unite(other);
+			return (*this);
+		}
+		/// @brief Same as intersect.
+		/// @see intersect(const Deque<T>& other)
+		inline Deque<T>& operator&=(const Deque<T>& other)
+		{
+			this->intersect(other);
+			return (*this);
+		}
+		/// @brief Same as differentiate.
+		/// @see differentiate(const T& element)
+		inline Deque<T>& operator/=(const T& element)
+		{
+			this->differentiate(element);
+			return (*this);
+		}
+		/// @brief Same as differentiate.
+		/// @see differentiate(const Deque<T>& other)
+		inline Deque<T>& operator/=(const Deque<T>& other)
+		{
+			this->differentiate(other);
+			return (*this);
+		}
+		/// @brief Merges a Deque with an element.
+		/// @param[in] element Element to merge with.
+		/// @return New Deque with element added at the end of Deque.
+		inline Deque<T> operator+(const T& element) const
+		{
+			Deque<T> result(*this);
+			result += element;
 			return result;
 		}
-		/// @brief Checks existence of element in Deque.
-		/// @param[in] element Element to search for.
-		/// @return True if element is in Deque.
-		inline bool contains(const T& element) const
+		/// @brief Merges two Deques.
+		/// @param[in] other Second Deque to merge with.
+		/// @return New Deque with elements of second Deque added at the end of first Deque.
+		inline Deque<T> operator+(const Deque<T>& other) const
 		{
-			return (this->index_of(element) >= 0);
-		}
-		/// @brief Checks existence of elements in Deque.
-		/// @param[in] other Deque with elements to search for.
-		/// @return True if all elements are in Deque.
-		inline bool contains(const Deque<T>& other) const
-		{
-			int index;
-			for_iter (i, 0, other.size())
-			{
-				index = this->index_of(other.at(i));
-				if (index < 0)
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		/// @brief Checks existence of elements in Deque.
-		/// @param[in] other C-type array with elements to search for.
-		/// @param[in] count How many elements the C-type array has.
-		/// @return True if all elements are in Deque.
-		inline bool contains(const T other[], int count) const
-		{
-			int index;
-			for_iter (i, 0, count)
-			{
-				index = this->index_of(other[i]);
-				if (index < 0)
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		/// @brief Counts occurrences of element in Deque.
-		/// @param[in] element Element to search for.
-		/// @return Number of occurrences of given element.
-		inline int count(T element) const
-		{
-			int result = 0;
-			for_iter (i, 0, this->size())
-			{
-				if (element == stddeque::at(i))
-				{
-					++result;
-				}
-			}
+			Deque<T> result(*this);
+			result += other;
 			return result;
 		}
-		/// @brief Inserts new element at specified position n times.
-		/// @param[in] index Position where to insert the new element.
-		/// @param[in] element Element to insert.
-		/// @param[in] times Number of times to insert element.
-		inline void insert_at(const int index, const T& element, const int times = 1)
-		{
-			if (index > this->size())
-			{
-				throw ContainerIndexException(index);
-			}
-			stddeque::insert(stddeque::begin() + index, times, element);
-		}
-		/// @brief Inserts all elements of another Deque into this one.
-		/// @param[in] index Position where to insert the new elements.
-		/// @param[in] other Deque of elements to insert.
-		inline void insert_at(const int index, const Deque<T>& other)
-		{
-			if (index > this->size())
-			{
-				throw ContainerIndexException(index);
-			}
-			stddeque::insert(stddeque::begin() + index, other.begin(), other.end());
-		}
-		/// @brief Inserts all elements of another Deque into this one.
-		/// @param[in] index Position where to insert the new elements.
-		/// @param[in] other Deque of elements to insert.
-		/// @param[in] count Number of elements to insert.
-		inline void insert_at(const int index, const Deque<T>& other, const int count)
-		{
-			if (index > this->size())
-			{
-				throw ContainerIndexException(index);
-			}
-			if (count > other.size())
-			{
-				throw ContainerRangeException(0, count);
-			}
-			const_iterator_t it = other.begin();
-			stddeque::insert(stddeque::begin() + index, it, it + count);
-		}
-		/// @brief Inserts all elements of another Deque into this one.
-		/// @param[in] index Position where to insert the new elements.
-		/// @param[in] other Deque of elements to insert.
-		/// @param[in] start Start index of the elements to insert.
-		/// @param[in] count Number of elements to insert.
-		inline void insert_at(const int index, const Deque<T>& other, const int start, const int count)
-		{
-			if (index > this->size())
-			{
-				throw ContainerIndexException(index);
-			}
-			if (start >= other.size() || start + count > other.size())
-			{
-				throw ContainerRangeException(start, count);
-			}
-			const_iterator_t it = other.begin() + start;
-			stddeque::insert(stddeque::begin() + index, it, it + count);
-		}
-		/// @brief Inserts all elements of a C-type array into this Deque.
-		/// @param[in] index Position where to insert the new elements.
-		/// @param[in] other C-type array of elements to insert.
-		/// @param[in] count Number of elements to insert.
-		inline void insert_at(const int index, const T other[], const int count)
-		{
-			stddeque::insert(stddeque::begin() + index, other, other + count);
-		}
-		/// @brief Inserts all elements of a C-type array into this Deque.
-		/// @param[in] index Position where to insert the new elements.
-		/// @param[in] other C-type array of elements to insert.
-		/// @param[in] start Start index of the elements to insert.
-		/// @param[in] count Number of elements to insert.
-		inline void insert_at(const int index, const T other[], const int start, const int count)
-		{
-			stddeque::insert(stddeque::begin() + index, other + start, other + (start + count));
-		}
-		/// @brief Removes element at given index.
-		/// @param[in] index Index of element to remove.
-		/// @return The removed element.
-		inline T remove_at(const int index)
-		{
-			if (index >= this->size())
-			{
-				throw ContainerIndexException(index);
-			}
-			T result = stddeque::at(index);
-			stddeque::erase(stddeque::begin() + index);
-			return result;
-		}
-		/// @brief Removes n elements at given index of Deque.
-		/// @param[in] index Start index of elements to remove.
-		/// @param[in] count Number of elements to remove.
-		/// @return Deque of all removed elements.
-		/// @note Elements in the returned Deque are in the same order as in the orignal Deque.
-		inline Deque<T> remove_at(const int index, const int count)
-		{
-			if (index >= this->size() || index + count > this->size())
-			{
-				throw ContainerRangeException(index, count);
-			}
-			Deque<T> result;
-			iterator_t it = stddeque::begin();
-			iterator_t begin = it + index;
-			iterator_t end = it + (index + count);
-			result.assign(begin, end);
-			stddeque::erase(begin, end);
-			return result;
-		}
-		/// @brief Removes first occurrence of element in Deque.
+		/// @brief Removes element from Deque.
 		/// @param[in] element Element to remove.
-		inline void remove(T element)
-		{
-			int index = this->index_of(element);
-			if (index < 0)
-			{
-				throw ContainerElementNotFoundException();
-			}
-			stddeque::erase(stddeque::begin() + index);
-		}
-		/// @brief Removes first occurrence of each element in another Deque from this one.
-		/// @param[in] other Deque of elements to remove.
-		inline void remove(const Deque<T>& other)
-		{
-			int index;
-			for_iter (i, 0, other.size())
-			{
-				index = this->index_of(other.at(i));
-				if (index < 0)
-				{
-					throw ContainerElementNotFoundException();
-				}
-				stddeque::erase(stddeque::begin() + index);
-			}
-		}
-		/// @brief Removes all occurrences of element in Deque.
-		/// @param[in] element Element to remove.
-		/// @return Number of elements removed.
-		inline int remove_all(const T& element)
-		{
-			Deque<int> indexes = this->indexes_of(element);
-			iterator_t it = stddeque::begin();
-			for_iter_r (i, indexes.size(), 0)
-			{
-				stddeque::erase(it + indexes[i]);
-			}
-			return indexes.size();
-		}
-		/// @brief Removes all occurrences of each element in another Deque from this one.
-		/// @param[in] other Deque of elements to remove.
-		/// @return Number of elements removed.
-		inline int remove_all(const Deque<T>& other)
-		{
-			Deque<int> indexes;
-			iterator_t it;
-			int count = 0;
-			for_iter (i, 0, other.size())
-			{
-				Deque<int> indexes = this->indexes_of(other.at(i));
-				iterator_t it = stddeque::begin();
-				for_iter_r (j, indexes.size(), 0)
-				{
-					stddeque::erase(it + indexes[j]);
-				}
-				count += indexes.size();
-			}
-			return count;
-		}
-		/// @brief Adds element at the end of Deque.
-		/// @param[in] element Element to add.
-		inline void push_back(const T& element)
-		{
-			stddeque::push_back(element);
-		}
-		/// @brief Adds element at the end of Deque n times.
-		/// @param[in] element Element to add.
-		/// @param[in] times Number of times to add the element.
-		inline void push_back(const T& element, int times)
-		{
-			this->insert_at(this->size(), element, times);
-		}
-		/// @brief Adds all elements from another Deque at the end of this one.
-		/// @param[in] other Deque of elements to add.
-		inline void push_back(const Deque<T>& other)
-		{
-			this->insert_at(this->size(), other);
-		}
-		/// @brief Adds all elements from another Deque at the end of this one.
-		/// @param[in] other Deque of elements to add.
-		/// @param[in] count Number of elements to add.
-		inline void push_back(const Deque<T>& other, const int count)
-		{
-			this->insert_at(this->size(), other, count);
-		}
-		/// @brief Adds all elements from another Deque at the end of this one.
-		/// @param[in] other Deque of elements to add.
-		/// @param[in] start Start index of the elements to add.
-		/// @param[in] count Number of elements to add.
-		inline void push_back(const Deque<T>& other, const int start, const int count)
-		{
-			this->insert_at(this->size(), other, start, count);
-		}
-		/// @brief Adds all elements from a C-type array at the end of Deque.
-		/// @param[in] other C-type array of elements to add.
-		/// @param[in] count Number of elements to add.
-		inline void push_back(const T other[], const int count)
-		{
-			this->insert_at(this->size(), other, count);
-		}
-		/// @brief Adds all elements from a C-type array at the end of Deque.
-		/// @param[in] other C-type array of elements to add.
-		/// @param[in] start Start index of the elements to add.
-		/// @param[in] count Number of elements to add.
-		inline void push_back(const T other[], const int start, const int count)
-		{
-			this->insert_at(this->size(), other, start, count);
-		}
-		/// @brief Adds element at the beginning of Deque n times.
-		/// @param[in] element Element to add.
-		/// @param[in] times Number of times to add the element.
-		inline void push_front(const T& element, int times = 1)
-		{
-			this->insert_at(0, element, times);
-		}
-		/// @brief Adds all elements from another Deque at the beginning of this one.
-		/// @param[in] other Deque of elements to add.
-		inline void push_front(const Deque<T>& other)
-		{
-			this->insert_at(0, other);
-		}
-		/// @brief Adds all elements from another Deque at the beginning of this one.
-		/// @param[in] other Deque of elements to add.
-		/// @param[in] count Number of elements to add.
-		inline void push_front(const Deque<T>& other, const int count)
-		{
-			this->insert_at(0, other, count);
-		}
-		/// @brief Adds all elements from another Deque at the beginning of this one.
-		/// @param[in] other Deque of elements to add.
-		/// @param[in] start Start index of the elements to add.
-		/// @param[in] count Number of elements to add.
-		inline void push_front(const Deque<T>& other, const int start, const int count)
-		{
-			this->insert_at(0, other, start, count);
-		}
-		/// @brief Adds all elements from a C-type array at the beginning of Deque.
-		/// @param[in] other C-type array of elements to add.
-		/// @param[in] count Number of elements to add.
-		inline void push_front(const T other[], const int count)
-		{
-			this->insert_at(0, other, count);
-		}
-		/// @brief Adds all elements from a C-type array at the beginning of Deque.
-		/// @param[in] other C-type array of elements to add.
-		/// @param[in] start Start index of the elements to add.
-		/// @param[in] count Number of elements to add.
-		inline void push_front(const T other[], const int start, const int count)
-		{
-			this->insert_at(0, other, start, count);
-		}
-		/// @brief Removes first element of Deque.
-		/// @return The removed element.
-		inline T pop_front()
-		{
-			if (this->size() == 0)
-			{
-				throw ContainerIndexException(0);
-			}
-			return this->remove_at(0);
-		}
-		/// @brief Removes n elements from the beginning of Deque.
-		/// @param[in] count Number of elements to remove.
-		/// @return Deque of all removed elements.
-		/// @note Elements in the returned Deque are in the same order as in the orignal Deque.
-		inline Deque<T> pop_front(const int count)
-		{
-			if (count > this->size())
-			{
-				throw ContainerRangeException(0, count);
-			}
-			Deque<T> result;
-			iterator_t begin = stddeque::begin();
-			iterator_t end = begin + count;
-			result.assign(begin, end);
-			stddeque::erase(begin, end);
-			return result;
-		}
-		/// @brief Removes last element of Deque.
-		/// @return The removed element.
-		inline T pop_back()
-		{
-			if (this->size() == 0)
-			{
-				throw ContainerIndexException(0);
-			}
-			T element = stddeque::back();
-			stddeque::pop_back();
-			return element;
-		}
-		/// @brief Removes n elements from the end of Deque.
-		/// @param[in] count Number of elements to remove.
-		/// @return Deque of all removed elements.
-		/// @note Elements in the returned Deque are in the same order as in the orignal Deque.
-		inline Deque<T> pop_back(const int count)
-		{
-			if (count > this->size())
-			{
-				throw ContainerRangeException(0, count);
-			}
-			Deque<T> result;
-			iterator_t end = stddeque::end();
-			iterator_t begin = end - count;
-			result.assign(begin, end);
-			stddeque::erase(begin, end);
-			return result;
-		}
-		/// @brief Unites elements of this Deque with an element.
-		/// @param[in] element Element to unite with.
-		inline void unite(const T& element)
-		{
-			this->insert_at(this->size(), element);
-			this->remove_duplicates();
-		}
-		/// @brief Unites elements of this Deque with another one.
-		/// @param[in] other Deque to unite with.
-		inline void unite(const Deque<T>& other)
-		{
-			this->insert_at(this->size(), other);
-			this->remove_duplicates();
-		}
-		/// @brief Creates a new Deque as union of this Deque with an element.
-		/// @param[in] element Element to unite with.
-		/// @return A new Deque.
-		inline Deque<T> united(const T& element) const
+		/// @return New Deque with elements of first Deque without given element.
+		inline Deque<T> operator-(T element) const
 		{
 			Deque<T> result(*this);
-			result.unite(element);
+			result -= element;
 			return result;
 		}
-		/// @brief Creates a new Deque as union of this Deque with another one.
-		/// @param[in] other Deque to unite with.
-		/// @return A new Deque.
-		inline Deque<T> united(const Deque<T>& other) const
+		/// @brief Removes second Deque from first Deque.
+		/// @param[in] other Deque to remove.
+		/// @return New Deque with elements of first Deque without the elements of second Deque.
+		inline Deque<T> operator-(const Deque<T>& other) const
 		{
 			Deque<T> result(*this);
-			result.unite(other);
+			result -= other;
 			return result;
 		}
-		/// @brief Intersects elements of this Deque with another one.
-		/// @param[in] other Deque to intersect with.
-		inline void intersect(const Deque<T>& other)
+		/// @brief Same as united.
+		/// @see united(const T& element)
+		inline Deque<T> operator|(const T& element) const
 		{
-			Deque<T> result;
-			for_iter (i, 0, this->size())
-			{
-				if (other.contains(stddeque::at(i)))
-				{
-					result.push_back(stddeque::at(i));
-				}
-			}
-			stddeque::assign(result.begin(), result.end());
+			return this->united(element);
 		}
-		/// @brief Creates a new Deque as intersection of this Deque with another one.
-		/// @param[in] other Deque to intersect with.
-		/// @return A new Deque.
-		inline Deque<T> intersected(const Deque<T>& other) const
+		/// @brief Same as united.
+		/// @see united(const Deque<T>& other)
+		inline Deque<T> operator|(const Deque<T>& other) const
 		{
-			Deque<T> result(*this);
-			result.intersect(other);
-			return result;
+			return this->united(other);
 		}
-		/// @brief Differentiates elements of this Deque with an element.
-		/// @param[in] other Element to differentiate with.
-		/// @note Unlike remove, this method ignores if the element is not in this Deque.
-		inline void differentiate(const T& element)
+		/// @brief Same as intersected.
+		/// @see intersected(const Deque<T>& other)
+		inline Deque<T> operator&(const Deque<T>& other) const
 		{
-			int index = 0;
-			while (true)
-			{
-				index = this->index_of(element);
-				if (index < 0)
-				{
-					break;
-				}
-				stddeque::erase(stddeque::begin() + index);
-			}
+			return this->intersected(other);
 		}
-		/// @brief Differentiates elements of this Deque with another one.
-		/// @param[in] other Deque to differentiate with.
-		/// @note Unlike remove, this method ignore elements of other Deque that are not in this one.
-		inline void differentiate(const Deque<T>& other)
+		/// @brief Same as differentiated.
+		/// @see differentiated(const T& element)
+		inline Deque<T> operator/(const T& element) const
 		{
-			int index;
-			for_iter (i, 0, other.size())
-			{
-				while (true)
-				{
-					index = this->index_of(other.at(i));
-					if (index < 0)
-					{
-						break;
-					}
-					stddeque::erase(stddeque::begin() + index);
-				}
-			}
+			return this->differentiated(element);
 		}
-		/// @brief Creates a new Deque as difference of this Deque with an element.
-		/// @param[in] other Element to differentiate with.
-		/// @return A new Deque.
-		/// @note Unlike remove, this method ignores if the element is not in this Deque.
-		inline Deque<T> differentiated(const T& element) const
+		/// @brief Same as differentiated.
+		/// @see differentiated(const Deque<T>& other)
+		inline Deque<T> operator/(const Deque<T>& other) const
 		{
-			Deque<T> result(*this);
-			result.differentiate(element);
-			return result;
-		}
-		/// @brief Creates a new Deque as difference of this Deque with another one.
-		/// @param[in] other Deque to differentiate with.
-		/// @return A new Deque.
-		/// @note Unlike remove, this method ignore elements of other Deque that are not in this one.
-		inline Deque<T> differentiated(const Deque<T>& other) const
-		{
-			Deque<T> result(*this);
-			result.differentiate(other);
-			return result;
-		}
-		/// @brief Reverses order of elements.
-		inline void reverse()
-		{
-			if (this->size() > 0)
-			{
-				std::reverse(stddeque::begin(), stddeque::end());
-			}
-		}
-		/// @brief Creates new Deque with reversed order of elements.
-		/// @return A new Deque.
-		inline Deque<T> reversed() const
-		{
-			Deque<T> result(*this);
-			result.reverse();
-			return result;
-		}
-		/// @brief Removes duplicates in Deque.
-		inline void remove_duplicates()
-		{
-			Deque<int> indexes;
-			iterator_t it = stddeque::begin();
-			for_iter (i, 0, this->size())
-			{
-				indexes = this->indexes_of(stddeque::at(i));
-				for_iter_r (j, indexes.size(), 1)
-				{
-					stddeque::erase(it + indexes[j]);
-				}
-			}
-		}
-		/// @brief Creates new Deque without duplicates.
-		/// @return A new Deque.
-		inline Deque<T> removed_duplicates() const
-		{
-			Deque<T> result(*this);
-			result.remove_duplicates();
-			return result;
+			return this->differentiated(other);
 		}
 		/// @brief Sorts elements in Deque.
 		/// @note The sorting order is ascending.
@@ -1115,156 +819,6 @@ namespace hltypes
 		{
 			this->push_back(other, start, count);
 		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T& element).
-		inline void push_last(const T& element)
-		{
-			this->push_back(element);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T& element, int times).
-		inline void push_last(const T& element, int times)
-		{
-			this->push_back(element, times);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const Deque<T>& other).
-		inline void push_last(const Deque<T>& other)
-		{
-			this->push_back(other);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const Deque<T>& other, const int count).
-		inline void push_last(const Deque<T>& other, const int count)
-		{
-			this->push_back(other, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const Deque<T>& other, const int start, const int count).
-		inline void push_last(const Deque<T>& other, const int start, const int count)
-		{
-			this->push_back(other, start, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T other[], const int count).
-		inline void push_last(const T other[], const int count)
-		{
-			this->push_back(other, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T other[], const int start, const int count).
-		inline void push_last(const T other[], const int start, const int count)
-		{
-			this->push_back(other, start, count);
-		}
-		/// @brief Same as push_front.
-		/// @see push_front(const T& element, int times).
-		inline void push_first(const T& element, int times = 1)
-		{
-			this->push_front(element, times);
-		}
-		/// @brief Same as push_front.
-		/// @see push_front(const Deque<T>& other).
-		inline void push_first(const Deque<T>& other)
-		{
-			this->push_front(other);
-		}
-		/// @brief Same as push_front.
-		/// @see push_front(const Deque<T>& other, const int count).
-		inline void push_first(const Deque<T>& other, const int count)
-		{
-			this->push_front(other, count);
-		}
-		/// @brief Same as push_front.
-		/// @see push_front(const Deque<T>& other, const int start, const int count).
-		inline void push_first(const Deque<T>& other, const int start, const int count)
-		{
-			this->push_front(other, start, count);
-		}
-		/// @brief Same as push_front.
-		/// @see push_front(const T other[], const int count).
-		inline void push_first(const T other[], const int count)
-		{
-			this->push_front(other, count);
-		}
-		/// @brief Same as push_front.
-		/// @see push_front(const T other[], const int start, const int count).
-		inline void push_first(const T other[], const int start, const int count)
-		{
-			this->push_front(other, start, count);
-		}
-		/// @brief Same as pop_front.
-		/// @see pop_front().
-		inline T pop_first()
-		{
-			return this->pop_front();
-		}
-		/// @brief Same as pop_front.
-		/// @see pop_front(const int count).
-		inline Deque<T> pop_first(const int count)
-		{
-			return this->pop_front(count);
-		}
-		/// @brief Same as pop_back.
-		/// @see pop_back().
-		inline T pop_last()
-		{
-			return this->pop_back();
-		}
-		/// @brief Same as pop_back.
-		/// @see pop_back(const int count).
-		inline Deque<T> pop_last(const int count)
-		{
-			return this->pop_back(count);
-		}
-		/// @brief Same as pop_front.
-		/// @see pop_front().
-		inline T remove_front()
-		{
-			return this->pop_front();
-		}
-		/// @brief Same as pop_front.
-		/// @see pop_front(const int count).
-		inline Deque<T> remove_front(const int count)
-		{
-			return this->pop_front(count);
-		}
-		/// @brief Same as pop_back.
-		/// @see pop_back().
-		inline T remove_back()
-		{
-			return this->pop_back();
-		}
-		/// @brief Same as pop_back.
-		/// @see pop_back(const int count).
-		inline Deque<T> remove_back(const int count)
-		{
-			return this->pop_back(count);
-		}
-		/// @brief Same as pop_front.
-		/// @see pop_front().
-		inline T remove_first()
-		{
-			return this->pop_front();
-		}
-		/// @brief Same as pop_front.
-		/// @see pop_front(const int count).
-		inline Deque<T> remove_first(const int count)
-		{
-			return this->pop_front(count);
-		}
-		/// @brief Same as pop_back.
-		/// @see pop_back().
-		inline T remove_last()
-		{
-			return this->pop_back();
-		}
-		/// @brief Same as pop_back.
-		/// @see pop_back(const int count).
-		inline Deque<T> remove_last(const int count)
-		{
-			return this->pop_back(count);
-		}
 		/// @brief Same as pop_random.
 		/// @see pop_random().
 		inline T remove_random()
@@ -1277,185 +831,32 @@ namespace hltypes
 		{
 			return this->pop_random(count);
 		}
-		/// @brief Same as remove_at.
-		/// @see remove_at(const int index)
-		inline T pop(const int index)
-		{
-			return this->remove_at(index);
-		}
-		/// @brief Same as remove_at.
-		/// @see remove_at(const int index, const int count)
-		inline Deque<T> pop(const int index, const int count)
-		{
-			return this->remove_at(index, count);
-		}
-		/// @brief Same as remove_at.
-		/// @see remove_at(const int index)
-		inline T pop_at(const int index)
-		{
-			return this->remove_at(index);
-		}
-		/// @brief Same as remove_at.
-		/// @see remove_at(const int index, const int count)
-		inline Deque<T> pop_at(const int index, const int count)
-		{
-			return this->remove_at(index, count);
-		}
-		/// @brief Same as remove_all.
-		/// @see remove_all(T& element)
-		inline int pop_all(T& element)
-		{
-			return this->remove_all(element);
-		}
-		/// @brief Same as remove_all.
-		/// @see remove_all(const Deque<T>& other)
-		inline int pop_all(const Deque<T>& other)
-		{
-			return this->remove_all(other);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T& element)
-		inline Deque<T>& operator<<(const T& element)
-		{
-			this->push_back(element);
-			return (*this);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const Deque<T>& other)
-		inline Deque<T>& operator<<(const Deque<T>& other)
-		{
-			this->push_back(other);
-			return (*this);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T& element)
-		inline Deque<T>& operator+=(const T& element)
-		{
-			this->push_back(element);
-			return (*this);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const Deque<T>& other)
-		inline Deque<T>& operator+=(const Deque<T>& other)
-		{
-			this->push_back(other);
-			return (*this);
-		}
-		/// @brief Same as remove.
-		/// @see remove(T element)
-		inline Deque<T>& operator-=(T element)
-		{
-			this->remove(element);
-			return (*this);
-		}
-		/// @brief Same as remove.
-		/// @see remove(const Deque<T>& other)
-		inline Deque<T>& operator-=(const Deque<T>& other)
-		{
-			this->remove(other);
-			return (*this);
-		}
-		/// @brief Same as unite.
-		/// @see unite(const T& element)
-		inline Deque<T>& operator|=(const T& element)
-		{
-			this->unite(element);
-			return (*this);
-		}
-		/// @brief Same as unite.
-		/// @see unite(const Deque<T>& other)
-		inline Deque<T>& operator|=(const Deque<T>& other)
-		{
-			this->unite(other);
-			return (*this);
-		}
-		/// @brief Same as intersect.
-		/// @see intersect(const Deque<T>& other)
-		inline Deque<T>& operator&=(const Deque<T>& other)
-		{
-			this->intersect(other);
-			return (*this);
-		}
-		/// @brief Same as differentiate.
-		/// @see differentiate(const T& element)
-		inline Deque<T>& operator/=(const T& element)
-		{
-			this->differentiate(element);
-			return (*this);
-		}
-		/// @brief Same as differentiate.
-		/// @see differentiate(const Deque<T>& other)
-		inline Deque<T>& operator/=(const Deque<T>& other)
-		{
-			this->differentiate(other);
-			return (*this);
-		}
-		/// @brief Merges a Deque with an element.
-		/// @param[in] element Element to merge with.
-		/// @return New Deque with element added at the end of Deque.
-		inline Deque<T> operator+(const T& element) const
-		{
-			Deque<T> result(*this);
-			result += element;
-			return result;
-		}
-		/// @brief Merges two Deques.
-		/// @param[in] other Second Deque to merge with.
-		/// @return New Deque with elements of second Deque added at the end of first Deque.
-		inline Deque<T> operator+(const Deque<T>& other) const
-		{
-			Deque<T> result(*this);
-			result += other;
-			return result;
-		}
-		/// @brief Removes element from Deque.
-		/// @param[in] element Element to remove.
-		/// @return New Deque with elements of first Deque without given element.
-		inline Deque<T> operator-(T element) const
-		{
-			Deque<T> result(*this);
-			result -= element;
-			return result;
-		}
-		/// @brief Removes second Deque from first Deque.
-		/// @param[in] other Deque to remove.
-		/// @return New Deque with elements of first Deque without the elements of second Deque.
-		inline Deque<T> operator-(const Deque<T>& other) const
-		{
-			Deque<T> result(*this);
-			result -= other;
-			return result;
-		}
-		/// @brief Same as united.
-		/// @see united(const T& element)
-		inline Deque<T> operator|(const T& element) const
-		{
-			return this->united(element);
-		}
-		/// @brief Same as united.
-		/// @see united(const Deque<T>& other)
-		inline Deque<T> operator|(const Deque<T>& other) const
-		{
-			return this->united(other);
-		}
-		/// @brief Same as intersected.
-		/// @see intersected(const Deque<T>& other)
-		inline Deque<T> operator&(const Deque<T>& other) const
-		{
-			return this->intersected(other);
-		}
-		/// @brief Same as differentiated.
-		/// @see differentiated(const T& element)
-		inline Deque<T> operator/(const T& element) const
-		{
-			return this->differentiated(element);
-		}
-		/// @brief Same as differentiated.
-		/// @see differentiated(const Deque<T>& other)
-		inline Deque<T> operator/(const Deque<T>& other) const
-		{
-			return this->differentiated(other);
-		}
+
+		// DEPRECATED
+		inline T pop(int index)							{ return this->removeAt(index); }
+		inline Deque<T> pop(int index, int count)		{ return this->removeAt(index, count); }
+		inline T pop_at(int index)						{ return this->removeAt(index); }
+		inline Deque<T> pop_at(int index, int count)	{ return this->removeAt(index, count); }
+		inline T pop_front()							{ return this->removeFirst(); }
+		inline Deque<T> pop_front(const int count)		{ return this->removeFirst(count); }
+		inline T pop_first()							{ return this->removeFirst(); }
+		inline Deque<T> pop_first(const int count)		{ return this->removeFirst(count); }
+		inline T pop_back()								{ return this->removeLast(); }
+		inline Deque<T> pop_back(const int count)		{ return this->removeLast(count); }
+		inline T pop_last()								{ return this->removeLast(); }
+		inline Deque<T> pop_last(const int count)		{ return this->removeLast(count); }
+		inline T pop_all(T& element)					{ return this->removeAll(element); }
+		inline Deque<T> pop_all(const Deque<T>& other)	{ return this->removeAll(other); }
+		inline T remove_at(int index)					{ return this->removeAt(index); }
+		inline Deque<T> remove_at(int index, int count)	{ return this->removeAt(index, count); }
+		inline T remove_front()							{ return this->removeFirst(); }
+		inline Deque<T> remove_front(const int count)	{ return this->removeFirst(count); }
+		inline T remove_first()							{ return this->removeFirst(); }
+		inline Deque<T> remove_first(const int count)	{ return this->removeFirst(count); }
+		inline T remove_back()							{ return this->removeLast(); }
+		inline Deque<T> remove_back(const int count)	{ return this->removeLast(count); }
+		inline T remove_last()							{ return this->removeLast(); }
+		inline Deque<T> remove_last(const int count)	{ return this->removeLast(count); }
 
 	};
 	
