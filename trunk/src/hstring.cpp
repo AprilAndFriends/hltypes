@@ -440,7 +440,7 @@ namespace hltypes
 	{
 		int result = 0;
 		String thisString = stdstr::c_str();
-		for_iter(i, 0, this->size())
+		for_iter (i, 0, this->size())
 		{
 			if (thisString(i, -1).startsWith(string))
 			{
@@ -502,7 +502,7 @@ namespace hltypes
 	bool String::containsAny(const char* string) const
 	{
 		int size = (int)strlen(string);
-		for_iter(i, 0, size)
+		for_iter (i, 0, size)
 		{
 			if (stdstr::find(string[i]) != stdstr::npos)
 			{
@@ -520,7 +520,7 @@ namespace hltypes
 	bool String::containsAll(const char* string) const
 	{
 		int size = (int)strlen(string);
-		for_iter(i, 0, size)
+		for_iter (i, 0, size)
 		{
 			if (stdstr::find(string[i]) != stdstr::npos)
 			{
