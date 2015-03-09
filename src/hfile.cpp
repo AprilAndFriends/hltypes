@@ -259,7 +259,14 @@ namespace hltypes
 		int ret = stat(filename.cStr(), &s);
 		if (ret != 0)
 		{
-			throw Exception("stat() failed on '" + filename + "'!");
+			if (!File::exists(filename))
+			{
+				throw Exception("stat() failed on '" + filename + "', file not found!");
+			}
+			else
+			{
+				throw Exception("stat() failed on '" + filename + "'!");
+			}
 		}
 		info.size = (int64_t)s.st_size;
 		info.creationTime = (int64_t)s.st_ctime;
