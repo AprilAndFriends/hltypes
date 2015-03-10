@@ -447,7 +447,7 @@ namespace hltypes
 		// DEPRECATED
 		DEPRECATED_ATTRIBUTE inline Array<int> indexes_of(const T& element) const							{ return this->indexesOf(element); }
 		DEPRECATED_ATTRIBUTE inline Array<T> removed_duplicates() const										{ return this->removedDuplicates(); }
-		DEPRECATED_ATTRIBUTE inline T pop(int index)															{ return this->removeAt(index); }
+		DEPRECATED_ATTRIBUTE inline T pop(int index)														{ return this->removeAt(index); }
 		DEPRECATED_ATTRIBUTE inline Array<T> pop(int index, int count)										{ return this->removeAt(index, count); }
 		DEPRECATED_ATTRIBUTE inline T pop_at(int index)														{ return this->removeAt(index); }
 		DEPRECATED_ATTRIBUTE inline Array<T> pop_at(int index, int count)									{ return this->removeAt(index, count); }
@@ -455,17 +455,17 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE inline Array<T> pop_front(const int count)										{ return this->removeFirst(count); }
 		DEPRECATED_ATTRIBUTE inline T pop_first()															{ return this->removeFirst(); }
 		DEPRECATED_ATTRIBUTE inline Array<T> pop_first(const int count)										{ return this->removeFirst(count); }
-		DEPRECATED_ATTRIBUTE inline T pop_back()																{ return this->removeLast(); }
+		DEPRECATED_ATTRIBUTE inline T pop_back()															{ return this->removeLast(); }
 		DEPRECATED_ATTRIBUTE inline Array<T> pop_back(const int count)										{ return this->removeLast(count); }
-		DEPRECATED_ATTRIBUTE inline T pop_last()																{ return this->removeLast(); }
+		DEPRECATED_ATTRIBUTE inline T pop_last()															{ return this->removeLast(); }
 		DEPRECATED_ATTRIBUTE inline Array<T> pop_last(const int count)										{ return this->removeLast(count); }
 		DEPRECATED_ATTRIBUTE inline T pop_all(T& element)													{ return this->removeAll(element); }
 		DEPRECATED_ATTRIBUTE inline Array<T> pop_all(const Array<T>& other)									{ return this->removeAll(other); }
 		DEPRECATED_ATTRIBUTE inline T remove_at(int index)													{ return this->removeAt(index); }
-		DEPRECATED_ATTRIBUTE inline Array<T> remove_at(int index, int count)									{ return this->removeAt(index, count); }
-		DEPRECATED_ATTRIBUTE inline T remove_front()															{ return this->removeFirst(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> remove_at(int index, int count)								{ return this->removeAt(index, count); }
+		DEPRECATED_ATTRIBUTE inline T remove_front()														{ return this->removeFirst(); }
 		DEPRECATED_ATTRIBUTE inline Array<T> remove_front(const int count)									{ return this->removeFirst(count); }
-		DEPRECATED_ATTRIBUTE inline T remove_first()															{ return this->removeFirst(); }
+		DEPRECATED_ATTRIBUTE inline T remove_first()														{ return this->removeFirst(); }
 		DEPRECATED_ATTRIBUTE inline Array<T> remove_first(const int count)									{ return this->removeFirst(count); }
 		DEPRECATED_ATTRIBUTE inline T remove_back()															{ return this->removeLast(); }
 		DEPRECATED_ATTRIBUTE inline Array<T> remove_back(const int count)									{ return this->removeLast(count); }
