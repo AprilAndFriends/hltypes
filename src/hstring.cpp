@@ -1404,7 +1404,7 @@ hltypes::String hvsprintf(const char* format, va_list args)
 		size *= 2; // not enough characters, double current buffer
 		delete[] c;
 		c = new char[size + 1];
-        c[0] = '\0';
+		c[0] = '\0';
 	}
 #ifdef _DEBUG
 	if (i == 8)
