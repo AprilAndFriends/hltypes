@@ -137,6 +137,7 @@ namespace hltypes
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
 		/// @return Element at specified position.
+		/// @note This does not support bool.
 		inline T& at(int index)
 		{
 			int size = this->size();
@@ -153,6 +154,7 @@ namespace hltypes
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
 		/// @return Element at specified position.
+		/// @note This does not support bool.
 		inline const T& at(int index) const
 		{
 			int size = this->size();

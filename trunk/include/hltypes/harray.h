@@ -267,7 +267,7 @@ namespace hltypes
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
 		/// @return Element at specified position.
-		/// @note Does not work with bool as T, use Array::at directly instead.
+		/// @note Does not work with bool as T.
 		inline T& operator[](int index)
 		{
 			return this->at(index);
@@ -275,7 +275,7 @@ namespace hltypes
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
 		/// @return Element at specified position.
-		/// @note Does not work with bool as T, use Array::at directly instead.
+		/// @note Does not work with bool as T.
 		inline const T& operator[](int index) const
 		{
 			return this->at(index);
