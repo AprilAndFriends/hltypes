@@ -13,13 +13,11 @@
 #ifndef HLTYPES_LIST_H
 #define HLTYPES_LIST_H
 
-#include <algorithm>
 #include <list>
 
 #include "hcontainer.h"
 #include "hexception.h"
 #include "hltypesUtil.h"
-#include "hplatform.h"
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a list.
@@ -142,6 +140,34 @@ namespace hltypes
 		{
 			return this->template _removeLast<List<T> >(count);
 		}
+		/// @brief Gets a random element in List and removes it.
+		/// @return Random element.
+		inline T removeRandom()
+		{
+			return ContainerList::removeRandom();
+		}
+		/// @brief Gets an List of random elements selected from this one and removes them.
+		/// @param[in] count Number of random elements.
+		/// @param[in] unique Whether to force all random values to be unique.
+		/// @return List of random elements selected from this one.
+		inline List<T> removeRandom(const int count)
+		{
+			return this->template _removeRandom<List<T> >(count);
+		}
+		/// @brief Gets a random element in List.
+		/// @return Random element.
+		inline T random() const
+		{
+			return ContainerList::random();
+		}
+		/// @brief Gets an List of random elements selected from this one.
+		/// @param[in] count Number of random elements.
+		/// @param[in] unique Whether to force all random values to be at unique positions.
+		/// @return List of random elements selected from this one.
+		inline List<T> random(int count, bool unique = true)
+		{
+			return this->template _random<List<T> >(count, unique);
+		}
 		/// @brief Creates new List with reversed order of elements.
 		/// @return A new List.
 		inline List<T> reversed() const
@@ -153,6 +179,28 @@ namespace hltypes
 		inline List<T> removedDuplicates() const
 		{
 			return this->template _removedDuplicates<List<T> >();
+		}
+		/// @brief Creates new sorted List.
+		/// @return A new List.
+		/// @note The sorting order is ascending.
+		inline List<T> sorted() const
+		{
+			return this->template _sorted<List<T> >();
+		}
+		/// @brief Creates new sorted List.
+		/// @param[in] compareFunction Function pointer with comparison function that takes two elements of type T and returns bool.
+		/// @return A new List.
+		/// @note The sorting order is ascending.
+		/// @note compareFunction should return true if first element is less than the second element.
+		inline List<T> sorted(bool(*compareFunction)(T, T)) const
+		{
+			return this->template _sorted<List<T> >(compareFunction);
+		}
+		/// @brief Creates a new List with randomized order of elements.
+		/// @return A new List.
+		inline List<T> randomized() const
+		{
+			return this->template _randomized<List<T> >();
 		}
 		/// @brief Creates a new List as union of this List with an element.
 		/// @param[in] element Element to unite with.
@@ -191,6 +239,30 @@ namespace hltypes
 		{
 			return this->template _differentiated<List<T> >(other);
 		}
+		/// @brief Finds and returns new List of elements that match the condition.
+		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
+		/// @return New List with all matching elements.
+		inline List<T> findAll(bool (*conditionFunction)(T)) const
+		{
+			return this->template _findAll<List<T> >(conditionFunction);
+		}
+		/// @brief Returns a new List with all elements cast into type S.
+		/// @return A new List with all elements cast into type S.
+		/// @note Make sure all elements in the List can be cast into type S.
+		template <class S>
+		inline List<S> cast() const
+		{
+			return this->template _cast<List<S>, S>();
+		}
+		/// @brief Returns a new List with all elements dynamically cast into type S.
+		/// @param[in] includeNulls Whether to include NULLs that failed to cast.
+		/// @return A new List with all elements cast into type S.
+		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
+		template <class S>
+		inline List<S> dynamicCast(bool includeNulls = false) const
+		{
+			return this->template _dynamicCast<List<S>, S>(includeNulls);
+		}
 		/// @brief Returns element at specified position.
 		/// @param[in] index Index of the element.
 		/// @return Element at specified position.
@@ -227,32 +299,32 @@ namespace hltypes
 		{
 			return this->nequals(other);
 		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T& element)
+		/// @brief Same as addLast.
+		/// @see addLast(const T& element)
 		inline List<T>& operator<<(const T& element)
 		{
-			this->push_back(element);
+			this->addLast(element);
 			return (*this);
 		}
-		/// @brief Same as push_back.
-		/// @see push_back(const List<T>& other)
+		/// @brief Same as addLast.
+		/// @see addLast(const List<T>& other)
 		inline List<T>& operator<<(const List<T>& other)
 		{
-			this->push_back(other);
+			this->addLast(other);
 			return (*this);
 		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T& element)
+		/// @brief Same as addLast.
+		/// @see addLast(const T& element)
 		inline List<T>& operator+=(const T& element)
 		{
-			this->push_back(element);
+			this->addLast(element);
 			return (*this);
 		}
-		/// @brief Same as push_back.
-		/// @see push_back(const List<T>& other)
+		/// @brief Same as addLast.
+		/// @see addLast(const List<T>& other)
 		inline List<T>& operator+=(const List<T>& other)
 		{
-			this->push_back(other);
+			this->addLast(other);
 			return (*this);
 		}
 		/// @brief Same as remove.
@@ -370,495 +442,40 @@ namespace hltypes
 		{
 			return this->differentiated(other);
 		}
-		/// @brief Sorts elements in List.
-		/// @note The sorting order is ascending.
-		inline void sort()
-		{
-			if (this->size() > 0)
-			{
-				std::stable_sort(std::list<T>::begin(), std::list<T>::end());
-			}
-		}
-		/// @brief Sorts elements in List.
-		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
-		/// @note The sorting order is ascending.
-		/// @note compare_function should return true if first element is less than the second element.
-		inline void sort(bool (*compare_function)(T, T))
-		{
-			if (this->size() > 0)
-			{
-				std::stable_sort(std::list<T>::begin(), std::list<T>::end(), compare_function);
-			}
-		}
-		/// @brief Creates new sorted List.
-		/// @return A new List.
-		/// @note The sorting order is ascending.
-		inline List<T> sorted() const
-		{
-			List<T> result(*this);
-			result.sort();
-			return result;
-		}
-		/// @brief Creates new sorted List.
-		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
-		/// @return A new List.
-		/// @note The sorting order is ascending.
-		/// @note compare_function should return true if first element is less than the second element.
-		inline List<T> sorted(bool (*compare_function)(T, T)) const
-		{
-			List<T> result(*this);
-			result.sort(compare_function);
-			return result;
-		}
-		/// @brief Randomizes order of elements in List.
-		inline void randomize()
-		{
-			std::random_shuffle(std::list<T>::begin(), std::list<T>::end());
-		}
-		/// @brief Creates a new List with randomized order of elements.
-		/// @return A new List.
-		inline List<T> randomized() const
-		{
-			List<T> result(*this);
-			result.randomize();
-			return result;
-		}
-		/// @brief Finds minimum element in List.
-		/// @return Minimum Element.
-		inline T min() const
-		{
-			if (this->size() == 0)
-			{
-				throw ContainerEmptyException("min()");
-			}
-			return (*std::min_element(std::list<T>::begin(), std::list<T>::end()));
-		}
-		/// @brief Finds minimum element in List.
-		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
-		/// @return Minimum Element.
-		/// @note compare_function should return true if first element is less than second element.
-		inline T min(bool (*compare_function)(T, T)) const
-		{
-			if (this->size() == 0)
-			{
-				throw ContainerEmptyException("min()");
-			}
-			return (*std::min_element(std::list<T>::begin(), std::list<T>::end(), compare_function));
-		}
-		/// @brief Finds maximum element in List.
-		/// @return Maximum Element.
-		inline T max() const
-		{
-			if (this->size() == 0)
-			{
-				throw ContainerEmptyException("max()");
-			}
-			return (*std::max_element(std::list<T>::begin(), std::list<T>::end()));
-		}
-		/// @brief Finds maximum element in List.
-		/// @param[in] compare_function Function pointer with comparison function that takes two elements of type T and returns bool.
-		/// @return Maximum Element.
-		/// @note compare_function should return true if first element is greater than second element.
-		inline T max(bool (*compare_function)(T, T)) const
-		{
-			if (this->size() == 0)
-			{
-				throw ContainerEmptyException("max()");
-			}
-			return (*std::max_element(std::list<T>::begin(), std::list<T>::end(), compare_function));
-		}
-		/// @brief Gets a random element in List.
-		/// @return Random element.
-		inline T random() const
-		{
-			if (this->size() == 0)
-			{
-				throw ContainerEmptyException("random()");
-			}
-			return this->at(hrand(this->size()));
-		}
-		/// @brief Gets a List of random elements selected from this one.
-		/// @param[in] count Number of random elements.
-		/// @param[in] unique Whether to force all random values to be unique.
-		/// @return List of random elements selected from this one.
-		inline List<T> random(int count, bool unique = false) const
-		{
-			List<T> result;
-			if (!unique)
-			{
-				for_iter (i, 0, count)
-				{
-					result.push_back(this->at(hrand(this->size())));
-				}
-			}
-			else if (count > 0)
-			{
-				if (count > this->size())
-				{
-					throw ContainerRangeException(0, count);
-				}
-				if (count == this->size())
-				{
-					return this->randomized();
-				}
-				List<int> indexes;
-				for_iter (i, 0, this->size())
-				{
-					indexes.push_back(i);
-				}
-				for_iter (i, 0, count)
-				{
-					result.push_back(this->at(indexes.remove_at(hrand(indexes.size()))));
-				}
-			}
-			return result;
-		}
-		/// @brief Gets a random element in List and removes it.
-		/// @return Random element.
-		inline T pop_random()
-		{
-			if (this->size() == 0)
-			{
-				throw ContainerEmptyException("pop_random()");
-			}
-			T result = this->at(hrand(this->size()));
-			this->remove(result);
-			return result;
-		}
-		/// @brief Gets a List of random elements selected from this one and removes them.
-		/// @param[in] count Number of random elements.
-		/// @param[in] unique Whether to force all random values to be unique.
-		/// @return List of random elements selected from this one.
-		inline List<T> pop_random(int count, bool unique = false)
-		{
-			List<T> result;
-			if (!unique)
-			{
-				for_iter (i, 0, count)
-				{
-					result.push_back(this->at(hrand(this->size())));
-				}
-			}
-			else if (count > 0)
-			{
-				if (count > this->size())
-				{
-					throw ContainerRangeException(0, count);
-				}
-				if (count == this->size())
-				{
-					return this->randomized();
-				}
-				List<int> indexes;
-				for_iter (i, 0, this->size())
-				{
-					indexes.push_back(i);
-				}
-				for_iter (i, 0, count)
-				{
-					result.push_back(this->at(indexes.remove_at(hrand(indexes.size()))));
-				}
-			}
-			this->remove(result);
-			return result;
-		}
-		/// @brief Joins all elements into a string.
-		/// @param[in] separator Separator string between elements.
-		/// @return String or joined elements separater by separator string.
-		/// @note Make sure your elements can be cast into String or are already String.
-		inline String join(const String& separator) const
-		{
-			String result;
-			if (this->size() > 0)
-			{
-				result += String(this->at(0));
-				for_iter (i, 1, this->size())
-				{
-					result += separator + String(this->at(i));
-				}
-			}
-			return result;
-		}
-		/// @brief Finds and returns new List of elements that match the condition.
-		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
-		/// @return New List with all matching elements.
-		inline List<T> find_all(bool (*condition_function)(T))
-		{
-			List<T> result;
-			for_iter (i, 0, this->size())
-			{
-				if (condition_function(this->at(i)))
-				{
-					result.push_back(this->at(i));
-				}
-			}
-			return result;
-		}
-		/// @brief Finds and returns first occurrence of element that matches the condition.
-		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
-		/// @return Pointer to element that matches the condition or NULL if no element was found.
-		inline T* find_first(bool (*condition_function)(T))
-		{
-			for_iter (i, 0, this->size())
-			{
-				if (condition_function(this->at(i)))
-				{
-					return &this->at(i);
-				}
-			}
-			return NULL;
-		}
-		/// @brief Checks if at least one element matches the condition.
-		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
-		/// @return True if at least one element matches the condition.
-		inline bool matches_any(bool (*condition_function)(T))
-		{
-			for_iter (i, 0, this->size())
-			{
-				if (condition_function(this->at(i)))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-		/// @brief Checks if all elements match the condition.
-		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
-		/// @return True if all elements match the condition.
-		inline bool matches_all(bool (*condition_function)(T))
-		{
-			for_iter (i, 0, this->size())
-			{
-				if (!condition_function(this->at(i)))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		/// @brief Returns a new List with all elements cast into type S.
-		/// @return A new List with all elements cast into type S.
-		/// @note Make sure all elements in the List can be cast into type S.
-		template <class S>
-		inline List<S> cast()
-		{
-			List<S> result;
-			for_iter (i, 0, this->size())
-			{
-				result.push_back((S)this->at(i));
-			}
-			return result;
-		}
-		/// @brief Returns a new List with all elements dynamically cast into type S.
-		/// @param[in] include_nulls Whether to include NULLs that failed to cast.
-		/// @return A new List with all elements cast into type S.
-		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
-		template <class S>
-		inline List<S> dyn_cast(bool include_nulls = false)
-		{
-			List<S> result;
-			S value;
-			for_iter (i, 0, this->size())
-			{
-				// when seeing "dynamic_cast", I always think of fireballs
-				value = dynamic_cast<S>(this->at(i));
-				if (value != NULL || include_nulls)
-				{
-					result.push_back(value);
-				}
-			}
-			return result;
-		}
-		/// @brief Accesses first element of List.
-		/// @return The first element.
-		inline T& first()
-		{
-			return std::list<T>::front();
-		}
-		/// @brief Accesses last element of List.
-		/// @return The last element.
-		inline T& last()
-		{
-			return std::list<T>::back();
-		}
-		/// @brief Same as contains.
-		/// @see contains(const T& element)
-		inline bool includes(const T& element) const
-		{
-			return this->contains(element);
-		}
-		/// @brief Same as contains.
-		/// @see contains(const List<T>& other)
-		inline bool includes(const List<T>& other) const
-		{
-			return this->contains(other);
-		}
-		/// @brief Same as contains.
-		/// @see contains(const T other[], int count)
-		inline bool includes(const T other[], int count) const
-		{
-			return this->contains(other, count);
-		}
-		/// @brief Same as contains.
-		/// @see contains(const T& element)
-		inline bool has(const T& element) const
-		{
-			return this->contains(element);
-		}
-		/// @brief Same as contains.
-		/// @see contains(const List<T>& other)
-		inline bool has(const List<T>& other) const
-		{
-			return this->contains(other);
-		}
-		/// @brief Same as contains.
-		/// @see contains(const T other[], int count)
-		inline bool has(const T other[], int count) const
-		{
-			return this->contains(other, count);
-		}
-		/// @brief Same as contains.
-		/// @see contains(const T& element)
-		inline bool has_element(const T& element) const
-		{
-			return this->contains(element);
-		}
-		/// @brief Same as contains.
-		/// @see contains(const List<T>& other)
-		inline bool has_element(const List<T>& other) const
-		{
-			return this->contains(other);
-		}
-		/// @brief Same as contains.
-		/// @see contains(const T other[], int count)
-		inline bool has_element(const T other[], int count) const
-		{
-			return this->contains(other, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T& element)
-		inline void add(const T& element)
-		{
-			this->push_back(element);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T& element, int times)
-		inline void add(const T& element, int times)
-		{
-			this->push_back(element, times);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const List<T>& other)
-		inline void add(const List<T>& other)
-		{
-			this->push_back(other);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const List<T>& other, const int count)
-		inline void add(const List<T>& other, const int count)
-		{
-			this->push_back(other, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const List<T>& other, const int start, const int count)
-		inline void add(const List<T>& other, const int start, const int count)
-		{
-			this->push_back(other, start, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T other[], const int count)
-		inline void add(const T other[], const int count)
-		{
-			this->push_back(other, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T other[], const int start, const int count)
-		inline void add(const T other[], const int start, const int count)
-		{
-			this->push_back(other, start, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T& element)
-		inline void append(const T& element)
-		{
-			this->push_back(element);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T& element, int times)
-		inline void append(const T& element, int times)
-		{
-			this->push_back(element, times);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const List<T>& other)
-		inline void append(const List<T>& other)
-		{
-			this->push_back(other);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const List<T>& other, const int count)
-		inline void append(const List<T>& other, const int count)
-		{
-			this->push_back(other, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const List<T>& other, const int start, const int count)
-		inline void append(const List<T>& other, const int start, const int count)
-		{
-			this->push_back(other, start, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T other[], const int count)
-		inline void append(const T other[], const int count)
-		{
-			this->push_back(other, count);
-		}
-		/// @brief Same as push_back.
-		/// @see push_back(const T other[], const int start, const int count)
-		inline void append(const T other[], const int start, const int count)
-		{
-			this->push_back(other, start, count);
-		}
-		/// @brief Same as pop_random.
-		/// @see pop_random().
-		inline T remove_random()
-		{
-			return this->pop_random();
-		}
-		/// @brief Same as pop_random.
-		/// @see pop_random(const int count).
-		inline List<T> remove_random(const int count)
-		{
-			return this->pop_random(count);
-		}
 
 		// DEPRECATED
-		inline List<int> indexes_of(const T& element) const	{ return this->indexesOf(element); }
-		inline List<T> removed_duplicates() const			{ return this->removedDuplicates(); }
-		inline T pop(int index)								{ return this->removeAt(index); }
-		inline List<T> pop(int index, int count)			{ return this->removeAt(index, count); }
-		inline T pop_at(int index)							{ return this->removeAt(index); }
-		inline List<T> pop_at(int index, int count)			{ return this->removeAt(index, count); }
-		inline T pop_front()								{ return this->removeFirst(); }
-		inline List<T> pop_front(const int count)			{ return this->removeFirst(count); }
-		inline T pop_first()								{ return this->removeFirst(); }
-		inline List<T> pop_first(const int count)			{ return this->removeFirst(count); }
-		inline T pop_back()									{ return this->removeLast(); }
-		inline List<T> pop_back(const int count)			{ return this->removeLast(count); }
-		inline T pop_last()									{ return this->removeLast(); }
-		inline List<T> pop_last(const int count)			{ return this->removeLast(count); }
-		inline T pop_all(T& element)						{ return this->removeAll(element); }
-		inline List<T> pop_all(const List<T>& other)		{ return this->removeAll(other); }
-		inline T remove_at(int index)						{ return this->removeAt(index); }
-		inline List<T> remove_at(int index, int count)		{ return this->removeAt(index, count); }
-		inline T remove_front()								{ return this->removeFirst(); }
-		inline List<T> remove_front(const int count)		{ return this->removeFirst(count); }
-		inline T remove_first()								{ return this->removeFirst(); }
-		inline List<T> remove_first(const int count)		{ return this->removeFirst(count); }
-		inline T remove_back()								{ return this->removeLast(); }
-		inline List<T> remove_back(const int count)			{ return this->removeLast(count); }
-		inline T remove_last()								{ return this->removeLast(); }
-		inline List<T> remove_last(const int count)			{ return this->removeLast(count); }
+		inline List<int> indexes_of(const T& element) const							{ return this->indexesOf(element); }
+		inline List<T> removed_duplicates() const									{ return this->removedDuplicates(); }
+		inline T pop(int index)														{ return this->removeAt(index); }
+		inline List<T> pop(int index, int count)									{ return this->removeAt(index, count); }
+		inline T pop_at(int index)													{ return this->removeAt(index); }
+		inline List<T> pop_at(int index, int count)									{ return this->removeAt(index, count); }
+		inline T pop_front()														{ return this->removeFirst(); }
+		inline List<T> pop_front(const int count)									{ return this->removeFirst(count); }
+		inline T pop_first()														{ return this->removeFirst(); }
+		inline List<T> pop_first(const int count)									{ return this->removeFirst(count); }
+		inline T pop_back()															{ return this->removeLast(); }
+		inline List<T> pop_back(const int count)									{ return this->removeLast(count); }
+		inline T pop_last()															{ return this->removeLast(); }
+		inline List<T> pop_last(const int count)									{ return this->removeLast(count); }
+		inline T pop_all(T& element)												{ return this->removeAll(element); }
+		inline List<T> pop_all(const List<T>& other)								{ return this->removeAll(other); }
+		inline T remove_at(int index)												{ return this->removeAt(index); }
+		inline List<T> remove_at(int index, int count)								{ return this->removeAt(index, count); }
+		inline T remove_front()														{ return this->removeFirst(); }
+		inline List<T> remove_front(const int count)								{ return this->removeFirst(count); }
+		inline T remove_first()														{ return this->removeFirst(); }
+		inline List<T> remove_first(const int count)								{ return this->removeFirst(count); }
+		inline T remove_back()														{ return this->removeLast(); }
+		inline List<T> remove_back(const int count)									{ return this->removeLast(count); }
+		inline T remove_last()														{ return this->removeLast(); }
+		inline List<T> remove_last(const int count)									{ return this->removeLast(count); }
+		inline T pop_random()														{ return this->removeRandom(); }
+		inline List<T> pop_random(int count, bool unique = false)					{ return this->removeRandom(count, unique); }
+		inline T remove_random()													{ return this->removeRandom(); }
+		inline List<T> remove_random(int count, bool unique = false)				{ return this->removeRandom(count, unique); }
+		inline List<T> find_all(bool (*conditionFunction)(T)) const					{ return this->findAll(conditionFunction); }
+		template <class S> inline List<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
 
 	};
 	

@@ -13,10 +13,12 @@
 #ifndef HLTYPES_CONTAINER_H
 #define HLTYPES_CONTAINER_H
 
+#include <algorithm>
 #include <vector>
 
 #include "hexception.h"
 #include "hltypesUtil.h"
+#include "hplatform.h"
 #include "hstring.h"
 
 namespace hltypes
@@ -164,6 +166,18 @@ namespace hltypes
 			}
 			return *this->_itAdvance(STD::begin(), index);
 		}
+		/// @brief Accesses first element of Container.
+		/// @return The first element.
+		inline T& first()
+		{
+			return STD::front();
+		}
+		/// @brief Accesses last element of Container.
+		/// @return The last element.
+		inline T& last()
+		{
+			return STD::back();
+		}
 		/// @brief Gets index of the given element.
 		/// @param[in] element Element to search for.
 		/// @return Index of the given element or -1 if element could not be found.
@@ -183,7 +197,7 @@ namespace hltypes
 		/// @return True if element is in Container.
 		inline bool contains(const T& element) const
 		{
-			return (this->index_of(element) >= 0);
+			return (this->indexOf(element) >= 0);
 		}
 		/// @brief Checks existence of elements in Container.
 		/// @param[in] other Container with elements to search for.
@@ -193,7 +207,7 @@ namespace hltypes
 			int size = other.size();
 			for_iter (i, 0, size)
 			{
-				if (this->index_of(other.at(i)) < 0)
+				if (this->indexOf(other.at(i)) < 0)
 				{
 					return false;
 				}
@@ -208,7 +222,7 @@ namespace hltypes
 		{
 			for_iter (i, 0, count)
 			{
-				if (this->index_of(other[i]) < 0)
+				if (this->indexOf(other[i]) < 0)
 				{
 					return false;
 				}
@@ -269,7 +283,7 @@ namespace hltypes
 				throw ContainerRangeException(0, count);
 			}
 			const_iterator_t it = other.begin();
-			STD::insert(this->_itAdvance(STD::begin(), index), it, it + count);
+			STD::insert(this->_itAdvance(STD::begin(), index), it, this->_itAdvance(it, count));
 		}
 		/// @brief Inserts all elements of another Container into this one.
 		/// @param[in] index Position where to insert the new elements.
@@ -287,7 +301,7 @@ namespace hltypes
 				throw ContainerRangeException(start, count);
 			}
 			const_iterator_t it = this->_itAdvance(other.begin(), start);
-			STD::insert(this->_itAdvance(STD::begin(), index), it, it + count);
+			STD::insert(this->_itAdvance(STD::begin(), index), it, this->_itAdvance(it, count));
 		}
 		/// @brief Inserts all elements of a C-type array into this Container.
 		/// @param[in] index Position where to insert the new elements.
@@ -305,105 +319,6 @@ namespace hltypes
 		inline void insertAt(const int index, const T other[], const int start, const int count)
 		{
 			STD::insert(this->_itAdvance(STD::begin(), index), other + start, other + (start + count));
-		}
-		/// @brief Removes element at given index.
-		/// @param[in] index Index of element to remove.
-		/// @return The removed element.
-		inline T removeAt(int index)
-		{
-			int size = this->size();
-			if (index < 0)
-			{
-				index -= size;
-			}
-			if (index < 0 || index >= size)
-			{
-				throw ContainerIndexException(index);
-			}
-			T result = this->at(index);
-			STD::erase(this->_itAdvance(STD::begin(), index));
-			return result;
-		}
-		/// @brief Removes first element of Container.
-		/// @return The removed element.
-		inline T removeFirst()
-		{
-			return this->removeAt(0);
-		}
-		/// @brief Removes last element of Container.
-		/// @return The removed element.
-		inline T removeLast()
-		{
-			if (this->size() == 0)
-			{
-				throw ContainerIndexException(0);
-			}
-			T element = STD::back();
-			STD::pop_back();
-			return element;
-		}
-		/// @brief Removes first occurrence of element in Container.
-		/// @param[in] element Element to remove.
-		inline void remove(T element)
-		{
-			int index = this->index_of(element);
-			if (index < 0)
-			{
-				throw ContainerElementNotFoundException();
-			}
-			STD::erase(this->_itAdvance(STD::begin(), index));
-		}
-		/// @brief Removes first occurrence of each element in another Container from this one.
-		/// @param[in] other Container of elements to remove.
-		inline void remove(const Container& other)
-		{
-			int size = other.size();
-			int index = 0;
-			for_iter (i, 0, size)
-			{
-				index = this->index_of(other.at(i));
-				if (index < 0)
-				{
-					throw ContainerElementNotFoundException();
-				}
-				STD::erase(this->_itAdvance(STD::begin(), index));
-			}
-		}
-		/// @brief Removes all occurrences of element in Container.
-		/// @param[in] element Element to remove.
-		/// @return Number of elements removed.
-		inline int removeAll(const T& element)
-		{
-			Container<std::vector<int>, int> indexes = this->_indexesOf<Container<std::vector<int>, int> >(element);
-			iterator_t it = STD::begin();
-			int size = indexes.size();
-			for_iter_r (i, size, 0)
-			{
-				STD::erase(this->_itAdvance(it, indexes[i]));
-			}
-			return size;
-		}
-		/// @brief Removes all occurrences of each element in another Container from this one.
-		/// @param[in] other Container of elements to remove.
-		/// @return Number of elements removed.
-		inline int removeAll(const Container& other)
-		{
-			Container<std::vector<int>, int> indexes;
-			iterator_t it;
-			int indexesSize = 0;
-			int count = 0;
-			for_iter(i, 0, other.size()) // has to stay other.size() here
-			{
-				indexes = this->_indexesOf<Container<std::vector<int>, int> >(other.at(i));
-				it = STD::begin();
-				indexesSize = indexes.size();
-				for_iter_r (j, indexesSize, 0)
-				{
-					STD::erase(this->_itAdvance(it, indexes[j]));
-				}
-				count += indexesSize;
-			}
-			return count;
 		}
 		/// @brief Adds element at the end of Container.
 		/// @param[in] element Element to add.
@@ -497,19 +412,174 @@ namespace hltypes
 		{
 			this->insertAt(0, other, start, count);
 		}
-		/// @brief Unites elements of this Container with an element.
-		/// @param[in] element Element to unite with.
-		inline void unite(const T& element)
+		/// @brief Removes element at given index.
+		/// @param[in] index Index of element to remove.
+		/// @return The removed element.
+		inline T removeAt(int index)
 		{
-			this->insertAt(this->size(), element);
-			this->removeDuplicates();
+			int size = this->size();
+			if (index < 0)
+			{
+				index -= size;
+			}
+			if (index < 0 || index >= size)
+			{
+				throw ContainerIndexException(index);
+			}
+			iterator_t it = this->_itAdvance(STD::begin(), index);
+			T result = (*it);
+			STD::erase(it);
+			return result;
 		}
-		/// @brief Unites elements of this Container with another one.
-		/// @param[in] other Container to unite with.
-		inline void unite(const Container& other)
+		/// @brief Removes first occurrence of element in Container.
+		/// @param[in] element Element to remove.
+		inline void remove(T element)
 		{
-			this->insertAt(this->size(), other);
-			this->removeDuplicates();
+			int index = this->indexOf(element);
+			if (index < 0)
+			{
+				throw ContainerElementNotFoundException();
+			}
+			STD::erase(this->_itAdvance(STD::begin(), index));
+		}
+		/// @brief Removes first occurrence of each element in another Container from this one.
+		/// @param[in] other Container of elements to remove.
+		inline void remove(const Container& other)
+		{
+			int size = other.size();
+			int index = 0;
+			for_iter (i, 0, size)
+			{
+				index = this->indexOf(other.at(i));
+				if (index < 0)
+				{
+					throw ContainerElementNotFoundException();
+				}
+				STD::erase(this->_itAdvance(STD::begin(), index));
+			}
+		}
+		/// @brief Removes first element of Container.
+		/// @return The removed element.
+		inline T removeFirst()
+		{
+			return this->removeAt(0);
+		}
+		/// @brief Removes last element of Container.
+		/// @return The removed element.
+		inline T removeLast()
+		{
+			if (this->size() == 0)
+			{
+				throw ContainerIndexException(0);
+			}
+			T element = STD::back();
+			STD::pop_back();
+			return element;
+		}
+		/// @brief Gets a random element in Container and removes it.
+		/// @return Random element.
+		inline T removeRandom()
+		{
+			int size = this->size();
+			if (size == 0)
+			{
+				throw ContainerEmptyException("removeRandom()");
+			}
+			int index = hrand(size);
+			T result = this->at(index);
+			this->removeAt(index);
+			return result;
+		}
+		/// @brief Removes all occurrences of element in Container.
+		/// @param[in] element Element to remove.
+		/// @return Number of elements removed.
+		inline int removeAll(const T& element)
+		{
+			Container<std::vector<int>, int> indexes = this->_indexesOf<Container<std::vector<int>, int> >(element);
+			iterator_t it = STD::begin();
+			int size = indexes.size();
+			for_iter_r (i, size, 0)
+			{
+				STD::erase(this->_itAdvance(it, indexes[i]));
+			}
+			return size;
+		}
+		/// @brief Removes all occurrences of each element in another Container from this one.
+		/// @param[in] other Container of elements to remove.
+		/// @return Number of elements removed.
+		inline int removeAll(const Container& other)
+		{
+			Container<std::vector<int>, int> indexes;
+			iterator_t it;
+			int indexesSize = 0;
+			int count = 0;
+			for_iter (i, 0, other.size()) // has to stay other.size() here
+			{
+				indexes = this->_indexesOf<Container<std::vector<int>, int> >(other.at(i));
+				it = STD::begin();
+				indexesSize = indexes.size();
+				for_iter_r (j, indexesSize, 0)
+				{
+					STD::erase(this->_itAdvance(it, indexes[j]));
+				}
+				count += indexesSize;
+			}
+			return count;
+		}
+		/// @brief Finds minimum element in Container.
+		/// @return Minimum Element.
+		inline T min() const
+		{
+			if (this->size() == 0)
+			{
+				throw ContainerEmptyException("min()");
+			}
+			return (*std::min_element(STD::begin(), STD::end()));
+		}
+		/// @brief Finds minimum element in Container.
+		/// @param[in] compareFunction Function pointer with comparison function that takes two elements of type T and returns bool.
+		/// @return Minimum Element.
+		/// @note compareFunction should return true if first element is less than second element.
+		inline T min(bool (*compareFunction)(T, T)) const
+		{
+			if (this->size() == 0)
+			{
+				throw ContainerEmptyException("min()");
+			}
+			return (*std::min_element(STD::begin(), STD::end(), compareFunction));
+		}
+		/// @brief Finds maximum element in Container.
+		/// @return Maximum Element.
+		inline T max() const
+		{
+			if (this->size() == 0)
+			{
+				throw ContainerEmptyException("max()");
+			}
+			return (*std::max_element(STD::begin(), STD::end()));
+		}
+		/// @brief Finds maximum element in Container.
+		/// @param[in] compareFunction Function pointer with comparison function that takes two elements of type T and returns bool.
+		/// @return Maximum Element.
+		/// @note compareFunction should return true if first element is greater than second element.
+		inline T max(bool (*compareFunction)(T, T)) const
+		{
+			if (this->size() == 0)
+			{
+				throw ContainerEmptyException("max()");
+			}
+			return (*std::max_element(STD::begin(), STD::end(), compareFunction));
+		}
+		/// @brief Gets a random element in Container.
+		/// @return Random element.
+		inline T random() const
+		{
+			int size = this->size();
+			if (size == 0)
+			{
+				throw ContainerEmptyException("random()");
+			}
+			return this->at(hrand(size));
 		}
 		/// @brief Reverses order of elements.
 		inline void reverse()
@@ -535,19 +605,59 @@ namespace hltypes
 				}
 			}
 		}
+		/// @brief Sorts elements in Container.
+		/// @note The sorting order is ascending.
+		inline void sort()
+		{
+			if (this->size() > 0)
+			{
+				std::stable_sort(STD::begin(), STD::end());
+			}
+		}
+		/// @brief Sorts elements in Container.
+		/// @param[in] compareFunction Function pointer with comparison function that takes two elements of type T and returns bool.
+		/// @note The sorting order is ascending.
+		/// @note compareFunction should return true if first element is less than the second element.
+		inline void sort(bool (*compareFunction)(T, T))
+		{
+			if (this->size() > 0)
+			{
+				std::stable_sort(STD::begin(), STD::end(), compareFunction);
+			}
+		}
+		/// @brief Randomizes order of elements in Container.
+		inline void randomize()
+		{
+			std::random_shuffle(STD::begin(), STD::end());
+		}
+		/// @brief Unites elements of this Container with an element.
+		/// @param[in] element Element to unite with.
+		inline void unite(const T& element)
+		{
+			this->insertAt(this->size(), element);
+			this->removeDuplicates();
+		}
+		/// @brief Unites elements of this Container with another one.
+		/// @param[in] other Container to unite with.
+		inline void unite(const Container& other)
+		{
+			this->insertAt(this->size(), other);
+			this->removeDuplicates();
+		}
 		/// @brief Intersects elements of this Container with another one.
 		/// @param[in] other Container to intersect with.
 		inline void intersect(const Container& other)
 		{
 			Container result;
 			int size = this->size();
-			for_iter(i, 0, size)
+			for_iter (i, 0, size)
 			{
 				if (other.contains(this->at(i)))
 				{
 					result.addLast(this->at(i));
 				}
 			}
+			result.removeDuplicates();
 			STD::assign(result.begin(), result.end());
 		}
 		/// @brief Differentiates elements of this Container with an element.
@@ -558,7 +668,7 @@ namespace hltypes
 			int index = 0;
 			while (true)
 			{
-				index = this->index_of(element);
+				index = this->indexOf(element);
 				if (index < 0)
 				{
 					break;
@@ -577,7 +687,7 @@ namespace hltypes
 			{
 				while (true)
 				{
-					index = this->index_of(other.at(i));
+					index = this->indexOf(other.at(i));
 					if (index < 0)
 					{
 						break;
@@ -586,8 +696,73 @@ namespace hltypes
 				}
 			}
 		}
+		/// @brief Joins all elements into a string.
+		/// @param[in] separator Separator string between elements.
+		/// @return String or joined elements separater by separator string.
+		/// @note Make sure your elements can be cast into String or are already String.
+		inline String joined(const String& separator) const
+		{
+			String result;
+			int size = this->size();
+			if (size > 0)
+			{
+				result += String(this->at(0));
+				for_iter (i, 1, size)
+				{
+					result += separator + String(this->at(i));
+				}
+			}
+			return result;
+		}
+		/// @brief Finds and returns first occurrence of element that matches the condition.
+		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
+		/// @return Pointer to element that matches the condition or NULL if no element was found.
+		inline T* findFirst(bool (*conditionFunction)(T))
+		{
+			int size = this->size();
+			for_iter (i, 0, size)
+			{
+				if (conditionFunction(this->at(i)))
+				{
+					return &this->at(i);
+				}
+			}
+			return NULL;
+		}
+		/// @brief Checks if at least one element matches the condition.
+		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
+		/// @return True if at least one element matches the condition.
+		inline bool matchesAny(bool (*conditionFunction)(T))
+		{
+			int size = this->size();
+			for_iter (i, 0, size)
+			{
+				if (conditionFunction(this->at(i)))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		/// @brief Checks if all elements match the condition.
+		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
+		/// @return True if all elements match the condition.
+		inline bool matchesAll(bool (*conditionFunction)(T))
+		{
+			int size = this->size();
+			for_iter (i, 0, size)
+			{
+				if (!conditionFunction(this->at(i)))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
 
 		// DEPRECATED
+		inline T& front()																					{ return this->first(); }
+		inline T& back()																					{ return this->last(); }
 		inline int index_of(const T& element) const															{ return this->indexOf(element); }
 		inline void insert_at(const int index, const T& element, const int times = 1)						{ this->insertAt(index, element, times); }
 		inline void insert_at(const int index, const Container& other)										{ this->insertAt(index, other); }
@@ -624,6 +799,34 @@ namespace hltypes
 		inline int remove_all(const T& element)																{ return this->removeAll(element); }
 		inline int remove_all(const Container& other)														{ return this->removeAll(other); }
 		inline void remove_duplicates()																		{ return this->removeDuplicates(); }
+		inline String join(const String& separator) const													{ return this->joined(separator); }
+		inline T* find_first(bool (*conditionFunction)(T)) const											{ return this->findFirst(conditionFunction); }
+		inline bool matches_any(bool (*conditionFunction)(T)) const											{ return this->matchesAny(conditionFunction); }
+		inline bool matches_all(bool (*conditionFunction)(T)) const											{ return this->matchesAll(conditionFunction); }
+
+		inline bool includes(const T& element) const														{ return this->contains(element); }
+		inline bool includes(const Container& other) const													{ return this->contains(other); }
+		inline bool includes(const T other[], int count) const												{ return this->contains(other, count); }
+		inline bool has(const T& element) const																{ return this->contains(element); }
+		inline bool has(const Container& other) const														{ return this->contains(other); }
+		inline bool has(const T other[], int count) const													{ return this->contains(other, count); }
+		inline bool has_element(const T& element) const														{ return this->contains(element); }
+		inline bool has_element(const Container& other) const												{ return this->contains(other); }
+		inline bool has_element(const T other[], int count) const											{ return this->contains(other, count); }
+		inline void add(const T& element)																	{ this->addLast(element); }
+		inline void add(const T& element, int times)														{ this->addLast(element, times); }
+		inline void add(const Container& other)																{ this->addLast(other); }
+		inline void add(const Container& other, const int count)											{ this->addLast(other, count); }
+		inline void add(const Container& other, const int start, const int count)							{ this->addLast(other, start, count); }
+		inline void add(const T other[], const int count)													{ this->addLast(other, count); }
+		inline void add(const T other[], const int start, const int count)									{ this->addLast(other, start, count); }
+		inline void append(const T& element)																{ this->addLast(element); }
+		inline void append(const T& element, int times)														{ this->addLast(element, times); }
+		inline void append(const Container& other)															{ this->addLast(other); }
+		inline void append(const Container& other, const int count)											{ this->addLast(other, count); }
+		inline void append(const Container& other, const int start, const int count)						{ this->addLast(other, start, count); }
+		inline void append(const T other[], const int count)												{ this->addLast(other, count); }
+		inline void append(const T other[], const int start, const int count)								{ this->addLast(other, start, count); }
 
 	protected:
 		/// @brief Gets all indexes of the given element.
@@ -728,6 +931,54 @@ namespace hltypes
 			STD::erase(begin, end);
 			return result;
 		}
+		/// @brief Gets an Container of random elements selected from this one and removes them.
+		/// @param[in] count Number of random elements.
+		/// @return Container of random elements selected from this one.
+		template <class R>
+		inline R _removeRandom(const int count)
+		{
+			R result = this->_random(count);
+			this->remove(result);
+			return result;
+		}
+		/// @brief Gets an Container of random elements selected from this one.
+		/// @param[in] count Number of random elements.
+		/// @param[in] unique Whether to force all random values to be at unique positions.
+		/// @return Container of random elements selected from this one.
+		template <class R>
+		inline R _random(int count, bool unique = true) const
+		{
+			R result;
+			int size = this->size();
+			if (!unique)
+			{
+				for_iter (i, 0, count)
+				{
+					result.addLast(this->at(hrand(size)));
+				}
+			}
+			else if (count > 0)
+			{
+				if (count > size)
+				{
+					throw ContainerRangeException(0, count);
+				}
+				if (count == size)
+				{
+					return this->randomized();
+				}
+				Container<std::vector<int>, int> indexes;
+				for_iter (i, 0, size)
+				{
+					indexes.addLast(i);
+				}
+				for_iter (i, 0, count)
+				{
+					result.addLast(this->at(indexes.removeAt(hrand(indexes.size()))));
+				}
+			}
+			return result;
+		}
 		/// @brief Creates new Container with reversed order of elements.
 		/// @return A new Container.
 		template <class R>
@@ -744,6 +995,37 @@ namespace hltypes
 		{
 			R result(*this);
 			result.remove_duplicates();
+			return result;
+		}
+		/// @brief Creates new sorted Container.
+		/// @return A new Container.
+		/// @note The sorting order is ascending.
+		template <class R>
+		inline R _sorted() const
+		{
+			R result(*this);
+			result.sort();
+			return result;
+		}
+		/// @brief Creates new sorted Container.
+		/// @param[in] compareFunction Function pointer with comparison function that takes two elements of type T and returns bool.
+		/// @return A new Container.
+		/// @note The sorting order is ascending.
+		/// @note compareFunction should return true if first element is less than the second element.
+		template <class R>
+		inline R _sorted(bool(*compareFunction)(T, T)) const
+		{
+			R result(*this);
+			result.sort(compareFunction);
+			return result;
+		}
+		/// @brief Creates a new Container with randomized order of elements.
+		/// @return A new Container.
+		template <class R>
+		inline R _randomized() const
+		{
+			R result(*this);
+			result.randomize();
 			return result;
 		}
 		/// @brief Creates a new Container as union of this Container with an element.
@@ -796,6 +1078,58 @@ namespace hltypes
 		{
 			R result(*this);
 			result.differentiate(other);
+			return result;
+		}
+		/// @brief Finds and returns new Container of elements that match the condition.
+		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
+		/// @return New Container with all matching elements.
+		template <class R>
+		inline R _findAll(bool (*conditionFunction)(T)) const
+		{
+			R result;
+			int size = this->size();
+			for_iter (i, 0, size)
+			{
+				if (conditionFunction(this->at(i)))
+				{
+					result.addLast(this->at(i));
+				}
+			}
+			return result;
+		}
+		/// @brief Returns a new Container with all elements cast into type S.
+		/// @return A new Container with all elements cast into type S.
+		/// @note Make sure all elements in the Container can be cast into type S.
+		template <class R, class S>
+		inline R _cast() const
+		{
+			R result;
+			int size = this->size();
+			for_iter (i, 0, size)
+			{
+				result.addLast((S)this->at(i));
+			}
+			return result;
+		}
+		/// @brief Returns a new Container with all elements dynamically cast into type S.
+		/// @param[in] includeNulls Whether to include NULLs that failed to cast.
+		/// @return A new Container with all elements cast into type S.
+		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
+		template <class R, class S>
+		inline R _dynamicCast(bool includeNulls = false) const
+		{
+			R result;
+			S value;
+			int size = this->size();
+			for_iter (i, 0, size)
+			{
+				// when seeing "dynamic_cast", I always think of fireballs
+				value = dynamic_cast<S>(this->at(i));
+				if (value != NULL || includeNulls)
+				{
+					result.addLast(value);
+				}
+			}
 			return result;
 		}
 
