@@ -277,7 +277,7 @@ namespace hltypes
 		out += String(s);
 		if (removeEmpty)
 		{
-			out.remove_all("");
+			out.removeAll("");
 		}
 		return out;
 	}
@@ -341,7 +341,7 @@ namespace hltypes
 		out += String(s);
 		if (removeEmpty)
 		{
-			out.remove_all("");
+			out.removeAll("");
 		}
 		return out;
 	}
