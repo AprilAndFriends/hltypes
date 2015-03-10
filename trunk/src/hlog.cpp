@@ -137,7 +137,7 @@ namespace hltypes
 		{
 			return false;
 		}
-		if (tag != "" && Log::tagFilters.size() > 0 && !Log::tagFilters.contains(tag))
+		if (tag != "" && Log::tagFilters.size() > 0 && !Log::tagFilters.has(tag))
 		{
 			return false;
 		}

@@ -289,11 +289,11 @@ namespace hltypes
 			{
 				result += String::fromUnicode(entry->d_name);
 			}
-			if (!result.contains("."))
+			if (!result.has("."))
 			{
 				result += ".";
 			}
-			if (!result.contains(".."))
+			if (!result.has(".."))
 			{
 				result += "..";
 			}
@@ -318,11 +318,11 @@ namespace hltypes
 			{
 				result += String::fromUnicode(entry->d_name);
 			}
-			if (result.contains("."))
+			if (result.has("."))
 			{
 				result.remove(".");
 			}
-			if (result.contains(".."))
+			if (result.has(".."))
 			{
 				result.remove("..");
 			}
@@ -352,11 +352,11 @@ namespace hltypes
 					result += String::fromUnicode(entry->d_name);
 				}
 			}
-			if (result.contains("."))
+			if (result.has("."))
 			{
 				result.remove(".");
 			}
-			if (result.contains(".."))
+			if (result.has(".."))
 			{
 				result.remove("..");
 			}
@@ -386,11 +386,11 @@ namespace hltypes
 					result += String::fromUnicode(entry->d_name);
 				}
 			}
-			if (result.contains("."))
+			if (result.has("."))
 			{
 				result.remove(".");
 			}
-			if (result.contains(".."))
+			if (result.has(".."))
 			{
 				result.remove("..");
 			}

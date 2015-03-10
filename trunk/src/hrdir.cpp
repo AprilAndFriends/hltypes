@@ -31,7 +31,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::isZipArchive())
 		{
-			bool result = ResourceDir::directories(ResourceDir::baseDir(name)).contains(ResourceDir::baseName(name));
+			bool result = ResourceDir::directories(ResourceDir::baseDir(name)).has(ResourceDir::baseName(name));
 			if (!result && !caseSensitive)
 			{
 				String baseDir = ResourceDir::baseDir(name);
@@ -98,7 +98,7 @@ namespace hltypes
 				foreach (String, it, files)
 				{
 					current = (*it);
-					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && current.contains('/'))
+					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && current.has('/'))
 					{
 						result += current.split('/', 1).first();
 					}
@@ -137,7 +137,7 @@ namespace hltypes
 				foreach (String, it, files)
 				{
 					current = (*it);
-					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && !current.contains('/'))
+					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && !current.has('/'))
 					{
 						result += current;
 					}
