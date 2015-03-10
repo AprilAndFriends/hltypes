@@ -322,27 +322,27 @@ namespace hltypes
 		}
 		/// @brief Adds element at the end of Container.
 		/// @param[in] element Element to add.
-		inline void addLast(const T& element)
+		inline void add(const T& element)
 		{
 			STD::push_back(element);
 		}
 		/// @brief Adds element at the end of Container n times.
 		/// @param[in] element Element to add.
 		/// @param[in] times Number of times to add the element.
-		inline void addLast(const T& element, int times)
+		inline void add(const T& element, int times)
 		{
 			this->insertAt(this->size(), element, times);
 		}
 		/// @brief Adds all elements from another Container at the end of this one.
 		/// @param[in] other Container of elements to add.
-		inline void addLast(const Container& other)
+		inline void add(const Container& other)
 		{
 			this->insertAt(this->size(), other);
 		}
 		/// @brief Adds all elements from another Container at the end of this one.
 		/// @param[in] other Container of elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void addLast(const Container& other, const int count)
+		inline void add(const Container& other, const int count)
 		{
 			this->insertAt(this->size(), other, count);
 		}
@@ -350,14 +350,14 @@ namespace hltypes
 		/// @param[in] other Container of elements to add.
 		/// @param[in] start Start index of the elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void addLast(const Container& other, const int start, const int count)
+		inline void add(const Container& other, const int start, const int count)
 		{
 			this->insertAt(this->size(), other, start, count);
 		}
 		/// @brief Adds all elements from a C-type array at the end of Container.
 		/// @param[in] other C-type array of elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void addLast(const T other[], const int count)
+		inline void add(const T other[], const int count)
 		{
 			this->insertAt(this->size(), other, count);
 		}
@@ -365,7 +365,7 @@ namespace hltypes
 		/// @param[in] other C-type array of elements to add.
 		/// @param[in] start Start index of the elements to add.
 		/// @param[in] count Number of elements to add.
-		inline void addLast(const T other[], const int start, const int count)
+		inline void add(const T other[], const int start, const int count)
 		{
 			this->insertAt(this->size(), other, start, count);
 		}
@@ -654,7 +654,7 @@ namespace hltypes
 			{
 				if (other.contains(this->at(i)))
 				{
-					result.addLast(this->at(i));
+					result.add(this->at(i));
 				}
 			}
 			result.removeDuplicates();
@@ -761,72 +761,65 @@ namespace hltypes
 		}
 
 		// DEPRECATED
-		inline T& front()																					{ return this->first(); }
-		inline T& back()																					{ return this->last(); }
-		inline int index_of(const T& element) const															{ return this->indexOf(element); }
-		inline void insert_at(const int index, const T& element, const int times = 1)						{ this->insertAt(index, element, times); }
-		inline void insert_at(const int index, const Container& other)										{ this->insertAt(index, other); }
-		inline void insert_at(const int index, const Container& other, const int count)						{ this->insertAt(index, other, count); }
-		inline void insert_at(const int index, const Container& other, const int start, const int count)	{ this->insertAt(index, other, start, count); }
-		inline void insert_at(const int index, const T other[], const int count)							{ this->insertAt(index, other, count); }
-		inline void insert_at(const int index, const T other[], const int start, const int count)			{ this->insertAt(index, other, start, count); }
-		inline void push_front(const T& element, int times = 1)												{ this->addFirst(element, times); }
-		inline void push_front(const Container& other)														{ this->addFirst(other); }
-		inline void push_front(const Container& other, const int count)										{ this->addFirst(other, count); }
-		inline void push_front(const Container& other, const int start, const int count)					{ this->addFirst(other, start, count); }
-		inline void push_front(const T other[], const int count)											{ this->addFirst(other, count); }
-		inline void push_front(const T other[], const int start, const int count)							{ this->addFirst(other, start, count); }
-		inline void push_back(const T& element)																{ this->addLast(element); }
-		inline void push_back(const T& element, int times)													{ this->addLast(element, times); }
-		inline void push_back(const Container& other)														{ this->addLast(other); }
-		inline void push_back(const Container& other, const int count)										{ this->addLast(other, count); }
-		inline void push_back(const Container& other, const int start, const int count)						{ this->addLast(other, start, count); }
-		inline void push_back(const T other[], const int count)												{ this->addLast(other, count); }
-		inline void push_back(const T other[], const int start, const int count)							{ this->addLast(other, start, count); }
-		inline void push_first(const T& element, int times = 1)												{ this->addFirst(element, times); }
-		inline void push_first(const Container& other)														{ this->addFirst(other); }
-		inline void push_first(const Container& other, const int count)										{ this->addFirst(other, count); }
-		inline void push_first(const Container& other, const int start, const int count)					{ this->addFirst(other, start, count); }
-		inline void push_first(const T other[], const int count)											{ this->addFirst(other, count); }
-		inline void push_first(const T other[], const int start, const int count)							{ this->addFirst(other, start, count); }
-		inline void push_last(const T& element)																{ this->addLast(element); }
-		inline void push_last(const T& element, int times)													{ this->addLast(element, times); }
-		inline void push_last(const Container& other)														{ this->addLast(other); }
-		inline void push_last(const Container& other, const int count)										{ this->addLast(other, count); }
-		inline void push_last(const Container& other, const int start, const int count)						{ this->addLast(other, start, count); }
-		inline void push_last(const T other[], const int count)												{ this->addLast(other, count); }
-		inline void push_last(const T other[], const int start, const int count)							{ this->addLast(other, start, count); }
-		inline int remove_all(const T& element)																{ return this->removeAll(element); }
-		inline int remove_all(const Container& other)														{ return this->removeAll(other); }
-		inline void remove_duplicates()																		{ return this->removeDuplicates(); }
-		inline String join(const String& separator) const													{ return this->joined(separator); }
-		inline T* find_first(bool (*conditionFunction)(T)) const											{ return this->findFirst(conditionFunction); }
-		inline bool matches_any(bool (*conditionFunction)(T)) const											{ return this->matchesAny(conditionFunction); }
-		inline bool matches_all(bool (*conditionFunction)(T)) const											{ return this->matchesAll(conditionFunction); }
+		DEPRECATED_ATTRIBUTE inline T& front()																					{ return this->first(); }
+		DEPRECATED_ATTRIBUTE inline T& back()																					{ return this->last(); }
+		DEPRECATED_ATTRIBUTE inline int index_of(const T& element) const															{ return this->indexOf(element); }
+		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const T& element, const int times = 1)						{ this->insertAt(index, element, times); }
+		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const Container& other)										{ this->insertAt(index, other); }
+		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const Container& other, const int count)						{ this->insertAt(index, other, count); }
+		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const Container& other, const int start, const int count)	{ this->insertAt(index, other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const T other[], const int count)							{ this->insertAt(index, other, count); }
+		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const T other[], const int start, const int count)			{ this->insertAt(index, other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void push_front(const T& element, int times = 1)												{ this->addFirst(element, times); }
+		DEPRECATED_ATTRIBUTE inline void push_front(const Container& other)														{ this->addFirst(other); }
+		DEPRECATED_ATTRIBUTE inline void push_front(const Container& other, const int count)										{ this->addFirst(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_front(const Container& other, const int start, const int count)					{ this->addFirst(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void push_front(const T other[], const int count)											{ this->addFirst(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_front(const T other[], const int start, const int count)							{ this->addFirst(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void push_back(const T& element)																{ this->add(element); }
+		DEPRECATED_ATTRIBUTE inline void push_back(const T& element, int times)													{ this->add(element, times); }
+		DEPRECATED_ATTRIBUTE inline void push_back(const Container& other)														{ this->add(other); }
+		DEPRECATED_ATTRIBUTE inline void push_back(const Container& other, const int count)										{ this->add(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_back(const Container& other, const int start, const int count)						{ this->add(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void push_back(const T other[], const int count)												{ this->add(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_back(const T other[], const int start, const int count)							{ this->add(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void push_first(const T& element, int times = 1)												{ this->addFirst(element, times); }
+		DEPRECATED_ATTRIBUTE inline void push_first(const Container& other)														{ this->addFirst(other); }
+		DEPRECATED_ATTRIBUTE inline void push_first(const Container& other, const int count)										{ this->addFirst(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_first(const Container& other, const int start, const int count)					{ this->addFirst(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void push_first(const T other[], const int count)											{ this->addFirst(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_first(const T other[], const int start, const int count)							{ this->addFirst(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void push_last(const T& element)																{ this->add(element); }
+		DEPRECATED_ATTRIBUTE inline void push_last(const T& element, int times)													{ this->add(element, times); }
+		DEPRECATED_ATTRIBUTE inline void push_last(const Container& other)														{ this->add(other); }
+		DEPRECATED_ATTRIBUTE inline void push_last(const Container& other, const int count)										{ this->add(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_last(const Container& other, const int start, const int count)						{ this->add(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void push_last(const T other[], const int count)												{ this->add(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_last(const T other[], const int start, const int count)							{ this->add(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline int remove_all(const T& element)																{ return this->removeAll(element); }
+		DEPRECATED_ATTRIBUTE inline int remove_all(const Container& other)														{ return this->removeAll(other); }
+		DEPRECATED_ATTRIBUTE inline void remove_duplicates()																		{ return this->removeDuplicates(); }
+		DEPRECATED_ATTRIBUTE inline String join(const String& separator) const													{ return this->joined(separator); }
+		DEPRECATED_ATTRIBUTE inline T* find_first(bool (*conditionFunction)(T)) const											{ return this->findFirst(conditionFunction); }
+		DEPRECATED_ATTRIBUTE inline bool matches_any(bool (*conditionFunction)(T)) const											{ return this->matchesAny(conditionFunction); }
+		DEPRECATED_ATTRIBUTE inline bool matches_all(bool (*conditionFunction)(T)) const											{ return this->matchesAll(conditionFunction); }
 
-		inline bool includes(const T& element) const														{ return this->contains(element); }
-		inline bool includes(const Container& other) const													{ return this->contains(other); }
-		inline bool includes(const T other[], int count) const												{ return this->contains(other, count); }
-		inline bool has(const T& element) const																{ return this->contains(element); }
-		inline bool has(const Container& other) const														{ return this->contains(other); }
-		inline bool has(const T other[], int count) const													{ return this->contains(other, count); }
-		inline bool has_element(const T& element) const														{ return this->contains(element); }
-		inline bool has_element(const Container& other) const												{ return this->contains(other); }
-		inline bool has_element(const T other[], int count) const											{ return this->contains(other, count); }
-		inline void add(const T& element)																	{ this->addLast(element); }
-		inline void add(const T& element, int times)														{ this->addLast(element, times); }
-		inline void add(const Container& other)																{ this->addLast(other); }
-		inline void add(const Container& other, const int count)											{ this->addLast(other, count); }
-		inline void add(const Container& other, const int start, const int count)							{ this->addLast(other, start, count); }
-		inline void add(const T other[], const int count)													{ this->addLast(other, count); }
-		inline void add(const T other[], const int start, const int count)									{ this->addLast(other, start, count); }
-		inline void append(const T& element)																{ this->addLast(element); }
-		inline void append(const T& element, int times)														{ this->addLast(element, times); }
-		inline void append(const Container& other)															{ this->addLast(other); }
-		inline void append(const Container& other, const int count)											{ this->addLast(other, count); }
-		inline void append(const Container& other, const int start, const int count)						{ this->addLast(other, start, count); }
-		inline void append(const T other[], const int count)												{ this->addLast(other, count); }
-		inline void append(const T other[], const int start, const int count)								{ this->addLast(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline bool includes(const T& element) const														{ return this->contains(element); }
+		DEPRECATED_ATTRIBUTE inline bool includes(const Container& other) const													{ return this->contains(other); }
+		DEPRECATED_ATTRIBUTE inline bool includes(const T other[], int count) const												{ return this->contains(other, count); }
+		DEPRECATED_ATTRIBUTE inline bool has(const T& element) const																{ return this->contains(element); }
+		DEPRECATED_ATTRIBUTE inline bool has(const Container& other) const														{ return this->contains(other); }
+		DEPRECATED_ATTRIBUTE inline bool has(const T other[], int count) const													{ return this->contains(other, count); }
+		DEPRECATED_ATTRIBUTE inline bool has_element(const T& element) const														{ return this->contains(element); }
+		DEPRECATED_ATTRIBUTE inline bool has_element(const Container& other) const												{ return this->contains(other); }
+		DEPRECATED_ATTRIBUTE inline bool has_element(const T other[], int count) const											{ return this->contains(other, count); }
+		DEPRECATED_ATTRIBUTE inline void append(const T& element)																{ this->add(element); }
+		DEPRECATED_ATTRIBUTE inline void append(const T& element, int times)														{ this->add(element, times); }
+		DEPRECATED_ATTRIBUTE inline void append(const Container& other)															{ this->add(other); }
+		DEPRECATED_ATTRIBUTE inline void append(const Container& other, const int count)											{ this->add(other, count); }
+		DEPRECATED_ATTRIBUTE inline void append(const Container& other, const int start, const int count)						{ this->add(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void append(const T other[], const int count)												{ this->add(other, count); }
+		DEPRECATED_ATTRIBUTE inline void append(const T other[], const int start, const int count)								{ this->add(other, start, count); }
 
 	protected:
 		/// @brief Gets all indexes of the given element.
@@ -841,7 +834,7 @@ namespace hltypes
 			{
 				if (element == this->at(i))
 				{
-					result.addLast(i);
+					result.add(i);
 				}
 			}
 			return result;
@@ -954,7 +947,7 @@ namespace hltypes
 			{
 				for_iter (i, 0, count)
 				{
-					result.addLast(this->at(hrand(size)));
+					result.add(this->at(hrand(size)));
 				}
 			}
 			else if (count > 0)
@@ -970,11 +963,11 @@ namespace hltypes
 				Container<std::vector<int>, int> indexes;
 				for_iter (i, 0, size)
 				{
-					indexes.addLast(i);
+					indexes.add(i);
 				}
 				for_iter (i, 0, count)
 				{
-					result.addLast(this->at(indexes.removeAt(hrand(indexes.size()))));
+					result.add(this->at(indexes.removeAt(hrand(indexes.size()))));
 				}
 			}
 			return result;
@@ -994,7 +987,7 @@ namespace hltypes
 		inline R _removedDuplicates() const
 		{
 			R result(*this);
-			result.remove_duplicates();
+			result.removeDuplicates();
 			return result;
 		}
 		/// @brief Creates new sorted Container.
@@ -1092,7 +1085,7 @@ namespace hltypes
 			{
 				if (conditionFunction(this->at(i)))
 				{
-					result.addLast(this->at(i));
+					result.add(this->at(i));
 				}
 			}
 			return result;
@@ -1107,7 +1100,7 @@ namespace hltypes
 			int size = this->size();
 			for_iter (i, 0, size)
 			{
-				result.addLast((S)this->at(i));
+				result.add((S)this->at(i));
 			}
 			return result;
 		}
@@ -1127,7 +1120,7 @@ namespace hltypes
 				value = dynamic_cast<S>(this->at(i));
 				if (value != NULL || includeNulls)
 				{
-					result.addLast(value);
+					result.add(value);
 				}
 			}
 			return result;

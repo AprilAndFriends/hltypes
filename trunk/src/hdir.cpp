@@ -151,7 +151,7 @@ namespace hltypes
 		Array<String> folders = name.split("/", -1, false);
 		if (folders.size() > 0)
 		{
-			String path = folders.remove_first();
+			String path = folders.removeFirst();
 			hmkdir(path);
 			foreach (String, it, folders)
 			{

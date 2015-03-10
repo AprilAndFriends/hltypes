@@ -26,14 +26,14 @@ namespace hltypes
 		{
 			return ".";
 		}
-		result.remove_last();
+		result.removeLast();
 		return DirBase::joinPaths(result, false);
 	}
 
 	String DirBase::baseName(const String& path)
 	{
 		Array<String> result = DirBase::splitPath(path);
-		return (result.size() > 0 ? result.remove_last() : String());
+		return (result.size() > 0 ? result.removeLast() : String());
 	}
 
 	String DirBase::systemize(const String& path)
@@ -60,27 +60,27 @@ namespace hltypes
 		{
 			if (directories.first() == ".")
 			{
-				directories.remove_first();
+				directories.removeFirst();
 			}
 			else if (directories.first() == "..")
 			{
 				if (result.size() == 0)
 				{
-					result += directories.remove_first();
+					result += directories.removeFirst();
 				}
 				else if (result.last() == "..")
 				{
-					result += directories.remove_first();
+					result += directories.removeFirst();
 				}
 				else
 				{
-					result.remove_last();
-					directories.remove_first();
+					result.removeLast();
+					directories.removeFirst();
 				}
 			}
 			else
 			{
-				result += directories.remove_first();
+				result += directories.removeFirst();
 			}
 		}
 		if (result.size() == 0)
@@ -123,7 +123,7 @@ namespace hltypes
 		String path;
 		while (paths.size() > 1)
 		{
-			path = paths.remove_last();
+			path = paths.removeLast();
 			paths[paths.size() - 1] = DirBase::joinPath(paths.last(), path, systemizeResult);
 		}
 		return paths[0];

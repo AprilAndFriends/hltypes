@@ -300,32 +300,32 @@ namespace hltypes
 		{
 			return this->nequals(other);
 		}
-		/// @brief Same as addLast.
-		/// @see addLast(const T& element)
+		/// @brief Same as add.
+		/// @see add(const T& element)
 		inline Array<T>& operator<<(const T& element)
 		{
-			this->addLast(element);
+			this->add(element);
 			return (*this);
 		}
-		/// @brief Same as addLast.
-		/// @see addLast(const Array<T>& other)
+		/// @brief Same as add.
+		/// @see add(const Array<T>& other)
 		inline Array<T>& operator<<(const Array<T>& other)
 		{
-			this->addLast(other);
+			this->add(other);
 			return (*this);
 		}
-		/// @brief Same as addLast.
-		/// @see addLast(const T& element)
+		/// @brief Same as add.
+		/// @see add(const T& element)
 		inline Array<T>& operator+=(const T& element)
 		{
-			this->addLast(element);
+			this->add(element);
 			return (*this);
 		}
-		/// @brief Same as addLast.
-		/// @see addLast(const Array<T>& other)
+		/// @brief Same as add.
+		/// @see add(const Array<T>& other)
 		inline Array<T>& operator+=(const Array<T>& other)
 		{
-			this->addLast(other);
+			this->add(other);
 			return (*this);
 		}
 		/// @brief Same as remove.
@@ -445,38 +445,38 @@ namespace hltypes
 		}
 
 		// DEPRECATED
-		inline Array<int> indexes_of(const T& element) const							{ return this->indexesOf(element); }
-		inline Array<T> removed_duplicates() const										{ return this->removedDuplicates(); }
-		inline T pop(int index)															{ return this->removeAt(index); }
-		inline Array<T> pop(int index, int count)										{ return this->removeAt(index, count); }
-		inline T pop_at(int index)														{ return this->removeAt(index); }
-		inline Array<T> pop_at(int index, int count)									{ return this->removeAt(index, count); }
-		inline T pop_front()															{ return this->removeFirst(); }
-		inline Array<T> pop_front(const int count)										{ return this->removeFirst(count); }
-		inline T pop_first()															{ return this->removeFirst(); }
-		inline Array<T> pop_first(const int count)										{ return this->removeFirst(count); }
-		inline T pop_back()																{ return this->removeLast(); }
-		inline Array<T> pop_back(const int count)										{ return this->removeLast(count); }
-		inline T pop_last()																{ return this->removeLast(); }
-		inline Array<T> pop_last(const int count)										{ return this->removeLast(count); }
-		inline T pop_all(T& element)													{ return this->removeAll(element); }
-		inline Array<T> pop_all(const Array<T>& other)									{ return this->removeAll(other); }
-		inline T remove_at(int index)													{ return this->removeAt(index); }
-		inline Array<T> remove_at(int index, int count)									{ return this->removeAt(index, count); }
-		inline T remove_front()															{ return this->removeFirst(); }
-		inline Array<T> remove_front(const int count)									{ return this->removeFirst(count); }
-		inline T remove_first()															{ return this->removeFirst(); }
-		inline Array<T> remove_first(const int count)									{ return this->removeFirst(count); }
-		inline T remove_back()															{ return this->removeLast(); }
-		inline Array<T> remove_back(const int count)									{ return this->removeLast(count); }
-		inline T remove_last()															{ return this->removeLast(); }
-		inline Array<T> remove_last(const int count)									{ return this->removeLast(count); }
-		inline T pop_random()															{ return this->removeRandom(); }
-		inline Array<T> pop_random(int count, bool unique = false)						{ return this->removeRandom(count, unique); }
-		inline T remove_random()														{ return this->removeRandom(); }
-		inline Array<T> remove_random(int count, bool unique = false)					{ return this->removeRandom(count, unique); }
-		inline Array<T> find_all(bool (*conditionFunction)(T)) const					{ return this->findAll(conditionFunction); }
-		template <class S> inline Array<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
+		DEPRECATED_ATTRIBUTE inline Array<int> indexes_of(const T& element) const							{ return this->indexesOf(element); }
+		DEPRECATED_ATTRIBUTE inline Array<T> removed_duplicates() const										{ return this->removedDuplicates(); }
+		DEPRECATED_ATTRIBUTE inline T pop(int index)															{ return this->removeAt(index); }
+		DEPRECATED_ATTRIBUTE inline Array<T> pop(int index, int count)										{ return this->removeAt(index, count); }
+		DEPRECATED_ATTRIBUTE inline T pop_at(int index)														{ return this->removeAt(index); }
+		DEPRECATED_ATTRIBUTE inline Array<T> pop_at(int index, int count)									{ return this->removeAt(index, count); }
+		DEPRECATED_ATTRIBUTE inline T pop_front()															{ return this->removeFirst(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> pop_front(const int count)										{ return this->removeFirst(count); }
+		DEPRECATED_ATTRIBUTE inline T pop_first()															{ return this->removeFirst(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> pop_first(const int count)										{ return this->removeFirst(count); }
+		DEPRECATED_ATTRIBUTE inline T pop_back()																{ return this->removeLast(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> pop_back(const int count)										{ return this->removeLast(count); }
+		DEPRECATED_ATTRIBUTE inline T pop_last()																{ return this->removeLast(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> pop_last(const int count)										{ return this->removeLast(count); }
+		DEPRECATED_ATTRIBUTE inline T pop_all(T& element)													{ return this->removeAll(element); }
+		DEPRECATED_ATTRIBUTE inline Array<T> pop_all(const Array<T>& other)									{ return this->removeAll(other); }
+		DEPRECATED_ATTRIBUTE inline T remove_at(int index)													{ return this->removeAt(index); }
+		DEPRECATED_ATTRIBUTE inline Array<T> remove_at(int index, int count)									{ return this->removeAt(index, count); }
+		DEPRECATED_ATTRIBUTE inline T remove_front()															{ return this->removeFirst(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> remove_front(const int count)									{ return this->removeFirst(count); }
+		DEPRECATED_ATTRIBUTE inline T remove_first()															{ return this->removeFirst(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> remove_first(const int count)									{ return this->removeFirst(count); }
+		DEPRECATED_ATTRIBUTE inline T remove_back()															{ return this->removeLast(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> remove_back(const int count)									{ return this->removeLast(count); }
+		DEPRECATED_ATTRIBUTE inline T remove_last()															{ return this->removeLast(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> remove_last(const int count)									{ return this->removeLast(count); }
+		DEPRECATED_ATTRIBUTE inline T pop_random()															{ return this->removeRandom(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> pop_random(int count, bool unique = false)						{ return this->removeRandom(count, unique); }
+		DEPRECATED_ATTRIBUTE inline T remove_random()														{ return this->removeRandom(); }
+		DEPRECATED_ATTRIBUTE inline Array<T> remove_random(int count, bool unique = false)					{ return this->removeRandom(count, unique); }
+		DEPRECATED_ATTRIBUTE inline Array<T> find_all(bool (*conditionFunction)(T)) const					{ return this->findAll(conditionFunction); }
+		template <class S> DEPRECATED_ATTRIBUTE inline Array<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
 
 	};
 	

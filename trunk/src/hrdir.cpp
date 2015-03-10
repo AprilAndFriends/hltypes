@@ -71,7 +71,7 @@ namespace hltypes
 		result = ResourceDir::directories(dirName, false) + ResourceDir::files(dirName, false);
 		if (!Resource::isZipArchive())
 		{
-			result.remove_duplicates();
+			result.removeDuplicates();
 		}
 		if (prependDir)
 		{
@@ -103,14 +103,14 @@ namespace hltypes
 						result += current.split('/', 1).first();
 					}
 				}
-				result.remove_duplicates();
+				result.removeDuplicates();
 				ResourceDir::cacheDirectories[name] = result;
 			}
 		}
 		else
 #endif
 		{
-			result = ResourceDir::_removeCwd(Dir::directories(name, false)).removed_duplicates();
+			result = ResourceDir::_removeCwd(Dir::directories(name, false)).removedDuplicates();
 		}
 		if (prependDir)
 		{
@@ -142,14 +142,14 @@ namespace hltypes
 						result += current;
 					}
 				}
-				result.remove_duplicates();
+				result.removeDuplicates();
 				ResourceDir::cacheFiles[name] = result;
 			}
 		}
 		else
 #endif
 		{
-			result = ResourceDir::_removeCwd(Dir::files(name, false)).removed_duplicates();
+			result = ResourceDir::_removeCwd(Dir::files(name, false)).removedDuplicates();
 		}
 		if (prependDir)
 		{
