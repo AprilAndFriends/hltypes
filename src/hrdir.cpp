@@ -98,7 +98,7 @@ namespace hltypes
 				foreach (String, it, files)
 				{
 					current = (*it);
-					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && current.has('/'))
+					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && current.contains('/'))
 					{
 						result += current.split('/', 1).first();
 					}
@@ -137,7 +137,7 @@ namespace hltypes
 				foreach (String, it, files)
 				{
 					current = (*it);
-					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && !current.has('/'))
+					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && !current.contains('/'))
 					{
 						result += current;
 					}
