@@ -195,14 +195,14 @@ namespace hltypes
 		/// @brief Checks existence of element in Container.
 		/// @param[in] element Element to search for.
 		/// @return True if element is in Container.
-		inline bool contains(const T& element) const
+		inline bool has(const T& element) const
 		{
 			return (this->indexOf(element) >= 0);
 		}
 		/// @brief Checks existence of elements in Container.
 		/// @param[in] other Container with elements to search for.
 		/// @return True if all elements are in Container.
-		inline bool contains(const Container& other) const
+		inline bool has(const Container& other) const
 		{
 			int size = other.size();
 			for_iter (i, 0, size)
@@ -218,7 +218,7 @@ namespace hltypes
 		/// @param[in] other C-type array with elements to search for.
 		/// @param[in] count How many elements the C-type array has.
 		/// @return True if all elements are in Container.
-		inline bool contains(const T other[], int count) const
+		inline bool has(const T other[], int count) const
 		{
 			for_iter (i, 0, count)
 			{
@@ -652,7 +652,7 @@ namespace hltypes
 			int size = this->size();
 			for_iter (i, 0, size)
 			{
-				if (other.contains(this->at(i)))
+				if (other.has(this->at(i)))
 				{
 					result.add(this->at(i));
 				}
@@ -763,60 +763,60 @@ namespace hltypes
 		// DEPRECATED
 		DEPRECATED_ATTRIBUTE inline T& front()																					{ return this->first(); }
 		DEPRECATED_ATTRIBUTE inline T& back()																					{ return this->last(); }
-		DEPRECATED_ATTRIBUTE inline int index_of(const T& element) const															{ return this->indexOf(element); }
+		DEPRECATED_ATTRIBUTE inline int index_of(const T& element) const														{ return this->indexOf(element); }
 		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const T& element, const int times = 1)						{ this->insertAt(index, element, times); }
 		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const Container& other)										{ this->insertAt(index, other); }
-		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const Container& other, const int count)						{ this->insertAt(index, other, count); }
+		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const Container& other, const int count)					{ this->insertAt(index, other, count); }
 		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const Container& other, const int start, const int count)	{ this->insertAt(index, other, start, count); }
 		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const T other[], const int count)							{ this->insertAt(index, other, count); }
 		DEPRECATED_ATTRIBUTE inline void insert_at(const int index, const T other[], const int start, const int count)			{ this->insertAt(index, other, start, count); }
-		DEPRECATED_ATTRIBUTE inline void push_front(const T& element, int times = 1)												{ this->addFirst(element, times); }
+		DEPRECATED_ATTRIBUTE inline void push_front(const T& element, int times = 1)											{ this->addFirst(element, times); }
 		DEPRECATED_ATTRIBUTE inline void push_front(const Container& other)														{ this->addFirst(other); }
-		DEPRECATED_ATTRIBUTE inline void push_front(const Container& other, const int count)										{ this->addFirst(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_front(const Container& other, const int count)									{ this->addFirst(other, count); }
 		DEPRECATED_ATTRIBUTE inline void push_front(const Container& other, const int start, const int count)					{ this->addFirst(other, start, count); }
 		DEPRECATED_ATTRIBUTE inline void push_front(const T other[], const int count)											{ this->addFirst(other, count); }
 		DEPRECATED_ATTRIBUTE inline void push_front(const T other[], const int start, const int count)							{ this->addFirst(other, start, count); }
-		DEPRECATED_ATTRIBUTE inline void push_back(const T& element)																{ this->add(element); }
+		DEPRECATED_ATTRIBUTE inline void push_back(const T& element)															{ this->add(element); }
 		DEPRECATED_ATTRIBUTE inline void push_back(const T& element, int times)													{ this->add(element, times); }
 		DEPRECATED_ATTRIBUTE inline void push_back(const Container& other)														{ this->add(other); }
 		DEPRECATED_ATTRIBUTE inline void push_back(const Container& other, const int count)										{ this->add(other, count); }
-		DEPRECATED_ATTRIBUTE inline void push_back(const Container& other, const int start, const int count)						{ this->add(other, start, count); }
-		DEPRECATED_ATTRIBUTE inline void push_back(const T other[], const int count)												{ this->add(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_back(const Container& other, const int start, const int count)					{ this->add(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void push_back(const T other[], const int count)											{ this->add(other, count); }
 		DEPRECATED_ATTRIBUTE inline void push_back(const T other[], const int start, const int count)							{ this->add(other, start, count); }
-		DEPRECATED_ATTRIBUTE inline void push_first(const T& element, int times = 1)												{ this->addFirst(element, times); }
+		DEPRECATED_ATTRIBUTE inline void push_first(const T& element, int times = 1)											{ this->addFirst(element, times); }
 		DEPRECATED_ATTRIBUTE inline void push_first(const Container& other)														{ this->addFirst(other); }
-		DEPRECATED_ATTRIBUTE inline void push_first(const Container& other, const int count)										{ this->addFirst(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_first(const Container& other, const int count)									{ this->addFirst(other, count); }
 		DEPRECATED_ATTRIBUTE inline void push_first(const Container& other, const int start, const int count)					{ this->addFirst(other, start, count); }
 		DEPRECATED_ATTRIBUTE inline void push_first(const T other[], const int count)											{ this->addFirst(other, count); }
 		DEPRECATED_ATTRIBUTE inline void push_first(const T other[], const int start, const int count)							{ this->addFirst(other, start, count); }
-		DEPRECATED_ATTRIBUTE inline void push_last(const T& element)																{ this->add(element); }
+		DEPRECATED_ATTRIBUTE inline void push_last(const T& element)															{ this->add(element); }
 		DEPRECATED_ATTRIBUTE inline void push_last(const T& element, int times)													{ this->add(element, times); }
 		DEPRECATED_ATTRIBUTE inline void push_last(const Container& other)														{ this->add(other); }
 		DEPRECATED_ATTRIBUTE inline void push_last(const Container& other, const int count)										{ this->add(other, count); }
-		DEPRECATED_ATTRIBUTE inline void push_last(const Container& other, const int start, const int count)						{ this->add(other, start, count); }
-		DEPRECATED_ATTRIBUTE inline void push_last(const T other[], const int count)												{ this->add(other, count); }
+		DEPRECATED_ATTRIBUTE inline void push_last(const Container& other, const int start, const int count)					{ this->add(other, start, count); }
+		DEPRECATED_ATTRIBUTE inline void push_last(const T other[], const int count)											{ this->add(other, count); }
 		DEPRECATED_ATTRIBUTE inline void push_last(const T other[], const int start, const int count)							{ this->add(other, start, count); }
-		DEPRECATED_ATTRIBUTE inline int remove_all(const T& element)																{ return this->removeAll(element); }
+		DEPRECATED_ATTRIBUTE inline int remove_all(const T& element)															{ return this->removeAll(element); }
 		DEPRECATED_ATTRIBUTE inline int remove_all(const Container& other)														{ return this->removeAll(other); }
-		DEPRECATED_ATTRIBUTE inline void remove_duplicates()																		{ return this->removeDuplicates(); }
+		DEPRECATED_ATTRIBUTE inline void remove_duplicates()																	{ return this->removeDuplicates(); }
 		DEPRECATED_ATTRIBUTE inline String join(const String& separator) const													{ return this->joined(separator); }
 		DEPRECATED_ATTRIBUTE inline T* find_first(bool (*conditionFunction)(T)) const											{ return this->findFirst(conditionFunction); }
-		DEPRECATED_ATTRIBUTE inline bool matches_any(bool (*conditionFunction)(T)) const											{ return this->matchesAny(conditionFunction); }
-		DEPRECATED_ATTRIBUTE inline bool matches_all(bool (*conditionFunction)(T)) const											{ return this->matchesAll(conditionFunction); }
+		DEPRECATED_ATTRIBUTE inline bool matches_any(bool (*conditionFunction)(T)) const										{ return this->matchesAny(conditionFunction); }
+		DEPRECATED_ATTRIBUTE inline bool matches_all(bool (*conditionFunction)(T)) const										{ return this->matchesAll(conditionFunction); }
 
-		DEPRECATED_ATTRIBUTE inline bool includes(const T& element) const														{ return this->contains(element); }
-		DEPRECATED_ATTRIBUTE inline bool includes(const Container& other) const													{ return this->contains(other); }
-		DEPRECATED_ATTRIBUTE inline bool includes(const T other[], int count) const												{ return this->contains(other, count); }
-		DEPRECATED_ATTRIBUTE inline bool has(const T& element) const																{ return this->contains(element); }
-		DEPRECATED_ATTRIBUTE inline bool has(const Container& other) const														{ return this->contains(other); }
-		DEPRECATED_ATTRIBUTE inline bool has(const T other[], int count) const													{ return this->contains(other, count); }
-		DEPRECATED_ATTRIBUTE inline bool has_element(const T& element) const														{ return this->contains(element); }
-		DEPRECATED_ATTRIBUTE inline bool has_element(const Container& other) const												{ return this->contains(other); }
-		DEPRECATED_ATTRIBUTE inline bool has_element(const T other[], int count) const											{ return this->contains(other, count); }
+		DEPRECATED_ATTRIBUTE inline bool includes(const T& element) const														{ return this->has(element); }
+		DEPRECATED_ATTRIBUTE inline bool includes(const Container& other) const													{ return this->has(other); }
+		DEPRECATED_ATTRIBUTE inline bool includes(const T other[], int count) const												{ return this->has(other, count); }
+		DEPRECATED_ATTRIBUTE inline bool contains(const T& element) const														{ return this->has(element); }
+		DEPRECATED_ATTRIBUTE inline bool contains(const Container& other) const													{ return this->has(other); }
+		DEPRECATED_ATTRIBUTE inline bool contains(const T other[], int count) const												{ return this->has(other, count); }
+		DEPRECATED_ATTRIBUTE inline bool has_element(const T& element) const													{ return this->has(element); }
+		DEPRECATED_ATTRIBUTE inline bool has_element(const Container& other) const												{ return this->has(other); }
+		DEPRECATED_ATTRIBUTE inline bool has_element(const T other[], int count) const											{ return this->has(other, count); }
 		DEPRECATED_ATTRIBUTE inline void append(const T& element)																{ this->add(element); }
-		DEPRECATED_ATTRIBUTE inline void append(const T& element, int times)														{ this->add(element, times); }
+		DEPRECATED_ATTRIBUTE inline void append(const T& element, int times)													{ this->add(element, times); }
 		DEPRECATED_ATTRIBUTE inline void append(const Container& other)															{ this->add(other); }
-		DEPRECATED_ATTRIBUTE inline void append(const Container& other, const int count)											{ this->add(other, count); }
+		DEPRECATED_ATTRIBUTE inline void append(const Container& other, const int count)										{ this->add(other, count); }
 		DEPRECATED_ATTRIBUTE inline void append(const Container& other, const int start, const int count)						{ this->add(other, start, count); }
 		DEPRECATED_ATTRIBUTE inline void append(const T other[], const int count)												{ this->add(other, count); }
 		DEPRECATED_ATTRIBUTE inline void append(const T other[], const int start, const int count)								{ this->add(other, start, count); }
