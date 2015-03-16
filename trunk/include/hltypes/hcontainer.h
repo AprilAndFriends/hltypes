@@ -702,7 +702,7 @@ namespace hltypes
 		inline void unite(const T& element)
 		{
 			this->insertAt(this->size(), element);
-			this->removeDuplicates()
+			this->removeDuplicates();
 		}
 		/// @brief Unites elements of this Container with another one.
 		/// @param[in] other Container to unite with.
@@ -710,7 +710,7 @@ namespace hltypes
 		inline void unite(const Container& other)
 		{
 			this->insertAt(this->size(), other);
-			this->removeDuplicates()
+			this->removeDuplicates();
 		}
 		/// @brief Intersects elements of this Container with another one.
 		/// @param[in] other Container to intersect with.
