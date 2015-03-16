@@ -18,7 +18,6 @@
 
 namespace hltypes
 {
-	template <class T> class Array;
 	/// @brief Provides high level data streaming.
 	class hltypesExport Stream : public StreamBase
 	{
@@ -102,6 +101,12 @@ namespace hltypes
 		/// @param[in] other Other Stream.
 		/// @return This modified Stream.
 		Stream& operator=(Stream& other);
+		/// @brief Casts this Array into a C-array.
+		/// @return The C-array.
+		operator unsigned char*() const;
+		/// @brief Casts this Array into a C-array.
+		/// @return The C-array.
+		operator const unsigned char*() const;
 
 	protected:
 		/// @brief Data stream container.

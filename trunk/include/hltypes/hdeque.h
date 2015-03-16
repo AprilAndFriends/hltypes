@@ -20,69 +20,64 @@
 #include "hltypesUtil.h"
 #include "hstring.h"
 
-/// @brief Provides a simpler syntax to iterate through a ldeque.
-#define foreach_q(type, name, container) for (std::deque< type >::iterator name = (container).begin(); name != (container).end(); ++name)
-#define foreachc_q(type, name, container) for (std::deque< type >::const_iterator name = (container).begin(); name != (container).end(); ++name)
+/// @brief Provides a simpler syntax to iterate through a Deque.
+#define foreach_q(type, name, container) for (hdeque< type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreachc_q(type, name, container) for (hdeque< type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to reverse iterate through a Deque.
-#define foreach_qr(type, name, container) for (std::deque< type >::reverse_iterator name = (container).rbegin(); name != (container).rend(); ++name)
-#define foreachc_qr(type, name, container) for (std::deque< type >::reverse_const_iterator name = (container).rbegin(); name != (container).rend(); ++name)
-/// @brief Alias for simpler code.
-#define ContainerDeque Container<std::deque<T>, T>
+#define foreach_qr(type, name, container) for (hdeque< type >::reverse_iterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+#define foreachc_qr(type, name, container) for (hdeque< type >::const_reverse_iterator_t name = (container).rbegin(); name != (container).rend(); ++name)
 
 namespace hltypes
 {
 	/// @brief Encapsulates std::deque and adds high level methods.
 	template <class T>
-	class Deque : public ContainerDeque
+	class Deque : public Container<std::deque<T>, T>
 	{
-	private:
-		typedef typename std::deque<T>::iterator iterator_t;
-		typedef typename std::deque<T>::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline Deque() : ContainerDeque()
+		inline Deque() : Container<std::deque<T>, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Container to copy.
-		inline Deque(const ContainerDeque& other) : ContainerDeque(other)
+		inline Deque(const Container<std::deque<T>, T>& other) : Container<std::deque<T>, T>(other)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
-		inline Deque(const T& element) : ContainerDeque(element)
+		inline Deque(const T& element) : Container<std::deque<T>, T>(element)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline Deque(const T& element, int times) : ContainerDeque(element, times)
+		inline Deque(const T& element, int times) : Container<std::deque<T>, T>(element, times)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const ContainerDeque& other, const int count) : ContainerDeque(other, count)
+		inline Deque(const Container<std::deque<T>, T>& other, const int count) : Container<std::deque<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const ContainerDeque& other, const int start, const int count) : ContainerDeque(other, start, count)
+		inline Deque(const Container<std::deque<T>, T>& other, const int start, const int count) : Container<std::deque<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const T other[], const int count) : ContainerDeque(other, count)
+		inline Deque(const T other[], const int count) : Container<std::deque<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const T other[], const int start, const int count) : ContainerDeque(other, start, count)
+		inline Deque(const T other[], const int start, const int count) : Container<std::deque<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Destructor.
@@ -101,7 +96,7 @@ namespace hltypes
 		/// @return The removed element.
 		inline T removeAt(int index)
 		{
-			return ContainerDeque::removeAt(index);
+			return Container<std::deque<T>, T>::removeAt(index);
 		}
 		/// @brief Removes n elements at given index of Deque.
 		/// @param[in] index Start index of elements to remove.
@@ -116,7 +111,7 @@ namespace hltypes
 		/// @return The removed element.
 		inline T removeFirst()
 		{
-			return ContainerDeque::removeFirst();
+			return Container<std::deque<T>, T>::removeFirst();
 		}
 		/// @brief Removes n elements from the beginning of Deque.
 		/// @param[in] count Number of elements to remove.
@@ -130,7 +125,7 @@ namespace hltypes
 		/// @return The removed element.
 		inline T removeLast()
 		{
-			return ContainerDeque::removeLast();
+			return Container<std::deque<T>, T>::removeLast();
 		}
 		/// @brief Removes n elements from the end of Deque.
 		/// @param[in] count Number of elements to remove.
@@ -144,7 +139,7 @@ namespace hltypes
 		/// @return Random element.
 		inline T removeRandom()
 		{
-			return ContainerDeque::removeRandom();
+			return Container<std::deque<T>, T>::removeRandom();
 		}
 		/// @brief Gets an Deque of random elements selected from this one and removes them.
 		/// @param[in] count Number of random elements.
@@ -158,7 +153,7 @@ namespace hltypes
 		/// @return Random element.
 		inline T random() const
 		{
-			return ContainerDeque::random();
+			return Container<std::deque<T>, T>::random();
 		}
 		/// @brief Gets an Deque of random elements selected from this one.
 		/// @param[in] count Number of random elements.

@@ -25,12 +25,17 @@ namespace hltypes
 {
 	/// @brief Encapsulates container functionality and adds high level methods.
 	template <class STD, class T>
-	class Container : public STD
+	class Container : STD
 	{
-	private:
-		typedef typename STD::iterator iterator_t;
-		typedef typename STD::const_iterator const_iterator_t;
 	public:
+		/// @brief Iterator type exposure.
+		typedef typename STD::iterator iterator_t;
+		/// @brief Iterator type exposure.
+		typedef typename STD::const_iterator const_iterator_t;
+		/// @brief Iterator type exposure.
+		typedef typename STD::reverse_iterator riterator_t;
+		/// @brief Iterator type exposure.
+		typedef typename STD::const_reverse_iterator const_riterator_t;
 		/// @brief Empty constructor.
 		inline Container() : STD()
 		{
@@ -93,6 +98,65 @@ namespace hltypes
 		inline int size() const
 		{
 			return (int)STD::size();
+		}
+		/// @brief Check if Container is empty.
+		/// @return True if Container is empty.
+		inline bool isEmpty() const
+		{
+			return STD::empty();
+		}
+		/// @brief Removes all data from this Container.
+		inline void clear()
+		{
+			return STD::clear();
+		}
+		/// @brief Gets the iterator at the beginning.
+		/// @return The iterator object.
+		inline iterator_t begin()
+		{
+			return STD::begin();
+		}
+		/// @brief Gets the iterator at the beginning.
+		/// @return The iterator object.
+		inline const_iterator_t begin() const
+		{
+			return STD::begin();
+		}
+		/// @brief Gets the iterator at the end.
+		/// @return The iterator object.
+		inline iterator_t end()
+		{
+			return STD::end();
+		}
+		/// @brief Gets the iterator at the end.
+		/// @return The iterator object.
+		inline const_iterator_t end() const
+		{
+			return STD::end();
+		}
+		/// @brief Gets the reverse iterator at the beginning.
+		/// @return The iterator object.
+		inline riterator_t rbegin()
+		{
+			return STD::rbegin();
+		}
+		/// @brief Gets the reverse iterator at the beginning.
+		/// @return The iterator object.
+		inline const_riterator_t rbegin() const
+		{
+			return STD::rbegin();
+		}
+		/// @brief Gets the reverse iterator at the end.
+		/// @return The iterator object.
+		inline riterator_t rend()
+		{
+			return STD::rend();
+		}
+		/// @brief Gets the reverse iterator at the end.
+		/// @return The iterator object.
+		inline const_riterator_t rend() const
+		{
+			return STD::rend();
 		}
 		/// @brief Compares the contents of two Containers for being equal.
 		/// @param[in] other Another Container.
@@ -502,7 +566,7 @@ namespace hltypes
 			int size = indexes.size();
 			for_iter_r (i, size, 0)
 			{
-				STD::erase(this->_itAdvance(it, indexes[i]));
+				STD::erase(this->_itAdvance(it, indexes.at(i)));
 			}
 			return size;
 		}
@@ -1151,7 +1215,7 @@ namespace hltypes
 		}
 
 	};
-	
+
 }
 
 #endif

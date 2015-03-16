@@ -22,7 +22,6 @@
 
 namespace hltypes
 {
-	template <class T> class Array;
 	/// @brief Provides high level resource file handling.
 	/// @note When writing, \\r may be used, but \\r will be removed during read.
 	class hltypesExport Resource : public FileBase

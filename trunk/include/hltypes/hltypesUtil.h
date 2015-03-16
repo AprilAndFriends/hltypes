@@ -21,7 +21,6 @@
 
 namespace hltypes
 {
-	template <class T> class Array;
 	class Stream;
 	class StreamBase;
 	extern String logTag;
