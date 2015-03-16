@@ -20,69 +20,64 @@
 #include "hltypesUtil.h"
 #include "hstring.h"
 
-/// @brief Provides a simpler syntax to iterate through a list.
-#define foreach_l(type, name, container) for (std::list< type >::iterator name = (container).begin(); name != (container).end(); ++name)
-#define foreachc_l(type, name, container) for (std::list< type >::const_iterator name = (container).begin(); name != (container).end(); ++name)
-/// @brief Provides a simpler syntax to reverse iterate through a list.
-#define foreach_lr(type, name, container) for (std::list< type >::reverse_iterator name = (container).rbegin(); name != (container).rend(); ++name)
-#define foreachc_lr(type, name, container) for (std::list< type >::reverse_const_iterator name = (container).rbegin(); name != (container).rend(); ++name)
-/// @brief Alias for simpler code.
-#define ContainerList Container<std::list<T>, T>
+/// @brief Provides a simpler syntax to iterate through a List.
+#define foreach_l(type, name, container) for (hlist< type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreachc_l(type, name, container) for (hlist< type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
+/// @brief Provides a simpler syntax to reverse iterate through a List.
+#define foreach_lr(type, name, container) for (hlist< type >::reverse_iterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+#define foreachc_lr(type, name, container) for (hlist< type >::const_reverse_iterator_t name = (container).rbegin(); name != (container).rend(); ++name)
 
 namespace hltypes
 {
 	/// @brief Encapsulates std::list and adds high level methods.
 	template <class T>
-	class List : public ContainerList
+	class List : public Container<std::list<T>, T>
 	{
-	private:
-		typedef typename std::list<T>::iterator iterator_t;
-		typedef typename std::list<T>::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline List() : ContainerList()
+		inline List() : Container<std::list<T>, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Container to copy.
-		inline List(const ContainerList& other) : ContainerList(other)
+		inline List(const Container<std::list<T>, T>& other) : Container<std::list<T>, T>(other)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
-		inline List(const T& element) : ContainerList(element)
+		inline List(const T& element) : Container<std::list<T>, T>(element)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline List(const T& element, int times) : ContainerList(element, times)
+		inline List(const T& element, int times) : Container<std::list<T>, T>(element, times)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] count Number of elements to copy.
-		inline List(const ContainerList& other, const int count) : ContainerList(other, count)
+		inline List(const Container<std::list<T>, T>& other, const int count) : Container<std::list<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline List(const ContainerList& other, const int start, const int count) : ContainerList(other, start, count)
+		inline List(const Container<std::list<T>, T>& other, const int start, const int count) : Container<std::list<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline List(const T other[], const int count) : ContainerList(other, count)
+		inline List(const T other[], const int count) : Container<std::list<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline List(const T other[], const int start, const int count) : ContainerList(other, start, count)
+		inline List(const T other[], const int start, const int count) : Container<std::list<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Destructor.
@@ -101,7 +96,7 @@ namespace hltypes
 		/// @return The removed element.
 		inline T removeAt(int index)
 		{
-			return ContainerList::removeAt(index);
+			return Container<std::list<T>, T>::removeAt(index);
 		}
 		/// @brief Removes n elements at given index of List.
 		/// @param[in] index Start index of elements to remove.
@@ -116,7 +111,7 @@ namespace hltypes
 		/// @return The removed element.
 		inline T removeFirst()
 		{
-			return ContainerList::removeFirst();
+			return Container<std::list<T>, T>::removeFirst();
 		}
 		/// @brief Removes n elements from the beginning of List.
 		/// @param[in] count Number of elements to remove.
@@ -130,7 +125,7 @@ namespace hltypes
 		/// @return The removed element.
 		inline T removeLast()
 		{
-			return ContainerList::removeLast();
+			return Container<std::list<T>, T>::removeLast();
 		}
 		/// @brief Removes n elements from the end of List.
 		/// @param[in] count Number of elements to remove.
@@ -144,7 +139,7 @@ namespace hltypes
 		/// @return Random element.
 		inline T removeRandom()
 		{
-			return ContainerList::removeRandom();
+			return Container<std::list<T>, T>::removeRandom();
 		}
 		/// @brief Gets an List of random elements selected from this one and removes them.
 		/// @param[in] count Number of random elements.
@@ -158,7 +153,7 @@ namespace hltypes
 		/// @return Random element.
 		inline T random() const
 		{
-			return ContainerList::random();
+			return Container<std::list<T>, T>::random();
 		}
 		/// @brief Gets an List of random elements selected from this one.
 		/// @param[in] count Number of random elements.

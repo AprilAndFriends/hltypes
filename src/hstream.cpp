@@ -208,6 +208,16 @@ namespace hltypes
 		this->_updateDataSize();
 		return (*this);
 	}
+
+	Stream::operator unsigned char*() const
+	{
+		return &this->stream[0];
+	}
+
+	Stream::operator const unsigned char*() const
+	{
+		return &this->stream[0];
+	}
 	
 	void Stream::_updateDataSize()
 	{

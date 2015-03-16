@@ -21,68 +21,63 @@
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through an Array.
-#define foreach(type, name, container) for (std::vector< type >::iterator name = (container).begin(); name != (container).end(); ++name)
-#define foreachc(type, name, container) for (std::vector< type >::const_iterator name = (container).begin(); name != (container).end(); ++name)
+#define foreach(type, name, container) for (harray< type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreachc(type, name, container) for (harray< type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to reverse iterate through an Array.
-#define foreach_r(type, name, container) for (std::vector< type >::reverse_iterator name = (container).rbegin(); name != (container).rend(); ++name)
-#define foreachc_r(type, name, container) for (std::vector< type >::reverse_const_iterator name = (container).rbegin(); name != (container).rend(); ++name)
-/// @brief Alias for simpler code.
-#define ContainerArray Container<std::vector<T>, T>
+#define foreach_r(type, name, container) for (harray< type >::riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+#define foreachc_r(type, name, container) for (harray< type >::const_riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
 
 namespace hltypes
 {
 	/// @brief Encapsulates std::vector and adds high level methods.
 	template <class T>
-	class Array : public ContainerArray
+	class Array : public Container<std::vector<T>, T>
 	{
-	private:
-		typedef typename std::vector<T>::iterator iterator_t;
-		typedef typename std::vector<T>::const_iterator const_iterator_t;
 	public:
 		/// @brief Empty constructor.
-		inline Array() : ContainerArray()
+		inline Array() : Container<std::vector<T>, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Container to copy.
-		inline Array(const ContainerArray& other) : ContainerArray(other)
+		inline Array(const Container<std::vector<T>, T>& other) : Container<std::vector<T>, T>(other)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
-		inline Array(const T& element) : ContainerArray(element)
+		inline Array(const T& element) : Container<std::vector<T>, T>(element)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline Array(const T& element, int times) : ContainerArray(element, times)
+		inline Array(const T& element, int times) : Container<std::vector<T>, T>(element, times)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const ContainerArray& other, const int count) : ContainerArray(other, count)
+		inline Array(const Container<std::vector<T>, T>& other, const int count) : Container<std::vector<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const ContainerArray& other, const int start, const int count) : ContainerArray(other, start, count)
+		inline Array(const Container<std::vector<T>, T>& other, const int start, const int count) : Container<std::vector<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const T other[], const int count) : ContainerArray(other, count)
+		inline Array(const T other[], const int count) : Container<std::vector<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const T other[], const int start, const int count) : ContainerArray(other, start, count)
+		inline Array(const T other[], const int start, const int count) : Container<std::vector<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Destructor.
@@ -101,7 +96,7 @@ namespace hltypes
 		/// @return The removed element.
 		inline T removeAt(int index)
 		{
-			return ContainerArray::removeAt(index);
+			return Container<std::vector<T>, T>::removeAt(index);
 		}
 		/// @brief Removes n elements at given index of Array.
 		/// @param[in] index Start index of elements to remove.
@@ -116,7 +111,7 @@ namespace hltypes
 		/// @return The removed element.
 		inline T removeFirst()
 		{
-			return ContainerArray::removeFirst();
+			return Container<std::vector<T>, T>::removeFirst();
 		}
 		/// @brief Removes n elements from the beginning of Array.
 		/// @param[in] count Number of elements to remove.
@@ -130,7 +125,7 @@ namespace hltypes
 		/// @return The removed element.
 		inline T removeLast()
 		{
-			return ContainerArray::removeLast();
+			return Container<std::vector<T>, T>::removeLast();
 		}
 		/// @brief Removes n elements from the end of Array.
 		/// @param[in] count Number of elements to remove.
@@ -144,7 +139,7 @@ namespace hltypes
 		/// @return Random element.
 		inline T removeRandom()
 		{
-			return ContainerArray::removeRandom();
+			return Container<std::vector<T>, T>::removeRandom();
 		}
 		/// @brief Gets an Array of random elements selected from this one and removes them.
 		/// @param[in] count Number of random elements.
@@ -158,7 +153,7 @@ namespace hltypes
 		/// @return Random element.
 		inline T random() const
 		{
-			return ContainerArray::random();
+			return Container<std::vector<T>, T>::random();
 		}
 		/// @brief Gets an Array of random elements selected from this one.
 		/// @param[in] count Number of random elements.
@@ -442,6 +437,19 @@ namespace hltypes
 		inline Array<T> operator/(const Array<T>& other) const
 		{
 			return this->differentiated(other);
+		}
+
+		/// @brief Casts this Array into a C-array.
+		/// @return The C-array.
+		inline operator T*() const
+		{
+			return &this->operator[](0);
+		}
+		/// @brief Casts this Array into a C-array.
+		/// @return The C-array.
+		inline operator const T*() const
+		{
+			return &this->operator[](0);
 		}
 
 		// DEPRECATED
