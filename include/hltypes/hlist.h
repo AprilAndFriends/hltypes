@@ -200,6 +200,7 @@ namespace hltypes
 		/// @brief Creates a new List as union of this List with an element.
 		/// @param[in] element Element to unite with.
 		/// @return A new List.
+		/// @note Removes duplicates.
 		inline List<T> united(const T& element) const
 		{
 			return this->template _united<List<T> >(element);
@@ -207,6 +208,7 @@ namespace hltypes
 		/// @brief Creates a new List as union of this List with another one.
 		/// @param[in] other List to unite with.
 		/// @return A new List.
+		/// @note Removes duplicates.
 		inline List<T> united(const List<T>& other) const
 		{
 			return this->template _united<List<T> >(other);
@@ -214,6 +216,7 @@ namespace hltypes
 		/// @brief Creates a new List as intersection of this List with another one.
 		/// @param[in] other List to intersect with.
 		/// @return A new List.
+		/// @note Does not remove duplicates.
 		inline List<T> intersected(const List<T>& other) const
 		{
 			return this->template _intersected<List<T> >(other);
@@ -222,6 +225,7 @@ namespace hltypes
 		/// @param[in] other Element to differentiate with.
 		/// @return A new List.
 		/// @note Unlike remove, this method ignores if the element is not in this List.
+		/// @note Does not remove duplicates.
 		inline List<T> differentiated(const T& element) const
 		{
 			return this->template _differentiated<List<T> >(element);
@@ -230,6 +234,7 @@ namespace hltypes
 		/// @param[in] other List to differentiate with.
 		/// @return A new List.
 		/// @note Unlike remove, this method ignore elements of other List that are not in this one.
+		/// @note Does not remove duplicates.
 		inline List<T> differentiated(const List<T>& other) const
 		{
 			return this->template _differentiated<List<T> >(other);

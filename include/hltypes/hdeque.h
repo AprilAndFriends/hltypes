@@ -200,6 +200,7 @@ namespace hltypes
 		/// @brief Creates a new Deque as union of this Deque with an element.
 		/// @param[in] element Element to unite with.
 		/// @return A new Deque.
+		/// @note Removes duplicates.
 		inline Deque<T> united(const T& element) const
 		{
 			return this->template _united<Deque<T> >(element);
@@ -207,6 +208,7 @@ namespace hltypes
 		/// @brief Creates a new Deque as union of this Deque with another one.
 		/// @param[in] other Deque to unite with.
 		/// @return A new Deque.
+		/// @note Removes duplicates.
 		inline Deque<T> united(const Deque<T>& other) const
 		{
 			return this->template _united<Deque<T> >(other);
@@ -214,6 +216,7 @@ namespace hltypes
 		/// @brief Creates a new Deque as intersection of this Deque with another one.
 		/// @param[in] other Deque to intersect with.
 		/// @return A new Deque.
+		/// @note Does not remove duplicates.
 		inline Deque<T> intersected(const Deque<T>& other) const
 		{
 			return this->template _intersected<Deque<T> >(other);
@@ -222,6 +225,7 @@ namespace hltypes
 		/// @param[in] other Element to differentiate with.
 		/// @return A new Deque.
 		/// @note Unlike remove, this method ignores if the element is not in this Deque.
+		/// @note Does not remove duplicates.
 		inline Deque<T> differentiated(const T& element) const
 		{
 			return this->template _differentiated<Deque<T> >(element);
@@ -230,6 +234,7 @@ namespace hltypes
 		/// @param[in] other Deque to differentiate with.
 		/// @return A new Deque.
 		/// @note Unlike remove, this method ignore elements of other Deque that are not in this one.
+		/// @note Does not remove duplicates.
 		inline Deque<T> differentiated(const Deque<T>& other) const
 		{
 			return this->template _differentiated<Deque<T> >(other);
