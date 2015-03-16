@@ -586,7 +586,7 @@ namespace hltypes
 				indexesSize = indexes.size();
 				for_iter_r (j, indexesSize, 0)
 				{
-					STD::erase(this->_itAdvance(it, indexes[j]));
+					STD::erase(this->_itAdvance(it, indexes.at(j)));
 				}
 				count += indexesSize;
 			}
