@@ -200,6 +200,7 @@ namespace hltypes
 		/// @brief Creates a new Array as union of this Array with an element.
 		/// @param[in] element Element to unite with.
 		/// @return A new Array.
+		/// @note Removes duplicates.
 		inline Array<T> united(const T& element) const
 		{
 			return this->template _united<Array<T> >(element);
@@ -207,6 +208,7 @@ namespace hltypes
 		/// @brief Creates a new Array as union of this Array with another one.
 		/// @param[in] other Array to unite with.
 		/// @return A new Array.
+		/// @note Removes duplicates.
 		inline Array<T> united(const Array<T>& other) const
 		{
 			return this->template _united<Array<T> >(other);
@@ -214,6 +216,7 @@ namespace hltypes
 		/// @brief Creates a new Array as intersection of this Array with another one.
 		/// @param[in] other Array to intersect with.
 		/// @return A new Array.
+		/// @note Does not remove duplicates.
 		inline Array<T> intersected(const Array<T>& other) const
 		{
 			return this->template _intersected<Array<T> >(other);
@@ -222,6 +225,7 @@ namespace hltypes
 		/// @param[in] other Element to differentiate with.
 		/// @return A new Array.
 		/// @note Unlike remove, this method ignores if the element is not in this Array.
+		/// @note Does not remove duplicates.
 		inline Array<T> differentiated(const T& element) const
 		{
 			return this->template _differentiated<Array<T> >(element);
@@ -230,6 +234,7 @@ namespace hltypes
 		/// @param[in] other Array to differentiate with.
 		/// @return A new Array.
 		/// @note Unlike remove, this method ignore elements of other Array that are not in this one.
+		/// @note Does not remove duplicates.
 		inline Array<T> differentiated(const Array<T>& other) const
 		{
 			return this->template _differentiated<Array<T> >(other);

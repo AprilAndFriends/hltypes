@@ -698,20 +698,23 @@ namespace hltypes
 		}
 		/// @brief Unites elements of this Container with an element.
 		/// @param[in] element Element to unite with.
+		/// @note Removes duplicates.
 		inline void unite(const T& element)
 		{
 			this->insertAt(this->size(), element);
-			this->removeDuplicates();
+			this->removeDuplicates()
 		}
 		/// @brief Unites elements of this Container with another one.
 		/// @param[in] other Container to unite with.
+		/// @note Removes duplicates.
 		inline void unite(const Container& other)
 		{
 			this->insertAt(this->size(), other);
-			this->removeDuplicates();
+			this->removeDuplicates()
 		}
 		/// @brief Intersects elements of this Container with another one.
 		/// @param[in] other Container to intersect with.
+		/// @note Does not remove duplicates.
 		inline void intersect(const Container& other)
 		{
 			Container result;
@@ -723,12 +726,12 @@ namespace hltypes
 					result.add(this->at(i));
 				}
 			}
-			result.removeDuplicates();
 			STD::assign(result.begin(), result.end());
 		}
 		/// @brief Differentiates elements of this Container with an element.
 		/// @param[in] other Element to differentiate with.
 		/// @note Unlike remove, this method ignores if the element is not in this Container.
+		/// @note Does not remove duplicates.
 		inline void differentiate(const T& element)
 		{
 			int index = 0;
@@ -745,6 +748,7 @@ namespace hltypes
 		/// @brief Differentiates elements of this Container with another one.
 		/// @param[in] other Container to differentiate with.
 		/// @note Unlike remove, this method ignores elements of other Container that are not in this one.
+		/// @note Does not remove duplicates.
 		inline void differentiate(const Container& other)
 		{
 			int index = 0;
@@ -1090,6 +1094,7 @@ namespace hltypes
 		/// @brief Creates a new Container as union of this Container with an element.
 		/// @param[in] element Element to unite with.
 		/// @return A new Container.
+		/// @note Removes duplicates.
 		template <class R>
 		inline R _united(const T& element) const
 		{
@@ -1100,6 +1105,7 @@ namespace hltypes
 		/// @brief Creates a new Container as union of this Container with another one.
 		/// @param[in] other Container to unite with.
 		/// @return A new Container.
+		/// @note Removes duplicates.
 		template <class R>
 		inline R _united(const R& other) const
 		{
@@ -1110,6 +1116,7 @@ namespace hltypes
 		/// @brief Creates a new Container as intersection of this Container with another one.
 		/// @param[in] other Container to intersect with.
 		/// @return A new Container.
+		/// @note Does not remove duplicates.
 		template <class R>
 		inline R _intersected(const R& other) const
 		{
@@ -1121,6 +1128,7 @@ namespace hltypes
 		/// @param[in] other Element to differentiate with.
 		/// @return A new Container.
 		/// @note Unlike remove, this method ignores if the element is not in this Container.
+		/// @note Does not remove duplicates.
 		template <class R>
 		inline R _differentiated(const T& element) const
 		{
@@ -1132,6 +1140,7 @@ namespace hltypes
 		/// @param[in] other Container to differentiate with.
 		/// @return A new Container.
 		/// @note Unlike remove, this method ignore elements of other Container that are not in this one.
+		/// @note Does not remove duplicates.
 		template <class R>
 		inline R _differentiated(const R& other) const
 		{
