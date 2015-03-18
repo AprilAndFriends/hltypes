@@ -103,6 +103,12 @@ namespace hltypes
 		Stream& operator=(Stream& other);
 		/// @brief Casts this Array into a C-array.
 		/// @return The C-array.
+		operator char*() const;
+		/// @brief Casts this Array into a C-array.
+		/// @return The C-array.
+		operator const char*() const;
+		/// @brief Casts this Array into a C-array.
+		/// @return The C-array.
 		operator unsigned char*() const;
 		/// @brief Casts this Array into a C-array.
 		/// @return The C-array.
