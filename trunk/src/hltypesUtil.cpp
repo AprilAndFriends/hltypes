@@ -425,7 +425,7 @@ void createCrc32Table()
 	crc32TableCreated = true;
 }
 
-unsigned int hcrc32(unsigned char* data, unsigned int size)
+unsigned int hcrc32(const unsigned char* data, unsigned int size)
 {
 	createCrc32Table();
 	unsigned int crc = 0xFFFFFFFF;
@@ -463,11 +463,11 @@ unsigned int hcrc32(hltypes::StreamBase* stream)
 
 unsigned int hcrc32(hltypes::Stream* stream, unsigned int size)
 {
-	return hcrc32(&stream[(int)stream->position()], hmin(size, (unsigned int)(stream->size() - stream->position())));
+	return hcrc32(&stream->operator[]((int)stream->position()), hmin(size, (unsigned int)(stream->size() - stream->position())));
 }
 
 unsigned int hcrc32(hltypes::Stream* stream)
 {
-	return hcrc32(&stream[(int)stream->position()], (unsigned int)(stream->size() - stream->position()));
+	return hcrc32(&stream->operator[]((int)stream->position()), (unsigned int)(stream->size() - stream->position()));
 }
 
