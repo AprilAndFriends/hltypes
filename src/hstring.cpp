@@ -694,7 +694,7 @@ namespace hltypes
 			Log::warn(hltypes::logTag, "Parameter 'count' in utf8_substr() is out of bounds in string: " + *this);
 		}
 #endif
-		return String((const char*)&string[startSize], i - startSize);
+		return String((char*)&string[startSize], i - startSize);
 	}
 	
 	int String::size() const
