@@ -446,7 +446,7 @@ namespace hltypes
 
 		/// @brief Casts this Array into a C-array.
 		/// @return The C-array.
-		inline operator T*() const
+		inline operator T*()
 		{
 			return &this->operator[](0);
 		}
