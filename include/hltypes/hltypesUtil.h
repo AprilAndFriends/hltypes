@@ -437,7 +437,7 @@ hltypesFnExport int64_t hpotfloor(int64_t value);
 /// @param[in] data Data stream.
 /// @param[in] size Size of the data stream.
 /// @return CRC32 value of the stream.
-hltypesFnExport unsigned int hcrc32(unsigned char* data, unsigned int size);
+hltypesFnExport unsigned int hcrc32(const unsigned char* data, unsigned int size);
 /// @brief Calculates CRC32 from a StreamBase.
 /// @param[in] stream StreamBase from which to calculate the CRC32.
 /// @param[in] size Number of bytes to read for CRC32.
