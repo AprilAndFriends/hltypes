@@ -204,9 +204,19 @@ namespace hltypes
 		this->streamPosition = other.streamPosition;
 		this->setCapacity((int)other.capacity);
 		// using malloc because realloc is used later
-		memcpy(this->stream, &other[0], (int)other.dataSize);
+		memcpy(this->stream, (unsigned char*)other, (int)other.dataSize);
 		this->_updateDataSize();
 		return (*this);
+	}
+
+	Stream::operator char*() const
+	{
+		return (char*)&this->stream[0];
+	}
+
+	Stream::operator const char*() const
+	{
+		return (const char*)&this->stream[0];
 	}
 
 	Stream::operator unsigned char*() const
@@ -218,7 +228,7 @@ namespace hltypes
 	{
 		return &this->stream[0];
 	}
-	
+
 	void Stream::_updateDataSize()
 	{
 		this->dataSize = this->streamSize;
