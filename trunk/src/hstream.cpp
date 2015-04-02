@@ -50,7 +50,14 @@ namespace hltypes
 
 	Stream::Stream(const Stream& other) : StreamBase()
 	{
-		this->operator=((Stream&)other);
+		// must not used assignement operator due to uninitialized class
+		this->capacity = other.capacity;
+		this->streamSize = other.streamSize;
+		this->streamPosition = other.streamPosition;
+		// using malloc because realloc is used later
+		this->stream = (unsigned char*)malloc((int)this->capacity);
+		memcpy(this->stream, (unsigned char*)other, (int)other.streamSize);
+		this->_updateDataSize();
 	}
 
 	Stream::~Stream()
