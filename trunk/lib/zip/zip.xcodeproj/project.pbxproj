@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D18B432E1AD52ABB00406310 /* zlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18B432D1AD52ABB00406310 /* zlib.framework */; };
 		D197C49915ED04200017452F /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = D197C49615ED04200017452F /* config.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D197C49A15ED04200017452F /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = D197C49715ED04200017452F /* zip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D197C49B15ED04200017452F /* zipint.h in Headers */ = {isa = PBXBuildFile; fileRef = D197C49815ED04200017452F /* zipint.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -118,7 +119,6 @@
 		D197C53B15ED042D0017452F /* zip_unchange_data.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C4D015ED042D0017452F /* zip_unchange_data.c */; };
 		D197C53C15ED042D0017452F /* zip_unchange.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C4D115ED042D0017452F /* zip_unchange.c */; };
 		D197C53D15ED042D0017452F /* zip_unchange.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C4D115ED042D0017452F /* zip_unchange.c */; };
-		D197C54015ED04880017452F /* zlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D197C53F15ED04880017452F /* zlib.framework */; };
 		D1F278C0177A28C500E5C131 /* mkstemp.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C49C15ED042D0017452F /* mkstemp.c */; };
 		D1F278C1177A28C500E5C131 /* zip_add_dir.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C49D15ED042D0017452F /* zip_add_dir.c */; };
 		D1F278C2177A28C500E5C131 /* zip_add.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C49E15ED042D0017452F /* zip_add.c */; };
@@ -180,6 +180,7 @@
 		8D07F2C80486CC7A007CD1D0 /* zip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = zip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1681B7E18D763850088FC68 /* iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = iOS.xcconfig; path = xcconfig/iOS.xcconfig; sourceTree = "<group>"; };
 		D1681B7F18D763850088FC68 /* Mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Mac.xcconfig; path = xcconfig/Mac.xcconfig; sourceTree = "<group>"; };
+		D18B432D1AD52ABB00406310 /* zlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = zlib.framework; path = ../../../__build__/products/Debug/zlib.framework; sourceTree = "<group>"; };
 		D197C49615ED04200017452F /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		D197C49715ED04200017452F /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		D197C49815ED04200017452F /* zipint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zipint.h; sourceTree = "<group>"; };
@@ -237,7 +238,6 @@
 		D197C4CF15ED042D0017452F /* zip_unchange_archive.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip_unchange_archive.c; sourceTree = "<group>"; };
 		D197C4D015ED042D0017452F /* zip_unchange_data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip_unchange_data.c; sourceTree = "<group>"; };
 		D197C4D115ED042D0017452F /* zip_unchange.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip_unchange.c; sourceTree = "<group>"; };
-		D197C53F15ED04880017452F /* zlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = zlib.framework; path = ../../__build__/products/Debug/zlib.framework; sourceTree = "<group>"; };
 		D1BB6F2E150E99EE00EF9400 /* libzip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libzip.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1F278FE177A28C500E5C131 /* libzip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libzip.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -247,7 +247,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D197C54015ED04880017452F /* zlib.framework in Frameworks */,
+				D18B432E1AD52ABB00406310 /* zlib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,7 +382,7 @@
 		D197C54115ED048F0017452F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D197C53F15ED04880017452F /* zlib.framework */,
+				D18B432D1AD52ABB00406310 /* zlib.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -703,6 +703,10 @@
 			baseConfigurationReference = D1681B7F18D763850088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kreso/projects/strix/__build__/products/Debug,
+				);
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				PRODUCT_NAME = zip;
@@ -731,6 +735,10 @@
 			baseConfigurationReference = D1681B7F18D763850088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kreso/projects/strix/__build__/products/Debug,
+				);
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				PRODUCT_NAME = zip;
@@ -755,6 +763,10 @@
 			baseConfigurationReference = D1681B7F18D763850088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kreso/projects/strix/__build__/products/Debug,
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
