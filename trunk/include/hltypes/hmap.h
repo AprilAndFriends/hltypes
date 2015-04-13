@@ -19,35 +19,38 @@
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a Map.
-#define foreach_map(type_key, type_value, name, container) for (std::map< type_key, type_value >::iterator name = container.begin(); name != container.end(); ++name)
-#define foreachc_map(type_key, type_value, name, container) for (std::map< type_key, type_value >::const_iterator name = container.begin(); name != container.end(); ++name)
+#define foreach_map(type_key, type_value, name, container) for (hltypes::Map< type_key, type_value >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreachc_map(type_key, type_value, name, container) for (hltypes::Map< type_key, type_value >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to iterate through a Map with String as key.
-#define foreach_m(type, name, container) for (std::map< hltypes::String, type >::iterator name = container.begin(); name != container.end(); ++name)
-#define foreachc_m(type, name, container) for (std::map< hltypes::String, type >::const_iterator name = container.begin(); name != container.end(); ++name)
+#define foreach_m(type, name, container) for (hltypes::Map< hltypes::String, type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreachc_m(type, name, container) for (hltypes::Map< hltypes::String, type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
-#define __foreach_this_map_it(name) for (iterator_map_t name = stdmap::begin(); name != stdmap::end(); ++name)
+#define __foreach_this_map_it(name) for (const_iterator_t name = this->begin(); name != this->end(); ++name)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
-#define __foreach_other_map_it(name, other) for (iterator_map_t name = other.begin(); name != other.end(); ++name)
-/// @brief Alias for simpler code.
-#define stdmap std::map<K, V>
+#define __foreach_other_map_it(name, other) for (const_iterator_t name = other.begin(); name != other.end(); ++name)
 
 namespace hltypes
 {
 	/// @brief Encapsulates std::map and adds high level methods.
 	template <class K, class V>
-	class Map : public stdmap
+	class Map : public std::map<K, V>
 	{
-	private:
-		typedef typename stdmap::const_iterator iterator_map_t;
-		typedef typename std::vector<K>::const_iterator iterator_map_key_t;
 	public:
+		/// @brief Iterator type exposure.
+		typedef typename std::map<K, V>::iterator iterator_t;
+		/// @brief Iterator type exposure.
+		typedef typename std::map<K, V>::const_iterator const_iterator_t;
+		/// @brief Iterator type exposure.
+		typedef typename std::vector<K>::iterator kiterator_t;
+		/// @brief Iterator type exposure.
+		typedef typename std::vector<K>::const_iterator const_kiterator_t;
 		/// @brief Empty constructor.
-		inline Map() : stdmap()
+		inline Map() : std::map<K, V>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Map to copy.
-		inline Map(const Map<K, V>& other) : stdmap(other)
+		inline Map(const Map<K, V>& other) : std::map<K, V>(other)
 		{
 		}
 		/// @brief Destructor.
@@ -59,7 +62,7 @@ namespace hltypes
 		/// @return Value with specified key.
 		inline V& operator[](const K& key)
 		{
-			return stdmap::operator[](key);
+			return std::map<K, V>::operator[](key);
 		}
 		/// @brief Same as key_of.
 		/// @see key_of
@@ -83,7 +86,7 @@ namespace hltypes
 		/// @return The number of values in the Map.
 		inline int size() const
 		{
-			return (int)stdmap::size();
+			return (int)std::map<K, V>::size();
 		}
 		/// @brief Returns an Array with all keys.
 		/// @return An Array with all keys.
@@ -112,9 +115,9 @@ namespace hltypes
 		inline Array<V> values(Array<K> keys)
 		{
 			Array<V> result;
-			for (iterator_map_key_t it = keys.begin(); it != keys.end(); ++it) // don't change, requires a const iterator
+			for (const_kiterator_t it = keys.begin(); it != keys.end(); ++it) // don't change, requires a const iterator
 			{
-				result += stdmap::operator[](*it);
+				result += std::map<K, V>::operator[](*it);
 			}
 			return result;
 		}
@@ -178,31 +181,31 @@ namespace hltypes
 					return it->first;
 				}
 			}
-			return stdmap::end()->first;
+			return std::map<K, V>::end()->first;
 		}
 		/// @brief Returns value of specified key.
 		/// @param[in] key Key of the given value.
 		/// @return Value of specified key.
 		inline V valueOf(const K& key) const
 		{
-			return stdmap::find(key)->second;
+			return std::map<K, V>::find(key)->second;
 		}
 		/// @brief Checks for existence of a key.
 		/// @param[in] key Key to check.
 		/// @return True if key is present.
 		inline bool hasKey(const K& key) const
 		{
-			return (stdmap::find(key) != stdmap::end());
+			return (std::map<K, V>::find(key) != std::map<K, V>::end());
 		}
 		/// @brief Checks for existence of a key within an Array of keys.
 		/// @param[in] keys Array of keys to check.
 		/// @return True if any key is present.
 		inline bool hasAnyKey(const Array<K>& keys) const
 		{
-			iterator_map_t end = stdmap::end();
+			const_iterator_t end = std::map<K, V>::end();
 			for_iter (i, 0, keys.size())
 			{
-				if (stdmap::find(keys.at(i)) != end)
+				if (std::map<K, V>::find(keys.at(i)) != end)
 				{
 					return true;
 				}
@@ -215,10 +218,10 @@ namespace hltypes
 		/// @return True if any key is present.
 		inline bool hasAnyKey(const K keys[], const int count) const
 		{
-			iterator_map_t end = stdmap::end();
+			const_iterator_t end = std::map<K, V>::end();
 			for_iter (i, 0, count)
 			{
-				if (stdmap::find(keys[i]) != end)
+				if (std::map<K, V>::find(keys[i]) != end)
 				{
 					return true;
 				}
@@ -230,10 +233,10 @@ namespace hltypes
 		/// @return True if all keys are present.
 		inline bool hasAllKeys(const Array<K>& keys) const
 		{
-			iterator_map_t end = stdmap::end();
+			const_iterator_t end = std::map<K, V>::end();
 			for_iter (i, 0, keys.size())
 			{
-				if (stdmap::find(keys.at(i)) == end)
+				if (std::map<K, V>::find(keys.at(i)) == end)
 				{
 					return false;
 				}
@@ -246,10 +249,10 @@ namespace hltypes
 		/// @return True if all keys are present.
 		inline bool hasAllKeys(const K keys[], const int count) const
 		{
-			iterator_map_t end = stdmap::end();
+			const_iterator_t end = std::map<K, V>::end();
 			for_iter (i, 0, count)
 			{
-				if (stdmap::find(keys[i]) == end)
+				if (std::map<K, V>::find(keys[i]) == end)
 				{
 					return false;
 				}
@@ -333,14 +336,14 @@ namespace hltypes
 		/// @param[in] value Value of the entry.
 		inline void insert(const K& key, const V& value)
 		{
-			stdmap::operator[](key) = value;
+			std::map<K, V>::operator[](key) = value;
 		}
 		/// @brief Adds all pairs of keys and values from another Map into this one.
 		/// @param[in] other Another Map.
 		/// @note Entries with already existing keys will not be overwritten.
 		inline void insert(const Map<K, V>& other)
 		{
-			stdmap::insert(other.begin(), other.end());
+			std::map<K, V>::insert(other.begin(), other.end());
 		}
 		/// @brief Adds all pairs of keys and values from another Map into this one.
 		/// @param[in] other Another Map.
@@ -349,7 +352,7 @@ namespace hltypes
 		{
 			__foreach_other_map_it(it, other)
 			{
-				stdmap::operator[](it->first) = it->second;
+				std::map<K, V>::operator[](it->first) = it->second;
 			}
 		}
 		/// @brief Removes a pair of key and value specified by a key.
@@ -359,7 +362,7 @@ namespace hltypes
 		{
 			if (this->hasKey(key))
 			{
-				stdmap::erase(key);
+				std::map<K, V>::erase(key);
 				return true;
 			}
 			return false;
@@ -374,7 +377,7 @@ namespace hltypes
 			{
 				if (this->hasKey(keys.at(i)))
 				{
-					stdmap::erase(keys.at(i));
+					std::map<K, V>::erase(keys.at(i));
 					++result;
 				}
 			}
@@ -388,7 +391,7 @@ namespace hltypes
 			if (this->hasValue(value))
 			{
 				K result = this->keyOf(value);
-				stdmap::erase(result);
+				std::map<K, V>::erase(result);
 				return true;
 			}
 			return false;
@@ -405,7 +408,7 @@ namespace hltypes
 				{
 					if (it->second == values.at(i))
 					{
-						stdmap::erase(it->first);
+						std::map<K, V>::erase(it->first);
 						++result;
 						break;
 					}
@@ -425,7 +428,7 @@ namespace hltypes
 			K key = this->keys()[hrand(this->size())];
 			if (value != NULL)
 			{
-				*value = stdmap::find(key)->second;
+				*value = std::map<K, V>::find(key)->second;
 			}
 			return key;
 		}
@@ -446,7 +449,7 @@ namespace hltypes
 				for_iter (i, 0, count)
 				{
 					key = keys.remove_at(hrand(keys.size()));
-					result[key] = stdmap::find(key)->second;
+					result[key] = std::map<K, V>::find(key)->second;
 				}
 			}
 			return result;
@@ -463,9 +466,9 @@ namespace hltypes
 			K key = this->keys()[hrand(this->size())];
 			if (value != NULL)
 			{
-				*value = stdmap::find(key);
+				*value = std::map<K, V>::find(key);
 			}
-			stdmap::erase(key);
+			std::map<K, V>::erase(key);
 			return key;
 		}
 		/// @brief Gets a Map of random elements selected from this one and removes them.
@@ -485,8 +488,8 @@ namespace hltypes
 				for_iter (i, 0, count)
 				{
 					key = keys.remove_at(hrand(keys.size()));
-					result[key] = stdmap::find(key);
-					stdmap::erase(key);
+					result[key] = std::map<K, V>::find(key);
+					std::map<K, V>::erase(key);
 				}
 			}
 			return result;
@@ -612,7 +615,7 @@ namespace hltypes
 		/// @return Value stored at key or given default value.
 		inline V tryGet(K key, V defaultValue) const
 		{
-			return (this->hasKey(key) ? stdmap::find(key)->second : defaultValue);
+			return (this->hasKey(key) ? std::map<K, V>::find(key)->second : defaultValue);
 		}
 		/// @brief Same as insert.
 		/// @see insert(const Map<K, V>& other)
