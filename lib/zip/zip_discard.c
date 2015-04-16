@@ -1,6 +1,6 @@
 /*
-  zip_entry_new.c -- create and init struct zip_entry
-  Copyright (C) 1999-2007 Dieter Baron and Thomas Klausner
+  zip_discard.c -- discard and free struct zip
+  Copyright (C) 1999-2012 Dieter Baron and Thomas Klausner
 
   This file is part of libzip, a library to manipulate ZIP archives.
   The authors can be contacted at <libzip@nih.at>
@@ -39,40 +39,45 @@
 
 
 
-struct zip_entry *
-_zip_entry_new(struct zip *za)
+/* zip_discard:
+   frees the space allocated to a zipfile struct, and closes the
+   corresponding file. */
+
+void
+zip_discard(struct zip *za)
 {
-    struct zip_entry *ze;
-    if (!za) {
-	ze = (struct zip_entry *)malloc(sizeof(struct zip_entry));
-	if (!ze) {
-	    _zip_error_set(&za->error, ZIP_ER_MEMORY, 0);
-	    return NULL;
+    zip_uint64_t i;
+
+    if (za == NULL)
+	return;
+
+    if (za->zn)
+	free(za->zn);
+
+    if (za->zp)
+	fclose(za->zp);
+
+    free(za->default_password);
+    _zip_string_free(za->comment_orig);
+    _zip_string_free(za->comment_changes);
+
+    if (za->entry) {
+	for (i=0; i<za->nentry; i++)
+	    _zip_entry_finalize(za->entry+i);
+	free(za->entry);
+    }
+
+    for (i=0; i<za->nfile; i++) {
+	if (za->file[i]->error.zip_err == ZIP_ER_OK) {
+	    _zip_error_set(&za->file[i]->error, ZIP_ER_ZIPCLOSED, 0);
+	    za->file[i]->za = NULL;
 	}
     }
-    else {
-	if (za->nentry >= za->nentry_alloc-1) {
-	    za->nentry_alloc += 16;
-	    za->entry = (struct zip_entry *)realloc(za->entry,
-						    sizeof(struct zip_entry)
-						    * za->nentry_alloc);
-	    if (!za->entry) {
-		_zip_error_set(&za->error, ZIP_ER_MEMORY, 0);
-		return NULL;
-	    }
-	}
-	ze = za->entry+za->nentry;
-    }
 
-    ze->state = ZIP_ST_UNCHANGED;
+    _zip_error_fini(&za->error);
+    free(za->file);
+    
+    free(za);
 
-    ze->ch_filename = NULL;
-    ze->ch_comment = NULL;
-    ze->ch_comment_len = -1;
-    ze->source = NULL;
-
-    if (za)
-	za->nentry++;
-
-    return ze;
+    return;
 }

@@ -14,6 +14,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\zipint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\zip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\zipconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\..\mkstemp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -23,19 +37,25 @@
     <ClCompile Include="..\..\zip_add_dir.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\zip_add_entry.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\zip_close.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_delete.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\zip_dir_add.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\zip_dirent.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\zip_entry_free.c">
+    <ClCompile Include="..\..\zip_discard.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\zip_entry_new.c">
+    <ClCompile Include="..\..\zip_entry.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_err_str.c">
@@ -59,7 +79,19 @@
     <ClCompile Include="..\..\zip_error_to_str.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\zip_extra_field.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_extra_field_api.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\zip_fclose.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_fdopen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_file_add.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_file_error_clear.c">
@@ -68,7 +100,25 @@
     <ClCompile Include="..\..\zip_file_error_get.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\zip_file_get_comment.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_file_get_external_attributes.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\zip_file_get_offset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_file_rename.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_file_replace.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_file_set_comment.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_file_set_external_attributes.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_file_strerror.c">
@@ -80,13 +130,16 @@
     <ClCompile Include="..\..\zip_fopen.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\zip_fopen_encrypted.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\zip_fopen_index.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\zip_fread.c">
+    <ClCompile Include="..\..\zip_fopen_index_encrypted.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\zip_free.c">
+    <ClCompile Include="..\..\zip_fread.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_get_archive_comment.c">
@@ -95,10 +148,19 @@
     <ClCompile Include="..\..\zip_get_archive_flag.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\zip_get_compression_implementation.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_get_encryption_implementation.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\zip_get_file_comment.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_get_name.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_get_num_entries.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_get_num_files.c">
@@ -128,13 +190,31 @@
     <ClCompile Include="..\..\zip_set_archive_flag.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\zip_set_default_password.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\zip_set_file_comment.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_set_file_compression.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_set_name.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_source_buffer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_close.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_crc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_deflate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_error.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_source_file.c">
@@ -149,7 +229,31 @@
     <ClCompile Include="..\..\zip_source_function.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\zip_source_layered.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_open.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_pkware.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_pop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_read.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_stat.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_window.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\zip_source_zip.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zip_source_zip_new.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\zip_stat.c">
@@ -164,6 +268,9 @@
     <ClCompile Include="..\..\zip_strerror.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\zip_string.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\zip_unchange.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -176,19 +283,8 @@
     <ClCompile Include="..\..\zip_unchange_data.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\zipint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\zip.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\..\fileproperties.rc" />
+    <ClCompile Include="..\..\zip_utf-8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

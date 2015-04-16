@@ -1,6 +1,6 @@
 /*
-  zip_free.c -- free struct zip
-  Copyright (C) 1999-2007 Dieter Baron and Thomas Klausner
+  zip_file_set_external_attributes.c -- set external attributes for entry
+  Copyright (C) 2013 Dieter Baron and Thomas Klausner
 
   This file is part of libzip, a library to manipulate ZIP archives.
   The authors can be contacted at <libzip@nih.at>
@@ -31,51 +31,53 @@
   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
-
-#include <stdlib.h>
-
 #include "zipint.h"
 
-
-
-/* _zip_free:
-   frees the space allocated to a zipfile struct, and closes the
-   corresponding file. */
-
-void
-_zip_free(struct zip *za)
+int
+zip_file_set_external_attributes(struct zip *za, zip_uint64_t idx, zip_flags_t flags, zip_uint8_t opsys, zip_uint32_t attributes)
 {
-    int i;
+    struct zip_entry *e;
+    int changed;
+    zip_uint8_t unchanged_opsys;
+    zip_uint32_t unchanged_attributes;
 
-    if (za == NULL)
-	return;
+    if (_zip_get_dirent(za, idx, 0, NULL) == NULL)
+	return -1;
 
-    if (za->zn)
-	free(za->zn);
-
-    if (za->zp)
-	fclose(za->zp);
-
-    _zip_cdir_free(za->cdir);
-
-    if (za->entry) {
-	for (i=0; i<za->nentry; i++) {
-	    _zip_entry_free(za->entry+i);
-	}
-	free(za->entry);
+    if (ZIP_IS_RDONLY(za)) {
+	_zip_error_set(&za->error, ZIP_ER_RDONLY, 0);
+	return -1;
     }
 
-    for (i=0; i<za->nfile; i++) {
-	if (za->file[i]->error.zip_err == ZIP_ER_OK) {
-	    _zip_error_set(&za->file[i]->error, ZIP_ER_ZIPCLOSED, 0);
-	    za->file[i]->za = NULL;
+    e = za->entry+idx;
+
+    unchanged_opsys = e->orig ? e->orig->version_madeby>>8 : ZIP_OPSYS_DEFAULT;
+    unchanged_attributes = e->orig ? e->orig->ext_attrib : ZIP_EXT_ATTRIB_DEFAULT;
+
+    changed = (opsys != unchanged_opsys || attributes != unchanged_attributes);
+
+    if (changed) {
+        if (e->changes == NULL) {
+            if ((e->changes=_zip_dirent_clone(e->orig)) == NULL) {
+                _zip_error_set(&za->error, ZIP_ER_MEMORY, 0);
+                return -1;
+            }
+        }
+        e->changes->version_madeby = (opsys << 8) | (e->changes->version_madeby & 0xff);
+	e->changes->ext_attrib = attributes;
+        e->changes->changed |= ZIP_DIRENT_ATTRIBUTES;
+    }
+    else if (e->changes) {
+	e->changes->changed &= ~ZIP_DIRENT_ATTRIBUTES;
+	if (e->changes->changed == 0) {
+	    _zip_dirent_free(e->changes);
+	    e->changes = NULL;
+	}
+	else {
+	    e->changes->version_madeby = (unchanged_opsys << 8) | (e->changes->version_madeby & 0xff);
+	    e->changes->ext_attrib = unchanged_attributes;
 	}
     }
 
-    free(za->file);
-    
-    free(za);
-
-    return;
+    return 0;
 }
