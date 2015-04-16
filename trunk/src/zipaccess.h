@@ -23,13 +23,14 @@ namespace hltypes
 		void setArchive(const String& value);
 		void* open(Resource* resource);
 		void close(Resource* resource, void* archive);
-		void* fopen(void* archivefile, const String& filename);
+		void* fopen(void* archiveFile, const String& filename);
 		void fclose(void* file);
+		bool fseek(void* file, int64_t offset, StreamBase::SeekMode mode);
+		int64_t fposition(void* file);
 		int fread(void* file, void* buffer, int count);
-		int64_t fsize(void* archivefile, const String& filename);
-		void* freopen(void* file, void* archivefile, const String& filename);
-		Array<String> getFiles(void* archivefile);
-		FileInfo finfo(void* archivefile, const String& filename);
+		Array<String> getDirectories(void* archiveFile);
+		Array<String> getFiles(void* archiveFile);
+		FileInfo finfo(void* archiveFile, const String& filename);
 
 	}
 

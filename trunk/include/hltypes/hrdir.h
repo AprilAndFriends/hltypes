@@ -78,10 +78,6 @@ namespace hltypes
 		/// @param[in] prefix Prefix to check.
 		/// @return True if prefix matches.
 		static bool _checkDirPrefix(String& path, const String& prefix);
-		/// @brief Gets the file listing within the resource archive.
-		/// @return True File listing within the resource archive.
-		/// @note This is usually only used when ZIP resources are being used.
-		static Array<String> _getInternalFiles();
 		/// @brief Removes CWD from resource paths.
 		/// @param[in] paths The resource paths.
 		/// @return Resource paths without the CWD.
