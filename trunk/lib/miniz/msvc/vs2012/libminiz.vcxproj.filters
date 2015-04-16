@@ -14,7 +14,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\miniz.c">
+    <ClCompile Include="..\..\miniz.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

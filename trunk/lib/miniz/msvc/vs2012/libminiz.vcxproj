@@ -62,7 +62,7 @@
   <Import Project="..\..\..\..\msvc\vs2012\props-generic\build-defaults.props" />
   <Import Project="props\configuration.props" />
   <ItemGroup>
-    <ClCompile Include="..\..\miniz.c" />
+    <ClCompile Include="..\..\miniz.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

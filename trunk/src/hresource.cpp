@@ -19,13 +19,9 @@
 
 namespace hltypes
 {
-#if defined(_ZIPRESOURCE) && defined(_ANDROID)
-	String Resource::cwd = "assets";
-#else
-	String Resource::cwd = ".";
-#endif
-	String Resource::archive = "";
 	bool Resource::zipArchive = false;
+	String Resource::cwd = ".";
+	String Resource::archive = "";
 
 	void Resource::setArchive(const String& value)
 	{
@@ -52,13 +48,13 @@ namespace hltypes
 #endif
 	}
 
-	Resource::Resource(const String& filename) : FileBase(filename), dataPosition(0), archivefile(NULL)
+	Resource::Resource(const String& filename) : FileBase(filename), dataPosition(0), archiveFile(NULL)
 	{
 		hlog::warnf(hltypes::logTag, "Opening file '%s' in hresource constructor is deprecated and unsafe! Use hresource::open() instead.", filename.cStr());
 		this->open(this->filename);
 	}
 	
-	Resource::Resource() : FileBase(), dataPosition(0), archivefile(NULL)
+	Resource::Resource() : FileBase(), dataPosition(0), archiveFile(NULL)
 	{
 	}
 
@@ -84,17 +80,17 @@ namespace hltypes
 			int attempts = Resource::repeats + 1;
 			while (true)
 			{
-				this->archivefile = zip::open(this);
-				if (this->archivefile != NULL)
+				this->archiveFile = zip::open(this);
+				if (this->archiveFile != NULL)
 				{
-					this->cfile = zip::fopen(this->archivefile, Resource::makeFullPath(this->filename));
+					this->cfile = zip::fopen(this->archiveFile, Resource::makeFullPath(this->filename));
 					if (this->cfile != NULL)
 					{
 						break;
 					}
 					// file wasn't found so let's rather close the archive
-					zip::close(this, this->archivefile);
-					this->archivefile = NULL;
+					zip::close(this, this->archiveFile);
+					this->archiveFile = NULL;
 				}
 				--attempts;
 				if (attempts <= 0)
@@ -103,7 +99,7 @@ namespace hltypes
 				}
 				Thread::sleep(Resource::timeout);
 			}
-			if (this->archivefile == NULL)
+			if (this->archiveFile == NULL)
 			{
 				throw ResourceFileCouldNotOpenException(this->_descriptor());
 			}
@@ -130,10 +126,10 @@ namespace hltypes
 				zip::fclose(this->cfile);
 				this->cfile = NULL;
 			}
-			if (this->archivefile != NULL)
+			if (this->archiveFile != NULL)
 			{
-				zip::close(this, this->archivefile);
-				this->archivefile = NULL;
+				zip::close(this, this->archiveFile);
+				this->archiveFile = NULL;
 			}
 			this->dataSize = 0;
 			this->dataPosition = 0;
@@ -158,7 +154,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			this->dataSize = zip::finfo(this->archivefile, this->filename).size;
+			this->dataSize = zip::finfo(this->archiveFile, Resource::makeFullPath(this->filename)).size;
 			return;
 		}
 #endif
@@ -188,7 +184,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			return (this->archivefile != NULL && this->cfile != NULL);
+			return (this->archiveFile != NULL && this->cfile != NULL);
 		}
 #endif
 		return this->_fisOpen();
