@@ -9,10 +9,14 @@
 #define HAVE_DLFCN_H 1
 
 /* Define to 1 if you have the `fseeko' function. */
+#ifndef _WIN32
 #define HAVE_FSEEKO 1
+#endif
 
 /* Define to 1 if you have the `ftello' function. */
+#ifndef _WIN32
 #define HAVE_FTELLO 1
+#endif
 
 /* Define to 1 if you have the `getopt' function. */
 #define HAVE_GETOPT 1
@@ -39,19 +43,25 @@
 #define HAVE_MEMORY_H 1
 
 /* Define to 1 if you have the `mkstemp' function. */
+#ifndef _WIN32
 #define HAVE_MKSTEMP 1
+#endif
 
 /* Define to 1 if you have the `MoveFileExA' function. */
 /* #undef HAVE_MOVEFILEEXA */
 
 /* Define to 1 if you have the `open' function. */
+#ifndef _WIN32
 #define HAVE_OPEN 1
+#endif
 
 /* Define to 1 if you have the `snprintf' function. */
 #define HAVE_SNPRINTF 1
 
 /* Define to 1 if the system has the type `ssize_t'. */
+#ifndef _WIN32
 #define HAVE_SSIZE_T 1
+#endif
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -60,19 +70,29 @@
 #define HAVE_STDLIB_H 1
 
 /* Define to 1 if you have the `strcasecmp' function. */
+#ifndef _WIN32
 #define HAVE_STRCASECMP 1
+#else
+#define HAVE__STRICMP 1
+#endif
 
 /* Define to 1 if you have the `strdup' function. */
+#ifndef _WIN32
 #define HAVE_STRDUP 1
+#endif
 
 /* Define to 1 if you have the <strings.h> header file. */
+#ifndef _WIN32
 #define HAVE_STRINGS_H 1
+#endif
 
 /* Define to 1 if you have the <string.h> header file. */
 #define HAVE_STRING_H 1
 
 /* Define to 1 if `tm_zone' is a member of `struct tm'. */
+#ifndef _WIN32
 #define HAVE_STRUCT_TM_TM_ZONE 1
+#endif
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
@@ -101,35 +121,53 @@
 #define HAVE_UINT8_T 1
 
 /* Define to 1 if you have the <unistd.h> header file. */
+#ifndef _WIN32
 #define HAVE_UNISTD_H 1
+#endif
 
 /* Define to 1 or 0, depending whether the compiler supports simple visibility
    declarations. */
 #define HAVE_VISIBILITY 1
 
 /* Define to 1 if you have the `_close' function. */
-/* #undef HAVE__CLOSE */
+#ifdef _WIN32
+#define HAVE__CLOSE
+#endif
 
 /* Define to 1 if you have the `_dup' function. */
-/* #undef HAVE__DUP */
+#ifdef _WIN32
+#define HAVE__DUP 1
+#endif
 
 /* Define to 1 if you have the `_fdopen' function. */
-/* #undef HAVE__FDOPEN */
+#ifdef _WIN32
+#define HAVE__FDOPEN 1
+#endif
 
 /* Define to 1 if you have the `_fileno' function. */
-/* #undef HAVE__FILENO */
+#ifdef _WIN32
+#define HAVE__FILENO 1
+#endif
 
 /* Define to 1 if you have the `_open' function. */
-/* #undef HAVE__OPEN */
+#ifdef _WIN32
+#define HAVE__OPEN 1
+#endif
 
 /* Define to 1 if you have the `_snprintf' function. */
-/* #undef HAVE__SNPRINTF */
+#ifdef _WIN32
+#define HAVE__SNPRINTF 1
+#endif
 
 /* Define to 1 if you have the `_strdup' function. */
-/* #undef HAVE__STRDUP */
+#ifdef _WIN32
+#define HAVE__STRDUP 1
+#endif
 
 /* Define to 1 if you have the `_stricmp' function. */
-/* #undef HAVE__STRICMP */
+#ifdef _WIN32
+#define HAVE__STRICMP 1
+#endif
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
