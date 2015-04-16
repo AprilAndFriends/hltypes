@@ -78,6 +78,7 @@ namespace hltypes
 	
 	bool Stream::setCapacity(int newCapacity)
 	{
+		newCapacity = hmax(16, newCapacity); // not allowing less than 16 bytes
 		if (this->capacity != newCapacity)
 		{
 			unsigned char* newStream = (unsigned char*)realloc(this->stream, newCapacity);

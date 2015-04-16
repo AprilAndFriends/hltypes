@@ -8,10 +8,10 @@
       <PreprocessorDefinitions>_ZIPRESOURCE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link Condition="'$(Platform)'=='Win32'">
-      <AdditionalDependencies>libzip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libminiz.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Link Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86'">
-      <AdditionalDependencies>-lzip;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>-lminiz;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 </Project>

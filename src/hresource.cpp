@@ -19,13 +19,10 @@
 
 namespace hltypes
 {
-#ifndef _ZIPRESOURCE
-	String Resource::cwd = ".";
-#else
+#if defined(_ZIPRESOURCE) && defined(_ANDROID)
 	String Resource::cwd = "assets";
-#define READ_BUFFER_SIZE 65536
-#define READ_BUFFER_SIZE_X 16777216 // to avoid using something like INT32_MAX
-	static unsigned char _readBuffer[READ_BUFFER_SIZE] = {0};
+#else
+	String Resource::cwd = ".";
 #endif
 	String Resource::archive = "";
 	bool Resource::zipArchive = false;
@@ -128,10 +125,16 @@ namespace hltypes
 		if (Resource::zipArchive)
 		{
 			this->_validate();
-			zip::fclose(this->cfile);
-			this->cfile = NULL;
-			zip::close(this, this->archivefile);
-			this->archivefile = NULL;
+			if (this->cfile != NULL)
+			{
+				zip::fclose(this->cfile);
+				this->cfile = NULL;
+			}
+			if (this->archivefile != NULL)
+			{
+				zip::close(this, this->archivefile);
+				this->archivefile = NULL;
+			}
 			this->dataSize = 0;
 			this->dataPosition = 0;
 			return;
@@ -155,7 +158,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			this->dataSize = (int64_t)zip::fsize(this->archivefile, this->filename);
+			this->dataSize = zip::finfo(this->archivefile, this->filename).size;
 			return;
 		}
 #endif
@@ -196,7 +199,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			return this->dataPosition;
+			return zip::fposition(this->cfile);
 		}
 #endif
 		return this->_fposition();
@@ -207,64 +210,9 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
 		{
-			// zip can only read forward and doesn't really have seeking
-			int64_t target = offset;
-			switch (seekMode)
-			{
-			case CURRENT:
-				target = offset + this->dataPosition;
-				break;
-			case START:
-				target = offset;
-				break;
-			case END:
-				target = this->dataSize + offset;
-				break;
-			}
-			if (target >= this->dataPosition)
-			{
-				target -= this->dataPosition;
-			}
-			else
-			{
-				// reopening the file as the target position was already passed
-				this->cfile = zip::freopen(this->cfile, this->archivefile, Resource::makeFullPath(this->filename));
-				this->dataPosition = 0;
-			}
-			if (target > 0)
-			{
-				// seeking in a compressed stream is not possible so the data has to be read and then discarded
-				// the buffer can be static, because this data isn't used so there will be no threading problems
-				unsigned char* buffer = _readBuffer;
-				if (target > READ_BUFFER_SIZE)
-				{
-					// required for files over 2GB
-					if (target > READ_BUFFER_SIZE_X)
-					{
-						buffer = new unsigned char[READ_BUFFER_SIZE_X];
-					}
-					else
-					{
-						buffer = new unsigned char[(int)target];
-					}
-				}
-				int count = 0;
-				while (target > 0)
-				{
-					count = (int)hmin(target, (int64_t)READ_BUFFER_SIZE_X);
-					if (this->_read(buffer, count) == 0)
-					{
-						break;
-					}
-					target -= READ_BUFFER_SIZE_X;
-				}
-				if (target > READ_BUFFER_SIZE)
-				{
-					delete[] buffer;
-				}
-				return true;
-			}
-			return false;
+			bool result = zip::fseek(this->cfile, offset, seekMode);
+			this->dataPosition = zip::fposition(this->cfile);
+			return result;
 		}
 #endif
 		return this->_fseek(offset, seekMode);
