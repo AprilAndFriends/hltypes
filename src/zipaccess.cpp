@@ -9,7 +9,7 @@
 #ifdef _ZIPRESOURCE
 #include <stdio.h>
 #define MINIZ_HEADER_FILE_ONLY
-#include <miniz.c>
+#include <miniz.cpp>
 
 #include "harray.h"
 #include "hfbase.h"
@@ -19,8 +19,9 @@
 #include "hresource.h"
 #include "hstream.h"
 #include "hstring.h"
-
 #include "zipaccess.h"
+
+#include "hlog.h"
 
 #define FILENAME_BUFFER 8192
 
@@ -29,24 +30,24 @@ namespace hltypes
 	namespace zip
 	{
 		static Mutex access_mutex;
-		static Map<mz_zip_archive*, Array<Resource*> > activeHandles;
-		static mz_zip_archive* currentArchive = NULL;
+		static Map<miniz::mz_zip_archive*, Array<Resource*> > activeHandles;
+		static miniz::mz_zip_archive* currentArchive = NULL;
 
 		void setArchive(const String& value)
 		{
 			if (currentArchive != NULL && activeHandles[currentArchive].size() == 0)
 			{
-				mz_zip_reader_end(currentArchive);
+				miniz::mz_zip_reader_end(currentArchive);
 				activeHandles.removeKey(currentArchive);
 				delete currentArchive;
 				currentArchive = NULL;
 			}
-			Array<mz_zip_archive*> handles = activeHandles.keys();
-			foreach (mz_zip_archive*, it, handles)
+			Array<miniz::mz_zip_archive*> handles = activeHandles.keys();
+			foreach (miniz::mz_zip_archive*, it, handles)
 			{
 				if (activeHandles[*it].size() == 0)
 				{
-					mz_zip_reader_end(*it);
+					miniz::mz_zip_reader_end(*it);
 					activeHandles.removeKey(*it);
 					delete (*it);
 				}
@@ -62,8 +63,8 @@ namespace hltypes
 				{
 					return NULL;
 				}
-				currentArchive = new mz_zip_archive();
-				if (!mz_zip_reader_init_file(currentArchive, archive.cStr(), 0))
+				currentArchive = new miniz::mz_zip_archive();
+				if (!miniz::mz_zip_reader_init_file(currentArchive, archive.cStr(), 0))
 				{
 					delete currentArchive;
 					currentArchive = NULL;
@@ -77,13 +78,13 @@ namespace hltypes
 
 		void close(Resource* resource, void* archive)
 		{
-			mz_zip_archive* zipArchive = (mz_zip_archive*)archive;
+			miniz::mz_zip_archive* zipArchive = (miniz::mz_zip_archive*)archive;
 			Array<Resource*> references = activeHandles[zipArchive];
 			references -= resource;
 			activeHandles[zipArchive] = references;
 			if (currentArchive != zipArchive && references.size() == 0)
 			{
-				mz_zip_reader_end(zipArchive);
+				miniz::mz_zip_reader_end(zipArchive);
 				activeHandles.removeKey(zipArchive);
 				delete zipArchive;
 			}
@@ -99,7 +100,7 @@ namespace hltypes
 			Stream* stream = new Stream(size);
 			stream->prepareManualWriteRaw(size);
 			Mutex::ScopeLock lock(&access_mutex);
-			bool result = (mz_zip_reader_extract_file_to_mem((mz_zip_archive*)archiveFile, filename.cStr(), (unsigned char*)(*stream), size, 0) != MZ_FALSE);
+			bool result = (miniz::mz_zip_reader_extract_file_to_mem((miniz::mz_zip_archive*)archiveFile, filename.cStr(), (unsigned char*)(*stream), size, 0) != MZ_FALSE);
 			lock.release();
 			if (result)
 			{
@@ -136,15 +137,15 @@ namespace hltypes
 		Array<String> getDirectories(void* archiveFile)
 		{
 			Array<String> result;
-			mz_zip_archive* archive = (mz_zip_archive*)archiveFile;
-			int count = mz_zip_reader_get_num_files(archive);
+			miniz::mz_zip_archive* archive = (miniz::mz_zip_archive*)archiveFile;
+			int count = miniz::mz_zip_reader_get_num_files(archive);
 			char dirname[FILENAME_BUFFER] = { 0 };
 			unsigned int size = 0;
 			for_iter (i, 0, count)
 			{
-				if (mz_zip_reader_is_file_a_directory(archive, i))
+				if (miniz::mz_zip_reader_is_file_a_directory(archive, i))
 				{
-					size = mz_zip_reader_get_filename(archive, i, dirname, FILENAME_BUFFER - 1);
+					size = miniz::mz_zip_reader_get_filename(archive, i, dirname, FILENAME_BUFFER - 1);
 					if (size <= FILENAME_BUFFER - 1)
 					{
 						dirname[size] = '\0';
@@ -158,15 +159,15 @@ namespace hltypes
 		Array<String> getFiles(void* archiveFile)
 		{
 			Array<String> result;
-			mz_zip_archive* archive = (mz_zip_archive*)archiveFile;
-			int count = mz_zip_reader_get_num_files(archive);
+			miniz::mz_zip_archive* archive = (miniz::mz_zip_archive*)archiveFile;
+			int count = miniz::mz_zip_reader_get_num_files(archive);
 			char filename[FILENAME_BUFFER] = { 0 };
 			unsigned int size = 0;
 			for_iter (i, 0, count)
 			{
-				if (!mz_zip_reader_is_file_a_directory(archive, i))
+				if (!miniz::mz_zip_reader_is_file_a_directory(archive, i))
 				{
-					size = mz_zip_reader_get_filename(archive, i, filename, FILENAME_BUFFER - 1);
+					size = miniz::mz_zip_reader_get_filename(archive, i, filename, FILENAME_BUFFER - 1);
 					if (size <= FILENAME_BUFFER - 1)
 					{
 						filename[size] = '\0';
@@ -180,13 +181,13 @@ namespace hltypes
 		FileInfo finfo(void* archiveFile, const String& filename)
 		{
 			FileInfo info;
-			mz_zip_archive* zipArchive = (mz_zip_archive*)archiveFile;
+			miniz::mz_zip_archive* zipArchive = (miniz::mz_zip_archive*)archiveFile;
 			Mutex::ScopeLock lock(&access_mutex);
-			int index = mz_zip_reader_locate_file(zipArchive, filename.cStr(), "", MZ_ZIP_FLAG_CASE_SENSITIVE);
+			int index = miniz::mz_zip_reader_locate_file(zipArchive, filename.cStr(), "", miniz::MZ_ZIP_FLAG_CASE_SENSITIVE);
 			if (index >= 0)
 			{
-				mz_zip_archive_file_stat stat;
-				if (mz_zip_reader_file_stat(zipArchive, index, &stat))
+				miniz::mz_zip_archive_file_stat stat;
+				if (miniz::mz_zip_reader_file_stat(zipArchive, index, &stat))
 				{
 					info.size = stat.m_uncomp_size;
 					info.modificationTime = stat.m_time;

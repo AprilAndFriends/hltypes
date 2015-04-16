@@ -90,7 +90,7 @@ namespace hltypes
 		/// internal filename
 		hstr resourceFilename;
 		/// @brief OS archive file handle.
-		void* archivefile;
+		void* archiveFile;
 
 		/// @brief Defines the internal current working directory of a possible resource archive.
 		static String cwd;
