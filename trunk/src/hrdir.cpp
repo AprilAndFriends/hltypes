@@ -142,7 +142,7 @@ namespace hltypes
 				{
 					Array<String> files = zip::getFiles(a);
 					String current;
-					foreach(String, it, files)
+					foreach (String, it, files)
 					{
 						current = (*it);
 						if (ResourceDir::_checkDirPrefix(current, name) && current != "" && !current.contains('/'))
