@@ -134,26 +134,11 @@ namespace hltypes
 			return ((Stream*)file)->readRaw(buffer, count);
 		}
 
-		Array<String> getDirectories(void* archiveFile)
+		bool fexists(void* archiveFile, const String& filename)
 		{
-			Array<String> result;
 			miniz::mz_zip_archive* archive = (miniz::mz_zip_archive*)archiveFile;
-			int count = miniz::mz_zip_reader_get_num_files(archive);
-			char dirname[FILENAME_BUFFER] = { 0 };
-			unsigned int size = 0;
-			for_iter (i, 0, count)
-			{
-				if (miniz::mz_zip_reader_is_file_a_directory(archive, i))
-				{
-					size = miniz::mz_zip_reader_get_filename(archive, i, dirname, FILENAME_BUFFER - 1);
-					if (size <= FILENAME_BUFFER - 1)
-					{
-						dirname[size] = '\0';
-						result += String(dirname);
-					}
-				}
-			}
-			return result;
+			int index = miniz::mz_zip_reader_locate_file(archive, filename.cStr(), "", 0);
+			return (index >= 0 && !miniz::mz_zip_reader_is_file_a_directory(archive, index));
 		}
 
 		Array<String> getFiles(void* archiveFile)
@@ -165,14 +150,11 @@ namespace hltypes
 			unsigned int size = 0;
 			for_iter (i, 0, count)
 			{
-				if (!miniz::mz_zip_reader_is_file_a_directory(archive, i))
+				size = miniz::mz_zip_reader_get_filename(archive, i, filename, FILENAME_BUFFER - 1);
+				if (size <= FILENAME_BUFFER - 1)
 				{
-					size = miniz::mz_zip_reader_get_filename(archive, i, filename, FILENAME_BUFFER - 1);
-					if (size <= FILENAME_BUFFER - 1)
-					{
-						filename[size] = '\0';
-						result += String(filename);
-					}
+					filename[size] = '\0';
+					result += String(filename);
 				}
 			}
 			return result;

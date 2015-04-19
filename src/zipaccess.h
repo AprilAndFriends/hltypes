@@ -28,7 +28,7 @@ namespace hltypes
 		bool fseek(void* file, int64_t offset, StreamBase::SeekMode mode);
 		int64_t fposition(void* file);
 		int fread(void* file, void* buffer, int count);
-		Array<String> getDirectories(void* archiveFile);
+		bool fexists(void* archiveFile, const String& filename);
 		Array<String> getFiles(void* archiveFile);
 		FileInfo finfo(void* archiveFile, const String& filename);
 
