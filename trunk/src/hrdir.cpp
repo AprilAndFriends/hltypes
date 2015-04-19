@@ -93,23 +93,18 @@ namespace hltypes
 			}
 			else
 			{
-				void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
-				if (a != NULL)
+				Array<String> files = ResourceDir::_getInternalFiles();
+				String current;
+				foreach (String, it, files)
 				{
-					Array<String> files = zip::getDirectories(a);
-					String current;
-					foreach (String, it, files)
+					current = (*it);
+					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && current.contains('/'))
 					{
-						current = (*it);
-						if (ResourceDir::_checkDirPrefix(current, name) && current != "" && current.contains('/'))
-						{
-							result += current.split('/', 1).first();
-						}
+						result += current.split('/', 1).first();
 					}
-					result.removeDuplicates();
-					ResourceDir::cacheDirectories[name] = result;
-					zip::close(NULL, a);
 				}
+				result.removeDuplicates();
+				ResourceDir::cacheDirectories[name] = result;
 			}
 		}
 		else
@@ -137,23 +132,18 @@ namespace hltypes
 			}
 			else
 			{
-				void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
-				if (a != NULL)
+				Array<String> files = ResourceDir::_getInternalFiles();
+				String current;
+				foreach (String, it, files)
 				{
-					Array<String> files = zip::getFiles(a);
-					String current;
-					foreach (String, it, files)
+					current = (*it);
+					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && !current.contains('/'))
 					{
-						current = (*it);
-						if (ResourceDir::_checkDirPrefix(current, name) && current != "" && !current.contains('/'))
-						{
-							result += current;
-						}
+						result += current;
 					}
-					result.removeDuplicates();
-					ResourceDir::cacheFiles[name] = result;
-					zip::close(NULL, a);
 				}
+				result.removeDuplicates();
+				ResourceDir::cacheFiles[name] = result;
 			}
 		}
 		else
@@ -188,6 +178,20 @@ namespace hltypes
 			return true;
 		}
 		return false;
+	}
+	
+	Array<String> ResourceDir::_getInternalFiles()
+	{
+		Array<String> files;
+#ifdef _ZIPRESOURCE
+		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
+		if (a != NULL)
+		{
+			files = zip::getFiles(a);
+			zip::close(NULL, a);
+		}
+#endif
+		return files;
 	}
 
 	Array<String> ResourceDir::_removeCwd(Array<String> paths)

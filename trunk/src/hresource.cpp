@@ -223,12 +223,7 @@ namespace hltypes
 			void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
 			if (a != NULL)
 			{
-				void* f = zip::fopen(a, Resource::makeFullPath(filename));
-				if (f != NULL)
-				{
-					zip::fclose(f);
-					result = true;
-				}
+				result = zip::fexists(a, Resource::makeFullPath(filename));
 				if (!result && !caseSensitive)
 				{
 					String name = filename;
