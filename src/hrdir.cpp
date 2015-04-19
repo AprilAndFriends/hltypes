@@ -31,6 +31,7 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::isZipArchive())
 		{
+			// this approach is used, because sometimes ZIP files don't enumerate their directories
 			bool result = ResourceDir::directories(ResourceDir::baseDir(name)).has(ResourceDir::baseName(name));
 			if (!result && !caseSensitive)
 			{
