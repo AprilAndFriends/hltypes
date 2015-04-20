@@ -280,7 +280,7 @@ namespace hltypes
 					info.creationTime = archive.creationTime;
 					info.accessTime = archive.accessTime;
 				}
-				catch (FileCouldNotOpenException& e)
+				catch (_FileCouldNotOpenException& e)
 				{
 				}
 			}
