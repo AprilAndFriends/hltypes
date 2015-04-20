@@ -274,9 +274,15 @@ namespace hltypes
 			{
 				info = zip::finfo(a, Resource::makeFullPath(filename));
 				zip::close(NULL, a);
-				FileInfo archive = File::hinfo(Resource::archive);
-				info.creationTime = archive.creationTime;
-				info.accessTime = archive.accessTime;
+				try // it's not that important to get access and creation time if this fails for some reason
+				{
+					FileInfo archive = File::hinfo(Resource::archive);
+					info.creationTime = archive.creationTime;
+					info.accessTime = archive.accessTime;
+				}
+				catch (FileCouldNotOpenException& e)
+				{
+				}
 			}
 			return info;
 		}
