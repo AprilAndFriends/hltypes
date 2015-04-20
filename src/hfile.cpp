@@ -261,11 +261,11 @@ namespace hltypes
 		{
 			if (!File::exists(filename))
 			{
-				throw Exception("stat() failed on '" + filename + "', file not found!");
+				throw FileCouldNotOpenException("stat() failed on '" + filename + "', file not found!");
 			}
 			else
 			{
-				throw Exception("stat() failed on '" + filename + "'!");
+				throw FileCouldNotOpenException("stat() failed on '" + filename + "'!");
 			}
 		}
 		info.size = (int64_t)s.st_size;
