@@ -68,7 +68,7 @@ namespace hltypes
 
 	String Log::_makeFilename(const hltypes::String& filename, int index)
 	{
-		return (filename + ".hlog/" + String(index) + "." + Log::fileExtension);
+		return (Dir::joinPath(filename + ".hlog", String(index) + "." + Log::fileExtension));
 	}
 
 	String Log::_makeCurrentFilename(const hltypes::String& filename)
