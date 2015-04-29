@@ -154,7 +154,8 @@ namespace hltypes
 				file.open(Log::_makeCurrentFilename(Log::filename), File::APPEND);
 #endif
 				String logMessage = (tag != "" ? "[" + tag + "] " + message : message);
-				file.writef("%s\n", logMessage.cStr());
+				file.write(logMessage);
+				file.write("\n");
 			}
 			catch (_Exception& e)
 			{
