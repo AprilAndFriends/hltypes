@@ -112,7 +112,7 @@ namespace hltypes
 		}
 		/// @brief Returns an Array with all values in the same order as the given corresponding keys.
 		/// @return An Array with all values in the same order as the given corresponding keys.
-		inline Array<V> values(Array<K> keys) const
+		inline Array<V> values(const Array<K> keys) const
 		{
 			Array<V> result;
 			for (const_kiterator_t it = keys.begin(); it != keys.end(); ++it) // don't change, requires a const iterator
@@ -134,7 +134,7 @@ namespace hltypes
 		}
 		/// @brief Returns an Array with all key-value pairs in the same order as the given corresponding keys.
 		/// @return An Array with all key-value pairs in the same order as the given corresponding keys.
-		inline Array<std::pair<K, V> > keyValuePairs(Array<K> keys) const
+		inline Array<std::pair<K, V> > keyValuePairs(const Array<K> keys) const
 		{
 			Array<std::pair<K, V> > result;
 			for (const_kiterator_t it = keys.begin(); it != keys.end(); ++it) // don't change, requires a const iterator
