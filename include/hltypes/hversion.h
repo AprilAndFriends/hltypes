@@ -24,13 +24,13 @@ namespace hltypes
 	{
 	public:
 		/// @brief Major version.
-		unsigned int Major;
+		unsigned int major;
 		/// @brief Minor version.
-		unsigned int Minor;
+		unsigned int minor;
 		/// @brief Revision number.
-		unsigned int Revision;
+		unsigned int revision;
 		/// @brief Build number.
-		unsigned int Build;
+		unsigned int build;
 		
 		/// @brief Basic constructor.
 		Version();

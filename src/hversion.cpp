@@ -33,26 +33,26 @@ namespace hltypes
 	
 	void Version::set(unsigned int major, unsigned int minor, unsigned int revision, unsigned int build)
 	{
-		this->Major = major;
-		this->Minor = minor;
-		this->Revision = revision;
-		this->Build = build;
+		this->major = major;
+		this->minor = minor;
+		this->revision = revision;
+		this->build = build;
 	}
 	
 	void Version::set(Array<unsigned int> versions)
 	{
 		if (versions.size() > 0)
 		{
-			this->Major = versions[0];
+			this->major = versions[0];
 			if (versions.size() > 1)
 			{
-				this->Minor = versions[1];
+				this->minor = versions[1];
 				if (versions.size() > 2)
 				{
-					this->Revision = versions[2];
+					this->revision = versions[2];
 					if (versions.size() > 3)
 					{
-						this->Build = versions[3];
+						this->build = versions[3];
 					}
 				}
 			}
@@ -66,16 +66,16 @@ namespace hltypes
 	
 	hstr Version::toString(int count) const
 	{
-		hstr result = hstr(this->Major);
+		hstr result = hstr(this->major);
 		if (count > 1)
 		{
-			result += "." + hstr(this->Minor);
+			result += "." + hstr(this->minor);
 			if (count > 2)
 			{
-				result += "." + hstr(this->Revision);
+				result += "." + hstr(this->revision);
 				if (count > 3)
 				{
-					result += "." + hstr(this->Build);
+					result += "." + hstr(this->build);
 				}
 			}
 		}
@@ -84,18 +84,18 @@ namespace hltypes
 	
 	bool Version::operator<(const Version& other) const
 	{
-		return (this->Major < other.Major ||
-			(this->Major == other.Major && (this->Minor < other.Minor ||
-			(this->Minor == other.Minor && this->Revision < other.Revision) ||
-			(this->Revision == other.Revision && this->Build < other.Build))));
+		return (this->major < other.major ||
+			(this->major == other.major && (this->minor < other.minor ||
+			(this->minor == other.minor && this->revision < other.revision) ||
+			(this->revision == other.revision && this->build < other.build))));
 	}
 	
 	bool Version::operator>(const Version& other) const
 	{
-		return (this->Major > other.Major ||
-			(this->Major == other.Major && (this->Minor > other.Minor ||
-			(this->Minor == other.Minor && this->Revision > other.Revision) ||
-			(this->Revision == other.Revision && this->Build > other.Build))));
+		return (this->major > other.major ||
+			(this->major == other.major && (this->minor > other.minor ||
+			(this->minor == other.minor && this->revision > other.revision) ||
+			(this->revision == other.revision && this->build > other.build))));
 	}
 	
 	bool Version::operator<=(const Version& other) const
@@ -110,8 +110,8 @@ namespace hltypes
 	
 	bool Version::operator==(const Version& other) const
 	{
-		return (this->Major == other.Major && this->Minor == other.Minor &&
-			this->Revision == other.Revision && this->Build == other.Build);
+		return (this->major == other.major && this->minor == other.minor &&
+			this->revision == other.revision && this->build == other.build);
 	}
 	
 	bool Version::operator!=(const Version& other) const
