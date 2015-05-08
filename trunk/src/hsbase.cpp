@@ -199,7 +199,7 @@ namespace hltypes
 		int size = (int)(stream.size() - stream.position());
 		if (size > INT_MAX)
 		{
-			Log::errorf(hltypes::logTag, "Data too large for writing in %s: %d bytes", stream._descriptor().cStr(), size);
+			Log::errorf(logTag, "Data too large for writing in %s: %d bytes", stream._descriptor().cStr(), size);
 			return 0;
 		}
 		return this->writeRaw(stream, (int)(stream.size() - stream.position()));
@@ -221,7 +221,7 @@ namespace hltypes
 		int size = (int)(stream.size() - stream.position());
 		if (size > INT_MAX)
 		{
-			Log::errorf(hltypes::logTag, "Data too large for writing in %s: %d bytes", stream._descriptor().cStr(), size);
+			Log::errorf(logTag, "Data too large for writing in %s: %d bytes", stream._descriptor().cStr(), size);
 			return 0;
 		}
 		return this->writeRaw(stream, (int)(stream.size() - stream.position()));

@@ -29,7 +29,7 @@ namespace hltypes
 {
 	File::File(const String& filename, AccessMode access_mode) : FileBase(filename)
 	{
-		hlog::warnf(hltypes::logTag, "Opening file '%s' in hfile constructor is deprecated and unsafe! Use hfile::open() instead.", filename.cStr());
+		hlog::warnf(logTag, "Opening file '%s' in hfile constructor is deprecated and unsafe! Use hfile::open() instead.", filename.cStr());
 		this->open(filename, access_mode);
 	}
 	
