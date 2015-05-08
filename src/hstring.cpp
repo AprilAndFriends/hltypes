@@ -663,7 +663,7 @@ namespace hltypes
 #ifdef _DEBUG
 		if (string[i] == 0 && count > 0)
 		{
-			Log::warn(hltypes::logTag, "Parameter 'start' in utf8_substr() is after end of string: " + *this);
+			Log::warn(logTag, "Parameter 'start' in utf8_substr() is after end of string: " + *this);
 		}
 #endif
 		int startSize = i;
@@ -691,7 +691,7 @@ namespace hltypes
 #ifdef _DEBUG
 		if (size < count)
 		{
-			Log::warn(hltypes::logTag, "Parameter 'count' in utf8_substr() is out of bounds in string: " + *this);
+			Log::warn(logTag, "Parameter 'count' in utf8_substr() is out of bounds in string: " + *this);
 		}
 #endif
 		return String((char*)&string[startSize], i - startSize);
@@ -1238,8 +1238,8 @@ namespace hltypes
 #ifdef _DEBUG
 			if (!checked && code > 0xFFFF)
 			{
-				hltypes::_platformPrint(hltypes::logTag, "String uses Unicode characters above 0xFFFF:", 1000);
-				hltypes::_platformPrint(hltypes::logTag, *this, 1000); // usually causes a stack overflow
+				hltypes::_platformPrint(logTag, "String uses Unicode characters above 0xFFFF:", 1000);
+				hltypes::_platformPrint(logTag, *this, 1000); // usually causes a stack overflow
 				checked = true;
 			}
 #endif

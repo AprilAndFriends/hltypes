@@ -109,7 +109,7 @@ namespace hltypes
 	{
 		if (this->running)
 		{
-			Log::warn(hltypes::logTag, "Thread still running in destructor! Attempting 'stop', but this may be unsafe. The thread should be joined before deleting it.");
+			Log::warn(logTag, "Thread still running in destructor! Attempting 'stop', but this may be unsafe. The thread should be joined before deleting it.");
 			this->stop();
 		}
 		if (this->id != NULL)
@@ -216,7 +216,7 @@ namespace hltypes
 		ResumeThread(this->id);
 #else
 		// not available in WinRT
-		Log::warn(hltypes::logTag, "Thread::resume() is not available on WinRT.");
+		Log::warn(logTag, "Thread::resume() is not available on WinRT.");
 #endif
 #endif
 	}
@@ -228,7 +228,7 @@ namespace hltypes
 		SuspendThread(this->id);
 #else
 		// not available in WinRT
-		Log::warn(hltypes::logTag, "Thread::pause() is not available on WinRT.");
+		Log::warn(logTag, "Thread::pause() is not available on WinRT.");
 #endif
 #endif
 	}
