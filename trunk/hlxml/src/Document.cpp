@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.0
+/// @version 3.01
 /// 
 /// @section LICENSE
 /// 
@@ -8,7 +8,9 @@
 
 #include <tinyxml.h>
 
+#include <hltypes/hdir.h>
 #include <hltypes/hexception.h>
+#include <hltypes/hfile.h>
 #include <hltypes/hlog.h>
 #include <hltypes/hrdir.h>
 #include <hltypes/hresource.h>
@@ -22,15 +24,26 @@ namespace hlxml
 {
 	hstr logTag = "hlxml";
 
-	Document::Document(chstr filename) : rootNode(NULL)
+	Document::Document(chstr filename, bool fromResource) : rootNode(NULL)
 	{
 		this->filename = filename;
-		if (!hresource::exists(this->filename))
+		hstr data;
+		if (fromResource)
 		{
-			throw ResourceFileCouldNotOpenException(this->filename);
+			if (!hresource::exists(this->filename))
+			{
+				throw ResourceFileCouldNotOpenException(this->filename);
+			}
+			data = hresource::hread(this->filename);
 		}
-		hstr realFilename = hrdir::normalize(this->filename);
-		hstr data = hresource::hread(this->filename);
+		else
+		{
+			if (!hfile::exists(this->filename))
+			{
+				throw FileCouldNotOpenException(this->filename);
+			}
+			data = hfile::hread(this->filename);
+		}
 		this->document = new TiXmlDocument();
 		this->document->Parse(data.cStr());
 		if (this->document->Error())
@@ -49,6 +62,7 @@ namespace hlxml
 					desc += "\n----------------------------------------------------------";
 				}
 			}
+			hstr realFilename = (fromResource ? hrdir::normalize(this->filename) : hdir::normalize(this->filename));
 			throw XMLException(hsprintf("An error occcured parsing XML file '%s': %s", realFilename.cStr(), desc.cStr()), NULL);
 		}
 	}
