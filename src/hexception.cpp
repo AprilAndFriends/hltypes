@@ -29,10 +29,12 @@ namespace hltypes
 	void _Exception::_setInternalMessage(const String& message, const char* sourceFile, int lineNumber)
 	{
 		this->message = hsprintf("[%s:%d] %s", Dir::baseName(sourceFile).cStr(), lineNumber, message.cStr());
-#ifdef _WINRT // because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
+		// because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
+		// because Android doesn't display register data properly if an exception is thrown
+#if defined(_WINRT) || defined(_ANDROID)
 		if (Log::isLevelDebug() && message != "")
 		{
-			hltypes::_platformPrint("FATAL", this->message, 1000);
+			hltypes::_platformPrint("FATAL", this->message, Log::LevelError);
 		}
 #endif
 	}

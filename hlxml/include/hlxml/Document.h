@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.0
+/// @version 3.01
 /// 
 /// @section LICENSE
 /// 
@@ -36,7 +36,8 @@ namespace hlxml
 
 		/// @brief Constructor
 		/// @param[in] filename Filename where to read from.
-		Document(chstr filename);
+		/// @param[in] fromResource Whether the file is a resource or not.
+		Document(chstr filename, bool fromResource = true);
 		/// @brief Destructor
 		~Document();
 
