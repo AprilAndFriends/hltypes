@@ -166,28 +166,28 @@
 
     <EnumValue
       Name="Level1"
-      Switch=""
+      Switch="-Wno-parentheses"
       DisplayName="Level 1"
       Description="Enables default warnings."
     />
 
     <EnumValue
       Name="Level2"
-      Switch="-Wall"
+      Switch="-Wno-parentheses -Wall"
       DisplayName="Level 2"
       Description="Enables all warnings, including those disabled by default."
     />
 
     <EnumValue
       Name="Level3"
-      Switch="-Wall"
+      Switch="-Wno-parentheses -Wall"
       DisplayName="Level 3"
       Description="Enables all warnings, and any extra warning flags that are not enabled by -Wall"
     />
     
     <EnumValue
       Name="Level4"
-      Switch="-Wall -Wextra"
+      Switch="-Wno-parentheses -Wall -Wextra"
       DisplayName="Level 4"
       Description="Enables all warnings, and any extra warning flags that are not enabled by -Wall"
     />

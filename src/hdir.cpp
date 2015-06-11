@@ -123,15 +123,6 @@ namespace hltypes
 #endif
 	}
 	
-	static bool hremove(const String& dirName)
-	{
-#ifdef _WIN32
-		return (_wremove(dirName.wStr().c_str()) != 0);
-#else
-		return (remove(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
-#endif
-	}
-	
 	static bool hrmdir(const String& dirName)
 	{
 #ifdef _WIN32

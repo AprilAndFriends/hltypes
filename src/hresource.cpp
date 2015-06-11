@@ -268,7 +268,6 @@ namespace hltypes
 		if (Resource::zipArchive)
 		{
 			FileInfo info;
-			bool result = false;
 			void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
 			if (a != NULL)
 			{
