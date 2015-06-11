@@ -1,0 +1,13 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+
+    <!--
+      Default methodology for debugging applications. Android debugger is configured here.
+    -->
+
+    <DebuggerFlavor>AndroidPlusPlusDebugger</DebuggerFlavor>
+
+  </PropertyGroup>
+
+</Project>
