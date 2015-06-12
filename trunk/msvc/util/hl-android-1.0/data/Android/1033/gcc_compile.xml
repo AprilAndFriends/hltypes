@@ -460,11 +460,11 @@
   </EnumProperty>
   
   <!--
-    RuntimeTypeInfo
+    RuntimeTypeInfoEnum (because RuntimeTypeInfo already exists as bool)
   -->
   
   <EnumProperty
-    Name="RuntimeTypeInfo"
+    Name="RuntimeTypeInfoEnum"
     DisplayName="C++ RunTime Type Information (RTTI)"
     Description="Control generation of information about every class with virtual functions for use by the C++ runtime type identification features ('dynamic_cast' and 'typeid')."
     Category="Code Generation">

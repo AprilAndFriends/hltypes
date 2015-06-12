@@ -48,7 +48,7 @@
       <PositionIndependentCode Condition="'%(ClCompile.PositionIndependentCode)' == ''">$(LinkCompiled)</PositionIndependentCode>
       <NoExecutableStack Condition="'%(ClCompile.NoExecutableStack)' == ''">false</NoExecutableStack>
       <ExceptionHandling Condition="'%(ClCompile.ExceptionHandling)' == ''">Default</ExceptionHandling>
-      <RuntimeTypeInfo Condition="'%(ClCompile.RuntimeTypeInfo)' == ''">Default</RuntimeTypeInfo>
+      <RuntimeTypeInfoEnum Condition="'%(ClCompile.RuntimeTypeInfoEnum)' == ''">Default</RuntimeTypeInfoEnum>
       <GenerateDebuggingInformation Condition="'%(ClCompile.GenerateDebuggingInformation)' == ''">true</GenerateDebuggingInformation> <!-- Yup, even in RELEASE (we'll strip symbols later) -->
       <OmitFramePointers Condition="'%(ClCompile.OmitFramePointers)' == ''">true</OmitFramePointers>
       <WarningLevel Condition="'%(ClCompile.WarningLevel)' == ''">Level3</WarningLevel>

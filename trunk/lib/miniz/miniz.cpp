@@ -2905,7 +2905,7 @@ void *tdefl_write_image_to_png_file_in_memory(const void *pImage, int w, int h, 
     #define MZ_FFLUSH fflush
     #define MZ_FREOPEN(f, m, s) freopen(f, m, s)
     #define MZ_DELETE_FILE remove
-  #elif defined(__GNUC__) && _LARGEFILE64_SOURCE
+  #elif (defined(__GNUC__) || (_ANDROID)) && _LARGEFILE64_SOURCE
     #ifndef MINIZ_NO_TIME
       #include <utime.h>
     #endif
