@@ -427,11 +427,11 @@
   />
 
   <!--
-    ExceptionHandling
+    ExceptionHandlingEnum (because ExceptionHandling already exists in default Win32)
   -->
   
   <EnumProperty
-    Name="ExceptionHandling"
+    Name="ExceptionHandlingEnum"
     DisplayName="C++ Exception Handling"
     Description="Generates extra code needed to propagate exceptions. If you do not specify this option, GCC enables it by default for languages like C++ that normally require exception handling, and disables it for languages like C that do not normally require it."
     Category="Code Generation">
