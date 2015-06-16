@@ -16,7 +16,7 @@
 
     <PlatformShortName>Android</PlatformShortName>
     <PlatformArchitecture>32</PlatformArchitecture>
-    <PlatformToolset Condition="'$(PlatformToolset)' == ''">clang3.6</PlatformToolset>
+    <PlatformToolset Condition="'$(PlatformToolset)' == ''">4.9</PlatformToolset>
     <DefaultPlatformToolset Condition="'$(DefaultPlatformToolset)' == ''">$(PlatformToolset)</DefaultPlatformToolset>
     <TargetArchitecture Condition="'$(TargetArchitecture)' == ''">armv7-a</TargetArchitecture>
     <STLSupport Condition="'$(STLSupport)' == ''">gnustl_static</STLSupport>
