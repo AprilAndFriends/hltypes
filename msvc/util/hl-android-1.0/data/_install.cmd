@@ -55,9 +55,9 @@ IF ERRORLEVEL 1 (
 echo.Installing Android MSBuild files:
 
 md "%MsBuildCppDir%\Android"
-xcopy "data\Android\*.*" "%MsBuildCppDir%\Android" /E
+xcopy "data\%1\Android\*.*" "%MsBuildCppDir%\Android" /E
 md "%MsBuildCppDir%\Android-x86"
-xcopy "data\Android-x86\*.*" "%MsBuildCppDir%\Android-x86" /E
+xcopy "data\%1\Android-x86\*.*" "%MsBuildCppDir%\Android-x86" /E
 
 IF ERRORLEVEL 1 (
 	echo.Problem with copying
