@@ -22,7 +22,7 @@
     <DesktopDebuggerPages Include="$(VCTargetsPath)$(LangID)\debugger_remote_windows.xml" />
   </ItemGroup>
   
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.Cpp.targets" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.Cpp.targets" />
 
 </Project>
 

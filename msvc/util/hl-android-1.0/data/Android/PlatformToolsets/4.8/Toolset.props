@@ -19,7 +19,7 @@
     <MinimalCoreWin Condition="'$(MinimalCoreWin)' == ''">false</MinimalCoreWin>
   </PropertyGroup>
   
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.Cpp.props" />
 
 </Project>
 

@@ -25,8 +25,8 @@
   -->
 
   <ItemGroup>
-    <PropertyPageSchema Include="$(VCTargetsPath)\Platforms\Android\$(LangID)\android_ant_build.xml" Condition="'$(ConfigurationType)' == 'Application'" />
-    <PropertyPageSchema Include="$(VCTargetsPath)\Platforms\Android\$(LangID)\android_deploy.xml" Condition="'$(ConfigurationType)' == 'Application'" />
+    <PropertyPageSchema Include="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\android_ant_build.xml" Condition="'$(ConfigurationType)' == 'Application'" />
+    <PropertyPageSchema Include="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\android_deploy.xml" Condition="'$(ConfigurationType)' == 'Application'" />
   </ItemGroup>
   
   <!-- 
@@ -260,7 +260,7 @@
     </PropertyGroup>
 
     <!-- Error out if the project references a missing platform toolset -->
-    <VCMessage Code="MSB8008" Type="Error" Arguments="$(PlatformToolset)" Condition="!(exists('$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).targets'))"/>
+    <VCMessage Code="MSB8008" Type="Error" Arguments="$(PlatformToolset)" Condition="!(exists('$(VCTargetsPath)\Platforms\$(Platform)\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).targets'))"/>
 
     <Error Condition="$(VisualStudioVersion) != '10.0' and $(VisualStudioVersion) != '11.0' and $(VisualStudioVersion) != '12.0'" 
            Text="Unknown version of Visual Studio: $(VisualStudioVersion)" ></Error>
