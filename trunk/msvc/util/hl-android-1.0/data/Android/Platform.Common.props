@@ -6,7 +6,7 @@
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Microsoft.Cpp.Android.Common.props" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Microsoft.Cpp.Android.Common.props" />
 
 </Project>
 

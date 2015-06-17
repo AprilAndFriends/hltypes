@@ -27,7 +27,7 @@
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Common.props" />
 
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.Cpp.props" />
 
   <!-- 'Android.Cpp.$(PlatformToolset).props' included via 'Android.Cpp.props' -->
 

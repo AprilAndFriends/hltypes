@@ -33,19 +33,19 @@ IF ERRORLEVEL 1 (
 	)
 
 	IF NOT EXIST "%MsBuildCppDir%\Android" (
-		IF NOT EXIST "%MsBuildCppDir%\Android-x8" (
+		IF NOT EXIST "%MsBuildCppDir%\Android-x86" (
 			goto start
 		)
 	)
 	echo.An HL-Android MSBuild toolset already exists.
-	echo.Continuing will delete the version already installed to directory:
+	echo.Continuing will delete the version already installed.
 	rd "%MsBuildCppDir%\Android" /s
 	IF EXIST "%MsBuildCppDir%\Android" (
-		goto cleanup
+		goto error
 	)
 	rd "%MsBuildCppDir%\Android-x86" /s /q
 	IF EXIST "%MsBuildCppDir%\Android-x86" (
-		goto cleanup
+		goto error
 	)
 	
 	echo.
@@ -60,16 +60,15 @@ md "%MsBuildCppDir%\Android-x86"
 xcopy "data\Android-x86\*.*" "%MsBuildCppDir%\Android-x86" /E
 
 IF ERRORLEVEL 1 (
+:error
 	echo.Problem with copying
-	pause
 	goto cleanup
 )
 
 echo.
 echo.Done! You will need to close and re-open existing instances of Visual Studio.
 echo.
-pause
-
 
 :cleanup
 set MsBuildCppDir=
+pause

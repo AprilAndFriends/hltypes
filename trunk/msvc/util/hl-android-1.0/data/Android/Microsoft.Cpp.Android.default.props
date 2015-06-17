@@ -14,11 +14,10 @@
 
   <PropertyGroup>
 
-    <PlatformShortName>Android</PlatformShortName>
     <PlatformArchitecture>32</PlatformArchitecture>
     <PlatformToolset Condition="'$(PlatformToolset)' == ''">4.9</PlatformToolset>
     <DefaultPlatformToolset Condition="'$(DefaultPlatformToolset)' == ''">$(PlatformToolset)</DefaultPlatformToolset>
-    <TargetArchitecture Condition="'$(TargetArchitecture)' == ''">armv7-a</TargetArchitecture>
+    <TargetArchitecture>armv7-a</TargetArchitecture>
     <STLSupport Condition="'$(STLSupport)' == ''">gnustl_static</STLSupport>
 
     <!--
@@ -42,9 +41,9 @@
 
   </PropertyGroup>
 
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.Paths.default.props" />
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.AndroidSdk.default.props" />
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.AndroidNdk.default.props" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.Paths.default.props" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.AndroidSdk.default.props" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.AndroidNdk.default.props" />
 
 </Project>
 

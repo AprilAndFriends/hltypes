@@ -58,10 +58,10 @@
     Resolve target platform, environment variables, and toolset default properties.
   -->
 
-  <Import Project="$(VCTargetsPath)\Platforms\Android\PlatformToolsets\Android.Cpp.$(TargetArchitecture).default.props"/>
-  <Import Project="$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Android.Cpp.$(PlatformToolset).props"/>
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.StlSupport.default.props" />
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.Toolset.default.props" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\PlatformToolsets\Android.Cpp.$(TargetArchitecture).default.props"/>
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\PlatformToolsets\$(PlatformToolset)\Android.Cpp.$(PlatformToolset).props"/>
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.StlSupport.default.props" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.Toolset.default.props" />
 
 </Project>
 

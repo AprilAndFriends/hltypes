@@ -26,14 +26,14 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   -->
 
-  <UsingTask TaskName="GccCompile" AssemblyFile="$(VCTargetsPath)\Platforms\Android\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
-  <UsingTask TaskName="GccLink" AssemblyFile="$(VCTargetsPath)\Platforms\Android\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
-  <UsingTask TaskName="GccLib" AssemblyFile="$(VCTargetsPath)\Platforms\Android\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
-  <UsingTask TaskName="GccStrip" AssemblyFile="$(VCTargetsPath)\Platforms\Android\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
-  <UsingTask TaskName="GccBuildId" AssemblyFile="$(VCTargetsPath)\Platforms\Android\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
+  <UsingTask TaskName="GccCompile" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
+  <UsingTask TaskName="GccLink" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
+  <UsingTask TaskName="GccLib" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
+  <UsingTask TaskName="GccStrip" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
+  <UsingTask TaskName="GccBuildId" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
 
-  <UsingTask TaskName="AntBuild" AssemblyFile="$(VCTargetsPath)\Platforms\Android\bin\vs-android.MsBuild.AdbTasks.dll" />
-  <UsingTask TaskName="AdbDeploy" AssemblyFile="$(VCTargetsPath)\Platforms\Android\bin\vs-android.MsBuild.AdbTasks.dll" />
+  <UsingTask TaskName="AntBuild" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\vs-android.MsBuild.AdbTasks.dll" />
+  <UsingTask TaskName="AdbDeploy" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\vs-android.MsBuild.AdbTasks.dll" />
   
   <UsingTask TaskName="VCMessage" AssemblyName="Microsoft.Build.CppTasks.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
 
@@ -143,7 +143,7 @@
       OutputCommandLine="%(ClCompile.OutputCommandLine)"
       ToolPath="$(PlatformToolsetCompileToolPath)"
       ToolExe="$(PlatformToolsetCompileTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\Android\$(LangID)\gcc_compile.xml">
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_compile.xml">
 
     </GccCompile>
 
@@ -168,7 +168,7 @@
       OutputCommandLine="%(ClCompile.OutputCommandLine)"
       ToolPath="$(PlatformToolsetCompileToolPath)"
       ToolExe="$(PlatformToolsetCompileTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\Android\$(LangID)\gcc_compile.xml">
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_compile.xml">
 
     </GccCompile>
 
@@ -214,7 +214,7 @@
       OutputCommandLine="%(Link.OutputCommandLine)"
       ToolPath="$(PlatformToolsetLinkToolPath)"
       ToolExe="$(PlatformToolsetLinkTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\Android\$(LangID)\gcc_link.xml">
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_link.xml">
 
       <Output TaskParameter="OutputFiles" ItemName="LinkOutputFiles" />
 
@@ -275,7 +275,7 @@
       OutputCommandLine="%(LinkOutputFiles.OutputCommandLine)"
       ToolPath="$(PlatformToolsetStripToolPath)"
       ToolExe="$(PlatformToolsetStripTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\Android\$(LangID)\gcc_strip.xml"
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_strip.xml"
     />
 
     <Exec 
@@ -389,7 +389,7 @@
       OutputCommandLine="%(Lib.OutputCommandLine)"
       ToolPath="$(PlatformToolsetLibToolPath)"
       ToolExe="$(PlatformToolsetLibTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\Android\$(LangID)\gcc_lib.xml">
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_lib.xml">
 
       <Output TaskParameter="OutputFiles" ItemName="LibOutputFiles" />
 
@@ -432,7 +432,7 @@
       OutputCommandLine="%(LibOutputFiles.OutputCommandLine)"
       ToolPath="$(PlatformToolsetStripToolPath)"
       ToolExe="$(PlatformToolsetStripTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\Android\$(LangID)\gcc_strip.xml"
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_strip.xml"
     />
 
   </Target> 
@@ -461,11 +461,11 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   -->
 
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.CppBuild.targets" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.CppBuild.targets" />
   
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.CppStubs.targets" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.CppStubs.targets" />
 
-  <Import Project="$(VCTargetsPath)\Platforms\Android\Android.AdbBuild.targets" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Android.AdbBuild.targets" />
 
   <!--
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
