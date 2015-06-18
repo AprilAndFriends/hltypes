@@ -117,7 +117,7 @@ namespace hltypes
 			Array<V> result;
 			for (const_kiterator_t it = keys.begin(); it != keys.end(); ++it) // don't change, requires a const iterator
 			{
-				result += std::map<K, V>::operator[](*it);
+				result += std::map<K, V>::at(*it);
 			}
 			return result;
 		}
