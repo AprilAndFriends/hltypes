@@ -1148,6 +1148,21 @@ namespace hltypes
 			result.differentiate(other);
 			return result;
 		}
+		/// @brief Creates new Container with new elements obtained from the current Container elements.
+		/// @param[in] generateFunction Function pointer with generation function for the new elements.
+		/// @return A new Container with the new elements.
+		/// @note generateFunction should return the element that should be mapped from the original.
+		template <class R, class S>
+		inline R _mapped(S (*generateFunction)(T)) const
+		{
+			R result;
+			int size = this->size();
+			for_iter (i, 0, size)
+			{
+				result.add(generateFunction(this->at(i)));
+			}
+			return result;
+		}
 		/// @brief Finds and returns new Container of elements that match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return New Container with all matching elements.

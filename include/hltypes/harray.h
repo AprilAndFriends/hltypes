@@ -239,14 +239,21 @@ namespace hltypes
 		{
 			return this->template _differentiated<Array<T> >(other);
 		}
+		/// @brief Creates new Array with new elements obtained from the current Array elements.
+		/// @param[in] generateFunction Function pointer with generation function for the new elements.
+		/// @return A new Array with the new elements.
+		template <class S>
+		inline Array<S> mapped(S(*generateFunction)(T)) const
+		{
+			return this->template _mapped<Array<S>, S>(generateFunction);
+		}
 		/// @brief Finds and returns new Array of elements that match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return New Array with all matching elements.
-		inline Array<T> findAll(bool (*conditionFunction)(T)) const
+		inline Array<T> findAll(bool(*conditionFunction)(T)) const
 		{
 			return this->template _findAll<Array<T> >(conditionFunction);
 		}
-
 		/// @brief Returns a new Array with all elements cast into type S.
 		/// @return A new Array with all elements cast into type S.
 		/// @note Make sure all elements in the Array can be cast into type S.

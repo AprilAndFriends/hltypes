@@ -239,6 +239,14 @@ namespace hltypes
 		{
 			return this->template _differentiated<Deque<T> >(other);
 		}
+		/// @brief Creates new Deque with new elements obtained from the current Deque elements.
+		/// @param[in] generateFunction Function pointer with generation function for the new elements.
+		/// @return A new Deque with the new elements.
+		template <class S>
+		inline Deque<S> mapped(S(*generateFunction)(T)) const
+		{
+			return this->template _mapped<Deque<S>, S>(generateFunction);
+		}
 		/// @brief Finds and returns new Deque of elements that match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return New Deque with all matching elements.
