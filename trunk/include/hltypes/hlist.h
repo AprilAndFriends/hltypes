@@ -239,6 +239,14 @@ namespace hltypes
 		{
 			return this->template _differentiated<List<T> >(other);
 		}
+		/// @brief Creates new List with new elements obtained from the current List elements.
+		/// @param[in] generateFunction Function pointer with generation function for the new elements.
+		/// @return A new List with the new elements.
+		template <class S>
+		inline List<S> mapped(S(*generateFunction)(T)) const
+		{
+			return this->template _mapped<List<S>, S>(generateFunction);
+		}
 		/// @brief Finds and returns new List of elements that match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return New List with all matching elements.
