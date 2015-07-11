@@ -4,6 +4,7 @@
     <ClCompile>
       <CompileAs>CompileAsCpp</CompileAs>
       <StringPooling>true</StringPooling>
+      <AdditionalOptions Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86'">-Wno-strict-aliasing %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
 </Project>
