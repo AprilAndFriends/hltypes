@@ -7,21 +7,31 @@
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
 #include "harray.h"
+#include "hltypesUtil.h"
 #include "hstring.h"
 #include "hversion.h"
 
 namespace hltypes
 {
-	Version::Version()
+	Version::Version() : major(0), minor(0), revision(0), build(0)
 	{
-		this->set(0, 0, 0, 0);
 	}
 	
-	Version::Version(unsigned int major, unsigned int minor, unsigned int revision, unsigned int build)
+	Version::Version(unsigned int major, unsigned int minor, unsigned int revision, unsigned int build) : major(0), minor(0), revision(0), build(0)
 	{
 		this->set(major, minor, revision, build);
 	}
-	
+
+	Version::Version(Array<unsigned int> versions) : major(0), minor(0), revision(0), build(0)
+	{
+		this->set(versions);
+	}
+
+	Version::Version(const String& versions) : major(0), minor(0), revision(0), build(0)
+	{
+		this->set(versions);
+	}
+
 	Version::~Version()
 	{
 	}
@@ -61,7 +71,10 @@ namespace hltypes
 	
 	void Version::set(chstr versions)
 	{
-		this->set(versions.split('.').cast<unsigned int>());
+		if (Version::isVersionString(versions))
+		{
+			this->set(versions.split('.', -1, true).cast<unsigned int>());
+		}
 	}
 	
 	hstr Version::toString(int count) const
@@ -117,6 +130,23 @@ namespace hltypes
 	bool Version::operator!=(const Version& other) const
 	{
 		return (!this->operator==(other));
+	}
+
+	bool Version::isVersionString(const String& string)
+	{
+		harray<String> versions = string.split('.', -1, true);
+		if (!hbetweenII(versions.size(), 1, 4))
+		{
+			return false;
+		}
+		foreach (String, it, versions)
+		{
+			if (!(*it).isInt() || (int)(*it) < 0)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }

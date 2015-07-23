@@ -40,6 +40,14 @@ namespace hltypes
 		/// @param[in] revision Revision number.
 		/// @param[in] build Build number.
 		Version(unsigned int major, unsigned int minor = 0, unsigned int revision = 0, unsigned int build = 0);
+		/// @brief Constructor.
+		/// @param[in] versions Array of versions.
+		/// @note Only between 1 and 4 values are used in versions.
+		Version(Array<unsigned int> versions);
+		/// @brief Constructor.
+		/// @param[in] versions Version numbers separated by period characters.
+		/// @note Only between 1 and 4 values are used in versions.
+		Version(const String& versions);
 		/// @brief Destructor.
 		~Version();
 		
@@ -56,11 +64,11 @@ namespace hltypes
 		void set(unsigned int major, unsigned int minor = 0, unsigned int revision = 0, unsigned int build = 0);
 		/// @brief Sets the version values.
 		/// @param[in] versions Array of versions.
-		/// @note Only the first 4 values are used in versions.
+		/// @note Only between 1 and 4 values are used in versions.
 		void set(Array<unsigned int> versions);
 		/// @brief Sets the version values.
 		/// @param[in] versions Version numbers separated by period characters.
-		/// @note Only the first 4 values are used in versions.
+		/// @note Only between 1 and 4 values are used in versions.
 		void set(const String& versions);
 		/// @brief Creates a String representation of the Version.
 		/// @param[in] count How many version values should be used (between 1 and 4).
@@ -91,6 +99,11 @@ namespace hltypes
 		/// @param[in] other Other Version.
 		/// @return True if this Version non-equals another Version.
 		bool operator!=(const Version& other) const;
+
+		/// @brief Checks if the string is a valid version string.
+		/// @param[in] string The String to check.
+		/// @return True if the string is a valid version string.
+		static bool isVersionString(const String& string);
 		
 	};
 
