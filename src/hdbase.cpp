@@ -52,7 +52,7 @@ namespace hltypes
 #ifdef _DEBUG // using _platformPrint() directory to avoid possible deadlock when saving to file during logging
 			hltypes::_platformPrint(logTag, "The path '" + result + "' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", LEVEL_WARN);
 #endif
-			for (int i = 0; i < 10000 && result.contains("//"); ++i) // to prevent an infinite loop
+			for (int i = 0; i < 10000 && result.contains("//"); ++i) // 10000 loops are there to prevent a possible infinite loop
 			{
 				result = result.replaced("//", "/");
 			}
