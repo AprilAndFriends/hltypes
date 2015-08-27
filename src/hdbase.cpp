@@ -38,17 +38,36 @@ namespace hltypes
 
 	String DirBase::systemize(const String& path)
 	{
-		String result = path.replaced('\\', '/');
+		String result = path;
+#ifdef _WIN32
+		bool networkDrive = path.startsWith("\\\\");
+		if (networkDrive)
+		{
+			result = result(2, -1);
+		}
+#endif
+		result = result.replaced('\\', '/');
 		if (result.contains("//"))
 		{
 #ifdef _DEBUG // using _platformPrint() directory to avoid possible deadlock when saving to file during logging
 			hltypes::_platformPrint(logTag, "The path '" + result + "' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", LEVEL_WARN);
 #endif
-			for (int i = 0; i < 1000 && result.contains("//"); ++i) // to prevent an infinite loop
+			for (int i = 0; i < 10000 && result.contains("//"); ++i) // to prevent an infinite loop
 			{
 				result = result.replaced("//", "/");
 			}
 		}
+#ifdef _WIN32
+		// there could still be a single leading slash
+		if (result[0] == '/')
+		{
+			result = result(1, -1);
+		}
+		if (networkDrive)
+		{
+			result = "\\\\" + result;
+		}
+#endif
 		return result;
 	}
 
