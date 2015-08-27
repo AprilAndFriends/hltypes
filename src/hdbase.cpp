@@ -59,7 +59,7 @@ namespace hltypes
 		}
 #ifdef _WIN32
 		// there could still be a single leading slash
-		if (result[0] == '/')
+		if (result.size() > 0 && result[0] == '/')
 		{
 			result = result(1, -1);
 		}
