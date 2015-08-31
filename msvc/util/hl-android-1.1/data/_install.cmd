@@ -54,12 +54,12 @@ IF ERRORLEVEL 1 (
 :start
 echo.Installing Android MSBuild files:
 
-md "%MsBuildCppDir%\MsBuild\Android"
-xcopy "data\MsBuild\Android\*.*" "%MsBuildCppDir%\MsBuild\Android\" /E
-xcopy "data\bin\%1\*.*" "%MsBuildCppDir%\MsBuild\Android\bin\" /E
+md "%MsBuildCppDir%\Android"
+xcopy "data\MsBuild\Android\*.*" "%MsBuildCppDir%\Android\" /E
+xcopy "data\bin\%1\*.*" "%MsBuildCppDir%\Android\bin\" /E
 md "%MsBuildCppDir%\Android-x86"
-xcopy "data\MsBuild\Android-x86\*.*" "%MsBuildCppDir%\MsBuild\Android-x86\" /E
-xcopy "data\bin\%1\*.*" "%MsBuildCppDir%\MsBuild\Android-x86\bin\" /E
+xcopy "data\MsBuild\Android-x86\*.*" "%MsBuildCppDir%\Android-x86\" /E
+xcopy "data\bin\%1\*.*" "%MsBuildCppDir%\Android-x86\bin\" /E
 
 IF ERRORLEVEL 1 (
 :error
