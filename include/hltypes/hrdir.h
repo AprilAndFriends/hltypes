@@ -22,7 +22,7 @@
 
 namespace hltypes
 {
-	template <class T> class Array;
+	template <typename T> class Array;
 	/// @brief Provides high level directory handling.
 	class hltypesExport ResourceDir : public DirBase
 	{

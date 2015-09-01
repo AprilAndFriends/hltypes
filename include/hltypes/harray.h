@@ -30,7 +30,7 @@
 namespace hltypes
 {
 	/// @brief Encapsulates std::vector and adds high level methods.
-	template <class T>
+	template <typename T>
 	class Array : public Container<std::vector<T>, T>
 	{
 	public:
@@ -242,7 +242,7 @@ namespace hltypes
 		/// @brief Creates new Array with new elements obtained from the current Array elements.
 		/// @param[in] generateFunction Function pointer with generation function for the new elements.
 		/// @return A new Array with the new elements.
-		template <class S>
+		template <typename S>
 		inline Array<S> mapped(S(*generateFunction)(T)) const
 		{
 			return this->template _mapped<Array<S>, S>(generateFunction);
@@ -257,7 +257,7 @@ namespace hltypes
 		/// @brief Returns a new Array with all elements cast into type S.
 		/// @return A new Array with all elements cast into type S.
 		/// @note Make sure all elements in the Array can be cast into type S.
-		template <class S>
+		template <typename S>
 		inline Array<S> cast() const
 		{
 			return this->template _cast<Array<S>, S>();
@@ -266,7 +266,7 @@ namespace hltypes
 		/// @param[in] includeNulls Whether to include NULLs that failed to cast.
 		/// @return A new Array with all elements cast into type S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
-		template <class S>
+		template <typename S>
 		inline Array<S> dynamicCast(bool includeNulls = false) const
 		{
 			return this->template _dynamicCast<Array<S>, S>(includeNulls);
@@ -496,7 +496,7 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE inline T remove_random()														{ return this->removeRandom(); }
 		DEPRECATED_ATTRIBUTE inline Array<T> remove_random(int count, bool unique = false)					{ return this->removeRandom(count, unique); }
 		DEPRECATED_ATTRIBUTE inline Array<T> find_all(bool (*conditionFunction)(T)) const					{ return this->findAll(conditionFunction); }
-		template <class S> DEPRECATED_ATTRIBUTE inline Array<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
+		template <typename S> DEPRECATED_ATTRIBUTE inline Array<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
 
 	};
 	

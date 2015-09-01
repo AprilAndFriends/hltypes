@@ -26,7 +26,7 @@ const std::string::size_type std::string::npos = size_t(-1);
 
 namespace hltypes
 {
-	template <class T> class Array;
+	template <typename T> class Array;
 	
 	/// @brief Encapsulates std::string and adds high level methods.
 	class hltypesSpecialExport String : std::basic_string<char>

@@ -24,7 +24,7 @@
 namespace hltypes
 {
 	/// @brief Encapsulates container functionality and adds high level methods.
-	template <class STD, class T>
+	template <typename STD, typename T>
 	class Container : STD
 	{
 	public:
@@ -895,7 +895,7 @@ namespace hltypes
 		/// @brief Gets all indexes of the given element.
 		/// @param[in] element Element to search for.
 		/// @return All indexes of the given element.
-		template <class R>
+		template <typename R>
 		inline R _indexesOf(const T& element) const
 		{
 			R result;
@@ -913,7 +913,7 @@ namespace hltypes
 		/// @param[in] start Start index of the elements to copy.
 		/// @param[in] count Number of elements to copy.
 		/// @return Subarray created from the current Container.
-		template <class R>
+		template <typename R>
 		inline R _sub(int start, int count) const
 		{
 			R result;
@@ -938,7 +938,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to remove.
 		/// @return Container of all removed elements.
 		/// @note Elements in the returned Container are in the same order as in the orignal Container.
-		template <class R>
+		template <typename R>
 		inline R _removeAt(int index, int count)
 		{
 			int size = this->size();
@@ -962,7 +962,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to remove.
 		/// @return Container of all removed elements.
 		/// @note Elements in the returned Container are in the same order as in the orignal Container.
-		template <class R>
+		template <typename R>
 		inline R _removeFirst(const int count)
 		{
 			if (count > this->size())
@@ -980,7 +980,7 @@ namespace hltypes
 		/// @param[in] count Number of elements to remove.
 		/// @return Container of all removed elements.
 		/// @note Elements in the returned Container are in the same order as in the orignal Container.
-		template <class R>
+		template <typename R>
 		inline R _removeLast(const int count)
 		{
 			if (count > this->size())
@@ -997,7 +997,7 @@ namespace hltypes
 		/// @brief Gets an Container of random elements selected from this one and removes them.
 		/// @param[in] count Number of random elements.
 		/// @return Container of random elements selected from this one.
-		template <class R>
+		template <typename R>
 		inline R _removeRandom(const int count)
 		{
 			R result = this->_random(count);
@@ -1008,7 +1008,7 @@ namespace hltypes
 		/// @param[in] count Number of random elements.
 		/// @param[in] unique Whether to force all random values to be at unique positions.
 		/// @return Container of random elements selected from this one.
-		template <class R>
+		template <typename R>
 		inline R _random(int count, bool unique = true) const
 		{
 			R result;
@@ -1044,7 +1044,7 @@ namespace hltypes
 		}
 		/// @brief Creates new Container with reversed order of elements.
 		/// @return A new Container.
-		template <class R>
+		template <typename R>
 		inline R _reversed() const
 		{
 			R result(*this);
@@ -1053,7 +1053,7 @@ namespace hltypes
 		}
 		/// @brief Creates new Container without duplicates.
 		/// @return A new Container.
-		template <class R>
+		template <typename R>
 		inline R _removedDuplicates() const
 		{
 			R result(*this);
@@ -1063,7 +1063,7 @@ namespace hltypes
 		/// @brief Creates new sorted Container.
 		/// @return A new Container.
 		/// @note The sorting order is ascending.
-		template <class R>
+		template <typename R>
 		inline R _sorted() const
 		{
 			R result(*this);
@@ -1075,7 +1075,7 @@ namespace hltypes
 		/// @return A new Container.
 		/// @note The sorting order is ascending.
 		/// @note compareFunction should return true if first element is less than the second element.
-		template <class R>
+		template <typename R>
 		inline R _sorted(bool(*compareFunction)(T, T)) const
 		{
 			R result(*this);
@@ -1084,7 +1084,7 @@ namespace hltypes
 		}
 		/// @brief Creates a new Container with randomized order of elements.
 		/// @return A new Container.
-		template <class R>
+		template <typename R>
 		inline R _randomized() const
 		{
 			R result(*this);
@@ -1095,7 +1095,7 @@ namespace hltypes
 		/// @param[in] element Element to unite with.
 		/// @return A new Container.
 		/// @note Removes duplicates.
-		template <class R>
+		template <typename R>
 		inline R _united(const T& element) const
 		{
 			R result(*this);
@@ -1106,7 +1106,7 @@ namespace hltypes
 		/// @param[in] other Container to unite with.
 		/// @return A new Container.
 		/// @note Removes duplicates.
-		template <class R>
+		template <typename R>
 		inline R _united(const R& other) const
 		{
 			R result(*this);
@@ -1117,7 +1117,7 @@ namespace hltypes
 		/// @param[in] other Container to intersect with.
 		/// @return A new Container.
 		/// @note Does not remove duplicates.
-		template <class R>
+		template <typename R>
 		inline R _intersected(const R& other) const
 		{
 			R result(*this);
@@ -1129,7 +1129,7 @@ namespace hltypes
 		/// @return A new Container.
 		/// @note Unlike remove, this method ignores if the element is not in this Container.
 		/// @note Does not remove duplicates.
-		template <class R>
+		template <typename R>
 		inline R _differentiated(const T& element) const
 		{
 			R result(*this);
@@ -1141,7 +1141,7 @@ namespace hltypes
 		/// @return A new Container.
 		/// @note Unlike remove, this method ignore elements of other Container that are not in this one.
 		/// @note Does not remove duplicates.
-		template <class R>
+		template <typename R>
 		inline R _differentiated(const R& other) const
 		{
 			R result(*this);
@@ -1152,7 +1152,7 @@ namespace hltypes
 		/// @param[in] generateFunction Function pointer with generation function for the new elements.
 		/// @return A new Container with the new elements.
 		/// @note generateFunction should return the element that should be mapped from the original.
-		template <class R, class S>
+		template <typename R, typename S>
 		inline R _mapped(S (*generateFunction)(T)) const
 		{
 			R result;
@@ -1166,7 +1166,7 @@ namespace hltypes
 		/// @brief Finds and returns new Container of elements that match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return New Container with all matching elements.
-		template <class R>
+		template <typename R>
 		inline R _findAll(bool (*conditionFunction)(T)) const
 		{
 			R result;
@@ -1183,7 +1183,7 @@ namespace hltypes
 		/// @brief Returns a new Container with all elements cast into type S.
 		/// @return A new Container with all elements cast into type S.
 		/// @note Make sure all elements in the Container can be cast into type S.
-		template <class R, class S>
+		template <typename R, typename S>
 		inline R _cast() const
 		{
 			R result;
@@ -1198,7 +1198,7 @@ namespace hltypes
 		/// @param[in] includeNulls Whether to include NULLs that failed to cast.
 		/// @return A new Container with all elements cast into type S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
-		template <class R, class S>
+		template <typename R, typename S>
 		inline R _dynamicCast(bool includeNulls = false) const
 		{
 			R result;

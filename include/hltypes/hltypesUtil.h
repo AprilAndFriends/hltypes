@@ -461,7 +461,7 @@ hltypesFnExport unsigned int hcrc32(hltypes::Stream* stream);
 /// @param[in] a First element.
 /// @param[in] b Second element.
 /// @return The lesser of two elements.
-template <class T>
+template <typename T>
 inline T hmin(T a, T b)
 {
 	return (a < b ? a : b);
@@ -470,7 +470,7 @@ inline T hmin(T a, T b)
 /// @param[in] a First element.
 /// @param[in] b Second element.
 /// @return The greater of two elements.
-template <class T>
+template <typename T>
 inline T hmax(T a, T b)
 {
 	return (a > b ? a : b);
@@ -480,7 +480,7 @@ inline T hmax(T a, T b)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return Clamped value.
-template <class T>
+template <typename T>
 inline T hclamp(T value, T min, T max)
 {
 	return (value < min ? min : (value > max ? max : value));
@@ -488,7 +488,7 @@ inline T hclamp(T value, T min, T max)
 /// @brief Swaps the values of two elements.
 /// @param[in,out] a First element.
 /// @param[in,out] b Second element.
-template <class T>
+template <typename T>
 inline void hswap(T& a, T& b)
 {
 	T temp = a;
@@ -498,7 +498,7 @@ inline void hswap(T& a, T& b)
 /// @brief Returns Signum of the value.
 /// @param[in] value The value.
 /// @return Signum of the value.
-template <class T>
+template <typename T>
 inline int hsgn(T value)
 {
 	return (value == 0 ? 0 : value >= 0 ? 1 : -1);
@@ -509,7 +509,7 @@ inline int hsgn(T value)
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is between minimum and maximum.
 /// @note The "II" at the end indicates "inclusive minimum, inclusive maximum".
-template <class T>
+template <typename T>
 inline bool hbetweenII(T value, T min, T max)
 {
 	return (value >= min && value <= max);
@@ -520,7 +520,7 @@ inline bool hbetweenII(T value, T min, T max)
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is between minimum and maximum.
 /// @note The "EE" at the end indicates "exclusive minimum, exclusive maximum".
-template <class T>
+template <typename T>
 inline bool hbetweenEE(T value, T min, T max)
 {
 	return (value > min && value < max);
@@ -531,7 +531,7 @@ inline bool hbetweenEE(T value, T min, T max)
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is inside of minimum and maximum.
 /// @note The "IE" at the end indicates "inclusive minimum, exclusive maximum".
-template <class T>
+template <typename T>
 inline bool hbetweenIE(T value, T min, T max)
 {
 	return (value >= min && value < max);
@@ -542,7 +542,7 @@ inline bool hbetweenIE(T value, T min, T max)
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is inside of minimum and maximum.
 /// @note The "EI" at the end indicates "exclusive minimum, inclusive maximum".
-template <class T>
+template <typename T>
 inline bool hbetweenEI(T value, T min, T max)
 {
 	return (value > min && value <= max);
@@ -559,13 +559,13 @@ DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotd_squared(int a, int b);
 DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int calc_crc32(unsigned char* data, unsigned int size);
 DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream, unsigned int size);
 DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
-template <class T> DEPRECATED_ATTRIBUTE inline bool is_between_ii(T value, T min, T max) { return hbetweenII(value, min, max); }
-template <class T> DEPRECATED_ATTRIBUTE inline bool is_between_ee(T value, T min, T max) { return hbetweenEE(value, min, max); }
-template <class T> DEPRECATED_ATTRIBUTE inline bool is_between_ie(T value, T min, T max) { return hbetweenIE(value, min, max); }
-template <class T> DEPRECATED_ATTRIBUTE inline bool is_between_ei(T value, T min, T max) { return hbetweenEI(value, min, max); }
-template <class T> DEPRECATED_ATTRIBUTE inline bool is_between(T value, T min, T max) { return hbetweenII(value, min, max); }
-template <class T> DEPRECATED_ATTRIBUTE inline bool is_within(T value, T min, T max) { return hbetweenEE(value, min, max); }
-template <class T> DEPRECATED_ATTRIBUTE inline bool is_in_range(T value, T min, T max) { return hbetweenIE(value, min, max); }
-template <class T> DEPRECATED_ATTRIBUTE inline bool is_inside(T value, T min, T max) { return hbetweenEI(value, min, max); }
+template <typename T> DEPRECATED_ATTRIBUTE inline bool is_between_ii(T value, T min, T max) { return hbetweenII(value, min, max); }
+template <typename T> DEPRECATED_ATTRIBUTE inline bool is_between_ee(T value, T min, T max) { return hbetweenEE(value, min, max); }
+template <typename T> DEPRECATED_ATTRIBUTE inline bool is_between_ie(T value, T min, T max) { return hbetweenIE(value, min, max); }
+template <typename T> DEPRECATED_ATTRIBUTE inline bool is_between_ei(T value, T min, T max) { return hbetweenEI(value, min, max); }
+template <typename T> DEPRECATED_ATTRIBUTE inline bool is_between(T value, T min, T max) { return hbetweenII(value, min, max); }
+template <typename T> DEPRECATED_ATTRIBUTE inline bool is_within(T value, T min, T max) { return hbetweenEE(value, min, max); }
+template <typename T> DEPRECATED_ATTRIBUTE inline bool is_in_range(T value, T min, T max) { return hbetweenIE(value, min, max); }
+template <typename T> DEPRECATED_ATTRIBUTE inline bool is_inside(T value, T min, T max) { return hbetweenEI(value, min, max); }
 
 #endif
