@@ -32,7 +32,7 @@
 namespace hltypes
 {
 	/// @brief Encapsulates std::map and adds high level methods.
-	template <class K, class V>
+	template <typename K, typename V>
 	class Map : public std::map<K, V>
 	{
 	public:
@@ -562,7 +562,7 @@ namespace hltypes
 		/// @brief Returns a new Map with all keys and values cast into the type L and S.
 		/// @return A new Map with all keys and values cast into the type L and S.
 		/// @note Make sure all keys can be cast into type L and all values into type S.
-		template <class L, class S>
+		template <typename L, typename S>
 		inline Map<L, S> cast() const
 		{
 			Map<L, S> result;
@@ -576,7 +576,7 @@ namespace hltypes
 		/// @param[in] includeNulls Whether to include value NULLs that failed to cast.
 		/// @return A new Map with all keys and values cast into the type L and S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
-		template <class L, class S>
+		template <typename L, typename S>
 		inline Map<L, S> dynamicCast(bool includeNulls = false) const
 		{
 			Map<L, S> result;
@@ -597,7 +597,7 @@ namespace hltypes
 		/// @return A new Map with all keys and values cast into the type L and S.
 		/// @note If dynamic casting fails, it won't be included in the result.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
-		template <class L, class S>
+		template <typename L, typename S>
 		inline Map<L, S> dynamicCastKeys() const
 		{
 			Map<L, S> result;
@@ -616,7 +616,7 @@ namespace hltypes
 		/// @param[in] includeNulls Whether to include value NULLs that failed to cast.
 		/// @return A new Map with all keys and values cast into the type L and S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
-		template <class L, class S>
+		template <typename L, typename S>
 		inline Map<L, S> dynamicCastValues(bool includeNulls = false) const
 		{
 			Map<L, S> result;
@@ -677,9 +677,9 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE inline bool matches_any(bool(*conditionFunction)(K, V)) const									{ return this->matchesAny(conditionFunction); }
 		DEPRECATED_ATTRIBUTE inline bool matches_all(bool(*conditionFunction)(K, V)) const									{ return this->matchesAll(conditionFunction); }
 		DEPRECATED_ATTRIBUTE inline V try_get_by_key(K key, V defaultValue) const											{ return this->tryGet(key, defaultValue); }
-		template <class L, class S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast(bool includeNulls = false) const			{ return this->dynamicCast<L, S>(includeNulls); }
-		template <class L, class S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast_key() const								{ return this->dynamicCastKeys<L, S>(); }
-		template <class L, class S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast_value(bool includeNulls = false) const	{ return this->dynamicCastValues<L, S>(includeNulls); }
+		template <typename L, typename S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast(bool includeNulls = false) const			{ return this->dynamicCast<L, S>(includeNulls); }
+		template <typename L, typename S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast_key() const								{ return this->dynamicCastKeys<L, S>(); }
+		template <typename L, typename S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast_value(bool includeNulls = false) const	{ return this->dynamicCastValues<L, S>(includeNulls); }
 
 	};
 	

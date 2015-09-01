@@ -30,7 +30,7 @@
 namespace hltypes
 {
 	/// @brief Encapsulates std::list and adds high level methods.
-	template <class T>
+	template <typename T>
 	class List : public Container<std::list<T>, T>
 	{
 	public:
@@ -242,7 +242,7 @@ namespace hltypes
 		/// @brief Creates new List with new elements obtained from the current List elements.
 		/// @param[in] generateFunction Function pointer with generation function for the new elements.
 		/// @return A new List with the new elements.
-		template <class S>
+		template <typename S>
 		inline List<S> mapped(S(*generateFunction)(T)) const
 		{
 			return this->template _mapped<List<S>, S>(generateFunction);
@@ -257,7 +257,7 @@ namespace hltypes
 		/// @brief Returns a new List with all elements cast into type S.
 		/// @return A new List with all elements cast into type S.
 		/// @note Make sure all elements in the List can be cast into type S.
-		template <class S>
+		template <typename S>
 		inline List<S> cast() const
 		{
 			return this->template _cast<List<S>, S>();
@@ -266,7 +266,7 @@ namespace hltypes
 		/// @param[in] includeNulls Whether to include NULLs that failed to cast.
 		/// @return A new List with all elements cast into type S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
-		template <class S>
+		template <typename S>
 		inline List<S> dynamicCast(bool includeNulls = false) const
 		{
 			return this->template _dynamicCast<List<S>, S>(includeNulls);
@@ -483,7 +483,7 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE inline T remove_random()														{ return this->removeRandom(); }
 		DEPRECATED_ATTRIBUTE inline List<T> remove_random(int count, bool unique = false)					{ return this->removeRandom(count, unique); }
 		DEPRECATED_ATTRIBUTE inline List<T> find_all(bool (*conditionFunction)(T)) const					{ return this->findAll(conditionFunction); }
-		template <class S> DEPRECATED_ATTRIBUTE inline List<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
+		template <typename S> DEPRECATED_ATTRIBUTE inline List<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
 
 	};
 	

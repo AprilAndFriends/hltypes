@@ -30,7 +30,7 @@
 namespace hltypes
 {
 	/// @brief Encapsulates std::deque and adds high level methods.
-	template <class T>
+	template <typename T>
 	class Deque : public Container<std::deque<T>, T>
 	{
 	public:
@@ -242,7 +242,7 @@ namespace hltypes
 		/// @brief Creates new Deque with new elements obtained from the current Deque elements.
 		/// @param[in] generateFunction Function pointer with generation function for the new elements.
 		/// @return A new Deque with the new elements.
-		template <class S>
+		template <typename S>
 		inline Deque<S> mapped(S(*generateFunction)(T)) const
 		{
 			return this->template _mapped<Deque<S>, S>(generateFunction);
@@ -257,7 +257,7 @@ namespace hltypes
 		/// @brief Returns a new Deque with all elements cast into type S.
 		/// @return A new Deque with all elements cast into type S.
 		/// @note Make sure all elements in the Deque can be cast into type S.
-		template <class S>
+		template <typename S>
 		inline Deque<S> cast() const
 		{
 			return this->template _cast<Deque<S>, S>();
@@ -266,7 +266,7 @@ namespace hltypes
 		/// @param[in] includeNulls Whether to include NULLs that failed to cast.
 		/// @return A new Deque with all elements cast into type S.
 		/// @note Be careful not to use this function with non-pointers and classes that don't have virtual functions.
-		template <class S>
+		template <typename S>
 		inline Deque<S> dynamicCast(bool includeNulls = false) const
 		{
 			return this->template _dynamicCast<Deque<S>, S>(includeNulls);
@@ -483,7 +483,7 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE inline T remove_random()														{ return this->removeRandom(); }
 		DEPRECATED_ATTRIBUTE inline Deque<T> remove_random(int count, bool unique = false)					{ return this->removeRandom(count, unique); }
 		DEPRECATED_ATTRIBUTE inline Deque<T> find_all(bool (*conditionFunction)(T)) const					{ return this->findAll(conditionFunction); }
-		template <class S> DEPRECATED_ATTRIBUTE inline Deque<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
+		template <typename S> DEPRECATED_ATTRIBUTE inline Deque<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
 
 	};
 	
