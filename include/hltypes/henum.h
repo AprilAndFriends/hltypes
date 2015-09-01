@@ -16,8 +16,8 @@
 #include "hltypesExport.h"
 
 #define __HL_EXPAND_MACRO(x) x
-#define HL_ENUM_DEFINE_CLASS(classe, code) \
-class classe : public henum \
+#define HL_ENUM_DEFINE_PREFIX_CLASS(prefix, classe, code) \
+class prefix classe : public henum \
 { \
 public: \
 	classe() : henum() { } \
@@ -25,6 +25,7 @@ public: \
 	~classe() { } \
 	__HL_EXPAND_MACRO code \
 };
+#define HL_ENUM_DEFINE_CLASS(classe, code) HL_ENUM_DEFINE_PREFIX_CLASS(, classe, code)
 
 namespace hltypes
 {
