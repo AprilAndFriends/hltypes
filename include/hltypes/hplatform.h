@@ -23,7 +23,7 @@
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
-#ifndef _NO_WIN_H
+#ifdef __HL_INCLUDE_PLATFORM_HEADERS
 #include <windows.h>
 #endif
 

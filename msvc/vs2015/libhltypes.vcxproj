@@ -152,6 +152,7 @@
   <Import Project="props-generic\build-defaults.props" />
   <Import Project="props\configuration.props" />
   <ItemGroup>
+    <ClCompile Include="..\..\src\henum.cpp" />
     <ClCompile Include="..\..\src\hexception.cpp" />
     <ClCompile Include="..\..\src\hdbase.cpp" />
     <ClCompile Include="..\..\src\hdir.cpp" />
@@ -175,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\hltypes\hcontainer.h" />
+    <ClInclude Include="..\..\include\hltypes\henum.h" />
     <ClInclude Include="..\..\include\hltypes\hexception.h" />
     <ClInclude Include="..\..\include\hltypes\harray.h" />
     <ClInclude Include="..\..\include\hltypes\hdbase.h" />

@@ -13,6 +13,7 @@
 #include <pthread.h>
 #endif
 
+#define __HL_INCLUDE_PLATFORM_HEADERS
 #include "harray.h"
 #include "hlog.h"
 #include "hltypesUtil.h"

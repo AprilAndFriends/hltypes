@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define __HL_INCLUDE_PLATFORM_HEADERS
 #include "hlog.h"
 #include "hltypesUtil.h"
 #include "hmutex.h"

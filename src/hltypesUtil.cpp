@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define __HL_INCLUDE_PLATFORM_HEADERS
 #include "harray.h"
 #include "hlog.h"
 #include "hltypesUtil.h"

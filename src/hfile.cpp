@@ -12,10 +12,12 @@
 int (*f_rename)(const char* oldName, const char* newName) = rename;
 int (*f_remove)(const char* filename) = remove;
 
+#define __HL_INCLUDE_PLATFORM_HEADERS
 #include "hdir.h"
 #include "hexception.h"
 #include "hfile.h"
 #include "hlog.h"
+#include "hplatform.h"
 #include "hstring.h"
 #include "hthread.h"
 
