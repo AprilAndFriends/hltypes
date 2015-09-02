@@ -10,9 +10,8 @@
 /// 
 /// Provides special preprocessor macros for platform definitions and special platform specific functions.
 
+// split into 2 parts, because of platform header inclusion
 #ifndef HLTYPES_PLATFORM_H
-#define HLTYPES_PLATFORM_H
-
 #if defined(_WIN32) && defined(_MSC_VER)
 #ifdef max
 #undef max
@@ -23,10 +22,14 @@
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
+#endif
+
 #ifdef __HL_INCLUDE_PLATFORM_HEADERS
 #include <windows.h>
 #endif
 
+#ifndef HLTYPES_PLATFORM_H
+#define HLTYPES_PLATFORM_H
 // define _WINRT for external projects just in case
 #if !defined(_WINRT) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
 #if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)

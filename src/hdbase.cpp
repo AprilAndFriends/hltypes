@@ -8,6 +8,7 @@
 
 #include "harray.h"
 #include "hdbase.h"
+#include "hplatform.h"
 #include "hstring.h"
 
 #ifdef _ANDROID // needed for Android only anyway so this "second" definition (aside from hlog.h) is ok (needed for systemize)

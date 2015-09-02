@@ -17,6 +17,7 @@
 #include "hexception.h"
 #include "hlog.h"
 #include "hltypesUtil.h"
+#include "hplatform.h"
 #include "hstring.h"
 
 #ifdef __APPLE__

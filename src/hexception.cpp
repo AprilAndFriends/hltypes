@@ -11,6 +11,7 @@
 #include "hfile.h"
 #include "hlog.h"
 #include "hltypesUtil.h"
+#include "hplatform.h"
 #include "hrdir.h"
 #include "hresource.h"
 #include "hstring.h"
