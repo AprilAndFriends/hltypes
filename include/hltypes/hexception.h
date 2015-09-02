@@ -273,8 +273,44 @@ namespace hltypes
 		inline String getType() { return "ObjectCannotAssignException"; }
 
 	};
+	/// @brief Defines a enum-value-not-exists exception.
+	class hltypesExport _EnumValueNotExistsException : public _Exception
+	{
+	public:
+		/// @brief Basic constructor.
+		/// @param[in] value Enum value.
+		/// @param[in] sourceFile Name of the source file.
+		/// @param[in] lineNumber Number of the line.
+		_EnumValueNotExistsException(unsigned int value, const char* sourceFile, int lineNumber);
+		~_EnumValueNotExistsException();
+		/// @brief Gets the exception type.
+		/// @return The exception type.
+		inline String getType() { return "EnumValueNotExistsException"; }
+
+	};
+	/// @brief Alias for simpler code.
+	#define EnumValueNotExistsException(value) hltypes::_EnumValueNotExistsException(value, __FILE__, __LINE__)
+
 	/// @brief Alias for simpler code.
 	#define ObjectCannotAssignException(name) hltypes::_ObjectCannotAssignException(name, __FILE__, __LINE__)
+
+	/// @brief Defines a enum-value-already-exists exception.
+	class hltypesExport _EnumValueAlreadyExistsException : public _Exception
+	{
+	public:
+		/// @brief Basic constructor.
+		/// @param[in] value Enum value.
+		/// @param[in] sourceFile Name of the source file.
+		/// @param[in] lineNumber Number of the line.
+		_EnumValueAlreadyExistsException(unsigned int value, const char* sourceFile, int lineNumber);
+		~_EnumValueAlreadyExistsException();
+		/// @brief Gets the exception type.
+		/// @return The exception type.
+		inline String getType() { return "EnumValueAlreadyExistsException"; }
+
+	};
+	/// @brief Alias for simpler code.
+	#define EnumValueAlreadyExistsException(value) hltypes::_EnumValueAlreadyExistsException(value, __FILE__, __LINE__)
 
 }
 
