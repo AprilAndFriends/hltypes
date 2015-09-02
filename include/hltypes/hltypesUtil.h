@@ -548,24 +548,4 @@ inline bool hbetweenEI(T value, T min, T max)
 	return (value > min && value <= max);
 }
 
-DEPRECATED_ATTRIBUTE hltypesFnExport uint64_t get_system_time();
-DEPRECATED_ATTRIBUTE hltypesFnExport uint64_t get_system_tick_count();
-DEPRECATED_ATTRIBUTE hltypesFnExport hltypes::String get_environment_variable(const hltypes::String& name);
-DEPRECATED_ATTRIBUTE hltypesFnExport float hhypot_squared(float a, float b);
-DEPRECATED_ATTRIBUTE hltypesFnExport double hhypot_squared(double a, double b);
-DEPRECATED_ATTRIBUTE hltypesFnExport int hhypot_squared(int a, int b);
-DEPRECATED_ATTRIBUTE hltypesFnExport float hhypotf_squared(int a, int b);
-DEPRECATED_ATTRIBUTE hltypesFnExport double hhypotd_squared(int a, int b);
-DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int calc_crc32(unsigned char* data, unsigned int size);
-DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream, unsigned int size);
-DEPRECATED_ATTRIBUTE hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
-template <typename T> DEPRECATED_ATTRIBUTE inline bool is_between_ii(T value, T min, T max) { return hbetweenII(value, min, max); }
-template <typename T> DEPRECATED_ATTRIBUTE inline bool is_between_ee(T value, T min, T max) { return hbetweenEE(value, min, max); }
-template <typename T> DEPRECATED_ATTRIBUTE inline bool is_between_ie(T value, T min, T max) { return hbetweenIE(value, min, max); }
-template <typename T> DEPRECATED_ATTRIBUTE inline bool is_between_ei(T value, T min, T max) { return hbetweenEI(value, min, max); }
-template <typename T> DEPRECATED_ATTRIBUTE inline bool is_between(T value, T min, T max) { return hbetweenII(value, min, max); }
-template <typename T> DEPRECATED_ATTRIBUTE inline bool is_within(T value, T min, T max) { return hbetweenEE(value, min, max); }
-template <typename T> DEPRECATED_ATTRIBUTE inline bool is_in_range(T value, T min, T max) { return hbetweenIE(value, min, max); }
-template <typename T> DEPRECATED_ATTRIBUTE inline bool is_inside(T value, T min, T max) { return hbetweenEI(value, min, max); }
-
 #endif

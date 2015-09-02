@@ -31,19 +31,6 @@ namespace hltypes
 	String logTag = "hltypes";
 }
 
-// DEPRECATED
-DEPRECATED_ATTRIBUTE uint64_t get_system_time() { return htime(); }
-DEPRECATED_ATTRIBUTE uint64_t get_system_tick_count() { return htickCount(); }
-DEPRECATED_ATTRIBUTE hltypes::String get_environment_variable(const hltypes::String& name) { return henv(name); }
-DEPRECATED_ATTRIBUTE float hhypot_squared(float a, float b) { return hhypotSquared(a, b); }
-DEPRECATED_ATTRIBUTE double hhypot_squared(double a, double b) { return hhypotSquared(a, b); }
-DEPRECATED_ATTRIBUTE int hhypot_squared(int a, int b) { return hhypotSquared(a, b); }
-DEPRECATED_ATTRIBUTE float hhypotf_squared(int a, int b) { return hhypotfSquared(a, b); }
-DEPRECATED_ATTRIBUTE double hhypotd_squared(int a, int b) { return hhypotdSquared(a, b); }
-DEPRECATED_ATTRIBUTE unsigned int calc_crc32(unsigned char* data, unsigned int size) { return hcrc32(data, size); }
-DEPRECATED_ATTRIBUTE unsigned int calc_crc32(hltypes::StreamBase* stream, unsigned int size) { return hcrc32(stream, size); }
-DEPRECATED_ATTRIBUTE unsigned int calc_crc32(hltypes::StreamBase* stream) { return hcrc32(stream); }
-
 uint64_t htime()
 {
 	return (uint64_t)time(NULL);
