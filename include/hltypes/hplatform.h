@@ -23,6 +23,7 @@
 #define NOMINMAX
 #endif
 #endif
+#endif
 
 #ifdef __HL_INCLUDE_PLATFORM_HEADERS
 #include <windows.h>
@@ -30,6 +31,7 @@
 
 #ifndef HLTYPES_PLATFORM_H
 #define HLTYPES_PLATFORM_H
+#if defined(_WIN32) && defined(_MSC_VER)
 // define _WINRT for external projects just in case
 #if !defined(_WINRT) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
 #if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
