@@ -28,7 +28,9 @@
 #ifdef __HL_INCLUDE_PLATFORM_HEADERS
 #ifndef HLTYPES_PLATFORM_H_PLATFORM_HEADERS_INCLUDED
 #define HLTYPES_PLATFORM_H_PLATFORM_HEADERS_INCLUDED
+#if defined(_WIN32) && defined(_MSC_VER)
 #include <windows.h>
+#endif
 #endif
 #endif
 
