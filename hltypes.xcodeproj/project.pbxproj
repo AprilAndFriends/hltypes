@@ -86,6 +86,10 @@
 		D1D63AE91AA9979D00F72096 /* hcontainer.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D63AE61AA9979D00F72096 /* hcontainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1D63AEA1AA9979D00F72096 /* hversion.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D63AE71AA9979D00F72096 /* hversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1DB1C20162854920013C0E5 /* hplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DB1C1F162854920013C0E5 /* hplatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1DC28F41B972E7900DBEB75 /* henum.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DC28F31B972E7900DBEB75 /* henum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1DC28F61B972E9000DBEB75 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; settings = {ASSET_TAGS = (); }; };
+		D1DC28F71B972E9000DBEB75 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; settings = {ASSET_TAGS = (); }; };
+		D1DC28F81B972E9000DBEB75 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; settings = {ASSET_TAGS = (); }; };
 		D1E1DD59140E579C00499A97 /* hdeque.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD56140E579C00499A97 /* hdeque.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5A140E579D00499A97 /* hlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD57140E579C00499A97 /* hlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5B140E579D00499A97 /* hthread.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD58140E579C00499A97 /* hthread.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -177,6 +181,8 @@
 		D1D63AE61AA9979D00F72096 /* hcontainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hcontainer.h; path = include/hltypes/hcontainer.h; sourceTree = "<group>"; };
 		D1D63AE71AA9979D00F72096 /* hversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hversion.h; path = include/hltypes/hversion.h; sourceTree = "<group>"; };
 		D1DB1C1F162854920013C0E5 /* hplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hplatform.h; path = include/hltypes/hplatform.h; sourceTree = "<group>"; };
+		D1DC28F31B972E7900DBEB75 /* henum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = henum.h; path = include/hltypes/henum.h; sourceTree = "<group>"; };
+		D1DC28F51B972E9000DBEB75 /* henum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = henum.cpp; path = src/henum.cpp; sourceTree = "<group>"; };
 		D1E1DD56140E579C00499A97 /* hdeque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdeque.h; path = include/hltypes/hdeque.h; sourceTree = "<group>"; };
 		D1E1DD57140E579C00499A97 /* hlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hlist.h; path = include/hltypes/hlist.h; sourceTree = "<group>"; };
 		D1E1DD58140E579C00499A97 /* hthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hthread.h; path = include/hltypes/hthread.h; sourceTree = "<group>"; };
@@ -240,6 +246,7 @@
 		7F42F69511EB0B8500B1C1DF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				D1DC28F51B972E9000DBEB75 /* henum.cpp */,
 				D1E909F0163693A500EB27EE /* platform */,
 				D1BAE103183B921400BC2434 /* zipaccess.h */,
 				D1BAE101183B920700BC2434 /* msvc_dirent.h */,
@@ -267,6 +274,7 @@
 		7F42F69C11EB0B9A00B1C1DF /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D1DC28F31B972E7900DBEB75 /* henum.h */,
 				D1D63AE51AA9979D00F72096 /* exception.h */,
 				D1D63AE61AA9979D00F72096 /* hcontainer.h */,
 				D1D63AE71AA9979D00F72096 /* hversion.h */,
@@ -372,6 +380,7 @@
 				C981D02014FFC6270032F321 /* hfbase.h in Headers */,
 				D1BAE104183B921400BC2434 /* zipaccess.h in Headers */,
 				D115F7C714AD4FB400C78558 /* hsbase.h in Headers */,
+				D1DC28F41B972E7900DBEB75 /* henum.h in Headers */,
 				D1D63AE81AA9979D00F72096 /* exception.h in Headers */,
 				D1D63AE91AA9979D00F72096 /* hcontainer.h in Headers */,
 				D1D63AEA1AA9979D00F72096 /* hversion.h in Headers */,
@@ -510,6 +519,7 @@
 				C981D01C14FFC5FE0032F321 /* hfbase.cpp in Sources */,
 				D1E909E71636911B00EB27EE /* hlog.cpp in Sources */,
 				D1E909F7163693BC00EB27EE /* Mac_platform.mm in Sources */,
+				D1DC28F61B972E9000DBEB75 /* henum.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,6 +564,7 @@
 				C965F5BC14F3897B009F0EE5 /* hresource.cpp in Sources */,
 				C981D01D14FFC5FE0032F321 /* hfbase.cpp in Sources */,
 				D1E909F5163693B600EB27EE /* iOS_platform.mm in Sources */,
+				D1DC28F81B972E9000DBEB75 /* henum.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +591,7 @@
 				D1F27A95177A2D0E00E5C131 /* hresource.cpp in Sources */,
 				D1F27A96177A2D0E00E5C131 /* hfbase.cpp in Sources */,
 				D1F27A97177A2D0E00E5C131 /* hlog.cpp in Sources */,
+				D1DC28F71B972E9000DBEB75 /* henum.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
