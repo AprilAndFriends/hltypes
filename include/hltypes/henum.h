@@ -16,6 +16,7 @@
 #include "hmap.h"
 #include "hltypesExport.h"
 
+#define __HL_EXPAND_MACRO(x) x
 #define HL_ENUM_CLASS_PREFIX_DECLARE(prefix, classe, code) \
 class prefix classe : public henum \
 { \
@@ -24,8 +25,21 @@ public: \
 	classe(chstr name) : henum(name) { this->_addNewInstance(#classe, name); } \
 	classe(chstr name, unsigned int value) : henum(name, value) { this->_addNewInstance(#classe, name, value); } \
 	~classe() { } \
+	static classe fromInt(int value) \
+	{ \
+		return fromUint((unsigned int)value); \
+	} \
+	static classe fromUint(unsigned int value) \
+	{ \
+		if (!_instances.hasKey(value)) \
+		{ \
+			throw EnumValueNotExistsException(value); \
+		} \
+		return classe(value); \
+	} \
 	__HL_EXPAND_MACRO code \
 protected: \
+	classe(unsigned int value) : henum(value) { } \
 	hmap<unsigned int, hstr>& _getInstances() { return _instances; } \
 private: \
 	static hmap<unsigned int, hstr> _instances; \
@@ -35,7 +49,6 @@ private: \
 	hmap<unsigned int, hstr> classe::_instances; \
 	__HL_EXPAND_MACRO code;
 
-#define __HL_EXPAND_MACRO(x) x
 #define HL_ENUM_DECLARE(classe, name) static const classe name;
 #define HL_ENUM_DEFINE(classe, name) const classe classe::name(#name);
 #define HL_ENUM_DEFINE_VALUE(classe, name, value) const classe classe::name(#name, value);
