@@ -18,11 +18,6 @@ namespace hltypes
 
 	Enum::Enum(unsigned int value)
 	{
-		Map<unsigned int, String>& instances = this->_getInstances();
-		if (!instances.hasKey(value))
-		{
-			throw EnumValueNotExistsException(value);
-		}
 		this->value = value;
 	}
 

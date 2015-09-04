@@ -31,6 +31,10 @@ public: \
 	} \
 	static classe fromUint(unsigned int value) \
 	{ \
+		if (!_instances.hasKey(value)) \
+		{ \
+			throw EnumValueNotExistsException(value); \
+		} \
 		return classe(value); \
 	} \
 	static harray<classe> getValues() \
