@@ -16,13 +16,13 @@ namespace hltypes
 		this->value = 0U;
 	}
 
-	Enum::Enum(const String& name)
+	Enum::Enum(unsigned int value)
 	{
-		this->value = 0U;
-	}
-
-	Enum::Enum(const String& name, unsigned int value)
-	{
+		Map<unsigned int, String>& instances = this->_getInstances();
+		if (!instances.hasKey(value))
+		{
+			throw EnumValueNotExistsException(value);
+		}
 		this->value = value;
 	}
 

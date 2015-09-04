@@ -22,8 +22,8 @@ class prefix classe : public henum \
 { \
 public: \
 	classe() : henum() { } \
-	classe(chstr name) : henum(name) { this->_addNewInstance(#classe, name); } \
-	classe(chstr name, unsigned int value) : henum(name, value) { this->_addNewInstance(#classe, name, value); } \
+	classe(chstr name) : henum() { this->_addNewInstance(#classe, name); } \
+	classe(chstr name, unsigned int value) : henum(value) { this->_addNewInstance(#classe, name, value); } \
 	~classe() { } \
 	static classe fromInt(int value) \
 	{ \
@@ -31,11 +31,16 @@ public: \
 	} \
 	static classe fromUint(unsigned int value) \
 	{ \
-		if (!_instances.hasKey(value)) \
-		{ \
-			throw EnumValueNotExistsException(value); \
-		} \
 		return classe(value); \
+	} \
+	static harray<classe> getValues() \
+	{ \
+		harray<classe> result; \
+		foreach_map (unsigned int, hstr, it, _instances) \
+		{ \
+			result += classe::fromUint(it->first); \
+		} \
+		return result; \
 	} \
 	__HL_EXPAND_MACRO code \
 protected: \
@@ -67,15 +72,6 @@ namespace hltypes
 		/// @brief Empty constructor.
 		/// @note This will NOT auto-generate a value in the internal index.
 		Enum();
-		/// @brief Basic constructor.
-		/// @param[in] name The name as String.
-		/// @note This will auto-generate a value in the internal index.
-		Enum(const String& name);
-		/// @brief Basic constructor.
-		/// @param[in] name The name as String.
-		/// @param[in] value The enum value.
-		/// @note This will NOT auto-generate a value in the internal index.
-		Enum(const String& name, unsigned int value);
 		/// @brief Destructor.
 		virtual ~Enum();
 
@@ -108,6 +104,11 @@ namespace hltypes
 		bool operator!=(const Enum& other) const;
 
 	protected:
+		/// @brief Basic constructor.
+		/// @param[in] value The enum value.
+		/// @note This will NOT auto-generate a value in the internal index. It is used to convert ints to henum instances.
+		Enum(unsigned int value);
+
 		/// @brief Gets the Map of Enum instances that can exist.
 		/// @return The Map of Enum instances that can exist.
 		virtual Map<unsigned int, String>& _getInstances() { static Map<unsigned int, String> dummy; return dummy; };
