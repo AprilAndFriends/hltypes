@@ -26,16 +26,16 @@ namespace hltypes
 	public:
 		/// @brief Level Write value.
 		/// @note Usually only used internally.
-		static int LevelWrite;
+		static const int LevelWrite;
 		/// @brief Level Error value.
 		/// @note Usually only used internally.
-		static int LevelError;
+		static const int LevelError;
 		/// @brief Level Warn value.
 		/// @note Usually only used internally.
-		static int LevelWarn;
+		static const int LevelWarn;
 		/// @brief Level Debug value.
 		/// @note Usually only used internally.
-		static int LevelDebug;
+		static const int LevelDebug;
 
 		/// @brief Checks if log level Write is turned on.
 		/// @return True if log level Write is turned on.
@@ -71,6 +71,8 @@ namespace hltypes
 		/// @param[in] write Value for Log level Warn.
 		/// @param[in] write Value for Log level Debug.
 		static void setLevels(bool write, bool error, bool warn, bool debug);
+		/// @brief Sets the flag for whether logs should be printed to output.
+		static void setOutputEnabled(bool value) { outputEnabled = value; }
 		/// @brief Sets the filename for log dump.
 		/// @param[in] filename Filename for log dump.
 		/// @param[in] clearFile Set to true if file should be cleared.
@@ -129,6 +131,8 @@ namespace hltypes
 		static bool levelDebug;
 		/// @brief Filters for tags that should be logged.
 		static Array<String> tagFilters;
+		/// @brief Whether anything should be logged into a system-defined output.
+		static bool outputEnabled;
 		/// @brief Filename for logging to files.
 		static String filename;
 		/// @brief Callback function for logging.

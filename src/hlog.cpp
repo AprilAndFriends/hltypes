@@ -40,15 +40,15 @@
 namespace hltypes
 {
 #ifdef _ANDROID
-	int Log::LevelWrite = (int)ANDROID_LOG_INFO;
-	int Log::LevelError = (int)ANDROID_LOG_ERROR;
-	int Log::LevelWarn = (int)ANDROID_LOG_WARN;
-	int Log::LevelDebug = (int)ANDROID_LOG_DEBUG;
+	const int Log::LevelWrite = (int)ANDROID_LOG_INFO;
+	const int Log::LevelError = (int)ANDROID_LOG_ERROR;
+	const int Log::LevelWarn = (int)ANDROID_LOG_WARN;
+	const int Log::LevelDebug = (int)ANDROID_LOG_DEBUG;
 #else
-	int Log::LevelWrite = 4;
-	int Log::LevelError = 3;
-	int Log::LevelWarn = 2;
-	int Log::LevelDebug = 1;
+	const int Log::LevelWrite = 4;
+	const int Log::LevelError = 3;
+	const int Log::LevelWarn = 2;
+	const int Log::LevelDebug = 1;
 #endif
 
 	bool Log::levelWrite = true;
@@ -60,6 +60,7 @@ namespace hltypes
 	bool Log::levelDebug = true;
 #endif
 	Array<String> Log::tagFilters;
+	bool outputEnabled = true;
 	String Log::filename;
 	void (*Log::callbackFunction)(const String&, const String&) = NULL;
 	Mutex Log::mutex;
@@ -142,7 +143,10 @@ namespace hltypes
 			return false;
 		}
 		Mutex::ScopeLock lock(&Log::mutex);
-		_platformPrint(tag, message, LEVEL_PLATFORM(level));
+		if (outputEnabled)
+		{
+			_platformPrint(tag, message, LEVEL_PLATFORM(level));
+		}
 		if (Log::filename != "")
 		{
 			try
@@ -159,7 +163,10 @@ namespace hltypes
 			}
 			catch (_Exception& e)
 			{
-				_platformPrint("FATAL", e.getMessage(), LevelError);
+				if (outputEnabled)
+				{
+					_platformPrint("FATAL", e.getMessage(), LevelError);
+				}
 #ifdef _DEBUG
 				throw e;
 #endif
@@ -174,7 +181,10 @@ namespace hltypes
 		}
 		catch (_Exception& e)
 		{
-			_platformPrint("FATAL", e.getMessage(), LevelError);
+			if (outputEnabled)
+			{
+				_platformPrint("FATAL", e.getMessage(), LevelError);
+			}
 			throw e;
 		}
 		return true;
