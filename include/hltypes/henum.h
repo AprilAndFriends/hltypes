@@ -49,7 +49,7 @@ public: \
 	__HL_EXPAND_MACRO code \
 protected: \
 	classe(unsigned int value) : henum(value) { } \
-	hmap<unsigned int, hstr>& _getInstances() { return _instances; } \
+	hmap<unsigned int, hstr>& _getInstances() const { return _instances; } \
 private: \
 	static hmap<unsigned int, hstr> _instances; \
 };
@@ -80,7 +80,7 @@ namespace hltypes
 		virtual ~Enum();
 
 		/// @brief Gets the String name.
-		String getName();
+		String getName() const;
 
 		/// @brief Checks if this Enum is greater than another Enum.
 		/// @param[in] other Other Enum.
@@ -115,7 +115,7 @@ namespace hltypes
 
 		/// @brief Gets the Map of Enum instances that can exist.
 		/// @return The Map of Enum instances that can exist.
-		virtual Map<unsigned int, String>& _getInstances() { static Map<unsigned int, String> dummy; return dummy; };
+		virtual Map<unsigned int, String>& _getInstances() const { static Map<unsigned int, String> dummy; return dummy; };
 		/// @brief Adds a new possible instance to the list.
 		/// @param[in] className Name of the enum.
 		/// @param[in] name Name of the enum value.

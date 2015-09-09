@@ -25,7 +25,7 @@ namespace hltypes
 	{
 	}
 
-	String Enum::getName()
+	String Enum::getName() const
 	{
 		Map<unsigned int, String>& instances = this->_getInstances();
 		if (!instances.hasKey(value))
