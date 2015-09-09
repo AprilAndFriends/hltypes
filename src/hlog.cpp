@@ -60,7 +60,7 @@ namespace hltypes
 	bool Log::levelDebug = true;
 #endif
 	Array<String> Log::tagFilters;
-	bool outputEnabled = true;
+	bool Log::outputEnabled = true;
 	String Log::filename;
 	void (*Log::callbackFunction)(const String&, const String&) = NULL;
 	Mutex Log::mutex;
