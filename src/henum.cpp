@@ -59,7 +59,7 @@ namespace hltypes
 		}
 		instances[this->value] = name;
 		// because of the order of global var initializations, mutexes get messed up
-		printf("[%s] Adding enum '%s::%s' under value '%u'.\n", logTag.cStr(), className.cStr(), name.cStr(), this->value);
+		printf("[hltypes] Adding enum '%s::%s' under value '%u'.\n", className.cStr(), name.cStr(), this->value);
 	}
 
 	bool Enum::operator<(const Enum& other) const
