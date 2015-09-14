@@ -1041,7 +1041,7 @@ namespace hltypes
 				}
 				if (count == size)
 				{
-					return this->randomized();
+					return this->_randomized<R>();
 				}
 				Container<std::vector<int>, int> indices;
 				for_iter (i, 0, size)
