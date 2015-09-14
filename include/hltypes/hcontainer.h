@@ -561,12 +561,12 @@ namespace hltypes
 		/// @return Number of elements removed.
 		inline int removeAll(const T& element)
 		{
-			Container<std::vector<int>, int> indexes = this->_indexesOf<Container<std::vector<int>, int> >(element);
+			Container<std::vector<int>, int> indices = this->_indicesOf<Container<std::vector<int>, int> >(element);
 			iterator_t it = STD::begin();
-			int size = indexes.size();
+			int size = indices.size();
 			for_iter_r (i, size, 0)
 			{
-				STD::erase(this->_itAdvance(it, indexes.at(i)));
+				STD::erase(this->_itAdvance(it, indices.at(i)));
 			}
 			return size;
 		}
@@ -575,20 +575,20 @@ namespace hltypes
 		/// @return Number of elements removed.
 		inline int removeAll(const Container& other)
 		{
-			Container<std::vector<int>, int> indexes;
+			Container<std::vector<int>, int> indices;
 			iterator_t it;
-			int indexesSize = 0;
+			int indicesSize = 0;
 			int count = 0;
 			for_iter (i, 0, other.size()) // has to stay other.size() here
 			{
-				indexes = this->_indexesOf<Container<std::vector<int>, int> >(other.at(i));
+				indices = this->_indicesOf<Container<std::vector<int>, int> >(other.at(i));
 				it = STD::begin();
-				indexesSize = indexes.size();
-				for_iter_r (j, indexesSize, 0)
+				indicesSize = indices.size();
+				for_iter_r (j, indicesSize, 0)
 				{
-					STD::erase(this->_itAdvance(it, indexes.at(j)));
+					STD::erase(this->_itAdvance(it, indices.at(j)));
 				}
-				count += indexesSize;
+				count += indicesSize;
 			}
 			return count;
 		}
@@ -658,16 +658,16 @@ namespace hltypes
 		/// @brief Removes duplicates in Container.
 		inline void removeDuplicates()
 		{
-			Container<std::vector<int>, int> indexes;
+			Container<std::vector<int>, int> indices;
 			iterator_t it = STD::begin();
-			int indexesSize = 0;
+			int indicesSize = 0;
 			for_iter (i, 0, this->size()) // has to stay this->size() here
 			{
-				indexes = this->_indexesOf<Container<std::vector<int>, int> >(this->at(i));
-				indexesSize = indexes.size();
-				for_iter_r (j, indexesSize, 1)
+				indices = this->_indicesOf<Container<std::vector<int>, int> >(this->at(i));
+				indicesSize = indices.size();
+				for_iter_r (j, indicesSize, 1)
 				{
-					STD::erase(this->_itAdvance(it, indexes.at(j)));
+					STD::erase(this->_itAdvance(it, indices.at(j)));
 				}
 			}
 		}
@@ -892,11 +892,24 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE inline void append(const T other[], const int start, const int count)								{ this->add(other, start, count); }
 
 	protected:
-		/// @brief Gets all indexes of the given element.
-		/// @param[in] element Element to search for.
-		/// @return All indexes of the given element.
+		/// @brief Gets all indices.
+		/// @return All indices.
 		template <typename R>
-		inline R _indexesOf(const T& element) const
+		inline R _indices() const
+		{
+			R result;
+			int size = this->size();
+			for_iter (i, 0, size)
+			{
+				result.add(i);
+			}
+			return result;
+		}
+		/// @brief Gets all indices of the given element.
+		/// @param[in] element Element to search for.
+		/// @return All indices of the given element.
+		template <typename R>
+		inline R _indicesOf(const T& element) const
 		{
 			R result;
 			int size = this->size();
@@ -1030,14 +1043,14 @@ namespace hltypes
 				{
 					return this->randomized();
 				}
-				Container<std::vector<int>, int> indexes;
+				Container<std::vector<int>, int> indices;
 				for_iter (i, 0, size)
 				{
-					indexes.add(i);
+					indices.add(i);
 				}
 				for_iter (i, 0, count)
 				{
-					result.add(this->at(indexes.removeAt(hrand(indexes.size()))));
+					result.add(this->at(indices.removeAt(hrand(indices.size()))));
 				}
 			}
 			return result;

@@ -84,12 +84,18 @@ namespace hltypes
 		inline ~Array()
 		{
 		}
-		/// @brief Gets all indexes of the given element.
-		/// @param[in] element Element to search for.
-		/// @return All indexes of the given element.
-		inline Array<int> indexesOf(const T& element) const
+		/// @brief Gets all indices.
+		/// @return All indices.
+		inline Array<int> indices() const
 		{
-			return this->template _indexesOf<Array<int> >(element);
+			return this->template _indices<Array<int> >();
+		}
+		/// @brief Gets all indices of the given element.
+		/// @param[in] element Element to search for.
+		/// @return All indices of the given element.
+		inline Array<int> indicesOf(const T& element) const
+		{
+			return this->template _indicesOf<Array<int> >(element);
 		}
 		/// @brief Removes element at given index.
 		/// @param[in] index Index of element to remove.
@@ -465,7 +471,8 @@ namespace hltypes
 		}
 
 		// DEPRECATED
-		DEPRECATED_ATTRIBUTE inline Array<int> indexes_of(const T& element) const							{ return this->indexesOf(element); }
+		DEPRECATED_ATTRIBUTE inline Array<int> indexesOf(const T& element) const							{ return this->indicesOf(element); }
+		DEPRECATED_ATTRIBUTE inline Array<int> indexes_of(const T& element) const							{ return this->indicesOf(element); }
 		DEPRECATED_ATTRIBUTE inline Array<T> removed_duplicates() const										{ return this->removedDuplicates(); }
 		DEPRECATED_ATTRIBUTE inline T pop(int index)														{ return this->removeAt(index); }
 		DEPRECATED_ATTRIBUTE inline Array<T> pop(int index, int count)										{ return this->removeAt(index, count); }

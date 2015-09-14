@@ -84,12 +84,18 @@ namespace hltypes
 		inline ~Deque()
 		{
 		}
-		/// @brief Gets all indexes of the given element.
-		/// @param[in] element Element to search for.
-		/// @return All indexes of the given element.
-		inline Deque<int> indexesOf(const T& element) const
+		/// @brief Gets all indices.
+		/// @return All indices.
+		inline Deque<int> indices() const
 		{
-			return this->template _indexesOf<Deque<int> >(element);
+			return this->template _indices<Deque<int> >();
+		}
+		/// @brief Gets all indices of the given element.
+		/// @param[in] element Element to search for.
+		/// @return All indices of the given element.
+		inline Deque<int> indicesOf(const T& element) const
+		{
+			return this->template _indicesOf<Deque<int> >(element);
 		}
 		/// @brief Removes element at given index.
 		/// @param[in] index Index of element to remove.
@@ -452,7 +458,8 @@ namespace hltypes
 		}
 
 		// DEPRECATED
-		DEPRECATED_ATTRIBUTE inline Deque<int> indexes_of(const T& element) const							{ return this->indexesOf(element); }
+		DEPRECATED_ATTRIBUTE inline Deque<int> indexesOf(const T& element) const							{ return this->indicesOf(element); }
+		DEPRECATED_ATTRIBUTE inline Deque<int> indexes_of(const T& element) const							{ return this->indicesOf(element); }
 		DEPRECATED_ATTRIBUTE inline Deque<T> removed_duplicates() const										{ return this->removedDuplicates(); }
 		DEPRECATED_ATTRIBUTE inline T pop(int index)														{ return this->removeAt(index); }
 		DEPRECATED_ATTRIBUTE inline Deque<T> pop(int index, int count)										{ return this->removeAt(index, count); }
