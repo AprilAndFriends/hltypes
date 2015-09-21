@@ -13,6 +13,7 @@
 #ifndef HLTYPES_ENUM_H
 #define HLTYPES_ENUM_H
 
+#include "harray.h"
 #include "hmap.h"
 #include "hltypesExport.h"
 
@@ -25,6 +26,18 @@ public: \
 	classe(chstr name) : henum() { this->_addNewInstance(#classe, name); } \
 	classe(chstr name, unsigned int value) : henum(value) { this->_addNewInstance(#classe, name, value); } \
 	~classe() { } \
+	classe next() \
+	{ \
+		harray<classe> values = classe::getValues(); \
+		values.sort(); \
+		return values[(values.indexOf(*this) + 1) % values.size()]; \
+	} \
+	classe previous() \
+	{ \
+		harray<classe> values = classe::getValues(); \
+		values.sort(); \
+		return values[(values.indexOf(*this) + values.size() - 1) % values.size()]; \
+	} \
 	static classe fromInt(int value) \
 	{ \
 		return fromUint((unsigned int)value); \
