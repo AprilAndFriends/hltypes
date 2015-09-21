@@ -66,12 +66,12 @@ namespace hltypes
 		/// @return True if file was cleared. False if file does not exist or is already empty.
 		static bool clear(const String& filename);
 		/// @brief Renames a file.
-		/// @param[in] old_filename Old name of the file.
-		/// @param[in] new_filename New name of the file.
+		/// @param[in] oldFilename Old name of the file.
+		/// @param[in] newFilename New name of the file.
 		/// @param[in] overwrite Whether to overwrite an already existing file.
 		/// @return True if file was renamed. False if old file does not exist or file with the new name already exists.
 		/// @note If path to new file does not exist, it will be created.
-		static bool rename(const String& old_filename, const String& new_filename, bool overwrite = false);
+		static bool rename(const String& oldFilename, const String& newFilename, bool overwrite = false);
 		/// @brief Moves a file to another path.
 		/// @param[in] filename Name of the file.
 		/// @param[in] path Path where the file should be moved.
@@ -80,12 +80,12 @@ namespace hltypes
 		/// @note If path does not exist, it will be created.
 		static bool move(const String& filename, const String& path, bool overwrite = false);
 		/// @brief Copies a file.
-		/// @param[in] old_filename Old name of the file.
-		/// @param[in] new_filename New name of the file.
+		/// @param[in] oldFilename Old name of the file.
+		/// @param[in] newFilename New name of the file.
 		/// @param[in] overwrite Whether to overwrite an already existing file.
 		/// @return True if file was copied. False if old file does not exist or file with the new name already exists.
 		/// @note If path does not exist, it will be created.
-		static bool copy(const String& old_filename, const String& new_filename, bool overwrite = false);
+		static bool copy(const String& oldFilename, const String& newFilename, bool overwrite = false);
 		/// @brief Opens file, reads data and closes file.
 		/// @see read(int count)
 		static String hread(const String& filename, int count);
