@@ -1050,7 +1050,7 @@ namespace hltypes
 				}
 				for_iter (i, 0, count)
 				{
-					result.add(this->at(indices.removeAt(hrand(indices.size()))));
+					result.add(this->at(indices.removeRandom()));
 				}
 			}
 			return result;
