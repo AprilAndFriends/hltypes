@@ -45,7 +45,7 @@ namespace hltypes
 		/// @brief Clears the Stream.
 		/// @param[in] newCapacity New capacity of the internal buffer.
 		/// @note newCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
-		void clear(int newCapacity = 16LL);
+		void clear(int newCapacity = 16);
 		/// @brief Resizes internal buffer.
 		/// @param[in] newCapacity New capacity of the internal buffer.
 		/// @return True if internal buffer was resized or already the same size that was requested.

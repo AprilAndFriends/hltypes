@@ -61,7 +61,7 @@ namespace hltypes
 		/// @return True if file exists.
 		/// @note Disabling caseSensitive is somewhat costly if the given file is not found at first.
 		static bool exists(const String& filename, bool caseSensitive = true);
-		/// @brief Clears a file recursively.
+		/// @brief Clears a file.
 		/// @param[in] filename Name of the file.
 		/// @return True if file was cleared. False if file does not exist or is already empty.
 		static bool clear(const String& filename);
@@ -79,7 +79,7 @@ namespace hltypes
 		/// @return True if file was moved. False if file does not exist or file with the same name already exists in path.
 		/// @note If path does not exist, it will be created.
 		static bool move(const String& filename, const String& path, bool overwrite = false);
-		/// @brief Copies a file recursively.
+		/// @brief Copies a file.
 		/// @param[in] old_filename Old name of the file.
 		/// @param[in] new_filename New name of the file.
 		/// @param[in] overwrite Whether to overwrite an already existing file.
