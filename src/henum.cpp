@@ -11,31 +11,31 @@
 
 namespace hltypes
 {
-	Enum::Enum()
+	Enumeration::Enumeration()
 	{
 		this->value = 0U;
 	}
 
-	Enum::Enum(unsigned int value)
+	Enumeration::Enumeration(unsigned int value)
 	{
 		this->value = value;
 	}
 
-	Enum::~Enum()
+	Enumeration::~Enumeration()
 	{
 	}
 
-	String Enum::getName() const
+	String Enumeration::getName() const
 	{
 		Map<unsigned int, String>& instances = this->_getInstances();
 		if (!instances.hasKey(value))
 		{
-			throw EnumValueNotExistsException(value);
+			throw EnumerationValueNotExistsException(value);
 		}
 		return instances[this->value];
 	}
 
-	void Enum::_addNewInstance(const String& className, const String& name)
+	void Enumeration::_addNewInstance(const String& className, const String& name)
 	{
 		String newName = name;
 		Map<unsigned int, String>& instances = this->_getInstances();
@@ -50,44 +50,44 @@ namespace hltypes
 		this->_addNewInstance(className, newName, this->value);
 	}
 
-	void Enum::_addNewInstance(const String& className, const String& name, unsigned int value)
+	void Enumeration::_addNewInstance(const String& className, const String& name, unsigned int value)
 	{
 		Map<unsigned int, String>& instances = this->_getInstances();
 		if (instances.hasKey(value))
 		{
-			throw EnumValueAlreadyExistsException(value);
+			throw EnumerationValueAlreadyExistsException(value);
 		}
 		instances[this->value] = name;
 		// because of the order of global var initializations, mutexes get messed up
 		printf("[hltypes] Adding enum '%s::%s' under value '%u'.\n", className.cStr(), name.cStr(), this->value);
 	}
 
-	bool Enum::operator<(const Enum& other) const
+	bool Enumeration::operator<(const Enumeration& other) const
 	{
 		return (this->value < other.value);
 	}
 
-	bool Enum::operator>(const Enum& other) const
+	bool Enumeration::operator>(const Enumeration& other) const
 	{
 		return (this->value > other.value);
 	}
 
-	bool Enum::operator<=(const Enum& other) const
+	bool Enumeration::operator<=(const Enumeration& other) const
 	{
 		return (this->value <= other.value);
 	}
 
-	bool Enum::operator>=(const Enum& other) const
+	bool Enumeration::operator>=(const Enumeration& other) const
 	{
 		return (this->value >= other.value);
 	}
 
-	bool Enum::operator==(const Enum& other) const
+	bool Enumeration::operator==(const Enumeration& other) const
 	{
 		return (this->value == other.value);
 	}
 
-	bool Enum::operator!=(const Enum& other) const
+	bool Enumeration::operator!=(const Enumeration& other) const
 	{
 		return (this->value != other.value);
 	}

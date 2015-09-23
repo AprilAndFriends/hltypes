@@ -198,21 +198,21 @@ namespace hltypes
 	{
 	}
 
-	_EnumValueNotExistsException::_EnumValueNotExistsException(unsigned int value, const char* sourceFile, int lineNumber) :
+	_EnumerationValueNotExistsException::_EnumerationValueNotExistsException(unsigned int value, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
 		this->_setInternalMessage(hsprintf("enum value does not exist: %d", value), sourceFile, lineNumber);
 	}
-	_EnumValueNotExistsException::~_EnumValueNotExistsException()
+	_EnumerationValueNotExistsException::~_EnumerationValueNotExistsException()
 	{
 	}
 
-	_EnumValueAlreadyExistsException::_EnumValueAlreadyExistsException(unsigned int value, const char* sourceFile, int lineNumber) :
+	_EnumerationValueAlreadyExistsException::_EnumerationValueAlreadyExistsException(unsigned int value, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
 		this->_setInternalMessage(hsprintf("enum value already exists: %d", value), sourceFile, lineNumber);
 	}
-	_EnumValueAlreadyExistsException::~_EnumValueAlreadyExistsException()
+	_EnumerationValueAlreadyExistsException::~_EnumerationValueAlreadyExistsException()
 	{
 	}
 

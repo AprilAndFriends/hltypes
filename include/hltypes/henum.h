@@ -8,10 +8,10 @@
 /// 
 /// @section DESCRIPTION
 /// 
-/// Provides high level enum functionality.
+/// Provides high level enumeration functionality.
 
-#ifndef HLTYPES_ENUM_H
-#define HLTYPES_ENUM_H
+#ifndef HLTYPES_ENUMERATION_H
+#define HLTYPES_ENUMERATION_H
 
 #include "harray.h"
 #include "hmap.h"
@@ -46,9 +46,17 @@ public: \
 	{ \
 		if (!_instances.hasKey(value)) \
 		{ \
-			throw EnumValueNotExistsException(value); \
+			throw EnumerationValueNotExistsException(value); \
 		} \
 		return classe(value); \
+	} \
+	static bool classe::hasValueFor(int value) \
+	{ \
+		return _instances.hasKey((unsigned int)value); \
+	} \
+	static bool classe::hasValueFor(unsigned int value) \
+	{ \
+		return _instances.hasKey(value); \
 	} \
 	static harray<classe> getValues() \
 	{ \
@@ -79,64 +87,64 @@ private: \
 
 namespace hltypes
 {
-	/// @brief Encapsulates enum functionality and adds high level methods.
-	class hltypesExport Enum
+	/// @brief Encapsulates enumeration functionality and adds high level methods.
+	class hltypesExport Enumeration
 	{
 	public:
-		/// @brief The enum value.
+		/// @brief The enumeration value.
 		unsigned int value;
 
 		/// @brief Empty constructor.
 		/// @note This will NOT auto-generate a value in the internal index.
-		Enum();
+		Enumeration();
 		/// @brief Destructor.
-		virtual ~Enum();
+		virtual ~Enumeration();
 
 		/// @brief Gets the String name.
 		String getName() const;
 
-		/// @brief Checks if this Enum is greater than another Enum.
-		/// @param[in] other Other Enum.
-		/// @return True if this Enum is greater than another Enum.
-		bool operator>(const Enum& other) const;
-		/// @brief Checks if this Enum is less than another Enum.
-		/// @param[in] other Other Enum.
-		/// @return True if this Enum is less than another Enum.
-		bool operator<(const Enum& other) const;
-		/// @brief Checks if this Enum is greater than or equal to another Enum.
-		/// @param[in] other Other Enum.
-		/// @return True if this Enum is greater than or equal to another Enum.
-		bool operator>=(const Enum& other) const;
-		/// @brief Checks if this Enum is less than or equal to another Enum.
-		/// @param[in] other Other Enum.
-		/// @return True if this Enum is less than or equal to another Enum.
-		bool operator<=(const Enum& other) const;
-		/// @brief Checks if this Enum equals another Enum.
-		/// @param[in] other Other Enum.
-		/// @return True if this Enum equals another Enum.
-		bool operator==(const Enum& other) const;
-		/// @brief Checks if this Enum non-equals another Enum.
-		/// @param[in] other Other Enum.
-		/// @return True if this Enum non-equals another Enum.
-		bool operator!=(const Enum& other) const;
+		/// @brief Checks if this Enumeration is greater than another Enumeration.
+		/// @param[in] other Other Enumeration.
+		/// @return True if this Enumeration is greater than another Enumeration.
+		bool operator>(const Enumeration& other) const;
+		/// @brief Checks if this Enumeration is less than another Enumeration.
+		/// @param[in] other Other Enumeration.
+		/// @return True if this Enumeration is less than another Enumeration.
+		bool operator<(const Enumeration& other) const;
+		/// @brief Checks if this Enumeration is greater than or equal to another Enumeration.
+		/// @param[in] other Other Enumeration.
+		/// @return True if this Enumeration is greater than or equal to another Enumeration.
+		bool operator>=(const Enumeration& other) const;
+		/// @brief Checks if this Enumeration is less than or equal to another Enumeration.
+		/// @param[in] other Other Enumeration.
+		/// @return True if this Enumeration is less than or equal to another Enumeration.
+		bool operator<=(const Enumeration& other) const;
+		/// @brief Checks if this Enumeration equals another Enumeration.
+		/// @param[in] other Other Enumeration.
+		/// @return True if this Enumeration equals another Enumeration.
+		bool operator==(const Enumeration& other) const;
+		/// @brief Checks if this Enumeration non-equals another Enumeration.
+		/// @param[in] other Other Enumeration.
+		/// @return True if this Enumeration non-equals another Enumeration.
+		bool operator!=(const Enumeration& other) const;
 
 	protected:
 		/// @brief Basic constructor.
-		/// @param[in] value The enum value.
-		/// @note This will NOT auto-generate a value in the internal index. It is used to convert ints to henum instances.
-		Enum(unsigned int value);
+		/// @param[in] value The Enumeration value.
+		/// @note This will NOT auto-generate a value in the internal index. It is used to convert ints to Enumeration instances.
+		Enumeration(unsigned int value);
 
-		/// @brief Gets the Map of Enum instances that can exist.
-		/// @return The Map of Enum instances that can exist.
+		/// @brief Gets the Map of Enumeration instances that can exist.
+		/// @return The Map of Enumeration instances that can exist.
 		virtual Map<unsigned int, String>& _getInstances() const { static Map<unsigned int, String> dummy; return dummy; };
 		/// @brief Adds a new possible instance to the list.
-		/// @param[in] className Name of the enum.
-		/// @param[in] name Name of the enum value.
+		/// @param[in] className Name of the Enumeration.
+		/// @param[in] name Name of the Enumeration value.
 		/// @note This will add a new auto-generated value to the list.
 		void _addNewInstance(const String& className, const String& name);
 		/// @brief Adds a new possible instance to the list.
-		/// @param[in] className Name of the enum.
-		/// @param[in] name Name of the enum value.
+		/// @param[in] className Name of the Enumeration.
+		/// @param[in] name Name of the Enumeration value.
 		/// @param[in] value Value to add to the list.
 		void _addNewInstance(const String& className, const String& name, unsigned int value);
 
@@ -145,6 +153,6 @@ namespace hltypes
 }
 
 /// @brief Alias for simpler code.
-typedef hltypes::Enum henum;
+typedef hltypes::Enumeration henum;
 
 #endif
