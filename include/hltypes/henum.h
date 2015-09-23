@@ -50,11 +50,11 @@ public: \
 		} \
 		return classe(value); \
 	} \
-	static bool classe::hasValueFor(int value) \
+	static bool hasValueFor(int value) \
 	{ \
 		return _instances.hasKey((unsigned int)value); \
 	} \
-	static bool classe::hasValueFor(unsigned int value) \
+	static bool hasValueFor(unsigned int value) \
 	{ \
 		return _instances.hasKey(value); \
 	} \
