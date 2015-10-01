@@ -50,6 +50,10 @@ public: \
 		} \
 		return classe(value); \
 	} \
+	static bool hasValue(chstr name) \
+	{ \
+		return _instances.hasValue(name); \
+	} \
 	static bool hasValueFor(int value) \
 	{ \
 		return _instances.hasKey((unsigned int)value); \
