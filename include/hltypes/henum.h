@@ -50,6 +50,14 @@ public: \
 		} \
 		return classe(value); \
 	} \
+	static classe fromName(chstr name) \
+	{ \
+		if (!_instances.hasValue(name)) \
+		{ \
+			throw EnumerationValueNotExistsException(name); \
+		} \
+		return classe(_instances(name)); \
+	} \
 	static bool hasValue(chstr name) \
 	{ \
 		return _instances.hasValue(name); \
