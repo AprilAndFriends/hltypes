@@ -235,7 +235,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DSTROOT = /;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.googlecode.${PRODUCT_NAME:rfc1034Identifier}";
@@ -263,7 +262,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.googlecode.${PRODUCT_NAME:rfc1034Identifier}";
@@ -288,7 +286,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DSTROOT = /;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.googlecode.${PRODUCT_NAME:rfc1034Identifier}";

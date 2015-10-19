@@ -426,7 +426,6 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				PRODUCT_BUNDLE_IDENTIFIER = net.zlib.zlib;
@@ -454,7 +453,6 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				PRODUCT_BUNDLE_IDENTIFIER = net.zlib.zlib;
@@ -479,7 +477,6 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
 				PRODUCT_BUNDLE_IDENTIFIER = net.zlib.zlib;
