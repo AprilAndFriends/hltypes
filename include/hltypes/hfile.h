@@ -120,10 +120,10 @@ namespace hltypes
 		int _write(const void* buffer, int count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
-		bool _isOpen();
+		bool _isOpen() const;
 		/// @brief Gets current position in file.
 		/// @return Current position in file.
-		int64_t _position();
+		int64_t _position() const;
 		/// @brief Seeks to position in file.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.

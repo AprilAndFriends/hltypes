@@ -29,7 +29,7 @@ namespace hltypes
 	{
 	}
 	
-	bool StreamBase::isOpen()
+	bool StreamBase::isOpen() const
 	{
 		return this->_isOpen();
 	}
@@ -45,19 +45,19 @@ namespace hltypes
 		return this->seek(0, START);
 	}
 	
-	int64_t StreamBase::position()
+	int64_t StreamBase::position() const
 	{
 		this->_validate();
 		return this->_position();
 	}
 	
-	int64_t StreamBase::size()
+	int64_t StreamBase::size() const
 	{
 		this->_validate();
 		return this->dataSize;
 	}
 	
-	bool StreamBase::eof()
+	bool StreamBase::eof() const
 	{
 		this->_validate();
 		// "feof" doesn't really work if you use a write mode, so we use our own detection
@@ -235,7 +235,7 @@ namespace hltypes
 		this->_seek(position, START);
 	}
 
-	void StreamBase::_validate()
+	void StreamBase::_validate() const
 	{
 		if (!this->_isOpen())
 		{

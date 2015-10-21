@@ -96,7 +96,7 @@ namespace hltypes
 		/// @brief Gets a direct reference to the internal steam.
 		/// @param[in] index Reference to a specific element.
 		/// @return Direct reference to the internal steam.
-		const unsigned char& operator[](int index);
+		const unsigned char& operator[](int index) const;
 		/// @brief Copies the other Stream into this one.
 		/// @param[in] other Other Stream.
 		/// @return This modified Stream.
@@ -139,10 +139,10 @@ namespace hltypes
 		int _write(const void* buffer, int count);
 		/// @brief Checks if Stream is open.
 		/// @return True if Stream is open.
-		bool _isOpen();
+		bool _isOpen() const;
 		/// @brief Gets current position in Stream.
 		/// @return Current position in Stream.
-		int64_t _position();
+		int64_t _position() const;
 		/// @brief Seeks to position in Stream.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.

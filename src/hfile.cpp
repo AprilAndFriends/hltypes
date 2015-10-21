@@ -69,12 +69,12 @@ namespace hltypes
 		return this->_fwrite(buffer, count);
 	}
 	
-	bool File::_isOpen()
+	bool File::_isOpen() const
 	{
 		return this->_fisOpen();
 	}
 	
-	int64_t File::_position()
+	int64_t File::_position() const
 	{
 		return this->_fposition();
 	}

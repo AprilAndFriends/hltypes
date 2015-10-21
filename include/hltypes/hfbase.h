@@ -100,7 +100,7 @@ namespace hltypes
 
 		/// @brief Gets special descriptor.
 		/// @return Special descriptor.
-		String _descriptor();
+		String _descriptor() const;
 
 		/// @brief Opens an OS file.
 		/// @param[in] filename Name of the file (may include path).
@@ -123,10 +123,10 @@ namespace hltypes
 		int _fwrite(const void* buffer, int count);
 		/// @brief Checks if file is open.
 		/// @return True if file is open.
-		virtual bool _fisOpen();
+		virtual bool _fisOpen() const;
 		/// @brief Gets current position in file.
 		/// @return Current position in file.
-		int64_t _fposition();
+		int64_t _fposition() const;
 		/// @brief Seeks to position in file.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.

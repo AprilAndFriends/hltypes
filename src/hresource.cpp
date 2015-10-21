@@ -179,7 +179,7 @@ namespace hltypes
 		throw FileNotWriteableException(this->filename);
 	}
 
-	bool Resource::_isOpen()
+	bool Resource::_isOpen() const
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)
@@ -190,7 +190,7 @@ namespace hltypes
 		return this->_fisOpen();
 	}
 	
-	int64_t Resource::_position()
+	int64_t Resource::_position() const
 	{
 #ifdef _ZIPRESOURCE
 		if (Resource::zipArchive)

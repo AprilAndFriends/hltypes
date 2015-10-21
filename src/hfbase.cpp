@@ -79,7 +79,7 @@ namespace hltypes
 		return path;
 	}
 	
-	String FileBase::_descriptor()
+	String FileBase::_descriptor() const
 	{
 		return this->filename;
 	}
@@ -158,12 +158,12 @@ namespace hltypes
 		return result;
 	}
 	
-	bool FileBase::_fisOpen()
+	bool FileBase::_fisOpen() const
 	{
 		return (this->cfile != NULL);
 	}
 	
-	int64_t FileBase::_fposition()
+	int64_t FileBase::_fposition() const
 	{
 		fpos_t position = 0;
 		if (fgetpos((FILE*)this->cfile, &position) != 0)

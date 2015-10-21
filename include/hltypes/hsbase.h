@@ -47,7 +47,7 @@ namespace hltypes
 
 		/// @brief Checks if data is "open".
 		/// @return True if data is "open".
-		bool isOpen();
+		bool isOpen() const;
 		/// @brief Seeks to position in data.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.
@@ -58,13 +58,13 @@ namespace hltypes
 		bool rewind();
 		/// @brief Gets current position in data.
 		/// @return Current position in data.
-		int64_t position();
+		int64_t position() const;
 		/// @brief Gets size of the data in bytes.
 		/// @return Size of the data in bytes.
-		int64_t size();
+		int64_t size() const;
 		/// @brief Checks if data has reached the end.
 		/// @return True if data has reached the end.
-		bool eof();
+		bool eof() const;
 
 		/// @brief Reads from the stream until delimiter character is read.
 		/// @param[in] delimiter String where to stop reading.
@@ -251,11 +251,11 @@ namespace hltypes
 		/// @brief Updates internal data size.
 		virtual void _updateDataSize();
 		/// @brief Checks if object can be used.
-		virtual void _validate();
+		virtual void _validate() const;
 
 		/// @brief Gets special descriptor.
 		/// @return Special descriptor.
-		virtual inline String _descriptor() { return "stream"; }
+		virtual inline String _descriptor() const { return "stream"; }
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] count Number of elements to read.
@@ -268,10 +268,10 @@ namespace hltypes
 		virtual int _write(const void* buffer, int count) = 0;
 		/// @brief Checks if data is "open".
 		/// @return True if data is "open".
-		virtual bool _isOpen() = 0;
+		virtual bool _isOpen() const = 0;
 		/// @brief Gets current position in data.
 		/// @return Current position in data.
-		virtual int64_t _position() = 0;
+		virtual int64_t _position() const = 0;
 		/// @brief Seeks to position in data.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.

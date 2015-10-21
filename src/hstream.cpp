@@ -197,7 +197,7 @@ namespace hltypes
 		return true;
 	}
 
-	const unsigned char& Stream::operator[](int index)
+	const unsigned char& Stream::operator[](int index) const
 	{
 		if (index < 0)
 		{
@@ -270,12 +270,12 @@ namespace hltypes
 		return result;
 	}
 	
-	bool Stream::_isOpen()
+	bool Stream::_isOpen() const
 	{
 		return (this->stream != NULL);
 	}
 	
-	int64_t Stream::_position()
+	int64_t Stream::_position() const
 	{
 		return this->streamPosition;
 	}
