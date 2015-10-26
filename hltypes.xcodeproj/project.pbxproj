@@ -87,9 +87,9 @@
 		D1D63AEA1AA9979D00F72096 /* hversion.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D63AE71AA9979D00F72096 /* hversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1DB1C20162854920013C0E5 /* hplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DB1C1F162854920013C0E5 /* hplatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1DC28F41B972E7900DBEB75 /* henum.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DC28F31B972E7900DBEB75 /* henum.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D1DC28F61B972E9000DBEB75 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; settings = {ASSET_TAGS = (); }; };
-		D1DC28F71B972E9000DBEB75 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; settings = {ASSET_TAGS = (); }; };
-		D1DC28F81B972E9000DBEB75 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; settings = {ASSET_TAGS = (); }; };
+		D1DC28F61B972E9000DBEB75 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; };
+		D1DC28F71B972E9000DBEB75 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; };
+		D1DC28F81B972E9000DBEB75 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; };
 		D1E1DD59140E579C00499A97 /* hdeque.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD56140E579C00499A97 /* hdeque.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5A140E579D00499A97 /* hlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD57140E579C00499A97 /* hlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD5B140E579D00499A97 /* hthread.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD58140E579C00499A97 /* hthread.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -465,7 +465,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				TargetAttributes = {
 					D1155B071A29DC270048B67C = {
 						CreatedOnToolsVersion = 6.1;
