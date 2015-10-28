@@ -206,7 +206,7 @@ namespace hltypes
 		return this->stream[index];
 	}
 
-	Stream& Stream::operator=(Stream& other)
+	Stream& Stream::operator=(const Stream& other)
 	{
 		this->streamSize = other.streamSize;
 		this->streamPosition = other.streamPosition;

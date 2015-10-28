@@ -100,7 +100,7 @@ namespace hltypes
 		/// @brief Copies the other Stream into this one.
 		/// @param[in] other Other Stream.
 		/// @return This modified Stream.
-		Stream& operator=(Stream& other);
+		Stream& operator=(const Stream& other);
 		/// @brief Casts this Array into a C-array.
 		/// @return The C-array.
 		operator char*() const;
