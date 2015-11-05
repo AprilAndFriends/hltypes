@@ -94,7 +94,7 @@ namespace testStream
 		assertTrue(text == " is another test.", "hstream - seek/position/size");
 		s.rewind();
 		s.seek(-4, hstream::END);
-		int pos = s.position();
+		int64_t pos = s.position();
 		assertTrue(pos == 17, "hstream - seek/position/size");
 		text = s.read();
 		assertTrue(text == "est.", "hstream - seek/position/size");
