@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="generated">
+      <UniqueIdentifier>{71fa0568-3394-41ab-a759-4f032af8d3e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{979b20d2-231a-4d6c-a16b-185a12cc1faf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\unitTests\generated\aprilUT.h">
+      <Filter>generated</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\unitTests\generated\aprilUT.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\unitTests\utThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\unitTests\generated\_utThread.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\unitTests\generated\_utStream.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\unitTests\utStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
