@@ -35,5 +35,11 @@
     <ClCompile Include="..\..\..\unitTests\generated\_utDir.cpp">
       <Filter>generated</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\unitTests\generated\_utMap.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\unitTests\utMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

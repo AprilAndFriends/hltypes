@@ -20,9 +20,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\unitTests\generated\aprilUT.cpp" />
     <ClCompile Include="..\..\..\unitTests\generated\_utDir.cpp" />
+    <ClCompile Include="..\..\..\unitTests\generated\_utMap.cpp" />
     <ClCompile Include="..\..\..\unitTests\generated\_utStream.cpp" />
     <ClCompile Include="..\..\..\unitTests\generated\_utThread.cpp" />
     <ClCompile Include="..\..\..\unitTests\utDir.cpp" />
+    <ClCompile Include="..\..\..\unitTests\utMap.cpp" />
     <ClCompile Include="..\..\..\unitTests\utStream.cpp" />
     <ClCompile Include="..\..\..\unitTests\utThread.cpp" />
   </ItemGroup>
