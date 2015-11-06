@@ -27,6 +27,7 @@ namespace hlxml
 	Document::Document(chstr filename, bool fromResource) : rootNode(NULL)
 	{
 		this->filename = filename;
+		hstr realFilename;
 		hstr data;
 		if (fromResource)
 		{
@@ -35,6 +36,7 @@ namespace hlxml
 				throw ResourceFileCouldNotOpenException(this->filename);
 			}
 			data = hresource::hread(this->filename);
+			realFilename = hrdir::normalize(this->filename);
 		}
 		else
 		{
@@ -43,7 +45,32 @@ namespace hlxml
 				throw FileCouldNotOpenException(this->filename);
 			}
 			data = hfile::hread(this->filename);
+			realFilename = hdir::normalize(this->filename);
 		}
+		this->_parse(data, realFilename);
+	}
+
+	Document::Document(hsbase& stream) : rootNode(NULL)
+	{
+		this->_parse(stream.read(), "stream");
+	}
+
+	Document::~Document()
+	{
+		this->rootNode = NULL;
+		foreach_map (TiXmlNode*, Node*, it, this->nodes)
+		{
+			delete it->second;
+		}
+		this->nodes.clear();
+		if (this->document != NULL)
+		{
+			delete this->document;
+		}
+	}
+
+	void Document::_parse(chstr data, chstr realFilename)
+	{
 		this->document = new TiXmlDocument();
 		this->document->Parse(data.cStr());
 		if (this->document->Error())
@@ -62,22 +89,7 @@ namespace hlxml
 					desc += "\n----------------------------------------------------------";
 				}
 			}
-			hstr realFilename = (fromResource ? hrdir::normalize(this->filename) : hdir::normalize(this->filename));
 			throw XMLException(hsprintf("An error occcured parsing XML file '%s': %s", realFilename.cStr(), desc.cStr()), NULL);
-		}
-	}
-
-	Document::~Document()
-	{
-		this->rootNode = NULL;
-		foreach_map (TiXmlNode*, Node*, it, this->nodes)
-		{
-			delete it->second;
-		}
-		this->nodes.clear();
-		if (this->document != NULL)
-		{
-			delete this->document;
 		}
 	}
 

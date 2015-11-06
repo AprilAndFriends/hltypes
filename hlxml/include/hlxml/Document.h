@@ -14,6 +14,7 @@
 #define HLXML_DOCUMENT_H
 
 #include <hltypes/hltypesUtil.h>
+#include <hltypes/hsbase.h>
 #include <hltypes/hstring.h>
 #include <hltypes/hmap.h>
 
@@ -38,6 +39,9 @@ namespace hlxml
 		/// @param[in] filename Filename where to read from.
 		/// @param[in] fromResource Whether the file is a resource or not.
 		Document(chstr filename, bool fromResource = true);
+		/// @brief Constructor
+		/// @param[in] stream Stream where to read from.
+		Document(hsbase& stream);
 		/// @brief Destructor
 		~Document();
 
@@ -58,6 +62,10 @@ namespace hlxml
 		/// @brief A list of all TinyXML nodes and their associated Nodes.
 		hmap<TiXmlNode*, Node*> nodes;
 
+		/// @brief Parses the XML.
+		/// @param[in] data XML data.
+		/// @param[in] realFilename The logical filename (used for error printing).
+		void _parse(chstr data, chstr realFilename);
 		/// @brief Gets the Node associated with the TinyXML node.
 		/// @param[in] node The TinyXML node.
 		/// @return The Node associated with the TinyXML node.
