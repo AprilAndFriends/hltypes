@@ -58,6 +58,8 @@ namespace hlxml
 		Type getType();
 		/// @brief Gets the value of the Node.
 		hstr getValue();
+		/// @brief Gets the child count.
+		int getChildCount();
 
 		/// @brief Gets a given property value as bool.
 		/// @param[in] propertyName Name of the property.
@@ -133,6 +135,8 @@ namespace hlxml
 		TiXmlNode* node;
 		/// @brief All properties.
 		hmap<TiXmlAttribute*, Property*> props;
+		/// @brief Contains the child count.
+		int childCount;
 
 		/// @brief Constructor.
 		/// @param[in] document The document this Node belongs to.

@@ -18,7 +18,7 @@
 
 namespace hlxml
 {
-	Node::Node(Document* document, TiXmlNode* node)
+	Node::Node(Document* document, TiXmlNode* node) : childCount(0)
 	{
 		this->document = document;
 		this->node = node;
@@ -59,6 +59,18 @@ namespace hlxml
 	hstr Node::getValue()
 	{
 		return hstr(this->node->Value());
+	}
+
+	int Node::getChildCount()
+	{
+		if (this->childCount == 0)
+		{
+			foreach_xmlnode (child, this)
+			{
+				++this->childCount;
+			}
+		}
+		return this->childCount;
 	}
 
 	bool Node::pbool(chstr propertyName)
