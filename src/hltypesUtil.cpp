@@ -47,7 +47,8 @@ uint64_t htickCount()
 #else
 	timeval tv = {0, 0};
 	gettimeofday(&tv, NULL);
-	return (uint64_t)(tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	uint64_t tv_sec = tv.tv_sec, tv_usec = tv.tv_usec; // cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
+	return (tv_sec * 1000 + tv_usec / 1000);
 #endif
 }
 
