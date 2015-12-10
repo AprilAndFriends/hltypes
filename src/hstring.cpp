@@ -259,6 +259,21 @@ namespace hltypes
 		return stdstr::replace(pos1, n1, n2, c).c_str();
 	}
 
+	void String::insertAt(int position, const String& string)
+	{
+		*this = stdstr::insert(position, string.cStr()).c_str();
+	}
+
+	void String::insertAt(int position, const char* string)
+	{
+		*this = stdstr::insert(position, string).c_str();
+	}
+
+	void String::insertAt(int position, char character)
+	{
+		*this = stdstr::insert(position, hstr(character).cStr()).c_str();
+	}
+
 	Array<char> String::split() const
 	{
 		return Array<char>(stdstr::c_str(), (int)stdstr::size());

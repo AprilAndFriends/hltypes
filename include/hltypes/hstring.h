@@ -166,6 +166,18 @@ namespace hltypes
 		/// @param[in] n2 Number of times character should be inserted.
 		/// @return New String.
 		hltypesMemberExport String replace(int pos1, int n1, char c, int n2);
+		/// @brief Inserts a sequence of characters into the String.
+		/// @param[in] position Index where to insert.
+		/// @param[in] string String to insert.
+		hltypesMemberExport void insertAt(int position, const String& string);
+		/// @brief Inserts a sequence of characters into the String.
+		/// @param[in] position Index where to insert.
+		/// @param[in] string String to insert.
+		hltypesMemberExport void insertAt(int position, const char* string);
+		/// @brief Inserts a character into the String.
+		/// @param[in] position Index where to insert.
+		/// @param[in] character Character to insert.
+		hltypesMemberExport void insertAt(int position, char character);
 		/// @brief Splits the String with the delimiter once.
 		/// @param[in] delimiter The character acting as splitting delimiter.
 		/// @param[out] outLeft First portion of the split String.
