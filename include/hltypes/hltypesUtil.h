@@ -210,6 +210,11 @@ hltypesFnExport uint64_t htickCount();
 /// @return Environment variable as String.
 /// @note May not be available on all platforms (e.g. WinRT does not support it).
 hltypesFnExport hltypes::String henv(const hltypes::String& name);
+/// @brief Gets the current stack trace.
+/// @param[in] maxFrames How many frames.
+/// @return Current stack trace.
+/// @note May not be available on all platforms.
+hltypesFnExport hltypes::String hstackTrace(int maxFrames = 62);
 /// @brief Returns a random int number.
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.

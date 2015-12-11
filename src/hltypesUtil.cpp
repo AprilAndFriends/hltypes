@@ -26,6 +26,16 @@
 #include "hstream.h"
 #include "hstring.h"
 
+#ifdef _WIN32
+#pragma warning(disable : 4091) // MS's own headers cause warnings
+// needed for stack trace functions
+#include <DbgHelp.h> // has to be here after hplatform.h that includes windows.h
+#pragma comment(lib, "Dbghelp.lib")
+#endif
+
+#define MAX_STACK_ADDRESS_NAME_SIZE 1024
+#define MAX_STACK_FRAMES 62 // WinXP has a max of 63 frames and the current frame is always skipped
+
 namespace hltypes
 {
 	String logTag = "hltypes";
@@ -63,6 +73,36 @@ hltypes::String henv(const hltypes::String& name)
 #else
 	return hltypes::String(getenv(name.cStr()));
 #endif
+}
+
+hltypes::String hstackTrace(int maxFrames)
+{
+	hltypes::String result = "Stack trace not available on this platform!";
+	maxFrames = hmax(maxFrames, MAX_STACK_FRAMES);
+#ifdef _WIN32 // apparently works on WinRT as well
+	result = "Could not obtain stack trace!";
+	HANDLE process = GetCurrentProcess();
+	if (process != NULL && SymInitialize(process, NULL, TRUE))
+	{
+		void* stack[100];
+		unsigned short frames = RtlCaptureStackBackTrace(1, maxFrames, stack, NULL); // skipping this function call from the stack trace
+		if (frames > 0)
+		{
+			hltypes::Array<hltypes::String> calls;
+			PSYMBOL_INFO symbol = (PSYMBOL_INFO)malloc(sizeof(SYMBOL_INFO) + MAX_STACK_ADDRESS_NAME_SIZE * sizeof(char));
+			symbol->MaxNameLen = MAX_STACK_ADDRESS_NAME_SIZE + 1;
+			symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+			for_iter (i, 0, frames)
+			{
+				SymFromAddr(process, (DWORD64)stack[i], 0, symbol);
+				calls += hsprintf("0x%0llX - %s\n", symbol->Address, symbol->Name);
+			}
+			free(symbol);
+			result = calls.joined("");
+		}
+	}
+#endif
+	return result;
 }
 
 int hrand(int min, int max)

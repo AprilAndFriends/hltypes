@@ -29,12 +29,18 @@ namespace hltypes
 		_Exception(const String& message, const char* sourceFile, int lineNumber);
 		/// @brief Destructor.
 		virtual ~_Exception();
-		/// @brief Gets the exception message.
-		/// @return The exception message.
-		inline virtual String getMessage() { return this->message; }
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline virtual String getType() { return "Exception"; }
+		/// @brief Gets the exception message.
+		/// @return The exception message.
+		inline virtual String getMessage() { return this->message; }
+		/// @brief Gets the stack trace.
+		/// @return The stack trace.
+		inline String getStackTrace() { return this->stackTrace; }
+		/// @brief Gets the full error message with stack trace.
+		/// @return The full error message with stack trace.
+		inline String getFullMessage() { return this->message + "\n" + this->stackTrace; }
 
 		DEPRECATED_ATTRIBUTE inline String getErrorText() { return this->message; }
 		DEPRECATED_ATTRIBUTE inline String getErrorMessage() { return this->message; }
@@ -42,6 +48,8 @@ namespace hltypes
 	protected:
 		/// @brief Exception message.
 		String message;
+		/// @brief Stack trace.
+		String stackTrace;
 		/// @brief Sets internal message.
 		/// @param[in] message Exception message.
 		/// @param[in] sourceFile Name of the source file.

@@ -165,7 +165,7 @@ namespace hltypes
 			{
 				if (outputEnabled)
 				{
-					_platformPrint("FATAL", e.getMessage(), LevelError);
+					_platformPrint("FATAL", e.getFullMessage(), LevelError);
 				}
 #ifdef _DEBUG
 				throw e;
@@ -183,7 +183,7 @@ namespace hltypes
 		{
 			if (outputEnabled)
 			{
-				_platformPrint("FATAL", e.getMessage(), LevelError);
+				_platformPrint("FATAL", e.getFullMessage(), LevelError);
 			}
 			throw e;
 		}

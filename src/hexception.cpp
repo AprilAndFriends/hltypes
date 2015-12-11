@@ -20,6 +20,7 @@ namespace hltypes
 {
 	_Exception::_Exception(const String& message, const char* sourceFile, int lineNumber)
 	{
+		this->stackTrace = hstackTrace();
 		this->_setInternalMessage(message, sourceFile, lineNumber);
 	}
 	
