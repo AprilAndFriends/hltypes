@@ -31,6 +31,9 @@
 // needed for stack trace functions
 #include <DbgHelp.h> // has to be here after hplatform.h that includes windows.h
 #pragma comment(lib, "Dbghelp.lib")
+#elif defined(_ANDROID)
+#include <unwind.h>
+#include <dlfcn.h>
 #endif
 
 #define MAX_STACK_ADDRESS_NAME_SIZE 1024
@@ -75,10 +78,42 @@ hltypes::String henv(const hltypes::String& name)
 #endif
 }
 
+#ifdef _ANDROID
+struct StackFrame
+{
+	hltypes::Array<void*> addresses;
+	hltypes::Array<hltypes::String> names;
+	int maxFrames;
+};
+
+static _Unwind_Reason_Code _traceFunction(struct _Unwind_Context* context, void* arg)
+{
+	StackFrame* frame = (StackFrame*)arg;
+	void* ip = (void*)_Unwind_GetIP(context);
+	if (ip != NULL)
+	{
+		frame->addresses += ip;
+		Dl_info info;
+		memset(&info, 0, sizeof(Dl_info));
+		hstr name = "unknown";
+		if (dladdr(ip, &info) != 0)
+		{
+			if (info.dli_sname != NULL)
+			{
+				name = hstr(info.dli_sname);
+			}
+			name += " (" + hstr(info.dli_fname) + ")";
+		}
+		frame->names += name;
+	}
+	return (frame->addresses.size() < frame->maxFrames ? _URC_NO_REASON : _URC_END_OF_STACK);
+}
+#endif
+
 hltypes::String hstackTrace(int maxFrames)
 {
 	hltypes::String result = "Stack trace not available on this platform!";
-	maxFrames = hmax(maxFrames, MAX_STACK_FRAMES);
+	maxFrames = hclamp(maxFrames, 1, MAX_STACK_FRAMES);
 #ifdef _WIN32 // apparently works on WinRT as well
 	result = "Could not obtain stack trace!";
 	HANDLE process = GetCurrentProcess();
@@ -100,6 +135,20 @@ hltypes::String hstackTrace(int maxFrames)
 			free(symbol);
 			result = calls.joined("");
 		}
+	}
+#elif defined(_ANDROID)
+	result = "Could not obtain stack trace!";
+	StackFrame frame;
+	frame.maxFrames = maxFrames;
+	_Unwind_Backtrace(&_traceFunction, &frame);
+	hltypes::Array<hltypes::String> calls;
+	for_iter (i, 1, frame.addresses.size()) // skipping this function call from the stack trace
+	{
+		calls += hsprintf("%p - %s\n", frame.addresses[i], frame.names[i].cStr());
+	}
+	if (calls.size() > 0)
+	{
+		result = calls.joined("");
 	}
 #endif
 	return result;
