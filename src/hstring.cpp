@@ -199,79 +199,211 @@ namespace hltypes
 		return stdstr::substr(0, i + 1).c_str();
 	}
 
-	String String::replaced(const char* what, const char* withWhat) const
+	void String::replace(const String& what, const String& withWhat)
 	{
-		const char* string = stdstr::c_str();
-		String out;
+		this->replace(what.cStr(), withWhat.cStr());
+	}
+
+	void String::replace(const String& what, const char* withWhat)
+	{
+		this->replace(what.cStr(), withWhat);
+	}
+
+	void String::replace(const String& what, char withWhat, int times)
+	{
+		this->replace(what.cStr(), withWhat, times);
+	}
+
+	void String::replace(const char* what, const String& withWhat)
+	{
+		this->replace(what, withWhat.cStr());
+	}
+
+	void String::replace(const char* what, const char* withWhat)
+	{
 		int whatLength = (int)strlen(what);
-		if (whatLength == 0)
+		int withWhatLength = (int)strlen(withWhat);
+		size_t position = 0;
+		while (true)
 		{
-			return *this;
+			position = stdstr::find(what, position);
+			if (position == std::string::npos)
+			{
+				break;
+			}
+			stdstr::replace(position, whatLength, withWhat);
+			position += withWhatLength;
 		}
-		const char* p = NULL;
-		while ((p = strstr(string, what)) != 0)
-		{
-			out.append(string, p - string);
-			out.append(withWhat);
-			string = p + whatLength;
-		}
-		out.append(string);
-		return out;
 	}
 
-	String String::replaced(const String& what, const char* withWhat) const
+	void String::replace(const char* what, char withWhat, int times)
 	{
-		return this->replaced(what.cStr(), withWhat);
+		int whatLength = (int)strlen(what);
+		size_t position = 0;
+		while (true)
+		{
+			position = stdstr::find(what, position);
+			if (position == std::string::npos)
+			{
+				break;
+			}
+			stdstr::replace(position, whatLength, withWhat, times);
+			position += times;
+		}
 	}
 
-	String String::replaced(const char* what, const String& withWhat) const
+	void String::replace(const char what, const String& withWhat)
 	{
-		return this->replaced(what, withWhat.cStr());
+		static char string[2] = { '\0' , '\0' };
+		string[0] = what;
+		return this->replace(string, withWhat.cStr());
+	}
+
+	void String::replace(const char what, const char* withWhat)
+	{
+		static char string[2] = { '\0' , '\0' };
+		string[0] = what;
+		return this->replace(string, withWhat);
+	}
+
+	void String::replace(const char what, char withWhat, int times)
+	{
+		static char string[2] = { '\0' , '\0' };
+		string[0] = what;
+		return this->replace(string, withWhat, times);
+	}
+
+	void String::replace(int position, int count, const String& string)
+	{
+		stdstr::replace(position, count, string.cStr());
+	}
+
+	void String::replace(int position, int count, const char* string)
+	{
+		stdstr::replace(position, count, string);
+	}
+
+	void String::replace(int position, int count, char character, int times)
+	{
+		stdstr::replace(position, count, times, character);
 	}
 
 	String String::replaced(const String& what, const String& withWhat) const
 	{
-		return this->replaced(what.cStr(), withWhat.cStr());
+		String result(*this);
+		result.replace(what, withWhat);
+		return result;
 	}
 
-	String String::replace(int pos1, int n1, const String& string)
+	String String::replaced(const String& what, const char* withWhat) const
 	{
-		return stdstr::replace(pos1, n1, string).c_str();
+		String result(*this);
+		result.replace(what, withWhat);
+		return result;
 	}
 
-	String String::replace(int pos1, int n1, const String& string, int pos2, int n2)
+	String String::replaced(const String& what, char withWhat, int times) const
 	{
-		return stdstr::replace(pos1, n1, string, pos2, n2).c_str();
+		String result(*this);
+		result.replace(what, withWhat, times);
+		return result;
 	}
 
-	String String::replace(int pos1, int n1, const char* s)
+	String String::replaced(const char* what, const String& withWhat) const
 	{
-		return stdstr::replace(pos1, n1, s).c_str();
+		String result(*this);
+		result.replace(what, withWhat);
+		return result;
 	}
 
-	String String::replace(int pos1, int n1, const char* string, int n2)
+	String String::replaced(const char* what, const char* withWhat) const
 	{
-		return stdstr::replace(pos1, n1, string, n2).c_str();
+		String result(*this);
+		result.replace(what, withWhat);
+		return result;
 	}
 
-	String String::replace(int pos1, int n1, char c, int n2)
+	String String::replaced(const char* what, char withWhat, int times) const
 	{
-		return stdstr::replace(pos1, n1, n2, c).c_str();
+		String result(*this);
+		result.replace(what, withWhat, times);
+		return result;
+	}
+
+	String String::replaced(const char what, const String& withWhat) const
+	{
+		String result(*this);
+		result.replace(what, withWhat);
+		return result;
+	}
+
+	String String::replaced(const char what, const char* withWhat) const
+	{
+		String result(*this);
+		result.replace(what, withWhat);
+		return result;
+	}
+
+	String String::replaced(const char what, char withWhat, int times) const
+	{
+		String result(*this);
+		result.replace(what, withWhat, times);
+		return result;
+	}
+
+	String String::replaced(int position, int count, const String& string) const
+	{
+		String result(*this);
+		result.replace(position, count, string);
+		return result;
+	}
+	String String::replaced(int position, int count, const char* string) const
+	{
+		String result(*this);
+		result.replace(position, count, string);
+		return result;
+	}
+	String String::replaced(int position, int count, char character, int times) const
+	{
+		String result(*this);
+		result.replace(position, count, character, times);
+		return result;
 	}
 
 	void String::insertAt(int position, const String& string)
 	{
-		*this = stdstr::insert(position, string.cStr()).c_str();
+		stdstr::insert(position, string.cStr()).c_str();
 	}
 
 	void String::insertAt(int position, const char* string)
 	{
-		*this = stdstr::insert(position, string).c_str();
+		stdstr::insert(position, string).c_str();
 	}
 
-	void String::insertAt(int position, char character)
+	void String::insertAt(int position, char character, int times)
 	{
-		*this = stdstr::insert(position, hstr(character).cStr()).c_str();
+		stdstr::insert(position, times, character);
+	}
+
+	String String::insertedAt(int position, const String& string) const
+	{
+		String result(*this);
+		result.insertAt(position, string);
+		return result;
+	}
+
+	String String::insertedAt(int position, const char* string) const
+	{
+		String result(*this);
+		result.insertAt(position, string);
+		return result;
+	}
+
+	String String::insertedAt(int position, char character, int times) const
+	{
+		String result(*this);
+		result.insertAt(position, character, times);
+		return result;
 	}
 
 	Array<char> String::split() const
