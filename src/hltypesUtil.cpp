@@ -26,11 +26,11 @@
 #include "hstream.h"
 #include "hstring.h"
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(_WINRT)
 #pragma warning(disable : 4091) // MS's own headers cause warnings
 // needed for stack trace functions
-#include <DbgHelp.h> // has to be here after hplatform.h that includes windows.h
-#pragma comment(lib, "Dbghelp.lib")
+#include <dbghelp.h> // has to be here after hplatform.h that includes windows.h
+#pragma comment(lib, "dbghelp.lib")
 #elif defined(_ANDROID)
 #include <unwind.h>
 #include <dlfcn.h>
@@ -112,29 +112,37 @@ static _Unwind_Reason_Code _traceFunction(struct _Unwind_Context* context, void*
 
 hltypes::String hstackTrace(int maxFrames)
 {
+	// the implementations on some platforms are not thread-safe
+	static hltypes::Mutex stackMutex;
+	hltypes::Mutex::ScopeLock lock(&stackMutex);
+	// get stack trace
 	hltypes::String result = "Stack trace not available on this platform!";
 	maxFrames = hclamp(maxFrames, 1, MAX_STACK_FRAMES);
-#ifdef _WIN32 // apparently works on WinRT as well
+#if defined(_WIN32) && !defined(_WINRT) // doesn't work on WinRT
 	result = "Could not obtain stack trace!";
 	HANDLE process = GetCurrentProcess();
-	if (process != NULL && SymInitialize(process, NULL, TRUE))
+	if (process != NULL)
 	{
-		void* stack[100];
-		unsigned short frames = RtlCaptureStackBackTrace(1, maxFrames, stack, NULL); // skipping this function call from the stack trace
-		if (frames > 0)
+		if (SymInitialize(process, NULL, TRUE))
 		{
-			hltypes::Array<hltypes::String> calls;
-			PSYMBOL_INFO symbol = (PSYMBOL_INFO)malloc(sizeof(SYMBOL_INFO) + MAX_STACK_ADDRESS_NAME_SIZE * sizeof(char));
-			symbol->MaxNameLen = MAX_STACK_ADDRESS_NAME_SIZE + 1;
-			symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
-			for_iter (i, 0, frames)
+			void* stack[100];
+			unsigned short frames = RtlCaptureStackBackTrace(1, maxFrames, stack, NULL); // skipping this function call from the stack trace
+			if (frames > 0)
 			{
-				SymFromAddr(process, (DWORD64)stack[i], 0, symbol);
-				calls += hsprintf("0x%0llX - %s\n", symbol->Address, symbol->Name);
+				hltypes::Array<hltypes::String> calls;
+				PSYMBOL_INFO symbol = (PSYMBOL_INFO)malloc(sizeof(SYMBOL_INFO) + MAX_STACK_ADDRESS_NAME_SIZE * sizeof(char));
+				symbol->MaxNameLen = MAX_STACK_ADDRESS_NAME_SIZE + 1;
+				symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+				for_iter (i, 0, frames)
+				{
+					SymFromAddr(process, (DWORD64)stack[i], 0, symbol);
+					calls += hsprintf("0x%0llX - %s\n", symbol->Address, symbol->Name);
+				}
+				free(symbol);
+				result = calls.joined("");
 			}
-			free(symbol);
-			result = calls.joined("");
 		}
+		SymCleanup(process);
 	}
 #elif defined(_ANDROID)
 	result = "Could not obtain stack trace!";
