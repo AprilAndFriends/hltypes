@@ -264,22 +264,19 @@ namespace hltypes
 
 	void String::replace(const char what, const String& withWhat)
 	{
-		static char string[2] = { '\0' , '\0' };
-		string[0] = what;
+		const char string[2] = { what, '\0' };
 		return this->replace(string, withWhat.cStr());
 	}
 
 	void String::replace(const char what, const char* withWhat)
 	{
-		static char string[2] = { '\0' , '\0' };
-		string[0] = what;
+		const char string[2] = { what, '\0' };
 		return this->replace(string, withWhat);
 	}
 
 	void String::replace(const char what, const char withWhat, int times)
 	{
-		static char string[2] = { '\0' , '\0' };
-		string[0] = what;
+		const char string[2] = { what, '\0' };
 		return this->replace(string, withWhat, times);
 	}
 
@@ -443,8 +440,7 @@ namespace hltypes
 	
 	Array<String> String::split(const char delimiter, unsigned int n, bool removeEmpty) const
 	{
-		static char string[2] = {'\0', '\0'};
-		string[0] = delimiter;
+		const char string[2] = { delimiter, '\0'};
 		return this->split(string, n, removeEmpty);
 	}
 
@@ -467,8 +463,7 @@ namespace hltypes
 	
 	bool String::split(const char delimiter, String& outLeft, String& outRight) const
 	{
-		static char string[2] = { '\0', '\0' };
-		string[0] = delimiter;
+		const char string[2] = { delimiter, '\0'};
 		return this->split(string, outLeft, outRight);
 	}
 
@@ -510,8 +505,7 @@ namespace hltypes
 
 	Array<String> String::rsplit(const char delimiter, unsigned int n, bool removeEmpty) const
 	{
-		static char string[2] = { '\0', '\0' };
-		string[0] = delimiter;
+		const char string[2] = { delimiter, '\0' };
 		return this->rsplit(string, n, removeEmpty);
 	}
 
@@ -534,8 +528,7 @@ namespace hltypes
 
 	bool String::rsplit(const char delimiter, String& outLeft, String& outRight) const
 	{
-		static char string[2] = { '\0', '\0' };
-		string[0] = delimiter;
+		const char string[2] = { delimiter, '\0' };
 		return this->rsplit(string, outLeft, outRight);
 	}
 
@@ -596,8 +589,7 @@ namespace hltypes
 
 	int String::count(const char c) const
 	{
-		static char string[2] = { '\0', '\0' };
-		string[0] = c;
+		const char string[2] = { c, '\0' };
 		return this->count(string);
 	}
 
@@ -650,8 +642,7 @@ namespace hltypes
 
 	bool String::contains(const char c) const
 	{
-		static char string[2] = { '\0', '\0' };
-		string[0] = c;
+		const char string[2] = { c, '\0' };
 		return this->contains(string);
 	}
 
