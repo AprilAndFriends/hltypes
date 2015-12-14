@@ -224,7 +224,7 @@ namespace hltypes
 		int whatLength = (int)strlen(what);
 		if (whatLength == 0)
 		{
-			Log::error(logTag, "Cannot replace empty string in string: " + *this);
+			Log::warn(logTag, "Cannot replace empty string in string: " + *this);
 			return;
 		}
 		int withWhatLength = (int)strlen(withWhat);
@@ -246,7 +246,7 @@ namespace hltypes
 		int whatLength = (int)strlen(what);
 		if (whatLength == 0)
 		{
-			Log::error(logTag, "Cannot replace empty string in string: " + *this);
+			Log::warn(logTag, "Cannot replace empty string in string: " + *this);
 			return;
 		}
 		size_t position = 0;
