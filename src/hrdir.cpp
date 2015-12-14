@@ -200,20 +200,13 @@ namespace hltypes
 		String cwd = Resource::getCwd() + "/";
 		if (!Resource::isZipArchive())
 		{
-			if (cwd != "/" && cwd != "./")
-			{
-				cwd = Resource::getArchive() + "/" + cwd;
-			}
-			else
-			{
-				cwd = Resource::getArchive();
-			}
+			cwd = Resource::getArchive() + "/" + cwd;
 		}
 		if (cwd != "/" && cwd != "./")
 		{
 			for_iter (i, 0, paths.size())
 			{
-				paths[i] = paths[i].replaced(cwd, "");
+				paths[i].replace(cwd, "");
 			}
 		}
 		return paths;
