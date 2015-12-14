@@ -222,6 +222,11 @@ namespace hltypes
 	void String::replace(const char* what, const char* withWhat)
 	{
 		int whatLength = (int)strlen(what);
+		if (whatLength == 0)
+		{
+			Log::error(logTag, "Cannot replace empty string in string: " + *this);
+			return;
+		}
 		int withWhatLength = (int)strlen(withWhat);
 		size_t position = 0;
 		while (true)
@@ -239,6 +244,11 @@ namespace hltypes
 	void String::replace(const char* what, char withWhat, int times)
 	{
 		int whatLength = (int)strlen(what);
+		if (whatLength == 0)
+		{
+			Log::error(logTag, "Cannot replace empty string in string: " + *this);
+			return;
+		}
 		size_t position = 0;
 		while (true)
 		{
