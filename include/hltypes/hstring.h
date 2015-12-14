@@ -36,11 +36,11 @@ namespace hltypes
 		hltypesMemberExport String();
 		/// @brief Basic constructor.
 		/// @param[in] c A character.
-		hltypesMemberExport String(char c);
+		hltypesMemberExport String(const char c);
 		/// @brief Basic constructor.
 		/// @param[in] c A character.
 		/// @param[in] times How many times c should be added.
-		hltypesMemberExport String(char c, const int times);
+		hltypesMemberExport String(const char c, const int times);
 		/// @brief Copy constructor.
 		/// @param[in] string A C-type string.
 		hltypesMemberExport String(const char* string);
@@ -102,15 +102,15 @@ namespace hltypes
 		/// @brief Left-trims and right-trims String from a specific character.
 		/// @param[in] c Character to trim.
 		/// @return Trimmed String.
-		hltypesMemberExport String trimmed(char c = ' ') const;
+		hltypesMemberExport String trimmed(const char c = ' ') const;
 		/// @brief Left-trims String from a specific character.
 		/// @param[in] c Character to trim.
 		/// @return Left-trimmed String.
-		hltypesMemberExport String trimmedLeft(char c = ' ') const;
+		hltypesMemberExport String trimmedLeft(const char c = ' ') const;
 		/// @brief Right-trims String from a specific character.
 		/// @param[in] c Character to trim.
 		/// @return Right-trimmed String.
-		hltypesMemberExport String trimmedRight(char c = ' ') const;
+		hltypesMemberExport String trimmedRight(const char c = ' ') const;
 		/// @brief Replaces occurrences of a substring with another substring.
 		/// @param[in] what String substring.
 		/// @param[in] withWhat String substitution.
@@ -123,7 +123,7 @@ namespace hltypes
 		/// @param[in] what String substring.
 		/// @param[in] withWhat Character substitution.
 		/// @param[in] times How many times to insert the character.
-		hltypesMemberExport void replace(const String& what, char withWhat, int times = 1);
+		hltypesMemberExport void replace(const String& what, const char withWhat, int times = 1);
 		/// @brief Replaces occurrences of a substring with another substring.
 		/// @param[in] what C-string substring.
 		/// @param[in] withWhat String substitution.
@@ -136,20 +136,20 @@ namespace hltypes
 		/// @param[in] what C-string substring.
 		/// @param[in] withWhat Character substitution.
 		/// @param[in] times How many times to insert the character.
-		hltypesMemberExport void replace(const char* what, char withWhat, int times = 1);
+		hltypesMemberExport void replace(const char* what, const char withWhat, int times = 1);
 		/// @brief Replaces occurrences of a character with a substring.
 		/// @param[in] what Character substring.
 		/// @param[in] withWhat String substitution.
-		hltypesMemberExport void replace(char what, const String& withWhat);
+		hltypesMemberExport void replace(const char what, const String& withWhat);
 		/// @brief Replaces occurrences of a character with a substring.
 		/// @param[in] what Character substring.
 		/// @param[in] withWhat C-string string substitution.
-		hltypesMemberExport void replace(char what, const char* withWhat);
+		hltypesMemberExport void replace(const char what, const char* withWhat);
 		/// @brief Replaces occurrences of a character with a substring.
 		/// @param[in] what Character substring.
 		/// @param[in] withWhat Character substitution.
 		/// @param[in] times How many times to insert the character.
-		hltypesMemberExport void replace(char what, char withWhat, int times = 1);
+		hltypesMemberExport void replace(const char what, const char withWhat, int times = 1);
 		/// @brief Replaces a sequence of characters with a substring.
 		/// @param[in] position Start index of character sequence.
 		/// @param[in] count How many characters to replace.
@@ -165,7 +165,7 @@ namespace hltypes
 		/// @param[in] count How many characters to replace.
 		/// @param[in] character Character substitution.
 		/// @param[in] times How many times to insert the character.
-		hltypesMemberExport void replace(int position, int count, char character, int times = 1);
+		hltypesMemberExport void replace(int position, int count, const char character, int times = 1);
 		/// @brief Replaces occurrences of a substring with another substring.
 		/// @param[in] what String substring.
 		/// @param[in] withWhat String substitution.
@@ -181,7 +181,7 @@ namespace hltypes
 		/// @param[in] withWhat Character substitution.
 		/// @param[in] times How many times to insert the character.
 		/// @return New String.
-		hltypesMemberExport String replaced(const String& what, char withWhat, int times = 1) const;
+		hltypesMemberExport String replaced(const String& what, const char withWhat, int times = 1) const;
 		/// @brief Replaces occurrences of a substring with another substring.
 		/// @param[in] what C-string substring.
 		/// @param[in] withWhat String substitution.
@@ -197,23 +197,23 @@ namespace hltypes
 		/// @param[in] withWhat Character substitution.
 		/// @param[in] times How many times to insert the character.
 		/// @return New String.
-		hltypesMemberExport String replaced(const char* what, char withWhat, int times = 1) const;
+		hltypesMemberExport String replaced(const char* what, const char withWhat, int times = 1) const;
 		/// @brief Replaces occurrences of a character with a substring.
 		/// @param[in] what Character substring.
 		/// @param[in] withWhat String substitution.
 		/// @return New String.
-		hltypesMemberExport String replaced(char what, const String& withWhat) const;
+		hltypesMemberExport String replaced(const char what, const String& withWhat) const;
 		/// @brief Replaces occurrences of a character with a substring.
 		/// @param[in] what Character substring.
 		/// @param[in] withWhat C-string string substitution.
 		/// @return New String.
-		hltypesMemberExport String replaced(char what, const char* withWhat) const;
+		hltypesMemberExport String replaced(const char what, const char* withWhat) const;
 		/// @brief Replaces occurrences of a character with a substring.
 		/// @param[in] what Character substring.
 		/// @param[in] withWhat Character substitution.
 		/// @param[in] times How many times to insert the character.
 		/// @return New String.
-		hltypesMemberExport String replaced(char what, char withWhat, int times = 1) const;
+		hltypesMemberExport String replaced(const char what, const char withWhat, int times = 1) const;
 		/// @brief Replaces a sequence of characters with a substring.
 		/// @param[in] position Start index of character sequence.
 		/// @param[in] count How many characters to replace.
@@ -232,7 +232,7 @@ namespace hltypes
 		/// @param[in] character Character substitution.
 		/// @param[in] times How many times to insert the character.
 		/// @return New String.
-		hltypesMemberExport String replaced(int position, int count, char character, int times = 1) const;
+		hltypesMemberExport String replaced(int position, int count, const char character, int times = 1) const;
 		/// @brief Inserts a sequence of characters into the String.
 		/// @param[in] position Index where to insert.
 		/// @param[in] string String to insert.
@@ -245,7 +245,7 @@ namespace hltypes
 		/// @param[in] position Index where to insert.
 		/// @param[in] character Character to insert.
 		/// @param[in] times How many times to insert the character.
-		hltypesMemberExport void insertAt(int position, char character, int times = 1);
+		hltypesMemberExport void insertAt(int position, const char character, int times = 1);
 		/// @brief Inserts a sequence of characters into the String.
 		/// @param[in] position Index where to insert.
 		/// @param[in] string String to insert.
@@ -261,13 +261,13 @@ namespace hltypes
 		/// @param[in] character Character to insert.
 		/// @param[in] times How many times to insert the character.
 		/// @return New String.
-		hltypesMemberExport String insertedAt(int position, char character, int times = 1) const;
+		hltypesMemberExport String insertedAt(int position, const char character, int times = 1) const;
 		/// @brief Splits the String with the delimiter once.
 		/// @param[in] delimiter The character acting as splitting delimiter.
 		/// @param[out] outLeft First portion of the split String.
 		/// @param[out] outRight Second portion of the split String.
 		/// @return True if String was split.
-		hltypesMemberExport bool split(char delimiter, String& outLeft, String& outRight) const;
+		hltypesMemberExport bool split(const char delimiter, String& outLeft, String& outRight) const;
 		/// @brief Splits the String with the delimiter once.
 		/// @param[in] delimiter The C-type string acting as splitting delimiter.
 		/// @param[out] outLeft First portion of the split String.
@@ -288,7 +288,7 @@ namespace hltypes
 		/// @param[in] n How many times the string should be split maximally.
 		/// @param[in] removeEmpty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		hltypesMemberExport Array<String> split(char delimiter, unsigned int n = -1, bool removeEmpty = false) const;
+		hltypesMemberExport Array<String> split(const char delimiter, unsigned int n = -1, bool removeEmpty = false) const;
 		/// @brief Splits the String with the delimiter.
 		/// @param[in] delimiter The C-type string acting as splitting delimiter.
 		/// @param[in] n How many times the string should be split maximally.
@@ -306,7 +306,7 @@ namespace hltypes
 		/// @param[out] outLeft First portion of the split String.
 		/// @param[out] outRight Second portion of the split String.
 		/// @return True if String was split.
-		hltypesMemberExport bool rsplit(char delimiter, String& outLeft, String& outRight) const;
+		hltypesMemberExport bool rsplit(const char delimiter, String& outLeft, String& outRight) const;
 		/// @brief Reverse splits the String with the delimiter once.
 		/// @param[in] delimiter The C-type string acting as splitting delimiter.
 		/// @param[out] outLeft First portion of the split String.
@@ -324,7 +324,7 @@ namespace hltypes
 		/// @param[in] n How many times the string should be split maximally.
 		/// @param[in] removeEmpty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		hltypesMemberExport Array<String> rsplit(char delimiter, unsigned int n = -1, bool removeEmpty = false) const;
+		hltypesMemberExport Array<String> rsplit(const char delimiter, unsigned int n = -1, bool removeEmpty = false) const;
 		/// @brief Reverse splits the String with the delimiter.
 		/// @param[in] delimiter The C-type string acting as splitting delimiter.
 		/// @param[in] n How many times the string should be split maximally.
@@ -341,7 +341,7 @@ namespace hltypes
 		/// @param[in] c Character to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of the character.
-		hltypesMemberExport int indexOf(char c, int start = 0) const;
+		hltypesMemberExport int indexOf(const char c, int start = 0) const;
 		/// @brief Finds the first index of a character.
 		/// @param[in] string C-string to search for.
 		/// @param[in] start Starting index.
@@ -356,7 +356,7 @@ namespace hltypes
 		/// @param[in] c Character to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of the character searching from the back.
-		hltypesMemberExport int rindexOf(char c, int start = -1) const;
+		hltypesMemberExport int rindexOf(const char c, int start = -1) const;
 		/// @brief Finds the first index of a character searching from the back.
 		/// @param[in] string C-string to search for.
 		/// @param[in] start Starting index.
@@ -390,7 +390,7 @@ namespace hltypes
 		/// @brief Counts the occurrences of a substring.
 		/// @param[in] c The character to look for.
 		/// @return Number of occurrences of the substring.
-		hltypesMemberExport int count(char c) const;
+		hltypesMemberExport int count(const char c) const;
 		/// @brief Counts the occurrences of a substring.
 		/// @param[in] string The C-type string to look for.
 		/// @return Number of occurrences of the substring.
@@ -418,7 +418,7 @@ namespace hltypes
 		/// @brief Checks if String contains character.
 		/// @param[in] c Character to search for.
 		/// @return True if String contains character.
-		hltypesMemberExport bool contains(char c) const;
+		hltypesMemberExport bool contains(const char c) const;
 		/// @brief Checks if String contains C-type string.
 		/// @param[in] string C-type string to search for.
 		/// @return True if String contains C-type string.
@@ -615,7 +615,7 @@ namespace hltypes
 		hltypesMemberExport void operator+=(const bool b);
 		/// @brief Converts char into a String and concatenates the new String at the end of this one.
 		/// @param[in] c Character value.
-		hltypesMemberExport void operator+=(char c);
+		hltypesMemberExport void operator+=(const char c);
 		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
 		/// @param[in] string C-type string value.
 		hltypesMemberExport void operator+=(char* string);
@@ -628,7 +628,7 @@ namespace hltypes
 		/// @brief Merges String with a character converted into String first.
 		/// @param[in] c Character value.
 		/// @return New String.
-		hltypesMemberExport String operator+(char c) const;
+		hltypesMemberExport String operator+(const char c) const;
 		/// @brief Merges String with a C-type string converted into String first.
 		/// @param[in] string C-type string value.
 		/// @return New String.
@@ -773,7 +773,7 @@ namespace hltypes
 		/// @brief Converts a char to a UTF8 string.
 		/// @param[in] string The char.
 		/// @return UTF8 string.
-		hltypesMemberExport static String fromUnicode(char value);
+		hltypesMemberExport static String fromUnicode(const char value);
 		/// @brief Converts an unsigned char to a UTF8 string.
 		/// @param[in] string The unsigned char.
 		/// @return UTF8 string.
@@ -815,13 +815,13 @@ namespace hltypes
 		hltypesMemberExport void assign(const char* string, unsigned int length) { std::string::assign(string, length); }
 
 
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int find_first_of(char c) const															{ return this->indexOfAny(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind_first_of(char c) const															{ return this->rindexOfAny(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int find(char c) const																		{ return this->indexOf(c); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport int find_first_of(const char c) const														{ return this->indexOfAny(c); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind_first_of(const char c) const														{ return this->rindexOfAny(c); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport int find(const char c) const																{ return this->indexOf(c); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int find(const char* string) const															{ return this->indexOf(string); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int find(const std::string& string)														{ return this->indexOf(string.c_str()); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int find(const String& string)																{ return this->indexOf(string); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind(char c) const																	{ return this->rindexOf(c); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind(const char c) const																{ return this->rindexOf(c); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind(const char* string) const														{ return this->rindexOf(string); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind(const std::string& string)														{ return this->rindexOf(string.c_str()); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind(const String& string)															{ return this->rindexOf(string); }
@@ -837,9 +837,9 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE hltypesMemberExport bool is_float(bool requireDot = true) const												{ return this->isFloat(requireDot); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport bool is_number() const																		{ return this->isNumber(); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport bool is_hex() const																		{ return this->isHex(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String trim(char c = ' ') const															{ return this->trimmed(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String ltrim(char c = ' ') const															{ return this->trimmedLeft(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String rtrim(char c = ' ') const															{ return this->trimmedRight(c); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport String trim(const char c = ' ') const														{ return this->trimmed(c); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport String ltrim(const char c = ' ') const														{ return this->trimmedLeft(c); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport String rtrim(const char c = ' ') const														{ return this->trimmedRight(c); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport bool contains_any(const char* s) const														{ return this->containsAny(s); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport bool contains_any(const String& s) const													{ return this->containsAny(s); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport bool contains_all(const char* s) const														{ return this->containsAll(s); }
@@ -858,7 +858,7 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE hltypesMemberExport String replace(int position, int count, const char* string, int stringLength)				{ return this->replaced(position, count, String(string, stringLength)); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(unsigned int value)												{ return String::fromUnicode(value); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(wchar_t value)													{ return String::fromUnicode(value); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(char value)														{ return String::fromUnicode(value); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(const char value)												{ return String::fromUnicode(value); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(unsigned char value)											{ return String::fromUnicode(value); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(const unsigned int* string)										{ return String::fromUnicode(string); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(const wchar_t* string)											{ return String::fromUnicode(string); }
