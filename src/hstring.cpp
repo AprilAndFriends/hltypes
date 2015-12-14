@@ -115,8 +115,8 @@ typedef std::basic_string<char> stdstr;
 namespace hltypes
 {
 	String::String() : stdstr() { }
-	String::String(const char c) : stdstr(1, c) { }
-	String::String(const char c, const int times) : stdstr(times, c) { }
+	String::String(char c) : stdstr(1, c) { }
+	String::String(char c, const int times) : stdstr(times, c) { }
 	String::String(const char* string) : stdstr(string) { }
 	String::String(const String& string) : stdstr(string) { }
 	String::String(const char* string, const int length) : stdstr(string, length) { }
@@ -247,26 +247,26 @@ namespace hltypes
 			{
 				break;
 			}
-			stdstr::replace(position, whatLength, withWhat, times);
+			stdstr::replace(position, whatLength, times, withWhat);
 			position += times;
 		}
 	}
 
-	void String::replace(const char what, const String& withWhat)
+	void String::replace(char what, const String& withWhat)
 	{
 		static char string[2] = { '\0' , '\0' };
 		string[0] = what;
 		return this->replace(string, withWhat.cStr());
 	}
 
-	void String::replace(const char what, const char* withWhat)
+	void String::replace(char what, const char* withWhat)
 	{
 		static char string[2] = { '\0' , '\0' };
 		string[0] = what;
 		return this->replace(string, withWhat);
 	}
 
-	void String::replace(const char what, char withWhat, int times)
+	void String::replace(char what, char withWhat, int times)
 	{
 		static char string[2] = { '\0' , '\0' };
 		string[0] = what;
@@ -330,21 +330,21 @@ namespace hltypes
 		return result;
 	}
 
-	String String::replaced(const char what, const String& withWhat) const
+	String String::replaced(char what, const String& withWhat) const
 	{
 		String result(*this);
 		result.replace(what, withWhat);
 		return result;
 	}
 
-	String String::replaced(const char what, const char* withWhat) const
+	String String::replaced(char what, const char* withWhat) const
 	{
 		String result(*this);
 		result.replace(what, withWhat);
 		return result;
 	}
 
-	String String::replaced(const char what, char withWhat, int times) const
+	String String::replaced(char what, char withWhat, int times) const
 	{
 		String result(*this);
 		result.replace(what, withWhat, times);
@@ -414,7 +414,8 @@ namespace hltypes
 	Array<String> String::split(const char* delimiter, unsigned int n, bool removeEmpty) const
 	{
 		Array<String> out;
-		const char *s = stdstr::c_str(), *p;
+		const char* s = stdstr::c_str();
+		const char* p = NULL;
 		int delimiterLength = (int)strlen(delimiter);
 		while ((p = strstr(s, delimiter)) != 0 && n > 0)
 		{
@@ -430,10 +431,11 @@ namespace hltypes
 		return out;
 	}
 	
-	Array<String> String::split(const char delimiter, unsigned int n, bool removeEmpty) const
+	Array<String> String::split(char delimiter, unsigned int n, bool removeEmpty) const
 	{
-		const char sp[2] = {delimiter, '\0'};
-		return this->split(sp, n, removeEmpty);
+		static char string[2] = {'\0', '\0'};
+		string[0] = delimiter;
+		return this->split(string, n, removeEmpty);
 	}
 
 	Array<String> String::split(const String& delimiter, unsigned int n, bool removeEmpty) const
@@ -453,9 +455,10 @@ namespace hltypes
 		return true;
 	}
 	
-	bool String::split(const char delimiter, String& outLeft, String& outRight) const
+	bool String::split(char delimiter, String& outLeft, String& outRight) const
 	{
-		const char string[2] = { delimiter, '\0' };
+		static char string[2] = { '\0', '\0' };
+		string[0] = delimiter;
 		return this->split(string, outLeft, outRight);
 	}
 
@@ -467,7 +470,8 @@ namespace hltypes
 	Array<String> String::rsplit(const char* delimiter, unsigned int n, bool removeEmpty) const
 	{
 		Array<String> out;
-		const char *s = stdstr::c_str(), *p;
+		const char* s = stdstr::c_str();
+		const char* p = NULL;
 		int delimiter_len = (int)strlen(delimiter);
 		for (p = s + strlen(s) - 1; p != s && n > 0; --p)
 		{
@@ -494,10 +498,11 @@ namespace hltypes
 		return out;
 	}
 
-	Array<String> String::rsplit(const char delimiter, unsigned int n, bool removeEmpty) const
+	Array<String> String::rsplit(char delimiter, unsigned int n, bool removeEmpty) const
 	{
-		const char sp[2] = { delimiter, '\0' };
-		return this->rsplit(sp, n, removeEmpty);
+		static char string[2] = { '\0', '\0' };
+		string[0] = delimiter;
+		return this->rsplit(string, n, removeEmpty);
 	}
 
 	Array<String> String::rsplit(const String& delimiter, unsigned int n, bool removeEmpty) const
@@ -517,9 +522,10 @@ namespace hltypes
 		return true;
 	}
 
-	bool String::rsplit(const char delimiter, String& outLeft, String& outRight) const
+	bool String::rsplit(char delimiter, String& outLeft, String& outRight) const
 	{
-		const char string[2] = { delimiter, '\0' };
+		static char string[2] = { '\0', '\0' };
+		string[0] = delimiter;
 		return this->rsplit(string, outLeft, outRight);
 	}
 
@@ -528,7 +534,7 @@ namespace hltypes
 		return this->rsplit(delimiter.cStr(), outLeft, outRight);
 	}
 
-	int String::indexOf(const char c, int index) const
+	int String::indexOf(char c, int index) const
 	{
 		return (int)stdstr::find(c, index);
 	}
@@ -543,7 +549,7 @@ namespace hltypes
 		return (int)stdstr::find(string, index);
 	}
 
-	int String::rindexOf(const char c, int index) const
+	int String::rindexOf(char c, int index) const
 	{
 		return (int)stdstr::rfind(c, index);
 	}
@@ -578,9 +584,10 @@ namespace hltypes
 		return (int)stdstr::find_last_of(string.cStr(), index);
 	}
 
-	int String::count(const char c) const
+	int String::count(char c) const
 	{
-		char string[2] = { c, '\0' };
+		static char string[2] = { '\0', '\0' };
+		string[0] = c;
 		return this->count(string);
 	}
 
@@ -631,9 +638,10 @@ namespace hltypes
 		return this->endsWith(string.cStr());
 	}
 
-	bool String::contains(const char c) const
+	bool String::contains(char c) const
 	{
-		char string[2] = { c, '\0' };
+		static char string[2] = { '\0', '\0' };
+		string[0] = c;
 		return this->contains(string);
 	}
 
@@ -1146,10 +1154,9 @@ namespace hltypes
 		stdstr::append(String(b));
 	}
 
-	void String::operator+=(const char c)
+	void String::operator+=(char c)
 	{
-		char string[2] = { c, '\0' };
-		stdstr::append(string);
+		stdstr::append(1, c);
 	}
 
 	void String::operator+=(char* string)
@@ -1167,7 +1174,7 @@ namespace hltypes
 		stdstr::append(string.cStr());
 	}
 
-	String String::operator+(const char c) const
+	String String::operator+(char c) const
 	{
 		String result(*this);
 		result.append(1, c);
