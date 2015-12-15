@@ -21,6 +21,7 @@ namespace hltypes
 	int _platformSprintf(char* buffer, const char* format, ...);
 	int _platformVsnprintf(char* buffer, size_t bufferCount, const char* format, va_list args);
 	String _platformEnv(const String& name);
+	String _platformResourceCwd();
 
 }
 

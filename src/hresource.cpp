@@ -13,6 +13,7 @@
 #include "hrdir.h"
 #include "hresource.h"
 #include "hthread.h"
+#include "platform_internal.h"
 #ifdef _ZIPRESOURCE
 #include "zipaccess.h"
 #endif
@@ -20,7 +21,7 @@
 namespace hltypes
 {
 	bool Resource::zipArchive = false;
-	String Resource::cwd = ".";
+	String Resource::cwd = _platformResourceCwd();
 	String Resource::archive = "";
 
 	void Resource::setArchive(const String& value)

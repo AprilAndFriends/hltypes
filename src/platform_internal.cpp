@@ -41,4 +41,9 @@ namespace hltypes
 #endif
 	}
 
+	String _platformResourceCwd()
+	{
+		return ".";
+	}
+
 }
