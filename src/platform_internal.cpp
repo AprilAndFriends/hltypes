@@ -13,7 +13,6 @@
 	#include <dirent.h>
 	#include <sys/stat.h>
 	#include <unistd.h>
-	#define _chdir(name) ::chdir(name)
 	#define _getcwd(buffer, size) ::getcwd(buffer, size)
 	#define _opendir(name) opendir(name.cStr())
 	#define _readdir(dirp) readdir(dirp)
@@ -29,8 +28,6 @@
 
 #ifdef _WIN32
 	#ifdef _WINRT
-		#define _chdir(name) winrtcwd = name
-		static hltypes::String winrtcwd = ".";
 	#elif defined(_MSC_VER)
 		#include <AccCtrl.h>
 	#endif
@@ -38,6 +35,10 @@
 
 namespace hltypes
 {
+#ifdef _WINRT
+	static hltypes::String winrtcwd = ".";
+#endif
+
 #if defined(_WIN32) && defined(_MSC_VER) && !defined(_WINRT) // god help us all
 	static bool _mkdirWin32FullPermissions(const String& path)
 	{
@@ -135,7 +136,7 @@ namespace hltypes
 #ifdef _WIN32
 		return (_wrmdir(dirName.wStr().c_str()) != 0);
 #else
-		return (::rmdir(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
+		return (rmdir(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
 #endif
 	}
 
@@ -150,7 +151,78 @@ namespace hltypes
 #endif
 		return (_wmkdir(dirName.wStr().c_str()) != 0);
 #else
-		return (::mkdir(dirName.cStr(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) != 0); // TODO - should be ported to Unix systems as well
+		return (mkdir(dirName.cStr(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) != 0); // TODO - should be ported to Unix systems as well
+#endif
+	}
+
+	bool _platformRenameDirectory(const String& dirName, const String& newName)
+	{
+#ifdef _WIN32
+		return (_wrename(dirName.wStr().c_str(), newName.wStr().c_str()) == 0);
+#else
+		return (rename(dirName.cStr(), newName.cStr()) == 0); // TODO - should be ported to Unix systems as well
+#endif
+	}
+
+	_platformDir* _platformOpenDirectory(const String& dirName)
+	{
+#ifdef _WIN32
+		return (_platformDir*)_opendir(dirName);
+#else
+		return (_platformDir*)opendir(dirName.cStr());
+#endif
+	}
+
+	_platformDirEntry* _platformReadDirectory(_platformDir* dir)
+	{
+#ifdef _WIN32
+		return (_platformDirEntry*)_readdir((DIR*)dir);
+#else
+		return (_platformDirEntry*)readdir((DIR*)dir);
+#endif
+	}
+
+	void _platformCloseDirectory(_platformDir* dir)
+	{
+#ifdef _WIN32
+		_closedir((DIR*)dir);
+#else
+		closedir((DIR*)dir);
+#endif
+	}
+
+	String _platformGetDirEntryName(_platformDirEntry* entry)
+	{
+		return String::fromUnicode(((struct dirent*)entry)->d_name);
+	}
+
+	void _platformChdir(const String& dirName)
+	{
+#ifdef _WIN32
+#ifndef _WINRT
+		_wchdir(dirName.wStr().c_str());
+#else
+		winrtcwd = dirName;
+#endif
+#else
+		chdir(dirName.cStr());
+#endif
+	}
+
+	String _platformCwd()
+	{
+#ifdef _WIN32
+#ifndef _WINRT
+		char dir[FILENAME_MAX + 1] = { '\0' };
+		_getcwd(dir, FILENAME_MAX);
+		return Dir::systemize(dir);
+#else
+		return winrtcwd;
+#endif
+#else
+		char dir[FILENAME_MAX + 1] = { '\0' };
+		getcwd(dir, FILENAME_MAX - 1);
+		return Dir::systemize(dir);
 #endif
 	}
 

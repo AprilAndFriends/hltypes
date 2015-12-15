@@ -6,24 +6,6 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
-#include <stdio.h>
-#ifdef _WIN32
-#include <direct.h>
-#include "msvc_dirent.h"
-#else
-#include <dirent.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#define _chdir(name) ::chdir(name)
-#define _getcwd(buffer, size) ::getcwd(buffer, size)
-#define _opendir(name) opendir(name.cStr())
-#define _readdir(dirp) readdir(dirp)
-#define _closedir(dirp) closedir(dirp)
-#endif
-
-// prevents recursive calls of Dir::rename as this function is called via this pointer
-int (*d_rename)(const char* oldName, const char* newName) = rename;
-
 #include "harray.h"
 #include "hdir.h"
 #include "hfile.h"
@@ -33,11 +15,6 @@ int (*d_rename)(const char* oldName, const char* newName) = rename;
 #include "hresource.h"
 #include "hstring.h"
 #include "platform_internal.h"
-
-#ifdef _WINRT
-#define _chdir(name) winrtcwd = name
-static hltypes::String winrtcwd = ".";
-#endif
 
 namespace hltypes
 {
@@ -94,10 +71,10 @@ namespace hltypes
 	{
 		String name = Dir::normalize(dirName);
 		bool result = false;
-		DIR* dir = _opendir(name);
+		_platformDir* dir = _platformOpenDirectory(name);
 		if (dir != NULL)
 		{
-			_closedir(dir);
+			_platformCloseDirectory(dir);
 			result = true;
 		}
 		if (!result && !caseSensitive)
@@ -147,7 +124,7 @@ namespace hltypes
 			return false;
 		}
 		Dir::create(Dir::baseDir(newName));
-		return (d_rename(oldName.cStr(), newName.cStr()) == 0);
+		return _platformRenameDirectory(oldName, newName);
 	}
 	
 	bool Dir::move(const String& dirName, const String& path)
@@ -185,11 +162,11 @@ namespace hltypes
 		Array<String> result;
 		if (Dir::exists(name))
 		{
-			DIR* dir = _opendir(name);
-			struct dirent* entry;
-			while ((entry = _readdir(dir)))
+			_platformDir* dir = _platformOpenDirectory(name);
+			_platformDirEntry* entry = NULL;
+			while ((entry = _platformReadDirectory(dir)))
 			{
-				result += String::fromUnicode(entry->d_name);
+				result += _platformGetDirEntryName(entry);
 			}
 			if (!result.has("."))
 			{
@@ -199,7 +176,7 @@ namespace hltypes
 			{
 				result += "..";
 			}
-			_closedir(dir);
+			_platformCloseDirectory(dir);
 		}
 		if (prependDir)
 		{
@@ -214,11 +191,11 @@ namespace hltypes
 		Array<String> result;
 		if (Dir::exists(name))
 		{
-			DIR* dir = _opendir(name);
-			struct dirent* entry;
-			while ((entry = _readdir(dir)))
+			_platformDir* dir = _platformOpenDirectory(name);
+			_platformDirEntry* entry = NULL;
+			while ((entry = _platformReadDirectory(dir)))
 			{
-				result += String::fromUnicode(entry->d_name);
+				result += _platformGetDirEntryName(entry);
 			}
 			if (result.has("."))
 			{
@@ -228,7 +205,7 @@ namespace hltypes
 			{
 				result.remove("..");
 			}
-			_closedir(dir);
+			_platformCloseDirectory(dir);
 		}
 		if (prependDir)
 		{
@@ -240,18 +217,18 @@ namespace hltypes
 	Array<String> Dir::directories(const String& dirName, bool prependDir)
 	{
 		String name = Dir::normalize(dirName);
-		String current;
 		Array<String> result;
 		if (Dir::exists(name))
 		{
-			DIR* dir = _opendir(name);
-			struct dirent* entry;
-			while ((entry = _readdir(dir)))
+			_platformDir* dir = _platformOpenDirectory(name);
+			_platformDirEntry* entry = NULL;
+			String entryName;
+			while ((entry = _platformReadDirectory(dir)))
 			{
-				current = Dir::joinPath(name, String::fromUnicode(entry->d_name), false);
-				if (Dir::exists(current))
+				entryName = _platformGetDirEntryName(entry);
+				if (Dir::exists(Dir::joinPath(name, entryName, false)))
 				{
-					result += String::fromUnicode(entry->d_name);
+					result += entryName;
 				}
 			}
 			if (result.has("."))
@@ -262,7 +239,7 @@ namespace hltypes
 			{
 				result.remove("..");
 			}
-			_closedir(dir);
+			_platformCloseDirectory(dir);
 		}
 		if (prependDir)
 		{
@@ -274,18 +251,18 @@ namespace hltypes
 	Array<String> Dir::files(const String& dirName, bool prependDir)
 	{
 		String name = Dir::normalize(dirName);
-		String current;
 		Array<String> result;
 		if (Dir::exists(name))
 		{
-			DIR* dir = _opendir(name);
-			struct dirent* entry;
-			while ((entry = _readdir(dir)))
+			_platformDir* dir = _platformOpenDirectory(name);
+			_platformDirEntry* entry = NULL;
+			String entryName;
+			while ((entry = _platformReadDirectory(dir)))
 			{
-				current = Dir::joinPath(name, String::fromUnicode(entry->d_name), false);
-				if (File::exists(current))
+				entryName = _platformGetDirEntryName(entry);
+				if (File::exists(Dir::joinPath(name, entryName, false)))
 				{
-					result += String::fromUnicode(entry->d_name);
+					result += entryName;
 				}
 			}
 			if (result.has("."))
@@ -296,7 +273,7 @@ namespace hltypes
 			{
 				result.remove("..");
 			}
-			_closedir(dir);
+			_platformCloseDirectory(dir);
 		}
 		if (prependDir)
 		{
@@ -307,24 +284,12 @@ namespace hltypes
 
 	void Dir::chdir(const String& dirName)
 	{
-#ifdef _WIN32
-#ifndef _WINRT
-		_wchdir(Dir::systemize(dirName).wStr().c_str());
-#endif
-#else
-		_chdir(Dir::systemize(dirName).cStr());
-#endif
+		return _platformChdir(Dir::systemize(dirName));
 	}
 
 	String Dir::cwd()
 	{
-#ifndef _WINRT
-		char dir[FILENAME_MAX] = {'\0'};
-		_getcwd(dir, FILENAME_MAX);
-		return Dir::systemize(dir);
-#else
-		return winrtcwd;
-#endif
+		return _platformCwd();
 	}
 
 }
