@@ -25,6 +25,7 @@
 #include "hresource.h"
 #include "hstream.h"
 #include "hstring.h"
+#include "platform_internal.h"
 
 #if defined(_WIN32) && !defined(_WINRT)
 #pragma warning(disable : 4091) // MS's own headers cause warnings
@@ -67,15 +68,7 @@ uint64_t htickCount()
 
 hltypes::String henv(const hltypes::String& name)
 {
-#ifdef _WIN32
-#ifndef _WINRT
-	return hltypes::String::fromUnicode(_wgetenv(name.wStr().c_str()));
-#else
-	return ""; // WinRT does not support environment variables
-#endif
-#else
-	return hltypes::String(getenv(name.cStr()));
-#endif
+	return hltypes::_platformEnv(name);
 }
 
 #ifdef _ANDROID

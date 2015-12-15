@@ -133,8 +133,8 @@ namespace hltypes
 	{
 		char fmt[16];
 		char string[64];
-		sprintf(fmt, "%%.%df", precision);
-		sprintf(string, fmt, f);
+		_platformSprintf(fmt, "%%.%df", precision);
+		_platformSprintf(string, fmt, f);
 		stdstr::operator=(string);
 	}
 	String::String(const double d) { this->operator=(d); }
@@ -142,8 +142,8 @@ namespace hltypes
 	{
 		char fmt[16];
 		char string[64];
-		sprintf(fmt, "%%.%dlf", precision);
-		sprintf(string, fmt, d);
+		_platformSprintf(fmt, "%%.%dlf", precision);
+		_platformSprintf(string, fmt, d);
 		stdstr::operator=(string);
 	}
 	String::~String() { }
@@ -1542,6 +1542,7 @@ hltypes::String hvsprintf(const char* format, va_list args)
 #if defined(_IOS) && TARGET_IPHONE_SIMULATOR
 	size = 1024; // iOS simulator sometimes crashes when callin vsnprintf twice, so in this case, just limit output
 #endif
+	// not using a static buffer here to assure thread safety
 	char* c = new char[size + 1];
 	c[0] = '\0';
 	int count = 0;
@@ -1549,7 +1550,7 @@ hltypes::String hvsprintf(const char* format, va_list args)
 	for_iterx (i, 0, 8)
 	{
 		// due to different (and non-standard) behavior in different implementations, there is one safe byte
-		count = vsnprintf(c, size, format, args);
+		count = hltypes::_platformVsnprintf(c, size, format, args);
 		if (count >= 0 && count < size)
 		{
 			c[count] = '\0'; // terminate string
@@ -1564,7 +1565,7 @@ hltypes::String hvsprintf(const char* format, va_list args)
 		c[0] = '\0';
 	}
 #ifdef _DEBUG
-	if (i == 8)
+	if (i >= 8)
 	{
 		delete[] c;
 		throw Exception("Resulting string for hsprintf is longer than 2^16 (65536) characters!");
@@ -1579,7 +1580,7 @@ hltypes::String hsprintf(const char* format, ...)
 {
 	va_list args;
 	va_start(args, format);
-	hltypes::String result(hvsprintf(format, args));
+	hltypes::String result = hvsprintf(format, args);
 	va_end(args);
 	return result;
 }
