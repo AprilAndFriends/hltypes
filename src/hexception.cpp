@@ -87,13 +87,14 @@ namespace hltypes
 					throw _Exception("", "", 0);
 				}
 			}
-			message += " File not found!";
 		}
 		catch (_Exception&) // is this inception or exception, I am confused
 		{
 		}
 #ifdef _WIN32 // could be useful
 		message += " System error: " + String(strerror(errno));
+#else
+		message += " File not found!";
 #endif
 		this->_setInternalMessage(message, sourceFile, lineNumber);
 	}
