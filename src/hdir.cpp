@@ -14,7 +14,6 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#define _mkdir(name) ::mkdir(name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
 #define _chdir(name) ::chdir(name)
 #define _getcwd(buffer, size) ::getcwd(buffer, size)
 #define _opendir(name) opendir(name.cStr())
@@ -35,94 +34,15 @@ int (*d_rename)(const char* oldName, const char* newName) = rename;
 #include "hstring.h"
 #include "platform_internal.h"
 
-#ifdef _WIN32
 #ifdef _WINRT
 #define _chdir(name) winrtcwd = name
 static hltypes::String winrtcwd = ".";
-#elif defined(_MSC_VER)
-#include <AccCtrl.h>
-#endif
 #endif
 
 namespace hltypes
 {
 	bool Dir::win32FullDirectoryPermissions = true;
 
-#if defined(_WIN32) && defined(_MSC_VER) && !defined(_WINRT) // god help us all
-	static bool _mkdirWin32FullPermissions(const String& path)
-	{
-		typedef BOOL (WINAPI* TInitSD)(PSECURITY_DESCRIPTOR, DWORD);
-		typedef BOOL (WINAPI* TAllocSid)(PSID_IDENTIFIER_AUTHORITY, BYTE, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, PSID*);
-		typedef DWORD (WINAPI* TSetEntAcl)(ULONG, PEXPLICIT_ACCESS, PACL, PACL*);
-		typedef DWORD (WINAPI* TSetSDAcl)(PSECURITY_DESCRIPTOR, BOOL, PACL, BOOL);
-		typedef PVOID (WINAPI* TFreeSid)(PSID);
-		HMODULE hAdvapi32 = LoadLibrary(L"Advapi32.dll");
-		if (hAdvapi32 == 0)
-		{
-			return false;
-		}
-		TInitSD pInitSD = reinterpret_cast<TInitSD>(GetProcAddress(hAdvapi32, "InitializeSecurityDescriptor"));
-		TAllocSid pAllocSid = reinterpret_cast<TAllocSid>(GetProcAddress(hAdvapi32, "AllocateAndInitializeSid"));
-		TSetEntAcl pSetEntAcl = reinterpret_cast<TSetEntAcl>(GetProcAddress(hAdvapi32, "SetEntriesInAclW"));
-		TSetSDAcl pSetSDAcl = reinterpret_cast<TSetSDAcl>(GetProcAddress(hAdvapi32, "SetSecurityDescriptorDacl"));
-		TFreeSid pFreeSid = reinterpret_cast<TFreeSid>(GetProcAddress(hAdvapi32, "FreeSid"));
-		if (!pInitSD || !pAllocSid || !pSetEntAcl || !pSetSDAcl || !pFreeSid)
-		{
-			return false;
-		}
-		SECURITY_DESCRIPTOR sd;
-		if (!pInitSD(&sd, SECURITY_DESCRIPTOR_REVISION))
-		{
-			return false;
-		}
-		PSID pEveryoneSid;
-		SID_IDENTIFIER_AUTHORITY authority = SECURITY_WORLD_SID_AUTHORITY;
-		bool result = false;
-		if (pAllocSid(&authority, 1, SECURITY_WORLD_RID, 0, 0, 0, 0, 0, 0, 0, &pEveryoneSid))
-		{
-			EXPLICIT_ACCESS ea;
-			memset(&ea, 0, sizeof(ea));
-			ea.grfAccessPermissions = GENERIC_ALL;
-			ea.grfAccessMode = SET_ACCESS;
-			ea.grfInheritance = SUB_CONTAINERS_AND_OBJECTS_INHERIT;
-			ea.Trustee.MultipleTrusteeOperation = NO_MULTIPLE_TRUSTEE;
-			ea.Trustee.TrusteeForm = TRUSTEE_IS_SID;
-			ea.Trustee.TrusteeType = TRUSTEE_IS_WELL_KNOWN_GROUP;
-			ea.Trustee.ptstrName = static_cast<LPWSTR>(pEveryoneSid);
-			PACL acl;
-			if (pSetEntAcl(1, &ea, 0, &acl) == ERROR_SUCCESS)
-			{
-				if (pSetSDAcl(&sd, true, acl, false))
-				{
-					SECURITY_ATTRIBUTES sa;
-					sa.nLength = sizeof(sa);
-					sa.lpSecurityDescriptor = &sd;
-					sa.bInheritHandle = false;
-					result = (CreateDirectory(path.wStr().c_str(), &sa) == TRUE);
-				}
-				LocalFree(acl);
-			}
-			pFreeSid(pEveryoneSid);
-		}
-		return result;
-	}
-#endif
-
-	static bool hmkdir(const String& path)
-	{
-#if defined(_WIN32) && defined(_MSC_VER) && !defined(_WINRT)
-		if (Dir::getWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(path))
-		{
-			return true;
-		}
-#endif
-#ifdef _WIN32
-		return (_wmkdir(path.wStr().c_str()) != 0);
-#else
-		return (_mkdir(path.cStr()) != 0); // TODO - should be ported to Unix systems as well
-#endif
-	}
-	
 	bool Dir::create(const String& dirName)
 	{
 		String name = Dir::normalize(dirName);
@@ -134,11 +54,11 @@ namespace hltypes
 		if (folders.size() > 0)
 		{
 			String path = folders.removeFirst();
-			hmkdir(path);
+			_platformCreateDirectory(path);
 			foreach (String, it, folders)
 			{
 				path = Dir::joinPath(path, (*it), false);
-				hmkdir(path);
+				_platformCreateDirectory(path);
 			}
 		}
 		return Dir::exists(dirName);

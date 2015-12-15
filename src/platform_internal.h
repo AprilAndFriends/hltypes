@@ -23,6 +23,7 @@ namespace hltypes
 	String _platformEnv(const String& name);
 	String _platformResourceCwd();
 	bool _platformRemoveDirectory(const String& dirName);
+	bool _platformCreateDirectory(const String& dirName);
 
 }
 
