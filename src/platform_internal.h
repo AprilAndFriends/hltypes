@@ -22,6 +22,7 @@ namespace hltypes
 	int _platformVsnprintf(char* buffer, size_t bufferCount, const char* format, va_list args);
 	String _platformEnv(const String& name);
 	String _platformResourceCwd();
+	bool _platformRemoveDirectory(const String& dirName);
 
 }
 

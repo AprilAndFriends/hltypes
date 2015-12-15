@@ -15,7 +15,6 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #define _mkdir(name) ::mkdir(name, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
-#define _rmdir(name) ::rmdir(name)
 #define _chdir(name) ::chdir(name)
 #define _getcwd(buffer, size) ::getcwd(buffer, size)
 #define _opendir(name) opendir(name.cStr())
@@ -34,6 +33,7 @@ int (*d_rename)(const char* oldName, const char* newName) = rename;
 #include "hrdir.h"
 #include "hresource.h"
 #include "hstring.h"
+#include "platform_internal.h"
 
 #ifdef _WIN32
 #ifdef _WINRT
@@ -123,15 +123,6 @@ namespace hltypes
 #endif
 	}
 	
-	static bool hrmdir(const String& dirName)
-	{
-#ifdef _WIN32
-		return (_wrmdir(dirName.wStr().c_str()) != 0);
-#else
-		return (_rmdir(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
-#endif
-	}
-	
 	bool Dir::create(const String& dirName)
 	{
 		String name = Dir::normalize(dirName);
@@ -175,7 +166,7 @@ namespace hltypes
 		{
 			File::remove(Dir::joinPath(name, (*it), false));
 		}
-		hrmdir(name);
+		_platformRemoveDirectory(name);
 		return Dir::exists(name);
 	}
 	
