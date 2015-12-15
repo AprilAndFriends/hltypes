@@ -15,6 +15,7 @@
 #include "hrdir.h"
 #include "hresource.h"
 #include "hstring.h"
+#include "platform_internal.h"
 
 namespace hltypes
 {

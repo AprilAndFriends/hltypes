@@ -92,7 +92,7 @@ namespace hltypes
 				}
 			}
 		}
-		result = result.replaced("\r", "");
+		result.replace("\r", "");
 		return result;
 	}
 	

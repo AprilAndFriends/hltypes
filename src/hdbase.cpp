@@ -8,15 +8,10 @@
 
 #include "harray.h"
 #include "hdbase.h"
+#include "hlog.h"
 #include "hplatform.h"
 #include "hstring.h"
-
-#ifdef _ANDROID // needed for Android only anyway so this "second" definition (aside from hlog.h) is ok (needed for systemize)
-#include <android/log.h>
-#define LEVEL_WARN ((int)ANDROID_LOG_WARN)
-#else
-#define LEVEL_WARN 2
-#endif
+#include "platform_internal.h"
 
 namespace hltypes
 {
@@ -47,15 +42,15 @@ namespace hltypes
 			result = result(2, -1);
 		}
 #endif
-		result = result.replaced('\\', '/');
+		result.replace('\\', '/');
 		if (result.contains("//"))
 		{
 #ifdef _DEBUG // using _platformPrint() directory to avoid possible deadlock when saving to file during logging
-			hltypes::_platformPrint(logTag, "The path '" + result + "' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", LEVEL_WARN);
+			hltypes::_platformPrint(logTag, "The path '" + result + "' contains multiple consecutive '/' (slash) characters. It will be systemized properly, but you may want to consider fixing this.", Log::LevelWarn);
 #endif
-			for (int i = 0; i < 10000 && result.contains("//"); ++i) // 10000 loops are there to prevent a possible infinite loop
+			for (int i = 0; i < 1000 && result.contains("//"); ++i) // 1000 loops are there to prevent a possible infinite loop
 			{
-				result = result.replaced("//", "/");
+				result.replace("//", "/");
 			}
 		}
 #ifdef _WIN32

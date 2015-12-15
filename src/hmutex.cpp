@@ -18,6 +18,7 @@
 #include "hmutex.h"
 #include "hplatform.h"
 #include "hthread.h"
+#include "platform_internal.h"
 
 namespace hltypes
 {

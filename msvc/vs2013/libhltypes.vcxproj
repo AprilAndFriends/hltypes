@@ -199,6 +199,7 @@
     <ClInclude Include="..\..\include\hltypes\hltypesUtil.h" />
     <ClInclude Include="..\..\include\hltypes\hplatform.h" />
     <ClInclude Include="..\..\include\hltypes\hversion.h" />
+    <ClInclude Include="..\..\src\platform_internal.h" />
     <ClInclude Include="..\..\src\zipaccess.h" />
   </ItemGroup>
   <ItemGroup>

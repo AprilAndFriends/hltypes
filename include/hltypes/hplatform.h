@@ -76,16 +76,4 @@
 #endif
 #endif
 
-#include "hstring.h"
-
-namespace hltypes
-{
-	/// @brief Executes the actual message loggging.
-	/// @param[in] tag The message tag.
-	/// @param[in] message The message to log.
-	/// @param[in] level Log level (required for Android).
-	void _platformPrint(const String& tag, const String& message, int level);
-
-}
-
 #endif

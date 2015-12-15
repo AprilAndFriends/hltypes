@@ -19,6 +19,7 @@
 #include "hltypesUtil.h"
 #include "hplatform.h"
 #include "hstring.h"
+#include "platform_internal.h"
 
 #ifdef __APPLE__
 #import <TargetConditionals.h>

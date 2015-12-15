@@ -18,6 +18,7 @@
 #include "hmutex.h"
 #include "hplatform.h"
 #include "hstring.h"
+#include "platform_internal.h"
 
 // required for Win32 only actually
 #define MAX_FILE_SIZE 131072
