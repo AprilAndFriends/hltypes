@@ -26,7 +26,7 @@ namespace hltypes
 	public:
 		/// @brief Sets flag for creating directories with full access permissions on Win32 (Vista and later).
 		/// @return Flag for creating directories with full access permissions on Win32 (Vista and later).
-		static inline bool getWin32FullDirectoryPermissions() { return win32FullDirectoryPermissions; }
+		static inline bool isWin32FullDirectoryPermissions() { return win32FullDirectoryPermissions; }
 		/// @brief Sets flag for creating directories with full access permissions on Win32 (Vista and later).
 		/// @param[in] value New value.
 		static inline void setWin32FullDirectoryPermissions(bool value) { win32FullDirectoryPermissions = value; }

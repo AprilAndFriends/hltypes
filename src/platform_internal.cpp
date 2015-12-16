@@ -11,14 +11,13 @@
 #ifdef _WIN32
 	#include <direct.h>
 	#include "msvc_dirent.h"
+	#define WINDOWS_TICK 10000000ULL
+	#define SEC_TO_UNIX_EPOCH 11644473600ULL
 #else
 	#include <dirent.h>
 	#include <sys/stat.h>
+	#include <sys/types.h>
 	#include <unistd.h>
-	#define _getcwd(buffer, size) ::getcwd(buffer, size)
-	#define _opendir(name) opendir(name.cStr())
-	#define _readdir(dirp) readdir(dirp)
-	#define _closedir(dirp) closedir(dirp)
 #endif
 
 #define __HL_INCLUDE_PLATFORM_HEADERS
@@ -29,16 +28,12 @@
 #include "hstring.h"
 #include "platform_internal.h"
 
-#ifdef _WIN32
-	#define WINDOWS_TICK 10000000ULL
-	#define SEC_TO_UNIX_EPOCH 11644473600ULL
-	#if defined(_MSC_VER) && !defined(_WINRT)
-		#include <AccCtrl.h>
-	#endif
-#else
-	#include <sys/stat.h>
+#if defined(_WIN32) && defined(_MSC_VER) && !defined(_WINRT)
+	#define _WIN32_MKDIR_FULL_PERMISSIONS
 #endif
-
+#ifdef _WIN32_MKDIR_FULL_PERMISSIONS
+	#include <AccCtrl.h>
+#endif
 
 namespace hltypes
 {
@@ -46,7 +41,8 @@ namespace hltypes
 	static hltypes::String winrtcwd = ".";
 #endif
 
-#if defined(_WIN32) && defined(_MSC_VER) && !defined(_WINRT) // god help us all
+	// god help us all
+#ifdef _WIN32_MKDIR_FULL_PERMISSIONS
 	static bool _mkdirWin32FullPermissions(const String& path)
 	{
 		typedef BOOL(WINAPI* TInitSD)(PSECURITY_DESCRIPTOR, DWORD);
@@ -157,9 +153,37 @@ namespace hltypes
 		return (int)fread(buffer, elementSize, elementCount, (FILE*)file);
 	}
 
-	int _platformWriteFile(void* buffer, int elementSize, int elementCount, _platformFile* file)
+	int _platformWriteFile(const void* buffer, int elementSize, int elementCount, _platformFile* file)
 	{
 		return (int)fwrite(buffer, elementSize, elementCount, (FILE*)file);
+	}
+
+	int64_t _platformGetFilePosition(_platformFile* file)
+	{
+		fpos_t position = 0;
+		if (fgetpos((FILE*)file, &position) != 0)
+		{
+			return -1;
+		}
+		return (int64_t)position;
+	}
+
+	bool _platformSeekFile(_platformFile* file, int64_t size, int64_t position, int64_t offset, FileBase::SeekMode seekMode)
+	{
+		fpos_t _position = position;
+		switch (seekMode)
+		{
+		case FileBase::CURRENT:
+			break;
+		case FileBase::START:
+			_position = 0;
+			break;
+		case FileBase::END:
+			_position = size;
+			break;
+		}
+		_position += offset;
+		return (fsetpos((FILE*)file, &_position) == 0);
 	}
 
 	bool _platformRenameFile(const String& oldName, const String& newName)
@@ -178,6 +202,20 @@ namespace hltypes
 #else
 		return (remove(name.cStr()) == 0); // TODO - should be ported to Unix systems as well
 #endif
+	}
+
+	bool _platformEntryIsFile(const String& name)
+	{
+#ifndef _WIN32
+		struct stat stats;
+		// on UNIX fopen on a directory actually works so this check prevents
+		// errorously reporting the existence of a file if it's a directory
+		if (stat(name.cStr(), &stats) == 0 && (stats.st_mode & S_IFMT) == S_IFDIR)
+		{
+			return false;
+		}
+#endif
+		return true;
 	}
 
 	FileInfo _platformStatFile(const String& name)
@@ -254,7 +292,7 @@ namespace hltypes
 	{
 #ifdef _WIN32
 #if defined(_MSC_VER) && !defined(_WINRT)
-		if (Dir::getWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(dirName))
+		if (Dir::isWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(dirName))
 		{
 			return true;
 		}

@@ -6,15 +6,11 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
-#ifndef _WIN32
-#include <sys/stat.h>
-#include <sys/types.h>
-#endif
-
 #include "hdir.h"
 #include "hfbase.h"
 #include "hstring.h"
 #include "hthread.h"
+#include "platform_internal.h"
 
 namespace hltypes
 {
@@ -116,11 +112,7 @@ namespace hltypes
 		int attempts = repeats + 1;
 		while (true)
 		{
-#ifdef _WIN32
-			this->cfile = _wfopen(this->filename.wStr().c_str(), mode.wStr().c_str());
-#else
-			this->cfile = fopen(this->filename.cStr(), mode.cStr()); // TODO - should be ported to Unix systems as well
-#endif
+			this->cfile = _platformOpenFile(this->filename, mode);
 			if (this->cfile != NULL)
 			{
 				break;
@@ -141,19 +133,19 @@ namespace hltypes
 	void FileBase::_fclose()
 	{
 		this->_validate();
-		fclose((FILE*)this->cfile);
+		_platformCloseFile(this->cfile);
 		this->cfile = NULL;
 		this->dataSize = 0;
 	}
 	
 	int FileBase::_fread(void* buffer, int count)
 	{
-		return (int)fread(buffer, 1, count, (FILE*)this->cfile);
+		return _platformReadFile(buffer, 1, count, this->cfile);
 	}
 	
 	int FileBase::_fwrite(const void* buffer, int count)
 	{
-		int result = (int)fwrite(buffer, 1, count, (FILE*)this->cfile);
+		int result = (int)_platformWriteFile(buffer, 1, count, (FILE*)this->cfile);
 		this->dataSize = hmax(this->dataSize, this->_fposition());
 		return result;
 	}
@@ -165,44 +157,22 @@ namespace hltypes
 	
 	int64_t FileBase::_fposition() const
 	{
-		fpos_t position = 0;
-		if (fgetpos((FILE*)this->cfile, &position) != 0)
-		{
-			return -1;
-		}
-		return (int64_t)position;
+		return _platformGetFilePosition((_platformFile*)this->cfile);
 	}
 	
 	bool FileBase::_fseek(int64_t offset, SeekMode seekMode)
 	{
-		fpos_t position = this->_fposition();
-		switch (seekMode)
-		{
-		case CURRENT:
-			break;
-		case START:
-			position = 0;
-			break;
-		case END:
-			position = this->size();
-			break;
-		}
-		position += offset;
-		return (fsetpos((FILE*)this->cfile, &position) == 0);
+		return _platformSeekFile((_platformFile*)this->cfile, this->size(), this->_fposition(), offset, seekMode);
 	}
 	
 	bool FileBase::_fexists(const String& filename, bool caseSensitive)
 	{
 		String name = Dir::normalize(filename);
 		bool result = false;
-#ifdef _WIN32
-		FILE* f = _wfopen(name.wStr().c_str(), L"rb");
-#else
-		FILE* f = fopen(name.cStr(), "rb"); // TODO - should be ported to Unix systems as well
-#endif
-		if (f != NULL)
+		_platformFile* file = _platformOpenFile(name, "rb");
+		if (file != NULL)
 		{
-			fclose(f);
+			_platformCloseFile(file);
 			result = true;
 		}
 		if (!result && !caseSensitive)
@@ -220,19 +190,7 @@ namespace hltypes
 				}
 			}
 		}
-#ifndef _WIN32
-		if (result)
-		{
-			struct stat stats;
-			// on UNIX fopen on a directory actually works so this check prevents
-			// errorously reporting the existence of a file if it's a directory
-			if (stat(name.cStr(), &stats) == 0 && (stats.st_mode & S_IFMT) == S_IFDIR)
-			{
-				result = false;
-			}
-		}
-#endif
-		return result;
+		return (result && _platformEntryIsFile(name));
 	}
 	
 	FileBase::FileBase(const FileBase& other)

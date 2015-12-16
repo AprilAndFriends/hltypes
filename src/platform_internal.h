@@ -32,9 +32,12 @@ namespace hltypes
 	_platformFile* _platformOpenFile(const String& name, const String& accessMode);
 	void _platformCloseFile(_platformFile* file);
 	int _platformReadFile(void* buffer, int elementSize, int elementCount, _platformFile* file);
-	int _platformWriteFile(void* buffer, int elementSize, int elementCount, _platformFile* file);
+	int _platformWriteFile(const void* buffer, int elementSize, int elementCount, _platformFile* file);
+	int64_t _platformGetFilePosition(_platformFile* file);
+	bool _platformSeekFile(_platformFile* file, int64_t size, int64_t position, int64_t offset, FileBase::SeekMode seekMode);
 	bool _platformRenameFile(const String& oldName, const String& newName);
 	bool _platformRemoveFile(const String& name);
+	bool _platformEntryIsFile(const String& name);
 	FileInfo _platformStatFile(const String& name);
 
 	_platformDir* _platformOpenDirectory(const String& dirName);
