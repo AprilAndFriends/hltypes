@@ -65,11 +65,11 @@ def process():
 	print "Found files: %d" % len(files)
 	for filename in files:
 		print "- %s" % filename
-	print ""
 	for filename in files:
 		# parse file
 		data = _readFile(os.path.join(sourcePath, filename))
 		if data != "":
+			print ""
 			activeLibName = libName
 			if activeLibName == "":
 				index = data.find(NAMESPACE_MACRO)

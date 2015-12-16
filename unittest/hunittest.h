@@ -2,6 +2,8 @@
 #pragma message("WARNING! __HL_UT_LIB_NAME not defined!")
 #endif
 
+#define __EXPAND(x) x
+
 #ifdef __APPLE__
 
 #import <XCTest/XCTest.h>
@@ -32,8 +34,6 @@ extern XCTestCase* testInstance;
 
 #else
 
-#define __REDUCE(x) x
-
 #include "CppUnitTest.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -41,9 +41,9 @@ const wchar_t* GetWC(const char* c);
 #define HL_UT_ASSERT(expression, msg) Assert::IsTrue((expression), GetWC(msg))
 
 #define HL_UT_RUN_CLASS_BEGIN(classe) \
-	namespace test_ ## __HL_TEST_LIB_NAME \
+	namespace __EXPAND(__HL_UT_LIB_NAME) ## _hunittest \
 	{ \
-		TEST_CLASS(_test_ ## classe) \
+		TEST_CLASS(classe) \
 		{ \
 		public:
 #define HL_UT_RUN_CLASS_END \
@@ -51,12 +51,12 @@ const wchar_t* GetWC(const char* c);
 	}
 
 #define HL_UT_RUN_METHOD(classe, name) \
-	TEST_METHOD(__REDUCE(__HL_UT_LIB_NAME) ## _ ## classe ## _ ## name) \
+	TEST_METHOD(__EXPAND(__HL_UT_LIB_NAME) ## _ ## classe ## _ ## name) \
 	{ \
-		__HL_UT_LIB_NAME ## _unittest_ ## classe::assignment(); \
+		__EXPAND(__HL_UT_LIB_NAME) ## _hunittest_ ## classe::name(); \
 	}
 
 #endif
 
-#define HL_UT_TEST_CLASS(classe) namespace __HL_UT_LIB_NAME ## _unittest_ ## classe
+#define HL_UT_TEST_CLASS(classe) namespace __EXPAND(__HL_UT_LIB_NAME) ## _hunittest_ ## classe
 #define HL_UT_TEST_FUNCTION(name) void name()
