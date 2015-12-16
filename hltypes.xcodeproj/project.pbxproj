@@ -19,6 +19,11 @@
 		7FAB23551291377B0035EDF5 /* hthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23531291377B0035EDF5 /* hthread.cpp */; };
 		7FAB23561291377B0035EDF5 /* hmutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23541291377B0035EDF5 /* hmutex.cpp */; };
 		7FAB235A1291378A0035EDF5 /* hmutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FAB23581291378A0035EDF5 /* hmutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B43262901C21686200F9DDDF /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
+		B43262911C21686200F9DDDF /* platform_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B432628F1C21686200F9DDDF /* platform_internal.h */; };
+		B43262921C21686800F9DDDF /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
+		B43262931C21686900F9DDDF /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
+		B43262941C21686A00F9DDDF /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
 		C965F5BB14F3897B009F0EE5 /* hresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C965F5BA14F3897B009F0EE5 /* hresource.cpp */; };
 		C965F5BC14F3897B009F0EE5 /* hresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C965F5BA14F3897B009F0EE5 /* hresource.cpp */; };
 		C965F5BE14F38988009F0EE5 /* hresource.h in Headers */ = {isa = PBXBuildFile; fileRef = C965F5BD14F38988009F0EE5 /* hresource.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,7 +87,6 @@
 		D1D63AE21AA9978B00F72096 /* hversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1D63AE11AA9978B00F72096 /* hversion.cpp */; };
 		D1D63AE31AA9978B00F72096 /* hversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1D63AE11AA9978B00F72096 /* hversion.cpp */; };
 		D1D63AE41AA9978B00F72096 /* hversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1D63AE11AA9978B00F72096 /* hversion.cpp */; };
-		D1D63AE81AA9979D00F72096 /* exception.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D63AE51AA9979D00F72096 /* exception.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1D63AE91AA9979D00F72096 /* hcontainer.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D63AE61AA9979D00F72096 /* hcontainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1D63AEA1AA9979D00F72096 /* hversion.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D63AE71AA9979D00F72096 /* hversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1DB1C20162854920013C0E5 /* hplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DB1C1F162854920013C0E5 /* hplatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -138,6 +142,8 @@
 		7FAB23541291377B0035EDF5 /* hmutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hmutex.cpp; path = src/hmutex.cpp; sourceTree = "<group>"; };
 		7FAB23581291378A0035EDF5 /* hmutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hmutex.h; path = include/hltypes/hmutex.h; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* hltypes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hltypes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B432628E1C21686200F9DDDF /* platform_internal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform_internal.cpp; path = src/platform_internal.cpp; sourceTree = "<group>"; };
+		B432628F1C21686200F9DDDF /* platform_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform_internal.h; path = src/platform_internal.h; sourceTree = "<group>"; };
 		C965F5BA14F3897B009F0EE5 /* hresource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hresource.cpp; path = src/hresource.cpp; sourceTree = "<group>"; };
 		C965F5BD14F38988009F0EE5 /* hresource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hresource.h; path = include/hltypes/hresource.h; sourceTree = "<group>"; };
 		C981D01B14FFC5FE0032F321 /* hfbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hfbase.cpp; path = src/hfbase.cpp; sourceTree = "<group>"; };
@@ -177,7 +183,6 @@
 		D1BAE103183B921400BC2434 /* zipaccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zipaccess.h; path = src/zipaccess.h; sourceTree = "<group>"; };
 		D1D34303186250360040AA7F /* Apple_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Apple_platform.mm; path = src/platform/Apple_platform.mm; sourceTree = "<group>"; };
 		D1D63AE11AA9978B00F72096 /* hversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hversion.cpp; path = src/hversion.cpp; sourceTree = "<group>"; };
-		D1D63AE51AA9979D00F72096 /* exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = exception.h; path = include/hltypes/exception.h; sourceTree = "<group>"; };
 		D1D63AE61AA9979D00F72096 /* hcontainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hcontainer.h; path = include/hltypes/hcontainer.h; sourceTree = "<group>"; };
 		D1D63AE71AA9979D00F72096 /* hversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hversion.h; path = include/hltypes/hversion.h; sourceTree = "<group>"; };
 		D1DB1C1F162854920013C0E5 /* hplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hplatform.h; path = include/hltypes/hplatform.h; sourceTree = "<group>"; };
@@ -246,6 +251,8 @@
 		7F42F69511EB0B8500B1C1DF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				B432628E1C21686200F9DDDF /* platform_internal.cpp */,
+				B432628F1C21686200F9DDDF /* platform_internal.h */,
 				D1E909F0163693A500EB27EE /* platform */,
 				D1BAE103183B921400BC2434 /* zipaccess.h */,
 				D1BAE101183B920700BC2434 /* msvc_dirent.h */,
@@ -275,7 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				D1DC28F31B972E7900DBEB75 /* henum.h */,
-				D1D63AE51AA9979D00F72096 /* exception.h */,
 				D1D63AE61AA9979D00F72096 /* hcontainer.h */,
 				D1D63AE71AA9979D00F72096 /* hversion.h */,
 				D15CF10B1A52B131004F8DDC /* hexception.h */,
@@ -363,6 +369,7 @@
 			files = (
 				D1E1DD59140E579C00499A97 /* hdeque.h in Headers */,
 				D1E1DD5A140E579D00499A97 /* hlist.h in Headers */,
+				B43262911C21686200F9DDDF /* platform_internal.h in Headers */,
 				D1BAE102183B920700BC2434 /* msvc_dirent.h in Headers */,
 				D1E909EB1636912400EB27EE /* hlog.h in Headers */,
 				D1E1DD5B140E579D00499A97 /* hthread.h in Headers */,
@@ -381,7 +388,6 @@
 				D1BAE104183B921400BC2434 /* zipaccess.h in Headers */,
 				D115F7C714AD4FB400C78558 /* hsbase.h in Headers */,
 				D1DC28F41B972E7900DBEB75 /* henum.h in Headers */,
-				D1D63AE81AA9979D00F72096 /* exception.h in Headers */,
 				D1D63AE91AA9979D00F72096 /* hcontainer.h in Headers */,
 				D1D63AEA1AA9979D00F72096 /* hversion.h in Headers */,
 				D1BAE0F3183B91D100BC2434 /* hdbase.h in Headers */,
@@ -506,6 +512,7 @@
 				7F79A510125CB34400B22DA2 /* hdir.cpp in Sources */,
 				D1BAE0FB183B91FC00BC2434 /* hrdir.cpp in Sources */,
 				D1BAE0F8183B91FC00BC2434 /* hdbase.cpp in Sources */,
+				B43262901C21686200F9DDDF /* platform_internal.cpp in Sources */,
 				7FAB23551291377B0035EDF5 /* hthread.cpp in Sources */,
 				7FAB23561291377B0035EDF5 /* hmutex.cpp in Sources */,
 				D115F7C214AD4FA600C78558 /* hsbase.cpp in Sources */,
@@ -530,6 +537,7 @@
 				D1155B241A29DC4C0048B67C /* testThreading.cpp in Sources */,
 				D1155B1B1A29DC4C0048B67C /* main.cpp in Sources */,
 				D1155B1F1A29DC4C0048B67C /* testFile.cpp in Sources */,
+				B43262941C21686A00F9DDDF /* platform_internal.cpp in Sources */,
 				D1155B1D1A29DC4C0048B67C /* testDeque.cpp in Sources */,
 				D1155B221A29DC4C0048B67C /* testStream.cpp in Sources */,
 				D1155B251A29DC4C0048B67C /* testUtil.cpp in Sources */,
@@ -551,6 +559,7 @@
 				D1D34301186241AB0040AA7F /* hlog.cpp in Sources */,
 				D1BAE100183B91FC00BC2434 /* zipaccess.cpp in Sources */,
 				D1981C15140F7F5C0057C3AF /* hmutex.cpp in Sources */,
+				B43262931C21686900F9DDDF /* platform_internal.cpp in Sources */,
 				D1BAE0FD183B91FC00BC2434 /* hrdir.cpp in Sources */,
 				D1BAE0FA183B91FC00BC2434 /* hdbase.cpp in Sources */,
 				D1981C16140F7F5C0057C3AF /* hdir.cpp in Sources */,
@@ -578,6 +587,7 @@
 				D1BAE0FF183B91FC00BC2434 /* zipaccess.cpp in Sources */,
 				D1F27A8F177A2D0E00E5C131 /* hmutex.cpp in Sources */,
 				D1BAE0FC183B91FC00BC2434 /* hrdir.cpp in Sources */,
+				B43262921C21686800F9DDDF /* platform_internal.cpp in Sources */,
 				D1BAE0F9183B91FC00BC2434 /* hdbase.cpp in Sources */,
 				D1F27A90177A2D0E00E5C131 /* hdir.cpp in Sources */,
 				D1F27A92177A2D0E00E5C131 /* hfile.cpp in Sources */,
