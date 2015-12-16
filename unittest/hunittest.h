@@ -1,3 +1,6 @@
+#ifndef HL_UT_HUNITTEST_H
+#define HL_UT_HUNITTEST_H
+
 #ifndef __HL_UT_LIB_NAME
 #pragma message("WARNING! __HL_UT_LIB_NAME not defined!")
 #endif
@@ -60,3 +63,5 @@ const wchar_t* GetWC(const char* c);
 
 #define HL_UT_TEST_CLASS(classe) namespace __EXPAND(__HL_UT_LIB_NAME) ## _hunittest_ ## classe
 #define HL_UT_TEST_FUNCTION(name) void name()
+
+#endif
