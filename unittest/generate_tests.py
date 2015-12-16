@@ -11,6 +11,8 @@ RUN_CLASS_END_MACRO = "HL_UT_RUN_CLASS_END"
 RUN_METHOD_MACRO = "HL_UT_RUN_METHOD"
 GENERATED_PATH = "generated"
 UNIT_TEST_CPP_HEADER = "hunittest.h"
+UNIT_TEST_CPP_SOURCE = "hunittest.cpp"
+CPP_SOURCE_EXTENSION = ".cpp"
 
 GENERATED_HEADER_TEMPLATE = "#define __HL_UT_LIB_NAME %s\n\
 #ifdef __APPLE__\n\
@@ -60,7 +62,7 @@ def process():
 	files = []
 	print "Seaching for files in %s" % sourcePath
 	for entry in os.listdir(sourcePath):
-		if os.path.isfile(os.path.join(sourcePath, entry)) and entry.endswith(".cpp"):
+		if os.path.isfile(os.path.join(sourcePath, entry)) and entry.endswith(CPP_SOURCE_EXTENSION) and entry != UNIT_TEST_CPP_SOURCE:
 			files.append(entry)
 	print "Found files: %d" % len(files)
 	for filename in files:
