@@ -6,6 +6,8 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
+#include <stdio.h>
+
 #ifdef _WIN32
 	#include <direct.h>
 	#include "msvc_dirent.h"
@@ -22,16 +24,21 @@
 #define __HL_INCLUDE_PLATFORM_HEADERS
 #include "harray.h"
 #include "hdir.h"
+#include "hfbase.h"
 #include "hplatform.h"
 #include "hstring.h"
 #include "platform_internal.h"
 
 #ifdef _WIN32
-	#ifdef _WINRT
-	#elif defined(_MSC_VER)
+	#define WINDOWS_TICK 10000000ULL
+	#define SEC_TO_UNIX_EPOCH 11644473600ULL
+	#if defined(_MSC_VER) && !defined(_WINRT)
 		#include <AccCtrl.h>
 	#endif
+#else
+	#include <sys/stat.h>
 #endif
+
 
 namespace hltypes
 {
@@ -131,13 +138,116 @@ namespace hltypes
 		return ".";
 	}
 
-	bool _platformRemoveDirectory(const String& dirName)
+	_platformFile* _platformOpenFile(const String& name, const String& accessMode)
 	{
 #ifdef _WIN32
-		return (_wrmdir(dirName.wStr().c_str()) != 0);
+		return (_platformFile*)_wfopen(name.wStr().c_str(), accessMode.wStr().c_str());
 #else
-		return (rmdir(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
+		return (_platformFile*)fopen(name.cStr(), accessMode.cStr()); // TODO - should be ported to Unix systems as well
 #endif
+	}
+
+	void _platformCloseFile(_platformFile* file)
+	{
+		fclose((FILE*)file);
+	}
+
+	int _platformReadFile(void* buffer, int elementSize, int elementCount, _platformFile* file)
+	{
+		return (int)fread(buffer, elementSize, elementCount, (FILE*)file);
+	}
+
+	int _platformWriteFile(void* buffer, int elementSize, int elementCount, _platformFile* file)
+	{
+		return (int)fwrite(buffer, elementSize, elementCount, (FILE*)file);
+	}
+
+	bool _platformRenameFile(const String& oldName, const String& newName)
+	{
+#ifdef _WIN32
+		return (_wrename(oldName.wStr().c_str(), newName.wStr().c_str()) == 0);
+#else
+		return (rename(oldName.cStr(), newName.cStr()) == 0); // TODO - should be ported to Unix systems as well
+#endif
+	}
+
+	bool _platformRemoveFile(const String& name)
+	{
+#ifdef _WIN32
+		return (_wremove(name.wStr().c_str()) == 0);
+#else
+		return (remove(name.cStr()) == 0); // TODO - should be ported to Unix systems as well
+#endif
+	}
+
+	FileInfo _platformStatFile(const String& name)
+	{
+		FileInfo info;
+#ifdef _WIN32
+		WIN32_FILE_ATTRIBUTE_DATA data;
+		memset(&data, 0, sizeof(WIN32_FILE_ATTRIBUTE_DATA));
+		if (GetFileAttributesExW(name.wStr().c_str(), GetFileExInfoStandard, &data) != 0)
+		{
+			info.size = (int64_t)data.nFileSizeLow;
+			ULARGE_INTEGER ull;
+			ull.LowPart = data.ftCreationTime.dwLowDateTime;
+			ull.HighPart = data.ftCreationTime.dwHighDateTime;
+			info.creationTime = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
+			ull.LowPart = data.ftLastAccessTime.dwLowDateTime;
+			ull.HighPart = data.ftLastAccessTime.dwHighDateTime;
+			info.accessTime = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
+			ull.LowPart = data.ftLastWriteTime.dwLowDateTime;
+			ull.HighPart = data.ftLastWriteTime.dwHighDateTime;
+			info.modificationTime = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
+		}
+#else
+		struct stat s;
+		if (stat(name.cStr(), &s) != 0)
+		{
+			if (!File::exists(name))
+			{
+				throw FileCouldNotOpenException("stat() failed on '" + name + "', file not found!");
+			}
+			throw FileCouldNotOpenException("stat() failed on '" + name + "'!");
+		}
+		info.size = (int64_t)s.st_size;
+		info.creationTime = (int64_t)s.st_ctime;
+		info.accessTime = (int64_t)s.st_atime;
+		info.modificationTime = (int64_t)s.st_mtime;
+#endif
+		return info;
+	}
+
+	_platformDir* _platformOpenDirectory(const String& dirName)
+	{
+#ifdef _WIN32
+		return (_platformDir*)_opendir(dirName);
+#else
+		return (_platformDir*)opendir(dirName.cStr());
+#endif
+	}
+
+	void _platformCloseDirectory(_platformDir* dir)
+	{
+#ifdef _WIN32
+		_closedir((DIR*)dir);
+#else
+		closedir((DIR*)dir);
+#endif
+	}
+
+	_platformDirEntry* _platformReadDirectory(_platformDir* dir)
+	{
+#ifdef _WIN32
+		return (_platformDirEntry*)_readdir((DIR*)dir);
+#else
+		return (_platformDirEntry*)readdir((DIR*)dir);
+#endif
+	}
+
+	String _platformGetDirEntryName(_platformDirEntry* entry)
+	{
+		return String::fromUnicode(((struct dirent*)entry)->d_name);
 	}
 
 	bool _platformCreateDirectory(const String& dirName)
@@ -155,45 +265,22 @@ namespace hltypes
 #endif
 	}
 
-	bool _platformRenameDirectory(const String& dirName, const String& newName)
+	bool _platformRenameDirectory(const String& oldName, const String& newName)
 	{
 #ifdef _WIN32
-		return (_wrename(dirName.wStr().c_str(), newName.wStr().c_str()) == 0);
+		return (_wrename(oldName.wStr().c_str(), newName.wStr().c_str()) == 0);
 #else
-		return (rename(dirName.cStr(), newName.cStr()) == 0); // TODO - should be ported to Unix systems as well
+		return (rename(oldName.cStr(), newName.cStr()) == 0); // TODO - should be ported to Unix systems as well
 #endif
 	}
 
-	_platformDir* _platformOpenDirectory(const String& dirName)
+	bool _platformRemoveDirectory(const String& dirName)
 	{
 #ifdef _WIN32
-		return (_platformDir*)_opendir(dirName);
+		return (_wrmdir(dirName.wStr().c_str()) != 0);
 #else
-		return (_platformDir*)opendir(dirName.cStr());
+		return (rmdir(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
 #endif
-	}
-
-	_platformDirEntry* _platformReadDirectory(_platformDir* dir)
-	{
-#ifdef _WIN32
-		return (_platformDirEntry*)_readdir((DIR*)dir);
-#else
-		return (_platformDirEntry*)readdir((DIR*)dir);
-#endif
-	}
-
-	void _platformCloseDirectory(_platformDir* dir)
-	{
-#ifdef _WIN32
-		_closedir((DIR*)dir);
-#else
-		closedir((DIR*)dir);
-#endif
-	}
-
-	String _platformGetDirEntryName(_platformDirEntry* entry)
-	{
-		return String::fromUnicode(((struct dirent*)entry)->d_name);
 	}
 
 	void _platformChdir(const String& dirName)

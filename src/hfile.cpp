@@ -6,12 +6,6 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
-#include <stdio.h>
-
-// prevents recursive calls of hfile::rename and hfile::remove as these functions are called via these pointers
-int (*f_rename)(const char* oldName, const char* newName) = rename;
-int (*f_remove)(const char* filename) = remove;
-
 #define __HL_INCLUDE_PLATFORM_HEADERS
 #include "hdir.h"
 #include "hexception.h"
@@ -20,12 +14,9 @@ int (*f_remove)(const char* filename) = remove;
 #include "hplatform.h"
 #include "hstring.h"
 #include "hthread.h"
+#include "platform_internal.h"
 
-#if !defined _WIN32 && !defined(_WINRT)
-#include <sys/stat.h>
-#endif
-
-#define BUFFER_SIZE 4096
+#define BUFFER_SIZE 65536
 
 namespace hltypes
 {
@@ -91,16 +82,13 @@ namespace hltypes
 		{
 			Dir::create(Dir::baseDir(name));
 			int attempts = File::repeats + 1;
+			_platformFile* file = NULL;
 			while (true)
 			{
-#ifdef _WIN32
-				FILE* f = _wfopen(name.wStr().c_str(), L"wb");
-#else
-				FILE* f = fopen(name.cStr(), "wb"); // TODO - should be ported to Unix systems as well
-#endif
-				if (f != NULL)
+				file = _platformOpenFile(name, "wb");
+				if (file != NULL)
 				{
-					fclose(f);
+					_platformCloseFile(file);
 					return true;
 				}
 				--attempts;
@@ -121,12 +109,7 @@ namespace hltypes
 	
 	bool File::remove(const String& filename)
 	{
-		String name = Dir::normalize(filename);
-#ifdef _WIN32
-		return (_wremove(name.wStr().c_str()) == 0);
-#else
-		return (f_remove(name.cStr()) == 0); // TODO - should be ported to Unix systems as well
-#endif
+		return _platformRemoveFile(Dir::normalize(filename));
 	}
 	
 	bool File::exists(const String& filename, bool caseSensitive) // such an sensitive method
@@ -139,15 +122,22 @@ namespace hltypes
 		String name = Dir::normalize(filename);
 		if (File::exists(name))
 		{
-#ifdef _WIN32
-			FILE* f = _wfopen(name.wStr().c_str(), L"wb");
-#else
-			FILE* f = fopen(name.cStr(), "wb"); // TODO - should be ported to Unix systems as well
-#endif
-			if (f != NULL)
+			int attempts = File::repeats + 1;
+			_platformFile* file = NULL;
+			while (true)
 			{
-				fclose(f);
-				return true;
+				file = _platformOpenFile(name, "wb");
+				if (file != NULL)
+				{
+					_platformCloseFile(file);
+					return true;
+				}
+				--attempts;
+				if (attempts <= 0)
+				{
+					break;
+				}
+				Thread::sleep(File::timeout);
 			}
 		}
 		return false;
@@ -170,11 +160,7 @@ namespace hltypes
 			File::remove(newName);
 		}
 		Dir::create(Dir::baseDir(newName));
-#ifdef _WIN32
-		return (_wrename(oldName.wStr().c_str(), newName.wStr().c_str()) == 0);
-#else
-		return (f_rename(oldName.cStr(), newName.cStr()) == 0); // TODO - should be ported to Unix systems as well
-#endif
+		return _platformRenameFile(oldName, newName);
 	}
 	
 	bool File::move(const String& filename, const String& path, bool overwrite)
@@ -200,8 +186,8 @@ namespace hltypes
 		unsigned char c[BUFFER_SIZE] = {0};
 		while (!oldFile.eof())
 		{
-			count = (int)fread(c, 1, BUFFER_SIZE, (FILE*)oldFile.cfile);
-			fwrite(c, 1, count, (FILE*)newFile.cfile);
+			count = _platformReadFile(c, 1, BUFFER_SIZE, (_platformFile*)oldFile.cfile);
+			_platformWriteFile(c, 1, count, (_platformFile*)newFile.cfile);
 		}
 		return true;
 	}
@@ -236,46 +222,7 @@ namespace hltypes
 
 	FileInfo File::hinfo(const String& filename)
 	{
-		FileInfo info;
-#ifdef _WIN32
-		WIN32_FILE_ATTRIBUTE_DATA data;
-		memset(&data, 0, sizeof(WIN32_FILE_ATTRIBUTE_DATA));
-		if (GetFileAttributesExW(filename.wStr().c_str(), GetFileExInfoStandard, &data) != 0)
-		{
-#define WINDOWS_TICK 10000000ULL
-#define SEC_TO_UNIX_EPOCH 11644473600ULL
-			info.size = (int64_t)data.nFileSizeLow;
-			ULARGE_INTEGER ull;
-			ull.LowPart = data.ftCreationTime.dwLowDateTime;
-			ull.HighPart = data.ftCreationTime.dwHighDateTime;
-			info.creationTime = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
-			ull.LowPart = data.ftLastAccessTime.dwLowDateTime;
-			ull.HighPart = data.ftLastAccessTime.dwHighDateTime;
-			info.accessTime = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
-			ull.LowPart = data.ftLastWriteTime.dwLowDateTime;
-			ull.HighPart = data.ftLastWriteTime.dwHighDateTime;
-			info.modificationTime = (int64_t)(ull.QuadPart / WINDOWS_TICK - SEC_TO_UNIX_EPOCH);
-		}
-#else
-		struct stat s;
-		int ret = stat(filename.cStr(), &s);
-		if (ret != 0)
-		{
-			if (!File::exists(filename))
-			{
-				throw FileCouldNotOpenException("stat() failed on '" + filename + "', file not found!");
-			}
-			else
-			{
-				throw FileCouldNotOpenException("stat() failed on '" + filename + "'!");
-			}
-		}
-		info.size = (int64_t)s.st_size;
-		info.creationTime = (int64_t)s.st_ctime;
-		info.accessTime = (int64_t)s.st_atime;
-		info.modificationTime = (int64_t)s.st_mtime;
-#endif
-		return info;
+		return _platformStatFile(filename);
 	}
 
 	File::File(const File& other)
