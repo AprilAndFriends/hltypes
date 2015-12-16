@@ -69,42 +69,43 @@ def process():
 	for filename in files:
 		# parse file
 		data = _readFile(os.path.join(sourcePath, filename))
-		activeLibName = libName
-		if activeLibName == "":
-			index = data.find(NAMESPACE_MACRO)
-			if index >= 0:
-				index += len(NAMESPACE_MACRO)
-				activeLibName = data[index:data.find("\n", index)].strip()
-		print "  Processing %s" % filename
-		if activeLibName == "":
-			raise Exception("No namespace defined for %s!" % filename)
-		print "  Namespace: %s" % activeLibName
-		index = data.find(TEST_CLASS_MACRO)
-		if index < 0:
-			raise Exception("No %s defined in %s!" % (TEST_CLASS_MACRO, filename))
-		index += len(TEST_CLASS_MACRO)
-		testClass = data[index:data.find("\n", index)].strip("()")
-		functions = []
-		while True:
-			index = data.find(TEST_FUNCTION_MACRO, index)
+		if data != "":
+			activeLibName = libName
+			if activeLibName == "":
+				index = data.find(NAMESPACE_MACRO)
+				if index >= 0:
+					index += len(NAMESPACE_MACRO)
+					activeLibName = data[index:data.find("\n", index)].strip()
+			print "  Processing %s" % filename
+			if activeLibName == "":
+				raise Exception("No namespace defined for %s!" % filename)
+			print "  Namespace: %s" % activeLibName
+			index = data.find(TEST_CLASS_MACRO)
 			if index < 0:
-				break
-			index += len(TEST_FUNCTION_MACRO)
-			functions.append(data[index:data.find("\n", index)].strip("()"))
-		print "  Found functions: %d" % len(functions)
-		# generate
-		data = ""
-		data += GENERATED_HEADER_TEMPLATE % activeLibName
-		data += GENERATED_TEST_CLASS_BEGIN_TEMPLATE % testClass
-		for function in functions:
-			data += GENERATED_TEST_FUNCTION_TEMPLATE % function
-		data += GENERATED_TEST_CLASS_END
-		data += GENERATED_RUN_CLASS_BEGIN_TEMPLATE % testClass
-		for function in functions:
-			data += GENERATED_RUN_TEST_METHOD_TEMPLATE % (testClass, function)
-		data += GENERATED_RUN_CLASS_END
-		print "  Saving %s" % filename
-		_writeFile(os.path.join(os.path.join(sourcePath, GENERATED_PATH), "_" + filename), data)
+				raise Exception("No %s defined in %s!" % (TEST_CLASS_MACRO, filename))
+			index += len(TEST_CLASS_MACRO)
+			testClass = data[index:data.find("\n", index)].strip("()")
+			functions = []
+			while True:
+				index = data.find(TEST_FUNCTION_MACRO, index)
+				if index < 0:
+					break
+				index += len(TEST_FUNCTION_MACRO)
+				functions.append(data[index:data.find("\n", index)].strip("()"))
+			print "  Found functions: %d" % len(functions)
+			# generate
+			data = ""
+			data += GENERATED_HEADER_TEMPLATE % activeLibName
+			data += GENERATED_TEST_CLASS_BEGIN_TEMPLATE % testClass
+			for function in functions:
+				data += GENERATED_TEST_FUNCTION_TEMPLATE % function
+			data += GENERATED_TEST_CLASS_END
+			data += GENERATED_RUN_CLASS_BEGIN_TEMPLATE % testClass
+			for function in functions:
+				data += GENERATED_RUN_TEST_METHOD_TEMPLATE % (testClass, function)
+			data += GENERATED_RUN_CLASS_END
+			print "  Saving %s" % filename
+			_writeFile(os.path.join(os.path.join(sourcePath, GENERATED_PATH), "_" + filename), data)
 	print ""
 		
 def help():
