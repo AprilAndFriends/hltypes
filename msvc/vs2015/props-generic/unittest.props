@@ -7,6 +7,9 @@
     <Link>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>python ../../../hltypes/unittest/generate_tests.py</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup Condition="exists('..\..\..\hltypes\unittest\hunittest.h')">
     <ClInclude Include="..\..\..\hltypes\unittest\hunittest.h" />

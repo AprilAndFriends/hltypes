@@ -7,17 +7,20 @@
     <Link>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>python ../../../hltypes/unittest/generate_tests.py</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup Condition="exists('..\..\..\hltypes\unittest\unittest.h')">
-    <ClInclude Include="..\..\..\hltypes\unittest\unittest.h" />
+  <ItemGroup Condition="exists('..\..\..\hltypes\unittest\hunittest.h')">
+    <ClInclude Include="..\..\..\hltypes\unittest\hunittest.h" />
   </ItemGroup>
-    <ClCompile Include="..\..\..\hltypes\unittest\unittest.cpp" />
-  <ItemGroup Condition="exists('..\..\..\hltypes\unittest\unittest.cpp')">
+  <ItemGroup Condition="exists('..\..\..\hltypes\unittest\hunittest.cpp')">
+    <ClCompile Include="..\..\..\hltypes\unittest\hunittest.cpp" />
   </ItemGroup>
-  <ItemGroup Condition="!exists('..\..\..\hltypes\unittest\unittest.h')">
-    <ClInclude Include="..\..\unittest\unittest.h" />
+  <ItemGroup Condition="!exists('..\..\..\hltypes\unittest\hunittest.h')">
+    <ClInclude Include="..\..\unittest\hunittest.h" />
   </ItemGroup>
-  <ItemGroup Condition="!exists('..\..\..\hltypes\unittest\unittest.cpp')">
-    <ClCompile Include="..\..\unittest\unittest.cpp" />
+  <ItemGroup Condition="!exists('..\..\..\hltypes\unittest\hunittest.cpp')">
+    <ClCompile Include="..\..\unittest\hunittest.cpp" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
-#ifndef __HL_TEST_LIB_NAME
-#pragma message("WARNING! __HL_TEST_LIB_NAME not defined!")
+#ifndef __HL_UT_LIB_NAME
+#pragma message("WARNING! __HL_UT_LIB_NAME not defined!")
 #endif
 
 #ifdef __APPLE__
@@ -7,9 +7,9 @@
 #import <XCTest/XCTest.h>
 
 extern XCTestCase* testInstance;
-#define assertTrue(expression, msg) _XCTPrimitiveAssertTrue(testInstance, (expression), @msg)
+#define HL_UT_ASSERT(expression, msg) _XCTPrimitiveAssertTrue(testInstance, (expression), @msg)
 
-#define HL_TEST_CLASS_BEGIN(classe) TEST_CLASS(_test ## classe) \
+#define HL_UT_CLASS_BEGIN(classe) \
 	@interface _test ## classe \
 	@end \
 	- (void)setUp \
@@ -21,13 +21,13 @@ extern XCTestCase* testInstance;
 	{ \
 		[super tearDown]; \
 	}
-#define HL_TEST_CLASS_END \
+#define HL_UT_CLASS_END \
 	@end
 
-#define HL_TEST_METHOD(classe, name) \
-	- (void)__HL_TEST_LIB_NAME ## _ ## classe ## _ ## name) \
+#define HL_UT_RUN_METHOD(classe, name) \
+	- (void)__HL_UT_LIB_NAME ## _ ## classe ## _ ## name) \
 	{ \
-		__HL_TEST_LIB_NAME ## _unittest_ ## classe::assignment(); \
+		__HL_UT_LIB_NAME ## _unittest_ ## classe::assignment(); \
 	}
 
 #else
@@ -38,24 +38,25 @@ extern XCTestCase* testInstance;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 const wchar_t* GetWC(const char* c);
-#define assertTrue(expression, msg) Assert::IsTrue((expression), GetWC(msg))
+#define HL_UT_ASSERT(expression, msg) Assert::IsTrue((expression), GetWC(msg))
 
-#define HL_TEST_CLASS_BEGIN(classe) \
+#define HL_UT_RUN_CLASS_BEGIN(classe) \
 	namespace test_ ## __HL_TEST_LIB_NAME \
 	{ \
 		TEST_CLASS(_test_ ## classe) \
 		{ \
 		public:
-#define HL_TEST_CLASS_END \
+#define HL_UT_RUN_CLASS_END \
 		}; \
 	}
 
-#define HL_TEST_METHOD(classe, name) \
-	TEST_METHOD(__REDUCE(__HL_TEST_LIB_NAME) ## _ ## classe ## _ ## name) \
+#define HL_UT_RUN_METHOD(classe, name) \
+	TEST_METHOD(__REDUCE(__HL_UT_LIB_NAME) ## _ ## classe ## _ ## name) \
 	{ \
-		__HL_TEST_LIB_NAME ## _unittest_ ## classe::assignment(); \
+		__HL_UT_LIB_NAME ## _unittest_ ## classe::assignment(); \
 	}
 
 #endif
 
-#define HL_TEST_NAMESPACE(classe) namespace __HL_TEST_LIB_NAME ## _unittest_ ## classe
+#define HL_UT_TEST_CLASS(classe) namespace __HL_UT_LIB_NAME ## _unittest_ ## classe
+#define HL_UT_TEST_FUNCTION(name) void name()
