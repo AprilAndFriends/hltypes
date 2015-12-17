@@ -75,10 +75,12 @@ namespace hltypes
 
 		/// @brief Sets the number of repeated attempts to access a file.
 		/// @param[in] value New value.
-		static inline void setRepeats(int value) { repeats = value; }
+		/// @note Not implemented as inline, because optimizer strips it away even if compiled as DLL.
+		static void setRepeats(int value);
 		/// @brief Sets the timeout in miliseconds between repeated attempts to access a file.
 		/// @param[in] value New value.
-		static inline void setTimeout(float value) { timeout = value; }
+		/// @note Not implemented as inline, because optimizer strips it away even if compiled as DLL.
+		static void setTimeout(float value);
 
 		/// @brief Gets the extension of the filename.
 		/// @param[in] filename The path.

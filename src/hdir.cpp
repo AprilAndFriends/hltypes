@@ -20,6 +20,16 @@ namespace hltypes
 {
 	bool Dir::win32FullDirectoryPermissions = true;
 
+	bool Dir::isWin32FullDirectoryPermissions()
+	{
+		return win32FullDirectoryPermissions;
+	}
+
+	void Dir::setWin32FullDirectoryPermissions(bool value)
+	{
+		win32FullDirectoryPermissions = value;
+	}
+
 	bool Dir::create(const String& dirName)
 	{
 		String name = Dir::normalize(dirName);

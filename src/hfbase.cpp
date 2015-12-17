@@ -29,6 +29,16 @@ namespace hltypes
 	{
 	}
 
+	void FileBase::setRepeats(int value)
+	{
+		FileBase::repeats = value;
+	}
+
+	void FileBase::setTimeout(float value)
+	{
+		FileBase::timeout = value;
+	}
+
 	FileBase::FileBase(const String& filename) : StreamBase(), cfile(NULL)
 	{
 		this->filename = Dir::normalize(filename);

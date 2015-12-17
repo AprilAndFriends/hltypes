@@ -70,6 +70,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\unittest\Array.cpp" />
+    <ClCompile Include="..\..\unittest\Dir.cpp" />
+    <ClCompile Include="..\..\unittest\generated\_Array.cpp" />
+    <ClCompile Include="..\..\unittest\generated\_Dir.cpp" />
     <ClCompile Include="..\..\unittest\generated\_Thread.cpp" />
     <ClCompile Include="..\..\unittest\Thread.cpp" />
   </ItemGroup>
