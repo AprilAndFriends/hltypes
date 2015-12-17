@@ -22,13 +22,31 @@
     <ClCompile Include="..\..\unittest\Array.cpp">
       <Filter>tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\unittest\Dir.cpp">
-      <Filter>tests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\unittest\generated\_Array.cpp">
       <Filter>generated</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\unittest\Dir.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\unittest\generated\_Dir.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\File.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\generated\_File.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\Map.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\generated\_Map.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\Stream.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\generated\_Stream.cpp">
       <Filter>generated</Filter>
     </ClCompile>
   </ItemGroup>

@@ -17,15 +17,15 @@ HL_UT_TEST_CLASS(Dir)
 	{
 		hstr dirname = "testdir";
 		hdir::create(dirname);
-		HL_UT_ASSERT(hdir::exists(dirname), "hdir - static create/remove");
+		HL_UT_ASSERT(hdir::exists(dirname), "create");
 		hdir::remove(dirname);
 		hstr dirname2 = dirname + "/testdir2";
 		hdir::create(dirname2);
-		HL_UT_ASSERT(hdir::exists(dirname2), "hdir - static create/remove");
+		HL_UT_ASSERT(hdir::exists(dirname2), "create");
 		hfile::create(dirname2 + "/test.txt");
 		hdir::remove(dirname);
-		HL_UT_ASSERT(!hdir::exists(dirname2), "hdir - static create/remove");
-		HL_UT_ASSERT(!hdir::exists(dirname), "hdir - static create/remove");
+		HL_UT_ASSERT(!hdir::exists(dirname2), "remove");
+		HL_UT_ASSERT(!hdir::exists(dirname), "remove");
 	}
 
 	HL_UT_TEST_FUNCTION(staticClear)
@@ -33,10 +33,10 @@ HL_UT_TEST_CLASS(Dir)
 		hstr dirname = "testdir";
 		hstr dirname2 = dirname + "/testdir2";
 		hfile::create(dirname2 + "/test.txt");
-		HL_UT_ASSERT(hdir::exists(dirname2), "hdir - static clear");
+		HL_UT_ASSERT(hdir::exists(dirname2), "");
 		hdir::clear(dirname);
-		HL_UT_ASSERT(!hdir::exists(dirname2), "hdir - static clear");
-		HL_UT_ASSERT(hdir::exists(dirname), "hdir - static clear");
+		HL_UT_ASSERT(!hdir::exists(dirname2), "");
+		HL_UT_ASSERT(hdir::exists(dirname), "");
 		hdir::remove(dirname);
 	}
 
@@ -47,13 +47,13 @@ HL_UT_TEST_CLASS(Dir)
 		hdir::create(dirname + "/" + dirname2);
 		hfile::create(dirname + "/testdir2/test.txt");
 		hfile::create(dirname + "/" + dirname2 + "/test.txt");
-		HL_UT_ASSERT(hdir::exists(dirname + "/" + dirname2), "hdir - static rename");
+		HL_UT_ASSERT(hdir::exists(dirname + "/" + dirname2), "");
 		hstr newdir = "testdirX";
 		hdir::rename(dirname, newdir);
-		HL_UT_ASSERT(!hdir::exists(dirname), "hdir - static rename");
-		HL_UT_ASSERT(!hdir::exists(dirname + "/" + dirname2), "hdir - static rename");
-		HL_UT_ASSERT(hdir::exists(newdir), "hdir - static rename");
-		HL_UT_ASSERT(hdir::exists(newdir + "/" + dirname2), "hdir - static rename");
+		HL_UT_ASSERT(!hdir::exists(dirname), "");
+		HL_UT_ASSERT(!hdir::exists(dirname + "/" + dirname2), "");
+		HL_UT_ASSERT(hdir::exists(newdir), "");
+		HL_UT_ASSERT(hdir::exists(newdir + "/" + dirname2), "");
 		hdir::remove(newdir);
 	}
 
@@ -64,14 +64,14 @@ HL_UT_TEST_CLASS(Dir)
 		hdir::create(dirname + "/" + dirname2);
 		hfile::create(dirname + "/testdir2/test.txt");
 		hfile::create(dirname + "/" + dirname2 + "/test.txt");
-		HL_UT_ASSERT(hdir::exists(dirname + "/" + dirname2), "hdir - static move");
+		HL_UT_ASSERT(hdir::exists(dirname + "/" + dirname2), "");
 		hstr newdir = "..";
 		hdir::remove(newdir + "/" + dirname);
 		hdir::move(dirname, newdir + "/");
-		HL_UT_ASSERT(!hdir::exists(dirname), "hdir - static move");
-		HL_UT_ASSERT(!hdir::exists(dirname + "/" + dirname2), "hdir - static move");
-		HL_UT_ASSERT(hdir::exists(newdir + "/" + dirname), "hdir - static move");
-		HL_UT_ASSERT(hdir::exists(newdir + "/" + dirname + "/" + dirname2), "hdir - static move");
+		HL_UT_ASSERT(!hdir::exists(dirname), "");
+		HL_UT_ASSERT(!hdir::exists(dirname + "/" + dirname2), "");
+		HL_UT_ASSERT(hdir::exists(newdir + "/" + dirname), "");
+		HL_UT_ASSERT(hdir::exists(newdir + "/" + dirname + "/" + dirname2), "");
 		hdir::remove(newdir + "/" + dirname);
 	}
 
@@ -82,14 +82,14 @@ HL_UT_TEST_CLASS(Dir)
 		hdir::create(dirname + "/" + dirname2 + "/");
 		hfile::create(dirname + "/testdir2/test.txt");
 		hfile::create(dirname + "/" + dirname2 + "/test.txt");
-		HL_UT_ASSERT(hdir::exists(dirname + "/" + dirname2), "hdir - static copy");
+		HL_UT_ASSERT(hdir::exists(dirname + "/" + dirname2), "");
 		hstr newdir = "dir";
 		hdir::remove(newdir + "/" + dirname + "/");
 		hdir::copy(dirname, newdir + "/" + dirname);
-		HL_UT_ASSERT(hdir::exists(dirname), "hdir - static copy");
-		HL_UT_ASSERT(hdir::exists(dirname + "/" + dirname2), "hdir - static copy");
-		HL_UT_ASSERT(hdir::exists(newdir + "/" + dirname), "hdir - static copy");
-		HL_UT_ASSERT(hdir::exists(newdir + "/" + dirname + "/" + dirname2), "hdir - static copy");
+		HL_UT_ASSERT(hdir::exists(dirname), "");
+		HL_UT_ASSERT(hdir::exists(dirname + "/" + dirname2), "");
+		HL_UT_ASSERT(hdir::exists(newdir + "/" + dirname), "");
+		HL_UT_ASSERT(hdir::exists(newdir + "/" + dirname + "/" + dirname2), "");
 		hdir::remove(dirname);
 		hdir::remove(newdir + "/" + dirname);
 	}
