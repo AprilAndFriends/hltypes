@@ -19,5 +19,17 @@
     <ClCompile Include="..\..\unittest\generated\_Thread.cpp">
       <Filter>generated</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\unittest\Array.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\generated\_Array.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\Dir.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\generated\_Dir.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
