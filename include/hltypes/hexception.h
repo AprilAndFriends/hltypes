@@ -16,6 +16,42 @@
 #include "hltypesExport.h"
 #include "hstring.h"
 
+#define HL_EXCEPTION_CLASS_0(exportDefinition, classe) \
+	class exportDefinition _ ## classe : public hexception \
+	{ \
+	public: \
+		_ ## classe(const char* file, int line); \
+		inline ~_ ## classe() { } \
+		inline hstr getType() { return #classe; } \
+	};
+
+#define HL_EXCEPTION_CLASS_1(exportDefinition, classe, arg0) \
+	class exportDefinition _ ## classe : public hexception \
+	{ \
+	public: \
+		_ ## classe(chstr arg0, const char* file, int line); \
+		inline ~_ ## classe() { } \
+		inline hstr getType() { return #classe; } \
+	};
+
+#define HL_EXCEPTION_CLASS_2(exportDefinition, classe, arg0, arg1) \
+	class exportDefinition _ ## classe : public hexception \
+	{ \
+	public: \
+		_ ## classe(chstr arg0, chstr arg1, const char* file, int line); \
+		inline ~_ ## classe() { } \
+		inline hstr getType() { return #classe; } \
+	};
+
+#define HL_EXCEPTION_CLASS_3(exportDefinition, classe, arg0, arg1, arg2) \
+	class exportDefinition _ ## classe : public hexception \
+	{ \
+	public: \
+		_ ## classe(chstr arg0, chstr arg1, chstr arg2, const char* file, int line); \
+		inline ~_ ## classe() { } \
+		inline hstr getType() { return #classe; } \
+	};
+
 namespace hltypes
 {
 	/// @brief Provides functionality of a basic exception.
