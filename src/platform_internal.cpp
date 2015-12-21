@@ -14,6 +14,7 @@
 	#define WINDOWS_TICK 10000000ULL
 	#define SEC_TO_UNIX_EPOCH 11644473600ULL
 #else
+	#include <stdlib.h>
 	#include <dirent.h>
 	#include <sys/stat.h>
 	#include <sys/types.h>
