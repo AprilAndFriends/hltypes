@@ -65,7 +65,7 @@ namespace hlxml
 	{
 		if (this->childCount == 0)
 		{
-			foreach_xmlnode (child, this)
+			for (TiXmlNode* node = this->node->FirstChildElement(); node != NULL; node = node->NextSiblingElement())
 			{
 				++this->childCount;
 			}
@@ -139,7 +139,7 @@ namespace hlxml
 
 	const char* Node::_findProperty(chstr propertyName, bool ignoreError)
 	{
-		for (TiXmlAttribute *attr = this->node->ToElement()->FirstAttribute(); attr != NULL; attr = attr->Next())
+		for (TiXmlAttribute* attr = this->node->ToElement()->FirstAttribute(); attr != NULL; attr = attr->Next())
 		{
 			if (propertyName == attr->Name())
 			{
