@@ -97,7 +97,7 @@ namespace hltypes
 	};
 #endif
 
-	Thread::Thread(void (*function)(Thread*), const String& name) : id(0), running(false)
+	Thread::Thread(void (*function)(Thread*), const String& name) : id(0), running(false), executing(false)
 	{
 		this->function = function;
 		this->name = name;
@@ -110,7 +110,7 @@ namespace hltypes
 	{
 		if (this->running)
 		{
-			Log::warn(logTag, "Thread still running in destructor! Attempting 'stop', but this may be unsafe. The thread should be joined before deleting it.");
+			Log::warn(logTag, "Thread still executing in destructor! Attempting 'stop', but this may be unsafe. The thread should be joined before deleting it.");
 			this->stop();
 		}
 		if (this->id != NULL)
@@ -129,6 +129,11 @@ namespace hltypes
 
 	void Thread::start()
 	{
+		if (this->running)
+		{
+			Log::errorf(logTag, "Thread '%s' already running, cannot start!", this->name.cStr());
+			return;
+		}
 		this->running = true;
 #ifdef _WIN32
 #ifndef _WINRT
@@ -157,16 +162,22 @@ namespace hltypes
 
 	void Thread::execute()
 	{
-		if (this->function != NULL)
+		if (this->running && this->function != NULL)
 		{
-			this->running = true;
+			this->executing = true;
 			(*this->function)(this);
 		}
+		this->executing = false;
 		this->running = false;
 	}
 
 	void Thread::join()
 	{
+		if (!this->isExecuting())
+		{
+			Log::errorf(logTag, "Thread '%s' not running, cannot join!", this->name.cStr());
+			return;
+		}
 		this->running = false;
 #ifdef _WIN32
 #ifndef _WINRT
@@ -177,7 +188,7 @@ namespace hltypes
 			this->id = NULL;
 		}
 #else
-		if (this->id == NULL) // means that it wasn't started yet
+		if (this->id == NULL) // means that it wasn't running yet
 		{
 			return;
 		}
@@ -208,6 +219,8 @@ namespace hltypes
 #else
 		pthread_join(*((pthread_t*)this->id), 0);
 #endif
+		// just to be safe
+		this->executing = false;
 	}
 
 	void Thread::resume()
@@ -250,6 +263,8 @@ namespace hltypes
 #else
 			pthread_cancel(*((pthread_t*)this->id));
 #endif
+			// just to be safe
+			this->executing = false;
 		}
 	}
 

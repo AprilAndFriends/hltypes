@@ -34,9 +34,12 @@ namespace hltypes
 		/// @brief Gets the thread name.
 		/// @return Thread name.
 		inline String getName() { return this->name; }
-		/// @brief Gets whether the thread is running.
-		/// @return True if the thread is running.
+		/// @brief Gets whether this Thread was started.
+		/// @return True if this Thread was started.
 		inline bool isRunning() { return this->running; }
+		/// @brief Gets whether the thread is executing right now.
+		/// @return True if the thread is executing right now.
+		inline bool isExecuting() { return this->executing; }
 		/// @brief Starts the thread processing.
 		void start();
 		/// @brief Stops the thread processing.
@@ -53,18 +56,19 @@ namespace hltypes
 		/// @param[in] milliseconds How long to sleep in milliseconds.
 		static void sleep(float milliseconds);
 		
-	protected:
+	private:
 		/// @brief The callback function of the thread.
-		void (*function)(Thread*);
+		void(*function)(Thread*);
 		/// @brief The internal OS handle ID for the thread.
 		void* id;
 		/// @brief Thread name.
 		/// @note Usually used for debugging purposes.
 		String name;
-		/// @brief Flag that determines whether the thread is running or not.
+		/// @brief Flag that determines whether this Thread was started was started.
 		volatile bool running;
-		
-	private:
+		/// @brief Flag that determines whether the thread is executing right now.
+		volatile bool executing;
+
 		/// @brief Copy constructor.
 		/// @note Usage is not allowed and it will throw an exception.
 		Thread(const Thread& other);
