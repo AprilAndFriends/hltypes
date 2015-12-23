@@ -56,7 +56,7 @@ namespace hltypes
 		/// @param[in] milliseconds How long to sleep in milliseconds.
 		static void sleep(float milliseconds);
 		
-	private:
+	protected:
 		/// @brief Thread name.
 		/// @note Usually used for debugging purposes.
 		String name;
