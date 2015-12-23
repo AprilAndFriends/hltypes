@@ -57,13 +57,15 @@ namespace hltypes
 		static void sleep(float milliseconds);
 		
 	private:
+		/// @brief Thread name.
+		/// @note Usually used for debugging purposes.
+		String name;
+
+	private:
 		/// @brief The callback function of the thread.
 		void(*function)(Thread*);
 		/// @brief The internal OS handle ID for the thread.
 		void* id;
-		/// @brief Thread name.
-		/// @note Usually used for debugging purposes.
-		String name;
 		/// @brief Flag that determines whether this Thread was started was started.
 		volatile bool running;
 		/// @brief Flag that determines whether the thread is executing right now.
