@@ -22,6 +22,25 @@ namespace hltypes
 	class hltypesExport Thread
 	{
 	public:
+		/// @brief Internal utility class.
+		class ThreadRunner
+		{
+		public:
+			friend class Thread;
+
+			~ThreadRunner();
+
+			HL_DEFINE_GET(Thread*, thread, Thread);
+
+			void execute();
+
+		protected:
+			Thread* thread;
+
+			ThreadRunner(Thread* thread);
+
+		};
+
 		/// @brief Basic constructor.
 		/// @param[in] function Function pointer for the callback.
 		/// @param[in] name Name for the thread.
@@ -48,8 +67,6 @@ namespace hltypes
 		void resume();
 		/// @brief Pauses the thread processing.
 		void pause();
-		/// @brief Executes the thread's function.
-		virtual void execute();
 		/// @brief Joins thread.
 		void join();
 		/// @brief Puts current thread to sleep.
@@ -64,6 +81,8 @@ namespace hltypes
 		volatile bool executing;
 
 	private:
+		/// @brief Utility for running the thread.
+		ThreadRunner runner;
 		/// @brief The callback function of the thread.
 		void(*function)(Thread*);
 		/// @brief The internal OS handle ID for the thread.
@@ -77,6 +96,9 @@ namespace hltypes
 		/// @brief Assignment operator.
 		/// @note Usage is not allowed and it will throw an exception.
 		Thread& operator=(Thread& other);
+
+		/// @brief Executes the thread's function.
+		void execute();
 
 	};
 }

@@ -59,11 +59,12 @@ namespace hltypes
 #ifdef _WIN32
 	static unsigned long WINAPI _asyncCall(void* param)
 	{
-		Thread* t = (Thread*)param;
+		Thread::ThreadRunner* t = (Thread::ThreadRunner*)param;
 #ifdef _MSC_VER
-		if (t->getName() != "")
+		hstr name = t->getThread()->getName();
+		if (name != "")
 		{
-			SetThreadName(GetCurrentThreadId(), t->getName());
+			SetThreadName(GetCurrentThreadId(), name);
 		}
 #endif
 		t->execute();
@@ -72,11 +73,12 @@ namespace hltypes
 #else
 	static void* _asyncCall(void* param)
 	{
-		Thread* t = (Thread*)param;
+		Thread::ThreadRunner* t = (Thread::ThreadRunner*)param;
 #ifdef __APPLE__
-		if (t->getName() != "")
+		hstr name = t->getThread()->getName();
+		if (name != "")
 		{
-			pthread_setname_np(t->getName().cStr());
+			pthread_setname_np(name.cStr());
 		}
 #endif
 		t->execute();
@@ -97,7 +99,21 @@ namespace hltypes
 	};
 #endif
 
-	Thread::Thread(void (*function)(Thread*), const String& name) : executing(false), id(0), running(false)
+	Thread::ThreadRunner::ThreadRunner(Thread* thread)
+	{
+		this->thread = thread;
+	}
+
+	Thread::ThreadRunner::~ThreadRunner()
+	{
+	}
+
+	void Thread::ThreadRunner::execute()
+	{
+		this->thread->execute();
+	}
+
+	Thread::Thread(void (*function)(Thread*), const String& name) : executing(false), runner(this), id(0), running(false)
 	{
 		this->function = function;
 		this->name = name;
@@ -137,7 +153,7 @@ namespace hltypes
 		this->running = true;
 #ifdef _WIN32
 #ifndef _WINRT
-		this->id = CreateThread(0, 0, &_asyncCall, this, 0, 0);
+		this->id = CreateThread(0, 0, &_asyncCall, &this->runner, 0, 0);
 #else
 		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(ref new WorkItemHandler([&](IAsyncAction^ workItem)
 		{
@@ -150,7 +166,7 @@ namespace hltypes
 #endif
 #else
 		pthread_t* thread = (pthread_t*)this->id;
-		pthread_create(thread, NULL, &_asyncCall, this);
+		pthread_create(thread, NULL, &_asyncCall, &this->runner);
 #ifndef __APPLE__
 		if (this->name != "")
 		{
@@ -281,7 +297,7 @@ namespace hltypes
 #endif
 	}
 
-	Thread::Thread(const Thread& other)
+	Thread::Thread(const Thread& other) : runner(this)
 	{
 		throw ObjectCannotCopyException("hltypes::Thread");
 	}
