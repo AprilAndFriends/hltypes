@@ -143,11 +143,6 @@ namespace hltypes
 
 	void Thread::join()
 	{
-		if (!this->isExecuting())
-		{
-			Log::errorf(logTag, "Thread '%s' not running, cannot join!", this->name.cStr());
-			return;
-		}
 		this->running = false;
 		this->_platformJoin();
 		this->_clear();
