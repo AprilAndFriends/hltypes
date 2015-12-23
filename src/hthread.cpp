@@ -97,7 +97,7 @@ namespace hltypes
 	};
 #endif
 
-	Thread::Thread(void (*function)(Thread*), const String& name) : id(0), running(false), executing(false)
+	Thread::Thread(void (*function)(Thread*), const String& name) : executing(false), id(0), running(false)
 	{
 		this->function = function;
 		this->name = name;

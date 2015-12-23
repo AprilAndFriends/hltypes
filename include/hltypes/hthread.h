@@ -60,6 +60,8 @@ namespace hltypes
 		/// @brief Thread name.
 		/// @note Usually used for debugging purposes.
 		String name;
+		/// @brief Flag that determines whether the thread is executing right now.
+		volatile bool executing;
 
 	private:
 		/// @brief The callback function of the thread.
@@ -68,8 +70,6 @@ namespace hltypes
 		void* id;
 		/// @brief Flag that determines whether this Thread was started was started.
 		volatile bool running;
-		/// @brief Flag that determines whether the thread is executing right now.
-		volatile bool executing;
 
 		/// @brief Copy constructor.
 		/// @note Usage is not allowed and it will throw an exception.
