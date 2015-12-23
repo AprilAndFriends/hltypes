@@ -15,6 +15,7 @@
 
 #include "hltypesExport.h"
 #include "hstring.h"
+#include "hltypesUtil.h"
 
 namespace hltypes
 {
