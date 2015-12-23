@@ -110,16 +110,13 @@ namespace hltypes
 
 	void Thread::ThreadRunner::execute()
 	{
-		this->thread->execute();
+		this->thread->_execute();
 	}
 
 	Thread::Thread(void (*function)(Thread*), const String& name) : executing(false), runner(this), id(0), running(false)
 	{
 		this->function = function;
 		this->name = name;
-#ifndef _WIN32
-		this->id = (pthread_t*)malloc(sizeof(pthread_t));
-#endif
 	}
 
 	Thread::~Thread()
@@ -129,6 +126,74 @@ namespace hltypes
 			Log::warn(logTag, "Thread still executing in destructor! Attempting 'stop', but this may be unsafe. The thread should be joined before deleting it.");
 			this->stop();
 		}
+		this->_clear();
+	}
+
+	void Thread::start()
+	{
+		if (this->running)
+		{
+			Log::errorf(logTag, "Thread '%s' already running, cannot start!", this->name.cStr());
+			return;
+		}
+		this->running = true;
+		this->_clear(); // if thread exited on its own, but the data is still allocated
+		this->_platformStart();
+	}
+
+	void Thread::join()
+	{
+		if (!this->isExecuting())
+		{
+			Log::errorf(logTag, "Thread '%s' not running, cannot join!", this->name.cStr());
+			return;
+		}
+		this->running = false;
+		this->_platformJoin();
+		this->_clear();
+		// aborted execution can leave this variable in any state, reset it
+		this->executing = false;
+	}
+
+	void Thread::resume()
+	{
+		this->_platformResume();
+	}
+
+	void Thread::pause()
+	{
+		this->_platformPause();
+	}
+
+	void Thread::stop()
+	{
+		if (this->running)
+		{
+			this->running = false;
+			this->_platformStop();
+			this->_clear();
+			// aborted execution can leave this variable in any state, reset it
+			this->executing = false;
+		}
+		else
+		{
+			this->_clear();
+		}
+	}
+
+	void Thread::_execute()
+	{
+		if (this->running && this->function != NULL)
+		{
+			this->executing = true;
+			(*this->function)(this);
+		}
+		this->executing = false;
+		this->running = false;
+	}
+
+	void Thread::_clear()
+	{
 		if (this->id != NULL)
 		{
 #ifdef _WIN32
@@ -140,17 +205,12 @@ namespace hltypes
 #else
 			free((pthread_t*)this->id);
 #endif
+			this->id = NULL;
 		}
 	}
 
-	void Thread::start()
+	void Thread::_platformStart()
 	{
-		if (this->running)
-		{
-			Log::errorf(logTag, "Thread '%s' already running, cannot start!", this->name.cStr());
-			return;
-		}
-		this->running = true;
 #ifdef _WIN32
 #ifndef _WINRT
 		this->id = CreateThread(0, 0, &_asyncCall, &this->runner, 0, 0);
@@ -165,7 +225,8 @@ namespace hltypes
 		}), WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
 #endif
 #else
-		pthread_t* thread = (pthread_t*)this->id;
+		pthread_t* thread = (pthread_t*)malloc(sizeof(pthread_t));
+		this->id = thread;
 		pthread_create(thread, NULL, &_asyncCall, &this->runner);
 #ifndef __APPLE__
 		if (this->name != "")
@@ -176,38 +237,16 @@ namespace hltypes
 #endif
 	}
 
-	void Thread::execute()
+	void Thread::_platformJoin()
 	{
-		if (this->running && this->function != NULL)
+		if (this->id == NULL)
 		{
-			this->executing = true;
-			(*this->function)(this);
-		}
-		this->executing = false;
-		this->running = false;
-	}
-
-	void Thread::join()
-	{
-		if (!this->isExecuting())
-		{
-			Log::errorf(logTag, "Thread '%s' not running, cannot join!", this->name.cStr());
 			return;
 		}
-		this->running = false;
 #ifdef _WIN32
 #ifndef _WINRT
 		WaitForSingleObject(this->id, INFINITE);
-		if (this->id != NULL)
-		{
-			CloseHandle(this->id);
-			this->id = NULL;
-		}
 #else
-		if (this->id == NULL) // means that it wasn't running yet
-		{
-			return;
-		}
 		IAsyncAction^ action = ((AsyncActionWrapper*)this->id)->asyncAction;
 		int i = 0;
 		while (action->Status != AsyncStatus::Completed &&
@@ -235,11 +274,9 @@ namespace hltypes
 #else
 		pthread_join(*((pthread_t*)this->id), 0);
 #endif
-		// just to be safe
-		this->executing = false;
 	}
 
-	void Thread::resume()
+	void Thread::_platformResume()
 	{
 #ifdef _WIN32
 #ifndef _WINRT
@@ -251,7 +288,7 @@ namespace hltypes
 #endif
 	}
 
-	void Thread::pause()
+	void Thread::_platformPause()
 	{
 #ifdef _WIN32
 #ifndef _WINRT
@@ -263,25 +300,23 @@ namespace hltypes
 #endif
 	}
 
-	void Thread::stop()
+	void Thread::_platformStop()
 	{
-		if (this->running)
+		if (this->id == NULL)
 		{
-			this->running = false;
+			return;
+		}
 #ifdef _WIN32
 #ifndef _WINRT
-			TerminateThread(this->id, 0);
+		TerminateThread(this->id, 0);
 #else
-			((AsyncActionWrapper*)this->id)->asyncAction->Cancel();
+		((AsyncActionWrapper*)this->id)->asyncAction->Cancel();
 #endif
 #elif defined(_ANDROID)
-			pthread_kill(*((pthread_t*)this->id), 0);
+		pthread_kill(*((pthread_t*)this->id), 0);
 #else
-			pthread_cancel(*((pthread_t*)this->id));
+		pthread_cancel(*((pthread_t*)this->id));
 #endif
-			// just to be safe
-			this->executing = false;
-		}
 	}
 
 	void Thread::sleep(float milliseconds)

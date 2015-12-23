@@ -98,7 +98,19 @@ namespace hltypes
 		Thread& operator=(Thread& other);
 
 		/// @brief Executes the thread's function.
-		void execute();
+		void _execute();
+		/// @brief Clears thread data.
+		void _clear();
+		/// @brief Starts the thread processing.
+		void _platformStart();
+		/// @brief Stops the thread processing.
+		void _platformStop();
+		/// @brief Resumes the thread processing.
+		void _platformResume();
+		/// @brief Pauses the thread processing.
+		void _platformPause();
+		/// @brief Joins thread.
+		void _platformJoin();
 
 	};
 }
