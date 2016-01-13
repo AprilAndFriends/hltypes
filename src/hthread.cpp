@@ -216,7 +216,7 @@ namespace hltypes
 			{
 				SetThreadName(GetCurrentThreadId(), this->name);
 			}
-			this->execute();
+			this->_execute();
 		}), WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
 #endif
 #else
