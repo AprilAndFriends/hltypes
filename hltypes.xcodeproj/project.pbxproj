@@ -251,11 +251,11 @@
 		7F42F69511EB0B8500B1C1DF /* src */ = {
 			isa = PBXGroup;
 			children = (
-				B432628E1C21686200F9DDDF /* platform_internal.cpp */,
-				B432628F1C21686200F9DDDF /* platform_internal.h */,
 				D1E909F0163693A500EB27EE /* platform */,
+				B432628F1C21686200F9DDDF /* platform_internal.h */,
 				D1BAE103183B921400BC2434 /* zipaccess.h */,
 				D1BAE101183B920700BC2434 /* msvc_dirent.h */,
+				B432628E1C21686200F9DDDF /* platform_internal.cpp */,
 				D1DC28F51B972E9000DBEB75 /* henum.cpp */,
 				D1D63AE11AA9978B00F72096 /* hversion.cpp */,
 				D1BAE0F5183B91FC00BC2434 /* hdbase.cpp */,
