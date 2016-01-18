@@ -29,12 +29,13 @@ namespace hltypes
 {
 	namespace zip
 	{
-		static Mutex access_mutex;
+		static Mutex accessMutex;
 		static Map<miniz::mz_zip_archive*, Array<Resource*> > activeHandles;
 		static miniz::mz_zip_archive* currentArchive = NULL;
 
 		void setArchive(const String& value)
 		{
+			Mutex::ScopeLock lock(&accessMutex);
 			if (currentArchive != NULL && activeHandles[currentArchive].size() == 0)
 			{
 				miniz::mz_zip_reader_end(currentArchive);
@@ -56,6 +57,7 @@ namespace hltypes
 
 		void* open(Resource* resource)
 		{
+			Mutex::ScopeLock lock(&accessMutex);
 			if (currentArchive == NULL)
 			{
 				String archive = Resource::getArchive();
@@ -79,6 +81,7 @@ namespace hltypes
 		void close(Resource* resource, void* archive)
 		{
 			miniz::mz_zip_archive* zipArchive = (miniz::mz_zip_archive*)archive;
+			Mutex::ScopeLock lock(&accessMutex);
 			Array<Resource*> references = activeHandles[zipArchive];
 			references -= resource;
 			activeHandles[zipArchive] = references;
@@ -99,7 +102,7 @@ namespace hltypes
 			}
 			Stream* stream = new Stream(size);
 			stream->prepareManualWriteRaw(size);
-			Mutex::ScopeLock lock(&access_mutex);
+			Mutex::ScopeLock lock(&accessMutex);
 			bool result = (miniz::mz_zip_reader_extract_file_to_mem((miniz::mz_zip_archive*)archiveFile, filename.cStr(), (unsigned char*)(*stream), size, 0) != MZ_FALSE);
 			lock.release();
 			if (result)
@@ -116,7 +119,7 @@ namespace hltypes
 
 		void fclose(void* file)
 		{
-			delete (Stream*)file;
+			delete ((Stream*)file);
 		}
 
 		bool fseek(void* file, int64_t offset, StreamBase::SeekMode mode)
@@ -137,6 +140,7 @@ namespace hltypes
 		bool fexists(void* archiveFile, const String& filename)
 		{
 			miniz::mz_zip_archive* archive = (miniz::mz_zip_archive*)archiveFile;
+			Mutex::ScopeLock lock(&accessMutex);
 			int index = miniz::mz_zip_reader_locate_file(archive, filename.cStr(), "", 0);
 			return (index >= 0 && !miniz::mz_zip_reader_is_file_a_directory(archive, index));
 		}
@@ -145,6 +149,7 @@ namespace hltypes
 		{
 			Array<String> result;
 			miniz::mz_zip_archive* archive = (miniz::mz_zip_archive*)archiveFile;
+			Mutex::ScopeLock lock(&accessMutex);
 			int count = miniz::mz_zip_reader_get_num_files(archive);
 			char filename[FILENAME_BUFFER] = { 0 };
 			unsigned int size = 0;
@@ -164,7 +169,7 @@ namespace hltypes
 		{
 			FileInfo info;
 			miniz::mz_zip_archive* zipArchive = (miniz::mz_zip_archive*)archiveFile;
-			Mutex::ScopeLock lock(&access_mutex);
+			Mutex::ScopeLock lock(&accessMutex);
 			int index = miniz::mz_zip_reader_locate_file(zipArchive, filename.cStr(), "", miniz::MZ_ZIP_FLAG_CASE_SENSITIVE);
 			if (index >= 0)
 			{

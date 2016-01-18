@@ -20,6 +20,7 @@
 #include "hmutex.h"
 #include "hplatform.h"
 #include "hthread.h"
+#include "platform_internal.h"
 
 #ifdef _WINRT
 using namespace Windows::Foundation;
@@ -181,7 +182,15 @@ namespace hltypes
 		if (this->running && this->function != NULL)
 		{
 			this->executing = true;
-			(*this->function)(this);
+			try
+			{
+				(*this->function)(this);
+			}
+			catch (hltypes::_Exception& e)
+			{
+				hltypes::_platformPrint("FATAL", "Thread: " + this->name + "\n" + e.getMessage(), Log::LevelError);
+				throw e;
+			}
 		}
 		this->executing = false;
 		this->running = false;
