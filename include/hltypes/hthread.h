@@ -29,15 +29,21 @@ namespace hltypes
 		public:
 			friend class Thread;
 
+			/// @brief Destructor.
 			~ThreadRunner();
 
+			/// @return Associated thread.
 			HL_DEFINE_GET(Thread*, thread, Thread);
 
+			/// @return Execute the thread's code.
 			void execute();
 
 		protected:
+			/// @return Associated thread.
 			Thread* thread;
 
+			/// @brief Constructor.
+			/// @param[in] thread Associated thread.
 			ThreadRunner(Thread* thread);
 
 		};

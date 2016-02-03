@@ -16,6 +16,9 @@
 #include "hltypesExport.h"
 #include "hstring.h"
 
+/// @brief Declares an exception class.
+/// @param[in] exportDefinition Export definition.
+/// @param[in] classe Name of the exception class.
 #define HL_EXCEPTION_CLASS_0(exportDefinition, classe) \
 	class exportDefinition _ ## classe : public hexception \
 	{ \
@@ -25,6 +28,10 @@
 		inline hstr getType() { return #classe; } \
 	};
 
+/// @brief Declares an exception class with 1 argument.
+/// @param[in] exportDefinition Export definition.
+/// @param[in] classe Name of the exception class.
+/// @param[in] arg0 The first argument.
 #define HL_EXCEPTION_CLASS_1(exportDefinition, classe, arg0) \
 	class exportDefinition _ ## classe : public hexception \
 	{ \
@@ -34,6 +41,11 @@
 		inline hstr getType() { return #classe; } \
 	};
 
+/// @brief Declares an exception class with 2 arguments.
+/// @param[in] exportDefinition Export definition.
+/// @param[in] classe Name of the exception class.
+/// @param[in] arg0 The first argument.
+/// @param[in] arg1 The second argument.
 #define HL_EXCEPTION_CLASS_2(exportDefinition, classe, arg0, arg1) \
 	class exportDefinition _ ## classe : public hexception \
 	{ \
@@ -43,6 +55,12 @@
 		inline hstr getType() { return #classe; } \
 	};
 
+/// @brief Declares an exception class with 3 arguments.
+/// @param[in] exportDefinition Export definition.
+/// @param[in] classe Name of the exception class.
+/// @param[in] arg0 The first argument.
+/// @param[in] arg1 The second argument.
+/// @param[in] arg2 The third argument.
 #define HL_EXCEPTION_CLASS_3(exportDefinition, classe, arg0, arg1, arg2) \
 	class exportDefinition _ ## classe : public hexception \
 	{ \
@@ -78,8 +96,10 @@ namespace hltypes
 		/// @return The full error message with stack trace.
 		inline String getFullMessage() { return this->message + "\n" + this->stackTrace; }
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		DEPRECATED_ATTRIBUTE inline String getErrorText() { return this->message; }
 		DEPRECATED_ATTRIBUTE inline String getErrorMessage() { return this->message; }
+#endif
 		
 	protected:
 		/// @brief Exception message.
@@ -103,6 +123,7 @@ namespace hltypes
 	public:
 		/// @brief Basic constructor.
 		/// @param[in] filename Name of the file.
+		/// @param[in] isResource If the file is a resource or a normal file.
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_FileCouldNotOpenException(const String& filename, bool isResource, const char* sourceFile, int lineNumber);
@@ -358,6 +379,7 @@ namespace hltypes
 
 }
 
+/// @brief Alias for simpler code.
 typedef hltypes::_Exception hexception;
 
 #endif

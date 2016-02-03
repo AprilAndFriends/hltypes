@@ -83,16 +83,18 @@ namespace hltypes
 		static void setTimeout(float value);
 
 		/// @brief Gets the extension of the filename.
-		/// @param[in] filename The path.
+		/// @param[in] path The path.
 		/// @return Extension of the filename.
 		static String extensionOf(const String& path);
 		/// @brief Gets the filename with the extension (with the prepended directory path).
-		/// @param[in] filename The path.
+		/// @param[in] path The path.
 		/// @return Filename with the extension (with the prepended directory path).
 		static String withoutExtension(const String& path);
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		DEPRECATED_ATTRIBUTE static String extension_of(const String& path) { return FileBase::extensionOf(path); }
 		DEPRECATED_ATTRIBUTE static String no_extension(const String& path) { return FileBase::withoutExtension(path); }
+#endif
 
 	protected:
 		/// @brief Current filename.
@@ -114,12 +116,12 @@ namespace hltypes
 		/// @brief Closes file.
 		void _fclose();
 		/// @brief Reads data from the file.
-		/// @param[in] src Destination data buffer.
+		/// @param[in] buffer Destination data buffer.
 		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
 		int _fread(void* buffer, int count);
 		/// @brief Writes data to the file.
-		/// @param[in] src Source data buffer.
+		/// @param[in] buffer Source data buffer.
 		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
 		int _fwrite(const void* buffer, int count);

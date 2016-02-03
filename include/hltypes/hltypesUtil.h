@@ -23,39 +23,41 @@ namespace hltypes
 {
 	class Stream;
 	class StreamBase;
+
+	/// @brief Used for logging display.
 	extern String logTag;
 }
 
 /// @brief Used for optimized and quick calculation from RAD to DEG.
-#define HL_RAD_TO_DEG_RATIO 57.295779513082320876798154814105
+#define __HL_RAD_TO_DEG_RATIO 57.295779513082320876798154814105
 /// @brief Used for optimized and quick calculation from DEG to RAD.
-#define HL_DEG_TO_RAD_RATIO 0.01745329251994329576923690768489
+#define __HL_DEG_TO_RAD_RATIO 0.01745329251994329576923690768489
 
 /// @brief Calculates sin from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
 /// @return sin(degrees).
-#define dsin(degrees) sin((degrees) * HL_DEG_TO_RAD_RATIO)
+#define dsin(degrees) sin((degrees) * __HL_DEG_TO_RAD_RATIO)
 /// @brief Calculates cos from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
 /// @return cos(degrees).
-#define dcos(degrees) cos((degrees) * HL_DEG_TO_RAD_RATIO)
+#define dcos(degrees) cos((degrees) * __HL_DEG_TO_RAD_RATIO)
 /// @brief Calculates tan from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
 /// @return tan(degrees).
-#define dtan(degrees) tan((degrees) * HL_DEG_TO_RAD_RATIO)
+#define dtan(degrees) tan((degrees) * __HL_DEG_TO_RAD_RATIO)
 /// @brief Calculates asin in degrees.
 /// @param[in] value sin value.
 /// @return asin in degrees.
-#define dasin(value) (asin(value) * HL_RAD_TO_DEG_RATIO)
+#define dasin(value) (asin(value) * __HL_RAD_TO_DEG_RATIO)
 /// @brief Calculates acos in degrees.
 /// @param[in] value cos value.
 /// @return acos in degrees.
-#define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
+#define dacos(value) (acos(value) * __HL_RAD_TO_DEG_RATIO)
 /// @brief Calculates atan in degrees.
 /// @param[in] value cos value.
 /// @return atan in degrees.
 /// @note This uses atan2.
-#define datan(value) (atan2(value) * HL_RAD_TO_DEG_RATIO)
+#define datan(value) (atan2(value) * __HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.0001
 
@@ -89,9 +91,7 @@ namespace hltypes
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_SET2(classe, type1, type2, name, capsName) inline void set ## capsName(classe<type1, type2> value) { this->name = value; }
 /// @brief Utility macro for quick getter and setter definition.
-/// @param[in] classe Template class.
-/// @param[in] type1 First template type argument.
-/// @param[in] type2 Second template type argument.
+/// @param[in] type Variable type.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
@@ -131,6 +131,7 @@ namespace hltypes
 /// @param[in] name Name of the iteration variable.
 /// @param[in] max Start value.
 /// @param[in] min Final value.
+/// @param[in] step Value to decrease iterator.
 /// @note Iterates from max - 1 to min.
 #define for_iter_step_r(name, max, min, step) for (int name = max - 1; name >= min; name -= step)
 /// @brief Provides a simpler syntax for iteration.
@@ -138,7 +139,6 @@ namespace hltypes
 /// @param[in] name Name of the iteration variable.
 /// @param[in] min Start value.
 /// @param[in] max Final value.
-/// @param[in] step Value to increase iterator.
 /// @note Iterates from min to max - 1.
 #define for_itert(type, name, min, max) for (type name = min; name < max; ++name)
 /// @brief Provides a simpler syntax for iteration.
@@ -161,14 +161,13 @@ namespace hltypes
 /// @param[in] name Name of the iteration variable.
 /// @param[in] max Start value.
 /// @param[in] min Final value.
-/// @param[in] step Value to increase iterator.
+/// @param[in] step Value to decrease iterator.
 /// @note Iterates from max - 1 to min.
 #define for_itert_step_r(type, name, max, min, step) for (type name = max - 1; name >= min; name -= step)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] min Start value.
 /// @param[in] max Final value.
-/// @param[in] step Value to increase iterator.
 /// @note Iterates from min to max - 1.
 /// @note The iteration variable has to be declared previously.
 #define for_iterx(name, min, max) for (name = min; name < max; name++)
@@ -191,7 +190,7 @@ namespace hltypes
 /// @param[in] name Name of the iteration variable.
 /// @param[in] max Start value.
 /// @param[in] min Final value.
-/// @param[in] step Value to increase iterator.
+/// @param[in] step Value to decrease iterator.
 /// @note Iterates from max - 1 to min.
 /// @note The iteration variable has to be declared previously.
 #define for_iterx_step_r(name, max, min, step) for (name = max - 1; name >= min; name -= step)
@@ -206,7 +205,7 @@ hltypesFnExport uint64_t htime();
 /// @note Not all platforms actually support uint64 so be careful with this.
 hltypesFnExport uint64_t htickCount();
 /// @brief Gets an environment variable as String.
-/// @param[in] env The environment variable.
+/// @param[in] name Name of the environment variable.
 /// @return Environment variable as String.
 /// @note May not be available on all platforms (e.g. WinRT does not support it).
 hltypesFnExport hltypes::String henv(const hltypes::String& name);
@@ -404,21 +403,25 @@ hltypesFnExport double hhypotdSquared(int a, int b);
 /// @brief Compares 2 float values within using a tolerance factor.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
+/// @param[in] tolerance How much of a difference should be tolerated.
 /// @return True if comparison matches within boundary limits.
 hltypesFnExport bool heqf(float a, float b, float tolerance = HL_E_TOLERANCE);
 /// @brief Compares 2 double values within using a tolerance factor.
 /// @param[in] a First double value.
 /// @param[in] b Second double value.
+/// @param[in] tolerance How much of a difference should be tolerated.
 /// @return True if comparison matches within boundary limits.
 hltypesFnExport bool heqd(double a, double b, double tolerance = HL_E_TOLERANCE);
 /// @brief Uses a cmp-like comparison of 2 float values.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
+/// @param[in] tolerance How much of a difference should be tolerated.
 /// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
 hltypesFnExport int hcmpf(float a, float b, float tolerance = HL_E_TOLERANCE);
 /// @brief Uses a cmp-like comparison of 2 double values.
 /// @param[in] a First double value.
 /// @param[in] b Second double value.
+/// @param[in] tolerance How much of a difference should be tolerated.
 /// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
 hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE);
 /// @brief Returns the next power-of-two value of the given number.

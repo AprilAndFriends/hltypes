@@ -27,10 +27,6 @@ namespace hltypes
 	class hltypesExport File : public FileBase
 	{
 	public:
-		/// @brief Constructor that immediately opens a file.
-		/// @param[in] filename Name of the file (may include path).
-		/// @param[in] access_mode File access mode.
-		DEPRECATED_ATTRIBUTE File(const String& filename, AccessMode access_mode = READ);
 		/// @brief Basic constructor.
 		File();
 		/// @brief Destructor.
@@ -103,18 +99,21 @@ namespace hltypes
 		/// @return File information provided by the OS.
 		static FileInfo hinfo(const String& filename);
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+		DEPRECATED_ATTRIBUTE File(const String& filename, AccessMode access_mode = READ);
 		DEPRECATED_ATTRIBUTE static bool create_new(const String& filename) { return File::createNew(filename); }
 		DEPRECATED_ATTRIBUTE static FileInfo get_info(const String& filename) { return File::hinfo(filename); }
 		DEPRECATED_ATTRIBUTE static int64_t hsize(const String& filename) { return File::hinfo(filename).size; } // use hinfo like this to get the size
+#endif
 
 	protected:
 		/// @brief Reads data from the stream.
-		/// @param[in] src Destination data buffer.
+		/// @param[in] buffer Destination data buffer.
 		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
 		int _read(void* buffer, int count);
 		/// @brief Writes data to the stream.
-		/// @param[in] src Source data buffer.
+		/// @param[in] buffer Source data buffer.
 		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
 		int _write(const void* buffer, int count);

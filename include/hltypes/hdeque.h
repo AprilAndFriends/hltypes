@@ -22,9 +22,11 @@
 
 /// @brief Provides a simpler syntax to iterate through a Deque.
 #define foreach_q(type, name, container) for (hdeque< type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+/// @brief Provides a simpler syntax to iterate through a Deque.
 #define foreachc_q(type, name, container) for (hdeque< type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to reverse iterate through a Deque.
 #define foreach_qr(type, name, container) for (hdeque< type >::reverse_iterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+/// @brief Provides a simpler syntax to reverse iterate through a Deque.
 #define foreachc_qr(type, name, container) for (hdeque< type >::const_reverse_iterator_t name = (container).rbegin(); name != (container).rend(); ++name)
 
 namespace hltypes
@@ -149,7 +151,6 @@ namespace hltypes
 		}
 		/// @brief Gets an Deque of random elements selected from this one and removes them.
 		/// @param[in] count Number of random elements.
-		/// @param[in] unique Whether to force all random values to be unique.
 		/// @return Deque of random elements selected from this one.
 		inline Deque<T> removeRandom(const int count)
 		{
@@ -228,7 +229,7 @@ namespace hltypes
 			return this->template _intersected<Deque<T> >(other);
 		}
 		/// @brief Creates a new Deque as difference of this Deque with an element.
-		/// @param[in] other Element to differentiate with.
+		/// @param[in] element Element to differentiate with.
 		/// @return A new Deque.
 		/// @note Unlike remove, this method ignores if the element is not in this Deque.
 		/// @note Does not remove duplicates.
@@ -457,6 +458,7 @@ namespace hltypes
 			return this->differentiated(other);
 		}
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		// DEPRECATED
 		DEPRECATED_ATTRIBUTE inline Deque<int> indexesOf(const T& element) const								{ return this->indicesOf(element); }
 		DEPRECATED_ATTRIBUTE inline Deque<int> indexes_of(const T& element) const								{ return this->indicesOf(element); }
@@ -491,6 +493,7 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE inline Deque<T> remove_random(int count, bool unique = false)						{ return this->removeRandom(count, unique); }
 		DEPRECATED_ATTRIBUTE inline Deque<T> find_all(bool (*conditionFunction)(T)) const						{ return this->findAll(conditionFunction); }
 		template <typename S> DEPRECATED_ATTRIBUTE inline Deque<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
+#endif
 
 	};
 	

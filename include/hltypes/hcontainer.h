@@ -729,7 +729,7 @@ namespace hltypes
 			STD::assign(result.begin(), result.end());
 		}
 		/// @brief Differentiates elements of this Container with an element.
-		/// @param[in] other Element to differentiate with.
+		/// @param[in] element Element to differentiate with.
 		/// @note Unlike remove, this method ignores if the element is not in this Container.
 		/// @note Does not remove duplicates.
 		inline void differentiate(const T& element)
@@ -830,7 +830,7 @@ namespace hltypes
 			return true;
 		}
 
-		// DEPRECATED
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		DEPRECATED_ATTRIBUTE inline T& front()																					{ return this->first(); }
 		DEPRECATED_ATTRIBUTE inline T& back()																					{ return this->last(); }
 		DEPRECATED_ATTRIBUTE inline int index_of(const T& element) const														{ return this->indexOf(element); }
@@ -890,6 +890,7 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE inline void append(const Container& other, const int start, const int count)						{ this->add(other, start, count); }
 		DEPRECATED_ATTRIBUTE inline void append(const T other[], const int count)												{ this->add(other, count); }
 		DEPRECATED_ATTRIBUTE inline void append(const T other[], const int start, const int count)								{ this->add(other, start, count); }
+#endif
 
 	protected:
 		/// @brief Gets all indices.
@@ -1138,7 +1139,7 @@ namespace hltypes
 			return result;
 		}
 		/// @brief Creates a new Container as difference of this Container with an element.
-		/// @param[in] other Element to differentiate with.
+		/// @param[in] element Element to differentiate with.
 		/// @return A new Container.
 		/// @note Unlike remove, this method ignores if the element is not in this Container.
 		/// @note Does not remove duplicates.

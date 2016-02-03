@@ -17,9 +17,16 @@
 #include "hmap.h"
 #include "hltypesExport.h"
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #define __HL_EXPAND_MACRO(x) x
-#define HL_ENUM_CLASS_PREFIX_DECLARE(prefix, classe, code) \
-class prefix classe : public henum \
+#endif
+
+/// @brief Helper macro for declaring an enum class.
+/// @param[in] exportDefinition Export definition.
+/// @param[in] classe Name of the enum class.
+/// @param[in] code Additional code to process (usually value declarations).
+#define HL_ENUM_CLASS_PREFIX_DECLARE(exportDefinition, classe, code) \
+class exportDefinition classe : public henum \
 { \
 public: \
 	classe() : henum() { } \
@@ -86,15 +93,38 @@ protected: \
 private: \
 	static hmap<unsigned int, hstr> _instances; \
 };
+/// @see HL_ENUM_CLASS_PREFIX_DECLARE
 #define HL_ENUM_CLASS_DECLARE(classe, code) HL_ENUM_CLASS_PREFIX_DECLARE(, classe, code)
+/// @brief Helper macro for defining an enum class.
+/// @param[in] classe Name of the enum class.
+/// @param[in] code Additional code to process (usually value definitions).
 #define HL_ENUM_CLASS_DEFINE(classe, code) \
 	hmap<unsigned int, hstr> classe::_instances; \
 	__HL_EXPAND_MACRO code;
 
+/// @brief Helper macro for declaring an enum value within a class.
+/// @param[in] classe Name of the enum class.
+/// @param[in] name Value name.
 #define HL_ENUM_DECLARE(classe, name) static const classe name;
+/// @brief Helper macro for defining an enum value within a class.
+/// @param[in] classe Name of the enum class.
+/// @param[in] name Value name.
 #define HL_ENUM_DEFINE(classe, name) const classe classe::name(#name);
+/// @brief Helper macro for defining an enum value within a class with a certain value.
+/// @param[in] classe Name of the enum class.
+/// @param[in] name Value name.
+/// @param[in] value Int value.
 #define HL_ENUM_DEFINE_VALUE(classe, name, value) const classe classe::name(#name, value);
+/// @brief Helper macro for defining an enum value within a class with a custom internal string name.
+/// @param[in] classe Name of the enum class.
+/// @param[in] name Value name.
+/// @param[in] stringName String name used for display.
 #define HL_ENUM_DEFINE_NAME(classe, name, stringName) const classe classe::name(stringName);
+/// @brief Helper macro for defining an enum value within a class with a custom internal string name and a certain value.
+/// @param[in] classe Name of the enum class.
+/// @param[in] name Value name.
+/// @param[in] stringName String name used for display.
+/// @param[in] value Int value.
 #define HL_ENUM_DEFINE_NAME_VALUE(classe, name, stringName, value) const classe classe::name(stringName, value);
 
 namespace hltypes

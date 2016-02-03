@@ -67,9 +67,9 @@ namespace hltypes
 		static inline void setTagFilters(Array<String> value) { tagFilters = value; }
 		/// @brief Sets all logging levels at once.
 		/// @param[in] write Value for Log level Write.
-		/// @param[in] write Value for Log level Error.
-		/// @param[in] write Value for Log level Warn.
-		/// @param[in] write Value for Log level Debug.
+		/// @param[in] error Value for Log level Error.
+		/// @param[in] warn Value for Log level Warn.
+		/// @param[in] debug Value for Log level Debug.
 		static void setLevels(bool write, bool error, bool warn, bool debug);
 		/// @brief Sets the flag for whether logs should be printed to output.
 		static void setOutputEnabled(bool value) { outputEnabled = value; }

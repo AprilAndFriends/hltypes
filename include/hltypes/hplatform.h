@@ -10,6 +10,7 @@
 /// 
 /// Provides special preprocessor macros for platform definitions and special platform specific functions.
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 // split into 2 parts, because of platform header inclusion
 #ifndef HLTYPES_PLATFORM_H
 #if defined(_WIN32) && defined(_MSC_VER)
@@ -76,4 +77,5 @@
 #endif
 #endif
 
+#endif
 #endif

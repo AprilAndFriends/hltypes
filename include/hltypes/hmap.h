@@ -20,9 +20,11 @@
 
 /// @brief Provides a simpler syntax to iterate through a Map.
 #define foreach_map(type_key, type_value, name, container) for (hltypes::Map< type_key, type_value >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+/// @brief Provides a simpler syntax to iterate through a Map.
 #define foreachc_map(type_key, type_value, name, container) for (hltypes::Map< type_key, type_value >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to iterate through a Map with String as key.
 #define foreach_m(type, name, container) for (hltypes::Map< hltypes::String, type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+/// @brief Provides a simpler syntax to iterate through a Map with String as key.
 #define foreachc_m(type, name, container) for (hltypes::Map< hltypes::String, type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
 #define __foreach_this_map_it(name) for (const_iterator_t name = this->begin(); name != this->end(); ++name)
@@ -657,6 +659,7 @@ namespace hltypes
 			return result;
 		}
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		DEPRECATED_ATTRIBUTE inline K key_of(const V& value) const																{ return this->keyOf(value); }
 		DEPRECATED_ATTRIBUTE inline V value_of(const K& key) const																{ return this->valueOf(key); }
 		DEPRECATED_ATTRIBUTE inline bool has_key(const K& key) const															{ return this->hasKey(key); }
@@ -680,6 +683,7 @@ namespace hltypes
 		template <typename L, typename S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast(bool includeNulls = false) const		{ return this->dynamicCast<L, S>(includeNulls); }
 		template <typename L, typename S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast_key() const							{ return this->dynamicCastKeys<L, S>(); }
 		template <typename L, typename S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast_value(bool includeNulls = false) const	{ return this->dynamicCastValues<L, S>(includeNulls); }
+#endif
 
 	};
 	

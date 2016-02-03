@@ -27,9 +27,6 @@ namespace hltypes
 	class hltypesExport Resource : public FileBase
 	{
 	public:
-		/// @brief Constructor that immediately opens a resource file.
-		/// @param[in] filename Name of the resource file (may include path).
-		DEPRECATED_ATTRIBUTE Resource(const String& filename);
 		/// @brief Basic constructor.
 		Resource();
 		/// @brief Destructor.
@@ -58,7 +55,7 @@ namespace hltypes
 		/// @return File information provided by the implementation.
 		static FileInfo hinfo(const String& filename);
 		/// @brief Create a full filename.
-		/// @params[in] filename Original filename.
+		/// @param[in] filename Original filename.
 		/// @return Full filename.
 		static String makeFullPath(const String& filename);
 		
@@ -81,8 +78,11 @@ namespace hltypes
 		/// @return True if compiled with ZIP support.
 		static bool hasZip();
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+		DEPRECATED_ATTRIBUTE Resource(const String& filename);
 		DEPRECATED_ATTRIBUTE static FileInfo get_info(const String& filename) { return Resource::hinfo(filename); }
 		DEPRECATED_ATTRIBUTE static int64_t hsize(const String& filename) { return Resource::hinfo(filename).size; } // use hinfo like this to get the size
+#endif
 
 	protected:
 		/// @brief Data position;
@@ -103,13 +103,13 @@ namespace hltypes
 		void _updateDataSize();
 
 		/// @brief Reads data from the stream.
-		/// @param[in] src Destination data buffer.
-		/// @param[in] sound Number of elements to read.
+		/// @param[in] buffer Destination data buffer.
+		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
 		int _read(void* buffer, int count);
 		/// @brief Writes data to the stream.
-		/// @param[in] src Source data buffer.
-		/// @param[in] sound Number of elements contained in buffer.
+		/// @param[in] buffer Source data buffer.
+		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
 		int _write(const void* buffer, int count);
 		/// @brief Checks if file is open.

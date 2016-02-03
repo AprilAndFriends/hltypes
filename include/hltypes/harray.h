@@ -22,9 +22,11 @@
 
 /// @brief Provides a simpler syntax to iterate through an Array.
 #define foreach(type, name, container) for (harray< type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+/// @brief Provides a simpler syntax to iterate through an Array.
 #define foreachc(type, name, container) for (harray< type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to reverse iterate through an Array.
 #define foreach_r(type, name, container) for (harray< type >::riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+/// @brief Provides a simpler syntax to reverse iterate through an Array.
 #define foreachc_r(type, name, container) for (harray< type >::const_riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
 
 namespace hltypes
@@ -149,7 +151,6 @@ namespace hltypes
 		}
 		/// @brief Gets an Array of random elements selected from this one and removes them.
 		/// @param[in] count Number of random elements.
-		/// @param[in] unique Whether to force all random values to be unique.
 		/// @return Array of random elements selected from this one.
 		inline Array<T> removeRandom(const int count)
 		{
@@ -228,7 +229,7 @@ namespace hltypes
 			return this->template _intersected<Array<T> >(other);
 		}
 		/// @brief Creates a new Array as difference of this Array with an element.
-		/// @param[in] other Element to differentiate with.
+		/// @param[in] element Element to differentiate with.
 		/// @return A new Array.
 		/// @note Unlike remove, this method ignores if the element is not in this Array.
 		/// @note Does not remove duplicates.
@@ -470,7 +471,7 @@ namespace hltypes
 			return &this->operator[](0);
 		}
 
-		// DEPRECATED
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		DEPRECATED_ATTRIBUTE inline Array<int> indexesOf(const T& element) const								{ return this->indicesOf(element); }
 		DEPRECATED_ATTRIBUTE inline Array<int> indexes_of(const T& element) const								{ return this->indicesOf(element); }
 		DEPRECATED_ATTRIBUTE inline Array<T> removed_duplicates() const											{ return this->removedDuplicates(); }
@@ -504,6 +505,7 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE inline Array<T> remove_random(int count, bool unique = false)						{ return this->removeRandom(count, unique); }
 		DEPRECATED_ATTRIBUTE inline Array<T> find_all(bool (*conditionFunction)(T)) const						{ return this->findAll(conditionFunction); }
 		template <typename S> DEPRECATED_ATTRIBUTE inline Array<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
+#endif
 
 	};
 	

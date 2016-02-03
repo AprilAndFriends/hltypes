@@ -82,7 +82,7 @@ namespace hltypes
 		hltypesMemberExport String(const float f, int precision);
 		/// @brief Type constructor.
 		/// @param[in] d Double to create String of.
-		hltypesMemberExport String(const double f);
+		hltypesMemberExport String(const double d);
 		/// @brief Type constructor.
 		/// @param[in] d Double to create String of.
 		/// @param[in] precision The floating point precision to use.
@@ -771,11 +771,11 @@ namespace hltypes
 		/// @return UTF8 string.
 		hltypesMemberExport static String fromUnicode(wchar_t value);
 		/// @brief Converts a char to a UTF8 string.
-		/// @param[in] string The char.
+		/// @param[in] value The char.
 		/// @return UTF8 string.
 		hltypesMemberExport static String fromUnicode(const char value);
 		/// @brief Converts an unsigned char to a UTF8 string.
-		/// @param[in] string The unsigned char.
+		/// @param[in] value The unsigned char.
 		/// @return UTF8 string.
 		hltypesMemberExport static String fromUnicode(unsigned char value);
 		/// @brief Converts a unicode unsigned int string to a UTF8 string.
@@ -795,25 +795,25 @@ namespace hltypes
 		/// @return UTF8 string.
 		hltypesMemberExport static String fromUnicode(const unsigned char* string);
 		/// @brief Converts a unicode unsigned int Array to a UTF8 string.
-		/// @param[in] string The unsigned int characters.
+		/// @param[in] chars The unsigned int characters.
 		/// @return UTF8 string.
 		hltypesMemberExport static String fromUnicode(Array<unsigned int> chars);
 		/// @brief Converts a unicode wchar Array to a UTF8 string.
-		/// @param[in] string The wchar characters.
+		/// @param[in] chars The wchar characters.
 		/// @return UTF8 string.
 		hltypesMemberExport static String fromUnicode(Array<wchar_t> chars);
 		/// @brief Converts a char Array to a UTF8 string.
-		/// @param[in] string The char characters.
+		/// @param[in] chars The char characters.
 		/// @return UTF8 string.
 		hltypesMemberExport static String fromUnicode(Array<char> chars);
 		/// @brief Converts an unsigned char Array to a UTF8 string.
-		/// @param[in] string The unsigned char characters.
+		/// @param[in] chars The unsigned char characters.
 		/// @return UTF8 string.
 		hltypesMemberExport static String fromUnicode(Array<unsigned char> chars);
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		// Potentially temp functionality, avoid
 		hltypesMemberExport void assign(const char* string, unsigned int length) { std::string::assign(string, length); }
-
 
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int find_first_of(const char c) const														{ return this->indexOfAny(c); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind_first_of(const char c) const														{ return this->rindexOfAny(c); }
@@ -868,6 +868,7 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(Array<wchar_t> chars);
 		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(Array<char> chars);
 		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(Array<unsigned char> chars);
+#endif
 
 	};
 }

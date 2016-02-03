@@ -57,11 +57,13 @@ namespace hltypes
 		/// @return Split path.
 		static Array<String> splitPath(const String& path);
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		DEPRECATED_ATTRIBUTE static String basename(const String& path) { return DirBase::baseName(path); }
 		DEPRECATED_ATTRIBUTE static String basedir(const String& path) { return DirBase::baseDir(path); }
 		DEPRECATED_ATTRIBUTE static String join_path(const String& path1, const String& path2, bool systemizeResult = false) { return DirBase::joinPath(path1, path2, systemizeResult); }
 		DEPRECATED_ATTRIBUTE static String join_paths(Array<String> paths, bool systemizeResult = false) { return DirBase::joinPaths(paths, systemizeResult); }
 		DEPRECATED_ATTRIBUTE static Array<String> split_path(const String& path) { return DirBase::splitPath(path); }
+#endif
 
 	protected:
 		/// @brief Basic constructor.

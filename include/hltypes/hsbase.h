@@ -210,6 +210,7 @@ namespace hltypes
 		/// @return Loaded String.
 		virtual String loadString();
 		
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		DEPRECATED_ATTRIBUTE inline bool is_open()											{ return this->isOpen(); }
 		DEPRECATED_ATTRIBUTE inline String read_line()										{ return this->readLine(); }
 		DEPRECATED_ATTRIBUTE inline Array<String> read_lines()								{ return this->readLines(); }
@@ -243,6 +244,7 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE virtual inline bool load_bool()				{ return this->loadBool(); }
 		DEPRECATED_ATTRIBUTE virtual inline String load_hstr()				{ return this->loadString(); }
 		DEPRECATED_ATTRIBUTE virtual inline String load_string()			{ return this->loadString(); }
+#endif
 
 	protected:
 		/// @brief Data size, mostly used for optimization and faster "eof" detection.
@@ -257,12 +259,12 @@ namespace hltypes
 		/// @return Special descriptor.
 		virtual inline String _descriptor() const { return "stream"; }
 		/// @brief Reads data from the stream.
-		/// @param[in] src Destination data buffer.
+		/// @param[in] buffer Destination data buffer.
 		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
 		virtual int _read(void* buffer, int count) = 0;
 		/// @brief Writes data to the stream.
-		/// @param[in] src Source data buffer.
+		/// @param[in] buffer Source data buffer.
 		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
 		virtual int _write(const void* buffer, int count) = 0;

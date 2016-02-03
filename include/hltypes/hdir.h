@@ -102,7 +102,9 @@ namespace hltypes
 		/// @return Current working directory.
 		static String cwd();
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		DEPRECATED_ATTRIBUTE static bool create_new(const String& dirName) { return Dir::createNew(dirName); }
+#endif
 
 	protected:
 		/// @brief Basic constructor.
