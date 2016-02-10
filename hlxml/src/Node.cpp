@@ -146,7 +146,7 @@ namespace hlxml
 				return attr->Value();
 			}
 		}
-		if (!ignoreError) // only villians use ignoreError
+		if (!ignoreError) // only villains use ignoreError
 		{
 			throw XMLPropertyNotExistsException(propertyName, this);
 		}
