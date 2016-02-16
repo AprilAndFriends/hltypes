@@ -83,9 +83,12 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_file.html#a5f763b8abfbe4c901b64e27a9f8f6948">~File</a> ()</td></tr>
 <tr class="memdesc:a5f763b8abfbe4c901b64e27a9f8f6948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a5f763b8abfbe4c901b64e27a9f8f6948"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa490be3503a118f7b64990a4c891513d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_file.html#aa490be3503a118f7b64990a4c891513d">open</a> (const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;<a class="el" href="classhltypes_1_1_file_base.html#a0f074f72625d07c58f1eb8a0dde9aa78">filename</a>, <a class="el" href="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44">AccessMode</a> access_mode=<a class="el" href="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a8273ca77f11139555e4515cd8b42e312">READ</a>)</td></tr>
-<tr class="memdesc:aa490be3503a118f7b64990a4c891513d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a file.  <a href="#aa490be3503a118f7b64990a4c891513d">More...</a><br /></td></tr>
-<tr class="separator:aa490be3503a118f7b64990a4c891513d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1924460b4cdeacd8196a3d19a8b3258"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_file.html#ad1924460b4cdeacd8196a3d19a8b3258">open</a> (const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;<a class="el" href="classhltypes_1_1_file_base.html#a0f074f72625d07c58f1eb8a0dde9aa78">filename</a>)</td></tr>
+<tr class="memdesc:ad1924460b4cdeacd8196a3d19a8b3258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a file.  <a href="#ad1924460b4cdeacd8196a3d19a8b3258">More...</a><br /></td></tr>
+<tr class="separator:ad1924460b4cdeacd8196a3d19a8b3258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51148a47ddd890810eed94fb917383c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_file.html#a51148a47ddd890810eed94fb917383c2">open</a> (const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;<a class="el" href="classhltypes_1_1_file_base.html#a0f074f72625d07c58f1eb8a0dde9aa78">filename</a>, <a class="el" href="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44">AccessMode</a> accessMode)</td></tr>
+<tr class="memdesc:a51148a47ddd890810eed94fb917383c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a file.  <a href="#a51148a47ddd890810eed94fb917383c2">More...</a><br /></td></tr>
+<tr class="separator:a51148a47ddd890810eed94fb917383c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace2f715a3ee5c814b2be4a58ac8fb975"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace2f715a3ee5c814b2be4a58ac8fb975"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_file.html#ace2f715a3ee5c814b2be4a58ac8fb975">close</a> ()</td></tr>
 <tr class="memdesc:ace2f715a3ee5c814b2be4a58ac8fb975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes file. <br /></td></tr>
@@ -1034,7 +1037,42 @@ static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 
 </div>
 </div>
-<a class="anchor" id="aa490be3503a118f7b64990a4c891513d"></a>
+<a class="anchor" id="ad1924460b4cdeacd8196a3d19a8b3258"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hltypes::File::open </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Opens a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">filename</td><td>Name of the file (may include path). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>If this instance is already working with an opened file handle, that file handle will be closed. </dd></dl>
+
+<p>Implements <a class="el" href="classhltypes_1_1_file_base.html#a0098cbbc44524d225c3a660123095060">hltypes::FileBase</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a51148a47ddd890810eed94fb917383c2"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1048,7 +1086,7 @@ static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44">AccessMode</a>&#160;</td>
-          <td class="paramname"><em>access_mode</em> = <code><a class="el" href="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a8273ca77f11139555e4515cd8b42e312">READ</a></code>&#160;</td>
+          <td class="paramname"><em>accessMode</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1062,7 +1100,7 @@ static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">filename</td><td>Name of the file (may include path). </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">access_mode</td><td><a class="el" href="classhltypes_1_1_file.html" title="Provides high level file handling. ">File</a> access mode. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">accessMode</td><td><a class="el" href="classhltypes_1_1_file.html" title="Provides high level file handling. ">File</a> access mode. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1161,7 +1199,7 @@ static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 3 2016 12:41:04 for C++ High Level Types by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Feb 16 2016 15:33:43 for C++ High Level Types by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

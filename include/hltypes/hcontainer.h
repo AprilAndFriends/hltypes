@@ -829,6 +829,16 @@ namespace hltypes
 			}
 			return true;
 		}
+		/// @brief Modifies each element with a special function.
+		/// @param[in] processFunction Function pointer with processing function for the elements.
+		inline void each(void (*processFunction)(T))
+		{
+			int size = this->size();
+			for_iter (i, 0, size)
+			{
+				processFunction(this->at(i));
+			}
+		}
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 		DEPRECATED_ATTRIBUTE inline T& front()																					{ return this->first(); }

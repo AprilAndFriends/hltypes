@@ -38,13 +38,20 @@ namespace hltypes
 		}
 	}
 	
-	void File::open(const String& filename, AccessMode access_mode)
+	void File::open(const String& filename)
 	{
-		this->_fopen(filename, access_mode, FileBase::repeats, FileBase::timeout);
+		this->_fopen(filename, READ, FileBase::repeats, FileBase::timeout);
 		// initial size must be set manually with hinfo(), because _updateDataSize() uses seeking which requires the size again
 		this->dataSize = File::hinfo(this->filename).size;
 	}
-	
+
+	void File::open(const String& filename, AccessMode accessMode)
+	{
+		this->_fopen(filename, accessMode, FileBase::repeats, FileBase::timeout);
+		// initial size must be set manually with hinfo(), because _updateDataSize() uses seeking which requires the size again
+		this->dataSize = File::hinfo(this->filename).size;
+	}
+
 	void File::close()
 	{
 		this->_fclose();

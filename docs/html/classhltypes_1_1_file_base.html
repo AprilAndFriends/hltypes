@@ -58,7 +58,7 @@
 <a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
 <a href="classhltypes_1_1_file_base-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">hltypes::FileBase Class Reference</div>  </div>
+<div class="title">hltypes::FileBase Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -113,6 +113,13 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_file_base.html#abda02c05fa638d7fc627a1519d6889e1">~FileBase</a> ()</td></tr>
 <tr class="memdesc:abda02c05fa638d7fc627a1519d6889e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:abda02c05fa638d7fc627a1519d6889e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0098cbbc44524d225c3a660123095060"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_file_base.html#a0098cbbc44524d225c3a660123095060">open</a> (const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;<a class="el" href="classhltypes_1_1_file_base.html#a0f074f72625d07c58f1eb8a0dde9aa78">filename</a>)=0</td></tr>
+<tr class="memdesc:a0098cbbc44524d225c3a660123095060"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a file-base object.  <a href="#a0098cbbc44524d225c3a660123095060">More...</a><br /></td></tr>
+<tr class="separator:a0098cbbc44524d225c3a660123095060"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb5f9f0ca61b87692cf71cfdae9fc337"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb5f9f0ca61b87692cf71cfdae9fc337"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_file_base.html#aeb5f9f0ca61b87692cf71cfdae9fc337">close</a> ()=0</td></tr>
+<tr class="memdesc:aeb5f9f0ca61b87692cf71cfdae9fc337"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes resource file. <br /></td></tr>
+<tr class="separator:aeb5f9f0ca61b87692cf71cfdae9fc337"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classhltypes_1_1_stream_base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classhltypes_1_1_stream_base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classhltypes_1_1_stream_base.html">hltypes::StreamBase</a></td></tr>
 <tr class="memitem:a887dd45349eaf8285020a4788e353b9b inherit pub_methods_classhltypes_1_1_stream_base"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a887dd45349eaf8285020a4788e353b9b"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_stream_base.html#a887dd45349eaf8285020a4788e353b9b">StreamBase</a> ()</td></tr>
@@ -774,6 +781,40 @@ static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 
 </div>
 </div>
+<a class="anchor" id="a0098cbbc44524d225c3a660123095060"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void hltypes::FileBase::open </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Opens a file-base object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">filename</td><td>Name of the file-base object (may include path). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classhltypes_1_1_file.html#ad1924460b4cdeacd8196a3d19a8b3258">hltypes::File</a>, and <a class="el" href="classhltypes_1_1_resource.html#ad4442c8a07bd2d5c53df6a25f712a32f">hltypes::Resource</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ae94bd7f99f95e99c7dcd4bd4e9a6657d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -879,7 +920,7 @@ static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 3 2016 12:41:04 for C++ High Level Types by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Feb 16 2016 15:33:43 for C++ High Level Types by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

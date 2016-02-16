@@ -72,6 +72,11 @@ namespace hltypes
 		FileBase();
 		/// @brief Destructor.
 		~FileBase();
+		/// @brief Opens a file-base object.
+		/// @param[in] filename Name of the file-base object (may include path).
+		virtual void open(const String& filename) = 0;
+		/// @brief Closes resource file.
+		virtual void close() = 0;
 
 		/// @brief Sets the number of repeated attempts to access a file.
 		/// @param[in] value New value.

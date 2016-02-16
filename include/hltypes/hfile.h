@@ -33,9 +33,13 @@ namespace hltypes
 		~File();
 		/// @brief Opens a file.
 		/// @param[in] filename Name of the file (may include path).
-		/// @param[in] access_mode File access mode.
 		/// @note If this instance is already working with an opened file handle, that file handle will be closed.
-		void open(const String& filename, AccessMode access_mode = READ);
+		void open(const String& filename);
+		/// @brief Opens a file.
+		/// @param[in] filename Name of the file (may include path).
+		/// @param[in] accessMode File access mode.
+		/// @note If this instance is already working with an opened file handle, that file handle will be closed.
+		void open(const String& filename, AccessMode accessMode);
 		/// @brief Closes file.
 		void close();
 		
