@@ -99,6 +99,9 @@ namespace hltypes
 		/// @brief Reverses String.
 		/// @return Reversed String.
 		hltypesMemberExport String reversed() const;
+		/// @brief Reverses UTF-8 string.
+		/// @return Reversed UTF-8 string.
+		hltypesMemberExport String utf8Reversed() const;
 		/// @brief Left-trims and right-trims String from a specific character.
 		/// @param[in] c Character to trim.
 		/// @return Trimmed String.
@@ -262,6 +265,16 @@ namespace hltypes
 		/// @param[in] times How many times to insert the character.
 		/// @return New String.
 		hltypesMemberExport String insertedAt(int position, const char character, int times = 1) const;
+		/// @brief Randomizes the String's characters.
+		hltypesMemberExport void randomize();
+		/// @brief Randomizes the UTF-8 String's characters.
+		hltypesMemberExport void utf8Randomize();
+		/// @brief Creates a randomized copy of the String's characters.
+		/// @return New String.
+		hltypesMemberExport String randomized() const;
+		/// @brief Creates a randomized copy of the String's characters.
+		/// @return New String.
+		hltypesMemberExport String utf8Randomized() const;
 		/// @brief Splits the String with the delimiter once.
 		/// @param[in] delimiter The character acting as splitting delimiter.
 		/// @param[out] outLeft First portion of the split String.
@@ -480,12 +493,6 @@ namespace hltypes
 		/// @brief Gets the character length of the String.
 		/// @return Character length of String.
 		hltypesMemberExport int utf8Size() const;
-		/// @brief Same as size.
-		/// @see size
-		hltypesMemberExport int length() const;
-		/// @brief Same as utf8Size.
-		/// @see utf8_size
-		hltypesMemberExport int utf8Length() const;
 		/// @brief Creates a string with characters converted using the %02X format.
 		/// @return String of hex values of the characters.
 		hltypesMemberExport String toHex() const;
@@ -762,53 +769,53 @@ namespace hltypes
 		/// @note The out value of byteCount parameter can be used to move a character iterator forward.
 		hltypesMemberExport unsigned int firstUnicodeChar(int index = 0, int* byteCount = NULL) const;
 
-		/// @brief Converts a unicode unsigned int to a UTF8 string.
+		/// @brief Converts a unicode unsigned int to a UTF-8 string.
 		/// @param[in] value The unsigned int value.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(unsigned int value);
-		/// @brief Converts a unicode wchar to a UTF8 string.
+		/// @brief Converts a unicode wchar to a UTF-8 string.
 		/// @param[in] value The wchar value.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(wchar_t value);
-		/// @brief Converts a char to a UTF8 string.
+		/// @brief Converts a char to a UTF-8 string.
 		/// @param[in] value The char.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(const char value);
-		/// @brief Converts an unsigned char to a UTF8 string.
+		/// @brief Converts an unsigned char to a UTF-8 string.
 		/// @param[in] value The unsigned char.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(unsigned char value);
-		/// @brief Converts a unicode unsigned int string to a UTF8 string.
+		/// @brief Converts a unicode unsigned int string to a UTF-8 string.
 		/// @param[in] string The unsigned int string.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(const unsigned int* string);
-		/// @brief Converts a unicode wchar string to a UTF8 string.
+		/// @brief Converts a unicode wchar string to a UTF-8 string.
 		/// @param[in] string The wchar string.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(const wchar_t* string);
-		/// @brief Converts a char string to a UTF8 string.
+		/// @brief Converts a char string to a UTF-8 string.
 		/// @param[in] string The char string.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(const char* string);
-		/// @brief Converts an unsigned char string to a UTF8 string.
+		/// @brief Converts an unsigned char string to a UTF-8 string.
 		/// @param[in] string The unsigned char string.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(const unsigned char* string);
-		/// @brief Converts a unicode unsigned int Array to a UTF8 string.
+		/// @brief Converts a unicode unsigned int Array to a UTF-8 string.
 		/// @param[in] chars The unsigned int characters.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(Array<unsigned int> chars);
-		/// @brief Converts a unicode wchar Array to a UTF8 string.
+		/// @brief Converts a unicode wchar Array to a UTF-8 string.
 		/// @param[in] chars The wchar characters.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(Array<wchar_t> chars);
-		/// @brief Converts a char Array to a UTF8 string.
+		/// @brief Converts a char Array to a UTF-8 string.
 		/// @param[in] chars The char characters.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(Array<char> chars);
-		/// @brief Converts an unsigned char Array to a UTF8 string.
+		/// @brief Converts an unsigned char Array to a UTF-8 string.
 		/// @param[in] chars The unsigned char characters.
-		/// @return UTF8 string.
+		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(Array<unsigned char> chars);
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -847,7 +854,9 @@ namespace hltypes
 		DEPRECATED_ATTRIBUTE hltypesMemberExport String substr(int start, int count) const													{ return this->subString(start, count); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport String utf8_substr(int start, int count) const												{ return this->utf8SubString(start, count); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport int utf8_size() const																		{ return this->utf8Size(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int utf8_length() const																	{ return this->utf8Length(); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport int utf8_length() const																	{ return this->utf8Size(); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport int length() const																			{ return this->size(); }
+		DEPRECATED_ATTRIBUTE hltypesMemberExport int utf8Length() const																		{ return this->utf8Size(); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport bool is_ascii() const																		{ return this->isAscii(); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport String to_hex() const																		{ return this->isHex(); }
 		DEPRECATED_ATTRIBUTE hltypesMemberExport const char* c_str() const																	{ return this->cStr(); }

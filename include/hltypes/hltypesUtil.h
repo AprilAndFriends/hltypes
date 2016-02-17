@@ -427,19 +427,19 @@ hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE)
 /// @brief Returns the next power-of-two value of the given number.
 /// @param[in] value the number to check.
 /// @return The next power-of-two value of the given number.
-hltypesFnExport int hpotceil(int value);
+hltypesFnExport int hpotCeil(int value);
 /// @brief Returns the next power-of-two value of the given number.
 /// @param[in] value the number to check.
 /// @return The next power-of-two value of the given number.
-hltypesFnExport int64_t hpotceil(int64_t value);
+hltypesFnExport int64_t hpotCeil(int64_t value);
 /// @brief Returns the previous power-of-two value of the given number.
 /// @param[in] value the number to check.
 /// @return The previous power-of-two value of the given number.
-hltypesFnExport int hpotfloor(int value);
+hltypesFnExport int hpotFloor(int value);
 /// @brief Returns the previous power-of-two value of the given number.
 /// @param[in] value the number to check.
 /// @return The previous power-of-two value of the given number.
-hltypesFnExport int64_t hpotfloor(int64_t value);
+hltypesFnExport int64_t hpotFloor(int64_t value);
 
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.

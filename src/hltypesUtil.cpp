@@ -428,7 +428,7 @@ int hcmpd(double a, double b, double tolerance)
 	return (heqd(a, b, tolerance) ? 0 : (a > b ? 1 : -1));
 }
 
-int hpotceil(int value)
+int hpotCeil(int value)
 {
 	--value;
 	value |= value >> 1;
@@ -440,7 +440,7 @@ int hpotceil(int value)
 	return value;
 }
 
-int64_t hpotceil(int64_t value)
+int64_t hpotCeil(int64_t value)
 {
 	--value;
 	value |= value >> 1;
@@ -453,9 +453,9 @@ int64_t hpotceil(int64_t value)
 	return value;
 }
 
-int hpotfloor(int value)
+int hpotFloor(int value)
 {
-	int result = hpotceil(value);
+	int result = hpotCeil(value);
 	if (value < result)
 	{
 		result >>= 1;
@@ -463,9 +463,9 @@ int hpotfloor(int value)
 	return result;
 }
 
-int64_t hpotfloor(int64_t value)
+int64_t hpotFloor(int64_t value)
 {
-	int64_t result = hpotceil(value);
+	int64_t result = hpotCeil(value);
 	if (value < result)
 	{
 		result >>= 1;

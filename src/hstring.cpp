@@ -169,6 +169,13 @@ namespace hltypes
 		return result;
 	}
 
+	String String::utf8Reversed() const
+	{
+		std::basic_string<unsigned int> result;
+		std::reverse(result.begin(), result.end());
+		return fromUnicode(result.c_str());
+	}
+
 	String String::trimmed(const char c) const
 	{
 		return this->trimmedLeft(c).trimmedRight(c);
@@ -411,6 +418,32 @@ namespace hltypes
 	{
 		String result(*this);
 		result.insertAt(position, character, times);
+		return result;
+	}
+
+	void String::randomize()
+	{
+		std::random_shuffle(stdstr::begin(), stdstr::end());
+	}
+
+	void String::utf8Randomize()
+	{
+		std::basic_string<unsigned int> ustr = this->uStr();
+		std::random_shuffle(ustr.begin(), ustr.end());
+		this->operator=(fromUnicode(ustr.c_str()));
+	}
+
+	String String::randomized() const
+	{
+		String result(*this);
+		result.randomize();
+		return result;
+	}
+
+	String String::utf8Randomized() const
+	{
+		String result(*this);
+		result.utf8Randomize();
 		return result;
 	}
 
@@ -888,16 +921,6 @@ namespace hltypes
 		return result;
 	}
 	
-	int String::length() const
-	{
-		return (int)stdstr::size();
-	}
-
-	int String::utf8Length() const
-	{
-		return this->utf8Size();
-	}
-
 	String String::toHex() const
 	{
 		String hex = "";
