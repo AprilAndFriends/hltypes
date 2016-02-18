@@ -659,32 +659,6 @@ namespace hltypes
 			return result;
 		}
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-		DEPRECATED_ATTRIBUTE inline K key_of(const V& value) const																{ return this->keyOf(value); }
-		DEPRECATED_ATTRIBUTE inline V value_of(const K& key) const																{ return this->valueOf(key); }
-		DEPRECATED_ATTRIBUTE inline bool has_key(const K& key) const															{ return this->hasKey(key); }
-		DEPRECATED_ATTRIBUTE inline bool has_keys(const Array<K>& keys) const													{ return this->hasAllKeys(keys); }
-		DEPRECATED_ATTRIBUTE inline bool has_keys(const K keys[], const int count) const										{ return this->hasAllKeys(keys, count); }
-		DEPRECATED_ATTRIBUTE inline bool has_value(const V& value) const														{ return this->hasValue(value); }
-		DEPRECATED_ATTRIBUTE inline bool has_values(const Array<V>& values) const												{ return this->hasAllValues(values); }
-		DEPRECATED_ATTRIBUTE inline bool has_values(const V values[], const int count) const									{ return this->hasAllValues(values, count); }
-		DEPRECATED_ATTRIBUTE inline bool remove_key(const K& key)																{ return this->removeKey(key); }
-		DEPRECATED_ATTRIBUTE inline int remove_keys(const Array<K>& keys)														{ return this->removeKeys(keys); }
-		DEPRECATED_ATTRIBUTE inline bool remove_value(const V& value)															{ return this->removeValue(value); }
-		DEPRECATED_ATTRIBUTE inline int remove_values(const Array<V>& values)													{ return this->removeValues(values); }
-		DEPRECATED_ATTRIBUTE inline K pop_random(V* value = NULL)																{ return this->removeRandom(value); }
-		DEPRECATED_ATTRIBUTE inline Map<K, V> pop_random(int count)																{ return this->removeRandom(count); }
-		DEPRECATED_ATTRIBUTE inline K remove_random(V* value = NULL)															{ return this->removeRandom(value); }
-		DEPRECATED_ATTRIBUTE inline Map<K, V> remove_random(const int count)													{ return this->removeRandom(count); }
-		DEPRECATED_ATTRIBUTE inline Map<K, V> find_all(bool(*conditionFunction)(K, V)) const									{ return this->findAll(conditionFunction); }
-		DEPRECATED_ATTRIBUTE inline bool matches_any(bool(*conditionFunction)(K, V)) const										{ return this->matchesAny(conditionFunction); }
-		DEPRECATED_ATTRIBUTE inline bool matches_all(bool(*conditionFunction)(K, V)) const										{ return this->matchesAll(conditionFunction); }
-		DEPRECATED_ATTRIBUTE inline V try_get_by_key(K key, V defaultValue) const												{ return this->tryGet(key, defaultValue); }
-		template <typename L, typename S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast(bool includeNulls = false) const		{ return this->dynamicCast<L, S>(includeNulls); }
-		template <typename L, typename S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast_key() const							{ return this->dynamicCastKeys<L, S>(); }
-		template <typename L, typename S> DEPRECATED_ATTRIBUTE inline Map<L, S> dyn_cast_value(bool includeNulls = false) const	{ return this->dynamicCastValues<L, S>(includeNulls); }
-#endif
-
 	};
 	
 }

@@ -96,11 +96,6 @@ namespace hltypes
 		/// @return The full error message with stack trace.
 		inline String getFullMessage() { return this->message + "\n" + this->stackTrace; }
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-		DEPRECATED_ATTRIBUTE inline String getErrorText() { return this->message; }
-		DEPRECATED_ATTRIBUTE inline String getErrorMessage() { return this->message; }
-#endif
-		
 	protected:
 		/// @brief Exception message.
 		String message;

@@ -818,67 +818,6 @@ namespace hltypes
 		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(Array<unsigned char> chars);
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-		// Potentially temp functionality, avoid
-		hltypesMemberExport void assign(const char* string, unsigned int length) { std::string::assign(string, length); }
-
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int find_first_of(const char c) const														{ return this->indexOfAny(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind_first_of(const char c) const														{ return this->rindexOfAny(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int find(const char c) const																{ return this->indexOf(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int find(const char* string) const															{ return this->indexOf(string); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int find(const std::string& string)														{ return this->indexOf(string.c_str()); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int find(const String& string)																{ return this->indexOf(string); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind(const char c) const																{ return this->rindexOf(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind(const char* string) const														{ return this->rindexOf(string); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind(const std::string& string)														{ return this->rindexOf(string.c_str()); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int rfind(const String& string)															{ return this->rindexOf(string); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool starts_with(const char* s) const														{ return this->startsWith(s); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool starts_with(const String& s) const													{ return this->startsWith(s); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool ends_with(const char* s) const														{ return this->endsWith(s); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool ends_with(const String& s) const														{ return this->endsWith(s); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String lower() const																		{ return this->lowered(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String upper() const																		{ return this->uppered(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String reverse() const																		{ return this->reversed(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool is_digit() const																		{ return this->isDigit(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool is_int() const																		{ return this->isInt(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool is_float(bool requireDot = true) const												{ return this->isFloat(requireDot); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool is_number() const																		{ return this->isNumber(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool is_hex() const																		{ return this->isHex(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String trim(const char c = ' ') const														{ return this->trimmed(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String ltrim(const char c = ' ') const														{ return this->trimmedLeft(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String rtrim(const char c = ' ') const														{ return this->trimmedRight(c); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool contains_any(const char* s) const														{ return this->containsAny(s); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool contains_any(const String& s) const													{ return this->containsAny(s); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool contains_all(const char* s) const														{ return this->containsAll(s); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool contains_all(const String& s) const													{ return this->containsAll(s); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String substr(int start, int count) const													{ return this->subString(start, count); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String utf8_substr(int start, int count) const												{ return this->utf8SubString(start, count); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int utf8_size() const																		{ return this->utf8Size(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int utf8_length() const																	{ return this->utf8Size(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int length() const																			{ return this->size(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport int utf8Length() const																		{ return this->utf8Size(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport bool is_ascii() const																		{ return this->isAscii(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String to_hex() const																		{ return this->isHex(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport const char* c_str() const																	{ return this->cStr(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport std::basic_string<unsigned int> u_str() const												{ return this->uStr(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport std::basic_string<wchar_t> w_str() const													{ return this->wStr(); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport unsigned int first_unicode_char(int index = 0, int* length = NULL) const					{ return this->firstUnicodeChar(index, length); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String replace(int position, int count, const String& string, int position2, int count2)	{ return this->replaced(position, count, string(position2, count2)); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport String replace(int position, int count, const char* string, int stringLength)				{ return this->replaced(position, count, String(string, stringLength)); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(unsigned int value)												{ return String::fromUnicode(value); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(wchar_t value)													{ return String::fromUnicode(value); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(const char value)												{ return String::fromUnicode(value); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(unsigned char value)											{ return String::fromUnicode(value); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(const unsigned int* string)										{ return String::fromUnicode(string); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(const wchar_t* string)											{ return String::fromUnicode(string); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(const char* string)												{ return String::fromUnicode(string); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(const unsigned char* string)									{ return String::fromUnicode(string); }
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(Array<unsigned int> chars);
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(Array<wchar_t> chars);
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(Array<char> chars);
-		DEPRECATED_ATTRIBUTE hltypesMemberExport static String from_unicode(Array<unsigned char> chars);
-#endif
-
 	};
 }
 

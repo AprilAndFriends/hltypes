@@ -96,11 +96,6 @@ namespace hltypes
 		/// @return Filename with the extension (with the prepended directory path).
 		static String withoutExtension(const String& path);
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-		DEPRECATED_ATTRIBUTE static String extension_of(const String& path) { return FileBase::extensionOf(path); }
-		DEPRECATED_ATTRIBUTE static String no_extension(const String& path) { return FileBase::withoutExtension(path); }
-#endif
-
 	protected:
 		/// @brief Current filename.
 		String filename;

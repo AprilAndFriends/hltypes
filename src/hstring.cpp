@@ -1607,8 +1607,3 @@ hltypes::String hsprintf(const char* format, ...)
 	va_end(args);
 	return result;
 }
-
-hltypes::String hltypes::String::from_unicode(hltypes::Array<unsigned int> chars)	{ return hltypes::String::fromUnicode(chars); } // DEPRECATED
-hltypes::String hltypes::String::from_unicode(hltypes::Array<wchar_t> chars)		{ return hltypes::String::fromUnicode(chars); } // DEPRECATED
-hltypes::String hltypes::String::from_unicode(hltypes::Array<char> chars)			{ return hltypes::String::fromUnicode(chars); } // DEPRECATED
-hltypes::String hltypes::String::from_unicode(hltypes::Array<unsigned char> chars)	{ return hltypes::String::fromUnicode(chars); } // DEPRECATED

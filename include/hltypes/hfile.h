@@ -103,13 +103,6 @@ namespace hltypes
 		/// @return File information provided by the OS.
 		static FileInfo hinfo(const String& filename);
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-		DEPRECATED_ATTRIBUTE File(const String& filename, AccessMode access_mode = READ);
-		DEPRECATED_ATTRIBUTE static bool create_new(const String& filename) { return File::createNew(filename); }
-		DEPRECATED_ATTRIBUTE static FileInfo get_info(const String& filename) { return File::hinfo(filename); }
-		DEPRECATED_ATTRIBUTE static int64_t hsize(const String& filename) { return File::hinfo(filename).size; } // use hinfo like this to get the size
-#endif
-
 	protected:
 		/// @brief Reads data from the stream.
 		/// @param[in] buffer Destination data buffer.

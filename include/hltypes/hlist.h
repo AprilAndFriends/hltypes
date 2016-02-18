@@ -458,42 +458,6 @@ namespace hltypes
 			return this->differentiated(other);
 		}
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-		DEPRECATED_ATTRIBUTE inline List<int> indexesOf(const T& element) const								{ return this->indicesOf(element); }
-		DEPRECATED_ATTRIBUTE inline List<int> indexes_of(const T& element) const							{ return this->indicesOf(element); }
-		DEPRECATED_ATTRIBUTE inline List<T> removed_duplicates() const										{ return this->removedDuplicates(); }
-		DEPRECATED_ATTRIBUTE inline T pop(int index)														{ return this->removeAt(index); }
-		DEPRECATED_ATTRIBUTE inline List<T> pop(int index, int count)										{ return this->removeAt(index, count); }
-		DEPRECATED_ATTRIBUTE inline T pop_at(int index)														{ return this->removeAt(index); }
-		DEPRECATED_ATTRIBUTE inline List<T> pop_at(int index, int count)									{ return this->removeAt(index, count); }
-		DEPRECATED_ATTRIBUTE inline T pop_front()															{ return this->removeFirst(); }
-		DEPRECATED_ATTRIBUTE inline List<T> pop_front(const int count)										{ return this->removeFirst(count); }
-		DEPRECATED_ATTRIBUTE inline T pop_first()															{ return this->removeFirst(); }
-		DEPRECATED_ATTRIBUTE inline List<T> pop_first(const int count)										{ return this->removeFirst(count); }
-		DEPRECATED_ATTRIBUTE inline T pop_back()															{ return this->removeLast(); }
-		DEPRECATED_ATTRIBUTE inline List<T> pop_back(const int count)										{ return this->removeLast(count); }
-		DEPRECATED_ATTRIBUTE inline T pop_last()															{ return this->removeLast(); }
-		DEPRECATED_ATTRIBUTE inline List<T> pop_last(const int count)										{ return this->removeLast(count); }
-		DEPRECATED_ATTRIBUTE inline T pop_all(T& element)													{ return this->removeAll(element); }
-		DEPRECATED_ATTRIBUTE inline List<T> pop_all(const List<T>& other)									{ return this->removeAll(other); }
-		DEPRECATED_ATTRIBUTE inline T remove_at(int index)													{ return this->removeAt(index); }
-		DEPRECATED_ATTRIBUTE inline List<T> remove_at(int index, int count)									{ return this->removeAt(index, count); }
-		DEPRECATED_ATTRIBUTE inline T remove_front()														{ return this->removeFirst(); }
-		DEPRECATED_ATTRIBUTE inline List<T> remove_front(const int count)									{ return this->removeFirst(count); }
-		DEPRECATED_ATTRIBUTE inline T remove_first()														{ return this->removeFirst(); }
-		DEPRECATED_ATTRIBUTE inline List<T> remove_first(const int count)									{ return this->removeFirst(count); }
-		DEPRECATED_ATTRIBUTE inline T remove_back()															{ return this->removeLast(); }
-		DEPRECATED_ATTRIBUTE inline List<T> remove_back(const int count)									{ return this->removeLast(count); }
-		DEPRECATED_ATTRIBUTE inline T remove_last()															{ return this->removeLast(); }
-		DEPRECATED_ATTRIBUTE inline List<T> remove_last(const int count)									{ return this->removeLast(count); }
-		DEPRECATED_ATTRIBUTE inline T pop_random()															{ return this->removeRandom(); }
-		DEPRECATED_ATTRIBUTE inline List<T> pop_random(int count, bool unique = false)						{ return this->removeRandom(count, unique); }
-		DEPRECATED_ATTRIBUTE inline T remove_random()														{ return this->removeRandom(); }
-		DEPRECATED_ATTRIBUTE inline List<T> remove_random(int count, bool unique = false)					{ return this->removeRandom(count, unique); }
-		DEPRECATED_ATTRIBUTE inline List<T> find_all(bool (*conditionFunction)(T)) const					{ return this->findAll(conditionFunction); }
-		template <typename S> DEPRECATED_ATTRIBUTE inline List<S> dyn_cast(bool includeNulls = false) const	{ return this->dynamicCast<S>(includeNulls); }
-#endif
-
 	};
 	
 }

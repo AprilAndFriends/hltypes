@@ -210,42 +210,6 @@ namespace hltypes
 		/// @return Loaded String.
 		virtual String loadString();
 		
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-		DEPRECATED_ATTRIBUTE inline bool is_open()											{ return this->isOpen(); }
-		DEPRECATED_ATTRIBUTE inline String read_line()										{ return this->readLine(); }
-		DEPRECATED_ATTRIBUTE inline Array<String> read_lines()								{ return this->readLines(); }
-		DEPRECATED_ATTRIBUTE inline void write_line(const String& text)						{ this->writeLine(text); }
-		DEPRECATED_ATTRIBUTE inline void write_line(const char* text)						{ this->writeLine(text); }
-		DEPRECATED_ATTRIBUTE inline int read_raw(void* buffer, int count)					{ return this->readRaw(buffer, count); }
-		DEPRECATED_ATTRIBUTE virtual inline int write_raw(void* buffer, int count)			{ return this->writeRaw(buffer, count); }
-		DEPRECATED_ATTRIBUTE virtual inline int write_raw(StreamBase& stream, int count)	{ return this->writeRaw(stream, count); }
-		DEPRECATED_ATTRIBUTE virtual inline int write_raw(StreamBase& stream)				{ return this->writeRaw(stream); }
-		DEPRECATED_ATTRIBUTE virtual inline int write_raw(Stream& stream, int count)		{ return this->writeRaw(stream, count); }
-		DEPRECATED_ATTRIBUTE virtual inline int write_raw(Stream& stream)					{ return this->writeRaw(stream); }
-
-		DEPRECATED_ATTRIBUTE virtual inline char load_char()				{ return this->loadInt8(); }
-		DEPRECATED_ATTRIBUTE virtual inline unsigned char load_uchar()		{ return this->loadUint8(); }
-		DEPRECATED_ATTRIBUTE virtual inline char load_int8()				{ return this->loadInt8(); }
-		DEPRECATED_ATTRIBUTE virtual inline unsigned char load_uint8()		{ return this->loadUint8(); }
-		DEPRECATED_ATTRIBUTE virtual inline short load_short()				{ return this->loadInt16(); }
-		DEPRECATED_ATTRIBUTE virtual inline unsigned short load_ushort()	{ return this->loadUint16(); }
-		DEPRECATED_ATTRIBUTE virtual inline short load_int16()				{ return this->loadInt16(); }
-		DEPRECATED_ATTRIBUTE virtual inline unsigned short load_uint16()	{ return this->loadUint16(); }
-		DEPRECATED_ATTRIBUTE virtual inline int load_int()					{ return this->loadInt32(); }
-		DEPRECATED_ATTRIBUTE virtual inline unsigned int load_uint()		{ return this->loadUint32(); }
-		DEPRECATED_ATTRIBUTE virtual inline int load_int32()				{ return this->loadInt32(); }
-		DEPRECATED_ATTRIBUTE virtual inline unsigned int load_uint32()		{ return this->loadUint32(); }
-		DEPRECATED_ATTRIBUTE virtual inline int64_t load_long()				{ return this->loadInt64(); }
-		DEPRECATED_ATTRIBUTE virtual inline uint64_t load_ulong()			{ return this->loadUint64(); }
-		DEPRECATED_ATTRIBUTE virtual inline int64_t load_int64()			{ return this->loadInt64(); }
-		DEPRECATED_ATTRIBUTE virtual inline uint64_t load_uint64()			{ return this->loadUint64(); }
-		DEPRECATED_ATTRIBUTE virtual inline float load_float()				{ return this->loadFloat(); }
-		DEPRECATED_ATTRIBUTE virtual inline double load_double()			{ return this->loadDouble(); }
-		DEPRECATED_ATTRIBUTE virtual inline bool load_bool()				{ return this->loadBool(); }
-		DEPRECATED_ATTRIBUTE virtual inline String load_hstr()				{ return this->loadString(); }
-		DEPRECATED_ATTRIBUTE virtual inline String load_string()			{ return this->loadString(); }
-#endif
-
 	protected:
 		/// @brief Data size, mostly used for optimization and faster "eof" detection.
 		int64_t dataSize;

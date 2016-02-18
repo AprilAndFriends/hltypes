@@ -78,12 +78,6 @@ namespace hltypes
 		/// @return True if compiled with ZIP support.
 		static bool hasZip();
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-		DEPRECATED_ATTRIBUTE Resource(const String& filename);
-		DEPRECATED_ATTRIBUTE static FileInfo get_info(const String& filename) { return Resource::hinfo(filename); }
-		DEPRECATED_ATTRIBUTE static int64_t hsize(const String& filename) { return Resource::hinfo(filename).size; } // use hinfo like this to get the size
-#endif
-
 	protected:
 		/// @brief Data position;
 		int64_t dataPosition;
