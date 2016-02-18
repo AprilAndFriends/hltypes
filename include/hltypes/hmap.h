@@ -26,10 +26,11 @@
 #define foreach_m(type, name, container) for (hltypes::Map< hltypes::String, type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to iterate through a Map with String as key.
 #define foreachc_m(type, name, container) for (hltypes::Map< hltypes::String, type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
-/// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #define __foreach_this_map_it(name) for (const_iterator_t name = this->begin(); name != this->end(); ++name)
-/// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
 #define __foreach_other_map_it(name, other) for (const_iterator_t name = other.begin(); name != other.end(); ++name)
+#endif
 
 namespace hltypes
 {
@@ -639,7 +640,8 @@ namespace hltypes
 		/// @return Value stored at key or given default value.
 		inline V tryGet(K key, V defaultValue) const
 		{
-			return (this->hasKey(key) ? std::map<K, V>::find(key)->second : defaultValue);
+			const_iterator_t value = std::map<K, V>::find(key);
+			return (value != std::map<K, V>::end() ? value->second : defaultValue);
 		}
 		/// @brief Same as insert.
 		/// @see insert(const Map<K, V>& other)
@@ -665,5 +667,10 @@ namespace hltypes
 
 /// @brief Alias for simpler code.
 #define hmap hltypes::Map
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+#undef __foreach_this_map_it
+#undef __foreach_other_map_it
+#endif
 
 #endif
