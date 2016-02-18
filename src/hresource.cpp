@@ -49,12 +49,6 @@ namespace hltypes
 #endif
 	}
 
-	Resource::Resource(const String& filename) : FileBase(filename), dataPosition(0), archiveFile(NULL)
-	{
-		hlog::warnf(logTag, "Opening file '%s' in hresource constructor is deprecated and unsafe! Use hresource::open() instead.", filename.cStr());
-		this->open(this->filename);
-	}
-	
 	Resource::Resource() : FileBase(), dataPosition(0), archiveFile(NULL)
 	{
 	}
