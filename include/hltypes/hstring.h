@@ -818,6 +818,14 @@ namespace hltypes
 		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(Array<unsigned char> chars);
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+#ifndef _WINRT // needs this, because WinRT cannot compile if deprecation is present
+		DEPRECATED_ATTRIBUTE hltypesMemberExport void assign(const char* string, unsigned int length) { std::string::assign(string, length); }
+#else
+		hltypesMemberExport void assign(const char* string, unsigned int length) { std::string::assign(string, length); }
+#endif
+#endif
+
 	};
 }
 
