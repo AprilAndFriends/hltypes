@@ -103,7 +103,7 @@ namespace hlxml
 				throw XMLException("No root node found in XML file '" + this->filename + "'!", NULL);
 			}
 			this->rootNode = this->_node(tinyXmlNode);
-			if (type != "" && *this->rootNode != type)
+			if (type != "" && this->rootNode->value != type)
 			{
 				throw XMLException("Root node type is not '" + type + "' in XML file '" + this->filename + "'!", NULL);
 			}

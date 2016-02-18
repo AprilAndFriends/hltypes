@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.0
+/// @version 4.0
 /// 
 /// @section LICENSE
 /// 
@@ -16,10 +16,10 @@
 #include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
 
+#include "Exception.h"
 #include "hlxmlExport.h"
 
 class TiXmlNode;
-class TiXmlAttribute;
 
 /// @brief Provides a simpler syntax to iterate through the nodes of a document.
 #define foreach_xmlnode(nodeName, rootName) for (hlxml::Node* nodeName = rootName->iterChildren(); nodeName != NULL; nodeName = nodeName->next())
@@ -27,14 +27,12 @@ class TiXmlAttribute;
 namespace hlxml
 {
 	class Document;
-	class Property;
 
 	/// @brief Represents an XML node.
 	class hlxmlExport Node
 	{
 	public:
 		friend class Document;
-		friend class Property;
 
 		/// @brief Type of the Node.
 		enum Type
@@ -47,17 +45,17 @@ namespace hlxml
 			TYPE_TEXT
 		};
 
-		/// @brief Destructor.
-		~Node();
+		/// @brief Value of the Node.
+		hstr value;
+		/// @brief Type of the Node.
+		Type type;
+		/// @brief Properties within the Node.
+		hmap<hstr, hstr> properties;
 
 		/// @brief Gets the filename of the Document to which this Node belongs to.
 		hstr getFilename();
 		/// @brief Gets the line where the Node is located in the Document.
 		int getLine();
-		/// @brief Gets the type of the Node.
-		Type getType();
-		/// @brief Gets the value of the Node.
-		hstr getValue();
 		/// @brief Gets the child count.
 		int getChildCount();
 
@@ -65,48 +63,91 @@ namespace hlxml
 		/// @param[in] propertyName Name of the property.
 		/// @return Bool value of the property.
 		/// @note Throws an exception if not found.
-		bool pbool(chstr propertyName);
+		inline bool pbool(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (bool)this->properties[propertyName];
+		}
 		/// @brief Gets a given property value as bool.
 		/// @param[in] propertyName Name of the property.
 		/// @param[in] defaultValue Default value to return if property does not exist.
 		/// @return Bool value of the property.
-		bool pbool(chstr propertyName, bool defaultValue);
+		inline bool pbool(chstr propertyName, bool defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (bool)this->properties[propertyName] : defaultValue);
+		}
 		/// @brief Gets a given property value as int.
 		/// @param[in] propertyName Name of the property.
 		/// @return Int value of the property.
 		/// @note Throws an exception if not found.
-		int pint(chstr propertyName);
+		inline int pint(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (int)this->properties[propertyName];
+		}
 		/// @brief Gets a given property value as int.
 		/// @param[in] propertyName Name of the property.
 		/// @param[in] defaultValue Default value to return if property does not exist.
 		/// @return Int value of the property.
-		int pint(chstr propertyName, int defaultValue);
+		inline int pint(chstr propertyName, int defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (int)this->properties[propertyName] : defaultValue);
+		}
 		/// @brief Gets a given property value as float.
 		/// @param[in] propertyName Name of the property.
 		/// @return Float value of the property.
 		/// @note Throws an exception if not found.
-		float pfloat(chstr propertyName);
+		inline float pfloat(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (float)this->properties[propertyName];
+		}
 		/// @brief Gets a given property value as float.
 		/// @param[in] propertyName Name of the property.
 		/// @param[in] defaultValue Default value to return if property does not exist.
 		/// @return Float value of the property.
-		float pfloat(chstr propertyName, float defaultValue);
+		inline float pfloat(chstr propertyName, float defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (float)this->properties[propertyName] : defaultValue);
+		}
 		/// @brief Gets a given property value as String.
 		/// @param[in] propertyName Name of the property.
 		/// @return String value of the property.
 		/// @note Throws an exception if not found.
-		hstr pstr(chstr propertyName);
+		inline hstr pstr(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return this->properties[propertyName];
+		}
 		/// @brief Gets a given property value as String.
 		/// @param[in] propertyName Name of the property.
 		/// @param[in] defaultValue Default value to return if property does not exist.
 		/// @return String value of the property.
-		hstr pstr(chstr propertyName, chstr defaultValue);
-		
+		inline hstr pstr(chstr propertyName, chstr defaultValue)
+		{
+			return this->properties.tryGet(propertyName, defaultValue);
+		}
+
 		/// @brief Checks if a property exists.
 		/// @param[in] propertyName Name of the property to check.
 		/// @return True if the property exists.
-		bool pexists(chstr propertyName);
-		
+		inline bool pexists(chstr propertyName)
+		{
+			return this->properties.hasKey(propertyName);
+		}
+
 		/// @brief Gets the next sibling Node in the current iteration.
 		/// @return The next sibling Node of this Node or NULL if this is the last one.
 		/// @note Use this only if you called iterChildren() on this Node's parent previously to continue the iteration.
@@ -115,26 +156,12 @@ namespace hlxml
 		/// @brief Starts an iteration over all child Nodes.
 		/// @return The first child Node of this Node.
 		Node* iterChildren();
-		/// @brief Starts an iteration over all properties.
-		/// @return The first Property of this Node.
-		Property* iterProperties();
 
-		/// @brief Checks whether Node's name corresponds to a given name.
-		bool operator==(const char* name);
-		/// @brief Checks whether Node's name corresponds to a given name.
-		bool operator!=(const char* name);
-		/// @brief Checks whether Node's name corresponds to a given name.
-		bool operator==(chstr name);
-		/// @brief Checks whether Node's name corresponds to a given name.
-		bool operator!=(chstr name);
-		
 	protected:
 		/// @brief The document this Node belongs to.
 		Document* document;
 		/// @brief The Node of the underlying system.
 		TiXmlNode* node;
-		/// @brief All properties.
-		hmap<TiXmlAttribute*, Property*> props;
 		/// @brief Contains the child count.
 		int childCount;
 
@@ -142,16 +169,6 @@ namespace hlxml
 		/// @param[in] document The document this Node belongs to.
 		/// @param[in] Node The TinyXML Node.
 		Node(Document* document, TiXmlNode* node);
-
-		/// @brief Gets the Property associated with the TinyXML atrribute.
-		/// @param[in] prop The TinyXML atrribute.
-		/// @return The Property associated with the TinyXML atrribute.
-		Property* _prop(TiXmlAttribute* prop);
-		/// @brief Gets the value (as C-string) for a Property name.
-		/// @param[in] propertyName Name of the Property.
-		/// @param[in] ignoreError Whether to ignore any errors.
-		/// @return The value (as C-string) for a property name.
-		const char* _findProperty(chstr propertyName, bool ignoreError = false);
 
 	};
 

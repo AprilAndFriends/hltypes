@@ -53,14 +53,12 @@
     <ClCompile Include="..\..\src\Document.cpp" />
     <ClCompile Include="..\..\src\Exception.cpp" />
     <ClCompile Include="..\..\src\Node.cpp" />
-    <ClCompile Include="..\..\src\Property.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\hlxml\Document.h" />
     <ClInclude Include="..\..\include\hlxml\Exception.h" />
     <ClInclude Include="..\..\include\hlxml\hlxmlExport.h" />
     <ClInclude Include="..\..\include\hlxml\Node.h" />
-    <ClInclude Include="..\..\include\hlxml\Property.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\fileproperties.rc">
