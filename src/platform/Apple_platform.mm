@@ -45,7 +45,7 @@ namespace hltypes
 			
 			if (tag != "")
 			{
-				int i, len = tag.length(), r, g, b;
+				int i, len = tag.size(), r, g, b;
 				unsigned int x = 0;
 				const char* s = tag.cStr();
 				for (i = 0; i < len; i++)
