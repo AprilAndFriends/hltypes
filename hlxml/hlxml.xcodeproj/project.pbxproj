@@ -12,20 +12,16 @@
 		D1981C28140F80960057C3AF /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7A140E593900499A97 /* Document.cpp */; };
 		D1981C29140F80960057C3AF /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
 		D1981C2A140F80960057C3AF /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7C140E593900499A97 /* Node.cpp */; };
-		D1981C2B140F80960057C3AF /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7D140E593900499A97 /* Property.cpp */; };
 		D1E1DD7E140E593900499A97 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7A140E593900499A97 /* Document.cpp */; };
 		D1E1DD7F140E593900499A97 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
 		D1E1DD80140E593900499A97 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7C140E593900499A97 /* Node.cpp */; };
-		D1E1DD81140E593900499A97 /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7D140E593900499A97 /* Property.cpp */; };
 		D1E1DD87140E594B00499A97 /* Document.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD82140E594B00499A97 /* Document.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD88140E594B00499A97 /* Exception.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD83140E594B00499A97 /* Exception.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD89140E594B00499A97 /* hlxmlExport.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD84140E594B00499A97 /* hlxmlExport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E1DD8A140E594B00499A97 /* Node.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD85140E594B00499A97 /* Node.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D1E1DD8B140E594C00499A97 /* Property.h in Headers */ = {isa = PBXBuildFile; fileRef = D1E1DD86140E594B00499A97 /* Property.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1F27AB2177A2D3C00E5C131 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7A140E593900499A97 /* Document.cpp */; };
 		D1F27AB3177A2D3C00E5C131 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7B140E593900499A97 /* Exception.cpp */; };
 		D1F27AB4177A2D3C00E5C131 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7C140E593900499A97 /* Node.cpp */; };
-		D1F27AB5177A2D3C00E5C131 /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DD7D140E593900499A97 /* Property.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,12 +35,10 @@
 		D1E1DD7A140E593900499A97 /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = src/Document.cpp; sourceTree = "<group>"; };
 		D1E1DD7B140E593900499A97 /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Exception.cpp; path = src/Exception.cpp; sourceTree = "<group>"; };
 		D1E1DD7C140E593900499A97 /* Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = src/Node.cpp; sourceTree = "<group>"; };
-		D1E1DD7D140E593900499A97 /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Property.cpp; path = src/Property.cpp; sourceTree = "<group>"; };
 		D1E1DD82140E594B00499A97 /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Document.h; path = include/hlxml/Document.h; sourceTree = "<group>"; };
 		D1E1DD83140E594B00499A97 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Exception.h; path = include/hlxml/Exception.h; sourceTree = "<group>"; };
 		D1E1DD84140E594B00499A97 /* hlxmlExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hlxmlExport.h; path = include/hlxml/hlxmlExport.h; sourceTree = "<group>"; };
 		D1E1DD85140E594B00499A97 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = include/hlxml/Node.h; sourceTree = "<group>"; };
-		D1E1DD86140E594B00499A97 /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Property.h; path = include/hlxml/Property.h; sourceTree = "<group>"; };
 		D1F27ABF177A2D3C00E5C131 /* libhlxml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhlxml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -89,7 +83,6 @@
 				D1E1DD7A140E593900499A97 /* Document.cpp */,
 				D1E1DD7B140E593900499A97 /* Exception.cpp */,
 				D1E1DD7C140E593900499A97 /* Node.cpp */,
-				D1E1DD7D140E593900499A97 /* Property.cpp */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -101,7 +94,6 @@
 				D1E1DD83140E594B00499A97 /* Exception.h */,
 				D1E1DD84140E594B00499A97 /* hlxmlExport.h */,
 				D1E1DD85140E594B00499A97 /* Node.h */,
-				D1E1DD86140E594B00499A97 /* Property.h */,
 			);
 			name = include;
 			sourceTree = "<group>";
@@ -136,7 +128,6 @@
 				D1E1DD88140E594B00499A97 /* Exception.h in Headers */,
 				D1E1DD89140E594B00499A97 /* hlxmlExport.h in Headers */,
 				D1E1DD8A140E594B00499A97 /* Node.h in Headers */,
-				D1E1DD8B140E594C00499A97 /* Property.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,7 +220,6 @@
 				D1E1DD7E140E593900499A97 /* Document.cpp in Sources */,
 				D1E1DD7F140E593900499A97 /* Exception.cpp in Sources */,
 				D1E1DD80140E593900499A97 /* Node.cpp in Sources */,
-				D1E1DD81140E593900499A97 /* Property.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +230,6 @@
 				D1981C28140F80960057C3AF /* Document.cpp in Sources */,
 				D1981C29140F80960057C3AF /* Exception.cpp in Sources */,
 				D1981C2A140F80960057C3AF /* Node.cpp in Sources */,
-				D1981C2B140F80960057C3AF /* Property.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +240,6 @@
 				D1F27AB2177A2D3C00E5C131 /* Document.cpp in Sources */,
 				D1F27AB3177A2D3C00E5C131 /* Exception.cpp in Sources */,
 				D1F27AB4177A2D3C00E5C131 /* Node.cpp in Sources */,
-				D1F27AB5177A2D3C00E5C131 /* Property.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
