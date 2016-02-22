@@ -854,7 +854,7 @@ namespace hltypes
 #ifdef _DEBUG
 		if (string[i] == 0 && count > 0)
 		{
-			Log::warn(logTag, "Parameter 'start' in utf8_substr() is after end of string: " + *this);
+			Log::warn(logTag, "Parameter 'start' in utf8SubString() is after end of string: " + *this);
 		}
 #endif
 		int startSize = i;
@@ -882,7 +882,7 @@ namespace hltypes
 #ifdef _DEBUG
 		if (size < count)
 		{
-			Log::warn(logTag, "Parameter 'count' in utf8_substr() is out of bounds in string: " + *this);
+			Log::warn(logTag, "Parameter 'count' in utf8SubString() is out of bounds in string: " + *this);
 		}
 #endif
 		return String((char*)&string[startSize], i - startSize);
@@ -923,7 +923,7 @@ namespace hltypes
 	
 	String String::toHex() const
 	{
-		String hex = "";
+		String hex;
 		for_iter (i, 0, this->size())
 		{
 			hex += hsprintf("%02X", stdstr::at(i));

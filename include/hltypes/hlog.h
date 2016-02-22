@@ -81,11 +81,11 @@ namespace hltypes
 		/// @brief Gets the callback function that is called after logging.
 		/// @return The callback function that is called after logging.
 		/// @note The callback can be called from different threads, but will be thread-safe.
-		static inline void (*getCallbackFunction())(const String&, const String&) { return callbackFunction; }
+		static void (*getCallbackFunction())(const String&, const String&);
 		/// @brief Sets the callback function that is called after logging.
 		/// @param[in] function Callback function.
 		/// @note The callback can be called from different threads, but will be thread-safe.
-		static inline void setCallbackFunction(void (*function)(const String&, const String&)) { callbackFunction = function; }
+		static void setCallbackFunction(void (*function)(const String&, const String&));
 
 		/// @brief Logs a message on the log level Write.
 		/// @param[in] tag The message tag.
@@ -140,7 +140,7 @@ namespace hltypes
 		/// @brief Filename for logging to files.
 		static String filename;
 		/// @brief Callback function for logging.
-		static void(*callbackFunction)(const String&, const String&);
+		static void (*callbackFunction)(const String&, const String&);
 		/// @brief Mutex to ensure thread-safe handling
 		static Mutex mutex;
 		/// @brief Used for segmented Win32 log files.

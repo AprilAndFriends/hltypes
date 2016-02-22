@@ -120,6 +120,18 @@ namespace hltypes
 		}
 #endif
 	}
+
+	void (*Log::getCallbackFunction())(const String&, const String&)
+	{
+		hmutex::ScopeLock lock(&Log::mutex);
+		return Log::callbackFunction;
+	}
+	
+	void Log::setCallbackFunction(void(*function)(const String&, const String&))
+	{
+		hmutex::ScopeLock lock(&Log::mutex);
+		Log::callbackFunction = function;
+	}
 	
 	bool Log::_systemLog(const String& tag, const String& message, int level) // level is needed for Android
 	{
