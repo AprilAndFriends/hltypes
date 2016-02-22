@@ -149,6 +149,9 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:a3a1007facb97737a8d891ea6e7fe6d56"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_log.html#a3a1007facb97737a8d891ea6e7fe6d56">LevelDebug</a></td></tr>
 <tr class="memdesc:a3a1007facb97737a8d891ea6e7fe6d56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Level Debug value.  <a href="#a3a1007facb97737a8d891ea6e7fe6d56">More...</a><br /></td></tr>
 <tr class="separator:a3a1007facb97737a8d891ea6e7fe6d56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc496c36d792cdfd70bd670cf415af5e"><td class="memItemLeft" align="right" valign="top">static void(*)(const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;, const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_log.html#afc496c36d792cdfd70bd670cf415af5e">getCallbackFunction</a> ()</td></tr>
+<tr class="memdesc:afc496c36d792cdfd70bd670cf415af5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the callback function that is called after logging.  <a href="#afc496c36d792cdfd70bd670cf415af5e">More...</a><br /></td></tr>
+<tr class="separator:afc496c36d792cdfd70bd670cf415af5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -667,7 +670,7 @@ static <a class="el" href="classhltypes_1_1_string.html">String</a>&#160;</td><t
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The callback is called in a thread-safe manner. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The callback can be called from different threads, but will be thread-safe. </dd></dl>
 
 </div>
 </div>
@@ -1108,6 +1111,30 @@ static <a class="el" href="classhltypes_1_1_string.html">String</a>&#160;</td><t
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="afc496c36d792cdfd70bd670cf415af5e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(*)(const <a class="el" href="classhltypes_1_1_string.html">String</a>&amp;, const <a class="el" href="classhltypes_1_1_string.html">String</a>&amp;) hltypes::Log::getCallbackFunction()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the callback function that is called after logging. </p>
+<dl class="section return"><dt>Returns</dt><dd>The callback function that is called after logging. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The callback can be called from different threads, but will be thread-safe. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a3a1007facb97737a8d891ea6e7fe6d56"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1206,7 +1233,7 @@ static <a class="el" href="classhltypes_1_1_string.html">String</a>&#160;</td><t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 17 2016 14:14:53 for C++ High Level Types by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 22 2016 10:00:53 for C++ High Level Types by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

@@ -78,9 +78,13 @@ namespace hltypes
 		/// @param[in] clearFile Set to true if file should be cleared.
 		/// @note If filename is an empty String, the no dumping will be used.
 		static void setFilename(const String& filename, bool clearFile = true);
+		/// @brief Gets the callback function that is called after logging.
+		/// @return The callback function that is called after logging.
+		/// @note The callback can be called from different threads, but will be thread-safe.
+		static inline void (*getCallbackFunction())(const String&, const String&) { return callbackFunction; }
 		/// @brief Sets the callback function that is called after logging.
 		/// @param[in] function Callback function.
-		/// @note The callback is called in a thread-safe manner.
+		/// @note The callback can be called from different threads, but will be thread-safe.
 		static inline void setCallbackFunction(void (*function)(const String&, const String&)) { callbackFunction = function; }
 
 		/// @brief Logs a message on the log level Write.
