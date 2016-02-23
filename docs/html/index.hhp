@@ -13,6 +13,7 @@ main="C++ High Level Types","index.hhc","index.hhk","index.html","index.html",,,
 
 [FILES]
 harray_8h_source.html
+hclipboard_8h_source.html
 hcontainer_8h_source.html
 hdbase_8h_source.html
 hdeque_8h_source.html
@@ -36,6 +37,7 @@ hstring_8h_source.html
 hthread_8h_source.html
 hversion_8h_source.html
 harray_8h.html
+hclipboard_8h.html
 hcontainer_8h.html
 hdbase_8h.html
 hdeque_8h.html
@@ -90,6 +92,8 @@ classhltypes_1_1___resource_not_exists_exception.html
 classhltypes_1_1___resource_not_exists_exception-members.html
 classhltypes_1_1_array.html
 classhltypes_1_1_array-members.html
+classhltypes_1_1_clipboard.html
+classhltypes_1_1_clipboard-members.html
 classhltypes_1_1_container.html
 classhltypes_1_1_container-members.html
 classhltypes_1_1_deque.html

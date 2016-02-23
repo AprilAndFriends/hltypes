@@ -171,6 +171,11 @@
         <LI><OBJECT type="text/sitemap"><param name="Name" value="united"><param name="Local" value="classhltypes_1_1_array.html#afa7d840110211c0804c7b20c21b0f2bf"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="united"><param name="Local" value="classhltypes_1_1_array.html#acfcf0637d13c073923b07753d83df496"><param name="ImageNumber" value="11"></OBJECT>
         </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="Clipboard"><param name="Local" value="classhltypes_1_1_clipboard.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Clipboard"><param name="Local" value="classhltypes_1_1_clipboard.html#ab6ca439d81034d88ac281895cb227546"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="~Clipboard"><param name="Local" value="classhltypes_1_1_clipboard.html#ad78ec257671a8f75ba3115144cd0451f"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
       <LI><OBJECT type="text/sitemap"><param name="Name" value="Container"><param name="Local" value="classhltypes_1_1_container.html"><param name="ImageNumber" value="1"></OBJECT>
         <UL>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="const_iterator_t"><param name="Local" value="classhltypes_1_1_container.html#a583e0d381976e925905c1d6c29fb761c"><param name="ImageNumber" value="11"></OBJECT>
@@ -953,6 +958,7 @@
       <UL>
       <LI><OBJECT type="text/sitemap"><param name="Name" value="hltypes::String"><param name="Local" value="classhltypes_1_1_string.html"><param name="ImageNumber" value="11"></OBJECT>
       </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="hltypes::Clipboard"><param name="Local" value="classhltypes_1_1_clipboard.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="deque"><param name="ImageNumber" value="1"></OBJECT>
       <UL>
       <LI><OBJECT type="text/sitemap"><param name="Name" value="hltypes::Container&lt; std::deque&lt; T &gt;, T &gt;"><param name="Local" value="classhltypes_1_1_container.html"><param name="ImageNumber" value="1"></OBJECT>
@@ -1153,6 +1159,15 @@
           <LI><OBJECT type="text/sitemap"><param name="Name" value="foreachc"><param name="Local" value="harray_8h.html#aa3b22de44a39eda390e0d7ec82384d64"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="foreachc_r"><param name="Local" value="harray_8h.html#a68bf3d85fe7e8dbe94637cfe35a7708d"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="harray"><param name="Local" value="harray_8h.html#a4179f1cf955e986b6634c5cf5488b0a2"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="hclipboard.h"><param name="Local" value="hclipboard_8h.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="Clipboard"><param name="Local" value="classhltypes_1_1_clipboard.html"><param name="ImageNumber" value="1"></OBJECT>
+            <UL>
+            <LI><OBJECT type="text/sitemap"><param name="Name" value="Clipboard"><param name="Local" value="classhltypes_1_1_clipboard.html#ab6ca439d81034d88ac281895cb227546"><param name="ImageNumber" value="11"></OBJECT>
+            <LI><OBJECT type="text/sitemap"><param name="Name" value="~Clipboard"><param name="Local" value="classhltypes_1_1_clipboard.html#ad78ec257671a8f75ba3115144cd0451f"><param name="ImageNumber" value="11"></OBJECT>
+            </UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="hclipboard"><param name="Local" value="hclipboard_8h.html#a13fb5b18a2125f2de685864a901939fc"><param name="ImageNumber" value="11"></OBJECT>
           </UL>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="hcontainer.h"><param name="Local" value="hcontainer_8h.html"><param name="ImageNumber" value="11"></OBJECT>
           <UL>
