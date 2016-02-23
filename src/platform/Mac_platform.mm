@@ -7,6 +7,7 @@
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
 #if defined(__APPLE__) && defined(_MAC)
+#import <AppKit/Appkit.h>
 #import <Foundation/Foundation.h>
 
 #include "hplatform.h"

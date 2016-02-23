@@ -24,6 +24,11 @@
 		B43262921C21686800F9DDDF /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
 		B43262931C21686900F9DDDF /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
 		B43262941C21686A00F9DDDF /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
+		B44A3E7F1C7C738100F42C49 /* hclipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */; };
+		B44A3E801C7C738400F42C49 /* hclipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */; };
+		B44A3E811C7C738400F42C49 /* hclipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */; };
+		B44A3E821C7C738400F42C49 /* hclipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */; };
+		B44A3E841C7C739E00F42C49 /* hclipboard.h in Headers */ = {isa = PBXBuildFile; fileRef = B44A3E831C7C739E00F42C49 /* hclipboard.h */; };
 		C965F5BB14F3897B009F0EE5 /* hresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C965F5BA14F3897B009F0EE5 /* hresource.cpp */; };
 		C965F5BC14F3897B009F0EE5 /* hresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C965F5BA14F3897B009F0EE5 /* hresource.cpp */; };
 		C965F5BE14F38988009F0EE5 /* hresource.h in Headers */ = {isa = PBXBuildFile; fileRef = C965F5BD14F38988009F0EE5 /* hresource.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -144,6 +149,8 @@
 		8DC2EF5B0486A6940098B216 /* hltypes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hltypes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B432628E1C21686200F9DDDF /* platform_internal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform_internal.cpp; path = src/platform_internal.cpp; sourceTree = "<group>"; };
 		B432628F1C21686200F9DDDF /* platform_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform_internal.h; path = src/platform_internal.h; sourceTree = "<group>"; };
+		B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hclipboard.cpp; path = src/hclipboard.cpp; sourceTree = "<group>"; };
+		B44A3E831C7C739E00F42C49 /* hclipboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hclipboard.h; path = include/hltypes/hclipboard.h; sourceTree = "<group>"; };
 		C965F5BA14F3897B009F0EE5 /* hresource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hresource.cpp; path = src/hresource.cpp; sourceTree = "<group>"; };
 		C965F5BD14F38988009F0EE5 /* hresource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hresource.h; path = include/hltypes/hresource.h; sourceTree = "<group>"; };
 		C981D01B14FFC5FE0032F321 /* hfbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hfbase.cpp; path = src/hfbase.cpp; sourceTree = "<group>"; };
@@ -251,6 +258,7 @@
 		7F42F69511EB0B8500B1C1DF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */,
 				D1E909F0163693A500EB27EE /* platform */,
 				B432628F1C21686200F9DDDF /* platform_internal.h */,
 				D1BAE103183B921400BC2434 /* zipaccess.h */,
@@ -281,6 +289,7 @@
 		7F42F69C11EB0B9A00B1C1DF /* include */ = {
 			isa = PBXGroup;
 			children = (
+				B44A3E831C7C739E00F42C49 /* hclipboard.h */,
 				D1DC28F31B972E7900DBEB75 /* henum.h */,
 				D1D63AE61AA9979D00F72096 /* hcontainer.h */,
 				D1D63AE71AA9979D00F72096 /* hversion.h */,
@@ -385,6 +394,7 @@
 				7FAB235A1291378A0035EDF5 /* hmutex.h in Headers */,
 				D15CF10C1A52B131004F8DDC /* hexception.h in Headers */,
 				C981D02014FFC6270032F321 /* hfbase.h in Headers */,
+				B44A3E841C7C739E00F42C49 /* hclipboard.h in Headers */,
 				D1BAE104183B921400BC2434 /* zipaccess.h in Headers */,
 				D115F7C714AD4FB400C78558 /* hsbase.h in Headers */,
 				D1DC28F41B972E7900DBEB75 /* henum.h in Headers */,
@@ -519,6 +529,7 @@
 				D115F7C314AD4FA600C78558 /* hstream.cpp in Sources */,
 				D15CF10E1A52B14E004F8DDC /* hexception.cpp in Sources */,
 				D11D1EA419E6A8E900C630FA /* hsemaphore.cpp in Sources */,
+				B44A3E7F1C7C738100F42C49 /* hclipboard.cpp in Sources */,
 				D1D63AE21AA9978B00F72096 /* hversion.cpp in Sources */,
 				C9F9314014DA88B400954F90 /* hltypesUtil.cpp in Sources */,
 				C965F5BB14F3897B009F0EE5 /* hresource.cpp in Sources */,
@@ -539,6 +550,7 @@
 				D1155B1F1A29DC4C0048B67C /* testFile.cpp in Sources */,
 				B43262941C21686A00F9DDDF /* platform_internal.cpp in Sources */,
 				D1155B1D1A29DC4C0048B67C /* testDeque.cpp in Sources */,
+				B44A3E821C7C738400F42C49 /* hclipboard.cpp in Sources */,
 				D1155B221A29DC4C0048B67C /* testStream.cpp in Sources */,
 				D1155B251A29DC4C0048B67C /* testUtil.cpp in Sources */,
 				D1155B1C1A29DC4C0048B67C /* testArray.cpp in Sources */,
@@ -566,6 +578,7 @@
 				D1981C18140F7F5C0057C3AF /* hfile.cpp in Sources */,
 				D15CF1101A52B14E004F8DDC /* hexception.cpp in Sources */,
 				D11D1EA519E6A8EE00C630FA /* hsemaphore.cpp in Sources */,
+				B44A3E811C7C738400F42C49 /* hclipboard.cpp in Sources */,
 				D1D63AE41AA9978B00F72096 /* hversion.cpp in Sources */,
 				D1981C19140F7F5C0057C3AF /* hstring.cpp in Sources */,
 				C9F9314114DA88B400954F90 /* hltypesUtil.cpp in Sources */,
@@ -594,6 +607,7 @@
 				D1F27A93177A2D0E00E5C131 /* hstring.cpp in Sources */,
 				D15CF10F1A52B14E004F8DDC /* hexception.cpp in Sources */,
 				D11D1EA619E6A8EE00C630FA /* hsemaphore.cpp in Sources */,
+				B44A3E801C7C738400F42C49 /* hclipboard.cpp in Sources */,
 				D1D63AE31AA9978B00F72096 /* hversion.cpp in Sources */,
 				D1F27A94177A2D0E00E5C131 /* hltypesUtil.cpp in Sources */,
 				D1D34302186241AF0040AA7F /* Mac_platform.mm in Sources */,
