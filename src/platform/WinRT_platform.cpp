@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.0
+/// @version 3.1
 /// 
 /// @section LICENSE
 /// 
@@ -9,6 +9,7 @@
 #ifdef _WINRT
 #include "hplatform.h"
 #include "hstring.h"
+#include "platform_internal.h"
 
 namespace hltypes
 {
@@ -24,7 +25,30 @@ namespace hltypes
 		}
 	}
 
+	bool _platformClipboardClear()
+	{
+		Log::error(logTag, CLIPBOARD_ERROR);
+		return false;
+	}
+	
+	bool _platformClipboardIsString()
+	{
+		Log::error(logTag, CLIPBOARD_ERROR);
+		return false;
+	}
+	
+	bool _platformClipboardGetString(hstr& string)
+	{
+		Log::error(logTag, CLIPBOARD_ERROR);
+		return false;
+	}
+	
+	bool _platformClipboardSetString(chstr string)
+	{
+		Log::error(logTag, CLIPBOARD_ERROR);
+		return false;
+	}
+	
 }
-
 #endif
 

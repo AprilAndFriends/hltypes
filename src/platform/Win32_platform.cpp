@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.0
+/// @version 3.1
 /// 
 /// @section LICENSE
 /// 
@@ -11,6 +11,7 @@
 #include "hlog.h"
 #include "hplatform.h"
 #include "hstring.h"
+#include "platform_internal.h"
 
 namespace hltypes
 {
@@ -60,6 +61,78 @@ namespace hltypes
 		}
 	}
 
-}
+	bool _platformClipboardClear()
+	{
+		if (!OpenClipboard(NULL))
+		{
+			Log::error(logTag, "Cannot open the Clipboard!");
+			return false;
+		}
+		if (!EmptyClipboard())
+		{
+			Log::error(logTag, "Cannot empty the Clipboard!");
+			CloseClipboard();
+			return false;
+		}
+		CloseClipboard();
+		return true;
+	}
 
+	bool _platformClipboardIsString()
+	{
+		if (!OpenClipboard(NULL))
+		{
+			Log::error(logTag, "Cannot open the Clipboard!");
+			return false;
+		}
+		bool result = (GetClipboardData(CF_TEXT) != NULL);
+		CloseClipboard();
+		return result;
+	}
+
+	bool _platformClipboardGetString(hstr& string)
+	{
+		if (!OpenClipboard(NULL))
+		{
+			Log::error(logTag, "Cannot open the Clipboard!");
+			return false;
+		}
+		HANDLE handle = GetClipboardData(CF_TEXT);
+		if (handle == NULL)
+		{
+			CloseClipboard();
+			return false;
+		}
+		string = (char*)handle;
+		CloseClipboard();
+		return true;
+	}
+
+	bool _platformClipboardSetString(chstr string)
+	{
+		if (!OpenClipboard(NULL))
+		{
+			Log::error(logTag, "Cannot open the Clipboard!");
+			return false;
+		}
+		if (!EmptyClipboard())
+		{
+			Log::error(logTag, "Cannot empty the Clipboard!");
+			CloseClipboard();
+			return false;
+		}
+		HGLOBAL hGlobal = GlobalAlloc(GMEM_FIXED, string.size() + 1);
+		memcpy((char*)hGlobal, string.cStr(), string.size() + 1);
+		if (::SetClipboardData(CF_TEXT, hGlobal) == NULL)
+		{
+			Log::errorf(logTag, "Cannot set Clipboard data! System Error: %08X", GetLastError());
+			CloseClipboard();
+			GlobalFree(hGlobal);
+			return false;
+		}
+		CloseClipboard();
+		return true;
+	}
+
+}
 #endif

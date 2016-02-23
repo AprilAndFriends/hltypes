@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.0
+/// @version 3.1
 /// 
 /// @section LICENSE
 /// 
@@ -16,6 +16,8 @@
 #include "hfile.h"
 #include "hstring.h"
 
+#define CLIPBOARD_ERROR "Clipboard operations are not supported on this platform!"
+
 namespace hltypes
 {
 	typedef void _platformDir;
@@ -23,6 +25,11 @@ namespace hltypes
 	typedef void _platformFile;
 
 	void _platformPrint(const String& tag, const String& message, int level);
+	bool _platformClipboardClear();
+	bool _platformClipboardIsString();
+	bool _platformClipboardGetString(hstr& string);
+	bool _platformClipboardSetString(chstr string);
+
 	int _platformSprintf(char* buffer, const char* format, ...);
 	int _platformVsnprintf(char* buffer, size_t bufferCount, const char* format, va_list args);
 

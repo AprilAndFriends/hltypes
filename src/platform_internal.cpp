@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.0
+/// @version 3.1
 /// 
 /// @section LICENSE
 /// 
@@ -25,6 +25,7 @@
 #include "harray.h"
 #include "hdir.h"
 #include "hfbase.h"
+#include "hlog.h"
 #include "hplatform.h"
 #include "hstring.h"
 #include "platform_internal.h"

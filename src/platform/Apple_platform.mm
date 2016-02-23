@@ -1,16 +1,18 @@
 /// @file
-/// @version 3.0
+/// @version 3.1
 ///
 /// @section LICENSE
 ///
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
+#ifdef __APPLE__
 #import <Foundation/Foundation.h>
 
+#include "hlog.h"
 #include "hplatform.h"
 #include "hstring.h"
-#include "hlog.h"
+#include "platform_internal.h"
 
 namespace hltypes
 {
@@ -95,3 +97,4 @@ namespace hltypes
 	}
 	
 }
+#endif

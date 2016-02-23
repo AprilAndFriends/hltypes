@@ -50,6 +50,7 @@
   <Import Project="props-generic\build-defaults.props" />
   <Import Project="props\configuration.props" />
   <ItemGroup>
+    <ClCompile Include="..\..\src\hclipboard.cpp" />
     <ClCompile Include="..\..\src\henum.cpp" />
     <ClCompile Include="..\..\src\hexception.cpp" />
     <ClCompile Include="..\..\src\hdbase.cpp" />
@@ -73,6 +74,7 @@
     <ClCompile Include="..\..\src\zipaccess.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\hltypes\hclipboard.h" />
     <ClInclude Include="..\..\include\hltypes\hcontainer.h" />
     <ClInclude Include="..\..\include\hltypes\henum.h" />
     <ClInclude Include="..\..\include\hltypes\hexception.h" />
