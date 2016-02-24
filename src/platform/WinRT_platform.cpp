@@ -7,6 +7,7 @@
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
 #ifdef _WINRT
+#include "hlog.h"
 #include "hplatform.h"
 #include "hstring.h"
 #include "platform_internal.h"
