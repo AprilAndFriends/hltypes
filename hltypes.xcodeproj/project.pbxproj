@@ -258,8 +258,8 @@
 		7F42F69511EB0B8500B1C1DF /* src */ = {
 			isa = PBXGroup;
 			children = (
-				B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */,
 				D1E909F0163693A500EB27EE /* platform */,
+				B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */,
 				B432628F1C21686200F9DDDF /* platform_internal.h */,
 				D1BAE103183B921400BC2434 /* zipaccess.h */,
 				D1BAE101183B920700BC2434 /* msvc_dirent.h */,
