@@ -556,13 +556,4 @@ inline bool hbetweenEI(T value, T min, T max)
 	return (value > min && value <= max);
 }
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-#define dsin hsin
-#define dcos hcos
-#define dtan htan
-#define dasin hasin
-#define dacos hacos
-#define datan hatan
-#endif
-
 #endif
