@@ -36,28 +36,28 @@ namespace hltypes
 /// @brief Calculates sin from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
 /// @return sin(degrees).
-#define dsin(degrees) sin((degrees) * __HL_DEG_TO_RAD_RATIO)
+#define hsin(degrees) sin((degrees) * __HL_DEG_TO_RAD_RATIO)
 /// @brief Calculates cos from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
 /// @return cos(degrees).
-#define dcos(degrees) cos((degrees) * __HL_DEG_TO_RAD_RATIO)
+#define hcos(degrees) cos((degrees) * __HL_DEG_TO_RAD_RATIO)
 /// @brief Calculates tan from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
 /// @return tan(degrees).
-#define dtan(degrees) tan((degrees) * __HL_DEG_TO_RAD_RATIO)
+#define htan(degrees) tan((degrees) * __HL_DEG_TO_RAD_RATIO)
 /// @brief Calculates asin in degrees.
 /// @param[in] value sin value.
 /// @return asin in degrees.
-#define dasin(value) (asin(value) * __HL_RAD_TO_DEG_RATIO)
+#define hasin(value) (asin(value) * __HL_RAD_TO_DEG_RATIO)
 /// @brief Calculates acos in degrees.
 /// @param[in] value cos value.
 /// @return acos in degrees.
-#define dacos(value) (acos(value) * __HL_RAD_TO_DEG_RATIO)
+#define hacos(value) (acos(value) * __HL_RAD_TO_DEG_RATIO)
 /// @brief Calculates atan in degrees.
 /// @param[in] value cos value.
 /// @return atan in degrees.
 /// @note This uses atan2.
-#define datan(value) (atan2(value) * __HL_RAD_TO_DEG_RATIO)
+#define hatan(value) (atan2(value) * __HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.0001
 
@@ -555,5 +555,14 @@ inline bool hbetweenEI(T value, T min, T max)
 {
 	return (value > min && value <= max);
 }
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+#define dsin hsin
+#define dcos hcos
+#define dtan htan
+#define dasin hasin
+#define dacos hacos
+#define datan hatan
+#endif
 
 #endif
