@@ -1789,12 +1789,6 @@
           <UL>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="__HL_DEG_TO_RAD_RATIO"><param name="Local" value="hltypes_util_8h.html#a8f2471c633b3c2ff3b316a6ff266398e"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="__HL_RAD_TO_DEG_RATIO"><param name="Local" value="hltypes_util_8h.html#a0e3345bb143960e793678ec988ba37cc"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="dacos"><param name="Local" value="hltypes_util_8h.html#a64d6e7bb37645cca05ac976db4154dee"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="dasin"><param name="Local" value="hltypes_util_8h.html#ab515e9bdcbf66bc1c1df163835849e1b"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="datan"><param name="Local" value="hltypes_util_8h.html#a8e765f09bfcae00c1f993a69d2b0a1e8"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="dcos"><param name="Local" value="hltypes_util_8h.html#a6412eb52f9877117c88a2a65737b341e"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="dsin"><param name="Local" value="hltypes_util_8h.html#a0383628196c59a6333baaa74d10dc0b5"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="dtan"><param name="Local" value="hltypes_util_8h.html#a8595b1a106c1b4e3f495032e22025cd7"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="for_iter"><param name="Local" value="hltypes_util_8h.html#a796a840fdb89849d6db745eb101bae16"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="for_iter_r"><param name="Local" value="hltypes_util_8h.html#a5235dae504daede65e843344759a8f74"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="for_iter_step"><param name="Local" value="hltypes_util_8h.html#af2048d5333d56193c1f956e2705d42ee"><param name="ImageNumber" value="11"></OBJECT>
@@ -1807,6 +1801,10 @@
           <LI><OBJECT type="text/sitemap"><param name="Name" value="for_iterx_r"><param name="Local" value="hltypes_util_8h.html#aebd52c9f6e558182fe99a58c1f9cb298"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="for_iterx_step"><param name="Local" value="hltypes_util_8h.html#a61b4801e3176ace0aebc3e696156b259"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="for_iterx_step_r"><param name="Local" value="hltypes_util_8h.html#a821d02c3a11ec3017353fa9a64d92685"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="hacos"><param name="Local" value="hltypes_util_8h.html#a1eb7b052ef6af1d11dc982a7c09696ff"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="hasin"><param name="Local" value="hltypes_util_8h.html#a29fcf97d5361a87dd6978e1eaa1edfa6"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="hatan"><param name="Local" value="hltypes_util_8h.html#a29d9115930fa952d1fa01400111ab1b9"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="hcos"><param name="Local" value="hltypes_util_8h.html#a10badb2319c666b1205e343e800f2755"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_DEFINE_GET"><param name="Local" value="hltypes_util_8h.html#a910dbd9783ca03243189c10d0a905895"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_DEFINE_GET2"><param name="Local" value="hltypes_util_8h.html#a1399e6f6031ec660ed36c1636aeff3f8"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_DEFINE_GETSET"><param name="Local" value="hltypes_util_8h.html#a605e06d09d17ae0950c82655974a4183"><param name="ImageNumber" value="11"></OBJECT>
@@ -1816,6 +1814,8 @@
           <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_DEFINE_SET"><param name="Local" value="hltypes_util_8h.html#abbc94ca82271aec790c0afef3108ad9b"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_DEFINE_SET2"><param name="Local" value="hltypes_util_8h.html#aad25d1b29b7728d16979e3107ca27d6c"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_E_TOLERANCE"><param name="Local" value="hltypes_util_8h.html#aacd2e56619e5bc079aed67e191b594f5"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="hsin"><param name="Local" value="hltypes_util_8h.html#a6e72b4d844f1442b666db16d6366d0f1"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="htan"><param name="Local" value="hltypes_util_8h.html#aff394fddb1433fc4e34e2223d5be6e91"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="habs"><param name="Local" value="hltypes_util_8h.html#aaac61d17af8aa933f310e4d849eb2bc5"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="habs"><param name="Local" value="hltypes_util_8h.html#aa4cf13d8bec8f72d755daff04b7d92ee"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="habs"><param name="Local" value="hltypes_util_8h.html#a50a43b08226edfc97e0fe71df6e5665d"><param name="ImageNumber" value="11"></OBJECT>
