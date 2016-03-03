@@ -19,9 +19,9 @@
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a Map.
-#define foreach_map(type_key, type_value, name, container) for (hltypes::Map< type_key, type_value >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreach_map(typeKey, typeValue, name, container) for (hltypes::Map< typeKey, typeValue >::iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to iterate through a Map.
-#define foreachc_map(type_key, type_value, name, container) for (hltypes::Map< type_key, type_value >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreachc_map(typeKey, typeValue, name, container) for (hltypes::Map< typeKey, typeValue >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to iterate through a Map with String as key.
 #define foreach_m(type, name, container) for (hltypes::Map< hltypes::String, type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to iterate through a Map with String as key.

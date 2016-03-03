@@ -21,13 +21,13 @@
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through an Array.
-#define foreach(type, name, container) for (harray< type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreach(type, name, container) for (hltypes::Array< type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to iterate through an Array.
-#define foreachc(type, name, container) for (harray< type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreachc(type, name, container) for (hltypes::Array< type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to reverse iterate through an Array.
-#define foreach_r(type, name, container) for (harray< type >::riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+#define foreach_r(type, name, container) for (hltypes::Array< type >::riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
 /// @brief Provides a simpler syntax to reverse iterate through an Array.
-#define foreachc_r(type, name, container) for (harray< type >::const_riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+#define foreachc_r(type, name, container) for (hltypes::Array< type >::const_riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
 
 namespace hltypes
 {
