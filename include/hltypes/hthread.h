@@ -91,7 +91,7 @@ namespace hltypes
 		/// @brief Utility for running the thread.
 		ThreadRunner runner;
 		/// @brief The callback function of the thread.
-		void(*function)(Thread*);
+		void (*function)(Thread*);
 		/// @brief The internal OS handle ID for the thread.
 		void* id;
 		/// @brief Flag that determines whether this Thread was started.
