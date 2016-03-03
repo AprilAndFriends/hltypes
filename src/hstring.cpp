@@ -171,7 +171,7 @@ namespace hltypes
 
 	String String::utf8Reversed() const
 	{
-		std::basic_string<unsigned int> result;
+		std::basic_string<unsigned int> result = this->uStr();
 		std::reverse(result.begin(), result.end());
 		return fromUnicode(result.c_str());
 	}
