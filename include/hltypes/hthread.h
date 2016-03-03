@@ -94,7 +94,7 @@ namespace hltypes
 		void(*function)(Thread*);
 		/// @brief The internal OS handle ID for the thread.
 		void* id;
-		/// @brief Flag that determines whether this Thread was started was started.
+		/// @brief Flag that determines whether this Thread was started.
 		volatile bool running;
 
 		/// @brief Copy constructor.
