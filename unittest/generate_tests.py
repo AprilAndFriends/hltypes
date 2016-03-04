@@ -34,20 +34,20 @@ GENERATED_RUN_CLASS_END = RUN_CLASS_END_MACRO + "\n"
 GENERATED_RUN_TEST_METHOD_TEMPLATE = "\t" + RUN_METHOD_MACRO + "(%s, %s)\n"
 
 def _readFile(filename):
-	f = open(filename, "rb")
+	f = open(filename, "r")
 	data = f.read().replace("\r", "")
 	f.close()
 	return data
 
 def _writeFile(filename, data):
-	f = open(filename, "wb")
+	f = open(filename, "w")
 	f.write(data)
 	f.close()
 
 def process():
-	print "-------------------------------------------------------------------------------"
-	print "| H-Unit-Test Generator " + VERSION
-	print "-------------------------------------------------------------------------------"
+	print ("-------------------------------------------------------------------------------")
+	print ("| H-Unit-Test Generator " + VERSION)
+	print ("-------------------------------------------------------------------------------")
 	
 	if len(sys.argv) > 3:
 		help()
@@ -60,28 +60,28 @@ def process():
 		sourcePath = sys.argv[2]
 	
 	files = []
-	print "Seaching for files in %s" % sourcePath
+	print ("Seaching for files in %s" % sourcePath)
 	for entry in os.listdir(sourcePath):
 		if os.path.isfile(os.path.join(sourcePath, entry)) and entry.endswith(CPP_SOURCE_EXTENSION) and entry != UNIT_TEST_CPP_SOURCE:
 			files.append(entry)
-	print "Found files: %d" % len(files)
+	print ("Found files: %d" % len(files))
 	for filename in files:
-		print "- %s" % filename
+		print ("- %s" % filename)
 	for filename in files:
 		# parse file
 		data = _readFile(os.path.join(sourcePath, filename))
 		if data != "":
-			print ""
+			print ("")
 			activeLibName = libName
 			if activeLibName == "":
 				index = data.find(NAMESPACE_MACRO)
 				if index >= 0:
 					index += len(NAMESPACE_MACRO)
 					activeLibName = data[index:data.find("\n", index)].strip()
-			print "  Processing %s" % filename
+			print ("  Processing %s" % filename)
 			if activeLibName == "":
 				raise Exception("No namespace defined for %s!" % filename)
-			print "  Namespace: %s" % activeLibName
+			print ("  Namespace: %s" % activeLibName)
 			index = data.find(TEST_CLASS_MACRO)
 			if index < 0:
 				raise Exception("No %s defined in %s!" % (TEST_CLASS_MACRO, filename))
@@ -94,7 +94,7 @@ def process():
 					break
 				index += len(TEST_FUNCTION_MACRO)
 				functions.append(data[index:data.find("\n", index)].strip("()"))
-			print "  Found functions: %d" % len(functions)
+			print ("  Found functions: %d" % len(functions))
 			# generate
 			data = ""
 			data += GENERATED_HEADER_TEMPLATE % activeLibName
@@ -106,23 +106,23 @@ def process():
 			for function in functions:
 				data += GENERATED_RUN_TEST_METHOD_TEMPLATE % (testClass, function)
 			data += GENERATED_RUN_CLASS_END
-			print "  Saving %s" % filename
+			print ("  Saving %s" % filename)
 			_writeFile(os.path.join(os.path.join(sourcePath, GENERATED_PATH), "_" + filename), data)
-	print ""
+	print ("")
 		
 def help():
-	print ""
-	print "Generates unit test C++ files for H-Unit-Test."
-	print ""
-	print "usage:   generate_tests.py [LIB_NAME [SOURCE_PATH]]"
-	print ""
-	print "  LIB_NAME     - Name of the library. If not specified, will use"
-	print "                 to whatever " + NAMESPACE_MACRO + " was set in source file."
-	print "  SOURCES_PATH - Directory path for the unit test sources."
-	print "                 Default: ../../unittest"
-	print ""
-	print "example: generate_tests.py hltypes ../../unittest"
-	print ""
+	print ("")
+	print ("Generates unit test C++ files for H-Unit-Test.")
+	print ("")
+	print ("usage:   generate_tests.py [LIB_NAME [SOURCE_PATH]]")
+	print ("")
+	print ("  LIB_NAME     - Name of the library. If not specified, will use")
+	print ("                 to whatever " + NAMESPACE_MACRO + " was set in source file.")
+	print ("  SOURCES_PATH - Directory path for the unit test sources.")
+	print ("                 Default: ../../unittest")
+	print ("")
+	print ("example: generate_tests.py hltypes ../../unittest")
+	print ("")
 	os.system("pause")
 
 process()
