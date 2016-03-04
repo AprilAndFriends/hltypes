@@ -473,7 +473,7 @@ namespace hltypes
 				K key;
 				for_iter (i, 0, count)
 				{
-					key = keys.remove_at(hrand(keys.size()));
+					key = keys.removeAt(hrand(keys.size()));
 					result[key] = std::map<K, V>::find(key)->second;
 				}
 			}
