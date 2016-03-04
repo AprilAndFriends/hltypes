@@ -46,22 +46,7 @@ HL_UT_TEST_CLASS(Thread)
 			hthread::sleep(10);
 		}
 	}
-
-	HL_UT_TEST_FUNCTION(testThreadingManual)
-	{
-		output = "";
-		hthread t1(&f1);
-		hthread t2(&f2);
-		/*
-		t1.execute();
-		t2.execute();
-		t1.execute();
-		HL_UT_ASSERT(output == "1 2 1 ", "manual threading 1");
-		t2.execute();
-		HL_UT_ASSERT(output == "1 2 1 2 ", "manual threading 2");
-		*/
-	}
-
+	
 	HL_UT_TEST_FUNCTION(testThreadingBasic)
 	{
 		output = "";
