@@ -25,9 +25,9 @@
 /// @brief Provides a simpler syntax to iterate through a Deque.
 #define foreachc_q(type, name, container) for (hltypes::Deque< type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 /// @brief Provides a simpler syntax to reverse iterate through a Deque.
-#define foreach_qr(type, name, container) for (hltypes::Deque< type >::reverse_iterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+#define foreach_qr(type, name, container) for (hltypes::Deque< type >::riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
 /// @brief Provides a simpler syntax to reverse iterate through a Deque.
-#define foreachc_qr(type, name, container) for (hltypes::Deque< type >::const_reverse_iterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+#define foreachc_qr(type, name, container) for (hltypes::Deque< type >::const_riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
 
 namespace hltypes
 {

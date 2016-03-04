@@ -49,5 +49,11 @@
     <ClCompile Include="..\..\unittest\generated\_Stream.cpp">
       <Filter>generated</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\unittest\List.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\generated\_List.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
