@@ -79,10 +79,12 @@
     <ClCompile Include="..\..\unittest\generated\_List.cpp" />
     <ClCompile Include="..\..\unittest\generated\_Map.cpp" />
     <ClCompile Include="..\..\unittest\generated\_Stream.cpp" />
+    <ClCompile Include="..\..\unittest\generated\_String.cpp" />
     <ClCompile Include="..\..\unittest\generated\_Thread.cpp" />
     <ClCompile Include="..\..\unittest\List.cpp" />
     <ClCompile Include="..\..\unittest\Map.cpp" />
     <ClCompile Include="..\..\unittest\Stream.cpp" />
+    <ClCompile Include="..\..\unittest\String.cpp" />
     <ClCompile Include="..\..\unittest\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>

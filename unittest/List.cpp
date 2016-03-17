@@ -289,4 +289,285 @@ HL_UT_TEST_CLASS(List)
 			i++;
 		}
 	}
+
+	HL_UT_TEST_FUNCTION(constructor)
+	{
+		hlist<int> a;
+		a += 0;
+		a += 1;
+		a += 2;
+		a += 3;
+		hlist<int> b(a);
+		HL_UT_ASSERT(a == b, "");
+		hlist<int> c = a;
+		HL_UT_ASSERT(a == c, "");
+	}
+
+	HL_UT_TEST_FUNCTION(intersection)
+	{
+		hlist<int> a;
+		a += 0;
+		a += 1;
+		a += 2;
+		a += 3;
+		hlist<int> b;
+		b += 2;
+		b += 3;
+		b += 4;
+		b += 5;
+		hlist<int> c = a.intersected(b);
+		HL_UT_ASSERT(c.size() == 2, "");
+		HL_UT_ASSERT(c[0] == 2, "");
+		HL_UT_ASSERT(c[1] == 3, "");
+		HL_UT_ASSERT(c == (a & b), "");
+		a.intersect(b);
+		HL_UT_ASSERT(a == c, "");
+	}
+
+	HL_UT_TEST_FUNCTION(union_)
+	{
+		hlist<int> a;
+		a += 0;
+		a += 1;
+		a += 2;
+		a += 3;
+		hlist<int> b;
+		b += 2;
+		b += 3;
+		b += 4;
+		b += 5;
+		hlist<int> c = a.united(b);
+		HL_UT_ASSERT(c.size() == 6, "");
+		HL_UT_ASSERT(c[0] == 0, "");
+		HL_UT_ASSERT(c[1] == 1, "");
+		HL_UT_ASSERT(c[2] == 2, "");
+		HL_UT_ASSERT(c[3] == 3, "");
+		HL_UT_ASSERT(c[4] == 4, "");
+		HL_UT_ASSERT(c[5] == 5, "");
+		HL_UT_ASSERT(c == (a | b), "");
+		a.unite(b);
+		HL_UT_ASSERT(a == c, "");
+		a.unite(4);
+		HL_UT_ASSERT(a == c, "");
+		a.unite(999);
+		HL_UT_ASSERT(a != c, "");
+	}
+
+	HL_UT_TEST_FUNCTION(difference)
+	{
+		hlist<int> a;
+		a += 0;
+		a += 1;
+		a += 2;
+		a += 2;
+		a += 3;
+		a += 3;
+		a += 4;
+		hlist<int> b;
+		b += 2;
+		b += 2;
+		b += 3;
+		b += 4;
+		b += 4;
+		b += 5;
+		hlist<int> c = a.differentiated(b);
+		HL_UT_ASSERT(c.size() == 2, "");
+		HL_UT_ASSERT(c[0] == 0, "");
+		HL_UT_ASSERT(c[1] == 1, "");
+		HL_UT_ASSERT(c == (a / b), "");
+		a.differentiate(b);
+		HL_UT_ASSERT(a == c, "");
+		hlist<hstr> a1;
+		a1 += "a";
+		a1 += "a";
+		hlist<hstr> a2;
+		a2 += "a";
+		a2 += "a";
+		HL_UT_ASSERT(a1 == a2, "");
+		HL_UT_ASSERT((a1 / a2).size() == 0, "");
+	}
+
+	HL_UT_TEST_FUNCTION(join)
+	{
+		hlist<int> a;
+		a += 0;
+		a += 1;
+		a += 2;
+		a += 3;
+		hstr b = a.joined(",");
+		HL_UT_ASSERT(b == "0,1,2,3", "");
+		b = a.joined(2);
+		HL_UT_ASSERT(b == "0212223", "");
+		b = a.joined(1.5f);
+		HL_UT_ASSERT(b == "01.50000011.50000021.5000003", "");
+	}
+	static bool negative(int i) { return (i < 0); }
+	static bool positive(int i) { return (i >= 0); }
+	static bool over_9000(int i) { return (i > 9000); }
+
+	HL_UT_TEST_FUNCTION(matching)
+	{
+		hlist<int> a;
+		a += 0;
+		a += -1;
+		a += 2;
+		a += -3;
+		HL_UT_ASSERT(a.matchesAny(&positive) == true, "");
+		HL_UT_ASSERT(a.matchesAny(&negative) == true, "");
+		HL_UT_ASSERT(a.matchesAll(&negative) == false, "");
+		HL_UT_ASSERT(a.matchesAll(&positive) == false, "");
+		HL_UT_ASSERT(a.findFirst(&negative) != NULL, "");
+		HL_UT_ASSERT(*a.findFirst(&negative) == -1, "");
+		HL_UT_ASSERT(a.findFirst(&positive) != NULL, "");
+		HL_UT_ASSERT(*a.findFirst(&positive) == 0, "");
+		HL_UT_ASSERT(a.findFirst(&over_9000) == NULL, "");
+		hlist<int> c = a.findAll(&negative);
+		HL_UT_ASSERT(c.size() == 2 && c[0] == -1 && c[1] == -3, "");
+		HL_UT_ASSERT(c.matchesAny(&negative) == true, "");
+		HL_UT_ASSERT(c.matchesAny(&positive) == false, "");
+		HL_UT_ASSERT(c.matchesAll(&negative) == true, "");
+		HL_UT_ASSERT(c.matchesAll(&positive) == false, "");
+	}
+		
+	//todo - fix the random function for lists in hltypes
+	/*HL_UT_TEST_FU_NCTION(random)
+	{
+		hlist<int> a;
+		a += 0;
+		a += 1;
+		a += 2;
+		a += 3;
+		int i = a.random();
+		HL_UT_ASSERT(a.has(i), "");
+		hlist<int> b = a.random(2);
+		HL_UT_ASSERT(b.size() == 2, "");
+		HL_UT_ASSERT(a.has(b), "");
+		HL_UT_ASSERT(!b.has(a), "");
+	}	*/
+
+	HL_UT_TEST_FUNCTION(cast)
+	{
+		hlist<int> a;
+		a += 0;
+		a += -1;
+		a += 2;
+		a += -3;
+		hlist<hstr> b = a.cast<hstr>();
+		HL_UT_ASSERT(b.size() == 4, "");
+		HL_UT_ASSERT(b[0] == "0", "");
+		HL_UT_ASSERT(b[1] == "-1", "");
+		HL_UT_ASSERT(b[2] == "2", "");
+		HL_UT_ASSERT(b[3] == "-3", "");
+	}
+
+	HL_UT_TEST_FUNCTION(incorrectNegativeIndex)
+	{
+		hlist<int> test;
+		int value;
+
+		try
+		{
+			value = test[-1];
+		}
+		catch (hexception)
+		{
+			HL_UT_ASSERT(true, "");
+			return;
+		}
+		catch (std::exception& e)
+		{
+			printf("ERROR: hlist indexing resulted in STL exception instead of hltypes exception! msg: %s\n", e.what());
+			HL_UT_ASSERT(false, "");
+			return;
+		}
+
+		printf("ERROR: negative out of bounds hlist indexing test didn't throw any exceptions!\n");
+		HL_UT_ASSERT(false, "");
+	}
+
+	HL_UT_TEST_FUNCTION(correctNegativeIndex)
+	{
+		hlist<int> test;
+		test += 1;
+		test += 2;
+		test += 3;
+		int value;
+
+		try
+		{
+			value = test[-1];
+		}
+		catch (hexception& e)
+		{
+			printf("ERROR: hltypes exception throw where it should've returned last value: %s\n", e.getMessage().cStr());
+			HL_UT_ASSERT(false, "");
+			return;
+		}
+		catch (std::exception& e)
+		{
+			printf("ERROR: hlist indexing resulted in STL exception instead of hltypes exception! msg: %s\n", e.what());
+			HL_UT_ASSERT(false, "");
+			return;
+		}
+
+		HL_UT_ASSERT(value == 3, "");
+	}
+
+	HL_UT_TEST_FUNCTION(positiveIndex)
+	{
+		hlist<int> test;
+		int value;
+		test += 1;
+		test += 2;
+		test += 3;
+
+		try
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				value = test[i];
+			}
+		}
+		catch (hexception)
+		{
+			HL_UT_ASSERT(true, "");
+			return;
+		}
+		catch (std::exception& e)
+		{
+			printf("ERROR: hlist indexing resulted in STL exception instead of hltypes exception! msg: %s\n", e.what());
+			HL_UT_ASSERT(false, "");
+			return;
+		}
+
+		printf("ERROR: positive array out of bounds hlist indexing test didn't throw any exceptions!\n");
+		HL_UT_ASSERT(false, "");
+	}
+
+	HL_UT_TEST_FUNCTION(outOfBoundsAssignment)
+	{
+		hlist<int> test;
+		test += 1;
+		test += 2;
+		test += 3;
+
+		try
+		{
+			test[4] = 5;
+		}
+		catch (hexception)
+		{
+			HL_UT_ASSERT(true, "");
+			return;
+		}
+		catch (std::exception& e)
+		{
+			printf("ERROR: hlist indexing resulted in STL exception instead of hltypes exception! msg: %s\n", e.what());
+			HL_UT_ASSERT(false, "");
+			return;
+		}
+
+		printf("ERROR: array out of bounds hlist asignment test didn't throw any exceptions!\n");
+		HL_UT_ASSERT(false, "");
+	}
 }
