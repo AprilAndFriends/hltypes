@@ -430,7 +430,7 @@ HL_UT_TEST_CLASS(List)
 	}
 		
 	//todo - fix the random function for lists in hltypes
-	/*HL_UT_TEST_FU_NCTION(random)
+	HL_UT_TEST_FUNCTION(random)
 	{
 		hlist<int> a;
 		a += 0;
@@ -443,7 +443,7 @@ HL_UT_TEST_CLASS(List)
 		HL_UT_ASSERT(b.size() == 2, "");
 		HL_UT_ASSERT(a.has(b), "");
 		HL_UT_ASSERT(!b.has(a), "");
-	}	*/
+	}
 
 	HL_UT_TEST_FUNCTION(cast)
 	{

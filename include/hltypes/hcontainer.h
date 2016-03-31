@@ -691,11 +691,6 @@ namespace hltypes
 				std::stable_sort(STD::begin(), STD::end(), compareFunction);
 			}
 		}
-		/// @brief Randomizes order of elements in Container.
-		inline void randomize()
-		{
-			std::random_shuffle(STD::begin(), STD::end());
-		}
 		/// @brief Unites elements of this Container with an element.
 		/// @param[in] element Element to unite with.
 		/// @note Removes duplicates.
@@ -1003,6 +998,12 @@ namespace hltypes
 				}
 			}
 			return result;
+		}
+		/// @brief Randomizes order of elements in Container.
+		template <typename R>
+		inline void _randomize()
+		{
+			std::random_shuffle(STD::begin(), STD::end());
 		}
 		/// @brief Creates new Container with reversed order of elements.
 		/// @return A new Container.

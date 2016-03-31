@@ -22,6 +22,7 @@ HL_UT_TEST_CLASS(List)
 	HL_UT_TEST_FUNCTION(difference);
 	HL_UT_TEST_FUNCTION(join);
 	HL_UT_TEST_FUNCTION(matching);
+	HL_UT_TEST_FUNCTION(random);
 	HL_UT_TEST_FUNCTION(cast);
 	HL_UT_TEST_FUNCTION(incorrectNegativeIndex);
 	HL_UT_TEST_FUNCTION(correctNegativeIndex);
@@ -45,6 +46,7 @@ HL_UT_RUN_CLASS_BEGIN(List)
 	HL_UT_RUN_METHOD(List, difference)
 	HL_UT_RUN_METHOD(List, join)
 	HL_UT_RUN_METHOD(List, matching)
+	HL_UT_RUN_METHOD(List, random)
 	HL_UT_RUN_METHOD(List, cast)
 	HL_UT_RUN_METHOD(List, incorrectNegativeIndex)
 	HL_UT_RUN_METHOD(List, correctNegativeIndex)

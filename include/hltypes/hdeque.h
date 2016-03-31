@@ -162,6 +162,11 @@ namespace hltypes
 		{
 			return Container<std::deque<T>, T>::random();
 		}
+		/// @brief Randomizes order of elements in Deque.
+		inline void randomize()
+		{
+			return this->template _randomize<Deque<T> >();
+		}
 		/// @brief Gets an Deque of random elements selected from this one.
 		/// @param[in] count Number of random elements.
 		/// @param[in] unique Whether to force all random values to be at unique positions.
