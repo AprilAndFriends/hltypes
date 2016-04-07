@@ -54,19 +54,19 @@ HL_UT_TEST_CLASS(Mutex)
 	{
 		test_result = 0;
 
-		hthread* t[25];
-		for (int i = 0; i < 25; i++)
+		hthread* t[10];
+		for (int i = 0; i < 10; i++)
 		{
 			t[i] = new hthread(&thread3);
 			t[i]->start();
 		}
 
-		for (int i = 0; i < 25; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			t[i]->join();
 			delete t[i];
 		}
 
-		HL_UT_ASSERT(test_result == 25, "");
+		HL_UT_ASSERT(test_result == 10, "");
 	}
 }

@@ -8,8 +8,12 @@
 HL_UT_TEST_CLASS(Deque)
 {
 	HL_UT_TEST_FUNCTION(adding);
+	HL_UT_TEST_FUNCTION(removing);
+	HL_UT_TEST_FUNCTION(size);
 }
 
 HL_UT_RUN_CLASS_BEGIN(Deque)
 	HL_UT_RUN_METHOD(Deque, adding)
+	HL_UT_RUN_METHOD(Deque, removing)
+	HL_UT_RUN_METHOD(Deque, size)
 HL_UT_RUN_CLASS_END
