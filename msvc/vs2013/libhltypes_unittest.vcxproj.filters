@@ -49,5 +49,29 @@
     <ClCompile Include="..\..\unittest\generated\_Stream.cpp">
       <Filter>generated</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\unittest\Deque.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\generated\_Deque.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\String.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\List.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\generated\_List.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\generated\_String.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\Mutex.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\unittest\generated\_Mutex.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
