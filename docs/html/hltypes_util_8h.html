@@ -86,9 +86,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a1eb7b052ef6af1d11dc982a7c09696ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a1eb7b052ef6af1d11dc982a7c09696ff">hacos</a>(value)&#160;&#160;&#160;(acos(value) * <a class="el" href="hltypes_util_8h.html#a0e3345bb143960e793678ec988ba37cc">__HL_RAD_TO_DEG_RATIO</a>)</td></tr>
 <tr class="memdesc:a1eb7b052ef6af1d11dc982a7c09696ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates acos in degrees.  <a href="#a1eb7b052ef6af1d11dc982a7c09696ff">More...</a><br /></td></tr>
 <tr class="separator:a1eb7b052ef6af1d11dc982a7c09696ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29d9115930fa952d1fa01400111ab1b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a29d9115930fa952d1fa01400111ab1b9">hatan</a>(value)&#160;&#160;&#160;(atan2(value) * <a class="el" href="hltypes_util_8h.html#a0e3345bb143960e793678ec988ba37cc">__HL_RAD_TO_DEG_RATIO</a>)</td></tr>
-<tr class="memdesc:a29d9115930fa952d1fa01400111ab1b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates atan in degrees.  <a href="#a29d9115930fa952d1fa01400111ab1b9">More...</a><br /></td></tr>
-<tr class="separator:a29d9115930fa952d1fa01400111ab1b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2019553b89e79f98fc160a377ddc12b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a2019553b89e79f98fc160a377ddc12b7">hatan</a>(x,  y)&#160;&#160;&#160;(atan2(x, y) * <a class="el" href="hltypes_util_8h.html#a0e3345bb143960e793678ec988ba37cc">__HL_RAD_TO_DEG_RATIO</a>)</td></tr>
+<tr class="memdesc:a2019553b89e79f98fc160a377ddc12b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates atan in degrees.  <a href="#a2019553b89e79f98fc160a377ddc12b7">More...</a><br /></td></tr>
+<tr class="separator:a2019553b89e79f98fc160a377ddc12b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacd2e56619e5bc079aed67e191b594f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aacd2e56619e5bc079aed67e191b594f5"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#aacd2e56619e5bc079aed67e191b594f5">HL_E_TOLERANCE</a>&#160;&#160;&#160;0.0001</td></tr>
 <tr class="memdesc:aacd2e56619e5bc079aed67e191b594f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">hltypes e-tolerance. <br /></td></tr>
@@ -1027,7 +1027,7 @@ The iteration variable has to be declared previously. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a29d9115930fa952d1fa01400111ab1b9"></a>
+<a class="anchor" id="a2019553b89e79f98fc160a377ddc12b7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1035,8 +1035,18 @@ The iteration variable has to be declared previously. </dd></dl>
           <td class="memname">#define hatan</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">value</td><td>)</td>
-          <td>&#160;&#160;&#160;(atan2(value) * <a class="el" href="hltypes_util_8h.html#a0e3345bb143960e793678ec988ba37cc">__HL_RAD_TO_DEG_RATIO</a>)</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">y&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(atan2(x, y) * <a class="el" href="hltypes_util_8h.html#a0e3345bb143960e793678ec988ba37cc">__HL_RAD_TO_DEG_RATIO</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1044,7 +1054,8 @@ The iteration variable has to be declared previously. </dd></dl>
 <p>Calculates atan in degrees. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>cos value. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>X value. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>Y value. </td></tr>
   </table>
   </dd>
 </dl>

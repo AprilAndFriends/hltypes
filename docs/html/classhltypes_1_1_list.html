@@ -137,6 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6eb181ffc61b8c97ad945159670943d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhltypes_1_1_list.html">List</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_list.html#a6eb181ffc61b8c97ad945159670943d9">random</a> (int <a class="el" href="classhltypes_1_1_container.html#a0601751664a62bfe7ce222641403a419">count</a>, bool unique=true)</td></tr>
 <tr class="memdesc:a6eb181ffc61b8c97ad945159670943d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an <a class="el" href="classhltypes_1_1_list.html" title="Encapsulates std::list and adds high level methods. ">List</a> of random elements selected from this one.  <a href="#a6eb181ffc61b8c97ad945159670943d9">More...</a><br /></td></tr>
 <tr class="separator:a6eb181ffc61b8c97ad945159670943d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a628ebfe9ba6de821c451b562e563374b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_list.html#a628ebfe9ba6de821c451b562e563374b">randomize</a> ()</td></tr>
+<tr class="memdesc:a628ebfe9ba6de821c451b562e563374b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomizes order of elements in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>.  <a href="#a628ebfe9ba6de821c451b562e563374b">More...</a><br /></td></tr>
+<tr class="separator:a628ebfe9ba6de821c451b562e563374b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af48e5a5b84c2f9452ba0ebf2c2ddc5eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhltypes_1_1_list.html">List</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_list.html#af48e5a5b84c2f9452ba0ebf2c2ddc5eb">reversed</a> () const </td></tr>
 <tr class="memdesc:af48e5a5b84c2f9452ba0ebf2c2ddc5eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new <a class="el" href="classhltypes_1_1_list.html" title="Encapsulates std::list and adds high level methods. ">List</a> with reversed order of elements.  <a href="#af48e5a5b84c2f9452ba0ebf2c2ddc5eb">More...</a><br /></td></tr>
 <tr class="separator:af48e5a5b84c2f9452ba0ebf2c2ddc5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -464,10 +467,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a7008fb311252d7fa47431b84c33edeb6 inherit pub_methods_classhltypes_1_1_container"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a7008fb311252d7fa47431b84c33edeb6">sort</a> (bool(*compareFunction)(T, T))</td></tr>
 <tr class="memdesc:a7008fb311252d7fa47431b84c33edeb6 inherit pub_methods_classhltypes_1_1_container"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sorts elements in Container.  <a href="#a7008fb311252d7fa47431b84c33edeb6">More...</a><br /></td></tr>
 <tr class="separator:a7008fb311252d7fa47431b84c33edeb6 inherit pub_methods_classhltypes_1_1_container"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d0d5e2bcc122940fecff0218e3ca9a9 inherit pub_methods_classhltypes_1_1_container"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d0d5e2bcc122940fecff0218e3ca9a9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a8d0d5e2bcc122940fecff0218e3ca9a9">randomize</a> ()</td></tr>
-<tr class="memdesc:a8d0d5e2bcc122940fecff0218e3ca9a9 inherit pub_methods_classhltypes_1_1_container"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomizes order of elements in Container. <br /></td></tr>
-<tr class="separator:a8d0d5e2bcc122940fecff0218e3ca9a9 inherit pub_methods_classhltypes_1_1_container"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e7b25e66e8d74e97759342230a07292 inherit pub_methods_classhltypes_1_1_container"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a1e7b25e66e8d74e97759342230a07292">unite</a> (const T &amp;element)</td></tr>
 <tr class="memdesc:a1e7b25e66e8d74e97759342230a07292 inherit pub_methods_classhltypes_1_1_container"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unites elements of this Container with an element.  <a href="#a1e7b25e66e8d74e97759342230a07292">More...</a><br /></td></tr>
 <tr class="separator:a1e7b25e66e8d74e97759342230a07292 inherit pub_methods_classhltypes_1_1_container"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -543,6 +542,10 @@ typedef std::list&lt; T &gt;::const_reverse_iterator&#160;</td><td class="memIte
 <tr class="memitem:a94f7edead4fe427a4fac5957e3b4795b inherit pro_methods_classhltypes_1_1_container"><td class="memItemLeft" align="right" valign="top">R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a94f7edead4fe427a4fac5957e3b4795b">_random</a> (int <a class="el" href="classhltypes_1_1_container.html#a0601751664a62bfe7ce222641403a419">count</a>, bool unique=true) const</td></tr>
 <tr class="memdesc:a94f7edead4fe427a4fac5957e3b4795b inherit pro_methods_classhltypes_1_1_container"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an Container of random elements selected from this one.  <a href="#a94f7edead4fe427a4fac5957e3b4795b">More...</a><br /></td></tr>
 <tr class="separator:a94f7edead4fe427a4fac5957e3b4795b inherit pro_methods_classhltypes_1_1_container"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0710eaa4e0bcf9c80449aedcb85fa05 inherit pro_methods_classhltypes_1_1_container"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af0710eaa4e0bcf9c80449aedcb85fa05"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#af0710eaa4e0bcf9c80449aedcb85fa05">_randomize</a> ()</td></tr>
+<tr class="memdesc:af0710eaa4e0bcf9c80449aedcb85fa05 inherit pro_methods_classhltypes_1_1_container"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomizes order of elements in Container. <br /></td></tr>
+<tr class="separator:af0710eaa4e0bcf9c80449aedcb85fa05 inherit pro_methods_classhltypes_1_1_container"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1ac36ffdc647ba51ca337cd28889813 inherit pro_methods_classhltypes_1_1_container"><td class="memItemLeft" align="right" valign="top">R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#ad1ac36ffdc647ba51ca337cd28889813">_reversed</a> () const</td></tr>
 <tr class="memdesc:ad1ac36ffdc647ba51ca337cd28889813 inherit pro_methods_classhltypes_1_1_container"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new Container with reversed order of elements.  <a href="#ad1ac36ffdc647ba51ca337cd28889813">More...</a><br /></td></tr>
 <tr class="separator:ad1ac36ffdc647ba51ca337cd28889813 inherit pro_methods_classhltypes_1_1_container"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2067,6 +2070,35 @@ template&lt;typename T&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhltypes_1_1_list.html" title="Encapsulates std::list and adds high level methods. ">List</a> of random elements selected from this one. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a628ebfe9ba6de821c451b562e563374b"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classhltypes_1_1_list.html">hltypes::List</a>&lt; T &gt;::randomize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Randomizes order of elements in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>. </p>
+<dl class="section note"><dt>Note</dt><dd>Can't use <a class="el" href="classhltypes_1_1_container.html#af0710eaa4e0bcf9c80449aedcb85fa05" title="Randomizes order of elements in Container. ">Container::_randomize()</a>, because std::random_shuffle doesn't support std::list. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classhltypes_1_1_container.html#af0710eaa4e0bcf9c80449aedcb85fa05" title="Randomizes order of elements in Container. ">Container::_randomize()</a> </dd></dl>
 
 </div>
 </div>

@@ -54,10 +54,11 @@ namespace hltypes
 /// @return acos in degrees.
 #define hacos(value) (acos(value) * __HL_RAD_TO_DEG_RATIO)
 /// @brief Calculates atan in degrees.
-/// @param[in] value cos value.
+/// @param[in] x X value.
+/// @param[in] y Y value.
 /// @return atan in degrees.
 /// @note This uses atan2.
-#define hatan(value) (atan2(value) * __HL_RAD_TO_DEG_RATIO)
+#define hatan(x, y) (atan2(x, y) * __HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.0001
 
