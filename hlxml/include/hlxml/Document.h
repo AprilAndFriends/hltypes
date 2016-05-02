@@ -20,9 +20,6 @@
 
 #include "hlxmlExport.h"
 
-class TiXmlDocument;
-class TiXmlNode;
-
 namespace hlxml
 {
 	extern hstr logTag;
@@ -48,19 +45,20 @@ namespace hlxml
 		HL_DEFINE_GET(hstr, filename, Filename);
 
 		/// @brief Gets the root Node of the Document.
-		/// @param[in] type Optional type check.
+		/// @param[in] name Optional node name check.
 		/// @note Throws an exception if type is not an empty String and the root Node is not of that type.
-		Node* root(chstr type = "");
+		Node* root(chstr name = "");
 
 	protected:
 		/// @brief The TinyXML document.
-		TiXmlDocument* document;
+		void* document;
 		/// @brief Filename of the Document.
 		hstr filename;
+		char* data;
 		/// @brief The root Node of the Document.
 		Node* rootNode;
 		/// @brief A list of all TinyXML nodes and their associated Nodes.
-		hmap<TiXmlNode*, Node*> nodes;
+		hmap<void*, Node*> nodes;
 
 		/// @brief Parses the XML.
 		/// @param[in] data XML data.
@@ -69,7 +67,7 @@ namespace hlxml
 		/// @brief Gets the Node associated with the TinyXML node.
 		/// @param[in] node The TinyXML node.
 		/// @return The Node associated with the TinyXML node.
-		Node* _node(TiXmlNode* node);
+		Node* _node(void* node);
 
 	};
 }

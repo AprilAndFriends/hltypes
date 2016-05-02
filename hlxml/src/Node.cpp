@@ -1,39 +1,44 @@
 /// @file
-/// @version 3.0
+/// @version 4.0
 /// 
 /// @section LICENSE
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
-#include <tinyxml.h>
-
 #include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
+#include <rapidxml.hpp>
 
 #include "Document.h"
 #include "Exception.h"
 #include "Node.h"
 
+#define RAPIDXML_DOCUMENT ((rapidxml::xml_document<char>*)this->document)
+#define RAPIDXML_NODE(node) ((rapidxml::xml_node<char>*)node)
+
 namespace hlxml
 {
-	Node::Node(Document* document, TiXmlNode* node) : childCount(0)
+	Node::Node(Document* document, void* node) : childCount(0)
 	{
 		this->document = document;
 		this->node = node;
-		this->value = this->node->Value();
+		this->name = RAPIDXML_NODE(this->node)->name();
+		this->value = this->name;
+		hstr actualValue = RAPIDXML_NODE(this->node)->value();
 		this->type = TYPE_ELEMENT;
-		if (this->node->ToText() != NULL)
+		rapidxml::node_type type = RAPIDXML_NODE(this->node)->type();
+		if (type == rapidxml::node_element && actualValue != "")
 		{
 			this->type = TYPE_TEXT;
 		}
-		else if (this->node->ToComment() != NULL)
+		else if (type == rapidxml::node_comment)
 		{
 			this->type = TYPE_COMMENT;
 		}
-		for (TiXmlAttribute* attr = this->node->ToElement()->FirstAttribute(); attr != NULL; attr = attr->Next())
+		for (rapidxml::xml_attribute<char>* attr = RAPIDXML_NODE(this->node)->first_attribute(); attr != NULL; attr = attr->next_attribute())
 		{
-			this->properties[attr->Name()] = attr->Value();
+			this->properties[attr->name()] = attr->value();
 		}
 	}
 
@@ -44,14 +49,14 @@ namespace hlxml
 
 	int Node::getLine()
 	{
-		return this->node->Row();
+		return 0;
 	}
 
 	int Node::getChildCount()
 	{
 		if (this->childCount == 0)
 		{
-			for (TiXmlNode* node = this->node->FirstChildElement(); node != NULL; node = node->NextSiblingElement())
+			for (rapidxml::xml_node<char>* node = RAPIDXML_NODE(this->node)->first_node(); node != NULL; node = node->next_sibling())
 			{
 				++this->childCount;
 			}
@@ -61,12 +66,12 @@ namespace hlxml
 
 	Node* Node::next()
 	{
-		return this->document->_node(this->node->NextSiblingElement());
+		return this->document->_node(RAPIDXML_NODE(this->node)->next_sibling());
 	}
 
 	Node* Node::iterChildren()
 	{
-		return this->document->_node(this->node->FirstChildElement());
+		return this->document->_node(RAPIDXML_NODE(this->node)->first_node());
 	}
 
 }

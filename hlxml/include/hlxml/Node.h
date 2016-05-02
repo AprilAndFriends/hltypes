@@ -19,8 +19,6 @@
 #include "Exception.h"
 #include "hlxmlExport.h"
 
-class TiXmlNode;
-
 /// @brief Provides a simpler syntax to iterate through the nodes of a document.
 #define foreach_xmlnode(nodeName, rootName) for (hlxml::Node* nodeName = rootName->iterChildren(); nodeName != NULL; nodeName = nodeName->next())
 
@@ -46,7 +44,8 @@ namespace hlxml
 		};
 
 		/// @brief Value of the Node.
-		hstr value;
+		hstr name;
+		DEPRECATED_ATTRIBUTE hstr value;
 		/// @brief Type of the Node.
 		Type type;
 		/// @brief Properties within the Node.
@@ -161,14 +160,14 @@ namespace hlxml
 		/// @brief The document this Node belongs to.
 		Document* document;
 		/// @brief The Node of the underlying system.
-		TiXmlNode* node;
+		void* node;
 		/// @brief Contains the child count.
 		int childCount;
 
 		/// @brief Constructor.
 		/// @param[in] document The document this Node belongs to.
 		/// @param[in] Node The TinyXML Node.
-		Node(Document* document, TiXmlNode* node);
+		Node(Document* document, void* node);
 
 	};
 
