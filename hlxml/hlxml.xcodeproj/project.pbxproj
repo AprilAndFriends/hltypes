@@ -30,6 +30,10 @@
 		D1681BA418D768190088FC68 /* iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = iOS.xcconfig; path = xcconfig/iOS.xcconfig; sourceTree = "<group>"; };
 		D1681BA518D768190088FC68 /* Mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Mac.xcconfig; path = xcconfig/Mac.xcconfig; sourceTree = "<group>"; };
 		D186227514F9630200639D7C /* tinyxml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = tinyxml.framework; path = ../../tinyxml/build/Release/tinyxml.framework; sourceTree = "<group>"; };
+		D1C1F0A31CD87B52002BC500 /* rapidxml_iterators.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = rapidxml_iterators.hpp; path = ../lib/rapidxml/rapidxml_iterators.hpp; sourceTree = "<group>"; };
+		D1C1F0A41CD87B52002BC500 /* rapidxml_print.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = rapidxml_print.hpp; path = ../lib/rapidxml/rapidxml_print.hpp; sourceTree = "<group>"; };
+		D1C1F0A51CD87B52002BC500 /* rapidxml_utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = rapidxml_utils.hpp; path = ../lib/rapidxml/rapidxml_utils.hpp; sourceTree = "<group>"; };
+		D1C1F0A61CD87B52002BC500 /* rapidxml.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = rapidxml.hpp; path = ../lib/rapidxml/rapidxml.hpp; sourceTree = "<group>"; };
 		D1E1DD69140E58E600499A97 /* libhlxml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhlxml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1E1DD7A140E593900499A97 /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = src/Document.cpp; sourceTree = "<group>"; };
 		D1E1DD7B140E593900499A97 /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Exception.cpp; path = src/Exception.cpp; sourceTree = "<group>"; };
@@ -78,6 +82,7 @@
 		7F42F69511EB0B8500B1C1DF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				D1C1F0A21CD87B36002BC500 /* rapidxml */,
 				D1E1DD7A140E593900499A97 /* Document.cpp */,
 				D1E1DD7B140E593900499A97 /* Exception.cpp */,
 				D1E1DD7C140E593900499A97 /* Node.cpp */,
@@ -104,6 +109,17 @@
 				7F42F71411EB111E00B1C1DF /* Info.plist */,
 			);
 			name = config;
+			sourceTree = "<group>";
+		};
+		D1C1F0A21CD87B36002BC500 /* rapidxml */ = {
+			isa = PBXGroup;
+			children = (
+				D1C1F0A31CD87B52002BC500 /* rapidxml_iterators.hpp */,
+				D1C1F0A41CD87B52002BC500 /* rapidxml_print.hpp */,
+				D1C1F0A51CD87B52002BC500 /* rapidxml_utils.hpp */,
+				D1C1F0A61CD87B52002BC500 /* rapidxml.hpp */,
+			);
+			name = rapidxml;
 			sourceTree = "<group>";
 		};
 		D1E1DD6A140E58E600499A97 /* Frameworks */ = {
