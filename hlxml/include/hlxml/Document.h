@@ -54,6 +54,7 @@ namespace hlxml
 		void* document;
 		/// @brief Filename of the Document.
 		hstr filename;
+		/// @brief Raw data of the Document.
 		char* data;
 		/// @brief The root Node of the Document.
 		Node* rootNode;

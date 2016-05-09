@@ -83,7 +83,7 @@ namespace hlxml
 		this->document = new rapidxml::xml_document<char>();
 		try
 		{
-			RAPIDXML_DOCUMENT->parse<0>(this->data);
+			RAPIDXML_DOCUMENT->parse<rapidxml::parse_validate_closing_tags>(this->data);
 		}
 		catch (rapidxml::parse_error& e)
 		{

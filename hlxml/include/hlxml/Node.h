@@ -43,9 +43,10 @@ namespace hlxml
 			TYPE_TEXT
 		};
 
-		/// @brief Value of the Node.
+		/// @brief Name of the Node.
 		hstr name;
-		DEPRECATED_ATTRIBUTE hstr value;
+		/// @brief Value of the Node.
+		hstr value;
 		/// @brief Type of the Node.
 		Type type;
 		/// @brief Properties within the Node.
