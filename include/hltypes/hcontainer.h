@@ -48,7 +48,8 @@ namespace hltypes
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
-		inline Container(const T& element) : STD()
+		/// @note The explicit prevents "var = element" from working.
+		inline explicit Container(const T& element) : STD()
 		{
 			this->insertAt(0, element);
 		}

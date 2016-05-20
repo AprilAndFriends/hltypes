@@ -47,7 +47,8 @@ namespace hltypes
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
-		inline List(const T& element) : Container<std::list<T>, T>(element)
+		/// @note The explicit prevents "var = element" from working.
+		inline explicit List(const T& element) : Container<std::list<T>, T>(element)
 		{
 		}
 		/// @brief Constructor from single element.
