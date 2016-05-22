@@ -186,6 +186,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a2babe523c8a03d15e7368a1652bac5cc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a2babe523c8a03d15e7368a1652bac5cc">has</a> (const T other[], int <a class="el" href="classhltypes_1_1_container.html#a0601751664a62bfe7ce222641403a419">count</a>) const </td></tr>
 <tr class="memdesc:a2babe523c8a03d15e7368a1652bac5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks existence of elements in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>.  <a href="#a2babe523c8a03d15e7368a1652bac5cc">More...</a><br /></td></tr>
 <tr class="separator:a2babe523c8a03d15e7368a1652bac5cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e146a5ac2c820614ac28dc33b12bfdd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a5e146a5ac2c820614ac28dc33b12bfdd">hasAny</a> (const <a class="el" href="classhltypes_1_1_container.html">Container</a> &amp;other) const </td></tr>
+<tr class="memdesc:a5e146a5ac2c820614ac28dc33b12bfdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks existence of any element in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>.  <a href="#a5e146a5ac2c820614ac28dc33b12bfdd">More...</a><br /></td></tr>
+<tr class="separator:a5e146a5ac2c820614ac28dc33b12bfdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a728763652b8fb3726a37fc1898d587a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a728763652b8fb3726a37fc1898d587a4">hasAny</a> (const T other[], int <a class="el" href="classhltypes_1_1_container.html#a0601751664a62bfe7ce222641403a419">count</a>) const </td></tr>
+<tr class="memdesc:a728763652b8fb3726a37fc1898d587a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks existence of any element in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>.  <a href="#a728763652b8fb3726a37fc1898d587a4">More...</a><br /></td></tr>
+<tr class="separator:a728763652b8fb3726a37fc1898d587a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0601751664a62bfe7ce222641403a419"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a0601751664a62bfe7ce222641403a419">count</a> (T element) const </td></tr>
 <tr class="memdesc:a0601751664a62bfe7ce222641403a419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts occurrences of element in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>.  <a href="#a0601751664a62bfe7ce222641403a419">More...</a><br /></td></tr>
 <tr class="separator:a0601751664a62bfe7ce222641403a419"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -485,7 +491,7 @@ template&lt;typename STD, typename T&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -497,6 +503,7 @@ template&lt;typename STD, typename T&gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>The explicit prevents "var = element" from working. </dd></dl>
 
 </div>
 </div>
@@ -2682,6 +2689,87 @@ template&lt;typename STD, typename T&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if all elements are in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5e146a5ac2c820614ac28dc33b12bfdd"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename STD, typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classhltypes_1_1_container.html">hltypes::Container</a>&lt; STD, T &gt;::hasAny </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhltypes_1_1_container.html">Container</a>&lt; STD, T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks existence of any element in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">other</td><td><a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a> with elements to search for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if any element is in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a728763652b8fb3726a37fc1898d587a4"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename STD, typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classhltypes_1_1_container.html">hltypes::Container</a>&lt; STD, T &gt;::hasAny </td>
+          <td>(</td>
+          <td class="paramtype">const T&#160;</td>
+          <td class="paramname"><em>other</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks existence of any element in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">other</td><td>C-type array with elements to search for. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>How many elements the C-type array has. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if any element is in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>. </dd></dl>
 
 </div>
 </div>

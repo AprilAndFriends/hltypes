@@ -355,6 +355,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a2babe523c8a03d15e7368a1652bac5cc inherit pub_methods_classhltypes_1_1_container"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a2babe523c8a03d15e7368a1652bac5cc">has</a> (const T other[], int <a class="el" href="classhltypes_1_1_container.html#a0601751664a62bfe7ce222641403a419">count</a>) const</td></tr>
 <tr class="memdesc:a2babe523c8a03d15e7368a1652bac5cc inherit pub_methods_classhltypes_1_1_container"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks existence of elements in Container.  <a href="#a2babe523c8a03d15e7368a1652bac5cc">More...</a><br /></td></tr>
 <tr class="separator:a2babe523c8a03d15e7368a1652bac5cc inherit pub_methods_classhltypes_1_1_container"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e146a5ac2c820614ac28dc33b12bfdd inherit pub_methods_classhltypes_1_1_container"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a5e146a5ac2c820614ac28dc33b12bfdd">hasAny</a> (const <a class="el" href="classhltypes_1_1_container.html">Container</a> &amp;other) const</td></tr>
+<tr class="memdesc:a5e146a5ac2c820614ac28dc33b12bfdd inherit pub_methods_classhltypes_1_1_container"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks existence of any element in Container.  <a href="#a5e146a5ac2c820614ac28dc33b12bfdd">More...</a><br /></td></tr>
+<tr class="separator:a5e146a5ac2c820614ac28dc33b12bfdd inherit pub_methods_classhltypes_1_1_container"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a728763652b8fb3726a37fc1898d587a4 inherit pub_methods_classhltypes_1_1_container"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a728763652b8fb3726a37fc1898d587a4">hasAny</a> (const T other[], int <a class="el" href="classhltypes_1_1_container.html#a0601751664a62bfe7ce222641403a419">count</a>) const</td></tr>
+<tr class="memdesc:a728763652b8fb3726a37fc1898d587a4 inherit pub_methods_classhltypes_1_1_container"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks existence of any element in Container.  <a href="#a728763652b8fb3726a37fc1898d587a4">More...</a><br /></td></tr>
+<tr class="separator:a728763652b8fb3726a37fc1898d587a4 inherit pub_methods_classhltypes_1_1_container"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0601751664a62bfe7ce222641403a419 inherit pub_methods_classhltypes_1_1_container"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a0601751664a62bfe7ce222641403a419">count</a> (T element) const</td></tr>
 <tr class="memdesc:a0601751664a62bfe7ce222641403a419 inherit pub_methods_classhltypes_1_1_container"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts occurrences of element in Container.  <a href="#a0601751664a62bfe7ce222641403a419">More...</a><br /></td></tr>
 <tr class="separator:a0601751664a62bfe7ce222641403a419 inherit pub_methods_classhltypes_1_1_container"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -649,7 +655,7 @@ template&lt;typename T&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -661,6 +667,7 @@ template&lt;typename T&gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>The explicit prevents "var = element" from working. </dd></dl>
 
 </div>
 </div>

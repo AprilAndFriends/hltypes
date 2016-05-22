@@ -296,6 +296,36 @@ namespace hltypes
 			}
 			return true;
 		}
+		/// @brief Checks existence of any element in Container.
+		/// @param[in] other Container with elements to search for.
+		/// @return True if any element is in Container.
+		inline bool hasAny(const Container& other) const
+		{
+			int size = other.size();
+			for_iter (i, 0, size)
+			{
+				if (this->indexOf(other.at(i)) >= 0)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		/// @brief Checks existence of any element in Container.
+		/// @param[in] other C-type array with elements to search for.
+		/// @param[in] count How many elements the C-type array has.
+		/// @return True if any element is in Container.
+		inline bool hasAny(const T other[], int count) const
+		{
+			for_iter (i, 0, count)
+			{
+				if (this->indexOf(other[i]) >= 0)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 		/// @brief Counts occurrences of element in Container.
 		/// @param[in] element Element to search for.
 		/// @return Number of occurrences of given element.
