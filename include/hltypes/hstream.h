@@ -80,7 +80,7 @@ namespace hltypes
 		/// @param[in] count Number of bytes to prepare. Stream size is increased if necessary, but contains garbage data.
 		/// @return Number of bytes ready to be written.
 		/// @note Use this when you intend to manually write data. This does not change the current position and seeking has to be done manually as well.
-		/// @see write_raw()
+		/// @see writeRaw
 		int prepareManualWriteRaw(int count);
 		/// @brief Writes a certain value into the buffer.
 		/// @param[in] value The value.
