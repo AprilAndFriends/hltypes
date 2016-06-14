@@ -55,7 +55,7 @@ namespace hltypes
 		~Mutex();
 		/// @brief Returns the mutex name.
 		/// @return The mutex name.
-		inline String getName() { return this->name; }
+		inline String getName() const { return this->name; }
 		/// @brief Locks the Mutex.
 		/// @note If another thread has lock, the caller thread will wait until the previous thread unlocks it.
 		void lock();
