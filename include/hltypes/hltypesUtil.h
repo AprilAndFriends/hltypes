@@ -19,6 +19,10 @@
 #include "hltypesExport.h"
 #include "hstring.h"
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+#define __HL_EXPAND_MACRO(x) x
+#endif
+
 namespace hltypes
 {
 	class Stream;
@@ -66,19 +70,19 @@ namespace hltypes
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_GET(type, name, capsName) inline type get ## capsName() { return this->name; }
+#define HL_DEFINE_GET(type, name, capsName) inline type get ## capsName() const { return this->name; }
 /// @brief Utility macro for quick getter definition.
 /// @param[in] classe Template class.
 /// @param[in] type1 First template type argument.
 /// @param[in] type2 Second template type argument.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_GET2(classe, type1, type2, name, capsName) inline classe<type1, type2> get ## capsName() { return this->name; }
+#define HL_DEFINE_GET2(classe, type1, type2, name, capsName) inline classe<type1, type2> get ## capsName() const { return this->name; }
 /// @brief Utility macro for quick getter (with "is") definition.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 /// @note This is meant for use with bool only.
-#define HL_DEFINE_IS(name, capsName) inline bool is ## capsName() { return this->name; }
+#define HL_DEFINE_IS(name, capsName) inline bool is ## capsName() const { return this->name; }
 /// @brief Utility macro for quick setter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
@@ -108,6 +112,18 @@ namespace hltypes
 /// @param[in] capsName Variable name with capital beginning letter.
 /// @note This is meant for use with bool only.
 #define HL_DEFINE_ISSET(name, capsName) HL_DEFINE_IS(name, capsName) HL_DEFINE_SET(bool, name, capsName)
+
+/// @brief Utility macro for local lambda classes.
+/// @param[in] name Class name.
+/// @param[in] returnType The return type of the lambda class.
+/// @param[in] code The lambda expression as "nameless" function.
+/// @note This is meant for use with various Container functions that take a function pointer to do some processing.
+#define HL_LAMBDA_CLASS(name, returnType, code) \
+class name \
+{ \
+public: \
+	static returnType lambda __HL_EXPAND_MACRO code \
+};
 
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.

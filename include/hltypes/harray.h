@@ -200,7 +200,7 @@ namespace hltypes
 		/// @return A new Array.
 		/// @note The sorting order is ascending.
 		/// @note compareFunction should return true if first element is less than the second element.
-		inline Array<T> sorted(bool(*compareFunction)(T, T)) const
+		inline Array<T> sorted(bool (*compareFunction)(T const&, T const&)) const
 		{
 			return this->template _sorted<Array<T> >(compareFunction);
 		}
@@ -256,14 +256,14 @@ namespace hltypes
 		/// @param[in] generateFunction Function pointer with generation function for the new elements.
 		/// @return A new Array with the new elements.
 		template <typename S>
-		inline Array<S> mapped(S(*generateFunction)(T)) const
+		inline Array<S> mapped(S (*generateFunction)(T const&)) const
 		{
 			return this->template _mapped<Array<S>, S>(generateFunction);
 		}
 		/// @brief Finds and returns new Array of elements that match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return New Array with all matching elements.
-		inline Array<T> findAll(bool(*conditionFunction)(T)) const
+		inline Array<T> findAll(bool (*conditionFunction)(T const&)) const
 		{
 			return this->template _findAll<Array<T> >(conditionFunction);
 		}

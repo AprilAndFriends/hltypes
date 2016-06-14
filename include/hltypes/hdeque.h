@@ -200,7 +200,7 @@ namespace hltypes
 		/// @return A new Deque.
 		/// @note The sorting order is ascending.
 		/// @note compareFunction should return true if first element is less than the second element.
-		inline Deque<T> sorted(bool(*compareFunction)(T, T)) const
+		inline Deque<T> sorted(bool (*compareFunction)(T const&, T const&)) const
 		{
 			return this->template _sorted<Deque<T> >(compareFunction);
 		}
@@ -256,14 +256,14 @@ namespace hltypes
 		/// @param[in] generateFunction Function pointer with generation function for the new elements.
 		/// @return A new Deque with the new elements.
 		template <typename S>
-		inline Deque<S> mapped(S(*generateFunction)(T)) const
+		inline Deque<S> mapped(S (*generateFunction)(T const&)) const
 		{
 			return this->template _mapped<Deque<S>, S>(generateFunction);
 		}
 		/// @brief Finds and returns new Deque of elements that match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return New Deque with all matching elements.
-		inline Deque<T> findAll(bool (*conditionFunction)(T)) const
+		inline Deque<T> findAll(bool (*conditionFunction)(T const&)) const
 		{
 			return this->template _findAll<Deque<T> >(conditionFunction);
 		}

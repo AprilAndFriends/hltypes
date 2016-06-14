@@ -522,7 +522,7 @@ namespace hltypes
 		/// @brief Finds and returns new Map with entries that match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return New Map with all matching elements.
-		inline Map<K, V> findAll(bool (*conditionFunction)(K, V)) const
+		inline Map<K, V> findAll(bool (*conditionFunction)(K const&, V const&)) const
 		{
 			Map<K, V> result;
 			__foreach_this_map_it(it)
@@ -537,7 +537,7 @@ namespace hltypes
 		/// @brief Checks if at least one entry matches the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return True if at least one entry matches the condition.
-		inline bool matchesAny(bool (*conditionFunction)(K, V)) const
+		inline bool matchesAny(bool (*conditionFunction)(K const&, V const&)) const
 		{
 			__foreach_this_map_it(it)
 			{
@@ -551,7 +551,7 @@ namespace hltypes
 		/// @brief Checks if all entries match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes a key of type K and a value of type V and returns bool.
 		/// @return True if all entries match the condition.
-		inline bool matchesAll(bool (*conditionFunction)(K, V)) const
+		inline bool matchesAll(bool (*conditionFunction)(K const&, V const&)) const
 		{
 			__foreach_this_map_it(it)
 			{

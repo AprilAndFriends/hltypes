@@ -14,12 +14,9 @@
 #define HLTYPES_ENUMERATION_H
 
 #include "harray.h"
+#include "hltypesUtil.h"
 #include "hmap.h"
 #include "hltypesExport.h"
-
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-#define __HL_EXPAND_MACRO(x) x
-#endif
 
 /// @brief Helper macro for declaring an enum class.
 /// @param[in] exportDefinition Export definition.

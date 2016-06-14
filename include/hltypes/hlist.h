@@ -211,7 +211,7 @@ namespace hltypes
 		/// @return A new List.
 		/// @note The sorting order is ascending.
 		/// @note compareFunction should return true if first element is less than the second element.
-		inline List<T> sorted(bool(*compareFunction)(T, T)) const
+		inline List<T> sorted(bool (*compareFunction)(T const&, T const&)) const
 		{
 			return this->template _sorted<List<T> >(compareFunction);
 		}
@@ -267,14 +267,14 @@ namespace hltypes
 		/// @param[in] generateFunction Function pointer with generation function for the new elements.
 		/// @return A new List with the new elements.
 		template <typename S>
-		inline List<S> mapped(S(*generateFunction)(T)) const
+		inline List<S> mapped(S (*generateFunction)(T const&)) const
 		{
 			return this->template _mapped<List<S>, S>(generateFunction);
 		}
 		/// @brief Finds and returns new List of elements that match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return New List with all matching elements.
-		inline List<T> findAll(bool (*conditionFunction)(T)) const
+		inline List<T> findAll(bool (*conditionFunction)(T const&)) const
 		{
 			return this->template _findAll<List<T> >(conditionFunction);
 		}

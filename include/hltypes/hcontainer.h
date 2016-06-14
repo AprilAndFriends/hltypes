@@ -637,7 +637,7 @@ namespace hltypes
 		/// @param[in] compareFunction Function pointer with comparison function that takes two elements of type T and returns bool.
 		/// @return Minimum Element.
 		/// @note compareFunction should return true if first element is less than second element.
-		inline T min(bool (*compareFunction)(T, T)) const
+		inline T min(bool (*compareFunction)(T const&, T const&)) const
 		{
 			if (this->size() == 0)
 			{
@@ -659,7 +659,7 @@ namespace hltypes
 		/// @param[in] compareFunction Function pointer with comparison function that takes two elements of type T and returns bool.
 		/// @return Maximum Element.
 		/// @note compareFunction should return true if first element is greater than second element.
-		inline T max(bool (*compareFunction)(T, T)) const
+		inline T max(bool (*compareFunction)(T const&, T const&)) const
 		{
 			if (this->size() == 0)
 			{
@@ -715,7 +715,7 @@ namespace hltypes
 		/// @param[in] compareFunction Function pointer with comparison function that takes two elements of type T and returns bool.
 		/// @note The sorting order is ascending.
 		/// @note compareFunction should return true if first element is less than the second element.
-		inline void sort(bool (*compareFunction)(T, T))
+		inline void sort(bool (*compareFunction)(T const&, T const&))
 		{
 			if (this->size() > 0)
 			{
@@ -813,7 +813,7 @@ namespace hltypes
 		/// @brief Finds and returns first occurrence of element that matches the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return Pointer to element that matches the condition or NULL if no element was found.
-		inline T* findFirst(bool (*conditionFunction)(T))
+		inline T* findFirst(bool (*conditionFunction)(T const&))
 		{
 			int size = this->size();
 			for_iter (i, 0, size)
@@ -828,7 +828,7 @@ namespace hltypes
 		/// @brief Checks if at least one element matches the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return True if at least one element matches the condition.
-		inline bool matchesAny(bool (*conditionFunction)(T))
+		inline bool matchesAny(bool (*conditionFunction)(T const&))
 		{
 			int size = this->size();
 			for_iter (i, 0, size)
@@ -843,7 +843,7 @@ namespace hltypes
 		/// @brief Checks if all elements match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return True if all elements match the condition.
-		inline bool matchesAll(bool (*conditionFunction)(T))
+		inline bool matchesAll(bool (*conditionFunction)(T const&))
 		{
 			int size = this->size();
 			for_iter (i, 0, size)
@@ -857,7 +857,7 @@ namespace hltypes
 		}
 		/// @brief Modifies each element with a special function.
 		/// @param[in] processFunction Function pointer with processing function for the elements.
-		inline void each(void (*processFunction)(T))
+		inline void each(void (*processFunction)(T const&))
 		{
 			int size = this->size();
 			for_iter (i, 0, size)
@@ -1070,7 +1070,7 @@ namespace hltypes
 		/// @note The sorting order is ascending.
 		/// @note compareFunction should return true if first element is less than the second element.
 		template <typename R>
-		inline R _sorted(bool(*compareFunction)(T, T)) const
+		inline R _sorted(bool (*compareFunction)(T const&, T const&)) const
 		{
 			R result(*this);
 			result.sort(compareFunction);
@@ -1147,7 +1147,7 @@ namespace hltypes
 		/// @return A new Container with the new elements.
 		/// @note generateFunction should return the element that should be mapped from the original.
 		template <typename R, typename S>
-		inline R _mapped(S (*generateFunction)(T)) const
+		inline R _mapped(S (*generateFunction)(T const&)) const
 		{
 			R result;
 			int size = this->size();
@@ -1161,7 +1161,7 @@ namespace hltypes
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return New Container with all matching elements.
 		template <typename R>
-		inline R _findAll(bool (*conditionFunction)(T)) const
+		inline R _findAll(bool (*conditionFunction)(T const&)) const
 		{
 			R result;
 			int size = this->size();
