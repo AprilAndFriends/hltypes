@@ -239,9 +239,21 @@ namespace hltypes
 		{
 			return STD::front();
 		}
+		/// @brief Accesses first element of Container.
+		/// @return The first element.
+		inline const T& first() const
+		{
+			return STD::front();
+		}
 		/// @brief Accesses last element of Container.
 		/// @return The last element.
 		inline T& last()
+		{
+			return STD::back();
+		}
+		/// @brief Accesses last element of Container.
+		/// @return The last element.
+		inline const T& last() const
 		{
 			return STD::back();
 		}
@@ -813,7 +825,7 @@ namespace hltypes
 		/// @brief Finds and returns first occurrence of element that matches the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return Pointer to element that matches the condition or NULL if no element was found.
-		inline T* findFirst(bool (*conditionFunction)(T const&))
+		inline T* findFirst(bool (*conditionFunction)(T const&)) const
 		{
 			int size = this->size();
 			for_iter (i, 0, size)
@@ -828,7 +840,7 @@ namespace hltypes
 		/// @brief Checks if at least one element matches the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return True if at least one element matches the condition.
-		inline bool matchesAny(bool (*conditionFunction)(T const&))
+		inline bool matchesAny(bool (*conditionFunction)(T const&)) const
 		{
 			int size = this->size();
 			for_iter (i, 0, size)
@@ -843,7 +855,7 @@ namespace hltypes
 		/// @brief Checks if all elements match the condition.
 		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
 		/// @return True if all elements match the condition.
-		inline bool matchesAll(bool (*conditionFunction)(T const&))
+		inline bool matchesAll(bool (*conditionFunction)(T const&)) const
 		{
 			int size = this->size();
 			for_iter (i, 0, size)
