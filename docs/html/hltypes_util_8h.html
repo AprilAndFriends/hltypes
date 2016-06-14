@@ -93,13 +93,13 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#aacd2e56619e5bc079aed67e191b594f5">HL_E_TOLERANCE</a>&#160;&#160;&#160;0.0001</td></tr>
 <tr class="memdesc:aacd2e56619e5bc079aed67e191b594f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">hltypes e-tolerance. <br /></td></tr>
 <tr class="separator:aacd2e56619e5bc079aed67e191b594f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a910dbd9783ca03243189c10d0a905895"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a910dbd9783ca03243189c10d0a905895">HL_DEFINE_GET</a>(type,  name,  capsName)&#160;&#160;&#160;inline type get ## capsName() { return this-&gt;name; }</td></tr>
+<tr class="memitem:a910dbd9783ca03243189c10d0a905895"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a910dbd9783ca03243189c10d0a905895">HL_DEFINE_GET</a>(type,  name,  capsName)&#160;&#160;&#160;inline type get ## capsName() const { return this-&gt;name; }</td></tr>
 <tr class="memdesc:a910dbd9783ca03243189c10d0a905895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility macro for quick getter definition.  <a href="#a910dbd9783ca03243189c10d0a905895">More...</a><br /></td></tr>
 <tr class="separator:a910dbd9783ca03243189c10d0a905895"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1399e6f6031ec660ed36c1636aeff3f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a1399e6f6031ec660ed36c1636aeff3f8">HL_DEFINE_GET2</a>(classe,  type1,  type2,  name,  capsName)&#160;&#160;&#160;inline classe&lt;type1, type2&gt; get ## capsName() { return this-&gt;name; }</td></tr>
+<tr class="memitem:a1399e6f6031ec660ed36c1636aeff3f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a1399e6f6031ec660ed36c1636aeff3f8">HL_DEFINE_GET2</a>(classe,  type1,  type2,  name,  capsName)&#160;&#160;&#160;inline classe&lt;type1, type2&gt; get ## capsName() const { return this-&gt;name; }</td></tr>
 <tr class="memdesc:a1399e6f6031ec660ed36c1636aeff3f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility macro for quick getter definition.  <a href="#a1399e6f6031ec660ed36c1636aeff3f8">More...</a><br /></td></tr>
 <tr class="separator:a1399e6f6031ec660ed36c1636aeff3f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd7565fbd93493986911cdb4ecec4820"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#acd7565fbd93493986911cdb4ecec4820">HL_DEFINE_IS</a>(name,  capsName)&#160;&#160;&#160;inline bool is ## capsName() { return this-&gt;name; }</td></tr>
+<tr class="memitem:acd7565fbd93493986911cdb4ecec4820"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#acd7565fbd93493986911cdb4ecec4820">HL_DEFINE_IS</a>(name,  capsName)&#160;&#160;&#160;inline bool is ## capsName() const { return this-&gt;name; }</td></tr>
 <tr class="memdesc:acd7565fbd93493986911cdb4ecec4820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility macro for quick getter (with "is") definition.  <a href="#acd7565fbd93493986911cdb4ecec4820">More...</a><br /></td></tr>
 <tr class="separator:acd7565fbd93493986911cdb4ecec4820"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbc94ca82271aec790c0afef3108ad9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#abbc94ca82271aec790c0afef3108ad9b">HL_DEFINE_SET</a>(type,  name,  capsName)&#160;&#160;&#160;inline void set ## capsName(type value) { this-&gt;name = value; }</td></tr>
@@ -117,6 +117,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a4415c2068c9c54cab5923d1376251ac1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a4415c2068c9c54cab5923d1376251ac1">HL_DEFINE_ISSET</a>(name,  capsName)&#160;&#160;&#160;<a class="el" href="hltypes_util_8h.html#acd7565fbd93493986911cdb4ecec4820">HL_DEFINE_IS</a>(name, capsName) <a class="el" href="hltypes_util_8h.html#abbc94ca82271aec790c0afef3108ad9b">HL_DEFINE_SET</a>(bool, name, capsName)</td></tr>
 <tr class="memdesc:a4415c2068c9c54cab5923d1376251ac1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility macro for quick getter (with "is") and setter definition.  <a href="#a4415c2068c9c54cab5923d1376251ac1">More...</a><br /></td></tr>
 <tr class="separator:a4415c2068c9c54cab5923d1376251ac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0182eae8910798c895391ac7d12b164"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#ac0182eae8910798c895391ac7d12b164">HL_LAMBDA_CLASS</a>(name,  returnType,  code)</td></tr>
+<tr class="memdesc:ac0182eae8910798c895391ac7d12b164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility macro for local lambda classes.  <a href="#ac0182eae8910798c895391ac7d12b164">More...</a><br /></td></tr>
+<tr class="separator:ac0182eae8910798c895391ac7d12b164"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a796a840fdb89849d6db745eb101bae16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a796a840fdb89849d6db745eb101bae16">for_iter</a>(name,  min,  max)&#160;&#160;&#160;for (int name = min; name &lt; max; ++name)</td></tr>
 <tr class="memdesc:a796a840fdb89849d6db745eb101bae16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a simpler syntax for iteration.  <a href="#a796a840fdb89849d6db745eb101bae16">More...</a><br /></td></tr>
 <tr class="separator:a796a840fdb89849d6db745eb101bae16"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1114,7 +1117,7 @@ The iteration variable has to be declared previously. </dd></dl>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;inline type get ## capsName() { return this-&gt;name; }</td>
+          <td></td><td>&#160;&#160;&#160;inline type get ## capsName() const { return this-&gt;name; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1168,7 +1171,7 @@ The iteration variable has to be declared previously. </dd></dl>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;inline classe&lt;type1, type2&gt; get ## capsName() { return this-&gt;name; }</td>
+          <td></td><td>&#160;&#160;&#160;inline classe&lt;type1, type2&gt; get ## capsName() const { return this-&gt;name; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1304,7 +1307,7 @@ The iteration variable has to be declared previously. </dd></dl>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;inline bool is ## capsName() { return this-&gt;name; }</td>
+          <td></td><td>&#160;&#160;&#160;inline bool is ## capsName() const { return this-&gt;name; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1452,6 +1455,49 @@ The iteration variable has to be declared previously. </dd></dl>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ac0182eae8910798c895391ac7d12b164"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HL_LAMBDA_CLASS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">returnType, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">code&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>name \</div><div class="line">{ \</div><div class="line">public: \</div><div class="line">        static returnType lambda __HL_EXPAND_MACRO code \</div><div class="line">};</div></div><!-- fragment -->
+<p>Utility macro for local lambda classes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Class name. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">returnType</td><td>The return type of the lambda class. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">code</td><td>The lambda expression as "nameless" function. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is meant for use with various Container functions that take a function pointer to do some processing. </dd></dl>
 
 </div>
 </div>
