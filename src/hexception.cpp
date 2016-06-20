@@ -6,6 +6,10 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
+#ifdef _ANDROID
+	#include <errno.h>
+#endif
+
 #include "hdir.h"
 #include "hexception.h"
 #include "hfile.h"
@@ -91,7 +95,7 @@ namespace hltypes
 		catch (_Exception&) // is this inception or exception, I am confused
 		{
 		}
-#ifdef _WIN32 // could be useful
+#if defined(_WIN32) || defined(_ANDROID) // could be useful
 		message += " System error: " + String(strerror(errno));
 #else
 		message += " File not found!";

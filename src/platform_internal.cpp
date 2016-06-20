@@ -19,6 +19,9 @@
 	#include <sys/stat.h>
 	#include <sys/types.h>
 	#include <unistd.h>
+	#ifdef _ANDROID
+		#include <errno.h>
+	#endif
 #endif
 
 #define __HL_INCLUDE_PLATFORM_HEADERS
@@ -138,6 +141,7 @@ namespace hltypes
 
 	_platformFile* _platformOpenFile(const String& name, const String& accessMode)
 	{
+		errno = 0;
 #ifdef _WIN32
 		return (_platformFile*)_wfopen(name.wStr().c_str(), accessMode.wStr().c_str());
 #else
