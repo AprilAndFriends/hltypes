@@ -79,11 +79,91 @@ namespace hlxml
 		{
 			return (this->properties.hasKey(propertyName) ? (bool)this->properties[propertyName] : defaultValue);
 		}
-		/// @brief Gets a given property value as int.
+		/// @brief Gets a given property value as int8.
 		/// @param[in] propertyName Name of the property.
-		/// @return Int value of the property.
+		/// @return Int8 value of the property.
 		/// @note Throws an exception if not found.
-		inline int pint(chstr propertyName)
+		inline char pint8(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (char)(int)this->properties[propertyName];
+		}
+		/// @brief Gets a given property value as int8.
+		/// @param[in] propertyName Name of the property.
+		/// @param[in] defaultValue Default value to return if property does not exist.
+		/// @return Int8 value of the property.
+		inline char pint8(chstr propertyName, char defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (char)(int)this->properties[propertyName] : defaultValue);
+		}
+		/// @brief Gets a given property value as uint8.
+		/// @param[in] propertyName Name of the property.
+		/// @return Uint8 value of the property.
+		/// @note Throws an exception if not found.
+		inline unsigned char puint8(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (unsigned char)(int)this->properties[propertyName];
+		}
+		/// @brief Gets a given property value as uint8.
+		/// @param[in] propertyName Name of the property.
+		/// @param[in] defaultValue Default value to return if property does not exist.
+		/// @return Uint8 value of the property.
+		inline unsigned char puint8(chstr propertyName, unsigned char defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (unsigned char)(int)this->properties[propertyName] : defaultValue);
+		}
+		/// @brief Gets a given property value as int16.
+		/// @param[in] propertyName Name of the property.
+		/// @return Int16 value of the property.
+		/// @note Throws an exception if not found.
+		inline short pint16(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (short)this->properties[propertyName];
+		}
+		/// @brief Gets a given property value as int16.
+		/// @param[in] propertyName Name of the property.
+		/// @param[in] defaultValue Default value to return if property does not exist.
+		/// @return Int16 value of the property.
+		inline short pint16(chstr propertyName, short defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (short)this->properties[propertyName] : defaultValue);
+		}
+		/// @brief Gets a given property value as uint16.
+		/// @param[in] propertyName Name of the property.
+		/// @return Uint16 value of the property.
+		/// @note Throws an exception if not found.
+		inline unsigned short puint16(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (unsigned short)this->properties[propertyName];
+		}
+		/// @brief Gets a given property value as uint16.
+		/// @param[in] propertyName Name of the property.
+		/// @param[in] defaultValue Default value to return if property does not exist.
+		/// @return Uint16 value of the property.
+		inline unsigned short puint16(chstr propertyName, unsigned short defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (unsigned short)this->properties[propertyName] : defaultValue);
+		}
+		/// @brief Gets a given property value as int32.
+		/// @param[in] propertyName Name of the property.
+		/// @return Int32 value of the property.
+		/// @note Throws an exception if not found.
+		inline int pint32(chstr propertyName)
 		{
 			if (!this->properties.hasKey(propertyName))
 			{
@@ -91,13 +171,73 @@ namespace hlxml
 			}
 			return (int)this->properties[propertyName];
 		}
-		/// @brief Gets a given property value as int.
+		/// @brief Gets a given property value as int32.
 		/// @param[in] propertyName Name of the property.
 		/// @param[in] defaultValue Default value to return if property does not exist.
-		/// @return Int value of the property.
-		inline int pint(chstr propertyName, int defaultValue)
+		/// @return Int32 value of the property.
+		inline int pint32(chstr propertyName, int defaultValue)
 		{
 			return (this->properties.hasKey(propertyName) ? (int)this->properties[propertyName] : defaultValue);
+		}
+		/// @brief Gets a given property value as uint32.
+		/// @param[in] propertyName Name of the property.
+		/// @return Uint32 value of the property.
+		/// @note Throws an exception if not found.
+		inline unsigned int puint32(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (unsigned int)this->properties[propertyName];
+		}
+		/// @brief Gets a given property value as uint32.
+		/// @param[in] propertyName Name of the property.
+		/// @param[in] defaultValue Default value to return if property does not exist.
+		/// @return Uint32 value of the property.
+		inline unsigned int puint32(chstr propertyName, unsigned int defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (unsigned int)this->properties[propertyName] : defaultValue);
+		}
+		/// @brief Gets a given property value as int64.
+		/// @param[in] propertyName Name of the property.
+		/// @return Int64 value of the property.
+		/// @note Throws an exception if not found.
+		inline int64_t pint64(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (int64_t)this->properties[propertyName];
+		}
+		/// @brief Gets a given property value as int64.
+		/// @param[in] propertyName Name of the property.
+		/// @param[in] defaultValue Default value to return if property does not exist.
+		/// @return Int64 value of the property.
+		inline int64_t pint64(chstr propertyName, int64_t defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (int64_t)this->properties[propertyName] : defaultValue);
+		}
+		/// @brief Gets a given property value as uint64.
+		/// @param[in] propertyName Name of the property.
+		/// @return Uint64 value of the property.
+		/// @note Throws an exception if not found.
+		inline uint64_t puint64(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (uint64_t)this->properties[propertyName];
+		}
+		/// @brief Gets a given property value as uint64.
+		/// @param[in] propertyName Name of the property.
+		/// @param[in] defaultValue Default value to return if property does not exist.
+		/// @return Uint64 value of the property.
+		inline uint64_t puint64(chstr propertyName, uint64_t defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (uint64_t)this->properties[propertyName] : defaultValue);
 		}
 		/// @brief Gets a given property value as float.
 		/// @param[in] propertyName Name of the property.
@@ -118,6 +258,26 @@ namespace hlxml
 		inline float pfloat(chstr propertyName, float defaultValue)
 		{
 			return (this->properties.hasKey(propertyName) ? (float)this->properties[propertyName] : defaultValue);
+		}
+		/// @brief Gets a given property value as double.
+		/// @param[in] propertyName Name of the property.
+		/// @return Double value of the property.
+		/// @note Throws an exception if not found.
+		inline double pdouble(chstr propertyName)
+		{
+			if (!this->properties.hasKey(propertyName))
+			{
+				throw XMLPropertyNotExistsException(propertyName, this);
+			}
+			return (double)this->properties[propertyName];
+		}
+		/// @brief Gets a given property value as double.
+		/// @param[in] propertyName Name of the property.
+		/// @param[in] defaultValue Default value to return if property does not exist.
+		/// @return Double value of the property.
+		inline double pdouble(chstr propertyName, double defaultValue)
+		{
+			return (this->properties.hasKey(propertyName) ? (double)this->properties[propertyName] : defaultValue);
 		}
 		/// @brief Gets a given property value as String.
 		/// @param[in] propertyName Name of the property.
@@ -156,6 +316,9 @@ namespace hlxml
 		/// @brief Starts an iteration over all child Nodes.
 		/// @return The first child Node of this Node.
 		Node* iterChildren();
+
+		DEPRECATED_ATTRIBUTE inline int pint(chstr propertyName)					{ return this->pint32(propertyName); }
+		DEPRECATED_ATTRIBUTE inline int pint(chstr propertyName, int defaultValue)	{ return this->pint32(propertyName, defaultValue); }
 
 	protected:
 		/// @brief The document this Node belongs to.
