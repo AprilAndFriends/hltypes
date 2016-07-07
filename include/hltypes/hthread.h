@@ -33,7 +33,7 @@ namespace hltypes
 			~ThreadRunner();
 
 			/// @return Associated thread.
-			HL_DEFINE_GET(Thread*, thread, Thread);
+			inline Thread* getThread() const { return this->thread; }
 
 			/// @return Execute the thread's code.
 			void execute();
@@ -54,7 +54,11 @@ namespace hltypes
 		Thread(void (*function)(Thread*), const String& name = "");
 		/// @brief Destructor.
 		virtual ~Thread();
-		/// @brief Sets function.
+
+		/// @brief Gets the current function.
+		/// @return The current function.
+		inline void (*getFunction())(Thread*) { return this->function; }
+		/// @brief Sets new function.
 		/// @param[in] value New function.
 		inline void setFunction(void (*value)(Thread*)) { this->function = value; }
 		/// @brief Gets the thread name.
@@ -66,6 +70,7 @@ namespace hltypes
 		/// @brief Gets whether the thread is executing right now.
 		/// @return True if the thread is executing right now.
 		inline bool isExecuting() const { return this->executing; }
+
 		/// @brief Starts the thread processing.
 		void start();
 		/// @brief Stops the thread processing.

@@ -25,7 +25,7 @@
 	public: \
 		_ ## classe(const char* file, int line); \
 		inline ~_ ## classe() { } \
-		inline hstr getType() { return #classe; } \
+		inline hstr getType() const { return #classe; } \
 	};
 
 /// @brief Declares an exception class with 1 argument.
@@ -38,7 +38,7 @@
 	public: \
 		_ ## classe(chstr arg0, const char* file, int line); \
 		inline ~_ ## classe() { } \
-		inline hstr getType() { return #classe; } \
+		inline hstr getType() const { return #classe; } \
 	};
 
 /// @brief Declares an exception class with 2 arguments.
@@ -52,7 +52,7 @@
 	public: \
 		_ ## classe(chstr arg0, chstr arg1, const char* file, int line); \
 		inline ~_ ## classe() { } \
-		inline hstr getType() { return #classe; } \
+		inline hstr getType() const { return #classe; } \
 	};
 
 /// @brief Declares an exception class with 3 arguments.
@@ -67,7 +67,7 @@
 	public: \
 		_ ## classe(chstr arg0, chstr arg1, chstr arg2, const char* file, int line); \
 		inline ~_ ## classe() { } \
-		inline hstr getType() { return #classe; } \
+		inline hstr getType() const { return #classe; } \
 	};
 
 namespace hltypes
@@ -85,16 +85,16 @@ namespace hltypes
 		virtual ~_Exception();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline virtual String getType() { return "Exception"; }
+		inline virtual String getType() const { return "Exception"; }
 		/// @brief Gets the exception message.
 		/// @return The exception message.
-		inline virtual String getMessage() { return this->message; }
+		inline virtual String getMessage() const { return this->message; }
 		/// @brief Gets the stack trace.
 		/// @return The stack trace.
-		inline String getStackTrace() { return this->stackTrace; }
+		inline String getStackTrace() const { return this->stackTrace; }
 		/// @brief Gets the full error message with stack trace.
 		/// @return The full error message with stack trace.
-		inline String getFullMessage() { return this->message + "\n" + this->stackTrace; }
+		inline String getFullMessage() const { return this->message + "\n" + this->stackTrace; }
 
 	protected:
 		/// @brief Exception message.
@@ -125,7 +125,7 @@ namespace hltypes
 		~_FileCouldNotOpenException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "FileCouldNotOpenException"; }
+		inline String getType() const { return "FileCouldNotOpenException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -145,7 +145,7 @@ namespace hltypes
 		~_FileNotOpenException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "FileNotOpenException"; }
+		inline String getType() const { return "FileNotOpenException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -163,7 +163,7 @@ namespace hltypes
 		~_FileNotWriteableException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "FileNotWriteableException"; }
+		inline String getType() const { return "FileNotWriteableException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -183,7 +183,7 @@ namespace hltypes
 		~_ResourceNotExistsException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "ResourceNotExistsException"; }
+		inline String getType() const { return "ResourceNotExistsException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -203,7 +203,7 @@ namespace hltypes
 		~_ResourceAlreadyExistsException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "ResourceAlreadyExistsException"; }
+		inline String getType() const { return "ResourceAlreadyExistsException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -221,7 +221,7 @@ namespace hltypes
 		~_ContainerIndexException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "ContainerIndexException"; }
+		inline String getType() const { return "ContainerIndexException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -239,7 +239,7 @@ namespace hltypes
 		~_ContainerEmptyException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "ContainerEmptyException"; }
+		inline String getType() const { return "ContainerEmptyException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -256,7 +256,7 @@ namespace hltypes
 		~_ContainerElementNotFoundException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "ContainerElementNotFoundException"; }
+		inline String getType() const { return "ContainerElementNotFoundException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -275,7 +275,7 @@ namespace hltypes
 		~_ContainerRangeException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "ContainerRangeException"; }
+		inline String getType() const { return "ContainerRangeException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -294,7 +294,7 @@ namespace hltypes
 		~_ContainerKeyException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "ContainerKeyException"; }
+		inline String getType() const { return "ContainerKeyException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -312,7 +312,7 @@ namespace hltypes
 		~_ObjectCannotCopyException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "ObjectCannotCopyException"; }
+		inline String getType() const { return "ObjectCannotCopyException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -330,7 +330,7 @@ namespace hltypes
 		~_ObjectCannotAssignException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "ObjectCannotAssignException"; }
+		inline String getType() const { return "ObjectCannotAssignException"; }
 
 	};
 	/// @brief Defines a enumeration-value-not-exists exception.
@@ -345,7 +345,7 @@ namespace hltypes
 		~_EnumerationValueNotExistsException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "EnumerationValueNotExistsException"; }
+		inline String getType() const { return "EnumerationValueNotExistsException"; }
 
 	};
 	/// @brief Alias for simpler code.
@@ -366,7 +366,7 @@ namespace hltypes
 		~_EnumerationValueAlreadyExistsException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline String getType() { return "EnumerationValueAlreadyExistsException"; }
+		inline String getType() const { return "EnumerationValueAlreadyExistsException"; }
 
 	};
 	/// @brief Alias for simpler code.

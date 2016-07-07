@@ -28,12 +28,14 @@ namespace hltypes
 		Semaphore(int maxCount, const String& name = "");
 		/// @brief Destructor.
 		~Semaphore();
+
 		/// @brief Returns the semaphore name.
 		/// @return The semaphore name.
-		inline int getMaxCount() { return this->maxCount; }
+		inline int getMaxCount() const { return this->maxCount; }
 		/// @brief Returns the semaphore name.
 		/// @return The semaphore name.
-		inline String getName() { return this->name; }
+		inline String getName() const { return this->name; }
+
 		/// @brief Decreases the lock counter of the Semaphore.
 		/// @note If the lock counter is zero, the caller thread will wait until a previous thread increases it.
 		void lock();
