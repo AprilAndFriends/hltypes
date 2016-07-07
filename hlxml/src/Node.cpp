@@ -42,12 +42,12 @@ namespace hlxml
 		}
 	}
 
-	hstr Node::getFilename()
+	hstr Node::getFilename() const
 	{
 		return this->document->getFilename();
 	}
 
-	int Node::getLine()
+	int Node::getLine() const
 	{
 		return 0;
 	}
@@ -64,12 +64,12 @@ namespace hlxml
 		return this->childCount;
 	}
 
-	Node* Node::next()
+	Node* Node::next() const
 	{
 		return this->document->_node(RAPIDXML_NODE(this->node)->next_sibling());
 	}
 
-	Node* Node::iterChildren()
+	Node* Node::iterChildren() const
 	{
 		return this->document->_node(RAPIDXML_NODE(this->node)->first_node());
 	}

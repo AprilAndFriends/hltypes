@@ -53,9 +53,9 @@ namespace hlxml
 		hmap<hstr, hstr> properties;
 
 		/// @brief Gets the filename of the Document to which this Node belongs to.
-		hstr getFilename();
+		hstr getFilename() const;
 		/// @brief Gets the line where the Node is located in the Document.
-		int getLine();
+		int getLine() const;
 		/// @brief Gets the child count.
 		int getChildCount();
 
@@ -312,10 +312,10 @@ namespace hlxml
 		/// @return The next sibling Node of this Node or NULL if this is the last one.
 		/// @note Use this only if you called iterChildren() on this Node's parent previously to continue the iteration.
 		/// @see iterChildren()
-		Node* next();
+		Node* next() const;
 		/// @brief Starts an iteration over all child Nodes.
 		/// @return The first child Node of this Node.
-		Node* iterChildren();
+		Node* iterChildren() const;
 
 		DEPRECATED_ATTRIBUTE inline int pint(chstr propertyName)					{ return this->pint32(propertyName); }
 		DEPRECATED_ATTRIBUTE inline int pint(chstr propertyName, int defaultValue)	{ return this->pint32(propertyName, defaultValue); }
