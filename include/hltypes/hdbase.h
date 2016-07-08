@@ -63,7 +63,7 @@ namespace hltypes
 		inline DirBase() { }
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
-		inline virtual ~DirBase() { }
+		virtual inline ~DirBase() { }
 
 		/// @brief Prepends the directory name to each path entry.
 		/// @param[in] dirname Directory name.

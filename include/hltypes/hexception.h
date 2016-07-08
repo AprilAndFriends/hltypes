@@ -85,10 +85,10 @@ namespace hltypes
 		virtual ~_Exception();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
-		inline virtual String getType() const { return "Exception"; }
+		virtual inline String getType() const { return "Exception"; }
 		/// @brief Gets the exception message.
 		/// @return The exception message.
-		inline virtual String getMessage() const { return this->message; }
+		virtual inline String getMessage() const { return this->message; }
 		/// @brief Gets the stack trace.
 		/// @return The stack trace.
 		inline String getStackTrace() const { return this->stackTrace; }
