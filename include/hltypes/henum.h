@@ -26,27 +26,33 @@
 class exportDefinition classe : public henum \
 { \
 public: \
-	classe() : henum() { } \
-	classe(chstr name) : henum() { this->_addNewInstance(#classe, name); } \
-	classe(chstr name, unsigned int value) : henum(value) { this->_addNewInstance(#classe, name, value); } \
-	~classe() { } \
-	classe next() \
+	inline classe() : henum() { } \
+	inline classe(chstr name) : henum() { this->_addNewInstance(#classe, name); } \
+	inline classe(chstr name, unsigned int value) : henum(value) { this->_addNewInstance(#classe, name, value); } \
+	inline ~classe() { } \
+	inline classe next() \
 	{ \
 		harray<classe> values = classe::getValues(); \
 		values.sort(); \
 		return values[(values.indexOf(*this) + 1) % values.size()]; \
 	} \
-	classe previous() \
+	inline classe previous() \
 	{ \
 		harray<classe> values = classe::getValues(); \
 		values.sort(); \
 		return values[(values.indexOf(*this) + values.size() - 1) % values.size()]; \
 	} \
-	static classe fromInt(int value) \
+	inline bool operator<(const classe& other) const { return (this->value < other.value); } \
+	inline bool operator>(const classe& other) const { return (this->value > other.value); } \
+	inline bool operator<=(const classe& other) const { return (this->value <= other.value); } \
+	inline bool operator>=(const classe& other) const { return (this->value >= other.value); } \
+	inline bool operator==(const classe& other) const { return (this->value == other.value); } \
+	inline bool operator!=(const classe& other) const { return (this->value != other.value); } \
+	inline static classe fromInt(int value) \
 	{ \
 		return fromUint((unsigned int)value); \
 	} \
-	static classe fromUint(unsigned int value) \
+	inline static classe fromUint(unsigned int value) \
 	{ \
 		if (!_instances.hasKey(value)) \
 		{ \
@@ -54,7 +60,7 @@ public: \
 		} \
 		return classe(value); \
 	} \
-	static classe fromName(chstr name) \
+	inline static classe fromName(chstr name) \
 	{ \
 		if (!_instances.hasValue(name)) \
 		{ \
@@ -62,19 +68,19 @@ public: \
 		} \
 		return classe(_instances(name)); \
 	} \
-	static bool hasValue(chstr name) \
+	inline static bool hasValue(chstr name) \
 	{ \
 		return _instances.hasValue(name); \
 	} \
-	static bool hasValueFor(int value) \
+	inline static bool hasValueFor(int value) \
 	{ \
 		return _instances.hasKey((unsigned int)value); \
 	} \
-	static bool hasValueFor(unsigned int value) \
+	inline static bool hasValueFor(unsigned int value) \
 	{ \
 		return _instances.hasKey(value); \
 	} \
-	static harray<classe> getValues() \
+	inline static harray<classe> getValues() \
 	{ \
 		harray<classe> result; \
 		foreach_map (unsigned int, hstr, it, _instances) \
@@ -85,8 +91,8 @@ public: \
 	} \
 	__HL_EXPAND_MACRO code \
 protected: \
-	classe(unsigned int value) : henum(value) { } \
-	hmap<unsigned int, hstr>& _getInstances() const { return _instances; } \
+	inline classe(unsigned int value) : henum(value) { } \
+	inline hmap<unsigned int, hstr>& _getInstances() const { return _instances; } \
 private: \
 	static hmap<unsigned int, hstr> _instances; \
 };
