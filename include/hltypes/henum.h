@@ -89,6 +89,7 @@ public: \
 		} \
 		return result; \
 	} \
+	inline static hmap<unsigned int, hstr> getAsMap() { return _instances; } \
 	__HL_EXPAND_MACRO code \
 protected: \
 	inline classe(unsigned int value) : henum(value) { } \
