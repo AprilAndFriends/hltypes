@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		348BC10F1D51201E00634FD3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 348BC10E1D51201E00634FD3 /* AppKit.framework */; };
 		7F340ED0120AE72900F01926 /* hmap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F340ECF120AE72900F01926 /* hmap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F42F69911EB0B9500B1C1DF /* hfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69611EB0B9400B1C1DF /* hfile.cpp */; };
 		7F42F69A11EB0B9500B1C1DF /* hstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69711EB0B9500B1C1DF /* hstring.cpp */; };
@@ -133,6 +134,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		348BC10E1D51201E00634FD3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		7F340ECF120AE72900F01926 /* hmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hmap.h; path = include/hltypes/hmap.h; sourceTree = "<group>"; };
 		7F42F69611EB0B9400B1C1DF /* hfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hfile.cpp; path = src/hfile.cpp; sourceTree = SOURCE_ROOT; };
 		7F42F69711EB0B9500B1C1DF /* hstring.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = hstring.cpp; path = src/hstring.cpp; sourceTree = SOURCE_ROOT; };
@@ -224,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				348BC10F1D51201E00634FD3 /* AppKit.framework in Frameworks */,
 				D1E909FC163694F300EB27EE /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +366,7 @@
 		D1E909FD163694FE00EB27EE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				348BC10E1D51201E00634FD3 /* AppKit.framework */,
 				D10E64811A29DFF8001CBF73 /* UnitTest++.framework */,
 				D1E909FB163694F300EB27EE /* Foundation.framework */,
 			);
