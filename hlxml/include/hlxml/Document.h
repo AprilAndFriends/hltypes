@@ -22,7 +22,7 @@
 
 namespace hlxml
 {
-	extern hstr logTag;
+	hlxmlExport extern hstr logTag;
 
 	class Node;
 	
