@@ -29,7 +29,7 @@ namespace hltypes
 	class StreamBase;
 
 	/// @brief Used for logging display.
-	extern String logTag;
+	hltypesExport extern String logTag;
 }
 
 /// @brief Used for optimized and quick calculation from RAD to DEG.
