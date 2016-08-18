@@ -68,25 +68,16 @@ namespace hltypes
 	int Log::fileIndex = 0;
 	String Log::fileExtension;
 
-	String Log::_makeFilename(const hltypes::String& filename, int index)
+	void (*Log::getCallbackFunction())(const String&, const String&)
 	{
-		return (Dir::joinPath(filename + ".hlog", String(index) + "." + Log::fileExtension));
+		hmutex::ScopeLock lock(&Log::mutex);
+		return Log::callbackFunction;
 	}
-
-	String Log::_makeCurrentFilename(const hltypes::String& filename)
+	
+	void Log::setCallbackFunction(void(*function)(const String&, const String&))
 	{
-		if (!Dir::exists(filename + ".hlog"))
-		{
-			Dir::create(filename + ".hlog");
-		}
-		String newFilename = Log::_makeFilename(filename, Log::fileIndex);
-		if (File::hinfo(newFilename).size > MAX_FILE_SIZE)
-		{
-			++Log::fileIndex;
-			newFilename = Log::_makeFilename(filename, Log::fileIndex);
-			File::createNew(newFilename); // clears the file
-		}
-		return newFilename;
+		hmutex::ScopeLock lock(&Log::mutex);
+		Log::callbackFunction = function;
 	}
 	
 	void Log::setLevels(bool write, bool error, bool warn, bool debug)
@@ -121,88 +112,6 @@ namespace hltypes
 #endif
 	}
 
-	void (*Log::getCallbackFunction())(const String&, const String&)
-	{
-		hmutex::ScopeLock lock(&Log::mutex);
-		return Log::callbackFunction;
-	}
-	
-	void Log::setCallbackFunction(void(*function)(const String&, const String&))
-	{
-		hmutex::ScopeLock lock(&Log::mutex);
-		Log::callbackFunction = function;
-	}
-	
-	bool Log::_systemLog(const String& tag, const String& message, int level) // level is needed for Android
-	{
-		if (level == LevelWrite && !Log::levelWrite)
-		{
-			return false;
-		}
-		if (level == LevelError && !Log::levelError)
-		{
-			return false;
-		}
-		if (level == LevelWarn && !Log::levelWarn)
-		{
-			return false;
-		}
-		if (level == LevelDebug && !Log::levelDebug)
-		{
-			return false;
-		}
-		if (tag != "" && Log::tagFilters.size() > 0 && !Log::tagFilters.has(tag))
-		{
-			return false;
-		}
-		Mutex::ScopeLock lock(&Log::mutex);
-		if (outputEnabled)
-		{
-			_platformPrint(tag, message, LEVEL_PLATFORM(level));
-		}
-		if (Log::filename != "")
-		{
-			try
-			{
-				File file;
-#ifndef _WIN32
-				file.open(Log::filename, File::APPEND);
-#else
-				file.open(Log::_makeCurrentFilename(Log::filename), File::APPEND);
-#endif
-				String logMessage = (tag != "" ? "[" + tag + "] " + message : message);
-				file.write(logMessage);
-				file.write("\n");
-			}
-			catch (_Exception& e)
-			{
-				if (outputEnabled)
-				{
-					_platformPrint("FATAL", e.getFullMessage(), LevelError);
-				}
-#ifdef _DEBUG
-				throw e;
-#endif
-			}
-		}
-		try
-		{
-			if (Log::callbackFunction != NULL)
-			{
-				(*Log::callbackFunction)(tag, message);
-			}
-		}
-		catch (_Exception& e)
-		{
-			if (outputEnabled)
-			{
-				_platformPrint("FATAL", e.getFullMessage(), LevelError);
-			}
-			throw e;
-		}
-		return true;
-	}
-	
 	bool Log::write(const String& tag, const String& message)
 	{
 		return Log::_systemLog(tag, message, LevelWrite);
@@ -283,4 +192,95 @@ namespace hltypes
 #endif
 	}
 
+	String Log::_makeFilename(const hltypes::String& filename, int index)
+	{
+		return (Dir::joinPath(filename + ".hlog", String(index) + "." + Log::fileExtension));
+	}
+
+	String Log::_makeCurrentFilename(const hltypes::String& filename)
+	{
+		if (!Dir::exists(filename + ".hlog"))
+		{
+			Dir::create(filename + ".hlog");
+		}
+		String newFilename = Log::_makeFilename(filename, Log::fileIndex);
+		if (File::hinfo(newFilename).size > MAX_FILE_SIZE)
+		{
+			++Log::fileIndex;
+			newFilename = Log::_makeFilename(filename, Log::fileIndex);
+			File::createNew(newFilename); // clears the file
+		}
+		return newFilename;
+	}
+
+	bool Log::_systemLog(const String& tag, const String& message, int level) // level is needed for Android
+	{
+		if (level == LevelWrite && !Log::levelWrite)
+		{
+			return false;
+		}
+		if (level == LevelError && !Log::levelError)
+		{
+			return false;
+		}
+		if (level == LevelWarn && !Log::levelWarn)
+		{
+			return false;
+		}
+		if (level == LevelDebug && !Log::levelDebug)
+		{
+			return false;
+		}
+		if (tag != "" && Log::tagFilters.size() > 0 && !Log::tagFilters.has(tag))
+		{
+			return false;
+		}
+		Mutex::ScopeLock lock(&Log::mutex);
+		if (outputEnabled)
+		{
+			_platformPrint(tag, message, LEVEL_PLATFORM(level));
+		}
+		if (Log::filename != "")
+		{
+			try
+			{
+				File file;
+#ifndef _WIN32
+				file.open(Log::filename, File::APPEND);
+#else
+				file.open(Log::_makeCurrentFilename(Log::filename), File::APPEND);
+#endif
+				String logMessage = (tag != "" ? "[" + tag + "] " + message : message);
+				file.write(logMessage);
+				file.write("\n");
+			}
+			catch (_Exception& e)
+			{
+				if (outputEnabled)
+				{
+					_platformPrint("FATAL", e.getFullMessage(), LevelError);
+				}
+#ifdef _DEBUG
+				throw e;
+#endif
+			}
+		}
+		try
+		{
+			if (Log::callbackFunction != NULL)
+			{
+				(*Log::callbackFunction)(tag, message);
+			}
+		}
+		catch (_Exception& e)
+		{
+			if (outputEnabled)
+			{
+				_platformPrint("FATAL", e.getFullMessage(), LevelError);
+			}
+			throw e;
+		}
+		return true;
+	}
+	
 }
