@@ -61,6 +61,10 @@ namespace hltypes
 		/// @brief Sets the log level Debug.
 		/// @param[in] value Whether to turn it on or off.
 		static inline void setLevelDebug(bool value) { levelDebug = value; }
+		/// @brief Gets the current tag filters.
+		/// @return The current tag filters.
+		/// @note If value is an empty Array, the no filtering is used.
+		static inline Array<String> getTagFilters() { return tagFilters; }
 		/// @brief Sets the current tag filters.
 		/// @param[in] value New tag filters.
 		/// @note If value is an empty Array, the no filtering will be used.
@@ -71,6 +75,9 @@ namespace hltypes
 		/// @param[in] warn Value for Log level Warn.
 		/// @param[in] debug Value for Log level Debug.
 		static void setLevels(bool write, bool error, bool warn, bool debug);
+		/// @brief Gets the flag for whether logs should be printed to output.
+		/// @return The flag for whether logs should be printed to output.
+		static bool isOutputEnabled() { return outputEnabled; }
 		/// @brief Sets the flag for whether logs should be printed to output.
 		static void setOutputEnabled(bool value) { outputEnabled = value; }
 		/// @brief Sets the filename for log dump.
