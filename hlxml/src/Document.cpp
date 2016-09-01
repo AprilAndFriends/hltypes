@@ -1,5 +1,5 @@
 /// @file
-/// @version 4.0
+/// @version 4.1
 /// 
 /// @section LICENSE
 /// 
@@ -25,35 +25,15 @@ namespace hlxml
 {
 	hstr logTag = "hlxml";
 
-	Document::Document(chstr filename, bool fromResource) : data(NULL), rootNode(NULL)
+	Document::Document(chstr filename, bool fromResource) : document(NULL), data(NULL), rootNode(NULL)
 	{
 		this->filename = filename;
-		hstr realFilename;
-		hstr data;
-		if (fromResource)
-		{
-			if (!hresource::exists(this->filename))
-			{
-				throw ResourceFileCouldNotOpenException(this->filename);
-			}
-			data = hresource::hread(this->filename);
-			realFilename = hrdir::normalize(this->filename);
-		}
-		else
-		{
-			if (!hfile::exists(this->filename))
-			{
-				throw FileCouldNotOpenException(this->filename);
-			}
-			data = hfile::hread(this->filename);
-			realFilename = hdir::normalize(this->filename);
-		}
-		this->_parse(data, realFilename);
+		this->fromResource = fromResource;
 	}
 
-	Document::Document(hsbase& stream) : data(NULL), rootNode(NULL)
+	Document::Document(hsbase& stream) : document(NULL), data(NULL), rootNode(NULL)
 	{
-		this->_parse(stream.read(), "stream");
+		this->_setup(stream.read(), "stream");
 	}
 
 	Document::~Document()
@@ -74,12 +54,36 @@ namespace hlxml
 		}
 	}
 
-	void Document::_parse(chstr data, chstr realFilename)
+	void Document::_setup(chstr data, chstr realFilename)
 	{
 		int dataSize = data.size() + 1;
 		this->data = new char[dataSize]();
 		this->data[dataSize - 1] = 0;
 		memcpy(this->data, data.cStr(), dataSize - 1);
+		this->realFilename = realFilename;
+	}
+
+	void Document::_parse()
+	{
+		if (this->data == NULL)
+		{
+			if (this->fromResource)
+			{
+				if (!hresource::exists(this->filename))
+				{
+					throw ResourceFileCouldNotOpenException(this->filename);
+				}
+				this->_setup(hresource::hread(this->filename), hrdir::normalize(this->filename));
+			}
+			else
+			{
+				if (!hfile::exists(this->filename))
+				{
+					throw FileCouldNotOpenException(this->filename);
+				}
+				this->_setup(hfile::hread(this->filename), hdir::normalize(this->filename));
+			}
+		}
 		this->document = new rapidxml::xml_document<char>();
 		try
 		{
@@ -88,12 +92,18 @@ namespace hlxml
 		catch (rapidxml::parse_error& e)
 		{
 			hstr desc = e.what() + hstr(" [") + e.where<char>() + "]";
-			throw XMLException(hsprintf("An error occcured parsing XML file '%s': %s", realFilename.cStr(), desc.cStr()), NULL);
+			delete RAPIDXML_DOCUMENT;
+			this->document = NULL;
+			throw XMLException(hsprintf("An error occcured parsing XML file '%s': %s", this->realFilename.cStr(), desc.cStr()), NULL);
 		}
 	}
 
 	Node* Document::root(chstr name)
 	{
+		if (this->document == NULL)
+		{
+			this->_parse();
+		}
 		if (this->rootNode == NULL)
 		{
 			rapidxml::xml_node<char>* rapidXmlNode = RAPIDXML_DOCUMENT->first_node();
@@ -108,21 +118,6 @@ namespace hlxml
 			}
 		}
 		return this->rootNode;
-	}
-
-	Node* Document::_node(void* node)
-	{
-		if (node == NULL)
-		{
-			return NULL;
-		}
-		Node* newNode = this->nodes.tryGet(node, NULL);
-		if (newNode == NULL)
-		{
-			newNode = new Node(this, node);
-			this->nodes[node] = newNode;
-		}
-		return newNode;
 	}
 
 }

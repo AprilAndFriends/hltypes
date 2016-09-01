@@ -1,5 +1,5 @@
 /// @file
-/// @version 4.0
+/// @version 4.1
 /// 
 /// @section LICENSE
 /// 
@@ -19,6 +19,7 @@
 #include <hltypes/hmap.h>
 
 #include "hlxmlExport.h"
+#include "Node.h"
 
 namespace hlxml
 {
@@ -54,6 +55,10 @@ namespace hlxml
 		void* document;
 		/// @brief Filename of the Document.
 		hstr filename;
+		/// @brief Real filename of the Document, used for exception prints.
+		hstr realFilename;
+		/// @brief Whether data is read from a resource or not.
+		bool fromResource;
 		/// @brief Raw data of the Document.
 		char* data;
 		/// @brief The root Node of the Document.
@@ -61,14 +66,29 @@ namespace hlxml
 		/// @brief A list of all TinyXML nodes and their associated Nodes.
 		hmap<void*, Node*> nodes;
 
-		/// @brief Parses the XML.
+		/// @brief Sets up data for later parsing.
 		/// @param[in] data XML data.
 		/// @param[in] realFilename The logical filename (used for error printing).
-		void _parse(chstr data, chstr realFilename);
+		void _setup(chstr data, chstr realFilename);
+		/// @brief Parses the XML.
+		void _parse();
 		/// @brief Gets the Node associated with the TinyXML node.
 		/// @param[in] node The TinyXML node.
 		/// @return The Node associated with the TinyXML node.
-		Node* _node(void* node);
+		inline Node* _node(void* node)
+		{
+			if (node == NULL)
+			{
+				return NULL;
+			}
+			Node* newNode = this->nodes.tryGet(node, NULL);
+			if (newNode == NULL)
+			{
+				newNode = new Node(this, node);
+				this->nodes[node] = newNode;
+			}
+			return newNode;
+		}
 
 	};
 }
