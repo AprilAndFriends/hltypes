@@ -1581,11 +1581,12 @@ hltypes::String hvsprintf(const char* format, va_list args)
 		}
 #if defined(_IOS) && TARGET_IPHONE_SIMULATOR
 		break; // don't re-iterate on iOS simulator, crashes sometimes on second call to vsprintf, all other platforms confirmed ok.
-#endif
+#else
 		size *= 2; // not enough characters, double current buffer
 		delete[] c;
 		c = new char[size + 1];
 		c[0] = '\0';
+#endif
 	}
 #ifdef _DEBUG
 	if (i >= 8)
