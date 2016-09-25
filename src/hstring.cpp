@@ -25,6 +25,11 @@
 #import <TargetConditionals.h>
 #endif
 
+// some platforms don't have this defined in this way
+#ifndef va_copy
+#define va_copy __va_copy
+#endif
+
 /*
 7	U+7F		0xxxxxxx
 11	U+7FF		110xxxxx	10xxxxxx
@@ -1574,7 +1579,7 @@ hltypes::String hvsprintf(const char* format, va_list args)
 	for_iterx (i, 0, 8)
 	{
 		// due to different (and non-standard) behavior in different implementations, there is one safe byte
-		__va_copy(vaCopy, args);
+		va_copy(vaCopy, args);
 		count = hltypes::_platformVsnprintf(c, size, format, vaCopy);
 		va_end(vaCopy);
 		if (count >= 0 && count < size)
@@ -1589,7 +1594,6 @@ hltypes::String hvsprintf(const char* format, va_list args)
 		delete[] c;
 		c = new char[size + 1];
 		c[0] = '\0';
-		
 #endif
 	}
 #ifdef _DEBUG
