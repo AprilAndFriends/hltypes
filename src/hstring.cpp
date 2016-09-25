@@ -1561,6 +1561,7 @@ hltypes::String operator+(char* string1, const hltypes::String& string2)
 
 hltypes::String hvsprintf(const char* format, va_list args)
 {
+	va_list vaCopy; // need to copy args because vsnprintf delets va_args on some platforms, and if we re-call it with a larger buffer, it will fail
 	int size = 256; // safe assumption that most strings will be under 257 characters
 #if defined(_IOS) && TARGET_IPHONE_SIMULATOR
 	size = 1024; // iOS simulator sometimes crashes when callin vsnprintf twice, so in this case, just limit output
@@ -1573,7 +1574,9 @@ hltypes::String hvsprintf(const char* format, va_list args)
 	for_iterx (i, 0, 8)
 	{
 		// due to different (and non-standard) behavior in different implementations, there is one safe byte
-		count = hltypes::_platformVsnprintf(c, size, format, args);
+		__va_copy(vaCopy, args);
+		count = hltypes::_platformVsnprintf(c, size, format, vaCopy);
+		va_end(vaCopy);
 		if (count >= 0 && count < size)
 		{
 			c[count] = '\0'; // terminate string
@@ -1586,6 +1589,7 @@ hltypes::String hvsprintf(const char* format, va_list args)
 		delete[] c;
 		c = new char[size + 1];
 		c[0] = '\0';
+		
 #endif
 	}
 #ifdef _DEBUG
