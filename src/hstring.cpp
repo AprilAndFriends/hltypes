@@ -1568,9 +1568,6 @@ hltypes::String hvsprintf(const char* format, va_list args)
 {
 	va_list vaCopy; // need to copy args because vsnprintf delets va_args on some platforms, and if we re-call it with a larger buffer, it will fail
 	int size = 256; // safe assumption that most strings will be under 257 characters
-#if defined(_IOS) && TARGET_IPHONE_SIMULATOR
-	size = 1024; // iOS simulator sometimes crashes when callin vsnprintf twice, so in this case, just limit output
-#endif
 	// not using a static buffer here to assure thread safety
 	char* c = new char[size + 1];
 	c[0] = '\0';
@@ -1587,14 +1584,10 @@ hltypes::String hvsprintf(const char* format, va_list args)
 			c[count] = '\0'; // terminate string
 			break;
 		}
-#if defined(_IOS) && TARGET_IPHONE_SIMULATOR
-		break; // don't re-iterate on iOS simulator, crashes sometimes on second call to vsprintf, all other platforms confirmed ok.
-#else
 		size *= 2; // not enough characters, double current buffer
 		delete[] c;
 		c = new char[size + 1];
 		c[0] = '\0';
-#endif
 	}
 #ifdef _DEBUG
 	if (i >= 8)
