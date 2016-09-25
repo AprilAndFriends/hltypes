@@ -864,7 +864,6 @@
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_IOS,
 					"$(inherited)",
@@ -881,7 +880,6 @@
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_IOS,
 					"$(inherited)",
@@ -898,7 +896,6 @@
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_IOS,
 					"$(inherited)",
