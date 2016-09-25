@@ -27,7 +27,11 @@
 
 // some platforms don't have this defined in this way
 #ifndef va_copy
-#define va_copy __va_copy
+	#ifdef __va_copy
+		#define va_copy __va_copy
+	#else
+		#define va_copy(dest, src) (dest = src)
+	#endif
 #endif
 
 /*
