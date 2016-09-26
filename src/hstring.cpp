@@ -30,7 +30,11 @@
 	#ifdef __va_copy
 		#define va_copy __va_copy
 	#else
-		#define va_copy(dest, src) (dest = src)
+		#define va_copy(dest, src) ((dest) = (src))
+		#ifdef va_end
+			#undef va_end
+		#endif
+		#define va_end(dest)
 	#endif
 #endif
 
