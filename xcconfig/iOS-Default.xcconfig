@@ -1,3 +1,4 @@
+SDKROOT = iphoneos;
 GCC_SYMBOLS_PRIVATE_EXTERN = YES; // symbols hidden by default
 GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 CLANG_CXX_LIBRARY = libc++;
