@@ -1522,28 +1522,28 @@ namespace rapidxml
                 // Insert UTF8 sequence
                 if (code < 0x80)    // 1 byte sequence
                 {
-	                text[0] = static_cast<unsigned char>(code);
+                    text[0] = static_cast<unsigned char>(code);
                     text += 1;
                 }
                 else if (code < 0x800)  // 2 byte sequence
                 {
-	                text[1] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
-	                text[0] = static_cast<unsigned char>(code | 0xC0);
+                    text[1] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
+                    text[0] = static_cast<unsigned char>(code | 0xC0);
                     text += 2;
                 }
-	            else if (code < 0x10000)    // 3 byte sequence
+                else if (code < 0x10000)    // 3 byte sequence
                 {
-	                text[2] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
-	                text[1] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
-	                text[0] = static_cast<unsigned char>(code | 0xE0);
+                    text[2] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
+                    text[1] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
+                    text[0] = static_cast<unsigned char>(code | 0xE0);
                     text += 3;
                 }
-	            else if (code < 0x110000)   // 4 byte sequence
+                else if (code < 0x110000)   // 4 byte sequence
                 {
-	                text[3] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
-	                text[2] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
-	                text[1] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
-	                text[0] = static_cast<unsigned char>(code | 0xF0);
+                    text[3] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
+                    text[2] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
+                    text[1] = static_cast<unsigned char>((code | 0x80) & 0xBF); code >>= 6;
+                    text[0] = static_cast<unsigned char>(code | 0xF0);
                     text += 4;
                 }
                 else    // Invalid, only codes up to 0x10FFFF are allowed in Unicode
@@ -1772,6 +1772,17 @@ namespace rapidxml
         template<int Flags>
         xml_node<Ch> *parse_comment(Ch *&text)
         {
+            // EDIT BEGIN - disallow dashes at the start of a comment
+            if (text[0] == Ch('-'))
+                //RAPIDXML_PARSE_ERROR("dashes at the beginning of a comment are not allowed", text);
+            {
+                parse_error e("dashes at the beginning of a comment are not allowed", text);
+                Ch whereString[201] = { '\0' };
+                strncpy(whereString, e.where<Ch>(), 200);
+                printf("[rapidxml] ERROR: %s [%s]\n", e.what(), whereString);
+            }
+            bool reported = false;
+            // EDIT END
             // If parsing of comments is disabled
             if (!(Flags & parse_comment_nodes))
             {
@@ -1780,6 +1791,18 @@ namespace rapidxml
                 {
                     if (!text[0])
                         RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                    // EDIT BEGIN - disallow consecutive dashes during comment (also prevents mor than 2 dashes at closing tag)
+                    if (text[0] == Ch('-') && text[1] == Ch('-'))
+                        //RAPIDXML_PARSE_ERROR("consecutive dashes not allowed within comments", text);
+                        if (!reported)
+                        {
+                            parse_error e("consecutive dashes not allowed within comments", text);
+                            Ch whereString[201] = { '\0' };
+                            strncpy(whereString, e.where<Ch>(), 200);
+                            printf("[rapidxml] ERROR: %s [%s]\n", e.what(), whereString);
+                            reported = true;
+                        }
+                    // EDIT END
                     ++text;
                 }
                 text += 3;     // Skip '-->'
@@ -1794,6 +1817,18 @@ namespace rapidxml
             {
                 if (!text[0])
                     RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                // EDIT BEGIN - disallow consecutive dashes during comment (also prevents mor than 2 dashes at closing tag)
+                if (text[0] == Ch('-') && text[1] == Ch('-'))
+                    //RAPIDXML_PARSE_ERROR("consecutive dashes not allowed within comments", text);
+                    if (!reported)
+                    {
+                        parse_error e("consecutive dashes not allowed within comments", text);
+                        Ch whereString[201] = { '\0' };
+                        strncpy(whereString, e.where<Ch>(), 200);
+                        printf("[rapidxml] ERROR: %s [%s]\n", e.what(), whereString);
+                        reported = true;
+                    }
+                // EDIT END
                 ++text;
             }
 
