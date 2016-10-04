@@ -71,6 +71,7 @@
     <ClInclude Include="..\..\include\hlxml\Exception.h" />
     <ClInclude Include="..\..\include\hlxml\hlxmlExport.h" />
     <ClInclude Include="..\..\include\hlxml\Node.h" />
+    <ClInclude Include="..\..\src\RapidXmlConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\fileproperties.rc">

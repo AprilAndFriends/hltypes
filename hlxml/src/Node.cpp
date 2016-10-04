@@ -8,6 +8,8 @@
 
 #include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
+
+#include "RapidXmlConfig.h"
 #include <rapidxml.hpp>
 
 #include "Document.h"

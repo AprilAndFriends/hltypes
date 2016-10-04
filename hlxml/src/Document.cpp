@@ -13,6 +13,8 @@
 #include <hltypes/hrdir.h>
 #include <hltypes/hresource.h>
 #include <hltypes/hstring.h>
+
+#include "RapidXmlConfig.h"
 #include <rapidxml.hpp>
 
 #include "Document.h"
@@ -87,7 +89,7 @@ namespace hlxml
 		this->document = new rapidxml::xml_document<char>();
 		try
 		{
-			RAPIDXML_DOCUMENT->parse<rapidxml::parse_validate_closing_tags>(this->data);
+			RAPIDXML_DOCUMENT->parse<rapidxml::parse_validate_closing_tags/* | rapidxml::parse_no_string_terminators/*/| rapidxml::parse_no_data_nodes>(this->data);
 		}
 		catch (rapidxml::parse_error& e)
 		{
