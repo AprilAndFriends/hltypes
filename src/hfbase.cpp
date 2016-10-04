@@ -178,13 +178,7 @@ namespace hltypes
 	bool FileBase::_fexists(const String& filename, bool caseSensitive)
 	{
 		String name = Dir::normalize(filename);
-		bool result = false;
-		_platformFile* file = _platformOpenFile(name, "rb");
-		if (file != NULL)
-		{
-			_platformCloseFile(file);
-			result = true;
-		}
+		bool result = _platformFileExists(name);
 		if (!result && !caseSensitive)
 		{
 			String baseDir = Dir::baseDir(name);
@@ -200,7 +194,7 @@ namespace hltypes
 				}
 			}
 		}
-		return (result && _platformEntryIsFile(name));
+		return result;
 	}
 	
 	FileBase::FileBase(const FileBase& other)

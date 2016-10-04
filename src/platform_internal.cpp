@@ -19,7 +19,7 @@
 	#include <sys/stat.h>
 	#include <sys/types.h>
 	#include <unistd.h>
-    #if defined(_ANDROID) || defined(__APPLE__)
+	#if defined(_ANDROID) || defined(__APPLE__)
 		#include <errno.h>
 	#endif
 #endif
@@ -192,6 +192,17 @@ namespace hltypes
 		return (fsetpos((FILE*)file, &_position) == 0);
 	}
 
+	bool _platformFileExists(const String& name)
+	{
+#ifdef _WIN32
+		// benchmarked, fastest way to check for file existence
+		return (GetFileAttributesW(name.wStr().c_str()) != INVALID_FILE_ATTRIBUTES);
+#else
+		struct stat stats;
+		return (stat(name.cStr(), &stats) == 0 && (stats.st_mode & S_IFREG) != 0);
+#endif
+	}
+
 	bool _platformRenameFile(const String& oldName, const String& newName)
 	{
 #ifdef _WIN32
@@ -208,20 +219,6 @@ namespace hltypes
 #else
 		return (remove(name.cStr()) == 0); // TODO - should be ported to Unix systems as well
 #endif
-	}
-
-	bool _platformEntryIsFile(const String& name)
-	{
-#ifndef _WIN32
-		struct stat stats;
-		// on UNIX fopen on a directory actually works so this check prevents
-		// errorously reporting the existence of a file if it's a directory
-		if (stat(name.cStr(), &stats) == 0 && (stats.st_mode & S_IFMT) == S_IFDIR)
-		{
-			return false;
-		}
-#endif
-		return true;
 	}
 
 	FileInfo _platformStatFile(const String& name)
