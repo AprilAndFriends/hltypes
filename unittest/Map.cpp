@@ -160,9 +160,9 @@ HL_UT_TEST_CLASS(Map)
 		HL_UT_ASSERT(!b.hasAllValues(a.values()), "");
 	}
 
-	static bool negative_keys(hstr key, int value) { return ((int)key < 0); }
-	static bool positive_values(hstr key, int value) { return (value >= 0); }
-	static bool over_9000_keys_values(hstr key, int value) { return ((int)key > 9000 && value > 9000); }
+	static bool negative_keys(hstr const& key, int const& value) { return ((int)key < 0); }
+	static bool positive_values(hstr const& key, int const& value) { return (value >= 0); }
+	static bool over_9000_keys_values(hstr const& key, int const& value) { return ((int)key > 9000 && value > 9000); }
 
 	HL_UT_TEST_FUNCTION(match)
 	{

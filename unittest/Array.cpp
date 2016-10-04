@@ -417,9 +417,9 @@ HL_UT_TEST_CLASS(Array)
 		HL_UT_ASSERT(b == "01.50000011.50000021.5000003", "");
 	}
 
-	static bool negative(int i) { return (i < 0); }
-	static bool positive(int i) { return (i >= 0); }
-	static bool over_9000(int i) { return (i > 9000); }
+	static bool negative(int const& i) { return (i < 0); }
+	static bool positive(int const& i) { return (i >= 0); }
+	static bool over_9000(int const& i) { return (i > 9000); }
 
 	HL_UT_TEST_FUNCTION(matching)
 	{
