@@ -161,6 +161,16 @@ namespace hltypes
 	}
 	String::~String() { }
 
+	void String::set(const char* string)
+	{
+		stdstr::assign(string);
+	}
+
+	void String::set(const char* string, const int length)
+	{
+		stdstr::assign(string, length);
+	}
+
 	String String::lowered() const
 	{
 		String result(*this);

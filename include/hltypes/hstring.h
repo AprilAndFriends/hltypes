@@ -90,6 +90,14 @@ namespace hltypes
 		/// @brief Destructor.
 		hltypesMemberExport ~String();
 
+		/// @brief Sets the string to a new value.
+		/// @param[in] string A C-type string.
+		hltypesMemberExport void set(const char* string);
+		/// @brief Sets the string to a new value.
+		/// @param[in] string A C-type string.
+		/// @param[in] length How many characters to copy.
+		hltypesMemberExport void set(const char* string, const int length);
+
 		/// @brief Transforms String into lower case.
 		/// @return String in lower case.
 		hltypesMemberExport String lowered() const;
@@ -817,14 +825,6 @@ namespace hltypes
 		/// @param[in] chars The unsigned char characters.
 		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(Array<unsigned char> chars);
-
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-#ifndef _WINRT // needs this, because WinRT cannot compile if deprecation is present
-		DEPRECATED_ATTRIBUTE hltypesMemberExport void assign(const char* string, unsigned int length) { std::string::assign(string, length); }
-#else
-		hltypesMemberExport void assign(const char* string, unsigned int length) { std::string::assign(string, length); }
-#endif
-#endif
 
 	};
 }
