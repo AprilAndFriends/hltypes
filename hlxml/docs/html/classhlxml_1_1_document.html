@@ -66,7 +66,7 @@
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8271328f9eeb5db2477735e62c5d6fdc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a8271328f9eeb5db2477735e62c5d6fdc">Document</a> (chstr <a class="el" href="classhlxml_1_1_document.html#a9894f1029106cabe92a29ab6cb6e837a">filename</a>, bool fromResource=true)</td></tr>
+<tr class="memitem:a8271328f9eeb5db2477735e62c5d6fdc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a8271328f9eeb5db2477735e62c5d6fdc">Document</a> (chstr <a class="el" href="classhlxml_1_1_document.html#a9894f1029106cabe92a29ab6cb6e837a">filename</a>, bool <a class="el" href="classhlxml_1_1_document.html#aa451e674190e3df3b4f28669b6f7995f">fromResource</a>=true)</td></tr>
 <tr class="memdesc:a8271328f9eeb5db2477735e62c5d6fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a8271328f9eeb5db2477735e62c5d6fdc">More...</a><br /></td></tr>
 <tr class="separator:a8271328f9eeb5db2477735e62c5d6fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d1de100caae9f8f78fe5eeac436ecd2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a3d1de100caae9f8f78fe5eeac436ecd2">Document</a> (hsbase &amp;stream)</td></tr>
@@ -77,7 +77,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a94214e44690b534a01b75471150797da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a94214e44690b534a01b75471150797da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e802d43dd42a21fd6f00e737436f46c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e802d43dd42a21fd6f00e737436f46c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>HL_DEFINE_GET</b> (hstr, <a class="el" href="classhlxml_1_1_document.html#a9894f1029106cabe92a29ab6cb6e837a">filename</a>, Filename)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a0e802d43dd42a21fd6f00e737436f46c">HL_DEFINE_GET</a> (hstr, <a class="el" href="classhlxml_1_1_document.html#a9894f1029106cabe92a29ab6cb6e837a">filename</a>, Filename)</td></tr>
+<tr class="memdesc:a0e802d43dd42a21fd6f00e737436f46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The filename. <br /></td></tr>
 <tr class="separator:a0e802d43dd42a21fd6f00e737436f46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd4327d343b8699cdd971b72c61a2b80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhlxml_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#abd4327d343b8699cdd971b72c61a2b80">root</a> (chstr name=&quot;&quot;)</td></tr>
 <tr class="memdesc:abd4327d343b8699cdd971b72c61a2b80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the root <a class="el" href="classhlxml_1_1_node.html" title="Represents an XML node. ">Node</a> of the <a class="el" href="classhlxml_1_1_document.html" title="Represents an XML document. ">Document</a>.  <a href="#abd4327d343b8699cdd971b72c61a2b80">More...</a><br /></td></tr>
@@ -85,35 +86,40 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:aa57ef12d3013c7b695dbb0154134a032"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#aa57ef12d3013c7b695dbb0154134a032">_parse</a> (chstr <a class="el" href="classhlxml_1_1_document.html#a9388cc1fed20db32a609d289909546d3">data</a>, chstr realFilename)</td></tr>
-<tr class="memdesc:aa57ef12d3013c7b695dbb0154134a032"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the XML.  <a href="#aa57ef12d3013c7b695dbb0154134a032">More...</a><br /></td></tr>
-<tr class="separator:aa57ef12d3013c7b695dbb0154134a032"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e7d921c7bb4bc4630c46c48ec2d2fc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhlxml_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a2e7d921c7bb4bc4630c46c48ec2d2fc3">_node</a> (void *node)</td></tr>
-<tr class="memdesc:a2e7d921c7bb4bc4630c46c48ec2d2fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the <a class="el" href="classhlxml_1_1_node.html" title="Represents an XML node. ">Node</a> associated with the TinyXML node.  <a href="#a2e7d921c7bb4bc4630c46c48ec2d2fc3">More...</a><br /></td></tr>
-<tr class="separator:a2e7d921c7bb4bc4630c46c48ec2d2fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b5f42367227a51e32864aa2de4a319a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a8b5f42367227a51e32864aa2de4a319a">_setup</a> (hsbase &amp;stream, chstr <a class="el" href="classhlxml_1_1_document.html#ac2baeab876f47d34b3415be1a3e25d0b">realFilename</a>)</td></tr>
+<tr class="memdesc:a8b5f42367227a51e32864aa2de4a319a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up data for later parsing.  <a href="#a8b5f42367227a51e32864aa2de4a319a">More...</a><br /></td></tr>
+<tr class="separator:a8b5f42367227a51e32864aa2de4a319a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fea59095779b06a5348e74f5c3ca831"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fea59095779b06a5348e74f5c3ca831"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a1fea59095779b06a5348e74f5c3ca831">_parse</a> ()</td></tr>
+<tr class="memdesc:a1fea59095779b06a5348e74f5c3ca831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the XML. <br /></td></tr>
+<tr class="separator:a1fea59095779b06a5348e74f5c3ca831"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a540bb93b5c457f2b6910895fca42fdd8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a540bb93b5c457f2b6910895fca42fdd8"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a540bb93b5c457f2b6910895fca42fdd8">document</a></td></tr>
-<tr class="memdesc:a540bb93b5c457f2b6910895fca42fdd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The TinyXML document. <br /></td></tr>
-<tr class="separator:a540bb93b5c457f2b6910895fca42fdd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9894f1029106cabe92a29ab6cb6e837a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9894f1029106cabe92a29ab6cb6e837a"></a>
-hstr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a9894f1029106cabe92a29ab6cb6e837a">filename</a></td></tr>
-<tr class="memdesc:a9894f1029106cabe92a29ab6cb6e837a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filename of the <a class="el" href="classhlxml_1_1_document.html" title="Represents an XML document. ">Document</a>. <br /></td></tr>
-<tr class="separator:a9894f1029106cabe92a29ab6cb6e837a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9388cc1fed20db32a609d289909546d3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9388cc1fed20db32a609d289909546d3"></a>
 char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a9388cc1fed20db32a609d289909546d3">data</a></td></tr>
 <tr class="memdesc:a9388cc1fed20db32a609d289909546d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw data of the <a class="el" href="classhlxml_1_1_document.html" title="Represents an XML document. ">Document</a>. <br /></td></tr>
 <tr class="separator:a9388cc1fed20db32a609d289909546d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9894f1029106cabe92a29ab6cb6e837a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9894f1029106cabe92a29ab6cb6e837a"></a>
+hstr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a9894f1029106cabe92a29ab6cb6e837a">filename</a></td></tr>
+<tr class="memdesc:a9894f1029106cabe92a29ab6cb6e837a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filename of the <a class="el" href="classhlxml_1_1_document.html" title="Represents an XML document. ">Document</a>. <br /></td></tr>
+<tr class="separator:a9894f1029106cabe92a29ab6cb6e837a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2baeab876f47d34b3415be1a3e25d0b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2baeab876f47d34b3415be1a3e25d0b"></a>
+hstr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#ac2baeab876f47d34b3415be1a3e25d0b">realFilename</a></td></tr>
+<tr class="memdesc:ac2baeab876f47d34b3415be1a3e25d0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Real filename of the <a class="el" href="classhlxml_1_1_document.html" title="Represents an XML document. ">Document</a>, used for exception prints. <br /></td></tr>
+<tr class="separator:ac2baeab876f47d34b3415be1a3e25d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa451e674190e3df3b4f28669b6f7995f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa451e674190e3df3b4f28669b6f7995f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#aa451e674190e3df3b4f28669b6f7995f">fromResource</a></td></tr>
+<tr class="memdesc:aa451e674190e3df3b4f28669b6f7995f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether data is read from a resource or not. <br /></td></tr>
+<tr class="separator:aa451e674190e3df3b4f28669b6f7995f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a540bb93b5c457f2b6910895fca42fdd8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a540bb93b5c457f2b6910895fca42fdd8"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a540bb93b5c457f2b6910895fca42fdd8">document</a></td></tr>
+<tr class="memdesc:a540bb93b5c457f2b6910895fca42fdd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The underlying document object. <br /></td></tr>
+<tr class="separator:a540bb93b5c457f2b6910895fca42fdd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2c306cce6d354955831c1e1bfdee038"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2c306cce6d354955831c1e1bfdee038"></a>
 <a class="el" href="classhlxml_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#aa2c306cce6d354955831c1e1bfdee038">rootNode</a></td></tr>
 <tr class="memdesc:aa2c306cce6d354955831c1e1bfdee038"><td class="mdescLeft">&#160;</td><td class="mdescRight">The root <a class="el" href="classhlxml_1_1_node.html" title="Represents an XML node. ">Node</a> of the <a class="el" href="classhlxml_1_1_document.html" title="Represents an XML document. ">Document</a>. <br /></td></tr>
 <tr class="separator:aa2c306cce6d354955831c1e1bfdee038"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a135f56ea06e05244072b5fb017f5d8b6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a135f56ea06e05244072b5fb017f5d8b6"></a>
-hmap&lt; void *, <a class="el" href="classhlxml_1_1_node.html">Node</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhlxml_1_1_document.html#a135f56ea06e05244072b5fb017f5d8b6">nodes</a></td></tr>
-<tr class="memdesc:a135f56ea06e05244072b5fb017f5d8b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of all TinyXML nodes and their associated Nodes. <br /></td></tr>
-<tr class="separator:a135f56ea06e05244072b5fb017f5d8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -184,7 +190,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Node</b></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a2e7d921c7bb4bc4630c46c48ec2d2fc3"></a>
+<a class="anchor" id="a8b5f42367227a51e32864aa2de4a319a"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -192,43 +198,10 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Node</b></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classhlxml_1_1_node.html">Node</a>* hlxml::Document::_node </td>
+          <td class="memname">void hlxml::Document::_setup </td>
           <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets the <a class="el" href="classhlxml_1_1_node.html" title="Represents an XML node. ">Node</a> associated with the TinyXML node. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">node</td><td>The TinyXML node. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="classhlxml_1_1_node.html" title="Represents an XML node. ">Node</a> associated with the TinyXML node. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aa57ef12d3013c7b695dbb0154134a032"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hlxml::Document::_parse </td>
-          <td>(</td>
-          <td class="paramtype">chstr&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
+          <td class="paramtype">hsbase &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -249,10 +222,10 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Node</b></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Parses the XML. </p>
+<p>Sets up data for later parsing. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>XML data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">stream</td><td>XML data stream. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">realFilename</td><td>The logical filename (used for error printing). </td></tr>
   </table>
   </dd>

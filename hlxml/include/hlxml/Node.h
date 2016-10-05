@@ -60,9 +60,6 @@ namespace hlxml
 		/// @note Exposed for optimized access.
 		harray<Node*> children;
 
-		/// @brief Gets the line where the Node is located in the Document.
-		int getLine() const;
-
 		/// @brief Gets a given property value as bool.
 		/// @param[in] propertyName Name of the property.
 		/// @return Bool value of the property.
@@ -314,6 +311,7 @@ namespace hlxml
 
 	protected:
 		/// @brief Constructor.
+		/// @param[in] document The Document this Node belongs to.
 		/// @param[in] node The underlying node object.
 		Node(Document* document, void* node);
 		/// @brief Destructor.

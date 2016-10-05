@@ -69,12 +69,12 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a488e0b580d5f51dfee09b56e89477d5a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a488e0b580d5f51dfee09b56e89477d5a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_node_8h.html#a488e0b580d5f51dfee09b56e89477d5a">foreach_xmlnode</a>(nodeName,  rootName)&#160;&#160;&#160;for (<a class="el" href="classhlxml_1_1_node.html">hlxml::Node</a>* nodeName = rootName-&gt;iterChildren(); nodeName != NULL; nodeName = nodeName-&gt;next())</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_node_8h.html#a488e0b580d5f51dfee09b56e89477d5a">foreach_xmlnode</a>(nodeName,  rootName)&#160;&#160;&#160;foreach (<a class="el" href="classhlxml_1_1_node.html">hlxml::Node</a>*, nodeName, rootName-&gt;children)</td></tr>
 <tr class="memdesc:a488e0b580d5f51dfee09b56e89477d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a simpler syntax to iterate through the nodes of a document. <br /></td></tr>
 <tr class="separator:a488e0b580d5f51dfee09b56e89477d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section version"><dt>Version</dt><dd>4.0</dd></dl>
+<div class="textblock"><dl class="section version"><dt>Version</dt><dd>4.2</dd></dl>
 <h1><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
 <p>This program is free software; you can redistribute it and/or modify it under the terms of the BSD license: <a href="http://opensource.org/licenses/BSD-3-Clause">http://opensource.org/licenses/BSD-3-Clause</a></p>

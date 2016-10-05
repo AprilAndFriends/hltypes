@@ -23,6 +23,7 @@
 
 namespace hlxml
 {
+	/// @brief Used for logging display.
 	hlxmlExport extern hstr logTag;
 
 	class Node;
@@ -43,6 +44,7 @@ namespace hlxml
 		/// @brief Destructor
 		~Document();
 
+		/// @brief The filename.
 		HL_DEFINE_GET(hstr, filename, Filename);
 
 		/// @brief Gets the root Node of the Document.
@@ -65,7 +67,7 @@ namespace hlxml
 		Node* rootNode;
 
 		/// @brief Sets up data for later parsing.
-		/// @param[in] data XML data.
+		/// @param[in] stream XML data stream.
 		/// @param[in] realFilename The logical filename (used for error printing).
 		void _setup(hsbase& stream, chstr realFilename);
 		/// @brief Parses the XML.
