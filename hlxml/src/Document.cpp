@@ -1,5 +1,5 @@
 /// @file
-/// @version 4.1
+/// @version 4.2
 /// 
 /// @section LICENSE
 /// 
@@ -27,13 +27,13 @@ namespace hlxml
 {
 	hstr logTag = "hlxml";
 
-	Document::Document(chstr filename, bool fromResource) : document(NULL), data(NULL), rootNode(NULL)
+	Document::Document(chstr filename, bool fromResource) : data(NULL), document(NULL), rootNode(NULL)
 	{
 		this->filename = filename;
 		this->fromResource = fromResource;
 	}
 
-	Document::Document(hsbase& stream) : document(NULL), data(NULL), rootNode(NULL)
+	Document::Document(hsbase& stream) : data(NULL), document(NULL), rootNode(NULL)
 	{
 		int64_t position = stream.position();
 		this->_setup(stream, "stream");
@@ -42,12 +42,10 @@ namespace hlxml
 
 	Document::~Document()
 	{
-		this->rootNode = NULL;
-		foreach_map (void*, Node*, it, this->nodes)
+		if (this->rootNode != NULL)
 		{
-			delete it->second;
+			delete this->rootNode;
 		}
-		this->nodes.clear();
 		if (this->document != NULL)
 		{
 			delete RAPIDXML_DOCUMENT;
@@ -111,7 +109,7 @@ namespace hlxml
 			{
 				throw XMLException("No root node found in XML file '" + this->filename + "'!", NULL);
 			}
-			this->rootNode = this->_node(rapidXmlNode);
+			this->rootNode = new Node(this, rapidXmlNode);
 			if (name != "" && this->rootNode->name != name)
 			{
 				throw XMLException("Root node type is not '" + name + "' in XML file '" + this->filename + "'!", NULL);

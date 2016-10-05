@@ -1,5 +1,5 @@
 /// @file
-/// @version 4.1
+/// @version 4.2
 /// 
 /// @section LICENSE
 /// 
@@ -21,14 +21,14 @@
 
 namespace hlxml
 {
-	Node::Node(Document* document, void* node) : childCount(0)
+	Node::Node(Document* document, void* node) : line(0)
 	{
-		this->document = document;
-		this->node = node;
-		rapidxml::xml_node<char>* rapidXmlNode = RAPIDXML_NODE(this->node);
+		rapidxml::xml_node<char>* rapidXmlNode = RAPIDXML_NODE(node);
 		this->name = hstr(rapidXmlNode->name(), rapidXmlNode->name_size());
 		this->value = hstr(rapidXmlNode->value(), rapidXmlNode->value_size());
 		this->type = TYPE_ELEMENT;
+		this->filename = document->getFilename();
+		//this->line = 0;
 		rapidxml::node_type type = rapidXmlNode->type();
 		if (type == rapidxml::node_element && this->value != "")
 		{
@@ -42,38 +42,23 @@ namespace hlxml
 		{
 			this->properties[hstr(attr->name(), attr->name_size())] = hstr(attr->value(), attr->value_size());
 		}
+		for (rapidxml::xml_node<char>* child = rapidXmlNode->first_node(); child != NULL; child = child->next_sibling())
+		{
+			this->children += new Node(document, child);
+		}
 	}
 
-	hstr Node::getFilename() const
+	Node::~Node()
 	{
-		return this->document->getFilename();
+		foreach (Node*, it, this->children)
+		{
+			delete (*it);
+		}
 	}
 
 	int Node::getLine() const
 	{
 		return 0;
-	}
-
-	int Node::getChildCount()
-	{
-		if (this->childCount == 0)
-		{
-			for (rapidxml::xml_node<char>* node = RAPIDXML_NODE(this->node)->first_node(); node != NULL; node = node->next_sibling())
-			{
-				++this->childCount;
-			}
-		}
-		return this->childCount;
-	}
-
-	Node* Node::next() const
-	{
-		return this->document->_node(RAPIDXML_NODE(this->node)->next_sibling());
-	}
-
-	Node* Node::iterChildren() const
-	{
-		return this->document->_node(RAPIDXML_NODE(this->node)->first_node());
 	}
 
 }

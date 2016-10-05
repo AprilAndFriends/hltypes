@@ -1,5 +1,5 @@
 /// @file
-/// @version 4.1
+/// @version 4.2
 /// 
 /// @section LICENSE
 /// 
@@ -51,20 +51,18 @@ namespace hlxml
 		Node* root(chstr name = "");
 
 	protected:
-		/// @brief The TinyXML document.
-		void* document;
+		/// @brief Raw data of the Document.
+		char* data;
 		/// @brief Filename of the Document.
 		hstr filename;
 		/// @brief Real filename of the Document, used for exception prints.
 		hstr realFilename;
 		/// @brief Whether data is read from a resource or not.
 		bool fromResource;
-		/// @brief Raw data of the Document.
-		char* data;
+		/// @brief The underlying document object.
+		void* document;
 		/// @brief The root Node of the Document.
 		Node* rootNode;
-		/// @brief A list of all TinyXML nodes and their associated Nodes.
-		hmap<void*, Node*> nodes;
 
 		/// @brief Sets up data for later parsing.
 		/// @param[in] data XML data.
@@ -72,23 +70,6 @@ namespace hlxml
 		void _setup(hsbase& stream, chstr realFilename);
 		/// @brief Parses the XML.
 		void _parse();
-		/// @brief Gets the Node associated with the TinyXML node.
-		/// @param[in] node The TinyXML node.
-		/// @return The Node associated with the TinyXML node.
-		inline Node* _node(void* node)
-		{
-			if (node == NULL)
-			{
-				return NULL;
-			}
-			Node* newNode = this->nodes.tryGet(node, NULL);
-			if (newNode == NULL)
-			{
-				newNode = new Node(this, node);
-				this->nodes[node] = newNode;
-			}
-			return newNode;
-		}
 
 	};
 }

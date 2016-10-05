@@ -1,5 +1,5 @@
 /// @file
-/// @version 4.1
+/// @version 4.2
 /// 
 /// @section LICENSE
 /// 
@@ -20,7 +20,7 @@
 #include "hlxmlExport.h"
 
 /// @brief Provides a simpler syntax to iterate through the nodes of a document.
-#define foreach_xmlnode(nodeName, rootName) for (hlxml::Node* nodeName = rootName->iterChildren(); nodeName != NULL; nodeName = nodeName->next())
+#define foreach_xmlnode(nodeName, rootName) foreach (hlxml::Node*, nodeName, rootName->children)
 
 namespace hlxml
 {
@@ -49,15 +49,19 @@ namespace hlxml
 		hstr value;
 		/// @brief Type of the Node.
 		Type type;
+		/// @brief Filename when the Node's Document.
+		hstr filename;
+		/// @brief Line number where the node is located in the Document.
+		int line;
 		/// @brief Properties within the Node.
+		/// @note Exposed for optimized access.
 		hmap<hstr, hstr> properties;
+		/// @brief Children of this Node.
+		/// @note Exposed for optimized access.
+		harray<Node*> children;
 
-		/// @brief Gets the filename of the Document to which this Node belongs to.
-		hstr getFilename() const;
 		/// @brief Gets the line where the Node is located in the Document.
 		int getLine() const;
-		/// @brief Gets the child count.
-		int getChildCount();
 
 		/// @brief Gets a given property value as bool.
 		/// @param[in] propertyName Name of the property.
@@ -308,30 +312,12 @@ namespace hlxml
 			return this->properties.hasKey(propertyName);
 		}
 
-		/// @brief Gets the next sibling Node in the current iteration.
-		/// @return The next sibling Node of this Node or NULL if this is the last one.
-		/// @note Use this only if you called iterChildren() on this Node's parent previously to continue the iteration.
-		/// @see iterChildren()
-		Node* next() const;
-		/// @brief Starts an iteration over all child Nodes.
-		/// @return The first child Node of this Node.
-		Node* iterChildren() const;
-
-		DEPRECATED_ATTRIBUTE inline int pint(chstr propertyName)					{ return this->pint32(propertyName); }
-		DEPRECATED_ATTRIBUTE inline int pint(chstr propertyName, int defaultValue)	{ return this->pint32(propertyName, defaultValue); }
-
 	protected:
-		/// @brief The document this Node belongs to.
-		Document* document;
-		/// @brief The Node of the underlying system.
-		void* node;
-		/// @brief Contains the child count.
-		int childCount;
-
 		/// @brief Constructor.
-		/// @param[in] document The document this Node belongs to.
-		/// @param[in] Node The TinyXML Node.
+		/// @param[in] node The underlying node object.
 		Node(Document* document, void* node);
+		/// @brief Destructor.
+		~Node();
 
 	};
 
