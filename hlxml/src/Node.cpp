@@ -56,9 +56,4 @@ namespace hlxml
 		}
 	}
 
-	int Node::getLine() const
-	{
-		return 0;
-	}
-
 }
