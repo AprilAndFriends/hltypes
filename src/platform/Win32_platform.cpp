@@ -26,6 +26,7 @@ namespace hltypes
 				return;
 			}
 		}
+		static int lastColor = 0;
 		int color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE; // white
 		if (level == Log::LevelError)
 		{
@@ -39,7 +40,11 @@ namespace hltypes
 		{
 			color = FOREGROUND_GREEN; // green
 		}
-		SetConsoleTextAttribute(consoleHandle, color | FOREGROUND_INTENSITY);
+		if (lastColor != color)
+		{
+			SetConsoleTextAttribute(consoleHandle, color | FOREGROUND_INTENSITY);
+			lastColor = color;
+		}
 	}
 
 	void _platformPrint(const String& tag, const String& message, int level)

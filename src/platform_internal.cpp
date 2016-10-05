@@ -196,7 +196,9 @@ namespace hltypes
 	{
 #ifdef _WIN32
 		// benchmarked, fastest way to check for file existence
-		return (GetFileAttributesW(name.wStr().c_str()) != INVALID_FILE_ATTRIBUTES);
+		WIN32_FILE_ATTRIBUTE_DATA data;
+		memset(&data, 0, sizeof(WIN32_FILE_ATTRIBUTE_DATA));
+		return (GetFileAttributesExW(name.wStr().c_str(), GetFileExInfoStandard, &data) != 0 && (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0);
 #else
 		struct stat stats;
 		return (stat(name.cStr(), &stats) == 0 && (stats.st_mode & S_IFREG) != 0);
@@ -289,6 +291,19 @@ namespace hltypes
 	String _platformGetDirEntryName(_platformDirEntry* entry)
 	{
 		return String::fromUnicode(((struct dirent*)entry)->d_name);
+	}
+
+	bool _platformDirectoryExists(const String& dirName)
+	{
+#ifdef _WIN32
+		// benchmarked, fastest way to check for directory existence
+		WIN32_FILE_ATTRIBUTE_DATA data;
+		memset(&data, 0, sizeof(WIN32_FILE_ATTRIBUTE_DATA));
+		return (GetFileAttributesExW(dirName.wStr().c_str(), GetFileExInfoStandard, &data) != 0 && (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0);
+#else
+		struct stat stats;
+		return (stat(dirName.cStr(), &stats) == 0 && (stats.st_mode & S_IFDIR) != 0);
+#endif
 	}
 
 	bool _platformCreateDirectory(const String& dirName)

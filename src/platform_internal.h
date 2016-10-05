@@ -51,6 +51,7 @@ namespace hltypes
 	void _platformCloseDirectory(_platformDir* dir);
 	_platformDirEntry* _platformReadDirectory(_platformDir* dir);
 	String _platformGetDirEntryName(_platformDirEntry* entry);
+	bool _platformDirectoryExists(const String& dirName);
 	bool _platformCreateDirectory(const String& dirName);
 	bool _platformRenameDirectory(const String& oldName, const String& newName);
 	bool _platformRemoveDirectory(const String& dirName);
