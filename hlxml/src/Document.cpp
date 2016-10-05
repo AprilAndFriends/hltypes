@@ -35,7 +35,9 @@ namespace hlxml
 
 	Document::Document(hsbase& stream) : document(NULL), data(NULL), rootNode(NULL)
 	{
-		this->_setup(stream.read(), "stream");
+		int64_t position = stream.position();
+		this->_setup(stream, "stream");
+		stream.seek(position, hsbase::START);
 	}
 
 	Document::~Document()
@@ -56,12 +58,12 @@ namespace hlxml
 		}
 	}
 
-	void Document::_setup(chstr data, chstr realFilename)
+	void Document::_setup(hsbase& stream, chstr realFilename)
 	{
-		int dataSize = data.size() + 1;
-		this->data = new char[dataSize]();
-		this->data[dataSize - 1] = 0;
-		memcpy(this->data, data.cStr(), dataSize - 1);
+		int dataSize = (int)stream.size();
+		this->data = new char[dataSize + 1];
+		int read = stream.readRaw(this->data, dataSize);
+		this->data[read] = 0;
 		this->realFilename = realFilename;
 	}
 
@@ -71,25 +73,21 @@ namespace hlxml
 		{
 			if (this->fromResource)
 			{
-				if (!hresource::exists(this->filename))
-				{
-					throw ResourceFileCouldNotOpenException(this->filename);
-				}
-				this->_setup(hresource::hread(this->filename), hrdir::normalize(this->filename));
+				hresource resource;
+				resource.open(this->filename);
+				this->_setup(resource, hrdir::normalize(this->filename));
 			}
 			else
 			{
-				if (!hfile::exists(this->filename))
-				{
-					throw FileCouldNotOpenException(this->filename);
-				}
-				this->_setup(hfile::hread(this->filename), hdir::normalize(this->filename));
+				hfile file;
+				file.open(this->filename);
+				this->_setup(file, hdir::normalize(this->filename));
 			}
 		}
 		this->document = new rapidxml::xml_document<char>();
 		try
 		{
-			RAPIDXML_DOCUMENT->parse<rapidxml::parse_validate_closing_tags/* | rapidxml::parse_no_string_terminators/*/| rapidxml::parse_no_data_nodes>(this->data);
+			RAPIDXML_DOCUMENT->parse<rapidxml::parse_validate_closing_tags | rapidxml::parse_no_string_terminators | rapidxml::parse_no_data_nodes>(this->data);
 		}
 		catch (rapidxml::parse_error& e)
 		{

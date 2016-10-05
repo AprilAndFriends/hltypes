@@ -69,7 +69,7 @@ namespace hlxml
 		/// @brief Sets up data for later parsing.
 		/// @param[in] data XML data.
 		/// @param[in] realFilename The logical filename (used for error printing).
-		void _setup(chstr data, chstr realFilename);
+		void _setup(hsbase& stream, chstr realFilename);
 		/// @brief Parses the XML.
 		void _parse();
 		/// @brief Gets the Node associated with the TinyXML node.

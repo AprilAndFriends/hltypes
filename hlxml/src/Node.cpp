@@ -26,8 +26,8 @@ namespace hlxml
 		this->document = document;
 		this->node = node;
 		rapidxml::xml_node<char>* rapidXmlNode = RAPIDXML_NODE(this->node);
-		this->name = rapidXmlNode->name();
-		this->value = rapidXmlNode->value();
+		this->name = hstr(rapidXmlNode->name(), rapidXmlNode->name_size());
+		this->value = hstr(rapidXmlNode->value(), rapidXmlNode->value_size());
 		this->type = TYPE_ELEMENT;
 		rapidxml::node_type type = rapidXmlNode->type();
 		if (type == rapidxml::node_element && this->value != "")
@@ -40,7 +40,7 @@ namespace hlxml
 		}
 		for (rapidxml::xml_attribute<char>* attr = rapidXmlNode->first_attribute(); attr != NULL; attr = attr->next_attribute())
 		{
-			this->properties[attr->name()] = attr->value();
+			this->properties[hstr(attr->name(), attr->name_size())] = hstr(attr->value(), attr->value_size());
 		}
 	}
 
