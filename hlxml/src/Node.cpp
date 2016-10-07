@@ -24,8 +24,8 @@ namespace hlxml
 	Node::Node(Document* document, void* node) : line(0)
 	{
 		rapidxml::xml_node<char>* rapidXmlNode = RAPIDXML_NODE(node);
-		this->name = hstr(rapidXmlNode->name(), rapidXmlNode->name_size());
-		this->value = hstr(rapidXmlNode->value(), rapidXmlNode->value_size());
+		this->name = hstr(rapidXmlNode->name(), (int)rapidXmlNode->name_size());
+		this->value = hstr(rapidXmlNode->value(), (int)rapidXmlNode->value_size());
 		this->type = TYPE_ELEMENT;
 		this->filename = document->getFilename();
 		//this->line = 0;
@@ -40,7 +40,7 @@ namespace hlxml
 		}
 		for (rapidxml::xml_attribute<char>* attr = rapidXmlNode->first_attribute(); attr != NULL; attr = attr->next_attribute())
 		{
-			this->properties[hstr(attr->name(), attr->name_size())] = hstr(attr->value(), attr->value_size());
+			this->properties[hstr(attr->name(), (int)attr->name_size())] = hstr(attr->value(), (int)attr->value_size());
 		}
 		for (rapidxml::xml_node<char>* child = rapidXmlNode->first_node(); child != NULL; child = child->next_sibling())
 		{
