@@ -247,11 +247,13 @@ namespace hltypes
 		struct stat s;
 		if (stat(name.cStr(), &s) != 0)
 		{
-			if (!File::exists(name))
+			FILE* file = fopen(name.cStr(), "rb");
+			if (file != NULL)
 			{
-				throw FileCouldNotOpenException("stat() failed on '" + name + "', file not found!");
+				fclose(file);
+				throw FileCouldNotOpenException("stat() failed on '" + name + "'!");
 			}
-			throw FileCouldNotOpenException("stat() failed on '" + name + "'!");
+			throw FileCouldNotOpenException("stat() failed on '" + name + "', file not found!");
 		}
 		info.size = (int64_t)s.st_size;
 		info.creationTime = (int64_t)s.st_ctime;
