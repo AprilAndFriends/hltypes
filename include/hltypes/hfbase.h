@@ -72,6 +72,9 @@ namespace hltypes
 		FileBase();
 		/// @brief Destructor.
 		~FileBase();
+		/// @brief Gets the current filename.
+		/// @return The current filename.
+		HL_DEFINE_GET(hstr, filename, Filename);
 		/// @brief Opens a file-base object.
 		/// @param[in] filename Name of the file-base object (may include path).
 		virtual void open(const String& filename) = 0;
