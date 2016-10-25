@@ -217,7 +217,7 @@ public: \
 /// @note Useful for rand operations, like setting the rand generator with srand().
 hltypesFnExport uint64_t htime();
 /// @brief Gets the number of miliseconds passed since the system boot.
-/// @brief Number of miliseconds passed since the system boot.
+/// @return Number of miliseconds passed since the system boot.
 /// @note Useful for rand operations, like setting the rand generator with srand().
 /// @note Not all platforms actually support uint64 so be careful with this.
 hltypesFnExport uint64_t htickCount();
