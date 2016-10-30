@@ -67,7 +67,7 @@ namespace hltypes
 				return true;
 			}
 
-			bool ArchiveFileHandle::tryDeleteZipArchive(bool force = false)
+			bool tryDeleteZipArchive(bool force = false)
 			{
 				if ((force || this->accessingResources.size() == 0) && this->zipArchive != NULL)
 				{
