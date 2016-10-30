@@ -29,158 +29,303 @@ namespace hltypes
 {
 	namespace zip
 	{
+		// utility class that handles open archive files
+		class ArchiveFileHandle
+		{
+		public:
+			String path;
+			String filename;
+			String cwd;
+			miniz::mz_zip_archive* zipArchive;
+			Array<String> internalFiles;
+			Array<Resource*> accessingResources;
+
+			ArchiveFileHandle(const String& path, const String& filename, const String& cwd) : zipArchive(NULL)
+			{
+				this->path = path;
+				this->filename = filename;
+				this->cwd = cwd;
+			}
+
+			~ArchiveFileHandle()
+			{
+				this->tryDeleteZipArchive(true);
+			}
+
+			bool ensureCreatedZipArchive()
+			{
+				if (this->zipArchive == NULL)
+				{
+					this->zipArchive = new miniz::mz_zip_archive();
+					if (!miniz::mz_zip_reader_init_file(this->zipArchive, this->filename.cStr(), 0))
+					{
+						delete this->zipArchive;
+						this->zipArchive = NULL;
+						return false;
+					}
+				}
+				return true;
+			}
+
+			bool ArchiveFileHandle::tryDeleteZipArchive(bool force = false)
+			{
+				if ((force || this->accessingResources.size() == 0) && this->zipArchive != NULL)
+				{
+					miniz::mz_zip_reader_end(this->zipArchive);
+					delete this->zipArchive;
+					this->zipArchive = NULL;
+					return true;
+				}
+				return false;
+			}
+
+		};
+
+		// utility class that handles open files within archive files
+		class FileHandle
+		{
+		public:
+			ArchiveFileHandle* archive;
+			Stream* stream;
+
+			FileHandle(ArchiveFileHandle* archive, Stream* stream)
+			{
+				this->archive = archive;
+				this->stream = stream;
+			}
+
+		};
+
+		// keeping track of all mounts
 		static Mutex accessMutex;
-		static Map<miniz::mz_zip_archive*, Array<Resource*> > activeHandles;
-		static miniz::mz_zip_archive* currentArchive = NULL;
+		static Map<String, ArchiveFileHandle*> pathMounts;
 
-		void setArchive(const String& value)
+		// utility methods
+		inline ArchiveFileHandle* _aopen(String& filename)
 		{
-			Mutex::ScopeLock lock(&accessMutex);
-			if (currentArchive != NULL && activeHandles[currentArchive].size() == 0)
+			String longestPath;
+			ArchiveFileHandle* result = NULL;
+			foreach_m (ArchiveFileHandle*, it, pathMounts)
 			{
-				miniz::mz_zip_reader_end(currentArchive);
-				activeHandles.removeKey(currentArchive);
-				delete currentArchive;
-				currentArchive = NULL;
-			}
-			Array<miniz::mz_zip_archive*> handles = activeHandles.keys();
-			foreach (miniz::mz_zip_archive*, it, handles)
-			{
-				if (activeHandles[*it].size() == 0)
+				if (it->first != "" && filename.startsWith(it->first) && (result == NULL || it->first.size() > longestPath.size()))
 				{
-					miniz::mz_zip_reader_end(*it);
-					activeHandles.removeKey(*it);
-					delete (*it);
+					longestPath = it->first;
+					result = it->second;
 				}
 			}
-		}
-
-		void* open(Resource* resource)
-		{
-			Mutex::ScopeLock lock(&accessMutex);
-			if (currentArchive == NULL)
+			if (result == NULL)
 			{
-				String archive = Resource::getArchive();
-				if (archive == "")
+				result = pathMounts.tryGet("", NULL);
+			}
+			if (result != NULL)
+			{
+				if (!result->ensureCreatedZipArchive())
 				{
-					return NULL;
+					result = NULL;
 				}
-				currentArchive = new miniz::mz_zip_archive();
-				if (!miniz::mz_zip_reader_init_file(currentArchive, archive.cStr(), 0))
+				else
 				{
-					delete currentArchive;
-					currentArchive = NULL;
-					return NULL;
-				}
-				activeHandles[currentArchive] = Array<Resource*>();
-			}
-			activeHandles[currentArchive] += resource;
-			return currentArchive;
-		}
-
-		void close(Resource* resource, void* archive)
-		{
-			miniz::mz_zip_archive* zipArchive = (miniz::mz_zip_archive*)archive;
-			Mutex::ScopeLock lock(&accessMutex);
-			Array<Resource*> references = activeHandles[zipArchive];
-			references -= resource;
-			activeHandles[zipArchive] = references;
-			if (currentArchive != zipArchive && references.size() == 0)
-			{
-				miniz::mz_zip_reader_end(zipArchive);
-				activeHandles.removeKey(zipArchive);
-				delete zipArchive;
-			}
-		}
-
-		void* fopen(void* archiveFile, const String& filename)
-		{
-			int size = (int)finfo(archiveFile, filename).size;
-			if (size <= 0)
-			{
-				return NULL;
-			}
-			Stream* stream = new Stream(size);
-			stream->prepareManualWriteRaw(size);
-			Mutex::ScopeLock lock(&accessMutex);
-			bool result = (miniz::mz_zip_reader_extract_file_to_mem((miniz::mz_zip_archive*)archiveFile, filename.cStr(), (unsigned char*)(*stream), size, 0) != MZ_FALSE);
-			lock.release();
-			if (result)
-			{
-				stream->rewind();
-			}
-			else
-			{
-				delete stream;
-				stream = NULL;
-			}
-			return stream;
-		}
-
-		void fclose(void* file)
-		{
-			delete ((Stream*)file);
-		}
-
-		bool fseek(void* file, int64_t offset, StreamBase::SeekMode mode)
-		{
-			return ((Stream*)file)->seek(offset, mode);
-		}
-
-		int64_t fposition(void* file)
-		{
-			return ((Stream*)file)->position();
-		}
-
-		int fread(void* file, void* buffer, int count)
-		{
-			return ((Stream*)file)->readRaw(buffer, count);
-		}
-
-		bool fexists(void* archiveFile, const String& filename)
-		{
-			miniz::mz_zip_archive* archive = (miniz::mz_zip_archive*)archiveFile;
-			Mutex::ScopeLock lock(&accessMutex);
-			int index = miniz::mz_zip_reader_locate_file(archive, filename.cStr(), "", 0);
-			return (index >= 0 && !miniz::mz_zip_reader_is_file_a_directory(archive, index));
-		}
-
-		Array<String> getFiles(void* archiveFile)
-		{
-			Array<String> result;
-			miniz::mz_zip_archive* archive = (miniz::mz_zip_archive*)archiveFile;
-			Mutex::ScopeLock lock(&accessMutex);
-			int count = miniz::mz_zip_reader_get_num_files(archive);
-			char filename[FILENAME_BUFFER] = { 0 };
-			unsigned int size = 0;
-			for_iter (i, 0, count)
-			{
-				size = miniz::mz_zip_reader_get_filename(archive, i, filename, FILENAME_BUFFER - 1);
-				if (size <= FILENAME_BUFFER - 1)
-				{
-					filename[size] = '\0';
-					result += String(filename);
+					if (result->path.size() > 0)
+					{
+						filename = filename(result->path.size(), filename.size() - result->path.size());
+					}
+					if (result->cwd != "")
+					{
+						filename = result->cwd + filename;
+					}
 				}
 			}
 			return result;
 		}
 
-		FileInfo finfo(void* archiveFile, const String& filename)
+		inline void _aclose(ArchiveFileHandle* archive)
+		{
+			if (!pathMounts.hasKey(archive->path) && archive->accessingResources.size() == 0)
+			{
+				delete archive;
+			}
+		}
+
+		FileInfo _finfo(ArchiveFileHandle* archiveFile, const String& filename)
 		{
 			FileInfo info;
-			miniz::mz_zip_archive* zipArchive = (miniz::mz_zip_archive*)archiveFile;
-			Mutex::ScopeLock lock(&accessMutex);
-			int index = miniz::mz_zip_reader_locate_file(zipArchive, filename.cStr(), "", miniz::MZ_ZIP_FLAG_CASE_SENSITIVE);
+			int index = miniz::mz_zip_reader_locate_file(archiveFile->zipArchive, filename.cStr(), "", miniz::MZ_ZIP_FLAG_CASE_SENSITIVE);
 			if (index >= 0)
 			{
 				miniz::mz_zip_archive_file_stat stat;
-				if (miniz::mz_zip_reader_file_stat(zipArchive, index, &stat))
+				if (miniz::mz_zip_reader_file_stat(archiveFile->zipArchive, index, &stat))
 				{
 					info.size = stat.m_uncomp_size;
 					info.modificationTime = stat.m_time;
 				}
 			}
 			return info;
+		}
+
+		// API methods
+		bool mountArchive(const String& path, const String& archiveFilename, const String& cwd)
+		{
+			Mutex::ScopeLock lock(&accessMutex);
+			if (pathMounts.hasKey(path))
+			{
+				return false;
+			}
+			pathMounts[path] = new ArchiveFileHandle(path, archiveFilename, cwd);
+			return true;
+		}
+
+		bool unmountArchive(const String& path)
+		{
+			Mutex::ScopeLock lock(&accessMutex);
+			ArchiveFileHandle* archive = pathMounts.tryGet(path, NULL);
+			if (archive == NULL)
+			{
+				return false;
+			}
+			pathMounts.removeKey(path);
+			if (archive->accessingResources.size() == 0)
+			{
+				delete archive;
+			}
+			Array<ArchiveFileHandle*> archives = pathMounts.values();
+			foreach (ArchiveFileHandle*, it, archives)
+			{
+				(*it)->tryDeleteZipArchive();
+			}
+			return true;
+		}
+
+		void* fopen(Resource* resource, const String& filename)
+		{
+			String realFilename = filename;
+			Mutex::ScopeLock lock(&accessMutex);
+			ArchiveFileHandle* archive = _aopen(realFilename);
+			if (archive == NULL)
+			{
+				return NULL;
+			}
+			int size = (int)_finfo(archive, realFilename).size;
+			if (size > 0)
+			{
+				Stream* stream = new Stream(size);
+				stream->prepareManualWriteRaw(size);
+				if (miniz::mz_zip_reader_extract_file_to_mem(archive->zipArchive, realFilename.cStr(), (unsigned char*)(*stream), size, 0) != MZ_FALSE)
+				{
+					FileHandle* fileHandle = new FileHandle(archive, stream);
+					archive->accessingResources += resource;
+					lock.release();
+					stream->rewind();
+					return fileHandle;
+				}
+				delete stream;
+			}
+			_aclose(archive);
+			return NULL;
+		}
+
+		void fclose(Resource* resource, void* file)
+		{
+			FileHandle* fileHandle = (FileHandle*)file;
+			delete fileHandle->stream;
+			Mutex::ScopeLock lock(&accessMutex);
+			fileHandle->archive->accessingResources -= resource;
+			_aclose(fileHandle->archive);
+			lock.release();
+			delete fileHandle;
+		}
+
+		bool fseek(void* file, int64_t offset, StreamBase::SeekMode mode)
+		{
+			return ((FileHandle*)file)->stream->seek(offset, mode);
+		}
+
+		int64_t fposition(void* file)
+		{
+			return ((FileHandle*)file)->stream->position();
+		}
+
+		int fread(void* file, void* buffer, int count)
+		{
+			return ((FileHandle*)file)->stream->readRaw(buffer, count);
+		}
+
+		bool fexists(const String& filename)
+		{
+			String realFilename = filename;
+			Mutex::ScopeLock lock(&accessMutex);
+			ArchiveFileHandle* archive = _aopen(realFilename);
+			if (archive == NULL)
+			{
+				return false;
+			}
+			int index = miniz::mz_zip_reader_locate_file(archive->zipArchive, realFilename.cStr(), "", 0);
+			bool result = (index >= 0 && !miniz::mz_zip_reader_is_file_a_directory(archive->zipArchive, index));
+			_aclose(archive);
+			return result;
+		}
+
+		int64_t fsize(void* file)
+		{
+			return ((FileHandle*)file)->stream->size();
+		}
+
+		FileInfo finfo(const String& filename)
+		{
+			String realFilename = filename;
+			Mutex::ScopeLock lock(&accessMutex);
+			ArchiveFileHandle* archive = _aopen(realFilename);
+			FileInfo info = _finfo(archive, realFilename);
+			_aclose(archive);
+			return info;
+		}
+
+		Array<String> getFiles()
+		{
+			Array<String> result;
+			int count = 0;
+			char filename[FILENAME_BUFFER] = { 0 };
+			unsigned int size = 0;
+			String path;
+			Mutex::ScopeLock lock(&accessMutex);
+			foreach_m (ArchiveFileHandle*, it, pathMounts)
+			{
+				if (it->second->internalFiles.size() == 0)
+				{
+					if (it->second->ensureCreatedZipArchive())
+					{
+						count = miniz::mz_zip_reader_get_num_files(it->second->zipArchive);
+						memset(filename, FILENAME_BUFFER, 0);
+						for_iter (i, 0, count)
+						{
+							size = miniz::mz_zip_reader_get_filename(it->second->zipArchive, i, filename, FILENAME_BUFFER - 1);
+							if (size < FILENAME_BUFFER)
+							{
+								filename[size] = '\0';
+								if (it->second->cwd == "")
+								{
+									it->second->internalFiles += it->first + String(filename);
+								}
+								else if ((int)size > it->second->cwd.size())
+								{
+									path = String(filename);
+									if (path.startsWith(it->second->cwd))
+									{
+										it->second->internalFiles += it->first + path(it->second->cwd.size(), path.size() - it->second->cwd.size());
+									}
+								}
+							}
+						}
+					}
+				}
+				result += it->second->internalFiles;
+			}
+			return result;
+		}
+
+		bool isZipMounts()
+		{
+			Mutex::ScopeLock lock(&accessMutex);
+			return (pathMounts.hasKey("") && pathMounts[""]->ensureCreatedZipArchive());
 		}
 
 	}

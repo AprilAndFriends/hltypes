@@ -20,36 +20,114 @@
 
 namespace hltypes
 {
-	bool Resource::zipArchive = false;
-	String Resource::cwd = _platformResourceCwd();
-	String Resource::archive = "";
+	bool Resource::zipMounts = false;
+	Map<String, String> Resource::mountedArchives;
 
-	void Resource::setArchive(const String& value)
+	bool Resource::mountArchive(const String& path, const String& archiveFilename, const String& cwd)
 	{
+		String normalizedPath = ResourceDir::normalize(path);
+		if (normalizedPath == ".")
+		{
+			normalizedPath = "";
+		}
+		if (normalizedPath != "" && !normalizedPath.endsWith("/"))
+		{
+			normalizedPath += "/";
+		}
+		if (normalizedPath != "" && !Resource::zipMounts)
+		{
+			Log::errorf(logTag, "Cannot mount archive filename '%s' to path '%s', a default path archive required first!", archiveFilename.cStr(), path.cStr());
+			return false;
+		}
+		if (Resource::mountedArchives.hasKey(normalizedPath))
+		{
+			Log::errorf(logTag, "Cannot mount archive filename '%s' to path '%s', the path is already mounted!", archiveFilename.cStr(), path.cStr());
+			return false;
+		}
+		Array<String> mounts = Resource::mountedArchives.keys() / "";
+		foreach (String, it, mounts)
+		{
+			if (normalizedPath.startsWith(*it))
+			{
+				Log::errorf(logTag, "Cannot mount archive filename '%s' to path '%s', the prefix path '%s' is already mounted!", archiveFilename.cStr(), path.cStr(), (*it).cStr());
+				return false;
+			}
+			if ((*it).startsWith(normalizedPath))
+			{
+				Log::errorf(logTag, "Cannot mount archive filename '%s' to path '%s', it's a prefix to already mounted path '%s'!", archiveFilename.cStr(), path.cStr(), (*it).cStr());
+				return false;
+			}
+		}
+		String normalizedArchiveFilename = ResourceDir::normalize(archiveFilename);
 #ifdef _ZIPRESOURCE
-		if (archive != value)
+		String normalizedCwd = ResourceDir::normalize(cwd);
+		if (normalizedCwd == ".")
 		{
-			ResourceDir::cacheDirectories.clear();
-			ResourceDir::cacheFiles.clear();
+			normalizedCwd = "";
 		}
-		zip::setArchive(value);
+		if (normalizedCwd != "" && !normalizedCwd.endsWith("/"))
+		{
+			normalizedCwd += "/";
+		}
+		if (!zip::mountArchive(normalizedPath, normalizedArchiveFilename, normalizedCwd))
+		{
+			Log::errorf(logTag, "Cannot mount archive filename '%s' to path '%s', internal ZIP error!", archiveFilename.cStr(), path.cStr());
+			return false;
+		}
+		// extra mounting has to clear directory / file caches
+		ResourceDir::cacheDirectories.clear();
+		ResourceDir::cacheFiles.clear();
 #endif
-		archive = value;
+		Resource::mountedArchives[normalizedPath] = normalizedArchiveFilename;
 #ifdef _ZIPRESOURCE
-		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
-		if (a != NULL)
+		if (normalizedPath == "")
 		{
-			zipArchive = true;
-			zip::close(NULL, a);
-		}
-		else
-		{
-			zipArchive = false;
+			Resource::zipMounts = zip::isZipMounts();
 		}
 #endif
+		return true;
 	}
 
-	Resource::Resource() : FileBase(), dataPosition(0), archiveFile(NULL)
+	bool Resource::unmountArchive(const String& path)
+	{
+		String normalizedPath = ResourceDir::normalize(path);
+		if (normalizedPath == ".")
+		{
+			normalizedPath = "";
+		}
+		if (normalizedPath != "" && !normalizedPath.endsWith("/"))
+		{
+			normalizedPath += "/";
+		}
+		if (!Resource::mountedArchives.hasKey(normalizedPath))
+		{
+			Log::errorf(logTag, "Cannot unmount path '%s', the path is not mounted!", path.cStr());
+			return false;
+		}
+		if (normalizedPath == "" && Resource::mountedArchives.size() > 1)
+		{
+			Log::error(logTag, "Cannot unmount default path, other paths are still mounted!");
+			return false;
+		}
+#ifdef _ZIPRESOURCE
+		if (!zip::unmountArchive(normalizedPath))
+		{
+			Log::errorf(logTag, "Cannot unmount path '%s', internal ZIP error!", path.cStr());
+			return false;
+		}
+		if (normalizedPath == "")
+		{
+			Resource::zipMounts = false;
+		}
+		// unmounting has to clear directory / file caches
+		ResourceDir::cacheDirectories.clear();
+		ResourceDir::cacheFiles.clear();
+#endif
+		Resource::mountedArchives.removeKey(normalizedPath);
+		return true;
+	}
+
+	Resource::Resource() : FileBase(), dataPosition(0)
 	{
 	}
 
@@ -63,29 +141,21 @@ namespace hltypes
 	
 	void Resource::open(const String& filename)
 	{
-		this->resourceFilename = Dir::normalize(filename);
 #ifdef _ZIPRESOURCE
-		if (Resource::zipArchive)
+		if (Resource::zipMounts)
 		{
 			if (this->_isOpen())
 			{
 				this->close();
 			}
-			this->filename = this->resourceFilename;
+			this->filename = this->resourceFilename = ResourceDir::normalize(filename);
 			int attempts = Resource::repeats + 1;
 			while (true)
 			{
-				this->archiveFile = zip::open(this);
-				if (this->archiveFile != NULL)
+				this->cfile = zip::fopen(this, this->filename);
+				if (this->cfile != NULL)
 				{
-					this->cfile = zip::fopen(this->archiveFile, Resource::makeFullPath(this->filename));
-					if (this->cfile != NULL)
-					{
-						break;
-					}
-					// file wasn't found so let's rather close the archive
-					zip::close(this, this->archiveFile);
-					this->archiveFile = NULL;
+					break;
 				}
 				--attempts;
 				if (attempts <= 0)
@@ -93,10 +163,6 @@ namespace hltypes
 					break;
 				}
 				Thread::sleep(Resource::timeout);
-			}
-			if (this->archiveFile == NULL)
-			{
-				throw ResourceFileCouldNotOpenException(this->_descriptor());
 			}
 			if (this->cfile == NULL)
 			{
@@ -106,25 +172,21 @@ namespace hltypes
 			return;
 		}
 #endif
-		this->_fopen(Resource::makeFullPath(filename), READ, FileBase::repeats, FileBase::timeout);
+		this->_fopen(Resource::_makeNonZipPath(filename), READ, FileBase::repeats, FileBase::timeout);
+		this->resourceFilename = Dir::normalize(filename);
 		this->_updateDataSize();
 	}
 	
 	void Resource::close()
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipArchive)
+		if (Resource::zipMounts)
 		{
 			this->_validate();
 			if (this->cfile != NULL)
 			{
-				zip::fclose(this->cfile);
+				zip::fclose(this, this->cfile);
 				this->cfile = NULL;
-			}
-			if (this->archiveFile != NULL)
-			{
-				zip::close(this, this->archiveFile);
-				this->archiveFile = NULL;
 			}
 			this->dataSize = 0;
 			this->dataPosition = 0;
@@ -147,9 +209,9 @@ namespace hltypes
 	void Resource::_updateDataSize()
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipArchive)
+		if (Resource::zipMounts)
 		{
-			this->dataSize = zip::finfo(this->archiveFile, Resource::makeFullPath(this->filename)).size;
+			this->dataSize = zip::fsize(this->cfile);
 			return;
 		}
 #endif
@@ -160,7 +222,7 @@ namespace hltypes
 	int Resource::_read(void* buffer, int count)
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipArchive)
+		if (Resource::zipMounts)
 		{
 			this->dataPosition += count;
 			return zip::fread(this->cfile, buffer, count);
@@ -177,9 +239,9 @@ namespace hltypes
 	bool Resource::_isOpen() const
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipArchive)
+		if (Resource::zipMounts)
 		{
-			return (this->archiveFile != NULL && this->cfile != NULL);
+			return (this->cfile != NULL);
 		}
 #endif
 		return this->_fisOpen();
@@ -188,7 +250,7 @@ namespace hltypes
 	int64_t Resource::_position() const
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipArchive)
+		if (Resource::zipMounts)
 		{
 			return zip::fposition(this->cfile);
 		}
@@ -199,7 +261,7 @@ namespace hltypes
 	bool Resource::_seek(int64_t offset, SeekMode seekMode)
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipArchive)
+		if (Resource::zipMounts)
 		{
 			bool result = zip::fseek(this->cfile, offset, seekMode);
 			this->dataPosition = zip::fposition(this->cfile);
@@ -212,35 +274,29 @@ namespace hltypes
 	bool Resource::exists(const String& filename, bool caseSensitive)
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipArchive)
+		if (Resource::zipMounts)
 		{
-			bool result = false;
-			void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
-			if (a != NULL)
+			bool result = zip::fexists(ResourceDir::normalize(filename));
+			if (!result && !caseSensitive)
 			{
-				result = zip::fexists(a, Resource::makeFullPath(filename));
-				if (!result && !caseSensitive)
+				String name = filename;
+				String baseDir = ResourceDir::baseDir(name);
+				String baseName = ResourceDir::baseName(name);
+				Array<String> files = ResourceDir::files(baseDir);
+				foreach (String, it, files)
 				{
-					String name = filename;
-					String baseDir = ResourceDir::baseDir(name);
-					String baseName = ResourceDir::baseName(name);
-					Array<String> files = ResourceDir::files(baseDir);
-					foreach (String, it, files)
+					if ((*it).lowered() == baseName.lowered())
 					{
-						if ((*it).lowered() == baseName.lowered())
-						{
-							name = ResourceDir::joinPath(baseDir, (*it));
-							result = true;
-							break;
-						}
+						name = ResourceDir::joinPath(baseDir, (*it));
+						result = true;
+						break;
 					}
 				}
-				zip::close(NULL, a);
 			}
 			return result;
 		}
 #endif
-		return FileBase::_fexists(Resource::makeFullPath(filename), caseSensitive);
+		return FileBase::_fexists(Resource::_makeNonZipPath(filename), caseSensitive);
 	}
 	
 	String Resource::hread(const String& filename, int count)
@@ -260,38 +316,21 @@ namespace hltypes
 	FileInfo Resource::hinfo(const String& filename)
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipArchive)
+		if (Resource::zipMounts)
 		{
-			FileInfo info;
-			void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
-			if (a != NULL)
-			{
-				info = zip::finfo(a, Resource::makeFullPath(filename));
-				zip::close(NULL, a);
-				try // it's not that important to get access and creation time if this fails for some reason
-				{
-					FileInfo archive = File::hinfo(Resource::archive);
-					info.creationTime = archive.creationTime;
-					info.accessTime = archive.accessTime;
-				}
-				catch (_FileCouldNotOpenException& e)
-				{
-				}
-			}
-			return info;
+			return zip::finfo(ResourceDir::normalize(filename));
 		}
 #endif
-		return File::hinfo(Resource::makeFullPath(filename));
+		return File::hinfo(Resource::_makeNonZipPath(filename));
 	}
 
-	String Resource::makeFullPath(const String& filename)
+	String Resource::_makeNonZipPath(const String& filename)
 	{
-		String path = hdir::joinPath(Resource::cwd, filename);
-		if (!Resource::zipArchive && Resource::archive != "" && Resource::archive != ".")
-		{
-			path = hdir::joinPath(Resource::archive, path);
-		}
-		return Dir::normalize(path);
+		Array<String> segments;
+		segments += _platformCwd();
+		segments += Resource::mountedArchives.tryGet("", "");
+		segments += filename;
+		return ResourceDir::normalize(ResourceDir::joinPaths(segments));
 	}
 
 	Resource::Resource(const Resource& other)

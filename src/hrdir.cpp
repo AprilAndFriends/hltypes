@@ -29,7 +29,7 @@ namespace hltypes
 			return true;
 		}
 #ifdef _ZIPRESOURCE
-		if (Resource::isZipArchive())
+		if (Resource::zipMounts)
 		{
 			// this approach is used, because sometimes ZIP files don't enumerate their directories
 			bool result = ResourceDir::directories(ResourceDir::baseDir(name)).has(ResourceDir::baseName(name));
@@ -51,7 +51,7 @@ namespace hltypes
 			return result;
 		}
 #endif
-		return Dir::exists(Resource::makeFullPath(name), caseSensitive);
+		return Dir::exists(Resource::_makeNonZipPath(name), caseSensitive);
 	}
 	
 	Array<String> ResourceDir::entries(const String& dirName, bool prependDir)
@@ -70,7 +70,7 @@ namespace hltypes
 	{
 		Array<String> result;
 		result = ResourceDir::directories(dirName, false) + ResourceDir::files(dirName, false);
-		if (!Resource::isZipArchive())
+		if (!Resource::zipMounts)
 		{
 			result.removeDuplicates();
 		}
@@ -83,35 +83,34 @@ namespace hltypes
 	
 	Array<String> ResourceDir::directories(const String& dirName, bool prependDir)
 	{
-		String name = Resource::makeFullPath(dirName);
 		Array<String> result;
 #ifdef _ZIPRESOURCE
-		if (Resource::isZipArchive())
+		if (Resource::zipMounts)
 		{
-			if (ResourceDir::cacheDirectories.hasKey(name))
+			if (ResourceDir::cacheDirectories.hasKey(dirName))
 			{
-				result = ResourceDir::cacheDirectories[name];
+				result = ResourceDir::cacheDirectories[dirName];
 			}
 			else
 			{
-				Array<String> files = ResourceDir::_getInternalFiles();
+				Array<String> files = zip::getFiles();
 				String current;
 				foreach (String, it, files)
 				{
 					current = (*it);
-					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && current.contains('/'))
+					if (ResourceDir::_checkDirPrefix(current, dirName) && current != "" && current.contains('/'))
 					{
 						result += current.split('/', 1).first();
 					}
 				}
 				result.removeDuplicates();
-				ResourceDir::cacheDirectories[name] = result;
+				ResourceDir::cacheDirectories[dirName] = result;
 			}
 		}
 		else
 #endif
 		{
-			result = ResourceDir::_removeCwd(Dir::directories(name, false)).removedDuplicates();
+			result = Dir::directories(Resource::_makeNonZipPath(dirName), false).removedDuplicates();
 		}
 		if (prependDir)
 		{
@@ -122,35 +121,34 @@ namespace hltypes
 
 	Array<String> ResourceDir::files(const String& dirName, bool prependDir)
 	{
-		String name = Resource::makeFullPath(dirName);
 		Array<String> result;
 #ifdef _ZIPRESOURCE
-		if (Resource::isZipArchive())
+		if (Resource::zipMounts)
 		{
-			if (ResourceDir::cacheFiles.hasKey(name))
+			if (ResourceDir::cacheFiles.hasKey(dirName))
 			{
-				result = ResourceDir::cacheFiles[name];
+				result = ResourceDir::cacheFiles[dirName];
 			}
 			else
 			{
-				Array<String> files = ResourceDir::_getInternalFiles();
+				Array<String> files = zip::getFiles();
 				String current;
 				foreach (String, it, files)
 				{
 					current = (*it);
-					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && !current.contains('/'))
+					if (ResourceDir::_checkDirPrefix(current, dirName) && current != "" && !current.contains('/'))
 					{
 						result += current;
 					}
 				}
 				result.removeDuplicates();
-				ResourceDir::cacheFiles[name] = result;
+				ResourceDir::cacheFiles[dirName] = result;
 			}
 		}
 		else
 #endif
 		{
-			result = ResourceDir::_removeCwd(Dir::files(name, false)).removedDuplicates();
+			result = Dir::files(Resource::_makeNonZipPath(dirName), false).removedDuplicates();
 		}
 		if (prependDir)
 		{
@@ -181,35 +179,4 @@ namespace hltypes
 		return false;
 	}
 	
-	Array<String> ResourceDir::_getInternalFiles()
-	{
-		Array<String> files;
-#ifdef _ZIPRESOURCE
-		void* a = zip::open(NULL); // NULL, because this is a static function which will close the archive right after it is done
-		if (a != NULL)
-		{
-			files = zip::getFiles(a);
-			zip::close(NULL, a);
-		}
-#endif
-		return files;
-	}
-
-	Array<String> ResourceDir::_removeCwd(Array<String> paths)
-	{
-		String cwd = Resource::getCwd() + "/";
-		if (!Resource::isZipArchive())
-		{
-			cwd = Resource::getArchive() + "/" + cwd;
-		}
-		if (cwd != "/" && cwd != "./")
-		{
-			for_iter (i, 0, paths.size())
-			{
-				paths[i].replace(cwd, "");
-			}
-		}
-		return paths;
-	}
-
 }

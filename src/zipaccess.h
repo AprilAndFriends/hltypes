@@ -20,19 +20,19 @@ namespace hltypes
 {
 	namespace zip
 	{
-		void setArchive(const String& value);
-		void* open(Resource* resource);
-		void close(Resource* resource, void* archive);
-		void* fopen(void* archiveFile, const String& filename);
-		void fclose(void* file);
+		bool mountArchive(const String& path, const String& archiveFilename, const String& cwd);
+		bool unmountArchive(const String& path);
+		void* fopen(Resource* resource, const String& filename);
+		void fclose(Resource* resource, void* file);
 		bool fseek(void* file, int64_t offset, StreamBase::SeekMode mode);
 		int64_t fposition(void* file);
 		int fread(void* file, void* buffer, int count);
-		bool fexists(void* archiveFile, const String& filename);
-		Array<String> getFiles(void* archiveFile);
-		FileInfo finfo(void* archiveFile, const String& filename);
+		bool fexists(const String& filename);
+		int64_t fsize(void* file);
+		FileInfo finfo(const String& filename);
+		Array<String> getFiles();
+		bool isZipMounts();
 
 	}
-
 }
 #endif

@@ -13,20 +13,23 @@
 #ifndef HLTYPES_RESOURCE_H
 #define HLTYPES_RESOURCE_H
 
-#include <stdio.h>
-
 #include "hfbase.h"
+#include "hmap.h"
 #include "hstring.h"
 
 #include "hltypesExport.h"
 
 namespace hltypes
 {
+	class ResourceDir;
+
 	/// @brief Provides high level resource file handling.
 	/// @note When writing, \\r may be used, but \\r will be removed during read.
 	class hltypesExport Resource : public FileBase
 	{
 	public:
+		friend class ResourceDir;
+
 		/// @brief Basic constructor.
 		Resource();
 		/// @brief Destructor.
@@ -54,44 +57,37 @@ namespace hltypes
 		/// @param[in] filename The filename of the file.
 		/// @return File information provided by the implementation.
 		static FileInfo hinfo(const String& filename);
-		/// @brief Create a full filename.
-		/// @param[in] filename Original filename.
-		/// @return Full filename.
-		static String makeFullPath(const String& filename);
 		
-		/// @brief Gets the interal current working directory within a possible archive.
-		/// @return Interal current working directory.
-		static inline String getCwd() { return cwd; }
-		/// @brief Sets the interal current working directory within a possible archive.
-		/// @param[in] value New value.
-		static inline void setCwd(const String& value) { cwd = value; }
-		/// @brief Gets the resource archive's filename.
+		/// @brief Gets the currently mounted ZIP archives.
 		/// @return Resource archive's filename.
-		static inline String getArchive() { return archive; }
-		/// @brief Sets the resource archive's filename.
-		/// @param[in] value New value.
-		static void setArchive(const String& value);
-		/// @brief Checks if the archive is an actual ZIP archive.
-		/// @return True if the archive is an actual ZIP archive.
-		static inline bool isZipArchive() { return zipArchive; }
+		static inline Map<String, String> getMountedArchives() { return mountedArchives; }
 		/// @brief Checks if compiled with ZIP support.
 		/// @return True if compiled with ZIP support.
 		static bool hasZip();
+
+		/// @brief Mounts ZIP archive or directory for resource supply.
+		/// @param[in] path The mounting path.
+		/// @param[in] archiveFilename The ZIP archive filename or a plain directory path.
+		/// @param[in] cwd The root directory within the ZIP archive file. Ignored if plain directory path.
+		/// @return True if mount succeeded.
+		/// @note Requires a default ZIP file, specified by an empty string for path.
+		/// @note If a plain directory is mounted, no other mounts than the default path are allowed.
+		static bool mountArchive(const String& path, const String& archiveFilename, const String& cwd = "");
+		/// @brief Unmounts ZIP archive or directory.
+		/// @param[in] path The mounting path.
+		/// @return True if unmount succeeded.
+		static bool unmountArchive(const String& path);
 
 	protected:
 		/// @brief Data position;
 		int64_t dataPosition;
 		/// internal filename
 		hstr resourceFilename;
-		/// @brief OS archive file handle.
-		void* archiveFile;
 
-		/// @brief Defines the internal current working directory of a possible resource archive.
-		static String cwd;
-		/// @brief Defines the resource archive's filename.
-		static String archive;
+		/// @brief Defines currently mounted archive filenames and mount paths.
+		static Map<String, String> mountedArchives;
 		/// @brief Defines whether the archive is set to an actual file.
-		static bool zipArchive;
+		static bool zipMounts;
 
 		/// @brief Updates internal data size.
 		void _updateDataSize();
@@ -117,6 +113,11 @@ namespace hltypes
 		/// @param[in] seekMode Seeking mode.
 		bool _seek(int64_t offset, SeekMode seekMode = CURRENT);
 		
+		/// @brief Create a filename that is outside of the ZIP file system.
+		/// @param[in] filename Original filename.
+		/// @return Filename that is outside of the ZIP file system.
+		static String _makeNonZipPath(const String& filename);
+
 	private:
 		/// @brief Copy constructor.
 		/// @note Usage is not allowed and it will throw an exception.
