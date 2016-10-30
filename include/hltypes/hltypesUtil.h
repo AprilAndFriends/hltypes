@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.1
+/// @version 4.0
 /// 
 /// @section LICENSE
 /// 
@@ -18,6 +18,7 @@
 
 #include "hltypesExport.h"
 #include "hstring.h"
+#include "hversion.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #define __HL_EXPAND_MACRO(x) x
@@ -30,6 +31,7 @@ namespace hltypes
 
 	/// @brief Used for logging display.
 	hltypesExport extern String logTag;
+	hltypesExport extern Version version;
 }
 
 /// @brief Used for optimized and quick calculation from RAD to DEG.

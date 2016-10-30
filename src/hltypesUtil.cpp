@@ -1,5 +1,5 @@
 /// @file
-/// @version 3.1
+/// @version 4.0
 /// 
 /// @section LICENSE
 /// 
@@ -43,6 +43,7 @@
 namespace hltypes
 {
 	String logTag = "hltypes";
+	Version version(4, 0, 0);
 }
 
 uint64_t htime()
