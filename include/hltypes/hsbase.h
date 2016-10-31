@@ -23,8 +23,8 @@
 namespace hltypes
 {
 	class Stream;
-
 	template <typename T> class Array;
+
 	/// @brief Provides a base class for streaming.
 	class hltypesExport StreamBase
 	{

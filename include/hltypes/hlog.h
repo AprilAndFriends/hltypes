@@ -15,8 +15,8 @@
 
 #include "harray.h"
 #include "hltypesExport.h"
-#include "hstring.h"
 #include "hmutex.h"
+#include "hstring.h"
 
 namespace hltypes
 {

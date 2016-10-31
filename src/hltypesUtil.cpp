@@ -25,6 +25,7 @@
 #include "hresource.h"
 #include "hstream.h"
 #include "hstring.h"
+#include "hversion.h"
 #include "platform_internal.h"
 
 #if defined(_WIN32) && !defined(_WINRT)

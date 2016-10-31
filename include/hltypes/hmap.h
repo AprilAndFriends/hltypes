@@ -16,6 +16,7 @@
 #include <map>
 
 #include "harray.h"
+#include "hltypesUtil.h"
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a Map.

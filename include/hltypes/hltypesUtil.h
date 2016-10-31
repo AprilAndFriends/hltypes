@@ -31,6 +31,7 @@ namespace hltypes
 
 	/// @brief Used for logging display.
 	hltypesExport extern String logTag;
+	/// @brief Version of the library.
 	hltypesExport extern Version version;
 }
 

@@ -13,12 +13,13 @@
 #ifndef HLTYPES_VERSION_H
 #define HLTYPES_VERSION_H
 
-#include "harray.h"
 #include "hltypesExport.h"
 #include "hstring.h"
 
 namespace hltypes
 {
+	template <typename T> class Array;
+
 	/// @brief Provides versioning functionality.
 	class hltypesExport Version
 	{

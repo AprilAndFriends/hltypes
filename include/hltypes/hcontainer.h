@@ -262,7 +262,8 @@ namespace hltypes
 		/// @return Index of the given element or -1 if element could not be found.
 		inline int indexOf(const T& element) const
 		{
-			for_iter (i, 0, this->size())
+			int size = this->size();
+			for_iter (i, 0, size)
 			{
 				if (element == this->at(i))
 				{

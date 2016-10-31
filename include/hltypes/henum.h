@@ -15,8 +15,8 @@
 
 #include "harray.h"
 #include "hltypesUtil.h"
-#include "hmap.h"
 #include "hltypesExport.h"
+#include "hmap.h"
 
 /// @brief Helper macro for declaring an enum class.
 /// @param[in] exportDefinition Export definition.
