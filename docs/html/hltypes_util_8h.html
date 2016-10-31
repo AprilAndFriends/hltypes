@@ -58,6 +58,7 @@
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;hltypesExport.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="hstring_8h_source.html">hstring.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="hversion_8h_source.html">hversion.h</a>&quot;</code><br />
 </div>
 <p><a href="hltypes_util_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -376,9 +377,13 @@ Variables</h2></td></tr>
 hltypesExport String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a5538856e5da6d839e48071277f8b7307">hltypes::logTag</a></td></tr>
 <tr class="memdesc:a5538856e5da6d839e48071277f8b7307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for logging display. <br /></td></tr>
 <tr class="separator:a5538856e5da6d839e48071277f8b7307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3978a9ee512d82736d2e8eec360d71f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3978a9ee512d82736d2e8eec360d71f"></a>
+hltypesExport Version&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#aa3978a9ee512d82736d2e8eec360d71f">hltypes::version</a></td></tr>
+<tr class="memdesc:aa3978a9ee512d82736d2e8eec360d71f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classhltypes_1_1_version.html" title="Provides versioning functionality. ">Version</a> of the library. <br /></td></tr>
+<tr class="separator:aa3978a9ee512d82736d2e8eec360d71f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section version"><dt>Version</dt><dd>3.1</dd></dl>
+<div class="textblock"><dl class="section version"><dt>Version</dt><dd>4.0</dd></dl>
 <h1><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
 <p>This program is free software; you can redistribute it and/or modify it under the terms of the BSD license: <a href="http://opensource.org/licenses/BSD-3-Clause">http://opensource.org/licenses/BSD-3-Clause</a></p>
@@ -3696,7 +3701,8 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Gets the number of miliseconds passed since the system boot. </p>
-<p>Number of miliseconds passed since the system boot. </p><dl class="section note"><dt>Note</dt><dd>Useful for rand operations, like setting the rand generator with srand(). </dd>
+<dl class="section return"><dt>Returns</dt><dd>Number of miliseconds passed since the system boot. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Useful for rand operations, like setting the rand generator with srand(). </dd>
 <dd>
 Not all platforms actually support uint64 so be careful with this. </dd></dl>
 

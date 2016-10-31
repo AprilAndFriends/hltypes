@@ -135,12 +135,6 @@ Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:aea599bb1121a10bf8b6f0dc2c76da572"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_resource_dir.html#aea599bb1121a10bf8b6f0dc2c76da572">_checkDirPrefix</a> (<a class="el" href="classhltypes_1_1_string.html">String</a> &amp;path, const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;prefix)</td></tr>
 <tr class="memdesc:aea599bb1121a10bf8b6f0dc2c76da572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the prefix matches the resource path and removes it.  <a href="#aea599bb1121a10bf8b6f0dc2c76da572">More...</a><br /></td></tr>
 <tr class="separator:aea599bb1121a10bf8b6f0dc2c76da572"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0fbfc8b814416a450d779c6fda4e6fc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classhltypes_1_1_array.html">Array</a>&lt; <a class="el" href="classhltypes_1_1_string.html">String</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_resource_dir.html#af0fbfc8b814416a450d779c6fda4e6fc">_getInternalFiles</a> ()</td></tr>
-<tr class="memdesc:af0fbfc8b814416a450d779c6fda4e6fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the file listing within the resource archive.  <a href="#af0fbfc8b814416a450d779c6fda4e6fc">More...</a><br /></td></tr>
-<tr class="separator:af0fbfc8b814416a450d779c6fda4e6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a652e5cf2ca898484765299e0ed3fd3d3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classhltypes_1_1_array.html">Array</a>&lt; <a class="el" href="classhltypes_1_1_string.html">String</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_resource_dir.html#a652e5cf2ca898484765299e0ed3fd3d3">_removeCwd</a> (<a class="el" href="classhltypes_1_1_array.html">Array</a>&lt; <a class="el" href="classhltypes_1_1_string.html">String</a> &gt; paths)</td></tr>
-<tr class="memdesc:a652e5cf2ca898484765299e0ed3fd3d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes CWD from resource paths.  <a href="#a652e5cf2ca898484765299e0ed3fd3d3">More...</a><br /></td></tr>
-<tr class="separator:a652e5cf2ca898484765299e0ed3fd3d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_static_methods_classhltypes_1_1_dir_base"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classhltypes_1_1_dir_base')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classhltypes_1_1_dir_base.html">hltypes::DirBase</a></td></tr>
 <tr class="memitem:ad8cec46d819aba68670bf231661c79cb inherit pro_static_methods_classhltypes_1_1_dir_base"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_dir_base.html#ad8cec46d819aba68670bf231661c79cb">_prependDirectory</a> (const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;dirname, <a class="el" href="classhltypes_1_1_array.html">Array</a>&lt; <a class="el" href="classhltypes_1_1_string.html">String</a> &gt; &amp;entries)</td></tr>
 <tr class="memdesc:ad8cec46d819aba68670bf231661c79cb inherit pro_static_methods_classhltypes_1_1_dir_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepends the directory name to each path entry.  <a href="#ad8cec46d819aba68670bf231661c79cb">More...</a><br /></td></tr>
@@ -258,66 +252,6 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Resource</b></td></t
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if prefix matches. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="af0fbfc8b814416a450d779c6fda4e6fc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="classhltypes_1_1_array.html">Array</a>&lt;<a class="el" href="classhltypes_1_1_string.html">String</a>&gt; hltypes::ResourceDir::_getInternalFiles </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets the file listing within the resource archive. </p>
-<dl class="section return"><dt>Returns</dt><dd>True <a class="el" href="classhltypes_1_1_file.html" title="Provides high level file handling. ">File</a> listing within the resource archive. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This is usually only used when ZIP resources are being used. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a652e5cf2ca898484765299e0ed3fd3d3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="classhltypes_1_1_array.html">Array</a>&lt;<a class="el" href="classhltypes_1_1_string.html">String</a>&gt; hltypes::ResourceDir::_removeCwd </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classhltypes_1_1_array.html">Array</a>&lt; <a class="el" href="classhltypes_1_1_string.html">String</a> &gt;&#160;</td>
-          <td class="paramname"><em>paths</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Removes CWD from resource paths. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">paths</td><td>The resource paths. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhltypes_1_1_resource.html" title="Provides high level resource file handling. ">Resource</a> paths without the CWD. </dd></dl>
 
 </div>
 </div>
