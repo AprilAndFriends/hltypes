@@ -56,40 +56,43 @@ namespace hltypes
 	
 	Array<String> ResourceDir::entries(const String& dirName, bool prependDir)
 	{
-		Array<String> result = ResourceDir::contents(dirName, false);
+		String name = ResourceDir::normalize(dirName);
+		Array<String> result = ResourceDir::contents(name, false);
 		result += String(".");
 		result += String("..");
 		if (prependDir)
 		{
-			ResourceDir::_prependDirectory(dirName, result);
+			ResourceDir::_prependDirectory(name, result);
 		}
 		return result;
 	}
 	
 	Array<String> ResourceDir::contents(const String& dirName, bool prependDir)
 	{
+		String name = ResourceDir::normalize(dirName);
 		Array<String> result;
-		result = ResourceDir::directories(dirName, false) + ResourceDir::files(dirName, false);
+		result = ResourceDir::directories(name, false) + ResourceDir::files(name, false);
 		if (!Resource::zipMounts)
 		{
 			result.removeDuplicates();
 		}
 		if (prependDir)
 		{
-			ResourceDir::_prependDirectory(dirName, result);
+			ResourceDir::_prependDirectory(name, result);
 		}
 		return result;
 	}
 	
 	Array<String> ResourceDir::directories(const String& dirName, bool prependDir)
 	{
+		String name = ResourceDir::normalize(dirName);
 		Array<String> result;
 #ifdef _ZIPRESOURCE
 		if (Resource::zipMounts)
 		{
-			if (ResourceDir::cacheDirectories.hasKey(dirName))
+			if (ResourceDir::cacheDirectories.hasKey(name))
 			{
-				result = ResourceDir::cacheDirectories[dirName];
+				result = ResourceDir::cacheDirectories[name];
 			}
 			else
 			{
@@ -98,36 +101,37 @@ namespace hltypes
 				foreach (String, it, files)
 				{
 					current = (*it);
-					if (ResourceDir::_checkDirPrefix(current, dirName) && current != "" && current.contains('/'))
+					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && current.contains('/'))
 					{
 						result += current.split('/', 1).first();
 					}
 				}
 				result.removeDuplicates();
-				ResourceDir::cacheDirectories[dirName] = result;
+				ResourceDir::cacheDirectories[name] = result;
 			}
 		}
 		else
 #endif
 		{
-			result = Dir::directories(Resource::_makeNonZipPath(dirName), false).removedDuplicates();
+			result = Dir::directories(Resource::_makeNonZipPath(name), false).removedDuplicates();
 		}
 		if (prependDir)
 		{
-			ResourceDir::_prependDirectory(dirName, result);
+			ResourceDir::_prependDirectory(name, result);
 		}
 		return result;
 	}
 
 	Array<String> ResourceDir::files(const String& dirName, bool prependDir)
 	{
+		String name = ResourceDir::normalize(dirName);
 		Array<String> result;
 #ifdef _ZIPRESOURCE
 		if (Resource::zipMounts)
 		{
-			if (ResourceDir::cacheFiles.hasKey(dirName))
+			if (ResourceDir::cacheFiles.hasKey(name))
 			{
-				result = ResourceDir::cacheFiles[dirName];
+				result = ResourceDir::cacheFiles[name];
 			}
 			else
 			{
@@ -136,23 +140,23 @@ namespace hltypes
 				foreach (String, it, files)
 				{
 					current = (*it);
-					if (ResourceDir::_checkDirPrefix(current, dirName) && current != "" && !current.contains('/'))
+					if (ResourceDir::_checkDirPrefix(current, name) && current != "" && !current.contains('/'))
 					{
 						result += current;
 					}
 				}
 				result.removeDuplicates();
-				ResourceDir::cacheFiles[dirName] = result;
+				ResourceDir::cacheFiles[name] = result;
 			}
 		}
 		else
 #endif
 		{
-			result = Dir::files(Resource::_makeNonZipPath(dirName), false).removedDuplicates();
+			result = Dir::files(Resource::_makeNonZipPath(name), false).removedDuplicates();
 		}
 		if (prependDir)
 		{
-			ResourceDir::_prependDirectory(dirName, result);
+			ResourceDir::_prependDirectory(name, result);
 		}
 		return result;
 	}
