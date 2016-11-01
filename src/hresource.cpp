@@ -327,9 +327,17 @@ namespace hltypes
 	String Resource::_makeNonZipPath(const String& filename)
 	{
 		Array<String> segments;
-		segments += _platformResourceCwd();
-		segments += Resource::mountedArchives.tryGet("", "");
-		segments += filename;
+        String mountedArchiveRoot = Resource::mountedArchives.tryGet("", "");
+        if (mountedArchiveRoot != "")
+        {
+            segments += mountedArchiveRoot;
+            segments += filename;
+        }
+        else
+        {
+            segments += _platformResourceCwd();
+            segments += filename;
+        }
 		return ResourceDir::normalize(ResourceDir::joinPaths(segments));
 	}
 
