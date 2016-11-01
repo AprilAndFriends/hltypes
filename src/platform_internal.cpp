@@ -136,7 +136,7 @@ namespace hltypes
 
 	String _platformResourceCwd()
 	{
-		return ".";
+		return "";
 	}
 
 	_platformFile* _platformOpenFile(const String& name, const String& accessMode)
