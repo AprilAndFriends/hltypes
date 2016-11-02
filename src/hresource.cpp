@@ -330,7 +330,12 @@ namespace hltypes
 		segments += _platformResourceCwd();
 		segments += Resource::mountedArchives.tryGet("", "");
 		segments += filename;
-		return ResourceDir::normalize(ResourceDir::joinPaths(segments));
+		String result = ResourceDir::normalize(ResourceDir::joinPaths(segments));
+		if (!result.startsWith('/') && filename.startsWith('/'))
+		{
+			result = "/" + result;
+		}
+		return result;
 	}
 
 	Resource::Resource(const Resource& other)
