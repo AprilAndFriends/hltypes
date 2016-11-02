@@ -131,7 +131,6 @@ namespace hltypes
 
 	String DirBase::joinPaths(Array<String> paths, bool systemizeResult)
 	{
-		paths.removeAll("");
 		if (paths.size() == 0)
 		{
 			return "";
