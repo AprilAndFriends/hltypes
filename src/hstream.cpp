@@ -33,7 +33,10 @@ namespace hltypes
 		this->streamPosition = 0;
 		// using malloc because realloc is used later
 		this->stream = (unsigned char*)malloc((int)this->capacity);
-		memcpy(this->stream, initialData, initialDataSize);
+		if (initialDataSize > 0)
+		{
+			memcpy(this->stream, initialData, initialDataSize);
+		}
 		this->_updateDataSize();
 	}
 
@@ -44,7 +47,10 @@ namespace hltypes
 		this->streamPosition = 0;
 		// using malloc because realloc is used later
 		this->stream = (unsigned char*)malloc((int)this->capacity);
-		memcpy(this->stream, initialData, initialDataSize);
+		if (initialDataSize > 0)
+		{
+			memcpy(this->stream, initialData, initialDataSize);
+		}
 		this->_updateDataSize();
 	}
 
@@ -56,7 +62,10 @@ namespace hltypes
 		this->streamPosition = other.streamPosition;
 		// using malloc because realloc is used later
 		this->stream = (unsigned char*)malloc((int)this->capacity);
-		memcpy(this->stream, (unsigned char*)other, (int)other.streamSize);
+		if (this->streamSize > 0ll)
+		{
+			memcpy(this->stream, (unsigned char*)other, (int)this->streamSize);
+		}
 		this->_updateDataSize();
 	}
 
