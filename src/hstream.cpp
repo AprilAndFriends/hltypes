@@ -221,7 +221,10 @@ namespace hltypes
 		this->streamPosition = other.streamPosition;
 		this->setCapacity((int)other.capacity);
 		// using malloc because realloc is used later
-		memcpy(this->stream, (unsigned char*)other, (int)other.dataSize);
+		if (other.dataSize > 0)
+		{
+			memcpy(this->stream, (unsigned char*)other, (int)other.dataSize);
+		}
 		this->_updateDataSize();
 		return (*this);
 	}
