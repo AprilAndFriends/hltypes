@@ -62,7 +62,7 @@ namespace hltypes
 		this->streamPosition = other.streamPosition;
 		// using malloc because realloc is used later
 		this->stream = (unsigned char*)malloc((int)this->capacity);
-		if (this->streamSize > 0ll)
+		if (this->streamSize > 0LL)
 		{
 			memcpy(this->stream, (unsigned char*)other, (int)this->streamSize);
 		}
