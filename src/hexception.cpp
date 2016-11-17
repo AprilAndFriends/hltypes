@@ -49,6 +49,9 @@ namespace hltypes
 	_FileCouldNotOpenException::_FileCouldNotOpenException(const String& filename, bool isResource, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
+#if defined(_WIN32) || defined(_ANDROID)
+		int errnoValue = errno;
+#endif
 		String message = hsprintf("'%s' could not be opened!", filename.cStr());
 		try
 		{
@@ -95,8 +98,8 @@ namespace hltypes
 		catch (_Exception&) // is this inception or exception, I am confused
 		{
 		}
-#if defined(_WIN32) || defined(_ANDROID) // could be useful
-		message += " System error: " + String(strerror(errno));
+#if defined(_WIN32) || defined(_ANDROID)
+		message += " System error: " + String(strerror(errnoValue));
 #else
 		message += " File not found!";
 #endif
