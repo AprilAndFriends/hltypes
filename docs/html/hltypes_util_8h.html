@@ -160,12 +160,12 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0fadcc5f6fce3e334fd514b42f22bff8"><td class="memItemLeft" align="right" valign="top">hltypesFnExport uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a0fadcc5f6fce3e334fd514b42f22bff8">htime</a> ()</td></tr>
-<tr class="memdesc:a0fadcc5f6fce3e334fd514b42f22bff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of seconds passed since 1970/01/01 UTC.  <a href="#a0fadcc5f6fce3e334fd514b42f22bff8">More...</a><br /></td></tr>
-<tr class="separator:a0fadcc5f6fce3e334fd514b42f22bff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e330ac452e294b2e57874147f66bc54"><td class="memItemLeft" align="right" valign="top">hltypesFnExport uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a4e330ac452e294b2e57874147f66bc54">htickCount</a> ()</td></tr>
-<tr class="memdesc:a4e330ac452e294b2e57874147f66bc54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of miliseconds passed since the system boot.  <a href="#a4e330ac452e294b2e57874147f66bc54">More...</a><br /></td></tr>
-<tr class="separator:a4e330ac452e294b2e57874147f66bc54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9832c7ce20c5e69a90a55d38d94dac4"><td class="memItemLeft" align="right" valign="top">hltypesFnExport int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#aa9832c7ce20c5e69a90a55d38d94dac4">htime</a> ()</td></tr>
+<tr class="memdesc:aa9832c7ce20c5e69a90a55d38d94dac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of seconds passed since 1970/01/01 UTC.  <a href="#aa9832c7ce20c5e69a90a55d38d94dac4">More...</a><br /></td></tr>
+<tr class="separator:aa9832c7ce20c5e69a90a55d38d94dac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3b1decf013a795d5e53ab2b4c8d7a02"><td class="memItemLeft" align="right" valign="top">hltypesFnExport int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#ab3b1decf013a795d5e53ab2b4c8d7a02">htickCount</a> ()</td></tr>
+<tr class="memdesc:ab3b1decf013a795d5e53ab2b4c8d7a02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of miliseconds passed since the system boot.  <a href="#ab3b1decf013a795d5e53ab2b4c8d7a02">More...</a><br /></td></tr>
+<tr class="separator:ab3b1decf013a795d5e53ab2b4c8d7a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7a4d1207a27bb63024e5a67625c7735"><td class="memItemLeft" align="right" valign="top">hltypesFnExport <a class="el" href="classhltypes_1_1_string.html">hltypes::String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#ab7a4d1207a27bb63024e5a67625c7735">henv</a> (const <a class="el" href="classhltypes_1_1_string.html">hltypes::String</a> &amp;name)</td></tr>
 <tr class="memdesc:ab7a4d1207a27bb63024e5a67625c7735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an environment variable as String.  <a href="#ab7a4d1207a27bb63024e5a67625c7735">More...</a><br /></td></tr>
 <tr class="separator:ab7a4d1207a27bb63024e5a67625c7735"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -3687,12 +3687,12 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a4e330ac452e294b2e57874147f66bc54"></a>
+<a class="anchor" id="ab3b1decf013a795d5e53ab2b4c8d7a02"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">hltypesFnExport uint64_t htickCount </td>
+          <td class="memname">hltypesFnExport int64_t htickCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -3702,18 +3702,18 @@ template&lt;typename T &gt; </div>
 
 <p>Gets the number of miliseconds passed since the system boot. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of miliseconds passed since the system boot. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Useful for rand operations, like setting the rand generator with srand(). </dd>
+<dl class="section note"><dt>Note</dt><dd>Useful for benchmarking. </dd>
 <dd>
-Not all platforms actually support uint64 so be careful with this. </dd></dl>
+Not all platforms actually support int64 so be careful with this. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a0fadcc5f6fce3e334fd514b42f22bff8"></a>
+<a class="anchor" id="aa9832c7ce20c5e69a90a55d38d94dac4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">hltypesFnExport uint64_t htime </td>
+          <td class="memname">hltypesFnExport int64_t htime </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
