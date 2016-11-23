@@ -432,7 +432,7 @@ namespace hltypes
 	uint64_t StreamBase::loadUint64()
 	{
 		this->_validate();
-		uint64_t l = 0;
+		uint64_t l = 0ULL;
 #ifndef __BIG_ENDIAN__
 		this->_read((unsigned char*)&l, 8);
 #else

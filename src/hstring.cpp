@@ -1029,21 +1029,21 @@ namespace hltypes
 
 	String::operator unsigned int() const
 	{
-		unsigned int i = 0;
+		unsigned int i = 0U;
 		sscanf(stdstr::c_str(), "%u", &i);
 		return i;
 	}
 
 	String::operator int64_t() const
 	{
-		int64_t i = 0;
+		int64_t i = 0LL;
 		sscanf(stdstr::c_str(), "%lld", &i);
 		return i;
 	}
 
 	String::operator uint64_t() const
 	{
-		uint64_t i = 0;
+		uint64_t i = 0ULL;
 		sscanf(stdstr::c_str(), "%llu", &i);
 		return i;
 	}
