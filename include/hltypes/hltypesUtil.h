@@ -218,12 +218,12 @@ public: \
 /// @brief Gets the number of seconds passed since 1970/01/01 UTC.
 /// @return Number of seconds passed since 1970/01/01 UTC.
 /// @note Useful for rand operations, like setting the rand generator with srand().
-hltypesFnExport uint64_t htime();
+hltypesFnExport int64_t htime();
 /// @brief Gets the number of miliseconds passed since the system boot.
 /// @return Number of miliseconds passed since the system boot.
-/// @note Useful for rand operations, like setting the rand generator with srand().
-/// @note Not all platforms actually support uint64 so be careful with this.
-hltypesFnExport uint64_t htickCount();
+/// @note Useful for benchmarking.
+/// @note Not all platforms actually support int64 so be careful with this.
+hltypesFnExport int64_t htickCount();
 /// @brief Gets an environment variable as String.
 /// @param[in] name Name of the environment variable.
 /// @return Environment variable as String.

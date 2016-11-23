@@ -47,25 +47,25 @@ namespace hltypes
 	Version version(4, 0, 0);
 }
 
-uint64_t htime()
+int64_t htime()
 {
-	return (uint64_t)time(NULL);
+	return (int64_t)time(NULL);
 }
 
-uint64_t htickCount()
+int64_t htickCount()
 {
 #ifdef _WIN32
 #ifndef _WINRT // because GetTickCount64() is not available pre-Vista
 	return GetTickCount();
 #else
-	return (uint64_t)GetTickCount64();
+	return (int64_t)GetTickCount64();
 #endif
 #else
 	timeval tv = {0, 0};
 	gettimeofday(&tv, NULL);
 	// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
-	uint64_t tv_sec = tv.tv_sec;
-	uint64_t tv_usec = tv.tv_usec;
+	int64_t tv_sec = tv.tv_sec;
+	int64_t tv_usec = tv.tv_usec;
 	return (tv_sec * 1000 + tv_usec / 1000);
 #endif
 }
