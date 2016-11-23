@@ -167,7 +167,7 @@ namespace hltypes
 		/// @param[in] count Number of random elements.
 		/// @param[in] unique Whether to force all random values to be at unique positions.
 		/// @return List of random elements selected from this one.
-		inline List<T> random(int count, bool unique = true)
+		inline List<T> random(int count, bool unique = true) const
 		{
 			return this->template _random<List<T> >(count, unique);
 		}

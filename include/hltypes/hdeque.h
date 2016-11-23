@@ -172,7 +172,7 @@ namespace hltypes
 		/// @param[in] count Number of random elements.
 		/// @param[in] unique Whether to force all random values to be at unique positions.
 		/// @return Deque of random elements selected from this one.
-		inline Deque<T> random(int count, bool unique = true)
+		inline Deque<T> random(int count, bool unique = true) const
 		{
 			return this->template _random<Deque<T> >(count, unique);
 		}
