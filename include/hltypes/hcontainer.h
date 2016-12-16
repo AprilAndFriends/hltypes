@@ -355,6 +355,32 @@ namespace hltypes
 			}
 			return result;
 		}
+		/// @brief Counts occurrences of elements in Container.
+		/// @param[in] other Container with elements to search for.
+		/// @return Number of occurrences of given elements.
+		inline int count(const Container& other) const
+		{
+			int result = 0;
+			int count = other.size();
+			for_iter (i, 0, count)
+			{
+				result += this->count(other[i]);
+			}
+			return result;
+		}
+		/// @brief Counts occurrences of elements in Container.
+		/// @param[in] other C-type array with elements to search for.
+		/// @param[in] count How many elements the C-type array has.
+		/// @return Number of occurrences of given elements.
+		inline int count(const T other[], int count) const
+		{
+			int result = 0;
+			for_iter (j, 0, count)
+			{
+				result += this->count(other[i]);
+			}
+			return result;
+		}
 		/// @brief Inserts new element at specified position n times.
 		/// @param[in] index Position where to insert the new element.
 		/// @param[in] element Element to insert.

@@ -201,6 +201,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a0601751664a62bfe7ce222641403a419"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a0601751664a62bfe7ce222641403a419">count</a> (T element) const </td></tr>
 <tr class="memdesc:a0601751664a62bfe7ce222641403a419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts occurrences of element in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>.  <a href="#a0601751664a62bfe7ce222641403a419">More...</a><br /></td></tr>
 <tr class="separator:a0601751664a62bfe7ce222641403a419"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb350d904562a7c61f784d24666fe223"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#afb350d904562a7c61f784d24666fe223">count</a> (const <a class="el" href="classhltypes_1_1_container.html">Container</a> &amp;other) const </td></tr>
+<tr class="memdesc:afb350d904562a7c61f784d24666fe223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts occurrences of elements in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>.  <a href="#afb350d904562a7c61f784d24666fe223">More...</a><br /></td></tr>
+<tr class="separator:afb350d904562a7c61f784d24666fe223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49d54f6c5dae995fa2fc00800c837a43"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a49d54f6c5dae995fa2fc00800c837a43">count</a> (const T other[], int count) const </td></tr>
+<tr class="memdesc:a49d54f6c5dae995fa2fc00800c837a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts occurrences of elements in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>.  <a href="#a49d54f6c5dae995fa2fc00800c837a43">More...</a><br /></td></tr>
+<tr class="separator:a49d54f6c5dae995fa2fc00800c837a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac16b07d1e30913196dc607ed6caec617"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#ac16b07d1e30913196dc607ed6caec617">insertAt</a> (const int index, const T &amp;element, const int times=1)</td></tr>
 <tr class="memdesc:ac16b07d1e30913196dc607ed6caec617"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts new element at specified position n times.  <a href="#ac16b07d1e30913196dc607ed6caec617">More...</a><br /></td></tr>
 <tr class="separator:ac16b07d1e30913196dc607ed6caec617"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2320,6 +2326,87 @@ template&lt;typename STD, typename T&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of occurrences of given element. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afb350d904562a7c61f784d24666fe223"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename STD, typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classhltypes_1_1_container.html">hltypes::Container</a>&lt; STD, T &gt;::count </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhltypes_1_1_container.html">Container</a>&lt; STD, T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Counts occurrences of elements in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">other</td><td><a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a> with elements to search for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of occurrences of given elements. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a49d54f6c5dae995fa2fc00800c837a43"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename STD, typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classhltypes_1_1_container.html">hltypes::Container</a>&lt; STD, T &gt;::count </td>
+          <td>(</td>
+          <td class="paramtype">const T&#160;</td>
+          <td class="paramname"><em>other</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Counts occurrences of elements in <a class="el" href="classhltypes_1_1_container.html" title="Encapsulates container functionality and adds high level methods. ">Container</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">other</td><td>C-type array with elements to search for. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>How many elements the C-type array has. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of occurrences of given elements. </dd></dl>
 
 </div>
 </div>
