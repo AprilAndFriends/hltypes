@@ -375,7 +375,7 @@ namespace hltypes
 		inline int count(const T other[], int count) const
 		{
 			int result = 0;
-			for_iter (j, 0, count)
+			for_iter (i, 0, count)
 			{
 				result += this->count(other[i]);
 			}
