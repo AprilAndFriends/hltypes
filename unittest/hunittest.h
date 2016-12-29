@@ -14,9 +14,10 @@
 extern XCTestCase* testInstance;
 #define HL_UT_ASSERT(expression, msg) _XCTPrimitiveAssertTrue(testInstance, (expression), @msg)
 
-#define HL_UT_CLASS_BEGIN(classe) \
-	@interface _test ## classe \
+#define HL_UT_RUN_CLASS_BEGIN(classe) \
+	@interface _test ## classe: XCTestCase \
 	@end \
+	@implementation _test ## classe \
 	- (void)setUp \
 	{ \
 		[super setUp]; \
@@ -26,14 +27,18 @@ extern XCTestCase* testInstance;
 	{ \
 		[super tearDown]; \
 	}
-#define HL_UT_CLASS_END \
+#define HL_UT_RUN_CLASS_END \
 	@end
 
 #define HL_UT_RUN_METHOD(classe, name) \
-	- (void)__HL_UT_LIB_NAME ## _ ## classe ## _ ## name) \
+	- (void) _ ## classe ## _ ## name \
 	{ \
-		__HL_UT_LIB_NAME ## _unittest_ ## classe::assignment(); \
+		_hunittest_ ## classe::name(); \
 	}
+
+#define HL_UT_TEST_CLASS(classe) namespace _hunittest_ ## classe
+#define HL_UT_TEST_FUNCTION(name) void name()
+
 
 #else
 
@@ -59,9 +64,9 @@ const wchar_t* GetWC(const char* c);
 		__EXPAND(__HL_UT_LIB_NAME) ## _hunittest_ ## classe::name(); \
 	}
 
-#endif
-
 #define HL_UT_TEST_CLASS(classe) namespace __EXPAND(__HL_UT_LIB_NAME) ## _hunittest_ ## classe
 #define HL_UT_TEST_FUNCTION(name) void name()
+#endif
+
 
 #endif
