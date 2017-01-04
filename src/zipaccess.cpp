@@ -19,6 +19,7 @@
 #include "hresource.h"
 #include "hstream.h"
 #include "hstring.h"
+#include "platform_internal.h"
 #include "zipaccess.h"
 
 #include "hlog.h"
