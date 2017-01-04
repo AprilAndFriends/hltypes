@@ -56,8 +56,15 @@ namespace hltypes
 			{
 				if (this->zipArchive == NULL)
 				{
+					Array<String> segments;
+					String platformCwd = _platformResourceCwd();
+					if (platformCwd != "")
+					{
+						segments += platformCwd;
+					}
+					segments += this->filename;
 					this->zipArchive = new miniz::mz_zip_archive();
-					if (!miniz::mz_zip_reader_init_file(this->zipArchive, this->filename.cStr(), 0))
+					if (!miniz::mz_zip_reader_init_file(this->zipArchive, hrdir::normalize(hrdir::joinPaths(segments)).cStr(), 0))
 					{
 						delete this->zipArchive;
 						this->zipArchive = NULL;
