@@ -516,7 +516,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				TargetAttributes = {
 					D180BCBA1E15033200A554B6 = {
 						CreatedOnToolsVersion = 8.0;
@@ -1053,6 +1053,7 @@
 				D180BCC61E15033200A554B6 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D1F27A99177A2D0E00E5C131 /* Build configuration list for PBXNativeTarget "hltypes (Mac)" */ = {
 			isa = XCConfigurationList;
