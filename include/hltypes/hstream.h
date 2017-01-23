@@ -15,6 +15,7 @@
 
 #include "hsbase.h"
 #include "hltypesExport.h"
+#define MIN_HSTREAM_CAPACITY 16
 
 namespace hltypes
 {
@@ -25,7 +26,7 @@ namespace hltypes
 		/// @brief Constructor.
 		/// @param[in] initialCapacity Initial capacity of the internal buffer.
 		/// @note initialCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
-		Stream(int initialCapacity = 16);
+		Stream(int initialCapacity = MIN_HSTREAM_CAPACITY);
 		/// @brief Constructor.
 		/// @param[in] initialData Initial data in the Stream.
 		/// @param[in] initialDataSize Initial data's size.
@@ -45,7 +46,7 @@ namespace hltypes
 		/// @brief Clears the Stream.
 		/// @param[in] newCapacity New capacity of the internal buffer.
 		/// @note newCapacity is used to prevent unnecessary calls to realloc() internally if it's not needed. This is NOT the Stream's initial size.
-		void clear(int newCapacity = 16);
+		void clear(int newCapacity = MIN_HSTREAM_CAPACITY);
 		/// @brief Resizes internal buffer.
 		/// @param[in] newCapacity New capacity of the internal buffer.
 		/// @return True if internal buffer was resized or already the same size that was requested.
