@@ -68,6 +68,9 @@ namespace hltypes
 #define hatan(x, y) (atan2(x, y) * __HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.0001
+/// @brief Calculates const C-array size.
+/// @param[in] cArray A const C-array.
+#define HL_CONST_ARRAY_SIZE(cArray) (sizeof(cArray) / sizeof(cArray[0]))
 
 /// @brief Utility macro for quick getter definition.
 /// @param[in] type Variable type.
