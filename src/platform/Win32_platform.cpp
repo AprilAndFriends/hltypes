@@ -102,13 +102,13 @@ namespace hltypes
 			Log::error(logTag, "Cannot open the Clipboard!");
 			return false;
 		}
-		HANDLE handle = GetClipboardData(CF_TEXT);
+		HANDLE handle = GetClipboardData(CF_UNICODETEXT);
 		if (handle == NULL)
 		{
 			CloseClipboard();
 			return false;
 		}
-		string = (char*)handle;
+		string = hstr::fromUnicode((wchar_t*)handle);
 		CloseClipboard();
 		return true;
 	}
@@ -126,9 +126,10 @@ namespace hltypes
 			CloseClipboard();
 			return false;
 		}
-		HGLOBAL hGlobal = GlobalAlloc(GMEM_FIXED, string.size() + 1);
-		memcpy((char*)hGlobal, string.cStr(), string.size() + 1);
-		if (::SetClipboardData(CF_TEXT, hGlobal) == NULL)
+		std::wstring wString = string.wStr();
+		HGLOBAL hGlobal = GlobalAlloc(GMEM_FIXED, wString.size() + 1);
+		memcpy((wchar_t*)hGlobal, wString.c_str(), wString.size() + 1);
+		if (::SetClipboardData(CF_UNICODETEXT, hGlobal) == NULL)
 		{
 			Log::errorf(logTag, "Cannot set Clipboard data! System Error: %08X", GetLastError());
 			CloseClipboard();
