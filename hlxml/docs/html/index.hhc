@@ -34,14 +34,9 @@
         </UL>
       <LI><OBJECT type="text/sitemap"><param name="Name" value="Node"><param name="Local" value="classhlxml_1_1_node.html"><param name="ImageNumber" value="1"></OBJECT>
         <UL>
-        <LI><OBJECT type="text/sitemap"><param name="Name" value="Type"><param name="Local" value="classhlxml_1_1_node.html#a1129b30d437939e9adc025fcd1c05263"><param name="ImageNumber" value="1"></OBJECT>
-          <UL>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="TYPE_ELEMENT"><param name="Local" value="classhlxml_1_1_node.html#a1129b30d437939e9adc025fcd1c05263a8aefc8f2537074f6490e794a9a724f52"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="TYPE_COMMENT"><param name="Local" value="classhlxml_1_1_node.html#a1129b30d437939e9adc025fcd1c05263a9115282b2f563e877dfa0908078a937d"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="TYPE_TEXT"><param name="Local" value="classhlxml_1_1_node.html#a1129b30d437939e9adc025fcd1c05263ad162ec9f1966059a2a62dbdc02a74950"><param name="ImageNumber" value="11"></OBJECT>
-          </UL>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="Node"><param name="Local" value="classhlxml_1_1_node.html#a4377e4addfdd9790583e5b9a3e6e9169"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="~Node"><param name="Local" value="classhlxml_1_1_node.html#a33054fa8dbcb806c49fc775c1f32adf8"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_ENUM_CLASS_PREFIX_DECLARE"><param name="Local" value="classhlxml_1_1_node.html#ae09edb6fdeec3aac14b10c75972b5636"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="pbool"><param name="Local" value="classhlxml_1_1_node.html#a4cd71896a7661cd12ed9c06afc625136"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="pbool"><param name="Local" value="classhlxml_1_1_node.html#afbc80ab1e27307c7f0cba35104d208b4"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="pdouble"><param name="Local" value="classhlxml_1_1_node.html#a6b199c2129511662176c7e92d88f755a"><param name="ImageNumber" value="11"></OBJECT>
@@ -77,6 +72,7 @@
         <LI><OBJECT type="text/sitemap"><param name="Name" value="value"><param name="Local" value="classhlxml_1_1_node.html#a503f3f1b50ff4240cfa491843c9ea1ff"><param name="ImageNumber" value="11"></OBJECT>
         </UL>
       </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Type"><param name="Local" value="class_type.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Index"><param name="Local" value="classes.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Hierarchy"><param name="Local" value="hierarchy.html"><param name="ImageNumber" value="1"></OBJECT>
@@ -87,14 +83,13 @@
       <LI><OBJECT type="text/sitemap"><param name="Name" value="hlxml::_XMLException"><param name="Local" value="classhlxml_1_1___x_m_l_exception.html"><param name="ImageNumber" value="11"></OBJECT>
       </UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="hlxml::Node"><param name="Local" value="classhlxml_1_1_node.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Type"><param name="Local" value="class_type.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Members"><param name="Local" value="functions.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="All"><param name="Local" value="functions.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Functions"><param name="Local" value="functions_func.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Variables"><param name="Local" value="functions_vars.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="Enumerations"><param name="Local" value="functions_enum.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="Enumerator"><param name="Local" value="functions_eval.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Files"><param name="ImageNumber" value="1"></OBJECT>
@@ -141,14 +136,9 @@
           <UL>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="Node"><param name="Local" value="classhlxml_1_1_node.html"><param name="ImageNumber" value="1"></OBJECT>
             <UL>
-            <LI><OBJECT type="text/sitemap"><param name="Name" value="Type"><param name="Local" value="classhlxml_1_1_node.html#a1129b30d437939e9adc025fcd1c05263"><param name="ImageNumber" value="1"></OBJECT>
-              <UL>
-              <LI><OBJECT type="text/sitemap"><param name="Name" value="TYPE_ELEMENT"><param name="Local" value="classhlxml_1_1_node.html#a1129b30d437939e9adc025fcd1c05263a8aefc8f2537074f6490e794a9a724f52"><param name="ImageNumber" value="11"></OBJECT>
-              <LI><OBJECT type="text/sitemap"><param name="Name" value="TYPE_COMMENT"><param name="Local" value="classhlxml_1_1_node.html#a1129b30d437939e9adc025fcd1c05263a9115282b2f563e877dfa0908078a937d"><param name="ImageNumber" value="11"></OBJECT>
-              <LI><OBJECT type="text/sitemap"><param name="Name" value="TYPE_TEXT"><param name="Local" value="classhlxml_1_1_node.html#a1129b30d437939e9adc025fcd1c05263ad162ec9f1966059a2a62dbdc02a74950"><param name="ImageNumber" value="11"></OBJECT>
-              </UL>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="Node"><param name="Local" value="classhlxml_1_1_node.html#a4377e4addfdd9790583e5b9a3e6e9169"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="~Node"><param name="Local" value="classhlxml_1_1_node.html#a33054fa8dbcb806c49fc775c1f32adf8"><param name="ImageNumber" value="11"></OBJECT>
+            <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_ENUM_CLASS_PREFIX_DECLARE"><param name="Local" value="classhlxml_1_1_node.html#ae09edb6fdeec3aac14b10c75972b5636"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="pbool"><param name="Local" value="classhlxml_1_1_node.html#a4cd71896a7661cd12ed9c06afc625136"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="pbool"><param name="Local" value="classhlxml_1_1_node.html#afbc80ab1e27307c7f0cba35104d208b4"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="pdouble"><param name="Local" value="classhlxml_1_1_node.html#a6b199c2129511662176c7e92d88f755a"><param name="ImageNumber" value="11"></OBJECT>

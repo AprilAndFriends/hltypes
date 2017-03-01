@@ -55,12 +55,17 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a3867a63fba556d364a8d8ed419ba3847"><param name="Name" value="hltypes::Container"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a9c760fb9f2354d50eda9c8d50e66cd3e"><param name="Name" value="_fisOpen"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#af7576aa153dfadef8cf79679c1cd2f5e"><param name="Name" value="_fopen"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aff2c53dc1daf0c935d2730e22840922e"><param name="Name" value="_fopen"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a35b7b27f971d6f363edc093fbc196442"><param name="Name" value="_fposition"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a399693e12eedf153b3c2b41a33db5275"><param name="Name" value="_fread"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#af96c94c5246d803a1fa67c0eb7a1fa42"><param name="Name" value="_fseek"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#ac85d2ffebe38fea786785fda07542def"><param name="Name" value="_fseek"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#af94661fbd3b362025a6485795aeab7ec"><param name="Name" value="_fwrite"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#afd4de6cbb04d2306686c87313a403707"><param name="Name" value="_getInstances"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#afd4de6cbb04d2306686c87313a403707"><param name="Name" value="hltypes::Enumeration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#ad5b51bcbeee198ffa9f824b2476ec4ec"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a5db9cb295de6a5b3fa65482c1f1fc93a"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a1a60f26ca722125081a45d23e5b6248e"><param name="Name" value="_indices"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a1a60f26ca722125081a45d23e5b6248e"><param name="Name" value="Container< std::deque< T >, T >"></OBJECT>
@@ -181,12 +186,12 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#ad1ac36ffdc647ba51ca337cd28889813"><param name="Name" value="Container< std::vector< T >, T >"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#ad1ac36ffdc647ba51ca337cd28889813"><param name="Name" value="hltypes::Container"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#a2aee0976a2e092c0628fe74ac719b7d6"><param name="Name" value="_seek"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#ac3b491f3883e91c1103d0dbe9dc7a099"><param name="Name" value="_seek"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#a2aee0976a2e092c0628fe74ac719b7d6"><param name="Name" value="hltypes::File"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#a6c0463119402f6556c07aece5a4dd51f"><param name="Name" value="hltypes::Resource"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#adab3454546d9a1fa577040ef81a28bfb"><param name="Name" value="hltypes::Stream"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#ab73b11511858358d1258ca576eaaaf50"><param name="Name" value="hltypes::StreamBase"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#ac3b491f3883e91c1103d0dbe9dc7a099"><param name="Name" value="hltypes::File"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#ae249a64dd97ff50fddef1afe27329c08"><param name="Name" value="hltypes::Resource"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a139478ebb5210f0f41e5ef3632f1e6b2"><param name="Name" value="hltypes::Stream"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a0c1c431a9514a10ca9e8e7fea816d327"><param name="Name" value="hltypes::StreamBase"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1___exception.html#a6096bb828256942a6865b0d36cc433df"><param name="Name" value="_setInternalMessage"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a675146c1b2410645d86c83c3e46baf74"><param name="Name" value="_sorted"></OBJECT>
@@ -226,6 +231,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#ae28be98abad41a75dbbb44edd5bc51cf"><param name="Name" value="hltypes::Stream"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a05029e45acd7ec593862386c686a9419"><param name="Name" value="hltypes::StreamBase"></OBJECT>
   </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a3aabb19be7d73693ed29596194b73fb7"><param name="Name" value="AccessMode"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structhltypes_1_1_file_info.html#a32ea2f00e139dd36e708c0ce5ac61ae6"><param name="Name" value="accessTime"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_mutex_1_1_scope_lock.html#a50f9c7e72186f55f2627cb54b82a76a5"><param name="Name" value="acquire"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a90d583f01fb7b8626af610607769d705"><param name="Name" value="add"></OBJECT>
@@ -242,7 +248,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#ab6f4ccab88672cde1de6f7128e69fcd9"><param name="Name" value="Container< std::vector< T >, T >"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#ab6f4ccab88672cde1de6f7128e69fcd9"><param name="Name" value="hltypes::Container"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a832f0ba6a1f1ba8ebba52f3a39a57adb"><param name="Name" value="APPEND"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a88e38326aef5a24d075730a920176e4b"><param name="Name" value="Append"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_array.html#a6156032ba3c2ac674001ae37da448224"><param name="Name" value="Array"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a8ae269360aec4102ff28786898f1db07"><param name="Name" value="at"></OBJECT>
   <UL>
@@ -284,7 +290,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a9e96e82425cdc88e2d8e574999e94dde"><param name="Name" value="hltypes::Container"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_dir.html#afbfc10b52bfc0f285cdabfede9e4268e"><param name="Name" value="hltypes::Dir"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#ab6cee86478deb2a239c58112fd4c0450"><param name="Name" value="hltypes::File"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#ad61fca6e138dcbd0949260ca999d0ac4"><param name="Name" value="hltypes::Stream"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a5aff783361ba58ab41e3972e534e0a93"><param name="Name" value="hltypes::Stream"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_clipboard.html#ab6ca439d81034d88ac281895cb227546"><param name="Name" value="Clipboard"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#ace2f715a3ee5c814b2be4a58ac8fb975"><param name="Name" value="close"></OBJECT>
@@ -558,7 +564,7 @@
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structhltypes_1_1_file_info.html#a2be50b3fe7fc21571868979d58241f3e"><param name="Name" value="creationTime"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#a04924c30da932df2759e84ceea54e61c"><param name="Name" value="cStr"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984a349dc49d8f5c2d0b347f932e62a054fc"><param name="Name" value="CURRENT"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a9924111c6a559b401c12683d555bc943"><param name="Name" value="Current"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_dir.html#ac5cb4be52f0331ee5eaa3aaf8249e87d"><param name="Name" value="cwd"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#a23725d3626eba8a7443a71edeb9baeda"><param name="Name" value="dataPosition"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#aeb340cdc5997ab9d10f824495d427039"><param name="Name" value="dataSize"></OBJECT>
@@ -609,7 +615,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a281aea73cd8ce1884e8ee80505c05678"><param name="Name" value="Container< std::vector< T >, T >"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a281aea73cd8ce1884e8ee80505c05678"><param name="Name" value="hltypes::Container"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984ac43b96092d00fa574f536024df53d62f"><param name="Name" value="END"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a793b9903830ac02866306712b2bf0c2f"><param name="Name" value="End"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#aef55649ca007be8f55b89015fbba53c5"><param name="Name" value="endsWith"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_dir.html#a5620649c23d9ca7c1397baeaa607ac0a"><param name="Name" value="entries"></OBJECT>
   <UL>
@@ -711,7 +717,27 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hdeque_8h.html#a26335e597922a5e6cdece4ccc2fcc705"><param name="Name" value="foreachc_q"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hdeque_8h.html#adcd8ddb495fc460e0186d009833d9150"><param name="Name" value="foreachc_qr"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="harray_8h.html#a68bf3d85fe7e8dbe94637cfe35a7708d"><param name="Name" value="foreachc_r"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a6b31e5669fdff1d53894252ba747aeb8"><param name="Name" value="fromInt"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a6b31e5669fdff1d53894252ba747aeb8"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a01ce7cb009a93b8e70821d654db8bd2d"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#aaf18b55e509a0bab5a89a1750d33b82d"><param name="Name" value="fromName"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#aaf18b55e509a0bab5a89a1750d33b82d"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a7b4b0b1046039903bfa00a51fd56a8e2"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#ad4129473f1b327a4dab883998e6fab7b"><param name="Name" value="fromUint"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#ad4129473f1b327a4dab883998e6fab7b"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#af90737eb4398b381ef8c44bd6cfd7879"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#a2b7417e665564f7854ab1f394b1f0f24"><param name="Name" value="fromUnicode"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a5d6ef1d704427e3ae2407740f772f1bb"><param name="Name" value="getAsMap"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a5d6ef1d704427e3ae2407740f772f1bb"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#af747a28d9a935eac9b4347781fc9fa5f"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#afc496c36d792cdfd70bd670cf415af5e"><param name="Name" value="getCallbackFunction"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1___exception.html#a8c25643389d17c3ced04ab06eab11692"><param name="Name" value="getFullMessage"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread.html#a52a8be09a7b15e214dfb27fdcb73bcf8"><param name="Name" value="getFunction"></OBJECT>
@@ -746,6 +772,11 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1___object_cannot_copy_exception.html#adf8536d2c25541fc975f5507eeeec857"><param name="Name" value="hltypes::_ObjectCannotCopyException"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1___resource_already_exists_exception.html#aed5c1dc61b310e345523d435d3a24340"><param name="Name" value="hltypes::_ResourceAlreadyExistsException"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1___resource_not_exists_exception.html#a79e34b7118a096dc9521b3f05b5d55ce"><param name="Name" value="hltypes::_ResourceNotExistsException"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a0775553f3d01cf2931d6a6e385172936"><param name="Name" value="getValues"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a0775553f3d01cf2931d6a6e385172936"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a970a76c9af300d7d3be956cd75bb68cc"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#aaac61d17af8aa933f310e4d849eb2bc5"><param name="Name" value="habs"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a1eb7b052ef6af1d11dc982a7c09696ff"><param name="Name" value="hacos"></OBJECT>
@@ -784,7 +815,17 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_map.html#a80dfe56ea921ef2877e464ac11ac4782"><param name="Name" value="hasAnyValue"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a29fcf97d5361a87dd6978e1eaa1edfa6"><param name="Name" value="hasin"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_map.html#a050c5d8408d8f1a8e71530a07a7b14e9"><param name="Name" value="hasKey"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_map.html#a291a508418c6e86484023005107537de"><param name="Name" value="hasValue"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a5172f54b982b88357583a0ddb2f061f5"><param name="Name" value="hasValue"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a5172f54b982b88357583a0ddb2f061f5"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_map.html#a291a508418c6e86484023005107537de"><param name="Name" value="hltypes::Map"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a64142bd6bfa7ae794dee2da89b459451"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#aab6a2d8208895954790c95215b2c71cd"><param name="Name" value="hasValueFor"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#aab6a2d8208895954790c95215b2c71cd"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a5ab03c0a6ae26c3293395359868ee69a"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#a7156c40a73ac391a365fb68a704b2535"><param name="Name" value="hasZip"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a2019553b89e79f98fc160a377ddc12b7"><param name="Name" value="hatan"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#ac047bac2c269d762dbdf53d46ddc8b3a"><param name="Name" value="hbetweenEE"></OBJECT>
@@ -855,8 +896,10 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="hexception_8h.html#a5fdf13394ec925cbd729f3f3a0767430"><param name="Name" value="ResourceNotExistsException"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hexception_8h.html#a1e929eaf245ba216755cdc5492d23cc3"><param name="Name" value="hexception"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hfbase_8h.html#a17e15d4386bc1a047a2e794d236bfea6"><param name="Name" value="hfaccess"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hfbase_8h.html"><param name="Name" value="hfbase.h"></OBJECT>
   <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hfbase_8h.html#a17e15d4386bc1a047a2e794d236bfea6"><param name="Name" value="hfaccess"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="hfbase_8h.html#a3082fd6fd7aa5cf33b1b74f416e536cb"><param name="Name" value="hfbase"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="hfbase_8h.html#a6634fde1f55619e6f8e23a2ebd93e826"><param name="Name" value="hfinfo"></OBJECT>
   </UL>
@@ -877,6 +920,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#a5b00a37a7f71cae3f392836d73332c2d"><param name="Name" value="hltypes::File"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#a5eb28f04d541d21e6e7cde74e32926dd"><param name="Name" value="hltypes::Resource"></OBJECT>
   </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a34d24bcceda36868ce01178d6181b9fe"><param name="Name" value="HL_CONST_ARRAY_SIZE"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a1399e6f6031ec660ed36c1636aeff3f8"><param name="Name" value="HL_DEFINE_GET2"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a893f3bdfd166b1edcef0817eeb53ee8b"><param name="Name" value="HL_DEFINE_GET"></OBJECT>
   <UL>
@@ -1208,7 +1252,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#aaad42b3920b0f5cbb45a5a1d54928af9"><param name="Name" value="_isOpen"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#a3c9715d4b09cd1d21390ae94c01ccc9d"><param name="Name" value="_position"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#a6189d068967b74969f94b3bc1929d9b5"><param name="Name" value="_read"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#a2aee0976a2e092c0628fe74ac719b7d6"><param name="Name" value="_seek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#ac3b491f3883e91c1103d0dbe9dc7a099"><param name="Name" value="_seek"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#aea5f65c2ad79108747ea1479d32f033b"><param name="Name" value="_write"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#ab6cee86478deb2a239c58112fd4c0450"><param name="Name" value="clear"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#ace2f715a3ee5c814b2be4a58ac8fb975"><param name="Name" value="close"></OBJECT>
@@ -1228,17 +1272,43 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file.html#a5f763b8abfbe4c901b64e27a9f8f6948"><param name="Name" value="~File"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html"><param name="Name" value="hltypes::FileBase"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#ad5b51bcbeee198ffa9f824b2476ec4ec"><param name="Name" value="_getInstances"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a3aabb19be7d73693ed29596194b73fb7"><param name="Name" value="AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a88e38326aef5a24d075730a920176e4b"><param name="Name" value="Append"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a6b31e5669fdff1d53894252ba747aeb8"><param name="Name" value="fromInt"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#aaf18b55e509a0bab5a89a1750d33b82d"><param name="Name" value="fromName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#ad4129473f1b327a4dab883998e6fab7b"><param name="Name" value="fromUint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a5d6ef1d704427e3ae2407740f772f1bb"><param name="Name" value="getAsMap"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a0775553f3d01cf2931d6a6e385172936"><param name="Name" value="getValues"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a5172f54b982b88357583a0ddb2f061f5"><param name="Name" value="hasValue"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#aab6a2d8208895954790c95215b2c71cd"><param name="Name" value="hasValueFor"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a3457bfe5dbe596347846ff0ad4e3b4bb"><param name="Name" value="next"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#ad6e477b6752865134bad3b8598567e4c"><param name="Name" value="operator!="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a05ad385960b179d400e01be12ff9e0f9"><param name="Name" value="operator<"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a9537e84aaadd27796129a2166834eb50"><param name="Name" value="operator<="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a41422ca8961914a0109f2f4cb8d48ae8"><param name="Name" value="operator=="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a29683b4733ef0c995177cf61640f9477"><param name="Name" value="operator>"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a7bf066cec5a830c0ecae858b60c62814"><param name="Name" value="operator>="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#adf96e6b8a390d431093822a64f61c1b1"><param name="Name" value="previous"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#ad0c4c8e84c4285416aedee550a186756"><param name="Name" value="Read"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a7abcc9f03db2a99b42276cee1d2df670"><param name="Name" value="ReadAppend"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#aa5ef18f6190077748c003db17468e51e"><param name="Name" value="ReadWrite"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a84914f6ee907e01a418e23eb3c54f9a6"><param name="Name" value="ReadWriteCreate"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#af9fb0a0a7a8612bdc5ee3b0a4401d921"><param name="Name" value="Write"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html"><param name="Name" value="hltypes::FileBase"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#af0d83b83980e72102e66d393f3e5958e"><param name="Name" value="_descriptor"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a87e54d7a8542eaec6ad8d7e2b6c9e4e1"><param name="Name" value="_fclose"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#ae1b2f83bef673a5b185c87bab9382aab"><param name="Name" value="_fexists"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a9c760fb9f2354d50eda9c8d50e66cd3e"><param name="Name" value="_fisOpen"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#af7576aa153dfadef8cf79679c1cd2f5e"><param name="Name" value="_fopen"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aff2c53dc1daf0c935d2730e22840922e"><param name="Name" value="_fopen"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a35b7b27f971d6f363edc093fbc196442"><param name="Name" value="_fposition"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a399693e12eedf153b3c2b41a33db5275"><param name="Name" value="_fread"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#af96c94c5246d803a1fa67c0eb7a1fa42"><param name="Name" value="_fseek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#ac85d2ffebe38fea786785fda07542def"><param name="Name" value="_fseek"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#af94661fbd3b362025a6485795aeab7ec"><param name="Name" value="_fwrite"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a832f0ba6a1f1ba8ebba52f3a39a57adb"><param name="Name" value="APPEND"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a32e53c1d62d2fa5a1b9c97d719e99a77"><param name="Name" value="cfile"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aeb5f9f0ca61b87692cf71cfdae9fc337"><param name="Name" value="close"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#ad4ddfac1efaed3f310844ece32618b9f"><param name="Name" value="extensionOf"></OBJECT>
@@ -1246,16 +1316,11 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a0f074f72625d07c58f1eb8a0dde9aa78"><param name="Name" value="filename"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a893f3bdfd166b1edcef0817eeb53ee8b"><param name="Name" value="HL_DEFINE_GET"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a0098cbbc44524d225c3a660123095060"><param name="Name" value="open"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a8273ca77f11139555e4515cd8b42e312"><param name="Name" value="READ"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a1268187aeeed4f11da3579f6931518ed"><param name="Name" value="READ_APPEND"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a76534b62961366d5c58e41ec16365210"><param name="Name" value="READ_WRITE"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44ad74d4d6d9aa7911a1a118348a0e8216f"><param name="Name" value="READ_WRITE_CREATE"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a1ba7df6f5757b158279cb56d44c1a07f"><param name="Name" value="repeats"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#ae94bd7f99f95e99c7dcd4bd4e9a6657d"><param name="Name" value="setRepeats"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a80a7994b2fa99795c6c23fd4ec5033f2"><param name="Name" value="setTimeout"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a508c0897e9b7db567941c87bf1c0718c"><param name="Name" value="timeout"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a804780656bf471abb1e24d66968095d0"><param name="Name" value="withoutExtension"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a92a3d6401355fabfd8f0e64f37b58166"><param name="Name" value="WRITE"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#abda02c05fa638d7fc627a1519d6889e1"><param name="Name" value="~FileBase"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structhltypes_1_1_file_info.html"><param name="Name" value="hltypes::FileInfo"></OBJECT>
@@ -1329,12 +1394,12 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#aa316f9f3d49839120bf4715f03779c60"><param name="Name" value="isOutputEnabled"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a3a1007facb97737a8d891ea6e7fe6d56"><param name="Name" value="LevelDebug"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a780e6ec039ea9ebb0d7f4240302fdae1"><param name="Name" value="levelDebug"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a957a5e6af16f9c42fbbf048914eceb9b"><param name="Name" value="levelError"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a3153082ee2b2c41e39ebfdb9587cdfaa"><param name="Name" value="LevelError"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a1cb487b590889123fa3b8f1c40d1529f"><param name="Name" value="levelWarn"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a957a5e6af16f9c42fbbf048914eceb9b"><param name="Name" value="levelError"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#acaed3d79bf2e2eefcaa2fd337419b737"><param name="Name" value="LevelWarn"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#ac76ab76aa856b162c07f6c44e1928d13"><param name="Name" value="levelWrite"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a1cb487b590889123fa3b8f1c40d1529f"><param name="Name" value="levelWarn"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a78f3070db6b743b974273e57e6a1ff71"><param name="Name" value="LevelWrite"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#ac76ab76aa856b162c07f6c44e1928d13"><param name="Name" value="levelWrite"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a3c851216278d8a1379b58dd21a76a816"><param name="Name" value="Log"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a0e374c2c2a4be59f6d9ea41c6741a096"><param name="Name" value="mutex"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#ac6cd853d9c9285ec06e24c06de60f026"><param name="Name" value="outputEnabled"></OBJECT>
@@ -1426,7 +1491,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#ae9de235a96755b957376629f355b6e33"><param name="Name" value="_makeNonZipPath"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#a9f11d234df8c7b7da7377d7cc8795e3f"><param name="Name" value="_position"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#a451f444745a93e394efe0fbbe43dc9a8"><param name="Name" value="_read"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#a6c0463119402f6556c07aece5a4dd51f"><param name="Name" value="_seek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#ae249a64dd97ff50fddef1afe27329c08"><param name="Name" value="_seek"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#aeb8c2005ffee8b9355cf14f068553410"><param name="Name" value="_updateDataSize"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#a7f2ef24fbcc06266e7a9acc0d60066f4"><param name="Name" value="_write"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#ad59b0af8e1f374ea411970fa86b2197b"><param name="Name" value="close"></OBJECT>
@@ -1477,12 +1542,12 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a548d07697c78902716c7599141e9ea8a"><param name="Name" value="_isOpen"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#aedbb584664d22082619ed434e304d3fa"><param name="Name" value="_position"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a108047fd7439bb99f70c84ab5fb2efb6"><param name="Name" value="_read"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#adab3454546d9a1fa577040ef81a28bfb"><param name="Name" value="_seek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a139478ebb5210f0f41e5ef3632f1e6b2"><param name="Name" value="_seek"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#afbf971b07b799c3674b441dfc576304d"><param name="Name" value="_tryIncreaseCapacity"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a3de8acbd9bb45498a214fed0a1af8364"><param name="Name" value="_updateDataSize"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#ae28be98abad41a75dbbb44edd5bc51cf"><param name="Name" value="_write"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a6caac51ca272db605030fe9db4138b1b"><param name="Name" value="capacity"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#ad61fca6e138dcbd0949260ca999d0ac4"><param name="Name" value="clear"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a5aff783361ba58ab41e3972e534e0a93"><param name="Name" value="clear"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a955e762af48a62217aa734cf90cb79ef"><param name="Name" value="fill"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#aa14db7e2b61686bf38ac50f684829fa8"><param name="Name" value="operator char *"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#aeb870de8ccbf04e38d52bdc6cfd0d882"><param name="Name" value="operator const char *"></OBJECT>
@@ -1492,8 +1557,8 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a6f6cca6523b4c56d30cd06d0a58f4968"><param name="Name" value="operator[]"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#abd5e3759eaa4351eda305b42ab180d3b"><param name="Name" value="prepareManualWriteRaw"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a52b59d00efa821b961a0cd782e8d75b2"><param name="Name" value="setCapacity"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a88f55166162ecdb8ffb00e9ad1862707"><param name="Name" value="Stream"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#af988525bafe59367996692f3f89334b0"><param name="Name" value="stream"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#ac472bdeb1870908051881d3ef01a8e70"><param name="Name" value="Stream"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#afae0ad62f2c9dbe42991d60f952ecc64"><param name="Name" value="streamPosition"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a4cc85c45652640a3d31f1b0badd15e8e"><param name="Name" value="streamSize"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a0dbb5dad65c4d39334d324145b060809"><param name="Name" value="truncate"></OBJECT>
@@ -1501,19 +1566,41 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a5058a84358a05836aa2dee1244047a1c"><param name="Name" value="~Stream"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html"><param name="Name" value="hltypes::StreamBase"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a5db9cb295de6a5b3fa65482c1f1fc93a"><param name="Name" value="_getInstances"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a9924111c6a559b401c12683d555bc943"><param name="Name" value="Current"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a793b9903830ac02866306712b2bf0c2f"><param name="Name" value="End"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a01ce7cb009a93b8e70821d654db8bd2d"><param name="Name" value="fromInt"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a7b4b0b1046039903bfa00a51fd56a8e2"><param name="Name" value="fromName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#af90737eb4398b381ef8c44bd6cfd7879"><param name="Name" value="fromUint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#af747a28d9a935eac9b4347781fc9fa5f"><param name="Name" value="getAsMap"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a970a76c9af300d7d3be956cd75bb68cc"><param name="Name" value="getValues"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a64142bd6bfa7ae794dee2da89b459451"><param name="Name" value="hasValue"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a5ab03c0a6ae26c3293395359868ee69a"><param name="Name" value="hasValueFor"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#aef19fcffde1e4c40dca5e1b82b8cfcb6"><param name="Name" value="next"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#ad3a812171213a08331f490fcfc34d1c9"><param name="Name" value="operator!="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a702a11c82b57635215c2cc38892e17a1"><param name="Name" value="operator<"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a5f0ee0a858d99ee0fce967375a91454e"><param name="Name" value="operator<="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a2337d67a35fd716f36bdfb76b4b86db1"><param name="Name" value="operator=="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#aec4d793351e65d235b4ed3baac449d39"><param name="Name" value="operator>"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a607991f934f06f04422fa469a8a6e8de"><param name="Name" value="operator>="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#adaebb2cc113489513d5ce8609a00d4af"><param name="Name" value="previous"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a09b3735b61a8e6e8ad3eb7dadd551f1d"><param name="Name" value="SeekMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#aa446d2e4d3d7c1891555dd22789029ea"><param name="Name" value="Start"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html"><param name="Name" value="hltypes::StreamBase"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a47a493ca8068f7ee3f068dc35ab580f6"><param name="Name" value="_descriptor"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a8ea2b3a7ec1d89ce8c4565500b86bf8c"><param name="Name" value="_isOpen"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a3486225e92928714691a4abd1d0f0541"><param name="Name" value="_position"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a92daf40bddf5a4485c7ef7896c2f1bf6"><param name="Name" value="_read"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#ab73b11511858358d1258ca576eaaaf50"><param name="Name" value="_seek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a0c1c431a9514a10ca9e8e7fea816d327"><param name="Name" value="_seek"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#af0df158cef807132e3202209cbcc03c7"><param name="Name" value="_updateDataSize"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a68d011d1d19fda8d14b02f4b48075be0"><param name="Name" value="_validate"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a05029e45acd7ec593862386c686a9419"><param name="Name" value="_write"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984a349dc49d8f5c2d0b347f932e62a054fc"><param name="Name" value="CURRENT"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#aeb340cdc5997ab9d10f824495d427039"><param name="Name" value="dataSize"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#abb7d22a594714e03581b0d134d3dda74"><param name="Name" value="dump"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984ac43b96092d00fa574f536024df53d62f"><param name="Name" value="END"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a1d8708a762341a23c97e355c99a206b1"><param name="Name" value="eof"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#adb191048e8fcb369a15eab0b0aa37674"><param name="Name" value="isOpen"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a8dc7e69d70aa28815b01ab2575ef5812"><param name="Name" value="loadBool"></OBJECT>
@@ -1534,9 +1621,8 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a1ae1634c10a6d8873eb9fdf773291352"><param name="Name" value="readLines"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a199b52c1a68a6527987fa54b7b4e5b19"><param name="Name" value="readRaw"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#aa02512f0437db214b2b08bc88a8d6e5f"><param name="Name" value="rewind"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a41b10b1bd45eea0c6b909d7f36752266"><param name="Name" value="seek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#ae91c11d58775d1d74f69a88d50e614eb"><param name="Name" value="seek"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a25173f0fb9bd01e54ab72d90b6e0c4fa"><param name="Name" value="size"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984a50b4a28fdb7d0411760bd41bdf026916"><param name="Name" value="START"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a887dd45349eaf8285020a4788e353b9b"><param name="Name" value="StreamBase"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a11922b181713bec331b653d23b4431df"><param name="Name" value="write"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#ac15d8dce7471dd647dd8de948fb79d1c"><param name="Name" value="writef"></OBJECT>
@@ -1619,8 +1705,8 @@
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#a89e82ab4bfe67ea3c3fa273575f66c05"><param name="Name" value="execute"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#a89aac8f0c6460a2607fab61a7b1b677e"><param name="Name" value="getThread"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#adbc148eaddd341d7ae4d07c9e9e33bfd"><param name="Name" value="Thread"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#ad839b368788bbcded8c54155b8df326b"><param name="Name" value="thread"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#adbc148eaddd341d7ae4d07c9e9e33bfd"><param name="Name" value="Thread"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#afd16c7666c00a11dabe629afc57c33ab"><param name="Name" value="ThreadRunner"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#a164e435a7fc1959b8b48ffd27c548254"><param name="Name" value="~ThreadRunner"></OBJECT>
   </UL>
@@ -1704,6 +1790,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a429d368e36d68ddb9183aadbd4a0e5f7"><param name="Name" value="hhypotdSquared"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a4a307f4a64938ea8a8833e94255d99f0"><param name="Name" value="hhypotfSquared"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a3f9f4041d03322e7e72a3249b0894f98"><param name="Name" value="hhypotSquared"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a34d24bcceda36868ce01178d6181b9fe"><param name="Name" value="HL_CONST_ARRAY_SIZE"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a910dbd9783ca03243189c10d0a905895"><param name="Name" value="HL_DEFINE_GET"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a1399e6f6031ec660ed36c1636aeff3f8"><param name="Name" value="HL_DEFINE_GET2"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a605e06d09d17ae0950c82655974a4183"><param name="Name" value="HL_DEFINE_GETSET"></OBJECT>
@@ -1772,7 +1859,12 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#ad97c1a5718166433c23625c7765b79c5"><param name="Name" value="hroundd"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a58f6bf0ace88b3ab20e61a1ef58f3b31"><param name="Name" value="hroundf"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hsbase_8h.html"><param name="Name" value="hsbase.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hsbase_8h.html#a2392070076d616f02a0158c641aa1efe"><param name="Name" value="hsbase"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hsbase_8h.html#acb13789982387a3ae71885d59659abaf"><param name="Name" value="hseek"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hsbase_8h.html#a2392070076d616f02a0158c641aa1efe"><param name="Name" value="hsbase"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hsbase_8h.html#acb13789982387a3ae71885d59659abaf"><param name="Name" value="hseek"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hsemaphore_8h.html"><param name="Name" value="hsemaphore.h"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hsemaphore_8h.html#acd6dec40611210848b83e05d10f8c0a3"><param name="Name" value="hsemaphore"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a53049f4e42e125be31a04359af83c3df"><param name="Name" value="hsgn"></OBJECT>
@@ -1782,6 +1874,10 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hltypes_util_8h.html#a8c949584c7460e35a154297c05652545"><param name="Name" value="hstackTrace"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hstring_8h.html#af42f85354f7e5df6682171a452481341"><param name="Name" value="hstr"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hstream_8h.html"><param name="Name" value="hstream.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hstream_8h.html#a103b36a3fc7993f4491f522e31e0ce51"><param name="Name" value="hstream"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hstream_8h.html#acad5b31ca3d1a4a54ab2bfc086af90f0"><param name="Name" value="MIN_HSTREAM_CAPACITY"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hstream_8h.html#a103b36a3fc7993f4491f522e31e0ce51"><param name="Name" value="hstream"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hstring_8h.html"><param name="Name" value="hstring.h"></OBJECT>
   <UL>
@@ -1902,12 +1998,12 @@
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a780e6ec039ea9ebb0d7f4240302fdae1"><param name="Name" value="levelDebug"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a3a1007facb97737a8d891ea6e7fe6d56"><param name="Name" value="LevelDebug"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a3153082ee2b2c41e39ebfdb9587cdfaa"><param name="Name" value="LevelError"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a957a5e6af16f9c42fbbf048914eceb9b"><param name="Name" value="levelError"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a3153082ee2b2c41e39ebfdb9587cdfaa"><param name="Name" value="LevelError"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#acaed3d79bf2e2eefcaa2fd337419b737"><param name="Name" value="LevelWarn"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a1cb487b590889123fa3b8f1c40d1529f"><param name="Name" value="levelWarn"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a78f3070db6b743b974273e57e6a1ff71"><param name="Name" value="LevelWrite"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#ac76ab76aa856b162c07f6c44e1928d13"><param name="Name" value="levelWrite"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a78f3070db6b743b974273e57e6a1ff71"><param name="Name" value="LevelWrite"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_list.html#a1145d43013b170d69d23c61598238582"><param name="Name" value="List"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a8dc7e69d70aa28815b01ab2575ef5812"><param name="Name" value="loadBool"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a8057c7bf6701e628c2204459516cdaa2"><param name="Name" value="loadDouble"></OBJECT>
@@ -1971,6 +2067,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a17316bff678318def10b9abf2ad240e3"><param name="Name" value="Container< std::vector< T >, T >"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a17316bff678318def10b9abf2ad240e3"><param name="Name" value="hltypes::Container"></OBJECT>
   </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hstream_8h.html#acad5b31ca3d1a4a54ab2bfc086af90f0"><param name="Name" value="MIN_HSTREAM_CAPACITY"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_version.html#aee16a03793e9a97c01949cd91e09749a"><param name="Name" value="minor"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structhltypes_1_1_file_info.html#a41bb811406d827b59beb2e871fa038af"><param name="Name" value="modificationTime"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_resource.html#a768f62ae2299e095b5d9f2fdad5c5b78"><param name="Name" value="mountArchive"></OBJECT>
@@ -1996,6 +2093,11 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a71d37be166158cf4f51c54b72a6f5512"><param name="Name" value="Container< std::vector< T >, T >"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a71d37be166158cf4f51c54b72a6f5512"><param name="Name" value="hltypes::Container"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_map.html#aeabf2c4e9f5062edbf1c662598b948d3"><param name="Name" value="hltypes::Map"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a3457bfe5dbe596347846ff0ad4e3b4bb"><param name="Name" value="next"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a3457bfe5dbe596347846ff0ad4e3b4bb"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#aef19fcffde1e4c40dca5e1b82b8cfcb6"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_dir_base.html#a4c53435b01ce49caac282a30dfea17b2"><param name="Name" value="normalize"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="hexception_8h.html#a0887acfeaa4477d419d383b051711f9f"><param name="Name" value="ObjectCannotAssignException"></OBJECT>
@@ -2026,8 +2128,10 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_array.html#a598cbda105dae715632e191427187de2"><param name="Name" value="hltypes::Array"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_deque.html#a57389cae87a6e081630e8fe2f0449101"><param name="Name" value="hltypes::Deque"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#ad974d869b66fde7bf17db1253b274e02"><param name="Name" value="hltypes::Enumeration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#ad6e477b6752865134bad3b8598567e4c"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_list.html#acadf87d94f85d507ef95020c95ae2bc1"><param name="Name" value="hltypes::List"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_map.html#ab522d32a4a7381e677898916d512ec39"><param name="Name" value="hltypes::Map"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#ad3a812171213a08331f490fcfc34d1c9"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#ace26053e8f9633990734eff6991bbcab"><param name="Name" value="hltypes::String"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_version.html#af2479aea35f36afaae249388fe8a5409"><param name="Name" value="hltypes::Version"></OBJECT>
   </UL>
@@ -2101,12 +2205,16 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#a0494366d89300c9e3eed584e53d837da"><param name="Name" value="operator<="></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#a0494366d89300c9e3eed584e53d837da"><param name="Name" value="hltypes::Enumeration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a9537e84aaadd27796129a2166834eb50"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a5f0ee0a858d99ee0fce967375a91454e"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#a74ff4b95dbb1d9270ff04ebecb9521a0"><param name="Name" value="hltypes::String"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_version.html#a1ae300aa11408c4013d7f44852b09938"><param name="Name" value="hltypes::Version"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#a8fc1e0e1fa3487f1b45a52362c8dc107"><param name="Name" value="operator<"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#a8fc1e0e1fa3487f1b45a52362c8dc107"><param name="Name" value="hltypes::Enumeration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a05ad385960b179d400e01be12ff9e0f9"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a702a11c82b57635215c2cc38892e17a1"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#af97b361af5e29c65528cac22f7c2ea23"><param name="Name" value="hltypes::String"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_version.html#a293777726fbbeb2088e6a7c89e378871"><param name="Name" value="hltypes::Version"></OBJECT>
   </UL>
@@ -2115,8 +2223,10 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_array.html#ad73141c246c252baa05a3290916b1e0d"><param name="Name" value="hltypes::Array"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_deque.html#a37af0b67c400362bf66bd53392518411"><param name="Name" value="hltypes::Deque"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#a80267cc865d328aacaba645430496e72"><param name="Name" value="hltypes::Enumeration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a41422ca8961914a0109f2f4cb8d48ae8"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_list.html#a87c95ef5b47b1b9922489e982013a6de"><param name="Name" value="hltypes::List"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_map.html#a7f34e1e3e2ea60544259ad456a97aefd"><param name="Name" value="hltypes::Map"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a2337d67a35fd716f36bdfb76b4b86db1"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#ab41b57ad3ae285461bcdd1269042d542"><param name="Name" value="hltypes::String"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_version.html#a3e932d62ed5c76a64b9925ccba88a9a1"><param name="Name" value="hltypes::Version"></OBJECT>
   </UL>
@@ -2128,12 +2238,16 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#ac9807c7bdd20e96e68277d1177bc09d4"><param name="Name" value="operator>="></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#ac9807c7bdd20e96e68277d1177bc09d4"><param name="Name" value="hltypes::Enumeration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a7bf066cec5a830c0ecae858b60c62814"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a607991f934f06f04422fa469a8a6e8de"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#aa1dfc6859147cf2ebed199c4a141a0c7"><param name="Name" value="hltypes::String"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_version.html#a606ca9ddeccabdc3e97dd7da7ee493a4"><param name="Name" value="hltypes::Version"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#acfe0439a2c6a8238abcc765d9ad62710"><param name="Name" value="operator>"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_enumeration.html#acfe0439a2c6a8238abcc765d9ad62710"><param name="Name" value="hltypes::Enumeration"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a29683b4733ef0c995177cf61640f9477"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#aec4d793351e65d235b4ed3baac449d39"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#aadd511adc995df67f3bc2d92365a1c92"><param name="Name" value="hltypes::String"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_version.html#a3a4911d78559ed2f634d42bd27a17799"><param name="Name" value="hltypes::Version"></OBJECT>
   </UL>
@@ -2162,6 +2276,11 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread.html#a1d1dcf1ea28b97a84443f9408efb7080"><param name="Name" value="pause"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#ad2c5faa91413db172cc6921eb35dd04c"><param name="Name" value="position"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#abd5e3759eaa4351eda305b42ab180d3b"><param name="Name" value="prepareManualWriteRaw"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#adf96e6b8a390d431093822a64f61c1b1"><param name="Name" value="previous"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#adf96e6b8a390d431093822a64f61c1b1"><param name="Name" value="hltypes::FileBase::AccessMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#adaebb2cc113489513d5ce8609a00d4af"><param name="Name" value="hltypes::StreamBase::SeekMode"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a55c668a99f7caf245a01cd51c992b1be"><param name="Name" value="random"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#a55c668a99f7caf245a01cd51c992b1be"><param name="Name" value="Container< std::deque< T >, T >"></OBJECT>
@@ -2194,14 +2313,14 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#aa50f21abe268144d4c85dc60480ac627"><param name="Name" value="Container< std::vector< T >, T >"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#aa50f21abe268144d4c85dc60480ac627"><param name="Name" value="hltypes::Container"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a8273ca77f11139555e4515cd8b42e312"><param name="Name" value="READ"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#ad0c4c8e84c4285416aedee550a186756"><param name="Name" value="Read"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a67f370321c8d99c9eb1c85451f148e6f"><param name="Name" value="read"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a1268187aeeed4f11da3579f6931518ed"><param name="Name" value="READ_APPEND"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a76534b62961366d5c58e41ec16365210"><param name="Name" value="READ_WRITE"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44ad74d4d6d9aa7911a1a118348a0e8216f"><param name="Name" value="READ_WRITE_CREATE"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a7abcc9f03db2a99b42276cee1d2df670"><param name="Name" value="ReadAppend"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a2c147eb19483fe7b98e94e6816aaa1f9"><param name="Name" value="readLine"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a1ae1634c10a6d8873eb9fdf773291352"><param name="Name" value="readLines"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a199b52c1a68a6527987fa54b7b4e5b19"><param name="Name" value="readRaw"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#aa5ef18f6190077748c003db17468e51e"><param name="Name" value="ReadWrite"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#a84914f6ee907e01a418e23eb3c54f9a6"><param name="Name" value="ReadWriteCreate"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_mutex_1_1_scope_lock.html#a04185f75298e6506d801c586f4dd9649"><param name="Name" value="release"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_container.html#aadf31f58cf061b978ec782885bcd8767"><param name="Name" value="remove"></OBJECT>
   <UL>
@@ -2334,7 +2453,8 @@
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#a3b539b21fe00391fc73dba8fdcb1f0c6"><param name="Name" value="rsplit"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_mutex_1_1_scope_lock.html#a92d4b2dc196ac26aed02c48b31bab725"><param name="Name" value="ScopeLock"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a41b10b1bd45eea0c6b909d7f36752266"><param name="Name" value="seek"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#ae91c11d58775d1d74f69a88d50e614eb"><param name="Name" value="seek"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#a09b3735b61a8e6e8ad3eb7dadd551f1d"><param name="Name" value="SeekMode"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_semaphore.html#a58b0955d5c60518768d70c0fb36d4151"><param name="Name" value="Semaphore"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#adba7517a66b0347bc690dbd11817b9e0"><param name="Name" value="set"></OBJECT>
   <UL>
@@ -2384,11 +2504,11 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#a841c4e8753bf166cbe6398e8e302cedc"><param name="Name" value="split"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_dir_base.html#a5a432d8e1dcc9b716f0ed9302f96925d"><param name="Name" value="splitPath"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1___exception.html#ae93010d7a0554d1aa196fb7763731637"><param name="Name" value="stackTrace"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984a50b4a28fdb7d0411760bd41bdf026916"><param name="Name" value="START"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base_1_1_seek_mode.html#aa446d2e4d3d7c1891555dd22789029ea"><param name="Name" value="Start"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread.html#a458a8e9067beb99b04f8838767a303b5"><param name="Name" value="start"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#af3210188f38b8c78784f5dc0b21a0446"><param name="Name" value="startsWith"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread.html#ad9c723a2fd44dacdd50660ea926c7530"><param name="Name" value="stop"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#ac472bdeb1870908051881d3ef01a8e70"><param name="Name" value="Stream"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#a88f55166162ecdb8ffb00e9ad1862707"><param name="Name" value="Stream"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#af988525bafe59367996692f3f89334b0"><param name="Name" value="stream"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream_base.html#a887dd45349eaf8285020a4788e353b9b"><param name="Name" value="StreamBase"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_stream.html#afae0ad62f2c9dbe42991d60f952ecc64"><param name="Name" value="streamPosition"></OBJECT>
@@ -2398,11 +2518,8 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_dir_base.html#a6186f2f10c58540d25c4e0934750b13c"><param name="Name" value="systemize"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#aa8b710ccfe664a402e2600af2f71cdc9"><param name="Name" value="tagFilters"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread.html#a3abebac7d16cf1991addb3e6cd6a708c"><param name="Name" value="Thread"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread.html#a3abebac7d16cf1991addb3e6cd6a708c"><param name="Name" value="hltypes::Thread"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#adbc148eaddd341d7ae4d07c9e9e33bfd"><param name="Name" value="hltypes::Thread::ThreadRunner"></OBJECT>
-  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#ad839b368788bbcded8c54155b8df326b"><param name="Name" value="thread"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#adbc148eaddd341d7ae4d07c9e9e33bfd"><param name="Name" value="Thread"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#afd16c7666c00a11dabe629afc57c33ab"><param name="Name" value="ThreadRunner"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a508c0897e9b7db567941c87bf1c0718c"><param name="Name" value="timeout"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_string.html#ae90124478b20cf15493c1be8322f5699"><param name="Name" value="toHex"></OBJECT>
@@ -2448,7 +2565,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#a9cbf94da525d5cde0645a42934a8df08"><param name="Name" value="warnf"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_dir.html#ab2057c7df066ed3a8cdd10d7874058e9"><param name="Name" value="win32FullDirectoryPermissions"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#a804780656bf471abb1e24d66968095d0"><param name="Name" value="withoutExtension"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base.html#aad880cdd17d995e81809466f99815a44a92a3d6401355fabfd8f0e64f37b58166"><param name="Name" value="WRITE"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_file_base_1_1_access_mode.html#af9fb0a0a7a8612bdc5ee3b0a4401d921"><param name="Name" value="Write"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#aaf633ed36e7db6062d4edf2b0e84ebed"><param name="Name" value="write"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classhltypes_1_1_log.html#aaf633ed36e7db6062d4edf2b0e84ebed"><param name="Name" value="hltypes::Log"></OBJECT>

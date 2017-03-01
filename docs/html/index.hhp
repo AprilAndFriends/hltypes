@@ -108,6 +108,8 @@ classhltypes_1_1_file.html
 classhltypes_1_1_file-members.html
 classhltypes_1_1_file_base.html
 classhltypes_1_1_file_base-members.html
+classhltypes_1_1_file_base_1_1_access_mode.html
+classhltypes_1_1_file_base_1_1_access_mode-members.html
 structhltypes_1_1_file_info.html
 structhltypes_1_1_file_info-members.html
 classhltypes_1_1_list.html
@@ -130,6 +132,8 @@ classhltypes_1_1_stream.html
 classhltypes_1_1_stream-members.html
 classhltypes_1_1_stream_base.html
 classhltypes_1_1_stream_base-members.html
+classhltypes_1_1_stream_base_1_1_seek_mode.html
+classhltypes_1_1_stream_base_1_1_seek_mode-members.html
 classhltypes_1_1_string.html
 classhltypes_1_1_string-members.html
 classhltypes_1_1_thread.html
@@ -195,8 +199,6 @@ functions_func_w.html
 functions_func_0x7e.html
 functions_vars.html
 functions_type.html
-functions_enum.html
-functions_eval.html
 files.html
 globals.html
 globals_func.html
@@ -235,12 +237,15 @@ classhltypes_1_1_container.png
 classhltypes_1_1_deque.png
 classhltypes_1_1_dir.png
 classhltypes_1_1_dir_base.png
+classhltypes_1_1_enumeration.png
 classhltypes_1_1_file.png
 classhltypes_1_1_file_base.png
+classhltypes_1_1_file_base_1_1_access_mode.png
 classhltypes_1_1_list.png
 classhltypes_1_1_map.png
 classhltypes_1_1_resource.png
 classhltypes_1_1_resource_dir.png
 classhltypes_1_1_stream.png
 classhltypes_1_1_stream_base.png
+classhltypes_1_1_stream_base_1_1_seek_mode.png
 classhltypes_1_1_string.png

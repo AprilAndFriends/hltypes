@@ -94,6 +94,9 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#aacd2e56619e5bc079aed67e191b594f5">HL_E_TOLERANCE</a>&#160;&#160;&#160;0.0001</td></tr>
 <tr class="memdesc:aacd2e56619e5bc079aed67e191b594f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">hltypes e-tolerance. <br /></td></tr>
 <tr class="separator:aacd2e56619e5bc079aed67e191b594f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34d24bcceda36868ce01178d6181b9fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a34d24bcceda36868ce01178d6181b9fe">HL_CONST_ARRAY_SIZE</a>(cArray)&#160;&#160;&#160;(sizeof(cArray) / sizeof(cArray[0]))</td></tr>
+<tr class="memdesc:a34d24bcceda36868ce01178d6181b9fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates const C-array size.  <a href="#a34d24bcceda36868ce01178d6181b9fe">More...</a><br /></td></tr>
+<tr class="separator:a34d24bcceda36868ce01178d6181b9fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a910dbd9783ca03243189c10d0a905895"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a910dbd9783ca03243189c10d0a905895">HL_DEFINE_GET</a>(type,  name,  capsName)&#160;&#160;&#160;inline type get ## capsName() const { return this-&gt;name; }</td></tr>
 <tr class="memdesc:a910dbd9783ca03243189c10d0a905895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility macro for quick getter definition.  <a href="#a910dbd9783ca03243189c10d0a905895">More...</a><br /></td></tr>
 <tr class="separator:a910dbd9783ca03243189c10d0a905895"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1094,6 +1097,30 @@ The iteration variable has to be declared previously. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>cos(degrees). </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a34d24bcceda36868ce01178d6181b9fe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HL_CONST_ARRAY_SIZE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cArray</td><td>)</td>
+          <td>&#160;&#160;&#160;(sizeof(cArray) / sizeof(cArray[0]))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates const C-array size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cArray</td><td>A const C-array. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

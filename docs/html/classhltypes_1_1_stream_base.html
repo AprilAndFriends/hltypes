@@ -49,7 +49,7 @@
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -76,14 +76,11 @@ Inheritance diagram for hltypes::StreamBase:</div>
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a92f63974b5daf9a4147558095c88b984"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984">SeekMode</a> { <a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984a349dc49d8f5c2d0b347f932e62a054fc">CURRENT</a> = 0, 
-<a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984a50b4a28fdb7d0411760bd41bdf026916">START</a> = 1, 
-<a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984ac43b96092d00fa574f536024df53d62f">END</a> = 2
- }<tr class="memdesc:a92f63974b5daf9a4147558095c88b984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines file seek modes.  <a href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a92f63974b5daf9a4147558095c88b984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_stream_base_1_1_seek_mode.html">SeekMode</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines file seek modes.  <a href="classhltypes_1_1_stream_base_1_1_seek_mode.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -98,9 +95,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:adb191048e8fcb369a15eab0b0aa37674"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_stream_base.html#adb191048e8fcb369a15eab0b0aa37674">isOpen</a> () const </td></tr>
 <tr class="memdesc:adb191048e8fcb369a15eab0b0aa37674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if data is "open".  <a href="#adb191048e8fcb369a15eab0b0aa37674">More...</a><br /></td></tr>
 <tr class="separator:adb191048e8fcb369a15eab0b0aa37674"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41b10b1bd45eea0c6b909d7f36752266"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_stream_base.html#a41b10b1bd45eea0c6b909d7f36752266">seek</a> (int64_t offset, <a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984">SeekMode</a> seekMode=<a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984a349dc49d8f5c2d0b347f932e62a054fc">CURRENT</a>)</td></tr>
-<tr class="memdesc:a41b10b1bd45eea0c6b909d7f36752266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seeks to position in data.  <a href="#a41b10b1bd45eea0c6b909d7f36752266">More...</a><br /></td></tr>
-<tr class="separator:a41b10b1bd45eea0c6b909d7f36752266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae91c11d58775d1d74f69a88d50e614eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_stream_base.html#ae91c11d58775d1d74f69a88d50e614eb">seek</a> (int64_t offset, <a class="el" href="classhltypes_1_1_stream_base_1_1_seek_mode.html">SeekMode</a> seekMode=<a class="el" href="classhltypes_1_1_stream_base_1_1_seek_mode.html#a9924111c6a559b401c12683d555bc943">SeekMode::Current</a>)</td></tr>
+<tr class="memdesc:ae91c11d58775d1d74f69a88d50e614eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seeks to position in data.  <a href="#ae91c11d58775d1d74f69a88d50e614eb">More...</a><br /></td></tr>
+<tr class="separator:ae91c11d58775d1d74f69a88d50e614eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa02512f0437db214b2b08bc88a8d6e5f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_stream_base.html#aa02512f0437db214b2b08bc88a8d6e5f">rewind</a> ()</td></tr>
 <tr class="memdesc:aa02512f0437db214b2b08bc88a8d6e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seeks to position 0.  <a href="#aa02512f0437db214b2b08bc88a8d6e5f">More...</a><br /></td></tr>
 <tr class="separator:aa02512f0437db214b2b08bc88a8d6e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -259,9 +256,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:a3486225e92928714691a4abd1d0f0541"><td class="memItemLeft" align="right" valign="top">virtual int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_stream_base.html#a3486225e92928714691a4abd1d0f0541">_position</a> () const  =0</td></tr>
 <tr class="memdesc:a3486225e92928714691a4abd1d0f0541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets current position in data.  <a href="#a3486225e92928714691a4abd1d0f0541">More...</a><br /></td></tr>
 <tr class="separator:a3486225e92928714691a4abd1d0f0541"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab73b11511858358d1258ca576eaaaf50"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_stream_base.html#ab73b11511858358d1258ca576eaaaf50">_seek</a> (int64_t offset, <a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984">SeekMode</a> seekMode=<a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984a349dc49d8f5c2d0b347f932e62a054fc">CURRENT</a>)=0</td></tr>
-<tr class="memdesc:ab73b11511858358d1258ca576eaaaf50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seeks to position in data.  <a href="#ab73b11511858358d1258ca576eaaaf50">More...</a><br /></td></tr>
-<tr class="separator:ab73b11511858358d1258ca576eaaaf50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c1c431a9514a10ca9e8e7fea816d327"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_stream_base.html#a0c1c431a9514a10ca9e8e7fea816d327">_seek</a> (int64_t offset, <a class="el" href="classhltypes_1_1_stream_base_1_1_seek_mode.html">SeekMode</a> seekMode=<a class="el" href="classhltypes_1_1_stream_base_1_1_seek_mode.html#a9924111c6a559b401c12683d555bc943">SeekMode::Current</a>)=0</td></tr>
+<tr class="memdesc:a0c1c431a9514a10ca9e8e7fea816d327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seeks to position in data.  <a href="#a0c1c431a9514a10ca9e8e7fea816d327">More...</a><br /></td></tr>
+<tr class="separator:a0c1c431a9514a10ca9e8e7fea816d327"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -272,33 +269,7 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides a base class for streaming. </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a class="anchor" id="a92f63974b5daf9a4147558095c88b984"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984">hltypes::StreamBase::SeekMode</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defines file seek modes. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a92f63974b5daf9a4147558095c88b984a349dc49d8f5c2d0b347f932e62a054fc"></a>CURRENT&#160;</td><td class="fielddoc">
-<p>Seek from current position. (SEEK_CUR) </p>
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a92f63974b5daf9a4147558095c88b984a50b4a28fdb7d0411760bd41bdf026916"></a>START&#160;</td><td class="fielddoc">
-<p>Seek from start position. (SEEK_SET) </p>
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a92f63974b5daf9a4147558095c88b984ac43b96092d00fa574f536024df53d62f"></a>END&#160;</td><td class="fielddoc">
-<p>Seek from current position. (SEEK_END) </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a47a493ca8068f7ee3f068dc35ab580f6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -429,7 +400,7 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a class="anchor" id="ab73b11511858358d1258ca576eaaaf50"></a>
+<a class="anchor" id="a0c1c431a9514a10ca9e8e7fea816d327"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -445,8 +416,8 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984">SeekMode</a>&#160;</td>
-          <td class="paramname"><em>seekMode</em> = <code><a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984a349dc49d8f5c2d0b347f932e62a054fc">CURRENT</a></code>&#160;</td>
+          <td class="paramtype"><a class="el" href="classhltypes_1_1_stream_base_1_1_seek_mode.html">SeekMode</a>&#160;</td>
+          <td class="paramname"><em>seekMode</em> = <code><a class="el" href="classhltypes_1_1_stream_base_1_1_seek_mode.html#a9924111c6a559b401c12683d555bc943">SeekMode::Current</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -471,7 +442,7 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful. </dd></dl>
 
-<p>Implemented in <a class="el" href="classhltypes_1_1_stream.html#adab3454546d9a1fa577040ef81a28bfb">hltypes::Stream</a>, <a class="el" href="classhltypes_1_1_file.html#a2aee0976a2e092c0628fe74ac719b7d6">hltypes::File</a>, and <a class="el" href="classhltypes_1_1_resource.html#a6c0463119402f6556c07aece5a4dd51f">hltypes::Resource</a>.</p>
+<p>Implemented in <a class="el" href="classhltypes_1_1_stream.html#a139478ebb5210f0f41e5ef3632f1e6b2">hltypes::Stream</a>, <a class="el" href="classhltypes_1_1_file.html#ac3b491f3883e91c1103d0dbe9dc7a099">hltypes::File</a>, and <a class="el" href="classhltypes_1_1_resource.html#ae249a64dd97ff50fddef1afe27329c08">hltypes::Resource</a>.</p>
 
 </div>
 </div>
@@ -1451,7 +1422,7 @@ When delimiter is omitted, the file will be read until EOF. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a41b10b1bd45eea0c6b909d7f36752266"></a>
+<a class="anchor" id="ae91c11d58775d1d74f69a88d50e614eb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1464,8 +1435,8 @@ When delimiter is omitted, the file will be read until EOF. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984">SeekMode</a>&#160;</td>
-          <td class="paramname"><em>seekMode</em> = <code><a class="el" href="classhltypes_1_1_stream_base.html#a92f63974b5daf9a4147558095c88b984a349dc49d8f5c2d0b347f932e62a054fc">CURRENT</a></code>&#160;</td>
+          <td class="paramtype"><a class="el" href="classhltypes_1_1_stream_base_1_1_seek_mode.html">SeekMode</a>&#160;</td>
+          <td class="paramname"><em>seekMode</em> = <code><a class="el" href="classhltypes_1_1_stream_base_1_1_seek_mode.html#a9924111c6a559b401c12683d555bc943">SeekMode::Current</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
