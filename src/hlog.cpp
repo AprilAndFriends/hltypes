@@ -246,7 +246,7 @@ namespace hltypes
 			{
 				File file;
 #ifndef _WIN32
-				file.open(Log::filename, AccessMode::Append);
+				file.open(Log::filename, File::AccessMode::Append);
 #else
 				file.open(Log::_makeCurrentFilename(Log::filename), File::AccessMode::Append);
 #endif
