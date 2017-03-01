@@ -28,10 +28,6 @@ namespace hltypes
 		HL_ENUM_DEFINE(StreamBase::SeekMode, End);
 	));
 
-	StreamBase::SeekMode CURRENT = StreamBase::SeekMode::Current; // DEPRECATED
-	StreamBase::SeekMode START = StreamBase::SeekMode::Start; // DEPRECATED
-	StreamBase::SeekMode END = StreamBase::SeekMode::End; // DEPRECATED
-
 	StreamBase::StreamBase() : dataSize(0)
 	{
 	}

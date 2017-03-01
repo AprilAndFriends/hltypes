@@ -45,10 +45,6 @@ namespace hltypes
 			HL_ENUM_DECLARE(SeekMode, End);
 		));
 
-		DEPRECATED_ATTRIBUTE static SeekMode CURRENT;
-		DEPRECATED_ATTRIBUTE static SeekMode START;
-		DEPRECATED_ATTRIBUTE static SeekMode END;
-
 		/// @brief Basic constructor.
 		StreamBase();
 		/// @brief Destructor.

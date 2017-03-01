@@ -32,13 +32,6 @@ namespace hltypes
 		HL_ENUM_DEFINE(FileBase::AccessMode, ReadAppend);
 	));
 
-	FileBase::AccessMode READ = FileBase::AccessMode::Read;
-	FileBase::AccessMode WRITE = FileBase::AccessMode::Write;
-	FileBase::AccessMode APPEND = FileBase::AccessMode::Append;
-	FileBase::AccessMode READ_WRITE = FileBase::AccessMode::ReadWrite;
-	FileBase::AccessMode READ_WRITE_CREATE = FileBase::AccessMode::ReadWriteCreate;
-	FileBase::AccessMode READ_APPEND = FileBase::AccessMode::ReadAppend;
-
 	int FileBase::repeats = 0;
 	float FileBase::timeout = 100.0f;
 

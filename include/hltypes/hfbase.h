@@ -73,13 +73,6 @@ namespace hltypes
 			HL_ENUM_DECLARE(AccessMode, ReadAppend);
 		));
 
-		DEPRECATED_ATTRIBUTE static AccessMode READ;
-		DEPRECATED_ATTRIBUTE static AccessMode WRITE;
-		DEPRECATED_ATTRIBUTE static AccessMode APPEND;
-		DEPRECATED_ATTRIBUTE static AccessMode READ_WRITE;
-		DEPRECATED_ATTRIBUTE static AccessMode READ_WRITE_CREATE;
-		DEPRECATED_ATTRIBUTE static AccessMode READ_APPEND;
-
 		/// @brief Constructor with filename.
 		/// @param[in] filename Name of the file (may include path).
 		FileBase(const String& filename);
