@@ -17,6 +17,7 @@
 #include <stdio.h>
 
 #include "harray.h"
+#include "henum.h"
 #include "hltypesExport.h"
 #include "hstring.h"
 
@@ -29,17 +30,25 @@ namespace hltypes
 	class hltypesExport StreamBase
 	{
 	public:
+		/// @class SeekMode
 		/// @brief Defines file seek modes.
-		enum SeekMode
-		{
+		HL_ENUM_CLASS_PREFIX_DECLARE(hltypesExport, SeekMode,
+		(
+			/// @var static const SeekMode SeekMode::Current
 			/// @brief Seek from current position. (SEEK_CUR)
-			CURRENT = 0,
+			HL_ENUM_DECLARE(SeekMode, Current);
+			/// @var static const SeekMode SeekMode::Start
 			/// @brief Seek from start position. (SEEK_SET)
-			START = 1,
+			HL_ENUM_DECLARE(SeekMode, Start);
+			/// @var static const SeekMode SeekMode::End
 			/// @brief Seek from current position. (SEEK_END)
-			END = 2
-		};
-		
+			HL_ENUM_DECLARE(SeekMode, End);
+		));
+
+		DEPRECATED_ATTRIBUTE static SeekMode CURRENT;
+		DEPRECATED_ATTRIBUTE static SeekMode START;
+		DEPRECATED_ATTRIBUTE static SeekMode END;
+
 		/// @brief Basic constructor.
 		StreamBase();
 		/// @brief Destructor.
@@ -52,7 +61,7 @@ namespace hltypes
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.
 		/// @return True if successful.
-		bool seek(int64_t offset, SeekMode seekMode = CURRENT);
+		bool seek(int64_t offset, SeekMode seekMode = SeekMode::Current);
 		/// @brief Seeks to position 0.
 		/// @return True if successful.
 		bool rewind();
@@ -242,7 +251,7 @@ namespace hltypes
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.
 		/// @return True if successful.
-		virtual bool _seek(int64_t offset, SeekMode seekMode = CURRENT) = 0;
+		virtual bool _seek(int64_t offset, SeekMode seekMode = SeekMode::Current) = 0;
 
 	private:
 		/// @brief Copy constructor.
@@ -257,6 +266,8 @@ namespace hltypes
 
 /// @brief Alias for simpler code.
 typedef hltypes::StreamBase hsbase;
+/// @brief Alias for simpler code.
+typedef hltypes::StreamBase::SeekMode hseek;
 
 #endif
 

@@ -123,7 +123,7 @@ namespace hltypes
 		/// @brief Seeks to position in file.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.
-		bool _seek(int64_t offset, SeekMode seekMode = CURRENT);
+		bool _seek(int64_t offset, SeekMode seekMode = SeekMode::Current);
 
 	private:
 		/// @brief Copy constructor.

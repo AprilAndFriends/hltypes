@@ -320,17 +320,17 @@ namespace hltypes
 	
 	bool Stream::_seek(int64_t offset, SeekMode seekMode)
 	{
-		switch (seekMode)
+		if (seekMode == SeekMode::Current)
 		{
-		case CURRENT:
 			this->streamPosition = hclamp(this->streamPosition + offset, 0LL, this->streamSize);
-			break;
-		case START:
+		}
+		else if (seekMode == SeekMode::Start)
+		{
 			this->streamPosition = hclamp(offset, 0LL, this->streamSize);
-			break;
-		case END:
+		}
+		else if (seekMode == SeekMode::End)
+		{
 			this->streamPosition = hclamp(this->streamSize + offset, 0LL, this->streamSize);
-			break;
 		}
 		return true;
 	}

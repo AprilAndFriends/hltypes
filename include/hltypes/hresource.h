@@ -111,7 +111,7 @@ namespace hltypes
 		/// @brief Seeks to position in file.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.
-		bool _seek(int64_t offset, SeekMode seekMode = CURRENT);
+		bool _seek(int64_t offset, SeekMode seekMode = SeekMode::Current);
 		
 		/// @brief Create a filename that is outside of the ZIP file system.
 		/// @param[in] filename Original filename.

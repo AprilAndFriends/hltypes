@@ -177,16 +177,13 @@ namespace hltypes
 	bool _platformSeekFile(_platformFile* file, int64_t size, int64_t position, int64_t offset, FileBase::SeekMode seekMode)
 	{
 		fpos_t _position = position;
-		switch (seekMode)
+		if (seekMode == StreamBase::SeekMode::Start)
 		{
-		case FileBase::CURRENT:
-			break;
-		case FileBase::START:
 			_position = 0;
-			break;
-		case FileBase::END:
+		}
+		else if (seekMode == StreamBase::SeekMode::End)
+		{
 			_position = size;
-			break;
 		}
 		_position += offset;
 		return (fsetpos((FILE*)file, &_position) == 0);

@@ -37,7 +37,7 @@ namespace hlxml
 	{
 		int64_t position = stream.position();
 		this->_setup(stream, "stream");
-		stream.seek(position, hsbase::START);
+		stream.seek(position, hseek::Start);
 	}
 
 	Document::~Document()

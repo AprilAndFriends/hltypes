@@ -138,7 +138,7 @@ namespace hltypes
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.
 		/// @return True if successful.
-		bool _fseek(int64_t offset, SeekMode seekMode = CURRENT);
+		bool _fseek(int64_t offset, SeekMode seekMode = SeekMode::Current);
 
 		/// @brief Checks if a file exists.
 		/// @param[in] filename Name of the file.

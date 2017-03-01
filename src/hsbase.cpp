@@ -21,6 +21,17 @@
 
 namespace hltypes
 {
+	HL_ENUM_CLASS_DEFINE(StreamBase::SeekMode,
+	(
+		HL_ENUM_DEFINE(StreamBase::SeekMode, Current);
+		HL_ENUM_DEFINE(StreamBase::SeekMode, Start);
+		HL_ENUM_DEFINE(StreamBase::SeekMode, End);
+	));
+
+	StreamBase::SeekMode CURRENT = StreamBase::SeekMode::Current; // DEPRECATED
+	StreamBase::SeekMode START = StreamBase::SeekMode::Start; // DEPRECATED
+	StreamBase::SeekMode END = StreamBase::SeekMode::End; // DEPRECATED
+
 	StreamBase::StreamBase() : dataSize(0)
 	{
 	}
@@ -42,7 +53,7 @@ namespace hltypes
 	
 	bool StreamBase::rewind()
 	{
-		return this->seek(0, START);
+		return this->seek(0, SeekMode::Start);
 	}
 	
 	int64_t StreamBase::position() const
@@ -86,7 +97,7 @@ namespace hltypes
 				index = (int)result.indexOf(delimiter);
 				if (index >= 0)
 				{
-					this->_seek(index - result.size() + delimiter.size(), CURRENT);
+					this->_seek(index - result.size() + delimiter.size(), SeekMode::Current);
 					result = result(0, index);
 					break;
 				}
@@ -230,9 +241,9 @@ namespace hltypes
 	void StreamBase::_updateDataSize()
 	{
 		int64_t position = this->_position();
-		this->_seek(0, END);
+		this->_seek(0, SeekMode::End);
 		this->dataSize = this->_position();
-		this->_seek(position, START);
+		this->_seek(position, SeekMode::Start);
 	}
 
 	void StreamBase::_validate() const

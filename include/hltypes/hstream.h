@@ -147,7 +147,7 @@ namespace hltypes
 		/// @brief Seeks to position in Stream.
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.
-		bool _seek(int64_t offset, SeekMode seekMode = CURRENT);
+		bool _seek(int64_t offset, SeekMode seekMode = SeekMode::Current);
 		/// @brief Resizes internal buffer if necessary.
 		/// @param[in,out] write_size Number of bytes that is needed for the next write.
 		/// @note This does not change the data stream size. Use this to avoid allocation of too much data if not needed.
