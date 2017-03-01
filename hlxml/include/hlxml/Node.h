@@ -13,6 +13,7 @@
 #ifndef HLXML_NODE_H
 #define HLXML_NODE_H
 
+#include <hltypes/henum.h>
 #include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
 
@@ -32,16 +33,20 @@ namespace hlxml
 	public:
 		friend class Document;
 
+		/// @class Type
 		/// @brief Type of the Node.
-		enum Type
-		{
+		HL_ENUM_CLASS_PREFIX_DECLARE(hlxmlExport, Type,
+		(
+			/// @var static const Type Type::Element
 			/// @brief Normal node.
-			TYPE_ELEMENT,
+			HL_ENUM_DECLARE(Type, Element);
+			/// @var static const Type Type::Comment
 			/// @brief Comment node.
-			TYPE_COMMENT,
+			HL_ENUM_DECLARE(Type, Comment);
+			/// @var static const Type Type::Text
 			/// @brief Text node.
-			TYPE_TEXT
-		};
+			HL_ENUM_DECLARE(Type, Text);
+		));
 
 		/// @brief Name of the Node.
 		hstr name;
