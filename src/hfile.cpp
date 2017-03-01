@@ -34,7 +34,7 @@ namespace hltypes
 	
 	void File::open(const String& filename)
 	{
-		this->_fopen(filename, READ, FileBase::repeats, FileBase::timeout);
+		this->_fopen(filename, AccessMode::Read, FileBase::repeats, FileBase::timeout);
 		// initial size must be set manually with hinfo(), because _updateDataSize() uses seeking which requires the size again
 		this->dataSize = File::hinfo(this->filename).size;
 	}
@@ -182,7 +182,7 @@ namespace hltypes
 		File oldFile;
 		File newFile;
 		oldFile.open(oldName);
-		newFile.open(newName, File::WRITE);
+		newFile.open(newName, File::AccessMode::Write);
 		int count = 0;
 		unsigned char c[BUFFER_SIZE] = {0};
 		while (!oldFile.eof())
@@ -210,14 +210,14 @@ namespace hltypes
 	void File::hwrite(const String& filename, const String& text)
 	{
 		File file;
-		file.open(filename, WRITE);
+		file.open(filename, AccessMode::Write);
 		file.write(text);
 	}
 	
 	void File::happend(const String& filename, const String& text)
 	{
 		File file;
-		file.open(filename, APPEND);
+		file.open(filename, AccessMode::Append);
 		file.write(text);
 	}
 

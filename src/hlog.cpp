@@ -168,11 +168,11 @@ namespace hltypes
 		String filename;
 		if (clearFile)
 		{
-			file.open(Log::filename, File::WRITE);
+			file.open(Log::filename, File::AccessMode::Write);
 		}
 		else
 		{
-			file.open(Log::filename, File::APPEND);
+			file.open(Log::filename, File::AccessMode::Append);
 		}
 		for_iter (i, 0, Log::fileIndex + 1)
 		{
@@ -246,9 +246,9 @@ namespace hltypes
 			{
 				File file;
 #ifndef _WIN32
-				file.open(Log::filename, File::APPEND);
+				file.open(Log::filename, AccessMode::Append);
 #else
-				file.open(Log::_makeCurrentFilename(Log::filename), File::APPEND);
+				file.open(Log::_makeCurrentFilename(Log::filename), File::AccessMode::Append);
 #endif
 				String logMessage = (tag != "" ? "[" + tag + "] " + message : message);
 				file.write(logMessage);

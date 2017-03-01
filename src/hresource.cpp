@@ -172,7 +172,7 @@ namespace hltypes
 			return;
 		}
 #endif
-		this->_fopen(Resource::_makeNonZipPath(filename), READ, FileBase::repeats, FileBase::timeout);
+		this->_fopen(Resource::_makeNonZipPath(filename), AccessMode::Read, FileBase::repeats, FileBase::timeout);
 		this->resourceFilename = Dir::normalize(filename);
 		this->_updateDataSize();
 	}

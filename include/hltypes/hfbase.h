@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "henum.h"
 #include "hsbase.h"
 #include "hstring.h"
 
@@ -47,24 +48,38 @@ namespace hltypes
 	class hltypesExport FileBase : public StreamBase
 	{
 	public:
+		/// @class AccessMode
 		/// @brief Defines file access modes.
 		/// @note Windows text read/write modes are not used because they do not work properly in multiplatform environments.
-		enum AccessMode
-		{
+		HL_ENUM_CLASS_PREFIX_DECLARE(hltypesExport, AccessMode,
+		(
+			/// @var static const AccessMode AccessMode::Read
 			/// @brief Read-only file mode. ("rb")
-			READ,
+			HL_ENUM_DECLARE(AccessMode, Read);
+			/// @var static const AccessMode AccessMode::Write
 			/// @brief Write-only file mode. ("wb")
-			WRITE,
+			HL_ENUM_DECLARE(AccessMode, Write);
+			/// @var static const AccessMode AccessMode::Append
 			/// @brief Write and append file mode. ("ab")
-			APPEND,
+			HL_ENUM_DECLARE(AccessMode, Append);
+			/// @var static const AccessMode AccessMode::ReadWrite
 			/// @brief Read and write file mode. ("r+b")
-			READ_WRITE,
+			HL_ENUM_DECLARE(AccessMode, ReadWrite);
+			/// @var static const AccessMode AccessMode::ReadWriteCreate
 			/// @brief Read, write and create file mode. ("w+b")
-			READ_WRITE_CREATE,
+			HL_ENUM_DECLARE(AccessMode, ReadWriteCreate);
+			/// @var static const AccessMode AccessMode::ReadAppend
 			/// @brief Read and append file mode. ("a+b")
-			READ_APPEND
-		};
-		
+			HL_ENUM_DECLARE(AccessMode, ReadAppend);
+		));
+
+		DEPRECATED_ATTRIBUTE static AccessMode READ;
+		DEPRECATED_ATTRIBUTE static AccessMode WRITE;
+		DEPRECATED_ATTRIBUTE static AccessMode APPEND;
+		DEPRECATED_ATTRIBUTE static AccessMode READ_WRITE;
+		DEPRECATED_ATTRIBUTE static AccessMode READ_WRITE_CREATE;
+		DEPRECATED_ATTRIBUTE static AccessMode READ_APPEND;
+
 		/// @brief Constructor with filename.
 		/// @param[in] filename Name of the file (may include path).
 		FileBase(const String& filename);
@@ -111,11 +126,11 @@ namespace hltypes
 
 		/// @brief Opens an OS file.
 		/// @param[in] filename Name of the file (may include path).
-		/// @param[in] access_mode File access mode.
+		/// @param[in] accessMode File access mode.
 		/// @param[in] repeats Number of repeated attempts to access a file.
 		/// @param[in] timeout Timeout in miliseconds between repeated attempts to access a file.
 		/// @note If this instance is already working with an opened file handle, that file handle will be closed.
-		void _fopen(const String& filename, AccessMode access_mode, int repeats, float timeout);
+		void _fopen(const String& filename, AccessMode accessMode, int repeats, float timeout);
 		/// @brief Closes file.
 		void _fclose();
 		/// @brief Reads data from the file.
@@ -168,6 +183,8 @@ namespace hltypes
 typedef hltypes::FileBase hfbase;
 /// @brief Alias for simpler code.
 typedef hltypes::FileInfo hfinfo;
+/// @brief Alias for simpler code.
+typedef hltypes::FileBase::AccessMode hfaccess;
 
 #endif
 

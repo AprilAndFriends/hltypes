@@ -14,20 +14,33 @@
 
 namespace hltypes
 {
-	int FileBase::repeats = 0;
-	float FileBase::timeout = 100.0f;
-
-	FileInfo::FileInfo()
+	FileInfo::FileInfo() : size(0LL), creationTime(0LL), accessTime(0LL), modificationTime(0LL)
 	{
-		this->size = 0LL;
-		this->creationTime = 0LL;
-		this->accessTime = 0LL;
-		this->modificationTime = 0LL;
 	}
 
 	FileInfo::~FileInfo()
 	{
 	}
+
+	HL_ENUM_CLASS_DEFINE(FileBase::AccessMode,
+	(
+		HL_ENUM_DEFINE(FileBase::AccessMode, Read);
+		HL_ENUM_DEFINE(FileBase::AccessMode, Write);
+		HL_ENUM_DEFINE(FileBase::AccessMode, Append);
+		HL_ENUM_DEFINE(FileBase::AccessMode, ReadWrite);
+		HL_ENUM_DEFINE(FileBase::AccessMode, ReadWriteCreate);
+		HL_ENUM_DEFINE(FileBase::AccessMode, ReadAppend);
+	));
+
+	FileBase::AccessMode READ = FileBase::AccessMode::Read;
+	FileBase::AccessMode WRITE = FileBase::AccessMode::Write;
+	FileBase::AccessMode APPEND = FileBase::AccessMode::Append;
+	FileBase::AccessMode READ_WRITE = FileBase::AccessMode::ReadWrite;
+	FileBase::AccessMode READ_WRITE_CREATE = FileBase::AccessMode::ReadWriteCreate;
+	FileBase::AccessMode READ_APPEND = FileBase::AccessMode::ReadAppend;
+
+	int FileBase::repeats = 0;
+	float FileBase::timeout = 100.0f;
 
 	void FileBase::setRepeats(int value)
 	{
@@ -59,7 +72,7 @@ namespace hltypes
 
 	String FileBase::extensionOf(const String& path)
 	{
-		// TODO - not UTF8 safe
+		// TODOhl - not UTF8 safe
 		if (Dir::baseName(path).contains('.'))
 		{
 			int index = path.rindexOf('.');
@@ -73,7 +86,7 @@ namespace hltypes
 
 	String FileBase::withoutExtension(const String& path)
 	{
-		// TODO - not UTF8 safe
+		// TODOhl - not UTF8 safe
 		if (Dir::baseName(path).contains('.'))
 		{
 			int index = path.rindexOf('.');
@@ -90,7 +103,7 @@ namespace hltypes
 		return this->filename;
 	}
 	
-	void FileBase::_fopen(const String& filename, AccessMode access_mode, int repeats, float timeout)
+	void FileBase::_fopen(const String& filename, AccessMode accessMode, int repeats, float timeout)
 	{
 		if (this->_isOpen())
 		{
@@ -98,26 +111,29 @@ namespace hltypes
 		}
 		this->filename = Dir::normalize(filename);
 		String mode = "rb";
-		switch (access_mode)
+		if (accessMode == AccessMode::Read)
 		{
-		case READ:
 			mode = "rb";
-			break;
-		case WRITE:
+		}
+		else if (accessMode == AccessMode::Write)
+		{
 			mode = "wb";
-			break;
-		case APPEND:
+		}
+		else if (accessMode == AccessMode::Append)
+		{
 			mode = "ab";
-			break;
-		case READ_WRITE:
+		}
+		else if (accessMode == AccessMode::ReadWrite)
+		{
 			mode = "r+b";
-			break;
-		case READ_WRITE_CREATE:
+		}
+		else if (accessMode == AccessMode::ReadWriteCreate)
+		{
 			mode = "w+b";
-			break;
-		case READ_APPEND:
+		}
+		else if (accessMode == AccessMode::ReadAppend)
+		{
 			mode = "a+b";
-			break;
 		}
 		int attempts = repeats + 1;
 		while (true)
