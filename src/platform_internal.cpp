@@ -174,7 +174,7 @@ namespace hltypes
 		return (int64_t)position;
 	}
 
-	bool _platformSeekFile(_platformFile* file, int64_t size, int64_t position, int64_t offset, FileBase::SeekMode seekMode)
+	bool _platformSeekFile(_platformFile* file, int64_t size, int64_t position, int64_t offset, StreamBase::SeekMode seekMode)
 	{
 		fpos_t _position = position;
 		if (seekMode == StreamBase::SeekMode::Start)
