@@ -402,6 +402,20 @@ HL_UT_TEST_CLASS(Array)
 		HL_UT_ASSERT(!b.has(a), "");
 	}
 
+	HL_UT_TEST_FUNCTION(randomize)
+	{
+		harray<int> a;
+		a += 0;
+		a += 1;
+		a += 2;
+		a += 3;
+		a.randomize();
+		HL_UT_ASSERT(a.has(0), "");
+		HL_UT_ASSERT(a.has(1), "");
+		HL_UT_ASSERT(a.has(2), "");
+		HL_UT_ASSERT(a.has(3), "");
+	}
+
 	HL_UT_TEST_FUNCTION(join)
 	{
 		harray<int> a;

@@ -21,6 +21,7 @@ HL_UT_TEST_CLASS(Array)
 	HL_UT_TEST_FUNCTION(union_);
 	HL_UT_TEST_FUNCTION(difference);
 	HL_UT_TEST_FUNCTION(random);
+	HL_UT_TEST_FUNCTION(randomize);
 	HL_UT_TEST_FUNCTION(join);
 	HL_UT_TEST_FUNCTION(matching);
 	HL_UT_TEST_FUNCTION(cast);
@@ -45,6 +46,7 @@ HL_UT_RUN_CLASS_BEGIN(Array)
 	HL_UT_RUN_METHOD(Array, union_)
 	HL_UT_RUN_METHOD(Array, difference)
 	HL_UT_RUN_METHOD(Array, random)
+	HL_UT_RUN_METHOD(Array, randomize)
 	HL_UT_RUN_METHOD(Array, join)
 	HL_UT_RUN_METHOD(Array, matching)
 	HL_UT_RUN_METHOD(Array, cast)

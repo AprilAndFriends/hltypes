@@ -16,9 +16,9 @@ HL_UT_TEST_CLASS(File)
 	{
 		hstr filename = "test.txt";
 		hfile f;
-		f.open(filename, hfile::WRITE);
+		f.open(filename, hfaccess::Write);
 		f.write("This is a test.");
-		f.open(filename, hfile::READ);
+		f.open(filename, hfaccess::Read);
 		hstr text = f.read();
 		HL_UT_ASSERT(text == "This is a test.", "");
 		f.open(filename);
@@ -37,21 +37,21 @@ HL_UT_TEST_CLASS(File)
 	{
 		hstr filename = "test.txt";
 		hfile f;
-		f.open(filename, hfile::WRITE);
+		f.open(filename, hfaccess::Write);
 		f.writeLine("This is a test.");
 		f.writeLine("This is also a test.");
 		f.writeLine("This is another test.");
-		f.open(filename, hfile::READ);
+		f.open(filename, hfaccess::Read);
 		hstr text = f.read();
 		HL_UT_ASSERT(text == "This is a test.\nThis is also a test.\nThis is another test.\n", "");
-		f.open(filename, hfile::READ);
+		f.open(filename, hfaccess::Read);
 		text = f.readLine();
 		HL_UT_ASSERT(text == "This is a test.", "");
 		text = f.readLine();
 		HL_UT_ASSERT(text == "This is also a test.", "");
 		text = f.readLine();
 		HL_UT_ASSERT(text == "This is another test.", "");
-		f.open(filename, hfile::READ);
+		f.open(filename, hfaccess::Read);
 		harray<hstr> lines = f.readLines();
 		HL_UT_ASSERT(lines[0] == "This is a test." && lines[1] == "This is also a test." && lines[2] == "This is another test.", "");
 	}
@@ -60,10 +60,10 @@ HL_UT_TEST_CLASS(File)
 	{
 		hstr filename = "test.txt";
 		hfile f;
-		f.open(filename, hfile::WRITE);
+		f.open(filename, hfaccess::Write);
 		f.write(hstr('a', 4090));
 		f.write(hstr('b', 10));
-		f.open(filename, hfile::READ);
+		f.open(filename, hfaccess::Read);
 		hstr text = f.read(hstr('b', 10));
 		HL_UT_ASSERT(text == hstr('a', 4090), "");
 	}
@@ -72,9 +72,9 @@ HL_UT_TEST_CLASS(File)
 	{
 		hstr filename = "test.txt";
 		hfile f;
-		f.open(filename, hfile::WRITE);
+		f.open(filename, hfaccess::Write);
 		f.writef("This is a %d %s %4.2f %s.", 0, "formatted", 3.14f, "file");
-		f.open(filename, hfile::READ);
+		f.open(filename, hfaccess::Read);
 		hstr text = f.read();
 		HL_UT_ASSERT(text == "This is a 0 formatted 3.14 file.", "");
 	}
@@ -83,7 +83,7 @@ HL_UT_TEST_CLASS(File)
 	{
 		hstr filename = "raw.txt";
 		hfile f;
-		f.open(filename, hfile::WRITE);
+		f.open(filename, hfaccess::Write);
 		unsigned char a[10] = { '\0' };
 		a[0] = 'R';
 		a[1] = 'a';
@@ -96,7 +96,7 @@ HL_UT_TEST_CLASS(File)
 		a[8] = '.';
 		f.writeRaw(a, 5);
 		f.close();
-		f.open(filename, hfile::READ);
+		f.open(filename, hfaccess::Read);
 		unsigned char b[6] = { '\0' };
 		f.readRaw(b, 5);
 		hstr str = hstr((char*)b);
@@ -109,23 +109,23 @@ HL_UT_TEST_CLASS(File)
 	{
 		hstr filename = "test.txt";
 		hfile f;
-		f.open(filename, hfile::WRITE);
+		f.open(filename, hfaccess::Write);
 		f.write("This is another test.");
-		f.open(filename, hfile::READ);
-		f.seek(4, hfile::START);
+		f.open(filename, hfaccess::Read);
+		f.seek(4, hseek::Start);
 		hstr text = f.read();
 		HL_UT_ASSERT(text == " is another test.", "seek()");
-		f.open(filename, hfile::READ);
-		f.seek((int64_t)-4, hfile::END);
+		f.open(filename, hfaccess::Read);
+		f.seek((int64_t)-4, hseek::End);
 		int pos = (int)f.position();
 		HL_UT_ASSERT(pos == 17, "position()");
 		text = f.read();
 		HL_UT_ASSERT(text == "est.", "");
-		f.open(filename, hfile::READ);
-		f.seek((int64_t)4, hfile::CURRENT);
+		f.open(filename, hfaccess::Read);
+		f.seek((int64_t)4, hseek::Current);
 		pos = (int)f.position();
 		HL_UT_ASSERT(pos == 4, "");
-		f.seek((int64_t)5, hfile::CURRENT);
+		f.seek((int64_t)5, hseek::Current);
 		pos = (int)f.position();
 		HL_UT_ASSERT(pos == 9, "");
 		text = f.read(7);
@@ -136,7 +136,7 @@ HL_UT_TEST_CLASS(File)
 	{
 		hstr filename = "test.txt/";
 		hfile f;
-		f.open(filename, hfile::WRITE);
+		f.open(filename, hfaccess::Write);
 		f.dump(1234);
 		f.dump((short)4321);
 		f.dump(hstr("testing"));
@@ -210,7 +210,7 @@ HL_UT_TEST_CLASS(File)
 		hstr text = hfile::hread(new_filename);
 		HL_UT_ASSERT(text == "This is a copy test.", "");
 		hfile f;
-		f.open(old_filename, hfile::WRITE);
+		f.open(old_filename, hfaccess::Write);
 		f.dump(1234);
 		f.dump((short)4321);
 		f.dump(hstr("testing"));
