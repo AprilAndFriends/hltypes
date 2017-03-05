@@ -83,6 +83,7 @@ namespace hltypes
 		if (normalizedPath == "")
 		{
 			Resource::zipMounts = zip::isZipMounts();
+			return Resource::zipMounts;
 		}
 #endif
 		return true;

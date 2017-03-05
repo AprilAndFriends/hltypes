@@ -35,11 +35,11 @@ namespace hltypes
 			/// @return Associated thread.
 			inline Thread* getThread() const { return this->thread; }
 
-			/// @return Execute the thread's code.
+			/// @brief Execute the thread's code.
 			void execute();
 
 		protected:
-			/// @return Associated thread.
+			/// @brief Associated thread.
 			Thread* thread;
 
 			/// @brief Constructor.
