@@ -77,6 +77,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a05f5db2eddd3d78c072144e5b59f878d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="henum_8h.html#a05f5db2eddd3d78c072144e5b59f878d">HL_ENUM_CLASS_DEFINE</a>(classe,  code)</td></tr>
 <tr class="memdesc:a05f5db2eddd3d78c072144e5b59f878d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro for defining an enum class.  <a href="#a05f5db2eddd3d78c072144e5b59f878d">More...</a><br /></td></tr>
 <tr class="separator:a05f5db2eddd3d78c072144e5b59f878d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7b84c66bf50acae5e4ad8676cd3a4ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="henum_8h.html#ac7b84c66bf50acae5e4ad8676cd3a4ae">HL_ENUM_CLASS_DEFINE_LOOSE</a>(classe,  defaultLooseValue,  code)</td></tr>
+<tr class="memdesc:ac7b84c66bf50acae5e4ad8676cd3a4ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro for defining an enum class.  <a href="#ac7b84c66bf50acae5e4ad8676cd3a4ae">More...</a><br /></td></tr>
+<tr class="separator:ac7b84c66bf50acae5e4ad8676cd3a4ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb033a957b6bbbb4838a03530d13896a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="henum_8h.html#adb033a957b6bbbb4838a03530d13896a">HL_ENUM_DECLARE</a>(classe,  name)&#160;&#160;&#160;static const classe name;</td></tr>
 <tr class="memdesc:adb033a957b6bbbb4838a03530d13896a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro for declaring an enum value within a class.  <a href="#adb033a957b6bbbb4838a03530d13896a">More...</a><br /></td></tr>
 <tr class="separator:adb033a957b6bbbb4838a03530d13896a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,7 +162,7 @@ DESCRIPTION</h1>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">hmap&lt;unsigned int, hstr&gt; classe::_instances; \</div><div class="line">        __HL_EXPAND_MACRO code;</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line">hmap&lt;unsigned int, hstr&gt; classe::_instances; \</div><div class="line">        bool classe::_useDefaultLooseValue = <span class="keyword">false</span>; \</div><div class="line">        unsigned <span class="keywordtype">int</span> classe::_defaultLooseValue = 0; \</div><div class="line">        __HL_EXPAND_MACRO code;</div></div><!-- fragment -->
 <p>Helper macro for defining an enum class. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -168,6 +171,51 @@ DESCRIPTION</h1>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ac7b84c66bf50acae5e4ad8676cd3a4ae"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HL_ENUM_CLASS_DEFINE_LOOSE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">classe, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">defaultLooseValue, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">code&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">hmap&lt;unsigned int, hstr&gt; classe::_instances; \</div><div class="line">        bool classe::_useDefaultLooseValue = <span class="keyword">true</span>; \</div><div class="line">        unsigned <span class="keywordtype">int</span> classe::_defaultLooseValue = defaultLooseValue; \</div><div class="line">        __HL_EXPAND_MACRO code;</div></div><!-- fragment -->
+<p>Helper macro for defining an enum class. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">classe</td><td>Name of the enum class. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">defaultLooseValue</td><td>Which value to use if the value is missing in the fromInt() and fromUint() functions. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">code</td><td>Additional code to process (usually value definitions). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>fromInt() </dd>
+<dd>
+fromUint() </dd></dl>
 
 </div>
 </div>

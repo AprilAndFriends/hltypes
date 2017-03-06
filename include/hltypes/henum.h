@@ -56,7 +56,11 @@ public: \
 	{ \
 		if (!_instances.hasKey(value)) \
 		{ \
-			throw EnumerationValueNotExistsException(value); \
+			if (!_useDefaultLooseValue) \
+			{ \
+				throw EnumerationValueNotExistsException(value); \
+			} \
+			return classe(_defaultLooseValue); \
 		} \
 		return classe(value); \
 	} \
@@ -64,7 +68,11 @@ public: \
 	{ \
 		if (!_instances.hasValue(name)) \
 		{ \
-			throw EnumerationValueNotExistsException(name); \
+			if (!_useDefaultLooseValue) \
+			{ \
+				throw EnumerationValueNotExistsException(name); \
+			} \
+			return classe(_defaultLooseValue); \
 		} \
 		return classe(_instances(name)); \
 	} \
@@ -97,6 +105,8 @@ protected: \
 	inline hmap<unsigned int, hstr>& _getInstances() const { return _instances; } \
 private: \
 	static hmap<unsigned int, hstr> _instances; \
+	static bool _useDefaultLooseValue; \
+	static unsigned int _defaultLooseValue; \
 };
 /// @see HL_ENUM_CLASS_PREFIX_DECLARE
 #define HL_ENUM_CLASS_DECLARE(classe, code) HL_ENUM_CLASS_PREFIX_DECLARE(, classe, code)
@@ -105,6 +115,19 @@ private: \
 /// @param[in] code Additional code to process (usually value definitions).
 #define HL_ENUM_CLASS_DEFINE(classe, code) \
 	hmap<unsigned int, hstr> classe::_instances; \
+	bool classe::_useDefaultLooseValue = false; \
+	unsigned int classe::_defaultLooseValue = 0; \
+	__HL_EXPAND_MACRO code;
+/// @brief Helper macro for defining an enum class.
+/// @param[in] classe Name of the enum class.
+/// @param[in] defaultLooseValue Which value to use if the value is missing in the fromInt() and fromUint() functions.
+/// @param[in] code Additional code to process (usually value definitions).
+/// @see fromInt()
+/// @see fromUint()
+#define HL_ENUM_CLASS_DEFINE_LOOSE(classe, defaultLooseValue, code) \
+	hmap<unsigned int, hstr> classe::_instances; \
+	bool classe::_useDefaultLooseValue = true; \
+	unsigned int classe::_defaultLooseValue = defaultLooseValue; \
 	__HL_EXPAND_MACRO code;
 
 /// @brief Helper macro for declaring an enum value within a class.
