@@ -89,6 +89,7 @@ public: \
 		} \
 		return result; \
 	} \
+	inline static hstr getEnumName() { return #classe; } \
 	inline static hmap<unsigned int, hstr> getAsMap() { return _instances; } \
 	__HL_EXPAND_MACRO code \
 protected: \
