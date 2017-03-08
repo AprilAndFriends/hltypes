@@ -69,6 +69,7 @@ namespace hltypes
 					{
 						delete this->zipArchive;
 						this->zipArchive = NULL;
+						hlog::write(logTag, "Failed mounting zip file: " + zipFilename);
 						return false;
 					}
 				}
