@@ -6,12 +6,7 @@
                                   '$(Configuration)'=='ReleaseS_ZipResource'">
     <ClCompile>
       <PreprocessorDefinitions>_ZIPRESOURCE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86'">%(AdditionalOptions) -std=c++11</AdditionalOptions>
     </ClCompile>
-    <Link Condition="'$(Platform)'=='Win32'">
-      <AdditionalDependencies>libminiz.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <Link Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86'">
-      <AdditionalDependencies>-lminiz;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
   </ItemDefinitionGroup>
 </Project>

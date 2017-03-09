@@ -65,7 +65,8 @@ namespace hltypes
 					}
 					segments += this->filename;
 					this->zipArchive = new miniz::mz_zip_archive();
-					if (!miniz::mz_zip_reader_init_file(this->zipArchive, hrdir::normalize(hrdir::joinPaths(segments)).cStr(), 0))
+					hstr zipFilename = hrdir::normalize(hrdir::joinPaths(segments));
+					if (!miniz::mz_zip_reader_init_file(this->zipArchive, zipFilename.cStr(), 0))
 					{
 						delete this->zipArchive;
 						this->zipArchive = NULL;

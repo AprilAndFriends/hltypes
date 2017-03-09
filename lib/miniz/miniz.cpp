@@ -156,6 +156,7 @@
      (i.e. 32-bit stat() fails for me on files > 0x7FFFFFFF bytes).
 */
 
+#ifdef _ZIPRESOURCE
 #ifndef MINIZ_HEADER_INCLUDED
 #define MINIZ_HEADER_INCLUDED
 
@@ -4876,6 +4877,7 @@ void *mz_zip_extract_archive_file_to_heap(const char *pZip_filename, const char 
 }
 
 #endif // MINIZ_HEADER_FILE_ONLY
+#endif // _ZIPRESOURCE
 
 /*
   This is free and unencumbered software released into the public domain.

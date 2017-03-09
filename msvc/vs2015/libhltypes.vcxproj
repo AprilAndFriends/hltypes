@@ -152,6 +152,7 @@
   <Import Project="props-generic\build-defaults.props" />
   <Import Project="props\configuration.props" />
   <ItemGroup>
+    <ClCompile Include="..\..\lib\miniz\miniz.cpp" />
     <ClCompile Include="..\..\src\hclipboard.cpp" />
     <ClCompile Include="..\..\src\henum.cpp" />
     <ClCompile Include="..\..\src\hexception.cpp" />
