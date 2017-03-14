@@ -127,8 +127,9 @@ namespace hltypes
 			return false;
 		}
 		std::wstring wString = string.wStr();
-		HGLOBAL hGlobal = GlobalAlloc(GMEM_FIXED, wString.size() + 1);
-		memcpy((wchar_t*)hGlobal, wString.c_str(), wString.size() + 1);
+		int size = (wString.size() + 1) * sizeof(wchar_t);
+		HGLOBAL hGlobal = GlobalAlloc(GMEM_FIXED | GMEM_ZEROINIT, size);
+		memcpy((wchar_t*)hGlobal, wString.c_str(), size);
 		if (::SetClipboardData(CF_UNICODETEXT, hGlobal) == NULL)
 		{
 			Log::errorf(logTag, "Cannot set Clipboard data! System Error: %08X", GetLastError());
