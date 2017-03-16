@@ -14,7 +14,7 @@
 
 namespace hltypes
 {
-	FileInfo::FileInfo() : size(0LL), creationTime(0LL), accessTime(0LL), modificationTime(0LL)
+	FileInfo::FileInfo() : size(-1LL), creationTime(0LL), accessTime(0LL), modificationTime(0LL)
 	{
 	}
 

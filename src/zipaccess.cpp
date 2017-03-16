@@ -215,7 +215,7 @@ namespace hltypes
 				return NULL;
 			}
 			int size = (int)_finfo(archive, realFilename).size;
-			if (size > 0)
+			if (size >= 0)
 			{
 				Stream* stream = new Stream(size);
 				stream->prepareManualWriteRaw(size);
