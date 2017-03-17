@@ -149,9 +149,9 @@ namespace hltypes
 		/// @param[in] seekMode Seeking mode.
 		bool _seek(int64_t offset, SeekMode seekMode = SeekMode::Current);
 		/// @brief Resizes internal buffer if necessary.
-		/// @param[in,out] write_size Number of bytes that is needed for the next write.
+		/// @param[in,out] writeSize Number of bytes that is needed for the next write.
 		/// @note This does not change the data stream size. Use this to avoid allocation of too much data if not needed.
-		bool _tryIncreaseCapacity(int& write_size);
+		bool _tryIncreaseCapacity(int& writeSize);
 
 	};
 }

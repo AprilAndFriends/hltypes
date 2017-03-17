@@ -15,21 +15,15 @@
 
 #include <stdarg.h>
 #include <stdint.h>
-#include <string>
 
 #include "hltypesExport.h"
-
-#if defined(_MSC_VER) && _MSC_VER >= 1600 && defined(_WIN32)
-/// @brief Circumvents a compilation problem in VS 2010 and higher
-const std::string::size_type std::string::npos = size_t(-1);
-#endif
 
 namespace hltypes
 {
 	template <typename T> class Array;
 	
 	/// @brief Encapsulates std::string and adds high level methods.
-	class hltypesSpecialExport String : std::basic_string<char>
+	class hltypesSpecialExport String
 	{
 	public:
 		/// @brief Empty constructor.
@@ -825,6 +819,16 @@ namespace hltypes
 		/// @param[in] chars The unsigned char characters.
 		/// @return UTF-8 string.
 		hltypesMemberExport static String fromUnicode(Array<unsigned char> chars);
+
+	protected:
+		/// @brief Data stream container.
+		char* data;
+		/// @brief Capacity data of stream container.
+		int64_t capacity;
+
+		/// @brief Resizes internal buffer if necessary.
+		/// @param[in,out] size New size.
+		bool _tryIncreaseCapacity(int size);
 
 	};
 }

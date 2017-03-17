@@ -124,51 +124,172 @@
 	#define __toupper__ toupper
 #endif
 
-typedef std::basic_string<char> stdstr;
+#define MIN_STRING_CAPACITY 16
 
 namespace hltypes
 {
-	String::String() : stdstr() { }
-	String::String(const char c) : stdstr(1, c) { }
-	String::String(const char c, const int times) : stdstr(times, c) { }
-	String::String(const char* string) : stdstr(string) { }
-	String::String(const String& string) : stdstr(string) { }
-	String::String(const char* string, const int length) : stdstr(string, length) { }
-	String::String(const String& string, const int length) : stdstr(string, length) { }
-	String::String(const short s) { this->operator=(s); }
-	String::String(const unsigned short s) { this->operator=(s); }
-	String::String(const int i) { this->operator=(i); }
-	String::String(const unsigned int i) { this->operator=(i); }
-	String::String(const int64_t i) { this->operator=(i); }
-	String::String(const uint64_t i) { this->operator=(i); }
-	String::String(const float f) { this->operator=(f); }
+	String::String() : capacity(MIN_STRING_CAPACITY)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		this->data[0] = '\0';
+	}
+
+	String::String(const char c) : capacity(MIN_STRING_CAPACITY)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		this->data[0] = c;
+		this->data[1] = '\0';
+	}
+
+	String::String(const char c, const int times) : capacity(MIN_STRING_CAPACITY)
+	{
+		if (this->capacity < times + 1)
+		{
+			this->capacity = times + 1;
+		}
+		this->data = (char*)malloc((int)this->capacity);
+		memset(this->data, c, times);
+		this->data[times] = '\0';
+	}
+
+	String::String(const char* string) : capacity(MIN_STRING_CAPACITY)
+	{
+		int size = (int)strlen(string);
+		if (this->capacity < size + 1)
+		{
+			this->capacity = size + 1;
+		}
+		this->data = (char*)malloc((int)this->capacity);
+		memcpy(this->data, string, size + 1);
+	}
+
+	String::String(const String& string) : capacity(string.capacity)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		memcpy(this->data, string.data, this->capacity);
+	}
+
+	String::String(const char* string, const int length) : capacity(MIN_STRING_CAPACITY)
+	{
+		if (this->capacity < length + 1)
+		{
+			this->capacity = length + 1;
+		}
+		this->data = (char*)malloc((int)this->capacity);
+		memcpy(this->data, string, length);
+		this->data[length] = '\0';
+	}
+
+	String::String(const String& string, const int length) : capacity(MIN_STRING_CAPACITY)
+	{
+		if (this->capacity < length + 1)
+		{
+			this->capacity = length + 1;
+		}
+		this->data = (char*)malloc((int)this->capacity);
+		memcpy(this->data, string.data, length);
+		this->data[length] = '\0';
+	}
+
+	String::String(const short s) : capacity(MIN_STRING_CAPACITY)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		this->operator=(s);
+	}
+
+	String::String(const unsigned short s) : capacity(MIN_STRING_CAPACITY)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		this->operator=(s);
+	}
+
+	String::String(const int i) : capacity(MIN_STRING_CAPACITY)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		this->operator=(i);
+	}
+
+	String::String(const unsigned int i) : capacity(MIN_STRING_CAPACITY)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		this->operator=(i);
+	}
+
+	String::String(const int64_t i) : capacity(MIN_STRING_CAPACITY)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		this->operator=(i);
+	}
+
+	String::String(const uint64_t i) : capacity(MIN_STRING_CAPACITY)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		this->operator=(i);
+	}
+
+	String::String(const float f) : capacity(MIN_STRING_CAPACITY)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		this->operator=(f);
+	}
+
 	String::String(const float f, int precision)
 	{
-		char fmt[16];
+		char format[16];
 		char string[64];
-		_platformSprintf(fmt, "%%.%df", precision);
-		_platformSprintf(string, fmt, f);
-		stdstr::operator=(string);
+		_platformSprintf(format, "%%.%df", precision);
+		_platformSprintf(string, format, f);
+		int size = (int)strlen(string);
+		if (this->capacity < size + 1)
+		{
+			this->capacity = size + 1;
+		}
+		this->data = (char*)malloc((int)this->capacity);
+		memcpy(this->data, string, size + 1);
 	}
-	String::String(const double d) { this->operator=(d); }
+
+	String::String(const double d) : capacity(MIN_STRING_CAPACITY)
+	{
+		this->data = (char*)malloc((int)this->capacity);
+		this->operator=(d);
+	}
+
 	String::String(const double d, int precision)
 	{
-		char fmt[16];
+		char format[16];
 		char string[64];
-		_platformSprintf(fmt, "%%.%dlf", precision);
-		_platformSprintf(string, fmt, d);
-		stdstr::operator=(string);
+		_platformSprintf(format, "%%.%dlf", precision);
+		_platformSprintf(string, format, d);
+		int size = (int)strlen(string);
+		if (this->capacity < size + 1)
+		{
+			this->capacity = size + 1;
+		}
+		this->data = (char*)malloc((int)this->capacity);
+		memcpy(this->data, string, size + 1);
 	}
-	String::~String() { }
+
+	String::~String()
+	{
+		free(this->data);
+	}
 
 	void String::set(const char* string)
 	{
-		stdstr::assign(string);
+		int size = (int)strlen(string);
+		if (this->_tryIncreaseCapacity(size + 1))
+		{
+			memcpy(this->data, string, size + 1);
+		}
 	}
 
 	void String::set(const char* string, const int length)
 	{
-		stdstr::assign(string, length);
+		if (this->_tryIncreaseCapacity(length + 1))
+		{
+			memcpy(this->data, string, length);
+			this->data[length] = '\0';
+		}
 	}
 
 	String String::lowered() const
@@ -206,7 +327,7 @@ namespace hltypes
 
 	String String::trimmedLeft(const char c) const
 	{
-		const char* string = stdstr::c_str();
+		const char* string = this->data;
 		while (*string == c)
 		{
 			++string;
@@ -216,18 +337,17 @@ namespace hltypes
 
 	String String::trimmedRight(const char c) const
 	{
-		int length = (int)stdstr::size();
+		int length = strlen(this->data);
 		if (length == 0)
 		{
 			return "";
 		}
-		const char* string = stdstr::c_str();
 		int i = length - 1;
-		while (i >= 0 && string[i] == c)
+		while (i >= 0 && this->data[i] == c)
 		{
 			--i;
 		}
-		return stdstr::substr(0, i + 1).c_str();
+		return String(this->data, i + 1);
 	}
 
 	void String::replace(const String& what, const String& withWhat)
@@ -478,7 +598,7 @@ namespace hltypes
 	Array<String> String::split(const char* delimiter, unsigned int n, bool removeEmpty) const
 	{
 		Array<String> out;
-		const char* s = stdstr::c_str();
+		const char* s = this->data;
 		const char* p = NULL;
 		int delimiterLength = (int)strlen(delimiter);
 		while ((p = strstr(s, delimiter)) != 0 && n > 0)
@@ -532,7 +652,7 @@ namespace hltypes
 	Array<String> String::rsplit(const char* delimiter, unsigned int n, bool removeEmpty) const
 	{
 		Array<String> out;
-		const char* s = stdstr::c_str();
+		const char* s = this->data;
 		const char* p = NULL;
 		int delimiter_len = (int)strlen(delimiter);
 		for (p = s + strlen(s) - 1; p != s && n > 0; --p)
@@ -751,24 +871,23 @@ namespace hltypes
 
 	bool String::isDigit() const
 	{
-		return (this->size() == 1 && isdigit(stdstr::c_str()[0]));
+		return (this->size() == 1 && isdigit(this->data[0]));
 	}
 	
 	bool String::isInt() const
 	{
-		const char* string = stdstr::c_str();
-		if (string[0] == '\0')
+		if (this->data[0] == '\0')
 		{
 			return false;
 		}
 		int i = 0;
-		if (string[i] == '-')
+		if (this->data[i] == '-')
 		{
 			++i;
 		}
-		for (; string[i] != '\0'; ++i)
+		for (; this->data[i] != '\0'; ++i)
 		{
-			if (!isdigit(string[i]))
+			if (!isdigit(this->data[i]))
 			{
 				return false;
 			}
@@ -778,20 +897,19 @@ namespace hltypes
 
 	bool String::isFloat(bool requireDot) const
 	{
-		const char* string = stdstr::c_str();
-		if (string[0] == '\0')
+		if (this->data[0] == '\0')
 		{
 			return false;
 		}
 		bool foundDot = false;
 		int i = 0;
-		if (string[i] == '-')
+		if (this->data[i] == '-')
 		{
 			++i;
 		}
-		for (; string[i] != '\0'; ++i)
+		for (; this->data[i] != '\0'; ++i)
 		{
-			if (string[i] == '.')
+			if (this->data[i] == '.')
 			{
 				if (foundDot)
 				{
@@ -799,7 +917,7 @@ namespace hltypes
 				}
 				foundDot = true;
 			}
-			else if (!isdigit(string[i]))
+			else if (!isdigit(this->data[i]))
 			{
 				return false;
 			}
@@ -814,14 +932,13 @@ namespace hltypes
 
 	bool String::isHex() const
 	{
-		const char* string = stdstr::c_str();
-		if (string[0] == '\0')
+		if (this->data[0] == '\0')
 		{
 			return false;
 		}
-		for (int i = 0; string[i] != '\0'; ++i)
+		for (int i = 0; this->data[i] != '\0'; ++i)
 		{
-			if (!isxdigit(string[i]))
+			if (!isxdigit(this->data[i]))
 			{
 				return false;
 			}
@@ -831,7 +948,7 @@ namespace hltypes
 
 	bool String::isAscii() const
 	{
-		const unsigned char* string = (const unsigned char*)stdstr::c_str();
+		const unsigned char* string = (const unsigned char*)this->data;
 		int i = 0;
 		while (string[i] != 0)
 		{
@@ -850,8 +967,7 @@ namespace hltypes
 
 	String String::utf8SubString(int start, int count) const
 	{
-		String result;
-		const unsigned char* string = (const unsigned char*)stdstr::c_str();
+		const unsigned char* string = (const unsigned char*)this->data;
 		int startIndex = 0;
 		int i = 0;
 		while (string[i] != 0 && startIndex < start)
@@ -913,13 +1029,13 @@ namespace hltypes
 	
 	int String::size() const
 	{
-		return (int)stdstr::size();
+		return strlen(this->data);
 	}
 	
 	int String::utf8Size() const
 	{
 		int result = 0;
-		const unsigned char* string = (const unsigned char*)stdstr::c_str();
+		const unsigned char* string = (const unsigned char*)this->data;
 		int i = 0;
 		while (string[i] != 0)
 		{
@@ -947,9 +1063,10 @@ namespace hltypes
 	String String::toHex() const
 	{
 		String hex;
-		for_iter (i, 0, this->size())
+		int size = this->size();
+		for_iter (i, 0, size)
 		{
-			hex += hsprintf("%02X", stdstr::at(i));
+			hex += hsprintf("%02X", this->data[i]);
 		}
 		return hex;
 	}
@@ -968,7 +1085,7 @@ namespace hltypes
 	{
 		if (count < 0)
 		{
-			count = (int)stdstr::size() + count + 1;
+			count = strlen(this->data) + count + 1;
 		}
 		return stdstr::substr(start, count).c_str();
 	}
@@ -977,7 +1094,7 @@ namespace hltypes
 	{
 		if (count < 0)
 		{
-			count = (int)stdstr::size() + count + 1;
+			count = strlen(this->data) + count + 1;
 		}
 		if (step == 1)
 		{
@@ -986,79 +1103,79 @@ namespace hltypes
 		String result;
 		for_iter_step (i, start, start + count, step)
 		{
-			result += stdstr::at(i);
+			result += this->data[i];
 		}
 		return result;
 	}
 	
 	String String::operator()(int index) const
 	{
-		return stdstr::at(index);
+		return this->data[index];
 	}
 	
 	char& String::operator[](int index)
 	{
-		return stdstr::at(index);
+		return this->data[index];
 	}
 	
 	const char& String::operator[](int index) const
 	{
-		return stdstr::at(index);
+		return this->data[index];
 	}
 	
 	String::operator short() const
 	{
 		short s = 0;
-		sscanf(stdstr::c_str(), "%hd", &s);
+		sscanf(this->data, "%hd", &s);
 		return s;
 	}
 
 	String::operator unsigned short() const
 	{
 		unsigned short s = 0;
-		sscanf(stdstr::c_str(), "%hu", &s);
+		sscanf(this->data), "%hu", &s);
 		return s;
 	}
 
 	String::operator int() const
 	{
 		int i = 0;
-		sscanf(stdstr::c_str(), "%d", &i);
+		sscanf(this->data, "%d", &i);
 		return i;
 	}
 
 	String::operator unsigned int() const
 	{
 		unsigned int i = 0U;
-		sscanf(stdstr::c_str(), "%u", &i);
+		sscanf(this->data, "%u", &i);
 		return i;
 	}
 
 	String::operator int64_t() const
 	{
 		int64_t i = 0LL;
-		sscanf(stdstr::c_str(), "%lld", &i);
+		sscanf(this->data, "%lld", &i);
 		return i;
 	}
 
 	String::operator uint64_t() const
 	{
 		uint64_t i = 0ULL;
-		sscanf(stdstr::c_str(), "%llu", &i);
+		sscanf(this->data, "%llu", &i);
 		return i;
 	}
 
 	String::operator float() const
 	{
 		float f = 0.0f;
-		sscanf(stdstr::c_str(), "%f", &f);
+		sscanf(this->data, "%f", &f);
 		return f;
 	}
 
 	String::operator double() const
 	{
 		double d = 0.0;
-		sscanf(stdstr::c_str(), "%lf", &d);
+		sscanf(this->data, "%lf", &d);
 		return d;
 	}
 
@@ -1292,21 +1409,20 @@ namespace hltypes
 
 	bool String::operator==(const bool b) const
 	{
-		const char* string = stdstr::c_str();
-		return ((strcmp(string, "1") == 0 && b) ||
-				(strcmp(string, "0") == 0 && !b) ||
-				(strcmp(string, "true") == 0 && b) ||
-				(strcmp(string, "false") == 0 && !b));
+		return ((strcmp(this->data, "1") == 0 && b) ||
+				(strcmp(this->data, "0") == 0 && !b) ||
+				(strcmp(this->data, "true") == 0 && b) ||
+				(strcmp(this->data, "false") == 0 && !b));
 	}
 
 	bool String::operator==(const char* string) const
 	{
-		return (strcmp(stdstr::c_str(), string) == 0);
+		return (strcmp(this->data, string) == 0);
 	}
 	
 	bool String::operator==(const String& string) const
 	{
-		return (strcmp(stdstr::c_str(), string.cStr()) == 0);
+		return (strcmp(this->data, string.data) == 0);
 	}
 
 	bool String::operator!=(const short s) const
@@ -1366,27 +1482,27 @@ namespace hltypes
 
 	bool String::operator<(const String& string) const
 	{
-		return (strcmp(stdstr::c_str(), string.cStr()) < 0);
+		return (strcmp(this->data, string.data) < 0);
 	}
 
 	bool String::operator>(const String& string) const
 	{
-		return (strcmp(stdstr::c_str(), string.cStr()) > 0);
+		return (strcmp(this->data, string.data) > 0);
 	}
 
 	bool String::operator<=(const String& string) const
 	{
-		return (strcmp(stdstr::c_str(), string.cStr()) <= 0);
+		return (strcmp(this->data, string.data) <= 0);
 	}
 
 	bool String::operator>=(const String& string) const
 	{
-		return (strcmp(stdstr::c_str(), string.cStr()) >= 0);
+		return (strcmp(this->data, string.data) >= 0);
 	}
 
 	const char* String::cStr() const
 	{
-		return stdstr::c_str();
+		return this->data;
 	}
 
 	std::basic_string<unsigned int> String::uStr() const
@@ -1403,7 +1519,7 @@ namespace hltypes
 		}
 #endif
 		unsigned int code = 0;
-		const unsigned char* string = (const unsigned char*)stdstr::c_str();
+		const unsigned char* string = (const unsigned char*)this->data;
 		int i = 0;
 		int size = 0;
 		while (string[i] != 0)
@@ -1429,7 +1545,7 @@ namespace hltypes
 		}
 #endif
 		unsigned int code = 0;
-		const unsigned char* string = (const unsigned char*)stdstr::c_str();
+		const unsigned char* string = (const unsigned char*)this->data;
 		int i = 0;
 		int size = 0;
 #ifdef _DEBUG
@@ -1455,7 +1571,7 @@ namespace hltypes
 	unsigned int String::firstUnicodeChar(int index, int* byteCount) const
 	{
 		unsigned int result = 0;
-		const unsigned char* string = (const unsigned char*)stdstr::c_str();
+		const unsigned char* string = (const unsigned char*)this->data;
 		int size = 0;
 		_TO_UNICODE_FAST(result, string, index, size);
 		if (byteCount != NULL)
@@ -1568,6 +1684,25 @@ namespace hltypes
 			result += (char)(*it);
 		}
 		return result;
+	}
+
+	bool String::_tryIncreaseCapacity(int size)
+	{
+		if (size > this->capacity)
+		{
+			int newCapacity = hmax(MIN_STRING_CAPACITY, hpotCeil(size)); // not allowing less than MIN_STRING_CAPACITY bytes
+			if (this->capacity != newCapacity)
+			{
+				char* newData = (char*)realloc(this->data, newCapacity);
+				if (newData == NULL) // could not reallocate enough memory
+				{
+					return false;
+				}
+				this->data = newData;
+				this->capacity = newCapacity;
+			}
+		}
+		return true;
 	}
 
 }

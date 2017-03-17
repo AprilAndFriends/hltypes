@@ -335,12 +335,12 @@ namespace hltypes
 		return true;
 	}
 	
-	bool Stream::_tryIncreaseCapacity(int& write_size)
+	bool Stream::_tryIncreaseCapacity(int& writeSize)
 	{
-		if (write_size > this->capacity - this->streamPosition && !this->setCapacity(hpotCeil((int)(write_size + this->streamPosition))))
+		if (writeSize > this->capacity - this->streamPosition && !this->setCapacity(hpotCeil((int)(writeSize + this->streamPosition))))
 		{
-			// could not reallocate enough memory, reduce write_size
-			write_size = (int)hmax(this->capacity - this->streamPosition, 0LL);
+			// could not reallocate enough memory, reduce writeSize
+			writeSize = (int)hmax(this->capacity - this->streamPosition, 0LL);
 			return false;
 		}
 		return true;
