@@ -63,6 +63,7 @@
   <Import Project="props-generic\build-defaults.props" />
   <ItemDefinitionGroup>
     <ClCompile>
+      <UndefinePreprocessorDefinitions>HLTYPES_EXPORTS;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
     <Link>
