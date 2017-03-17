@@ -10,33 +10,37 @@
 
 HL_UT_TEST_CLASS(Mutex)
 {
-	static int test_a = 1;
-	static int test_b = 2;
-	static int test_c = 5;
-	static int test_result = 0;
+	static int test1 = 1;
+	static int test2 = 2;
+	static int test3 = 5;
+	static int testResult1 = 0;
+	static int testResult2 = 0;
 
-	hmutex mutex;
+	hmutex mutex1;
+	hmutex mutex2;
+	hmutex mutex3;
 
 	static void thread1(hthread* t)
 	{
-		mutex.lock();
-		test_c = test_a + test_b;
-		mutex.unlock();
+		mutex1.lock();
+		test3 = test1 + test2;
+		mutex1.unlock();
 	}
 	static void thread2(hthread* t)
 	{
-		mutex.lock();
-		test_result = test_c + 2;
-		mutex.unlock();
+		mutex2.lock();
+		testResult1 = test3 + 2;
+		mutex2.unlock();
 	}
 	static void thread3(hthread* t)
 	{
-		mutex.lock();
-		test_result = test_result + 1;
-		mutex.unlock();
+		mutex3.lock();
+		testResult2 = testResult2 + 1;
+		mutex3.unlock();
 	}	
-	HL_UT_TEST_FUNCTION(lockrelease)
+	HL_UT_TEST_FUNCTION(lockRelease)
 	{		
+		testResult1 = 0;
 		hthread t1(&thread1);
 		hthread t2(&thread2);
 
@@ -48,11 +52,11 @@ HL_UT_TEST_CLASS(Mutex)
 		t1.join();
 		t2.join();
 
-		HL_UT_ASSERT(test_result == 5, "");
+		HL_UT_ASSERT(testResult1 == 5, "");
 	}
-	HL_UT_TEST_FUNCTION(mass_lockrelease)
+	HL_UT_TEST_FUNCTION(massLockRelease)
 	{
-		test_result = 0;
+		testResult2 = 0;
 
 		hthread* t[10];
 		for (int i = 0; i < 10; i++)
@@ -67,6 +71,6 @@ HL_UT_TEST_CLASS(Mutex)
 			delete t[i];
 		}
 
-		HL_UT_ASSERT(test_result == 10, "");
+		HL_UT_ASSERT(testResult2 == 10, "");
 	}
 }
