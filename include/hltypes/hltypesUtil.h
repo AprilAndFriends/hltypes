@@ -40,6 +40,8 @@ namespace hltypes
 /// @brief Used for optimized and quick calculation from DEG to RAD.
 #define __HL_DEG_TO_RAD_RATIO 0.01745329251994329576923690768489
 
+// TODO transfer somewhere else
+uint64_t getFreeDiskSpace();
 /// @brief Calculates sin from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
 /// @return sin(degrees).

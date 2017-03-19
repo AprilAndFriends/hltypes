@@ -160,7 +160,7 @@
 		C981D01B14FFC5FE0032F321 /* hfbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hfbase.cpp; path = src/hfbase.cpp; sourceTree = "<group>"; };
 		C981D01F14FFC6270032F321 /* hfbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hfbase.h; path = include/hltypes/hfbase.h; sourceTree = "<group>"; };
 		C9F9313814DA87C300954F90 /* hltypesUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hltypesUtil.h; path = include/hltypes/hltypesUtil.h; sourceTree = "<group>"; };
-		C9F9313F14DA88B400954F90 /* hltypesUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hltypesUtil.cpp; path = src/hltypesUtil.cpp; sourceTree = "<group>"; };
+		C9F9313F14DA88B400954F90 /* hltypesUtil.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = hltypesUtil.cpp; path = src/hltypesUtil.cpp; sourceTree = "<group>"; };
 		D115F7C014AD4FA600C78558 /* hsbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hsbase.cpp; path = src/hsbase.cpp; sourceTree = "<group>"; };
 		D115F7C114AD4FA600C78558 /* hstream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hstream.cpp; path = src/hstream.cpp; sourceTree = "<group>"; };
 		D115F7C514AD4FB400C78558 /* hsbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsbase.h; path = include/hltypes/hsbase.h; sourceTree = "<group>"; };
