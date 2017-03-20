@@ -130,8 +130,6 @@
 
 namespace hltypes
 {
-	static std::locale _locale("en_US.utf8");
-
 	String::String() : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
@@ -302,7 +300,7 @@ namespace hltypes
 		int size = (int)characters.size();
 		for_iter (i, 0, size)
 		{
-			std::tolower<unsigned int>(characters[i], _locale);
+			__tolower__(characters[i]);
 		}
 		return String::fromUnicode(characters.c_str());
 	}
@@ -313,7 +311,7 @@ namespace hltypes
 		int size = (int)characters.size();
 		for_iter (i, 0, size)
 		{
-			std::toupper<unsigned int>(characters[i], _locale);
+			__toupper__(characters[i]);
 		}
 		return String::fromUnicode(characters.c_str());
 	}
