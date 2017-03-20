@@ -766,12 +766,13 @@ namespace hltypes
 		{
 			++i;
 		}
-		for (; string[i] != '\0'; ++i)
+		while (string[i] != '\0')
 		{
 			if (!isdigit(string[i]))
 			{
 				return false;
 			}
+			++i;
 		}
 		return true;
 	}
@@ -789,7 +790,7 @@ namespace hltypes
 		{
 			++i;
 		}
-		for (; string[i] != '\0'; ++i)
+		while (string[i] != '\0')
 		{
 			if (string[i] == '.')
 			{
@@ -803,6 +804,7 @@ namespace hltypes
 			{
 				return false;
 			}
+			++i;
 		}
 		return (!requireDot || foundDot);
 	}
