@@ -1052,12 +1052,13 @@ namespace hltypes
 		{
 			++i;
 		}
-		for (; this->data[i] != '\0'; ++i)
+		while (this->data[i] != '\0')
 		{
 			if (!isdigit(this->data[i]))
 			{
 				return false;
 			}
+			++i;
 		}
 		return true;
 	}
@@ -1074,7 +1075,7 @@ namespace hltypes
 		{
 			++i;
 		}
-		for (; this->data[i] != '\0'; ++i)
+		while (this->data[i] != '\0')
 		{
 			if (this->data[i] == '.')
 			{
@@ -1088,6 +1089,7 @@ namespace hltypes
 			{
 				return false;
 			}
+			++i;
 		}
 		return (!requireDot || foundDot);
 	}
@@ -1123,6 +1125,7 @@ namespace hltypes
 			{
 				return false;
 			}
+			++i;
 		}
 		return true;
 	}
@@ -1514,7 +1517,7 @@ namespace hltypes
 	{
 		int size = (int)strlen(this->data);
 		int addedSize = (int)strlen(string.data);
-		if (this->_tryIncreaseCapacity(this->capacity + addedSize + 1))
+		if (this->_tryIncreaseCapacity(size + addedSize + 1))
 		{
 			memcpy(this->data + size, string.data, addedSize + 1);
 		}
