@@ -165,20 +165,17 @@ hltypes::String hstackTrace(int maxFrames)
 
 uint64_t getFreeDiskSpace()
 {
+	uint64_t result = 0ULL;
 #ifdef _IOS
-	uint64_t totalFreeSpace = 0ULL;
 	__autoreleasing NSError* error = nil;
 	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSDictionary* dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: &error];
 	if (dictionary != NULL)
 	{
-		NSNumber* fileSystemSizeInBytes = [dictionary objectForKey: NSFileSystemSize];
-		NSNumber* freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
-		totalFreeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+		result = [[dictionary objectForKey : NSFileSystemFreeSize] unsignedLongLongValue];
 	}
-	return totalFreeSpace;
 #endif
-	return 0; // TODO - implement for all platforms and transfer somewhere more appropriate
+	return result;
 }
 
 int hrand(int min, int max)
