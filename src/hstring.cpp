@@ -371,37 +371,37 @@ namespace hltypes
 
 	void String::replace(const String& what, const String& withWhat)
 	{
-		this->replace(what.cStr(), withWhat.cStr());
+		this->replace(what.data, withWhat.data);
 	}
 
 	void String::replace(const String& what, const String& withWhat, int times)
 	{
-		this->replace(what.cStr(), withWhat.cStr(), times);
+		this->replace(what.data, withWhat.data, times);
 	}
 
 	void String::replace(const String& what, const char* withWhat)
 	{
-		this->replace(what.cStr(), withWhat);
+		this->replace(what.data, withWhat);
 	}
 
 	void String::replace(const String& what, const char* withWhat, int times)
 	{
-		this->replace(what.cStr(), withWhat, times);
+		this->replace(what.data, withWhat, times);
 	}
 
 	void String::replace(const String& what, const char withWhat, int times)
 	{
-		this->replace(what.cStr(), withWhat, times);
+		this->replace(what.data, withWhat, times);
 	}
 
 	void String::replace(const char* what, const String& withWhat)
 	{
-		this->replace(what, withWhat.cStr());
+		this->replace(what, withWhat.data);
 	}
 
 	void String::replace(const char* what, const String& withWhat, int times)
 	{
-		this->replace(what, withWhat.cStr(), times);
+		this->replace(what, withWhat.data, times);
 	}
 
 	void String::replace(const char* what, const char* withWhat)
@@ -448,7 +448,7 @@ namespace hltypes
 		if (whatSize < withWhatSize)
 		{
 			int maxSizeAdded = times * (withWhatSize - whatSize);
-			if (this->_tryIncreaseCapacity(this->capacity + maxSizeAdded + 1))
+			if (this->_tryIncreaseCapacity(size + maxSizeAdded + 1))
 			{
 				char* oldData = NULL;
 				while (times > 0)
@@ -512,7 +512,7 @@ namespace hltypes
 	void String::replace(const char what, const String& withWhat)
 	{
 		const char string[2] = { what, '\0' };
-		return this->replace(string, withWhat.cStr());
+		return this->replace(string, withWhat.data);
 	}
 
 	void String::replace(const char what, const char* withWhat)
@@ -551,7 +551,7 @@ namespace hltypes
 		if (count < withWhatSize)
 		{
 			int maxSizeAdded = withWhatSize - count;
-			if (this->_tryIncreaseCapacity(this->capacity + maxSizeAdded + 1))
+			if (this->_tryIncreaseCapacity(size + maxSizeAdded + 1))
 			{
 				char* oldData = found + count;
 				memmove(found + withWhatSize, oldData, strlen(oldData) + 1);
@@ -680,7 +680,7 @@ namespace hltypes
 		{
 			return;
 		}
-		if (this->_tryIncreaseCapacity(this->capacity + withWhatSize + 1))
+		if (this->_tryIncreaseCapacity(size + withWhatSize + 1))
 		{
 			char* found = this->data + position;
 			memmove(found + withWhatSize, found, strlen(found) + 1);
@@ -788,7 +788,7 @@ namespace hltypes
 
 	Array<String> String::split(const String& delimiter, unsigned int n, bool removeEmpty) const
 	{
-		return this->split(delimiter.cStr(), n, removeEmpty);
+		return this->split(delimiter.data, n, removeEmpty);
 	}
 	
 	bool String::split(const char* delimiter, String& outLeft, String& outRight) const
@@ -798,8 +798,8 @@ namespace hltypes
 		{
 			return false;
 		}
-		outLeft = stdstr::substr(0, index).c_str();
-		outRight = stdstr::substr(index + strlen(delimiter)).c_str();
+		outLeft = String(this->data, index);
+		outRight = String(this->data + (index + strlen(delimiter)));
 		return true;
 	}
 	
@@ -811,7 +811,7 @@ namespace hltypes
 
 	bool String::split(const String& delimiter, String& outLeft, String& outRight) const
 	{
-		return this->split(delimiter.cStr(), outLeft, outRight);
+		return this->split(delimiter.data, outLeft, outRight);
 	}
 
 	Array<String> String::rsplit(const char* delimiter, unsigned int n, bool removeEmpty) const
@@ -853,7 +853,7 @@ namespace hltypes
 
 	Array<String> String::rsplit(const String& delimiter, unsigned int n, bool removeEmpty) const
 	{
-		return this->rsplit(delimiter.cStr(), n, removeEmpty);
+		return this->rsplit(delimiter.data, n, removeEmpty);
 	}
 
 	bool String::rsplit(const char* delimiter, String& outLeft, String& outRight) const
@@ -863,8 +863,8 @@ namespace hltypes
 		{
 			return false;
 		}
-		outLeft = stdstr::substr(0, index).c_str();
-		outRight = stdstr::substr(index + strlen(delimiter)).c_str();
+		outLeft = String(this->data, index);
+		outRight = String(this->data + (index + strlen(delimiter)));
 		return true;
 	}
 
@@ -876,7 +876,7 @@ namespace hltypes
 
 	bool String::rsplit(const String& delimiter, String& outLeft, String& outRight) const
 	{
-		return this->rsplit(delimiter.cStr(), outLeft, outRight);
+		return this->rsplit(delimiter.data, outLeft, outRight);
 	}
 
 	int String::indexOf(const char c, int index) const
@@ -916,7 +916,7 @@ namespace hltypes
 
 	int String::indexOfAny(const String& string, int index) const
 	{
-		return (int)stdstr::find_first_of(string.cStr(), index);
+		return (int)stdstr::find_first_of(string.data, index);
 	}
 
 	int String::rindexOfAny(const char* string, int index) const
@@ -926,7 +926,7 @@ namespace hltypes
 
 	int String::rindexOfAny(const String& string, int index) const
 	{
-		return (int)stdstr::find_last_of(string.cStr(), index);
+		return (int)stdstr::find_last_of(string.data, index);
 	}
 
 	int String::count(const char c) const
@@ -955,7 +955,7 @@ namespace hltypes
 
 	int String::count(const String& string) const
 	{
-		return this->count(string.cStr());
+		return this->count(string.data);
 	}
 
 	bool String::startsWith(const char* string) const
@@ -965,7 +965,7 @@ namespace hltypes
 
 	bool String::startsWith(const String& string) const
 	{
-		return this->startsWith(string.cStr());
+		return this->startsWith(string.data);
 	}
 
 	bool String::endsWith(const char* string) const
@@ -981,7 +981,7 @@ namespace hltypes
 
 	bool String::endsWith(const String& string) const
 	{
-		return this->endsWith(string.cStr());
+		return this->endsWith(string.data);
 	}
 
 	bool String::contains(const char c) const
@@ -997,7 +997,7 @@ namespace hltypes
 
 	bool String::contains(const String& string) const
 	{
-		return this->contains(string.cStr());
+		return this->contains(string.data);
 	}
 
 	bool String::containsAny(const char* string) const
@@ -1015,7 +1015,7 @@ namespace hltypes
 
 	bool String::containsAny(const String& string) const
 	{
-		return this->containsAny(string.cStr());
+		return this->containsAny(string.data);
 	}
 
 	bool String::containsAll(const char* string) const
@@ -1033,7 +1033,7 @@ namespace hltypes
 
 	bool String::containsAll(const String& string) const
 	{
-		return this->containsAll(string.cStr());
+		return this->containsAll(string.data);
 	}
 
 	bool String::isDigit() const
@@ -1254,7 +1254,7 @@ namespace hltypes
 		unsigned int i = 0;
 		if (this->isHex())
 		{
-			sscanf(this->uppered().cStr(), "%X", &i);
+			sscanf(this->uppered().data, "%X", &i);
 		}
 		return i;
 	}
