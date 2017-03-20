@@ -15,8 +15,16 @@
 
 #include <stdarg.h>
 #include <stdint.h>
+#include <string>
 
 #include "hltypesExport.h"
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+namespace std
+{
+	typedef std::basic_string<unsigned int, std::char_traits<unsigned int>, std::allocator<unsigned int> > ustring;
+}
+#endif
 
 namespace hltypes
 {
@@ -122,8 +130,18 @@ namespace hltypes
 		hltypesMemberExport void replace(const String& what, const String& withWhat);
 		/// @brief Replaces occurrences of a substring with another substring.
 		/// @param[in] what String substring.
+		/// @param[in] withWhat String substitution.
+		/// @param[in] times How many times to replace the string maximally.
+		hltypesMemberExport void replace(const String& what, const String& withWhat, int times);
+		/// @brief Replaces occurrences of a substring with another substring.
+		/// @param[in] what String substring.
 		/// @param[in] withWhat C-string string substitution.
 		hltypesMemberExport void replace(const String& what, const char* withWhat);
+		/// @brief Replaces occurrences of a substring with another substring.
+		/// @param[in] what String substring.
+		/// @param[in] withWhat C-string string substitution.
+		/// @param[in] times How many times to replace the string maximally.
+		hltypesMemberExport void replace(const String& what, const char* withWhat, int times);
 		/// @brief Replaces occurrences of a substring with a character.
 		/// @param[in] what String substring.
 		/// @param[in] withWhat Character substitution.
@@ -135,8 +153,18 @@ namespace hltypes
 		hltypesMemberExport void replace(const char* what, const String& withWhat);
 		/// @brief Replaces occurrences of a substring with another substring.
 		/// @param[in] what C-string substring.
+		/// @param[in] withWhat String substitution.
+		/// @param[in] times How many times to replace the string maximally.
+		hltypesMemberExport void replace(const char* what, const String& withWhat, int times);
+		/// @brief Replaces occurrences of a substring with another substring.
+		/// @param[in] what C-string substring.
 		/// @param[in] withWhat C-string string substitution.
 		hltypesMemberExport void replace(const char* what, const char* withWhat);
+		/// @brief Replaces occurrences of a substring with another substring.
+		/// @param[in] what C-string substring.
+		/// @param[in] withWhat C-string string substitution.
+		/// @param[in] times How many times to replace the string maximally.
+		hltypesMemberExport void replace(const char* what, const char* withWhat, int times);
 		/// @brief Replaces occurrences of a substring with a character.
 		/// @param[in] what C-string substring.
 		/// @param[in] withWhat Character substitution.
@@ -760,10 +788,10 @@ namespace hltypes
 		hltypesMemberExport const char* cStr() const;
 		/// @brief Creates an unicode (unsigned int) string.
 		/// @return A unicode (unsigned int) string.
-		hltypesMemberExport std::basic_string<unsigned int> uStr() const;
+		hltypesMemberExport std::ustring uStr() const;
 		/// @brief Creates a wchar string.
 		/// @return A wchar string.
-		hltypesMemberExport std::basic_string<wchar_t> wStr() const;
+		hltypesMemberExport std::wstring wStr() const;
 		/// @brief Converts first UTF8 character into the corresponding character code.
 		/// @param[in] index The byte position of the first character in the string.
 		/// @param[out] byteCount Length of UTF8 character in bytes.

@@ -7,6 +7,8 @@
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
 #include <algorithm>
+#include <cstring>
+#include <locale>
 #include <math.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -128,6 +130,8 @@
 
 namespace hltypes
 {
+	static std::locale _locale("en_US.utf8");
+
 	String::String() : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
@@ -166,7 +170,7 @@ namespace hltypes
 	String::String(const String& string) : capacity(string.capacity)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		memcpy(this->data, string.data, this->capacity);
+		memcpy(this->data, string.data, (int)this->capacity);
 	}
 
 	String::String(const char* string, const int length) : capacity(MIN_STRING_CAPACITY)
@@ -294,30 +298,45 @@ namespace hltypes
 
 	String String::lowered() const
 	{
-		String result(*this);
-		std::transform(result.begin(), result.end(), result.begin(), __tolower__);
-		return result;
+		std::ustring characters = this->uStr();
+		int size = (int)characters.size();
+		for_iter (i, 0, size)
+		{
+			std::tolower<unsigned int>(characters[i], _locale);
+		}
+		return String::fromUnicode(characters.c_str());
 	}
 
 	String String::uppered() const
 	{
-		String result(*this);
-		std::transform(result.begin(), result.end(), result.begin(), __toupper__);
-		return result;
+		std::ustring characters = this->uStr();
+		int size = (int)characters.size();
+		for_iter (i, 0, size)
+		{
+			std::toupper<unsigned int>(characters[i], _locale);
+		}
+		return String::fromUnicode(characters.c_str());
 	}
 
 	String String::reversed() const
 	{
-		String result(*this);
-		std::reverse(result.begin(), result.end());
+		int size = strlen(this->data);
+		char* characters = new char[size + 1];
+		characters[size] = '\0';
+		for_iter (i, 0, size)
+		{
+			characters[i] = this->data[size - i];
+		}
+		String result(characters);
+		delete[] characters;
 		return result;
 	}
 
 	String String::utf8Reversed() const
 	{
-		std::basic_string<unsigned int> result = this->uStr();
-		std::reverse(result.begin(), result.end());
-		return fromUnicode(result.c_str());
+		std::ustring characters = this->uStr();
+		std::reverse(characters.begin(), characters.end());
+		return String::fromUnicode(characters.c_str());
 	}
 
 	String String::trimmed(const char c) const
@@ -355,9 +374,19 @@ namespace hltypes
 		this->replace(what.cStr(), withWhat.cStr());
 	}
 
+	void String::replace(const String& what, const String& withWhat, int times)
+	{
+		this->replace(what.cStr(), withWhat.cStr(), times);
+	}
+
 	void String::replace(const String& what, const char* withWhat)
 	{
 		this->replace(what.cStr(), withWhat);
+	}
+
+	void String::replace(const String& what, const char* withWhat, int times)
+	{
+		this->replace(what.cStr(), withWhat, times);
 	}
 
 	void String::replace(const String& what, const char withWhat, int times)
@@ -370,47 +399,114 @@ namespace hltypes
 		this->replace(what, withWhat.cStr());
 	}
 
+	void String::replace(const char* what, const String& withWhat, int times)
+	{
+		this->replace(what, withWhat.cStr(), times);
+	}
+
 	void String::replace(const char* what, const char* withWhat)
 	{
-		int whatLength = (int)strlen(what);
-		if (whatLength == 0)
+		int whatSize = (int)strlen(what);
+		if (whatSize <= 0)
 		{
 			Log::warn(logTag, "Cannot replace empty string in string: " + *this);
 			return;
 		}
-		int withWhatLength = (int)strlen(withWhat);
-		size_t position = 0;
+		int withWhatSize = (int)strlen(withWhat);
+		int times = 0;
+		char* pointer = this->data;
 		while (true)
 		{
-			position = stdstr::find(what, position);
-			if (position == std::string::npos)
+			pointer = strstr(pointer, what);
+			if (pointer == NULL)
 			{
 				break;
 			}
-			stdstr::replace(position, whatLength, withWhat);
-			position += withWhatLength;
+			pointer += whatSize;
+			++times;
+		}
+		this->replace(what, withWhat, times);
+	}
+
+	void String::replace(const char* what, const char* withWhat, int times)
+	{
+		if (times <= 0)
+		{
+			return;
+		}
+		int whatSize = (int)strlen(what);
+		if (whatSize <= 0)
+		{
+			Log::warn(logTag, "Cannot replace empty string in string: " + *this);
+			return;
+		}
+		int size = strlen(this->data);
+		int withWhatSize = (int)strlen(withWhat);
+		char* found = this->data;
+		char* offsetData = NULL;
+		int initialTimes = times;
+		if (whatSize < withWhatSize)
+		{
+			int maxSizeAdded = times * (withWhatSize - whatSize);
+			if (this->_tryIncreaseCapacity(this->capacity + maxSizeAdded + 1))
+			{
+				char* oldData = NULL;
+				while (times > 0)
+				{
+					found = strstr(found, what);
+					if (found == NULL)
+					{
+						break;
+					}
+					oldData = found + whatSize;
+					offsetData = found + withWhatSize;
+					memmove(offsetData, oldData, strlen(oldData) + 1);
+					memcpy(found, withWhat, withWhatSize * sizeof(char));
+					found += withWhatSize;
+					--times;
+				}
+				this->data[size + (initialTimes - times) * (withWhatSize - whatSize)] = '\0';
+			}
+		}
+		else if (whatSize > withWhatSize)
+		{
+			while (times > 0)
+			{
+				found = strstr(found, what);
+				if (found == NULL)
+				{
+					break;
+				}
+				offsetData = found + whatSize;
+				memcpy(found, withWhat, withWhatSize * sizeof(char));
+				found += withWhatSize;
+				memmove(found, offsetData, strlen(offsetData) + 1);
+				--times;
+			}
+		}
+		else if (whatSize == withWhatSize)
+		{
+			while (times > 0)
+			{
+				found = strstr(found, what);
+				if (found == NULL)
+				{
+					break;
+				}
+				memcpy(found, withWhat, withWhatSize * sizeof(char));
+				found += withWhatSize;
+				--times;
+			}
 		}
 	}
 
 	void String::replace(const char* what, const char withWhat, int times)
 	{
-		int whatLength = (int)strlen(what);
-		if (whatLength == 0)
-		{
-			Log::warn(logTag, "Cannot replace empty string in string: " + *this);
-			return;
-		}
-		size_t position = 0;
-		while (true)
-		{
-			position = stdstr::find(what, position);
-			if (position == std::string::npos)
-			{
-				break;
-			}
-			stdstr::replace(position, whatLength, times, withWhat);
-			position += times;
-		}
+		char* data = new char[times + 1];
+		data[times] = '\0';
+		memset(data, withWhat, times);
+		this->replace(what, data);
+		delete[] data;
 	}
 
 	void String::replace(const char what, const String& withWhat)
@@ -433,17 +529,55 @@ namespace hltypes
 
 	void String::replace(int position, int count, const String& string)
 	{
-		stdstr::replace(position, count, string.cStr());
+		this->replace(position, count, string.data);
 	}
 
 	void String::replace(int position, int count, const char* string)
 	{
-		stdstr::replace(position, count, string);
+		if (count <= 0)
+		{
+			Log::warn(logTag, "Cannot replace empty string in string: " + *this);
+			return;
+		}
+		int size = strlen(this->data);
+		if (position >= size)
+		{
+			Log::warnf(logTag, "Cannot replace substring at %d, it's out of bounds: %s", position, this->data);
+			return;
+		}
+		count = hmin(count, size - position);
+		int withWhatSize = (int)strlen(string);
+		char* found = this->data + position;
+		if (count < withWhatSize)
+		{
+			int maxSizeAdded = withWhatSize - count;
+			if (this->_tryIncreaseCapacity(this->capacity + maxSizeAdded + 1))
+			{
+				char* oldData = found + count;
+				memmove(found + withWhatSize, oldData, strlen(oldData) + 1);
+				memcpy(found, string, withWhatSize * sizeof(char));
+				this->data[size + maxSizeAdded] = '\0';
+			}
+		}
+		else if (count > withWhatSize)
+		{
+			char* offsetData = found + count;
+			memcpy(found, string, withWhatSize * sizeof(char));
+			memmove(found + withWhatSize, offsetData, strlen(offsetData) + 1);
+		}
+		else if (count == withWhatSize)
+		{
+			memcpy(found, string, withWhatSize * sizeof(char));
+		}
 	}
 
 	void String::replace(int position, int count, const char character, int times)
 	{
-		stdstr::replace(position, count, times, character);
+		char* data = new char[times + 1];
+		data[times] = '\0';
+		memset(data, character, times);
+		this->replace(position, count, data);
+		delete[] data;
 	}
 
 	String String::replaced(const String& what, const String& withWhat) const
@@ -530,17 +664,38 @@ namespace hltypes
 
 	void String::insertAt(int position, const String& string)
 	{
-		stdstr::insert(position, string.cStr()).c_str();
+		this->insertAt(position, string.data);
 	}
 
 	void String::insertAt(int position, const char* string)
 	{
-		stdstr::insert(position, string).c_str();
+		int size = strlen(this->data);
+		if (position >= size)
+		{
+			Log::warnf(logTag, "Cannot replace substring at %d, it's out of bounds: %s", position, this->data);
+			return;
+		}
+		int withWhatSize = (int)strlen(string);
+		if (withWhatSize <= 0)
+		{
+			return;
+		}
+		if (this->_tryIncreaseCapacity(this->capacity + withWhatSize + 1))
+		{
+			char* found = this->data + position;
+			memmove(found + withWhatSize, found, strlen(found) + 1);
+			memcpy(found, string, withWhatSize * sizeof(char));
+			this->data[size + withWhatSize] = '\0';
+		}
 	}
 
 	void String::insertAt(int position, const char character, int times)
 	{
-		stdstr::insert(position, times, character);
+		char* data = new char[times + 1];
+		data[times] = '\0';
+		memset(data, character, times);
+		this->insertAt(position, data);
+		delete[] data;
 	}
 
 	String String::insertedAt(int position, const String& string) const
@@ -566,14 +721,24 @@ namespace hltypes
 
 	void String::randomize()
 	{
-		std::random_shuffle(stdstr::begin(), stdstr::end());
+		int size = strlen(this->data);
+		char* characters = new char[size];
+		Array<int> indices = Array<char>('\0', size).indices();
+		indices.randomize();
+		int indicesSize = indices.size();
+		for_iter (i, 0, indicesSize)
+		{
+			characters[i] = indices[i];
+		}
+		memcpy(this->data, characters, size * sizeof(char));
+		delete[] characters;
 	}
 
 	void String::utf8Randomize()
 	{
-		std::basic_string<unsigned int> ustr = this->uStr();
-		std::random_shuffle(ustr.begin(), ustr.end());
-		this->operator=(fromUnicode(ustr.c_str()));
+		std::ustring characters = this->uStr();
+		std::random_shuffle(characters.begin(), characters.end());
+		this->operator=(String::fromUnicode(characters.c_str()));
 	}
 
 	String String::randomized() const
@@ -592,7 +757,7 @@ namespace hltypes
 
 	Array<char> String::split() const
 	{
-		return Array<char>(stdstr::c_str(), (int)stdstr::size());
+		return Array<char>(this->data, (int)strlen(this->data));
 	}
 	
 	Array<String> String::split(const char* delimiter, unsigned int n, bool removeEmpty) const
@@ -773,14 +938,17 @@ namespace hltypes
 	int String::count(const char* string) const
 	{
 		int result = 0;
-		String thisString = stdstr::c_str();
-		for_iter (i, 0, this->size())
+		char* pointer = this->data;
+		int stringSize = (int)strlen(string);
+		while (true)
 		{
-			if (thisString(i, -1).startsWith(string))
+			pointer = strstr(pointer, string);
+			if (pointer == NULL)
 			{
-				++result;
-				i += strlen(string) - 1;
+				break;
 			}
+			pointer += stringSize;
+			++result;
 		}
 		return result;
 	}
@@ -792,7 +960,7 @@ namespace hltypes
 
 	bool String::startsWith(const char* string) const
 	{
-		return (strncmp(stdstr::c_str(), string, strlen(string)) == 0);
+		return (strncmp(this->data, string, strlen(string)) == 0);
 	}
 
 	bool String::startsWith(const String& string) const
@@ -802,14 +970,13 @@ namespace hltypes
 
 	bool String::endsWith(const char* string) const
 	{
-		const char* cString = stdstr::c_str();
-		int thisLength = this->size();
+		int thisLength = (int)strlen(this->data);
 		int stringLength = (int)strlen(string);
 		if (stringLength > thisLength)
 		{
 			return false;
 		}
-		return (strcmp(cString + thisLength - stringLength, string) == 0);
+		return (strcmp(this->data + thisLength - stringLength, string) == 0);
 	}
 
 	bool String::endsWith(const String& string) const
@@ -825,7 +992,7 @@ namespace hltypes
 
 	bool String::contains(const char* string) const
 	{
-		return (stdstr::find(string) != stdstr::npos);
+		return (strstr(this->data, string) != NULL);
 	}
 
 	bool String::contains(const String& string) const
@@ -838,7 +1005,7 @@ namespace hltypes
 		int size = (int)strlen(string);
 		for_iter (i, 0, size)
 		{
-			if (stdstr::find(string[i]) != stdstr::npos)
+			if (strchr(this->data, string[i]) != NULL)
 			{
 				return true;
 			}
@@ -856,7 +1023,7 @@ namespace hltypes
 		int size = (int)strlen(string);
 		for_iter (i, 0, size)
 		{
-			if (stdstr::find(string[i]) != stdstr::npos)
+			if (strchr(this->data, string[i]) == NULL)
 			{
 				return false;
 			}
@@ -962,7 +1129,18 @@ namespace hltypes
 
 	String String::subString(int start, int count) const
 	{
-		return stdstr::substr(start, count).c_str();
+		if (count <= 0)
+		{
+			Log::warn(logTag, "Cannot create empty substring from string: " + *this);
+			return "";
+		}
+		int size = strlen(this->data);
+		if (start >= size)
+		{
+			Log::warnf(logTag, "Cannot create substring at %d, it's out of bounds: %s", start, this->data);
+			return "";
+		}
+		return String(this->data + start, hmin(count, size - start));
 	}
 
 	String String::utf8SubString(int start, int count) const
@@ -1087,7 +1265,7 @@ namespace hltypes
 		{
 			count = strlen(this->data) + count + 1;
 		}
-		return stdstr::substr(start, count).c_str();
+		return this->subString(start, count);
 	}
 	
 	String String::operator()(int start, int count, int step) const
@@ -1098,7 +1276,7 @@ namespace hltypes
 		}
 		if (step == 1)
 		{
-			return stdstr::substr(start, count).c_str();
+			return this->subString(start, count);
 		}
 		String result;
 		for_iter_step (i, start, start + count, step)
@@ -1133,7 +1311,7 @@ namespace hltypes
 	String::operator unsigned short() const
 	{
 		unsigned short s = 0;
-		sscanf(this->data), "%hu", &s);
+		sscanf(this->data, "%hu", &s);
 		return s;
 	}
 
@@ -1188,182 +1366,185 @@ namespace hltypes
 	{
 		char string[64] = { '\0' };
 		sprintf(string, "%hd", s);
-		stdstr::operator=(string);
-		return *this;
+		return this->operator=((const char*)string);
 	}
 
 	String String::operator=(const unsigned short s)
 	{
 		char string[64] = { '\0' };
 		sprintf(string, "%hu", s);
-		stdstr::operator=(string);
-		return *this;
+		return this->operator=((const char*)string);
 	}
 
 	String String::operator=(const int i)
 	{
 		char string[64] = { '\0' };
 		sprintf(string, "%d", i);
-		stdstr::operator=(string);
-		return *this;
+		return this->operator=((const char*)string);
 	}
 
 	String String::operator=(const unsigned int i)
 	{
 		char string[64] = { '\0' };
 		sprintf(string, "%u", i);
-		stdstr::operator=(string);
-		return *this;
+		return this->operator=((const char*)string);
 	}
 
 	String String::operator=(const int64_t i)
 	{
 		char string[64] = { '\0' };
 		sprintf(string, "%lld", i);
-		stdstr::operator=(string);
-		return *this;
+		return this->operator=((const char*)string);
 	}
 
 	String String::operator=(const uint64_t i)
 	{
 		char string[64] = { '\0' };
 		sprintf(string, "%llu", i);
-		stdstr::operator=(string);
-		return *this;
+		return this->operator=((const char*)string);
 	}
 
 	String String::operator=(const float f)
 	{
 		char string[64] = { '\0' };
 		sprintf(string, "%f", f);
-		stdstr::operator=(string);
-		return *this;
+		return this->operator=((const char*)string);
 	}
 	
 	String String::operator=(const double d)
 	{
 		char string[64] = { '\0' };
 		sprintf(string, "%lf", d);
-		stdstr::operator=(string);
-		return *this;
+		return this->operator=((const char*)string);
 	}
 	
 	String String::operator=(const bool b)
 	{
-		stdstr::operator=(b ? "true" : "false");
-		return *this;
+		return this->operator=(b ? "true" : "false");
 	}
 
 	String String::operator=(const char* string)
 	{
-		stdstr::operator=(string);
+		int size = (int)strlen(string);
+		if (this->_tryIncreaseCapacity(size + 1))
+		{
+			memcpy(this->data, string, size + 1);
+		}
 		return *this;
 	}
 
 	String String::operator=(char* string)
 	{
-		stdstr::operator=(string);
-		return *this;
+		return this->operator=((const char*)string);
 	}
 
 	String String::operator=(const String& string)
 	{
-		stdstr::operator=(string.cStr());
+		int size = (int)strlen(string.data);
+		if (this->_tryIncreaseCapacity(size + 1))
+		{
+			memcpy(this->data, string.data, size + 1);
+		}
 		return *this;
 	}
 
 	void String::operator+=(const short s)
 	{
-		stdstr::append(String(s));
+		this->operator+=(String(s));
 	}
 
 	void String::operator+=(const unsigned short s)
 	{
-		stdstr::append(String(s));
+		this->operator+=(String(s));
 	}
 
 	void String::operator+=(const int i)
 	{
-		stdstr::append(String(i));
+		this->operator+=(String(i));
 	}
 
 	void String::operator+=(const unsigned int i)
 	{
-		stdstr::append(String(i));
+		this->operator+=(String(i));
 	}
 
 	void String::operator+=(const int64_t i)
 	{
-		stdstr::append(String(i));
+		this->operator+=(String(i));
 	}
 
 	void String::operator+=(const uint64_t i)
 	{
-		stdstr::append(String(i));
+		this->operator+=(String(i));
 	}
 
 	void String::operator+=(const float f)
 	{
 		String s = f;
-		stdstr::append(s);
+		this->operator+=(s);
 	}
 
 	void String::operator+=(const double d)
 	{
 		String s = d;
-		stdstr::append(s);
+		this->operator+=(s);
 	}
 
 	void String::operator+=(const bool b)
 	{
-		stdstr::append(String(b));
+		this->operator+=(String(b));
 	}
 
 	void String::operator+=(const char c)
 	{
-		stdstr::append(1, c);
+		this->operator+=(String(c, 1));
 	}
 
 	void String::operator+=(char* string)
 	{
-		stdstr::append(string);
+		this->operator+=(String(string));
 	}
 	
 	void String::operator+=(const char* string)
 	{
-		stdstr::append(string);
+		this->operator+=(String(string));
 	}
 
 	void String::operator+=(const String& string)
 	{
-		stdstr::append(string.cStr());
+		int size = (int)strlen(this->data);
+		int addedSize = (int)strlen(string.data);
+		if (this->_tryIncreaseCapacity(this->capacity + addedSize + 1))
+		{
+			memcpy(this->data + size, string.data, addedSize + 1);
+		}
 	}
 
 	String String::operator+(const char c) const
 	{
 		String result(*this);
-		result.append(1, c);
+		result += String(c, 1);
 		return result;
 	}
 
 	String String::operator+(char* string) const
 	{
 		String result(*this);
-		result.append(string);
+		result += string;
 		return result;
 	}
 
 	String String::operator+(const char* string) const
 	{
 		String result(*this);
-		result.append(string);
+		result += string;
 		return result;
 	}
 
 	String String::operator+(const String& string) const
 	{
 		String result(*this);
-		result.append(string);
+		result += string;
 		return result;
 	}
 
@@ -1505,19 +1686,9 @@ namespace hltypes
 		return this->data;
 	}
 
-	std::basic_string<unsigned int> String::uStr() const
+	std::ustring String::uStr() const
 	{
-		std::basic_string<unsigned int> result;
-#ifdef __APPLE__ // bugfix for apple llvm compiler, has allocation problems in std::string with unsigned int combination
-		if (stdstr::size() == 0)
-		{
-			unsigned int ary[] = {'x', 0};
-			result = ary;
-			ary[0] = 0;
-			result = ary;
-			return result;
-		}
-#endif
+		Array<unsigned int> result;
 		unsigned int code = 0;
 		const unsigned char* string = (const unsigned char*)this->data;
 		int i = 0;
@@ -1528,22 +1699,12 @@ namespace hltypes
 			result += code;
 			i += size;
 		}
-		return result;
+		return std::ustring(&result[0], result.size());
 	}
 
-	std::basic_string<wchar_t> String::wStr() const
+	std::wstring String::wStr() const
 	{
-		std::basic_string<wchar_t> result;
-#ifdef __APPLE__ // bugfix for apple llvm compiler, has allocation problems in std::string with unsigned int combination
-		if (stdstr::size() == 0)
-		{
-			wchar_t ary[] = {'x', 0};
-			result = ary;
-			ary[0] = 0;
-			result = ary;
-			return result;
-		}
-#endif
+		Array<wchar_t> result;
 		unsigned int code = 0;
 		const unsigned char* string = (const unsigned char*)this->data;
 		int i = 0;
@@ -1562,10 +1723,10 @@ namespace hltypes
 				checked = true;
 			}
 #endif
-			result += code;
+			result += (wchar_t)code;
 			i += size;
 		}
-		return result;
+		return std::wstring(&result[0], result.size());
 	}
 
 	unsigned int String::firstUnicodeChar(int index, int* byteCount) const
