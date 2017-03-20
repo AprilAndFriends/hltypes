@@ -8,7 +8,6 @@
 
 #include <algorithm>
 #include <cstring>
-#include <locale>
 #include <math.h>
 #include <stdarg.h>
 #include <stdio.h>
