@@ -839,6 +839,7 @@ namespace hltypes
 			{
 				return false;
 			}
+			++i;
 		}
 		return true;
 	}
