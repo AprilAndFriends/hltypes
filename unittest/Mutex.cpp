@@ -22,25 +22,22 @@ HL_UT_TEST_CLASS(Mutex)
 
 	static void _thread1(hthread* t)
 	{
-		mutex1.lock();
+		hmutex::ScopeLock lock(&mutex1);
 		test3 = test1 + test2;
-		mutex1.unlock();
 	}
 
 	static void _thread2(hthread* t)
 	{
-		mutex2.lock();
+		hmutex::ScopeLock lock(&mutex2);
 		testResult1 = test3 + 2;
-		mutex2.unlock();
 	}
 
 	static void _thread3(hthread* t)
 	{
-		mutex3.lock();
+		hmutex::ScopeLock lock(&mutex3);
 		testResult2 = testResult2 + 1;
-		mutex3.unlock();
 	}
-
+	
 	HL_UT_TEST_FUNCTION(lockRelease)
 	{		
 		testResult1 = 0;
@@ -49,8 +46,8 @@ HL_UT_TEST_CLASS(Mutex)
 
 		t1.start();
 		t2.start();
-
-		hthread::sleep(100);
+		
+		hthread::sleep(100.0f);
 
 		t1.join();
 		t2.join();
@@ -68,6 +65,8 @@ HL_UT_TEST_CLASS(Mutex)
 			t[i] = new hthread(&_thread3);
 			t[i]->start();
 		}
+
+		hthread::sleep(100.0f);
 
 		for (int i = 0; i < 10; ++i)
 		{
