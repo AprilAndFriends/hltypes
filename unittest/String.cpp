@@ -110,11 +110,11 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(ary2[0] == "1", "split14");
 		HL_UT_ASSERT(ary2[1] == "2", "split15");
 		HL_UT_ASSERT(ary2[2] == "3,4,5,6,7,8,9", "split16");
-		HL_UT_ASSERT(ary3.size() == 3, "split13");
-		HL_UT_ASSERT(ary3[0] == "1", "split14");
-		HL_UT_ASSERT(ary3[1] == "2", "split15");
-		HL_UT_ASSERT(ary3[2] == "3,4,5,6,7,8,9", "split16");
-		HL_UT_ASSERT(s.split("3,4").size() == 2, "split17");
+		HL_UT_ASSERT(ary3.size() == 3, "split17");
+		HL_UT_ASSERT(ary3[0] == "1", "split18");
+		HL_UT_ASSERT(ary3[1] == "2", "split19");
+		HL_UT_ASSERT(ary3[2] == "3,4,5,6,7,8,9", "split20");
+		HL_UT_ASSERT(s.split("3,4").size() == 2, "split21");
 	}
 
 	HL_UT_TEST_FUNCTION(split2)
@@ -209,6 +209,7 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s(1, 5, 2) == "246", "substrOperator4");
 		HL_UT_ASSERT(s(6) == "7", "substrOperator5");
 		HL_UT_ASSERT(s[3] == '4', "substrOperator6");
+		HL_UT_ASSERT(s(4, 0) == "", "substrOperator7");
 	}
 
 	HL_UT_TEST_FUNCTION(count)
@@ -306,9 +307,34 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s4.trimmed('0') == "   123 456 789 0   ", "trim16");
 	}
 
+	HL_UT_TEST_FUNCTION(indexOf)
+	{
+		hstr s = "1,2,3,4,5";
+		HL_UT_ASSERT(s.indexOf(',') == 1, "indexOf1");
+		HL_UT_ASSERT(s.indexOf('3') == 4, "indexOf2");
+		HL_UT_ASSERT(s.indexOf(' ') == -1, "indexOf3");
+		HL_UT_ASSERT(s.indexOf("2,3") == 2, "indexOf4");
+		HL_UT_ASSERT(s.indexOf("2,3,") == 2, "indexOf5");
+		HL_UT_ASSERT(s.indexOf(",5,") == -1, "indexOf6");
+		HL_UT_ASSERT(s.indexOf("  ") == -1, "indexOf7");
+	}
+
+	HL_UT_TEST_FUNCTION(rindexOf)
+	{
+		hstr s = "1,2,3,4,5";
+		HL_UT_ASSERT(s.rindexOf(',') == 7, "rindexOf1");
+		HL_UT_ASSERT(s.rindexOf('3') == 4, "rindexOf2");
+		HL_UT_ASSERT(s.rindexOf(' ') == -1, "rindexOf3");
+		HL_UT_ASSERT(s.rindexOf("2,3") == 2, "rindexOf4");
+		HL_UT_ASSERT(s.rindexOf("2,3,") == 2, "rindexOf5");
+		HL_UT_ASSERT(s.rindexOf(",5,") == -1, "rindexOf6");
+		HL_UT_ASSERT(s.rindexOf("  ") == -1, "rindexOf7");
+	}
+
 	HL_UT_TEST_FUNCTION(formatting)
 	{
 		hstr text = hsprintf("This is a %d %s %4.2f %s.", 15, "formatted", 3.14f, "text");
 		HL_UT_ASSERT(text == "This is a 15 formatted 3.14 text.", "hsprintf");
 	}
+
 }
