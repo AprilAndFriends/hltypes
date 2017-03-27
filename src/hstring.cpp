@@ -111,18 +111,18 @@
 
 // MacOS 10.9 SDK has problems linking to tolower/toupper for some reason, so this is used... sigh..
 #ifdef __APPLE__
-	inline int __tolower__(int c)
+	inline int __tolower(int c)
 	{
 		return tolower(c);
 	}
 
-	inline int __toupper__(int c)
+	inline int __toupper(int c)
 	{
 		return toupper(c);
 	}
 #else
-	#define __tolower__ tolower
-	#define __toupper__ toupper
+	#define __tolower tolower
+	#define __toupper toupper
 #endif
 
 #define MIN_STRING_CAPACITY 16
@@ -299,7 +299,7 @@ namespace hltypes
 		int size = (int)characters.size();
 		for_iter (i, 0, size)
 		{
-			__tolower__(characters[i]);
+			characters[i] = __tolower(characters[i]);
 		}
 		return String::fromUnicode(characters.c_str());
 	}
@@ -310,19 +310,19 @@ namespace hltypes
 		int size = (int)characters.size();
 		for_iter (i, 0, size)
 		{
-			__toupper__(characters[i]);
+			characters[i] = __toupper(characters[i]);
 		}
 		return String::fromUnicode(characters.c_str());
 	}
 
 	String String::reversed() const
 	{
-		int size = strlen(this->data);
+		int size = (int)strlen(this->data);
 		char* characters = new char[size + 1];
 		characters[size] = '\0';
 		for_iter (i, 0, size)
 		{
-			characters[i] = this->data[size - i];
+			characters[i] = this->data[size - 1 - i];
 		}
 		String result(characters);
 		delete[] characters;
@@ -787,10 +787,10 @@ namespace hltypes
 	{
 		return this->split(delimiter.data, n, removeEmpty);
 	}
-	
+
 	bool String::split(const char* delimiter, String& outLeft, String& outRight) const
 	{
-		int index = (int)stdstr::find(delimiter);
+		int index = this->indexOf(delimiter);
 		if (index < 0)
 		{
 			return false;
@@ -855,7 +855,7 @@ namespace hltypes
 
 	bool String::rsplit(const char* delimiter, String& outLeft, String& outRight) const
 	{
-		int index = (int)stdstr::rfind(delimiter);
+		int index = this->rindexOf(delimiter);
 		if (index < 0)
 		{
 			return false;
@@ -867,8 +867,14 @@ namespace hltypes
 
 	bool String::rsplit(const char delimiter, String& outLeft, String& outRight) const
 	{
-		const char string[2] = { delimiter, '\0' };
-		return this->rsplit(string, outLeft, outRight);
+		int index = this->rindexOf(delimiter);
+		if (index < 0)
+		{
+			return false;
+		}
+		outLeft = String(this->data, index);
+		outRight = String(this->data + (index + 1));
+		return true;
 	}
 
 	bool String::rsplit(const String& delimiter, String& outLeft, String& outRight) const
@@ -878,52 +884,126 @@ namespace hltypes
 
 	int String::indexOf(const char c, int index) const
 	{
-		return (int)stdstr::find(c, index);
+		if (index < this->size())
+		{
+			const char* found = strchr(&this->data[index], c);
+			if (found != NULL)
+			{
+				return (found - this->data);
+			}
+		}
+		return -1;
 	}
 
 	int String::indexOf(const char* string, int index) const
 	{
-		return (int)stdstr::find(string, index);
+		if (index < this->size())
+		{
+			const char* found = strstr(&this->data[index], string);
+			if (found != NULL)
+			{
+				return (found - this->data);
+			}
+		}
+		return -1;
 	}
 
 	int String::indexOf(const String& string, int index) const
 	{
-		return (int)stdstr::find(string, index);
+		return this->indexOf(string.data, index);
 	}
 
 	int String::rindexOf(const char c, int index) const
 	{
-		return (int)stdstr::rfind(c, index);
+		if (index < this->size())
+		{
+			const char* found = strrchr(&this->data[index], c);
+			if (found != NULL)
+			{
+				return (found - this->data);
+			}
+		}
+		return -1;
 	}
 
 	int String::rindexOf(const char* string, int index) const
 	{
-		return (int)stdstr::rfind(string, index);
+		int result = this->indexOf(string[0], index);
+		if (result >= 0)
+		{
+			result -= index;
+			int size = this->size() + 1 - index;
+			char* data = new char[size];
+			memcpy(data, &this->data[index], size);
+			int stringSize = strlen(string);
+			const char* found = NULL;
+			while (true)
+			{
+				if (memcmp(&data[result], string, stringSize) == 0)
+				{
+					break;
+				}
+				data[result] = '\0';
+				found = strrchr(data, string[0]);
+				if (found == NULL)
+				{
+					result = -1;
+					break;
+				}
+				result = (found - data);
+			}
+			delete[] data;
+			if (result >= 0)
+			{
+				result += index;
+			}
+		}
+		return result;
 	}
 
 	int String::rindexOf(const String& string, int index) const
 	{
-		return (int)stdstr::rfind(string, index);
+		return this->rindexOf(string.data, index);
 	}
 
 	int String::indexOfAny(const char* string, int index) const
 	{
-		return (int)stdstr::find_first_of(string, index);
+		int size = (int)strlen(string);
+		int result = -1;
+		for_iter (i, 0, size)
+		{
+			result = this->indexOf(string[i], index);
+			if (result >= 0)
+			{
+				return result;
+			}
+		}
+		return -1;
 	}
 
 	int String::indexOfAny(const String& string, int index) const
 	{
-		return (int)stdstr::find_first_of(string.data, index);
+		return this->indexOfAny(string.data, index);
 	}
 
 	int String::rindexOfAny(const char* string, int index) const
 	{
-		return (int)stdstr::find_last_of(string, index);
+		int size = (int)strlen(string);
+		int result = -1;
+		for_iter (i, 0, size)
+		{
+			result = this->rindexOf(string[i], index);
+			if (result >= 0)
+			{
+				return result;
+			}
+		}
+		return -1;
 	}
 
 	int String::rindexOfAny(const String& string, int index) const
 	{
-		return (int)stdstr::find_last_of(string.data, index);
+		return this->rindexOfAny(string.data, index);
 	}
 
 	int String::count(const char c) const
@@ -1699,7 +1779,8 @@ namespace hltypes
 			result += code;
 			i += size;
 		}
-		return std::ustring(&result[0], result.size());
+		size = (int)result.size();
+		return (size > 0 ? std::ustring(&result[0], size) : std::ustring());
 	}
 
 	std::wstring String::wStr() const
@@ -1726,7 +1807,8 @@ namespace hltypes
 			result += (wchar_t)code;
 			i += size;
 		}
-		return std::wstring(&result[0], result.size());
+		size = (int)result.size();
+		return (size > 0 ? std::wstring(&result[0], size) : std::wstring());
 	}
 
 	unsigned int String::firstUnicodeChar(int index, int* byteCount) const
