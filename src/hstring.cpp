@@ -26,6 +26,8 @@
 #import <TargetConditionals.h>
 #endif
 
+#define STRING_BUFFER_SIZE 64
+
 // some platforms don't have this defined in this way
 #ifndef va_copy
 	#ifdef __va_copy
@@ -129,6 +131,8 @@
 
 namespace hltypes
 {
+	static char _string[STRING_BUFFER_SIZE] = { '\0' };
+
 	String::String() : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
@@ -138,8 +142,7 @@ namespace hltypes
 	String::String(const char c) : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		this->data[0] = c;
-		this->data[1] = '\0';
+		this->set(c);
 	}
 
 	String::String(const char c, const int times) : capacity(MIN_STRING_CAPACITY)
@@ -149,8 +152,7 @@ namespace hltypes
 			this->capacity = times + 1;
 		}
 		this->data = (char*)malloc((int)this->capacity);
-		memset(this->data, c, times);
-		this->data[times] = '\0';
+		this->set(c, times);
 	}
 
 	String::String(const char* string) : capacity(MIN_STRING_CAPACITY)
@@ -161,13 +163,13 @@ namespace hltypes
 			this->capacity = size + 1;
 		}
 		this->data = (char*)malloc((int)this->capacity);
-		memcpy(this->data, string, size + 1);
+		this->set(string);
 	}
 
 	String::String(const String& string) : capacity(string.capacity)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		memcpy(this->data, string.data, (int)this->capacity);
+		this->set(string);
 	}
 
 	String::String(const char* string, const int length) : capacity(MIN_STRING_CAPACITY)
@@ -177,8 +179,7 @@ namespace hltypes
 			this->capacity = length + 1;
 		}
 		this->data = (char*)malloc((int)this->capacity);
-		memcpy(this->data, string, length);
-		this->data[length] = '\0';
+		this->set(string, length);
 	}
 
 	String::String(const String& string, const int length) : capacity(MIN_STRING_CAPACITY)
@@ -188,91 +189,90 @@ namespace hltypes
 			this->capacity = length + 1;
 		}
 		this->data = (char*)malloc((int)this->capacity);
-		memcpy(this->data, string.data, length);
-		this->data[length] = '\0';
+		this->set(string, length);
 	}
 
 	String::String(const short s) : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		this->operator=(s);
+		this->set(s);
 	}
 
 	String::String(const unsigned short s) : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		this->operator=(s);
+		this->set(s);
 	}
 
 	String::String(const int i) : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		this->operator=(i);
+		this->set(i);
 	}
 
 	String::String(const unsigned int i) : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		this->operator=(i);
+		this->set(i);
 	}
 
 	String::String(const int64_t i) : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		this->operator=(i);
+		this->set(i);
 	}
 
 	String::String(const uint64_t i) : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		this->operator=(i);
+		this->set(i);
 	}
 
 	String::String(const float f) : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		this->operator=(f);
+		this->set(f);
 	}
 
-	String::String(const float f, int precision)
+	String::String(const float f, int precision) : capacity(precision + 2)
 	{
-		char format[16];
-		char string[64];
-		_platformSprintf(format, "%%.%df", precision);
-		_platformSprintf(string, format, f);
-		int size = (int)strlen(string);
-		if (this->capacity < size + 1)
-		{
-			this->capacity = size + 1;
-		}
 		this->data = (char*)malloc((int)this->capacity);
-		memcpy(this->data, string, size + 1);
+		this->set(f, precision);
 	}
 
 	String::String(const double d) : capacity(MIN_STRING_CAPACITY)
 	{
 		this->data = (char*)malloc((int)this->capacity);
-		this->operator=(d);
+		this->set(d);
 	}
 
-	String::String(const double d, int precision)
+	String::String(const double d, int precision) : capacity(precision + 2)
 	{
-		char format[16];
-		char string[64];
-		_platformSprintf(format, "%%.%dlf", precision);
-		_platformSprintf(string, format, d);
-		int size = (int)strlen(string);
-		if (this->capacity < size + 1)
-		{
-			this->capacity = size + 1;
-		}
 		this->data = (char*)malloc((int)this->capacity);
-		memcpy(this->data, string, size + 1);
+		this->set(d, precision);
 	}
 
 	String::~String()
 	{
 		free(this->data);
+	}
+
+	void String::set(const char c)
+	{
+		if (this->_tryIncreaseCapacity(2))
+		{
+			this->data[0] = c;
+			this->data[1] = '\0';
+		}
+	}
+
+	void String::set(const char c, const int times)
+	{
+		if (this->_tryIncreaseCapacity(times + 1))
+		{
+			memset(this->data, c, times);
+			this->data[times] = '\0';
+		}
 	}
 
 	void String::set(const char* string)
@@ -286,11 +286,122 @@ namespace hltypes
 
 	void String::set(const char* string, const int length)
 	{
-		if (this->_tryIncreaseCapacity(length + 1))
+		int size = hmin((int)strlen(string), length);
+		if (this->_tryIncreaseCapacity(size + 1))
 		{
-			memcpy(this->data, string, length);
-			this->data[length] = '\0';
+			memcpy(this->data, string, size);
+			this->data[size] = '\0';
 		}
+	}
+
+	void String::set(char* string)
+	{
+		this->set((const char*)string);
+	}
+
+	void String::set(char* string, const int length)
+	{
+		this->set((const char*)string, length);
+	}
+
+	void String::set(const String& string)
+	{
+		int size = (int)strlen(string.data);
+		if (this->_tryIncreaseCapacity(size + 1))
+		{
+			memcpy(this->data, string.data, size + 1);
+		}
+	}
+
+	void String::set(const String& string, const int length)
+	{
+		int size = hmin((int)strlen(string.data), length);
+		if (this->_tryIncreaseCapacity(size + 1))
+		{
+			memcpy(this->data, string.data, size);
+			this->data[size] = '\0';
+		}
+	}
+
+	void String::set(const short s)
+	{
+		memset(_string, 0, STRING_BUFFER_SIZE);
+		_platformSprintf(_string, "%hd", s);
+		return this->set((const char*)_string);
+	}
+
+	void String::set(const unsigned short s)
+	{
+		memset(_string, 0, STRING_BUFFER_SIZE);
+		_platformSprintf(_string, "%hu", s);
+		return this->set((const char*)_string);
+	}
+
+	void String::set(const int i)
+	{
+		memset(_string, 0, STRING_BUFFER_SIZE);
+		_platformSprintf(_string, "%d", i);
+		return this->set((const char*)_string);
+	}
+
+	void String::set(const unsigned int i)
+	{
+		memset(_string, 0, STRING_BUFFER_SIZE);
+		_platformSprintf(_string, "%u", i);
+		return this->set((const char*)_string);
+	}
+
+	void String::set(const int64_t i)
+	{
+		memset(_string, 0, STRING_BUFFER_SIZE);
+		_platformSprintf(_string, "%lld", i);
+		return this->set((const char*)_string);
+	}
+
+	void String::set(const uint64_t i)
+	{
+		memset(_string, 0, STRING_BUFFER_SIZE);
+		_platformSprintf(_string, "%llu", i);
+		return this->set((const char*)_string);
+	}
+
+	void String::set(const float f)
+	{
+		memset(_string, 0, STRING_BUFFER_SIZE);
+		_platformSprintf(_string, "%f", f);
+		return this->set((const char*)_string);
+	}
+
+	void String::set(const float f, int precision)
+	{
+		char format[16];
+		memset(_string, 0, STRING_BUFFER_SIZE);
+		_platformSprintf(format, "%%.%df", precision);
+		_platformSprintf(_string, format, f);
+		this->set((const char*)_string);
+	}
+
+	void String::set(const double d)
+	{
+		char string[64] = { '\0' };
+		_platformSprintf(_string, "%lf", d);
+		return this->set((const char*)_string);
+	}
+
+	void String::set(const double d, int precision)
+	{
+		char format[16];
+		memset(_string, 0, STRING_BUFFER_SIZE);
+		_platformSprintf(format, "%%.%dlf", precision);
+		_platformSprintf(_string, format, d);
+		this->set((const char*)_string);
+	}
+
+
+
+	void String::set(const bool b)
+	{
+		return this->set(b ? "true" : "false");
 	}
 
 	String String::lowered() const
@@ -1444,87 +1555,73 @@ namespace hltypes
 	
 	String String::operator=(const short s)
 	{
-		char string[64] = { '\0' };
-		sprintf(string, "%hd", s);
-		return this->operator=((const char*)string);
+		this->set(s);
+		return *this;
 	}
 
 	String String::operator=(const unsigned short s)
 	{
-		char string[64] = { '\0' };
-		sprintf(string, "%hu", s);
-		return this->operator=((const char*)string);
+		this->set(s);
+		return *this;
 	}
 
 	String String::operator=(const int i)
 	{
-		char string[64] = { '\0' };
-		sprintf(string, "%d", i);
-		return this->operator=((const char*)string);
+		this->set(i);
+		return *this;
 	}
 
 	String String::operator=(const unsigned int i)
 	{
-		char string[64] = { '\0' };
-		sprintf(string, "%u", i);
-		return this->operator=((const char*)string);
+		this->set(i);
+		return *this;
 	}
 
 	String String::operator=(const int64_t i)
 	{
-		char string[64] = { '\0' };
-		sprintf(string, "%lld", i);
-		return this->operator=((const char*)string);
+		this->set(i);
+		return *this;
 	}
 
 	String String::operator=(const uint64_t i)
 	{
-		char string[64] = { '\0' };
-		sprintf(string, "%llu", i);
-		return this->operator=((const char*)string);
+		this->set(i);
+		return *this;
 	}
 
 	String String::operator=(const float f)
 	{
-		char string[64] = { '\0' };
-		sprintf(string, "%f", f);
-		return this->operator=((const char*)string);
+		this->set(f);
+		return *this;
 	}
 	
 	String String::operator=(const double d)
 	{
-		char string[64] = { '\0' };
-		sprintf(string, "%lf", d);
-		return this->operator=((const char*)string);
+		this->set(d);
+		return *this;
 	}
 	
 	String String::operator=(const bool b)
 	{
-		return this->operator=(b ? "true" : "false");
+		this->set(b ? "true" : "false");
+		return *this;
 	}
 
 	String String::operator=(const char* string)
 	{
-		int size = (int)strlen(string);
-		if (this->_tryIncreaseCapacity(size + 1))
-		{
-			memcpy(this->data, string, size + 1);
-		}
+		this->set(string);
 		return *this;
 	}
 
 	String String::operator=(char* string)
 	{
-		return this->operator=((const char*)string);
+		this->set((const char*)string);
+		return *this;
 	}
 
 	String String::operator=(const String& string)
 	{
-		int size = (int)strlen(string.data);
-		if (this->_tryIncreaseCapacity(size + 1))
-		{
-			memcpy(this->data, string.data, size + 1);
-		}
+		this->set(string);
 		return *this;
 	}
 
@@ -1560,14 +1657,12 @@ namespace hltypes
 
 	void String::operator+=(const float f)
 	{
-		String s = f;
-		this->operator+=(s);
+		this->operator+=(String(f));
 	}
 
 	void String::operator+=(const double d)
 	{
-		String s = d;
-		this->operator+=(s);
+		this->operator+=(String(d));
 	}
 
 	void String::operator+=(const bool b)

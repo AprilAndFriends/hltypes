@@ -92,13 +92,69 @@ namespace hltypes
 		/// @brief Destructor.
 		hltypesMemberExport ~String();
 
-		/// @brief Sets the string to a new value.
-		/// @param[in] string A C-type string.
+		/// @brief Sets a character as C-type string.
+		/// @param[in] c A character.
+		hltypesMemberExport void set(const char c);
+		/// @brief Sets a character as C-type string.
+		/// @param[in] c A character.
+		/// @param[in] times How many times c should be added.
+		hltypesMemberExport void set(const char c, const int times);
+		/// @brief Sets String as C-type string.
+		/// @param[in] string C-type string value.
+		hltypesMemberExport void set(char* string);
+		/// @brief Sets String as C-type string.
+		/// @param[in] string C-type string value.
+		/// @param[in] length How many characters to copy.
+		hltypesMemberExport void set(char* string, const int length);
+		/// @brief Sets String as C-type string.
+		/// @param[in] string C-type string value.
 		hltypesMemberExport void set(const char* string);
-		/// @brief Sets the string to a new value.
-		/// @param[in] string A C-type string.
+		/// @brief Sets String as C-type string.
+		/// @param[in] string C-type string value.
 		/// @param[in] length How many characters to copy.
 		hltypesMemberExport void set(const char* string, const int length);
+		/// @brief Sets String as other String.
+		/// @param[in] string String value.
+		hltypesMemberExport void set(const String& string);
+		/// @brief Sets String as other String.
+		/// @param[in] string String value.
+		/// @param[in] length How many characters to copy.
+		hltypesMemberExport void set(const String& string, const int length);
+		/// @brief Sets String as short.
+		/// @param[in] s Short value.
+		hltypesMemberExport void set(const short s);
+		/// @brief Sets String as unsigned short.
+		/// @param[in] s Unsigned short value.
+		hltypesMemberExport void set(const unsigned short s);
+		/// @brief Sets String as int.
+		/// @param[in] i Int value.
+		hltypesMemberExport void set(const int i);
+		/// @brief Sets String as unsigned int.
+		/// @param[in] i Unsigned int value.
+		hltypesMemberExport void set(const unsigned int i);
+		/// @brief Sets String as 64-bit int.
+		/// @param[in] i 64-bit int value.
+		hltypesMemberExport void set(const int64_t i);
+		/// @brief Sets String as unsigned 64-bit int.
+		/// @param[in] i Unsigned 64-bit int value.
+		hltypesMemberExport void set(const uint64_t i);
+		/// @brief Sets String as float.
+		/// @param[in] f Float value.
+		hltypesMemberExport void set(const float f);
+		/// @brief Sets String as float.
+		/// @param[in] f Float to create String of.
+		/// @param[in] precision The floating point precision to use.
+		hltypesMemberExport void set(const float f, int precision);
+		/// @brief Sets String as double.
+		/// @param[in] d Double value.
+		hltypesMemberExport void set(const double d);
+		/// @brief Sets String as double.
+		/// @param[in] d Double to create String of.
+		/// @param[in] precision The floating point precision to use.
+		hltypesMemberExport void set(const double d, int precision);
+		/// @brief Sets String as bool.
+		/// @param[in] b Bool value.
+		hltypesMemberExport void set(const bool b);
 
 		/// @brief Transforms String into lower case.
 		/// @return String in lower case.
