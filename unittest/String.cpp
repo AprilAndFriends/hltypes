@@ -227,11 +227,20 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s.count('5') == 0, "count4");
 	}
 
-	HL_UT_TEST_FUNCTION(caps)
+	HL_UT_TEST_FUNCTION(lowered)
 	{
-		hstr s = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
-		HL_UT_ASSERT(s.lowered() == "this t3xt w4s written in variant cap5", "caps1");
-		HL_UT_ASSERT(s.uppered() == "THIS T3XT W4S WRITTEN IN VARIANT CAP5", "caps2");
+		hstr s1 = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
+		HL_UT_ASSERT(s1.lowered() == "this t3xt w4s written in variant cap5", "lowered1");
+		hstr s2 = "";
+		HL_UT_ASSERT(s2.lowered() == "", "lowered2");
+	}
+
+	HL_UT_TEST_FUNCTION(uppered)
+	{
+		hstr s1 = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
+		HL_UT_ASSERT(s1.uppered() == "THIS T3XT W4S WRITTEN IN VARIANT CAP5", "uppered1");
+		hstr s2 = "";
+		HL_UT_ASSERT(s2.uppered() == "", "uppered2");
 	}
 
 	HL_UT_TEST_FUNCTION(reverse)
