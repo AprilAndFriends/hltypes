@@ -1322,13 +1322,11 @@ namespace hltypes
 	{
 		if (count <= 0)
 		{
-			Log::warn(logTag, "Cannot create empty substring from string: " + *this);
 			return "";
 		}
 		int size = strlen(this->data);
 		if (start >= size)
 		{
-			Log::warnf(logTag, "Cannot create substring at %d, it's out of bounds: %s", start, this->data);
 			return "";
 		}
 		return String(this->data + start, hmin(count, size - start));
