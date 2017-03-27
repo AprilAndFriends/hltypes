@@ -327,35 +327,35 @@ namespace hltypes
 	{
 		memset(_string, 0, STRING_BUFFER_SIZE);
 		_platformSprintf(_string, "%hd", s);
-		return this->set((const char*)_string);
+		this->set((const char*)_string);
 	}
 
 	void String::set(const unsigned short s)
 	{
 		memset(_string, 0, STRING_BUFFER_SIZE);
 		_platformSprintf(_string, "%hu", s);
-		return this->set((const char*)_string);
+		this->set((const char*)_string);
 	}
 
 	void String::set(const int i)
 	{
 		memset(_string, 0, STRING_BUFFER_SIZE);
 		_platformSprintf(_string, "%d", i);
-		return this->set((const char*)_string);
+		this->set((const char*)_string);
 	}
 
 	void String::set(const unsigned int i)
 	{
 		memset(_string, 0, STRING_BUFFER_SIZE);
 		_platformSprintf(_string, "%u", i);
-		return this->set((const char*)_string);
+		this->set((const char*)_string);
 	}
 
 	void String::set(const int64_t i)
 	{
 		memset(_string, 0, STRING_BUFFER_SIZE);
 		_platformSprintf(_string, "%lld", i);
-		return this->set((const char*)_string);
+		this->set((const char*)_string);
 	}
 
 	void String::set(const uint64_t i)
@@ -369,7 +369,7 @@ namespace hltypes
 	{
 		memset(_string, 0, STRING_BUFFER_SIZE);
 		_platformSprintf(_string, "%f", f);
-		return this->set((const char*)_string);
+		this->set((const char*)_string);
 	}
 
 	void String::set(const float f, int precision)
@@ -383,9 +383,9 @@ namespace hltypes
 
 	void String::set(const double d)
 	{
-		char string[64] = { '\0' };
+		memset(_string, 0, STRING_BUFFER_SIZE);
 		_platformSprintf(_string, "%lf", d);
-		return this->set((const char*)_string);
+		this->set((const char*)_string);
 	}
 
 	void String::set(const double d, int precision)
@@ -397,11 +397,9 @@ namespace hltypes
 		this->set((const char*)_string);
 	}
 
-
-
 	void String::set(const bool b)
 	{
-		return this->set(b ? "true" : "false");
+		this->set(b ? "true" : "false");
 	}
 
 	String String::lowered() const
@@ -464,12 +462,12 @@ namespace hltypes
 
 	String String::trimmedRight(const char c) const
 	{
-		int length = strlen(this->data);
-		if (length == 0)
+		int size = (int)strlen(this->data);
+		if (size == 0)
 		{
 			return "";
 		}
-		int i = length - 1;
+		int i = size - 1;
 		while (i >= 0 && this->data[i] == c)
 		{
 			--i;
@@ -548,11 +546,11 @@ namespace hltypes
 			Log::warn(logTag, "Cannot replace empty string in string: " + *this);
 			return;
 		}
-		int size = strlen(this->data);
 		int withWhatSize = (int)strlen(withWhat);
 		char* found = this->data;
 		char* offsetData = NULL;
 		int initialTimes = times;
+		int size = (int)strlen(this->data);
 		if (whatSize < withWhatSize)
 		{
 			int maxSizeAdded = times * (withWhatSize - whatSize);
@@ -647,7 +645,7 @@ namespace hltypes
 			Log::warn(logTag, "Cannot replace empty string in string: " + *this);
 			return;
 		}
-		int size = strlen(this->data);
+		int size = (int)strlen(this->data);
 		if (position >= size)
 		{
 			Log::warnf(logTag, "Cannot replace substring at %d, it's out of bounds: %s", position, this->data);
@@ -777,7 +775,7 @@ namespace hltypes
 
 	void String::insertAt(int position, const char* string)
 	{
-		int size = strlen(this->data);
+		int size = (int)strlen(this->data);
 		if (position >= size)
 		{
 			Log::warnf(logTag, "Cannot replace substring at %d, it's out of bounds: %s", position, this->data);
@@ -829,14 +827,14 @@ namespace hltypes
 
 	void String::randomize()
 	{
-		int size = strlen(this->data);
+		int size = (int)strlen(this->data);
 		char* characters = new char[size];
 		Array<int> indices = Array<char>('\0', size).indices();
 		indices.randomize();
 		int indicesSize = indices.size();
 		for_iter (i, 0, indicesSize)
 		{
-			characters[i] = indices[i];
+			characters[i] = this->data[indices[i]];
 		}
 		memcpy(this->data, characters, size * sizeof(char));
 		delete[] characters;
@@ -846,7 +844,7 @@ namespace hltypes
 	{
 		std::ustring characters = this->uStr();
 		std::random_shuffle(characters.begin(), characters.end());
-		this->operator=(String::fromUnicode(characters.c_str()));
+		this->set(String::fromUnicode(characters.c_str()));
 	}
 
 	String String::randomized() const
@@ -1079,9 +1077,9 @@ namespace hltypes
 
 	int String::indexOfAny(const char* string, int index) const
 	{
-		int size = (int)strlen(string);
+		int stringSize = (int)strlen(string);
 		int result = -1;
-		for_iter (i, 0, size)
+		for_iter (i, 0, stringSize)
 		{
 			result = this->indexOf(string[i], index);
 			if (result >= 0)
@@ -1099,9 +1097,9 @@ namespace hltypes
 
 	int String::rindexOfAny(const char* string, int index) const
 	{
-		int size = (int)strlen(string);
+		int stringSize = (int)strlen(string);
 		int result = -1;
-		for_iter (i, 0, size)
+		for_iter (i, 0, stringSize)
 		{
 			result = this->rindexOf(string[i], index);
 			if (result >= 0)
@@ -1158,13 +1156,13 @@ namespace hltypes
 
 	bool String::endsWith(const char* string) const
 	{
-		int thisLength = (int)strlen(this->data);
-		int stringLength = (int)strlen(string);
-		if (stringLength > thisLength)
+		int size = (int)strlen(this->data);
+		int stringSize = (int)strlen(string);
+		if (stringSize > size)
 		{
 			return false;
 		}
-		return (strcmp(this->data + thisLength - stringLength, string) == 0);
+		return (strcmp(this->data + size - stringSize, string) == 0);
 	}
 
 	bool String::endsWith(const String& string) const
@@ -1174,8 +1172,7 @@ namespace hltypes
 
 	bool String::contains(const char c) const
 	{
-		const char string[2] = { c, '\0' };
-		return this->contains(string);
+		return (strchr(this->data, c) != NULL);
 	}
 
 	bool String::contains(const char* string) const
@@ -1190,8 +1187,8 @@ namespace hltypes
 
 	bool String::containsAny(const char* string) const
 	{
-		int size = (int)strlen(string);
-		for_iter (i, 0, size)
+		int stringSize = (int)strlen(string);
+		for_iter (i, 0, stringSize)
 		{
 			if (strchr(this->data, string[i]) != NULL)
 			{
@@ -1208,8 +1205,8 @@ namespace hltypes
 
 	bool String::containsAll(const char* string) const
 	{
-		int size = (int)strlen(string);
-		for_iter (i, 0, size)
+		int stringSize = (int)strlen(string);
+		for_iter (i, 0, stringSize)
 		{
 			if (strchr(this->data, string[i]) == NULL)
 			{
@@ -1226,7 +1223,7 @@ namespace hltypes
 
 	bool String::isDigit() const
 	{
-		return (this->size() == 1 && isdigit(this->data[0]));
+		return ((int)strlen(this->data) == 1 && isdigit(this->data[0]));
 	}
 	
 	bool String::isInt() const
@@ -1320,12 +1317,8 @@ namespace hltypes
 
 	String String::subString(int start, int count) const
 	{
-		if (count <= 0)
-		{
-			return "";
-		}
-		int size = strlen(this->data);
-		if (start >= size)
+		int size = (int)strlen(this->data);
+		if (count <= 0 || start >= size)
 		{
 			return "";
 		}
@@ -1396,7 +1389,7 @@ namespace hltypes
 	
 	int String::size() const
 	{
-		return strlen(this->data);
+		return (int)strlen(this->data);
 	}
 	
 	int String::utf8Size() const
@@ -1452,7 +1445,7 @@ namespace hltypes
 	{
 		if (count < 0)
 		{
-			count = strlen(this->data) + count + 1;
+			count = (int)strlen(this->data) + count + 1;
 		}
 		return this->subString(start, count);
 	}
@@ -1461,7 +1454,7 @@ namespace hltypes
 	{
 		if (count < 0)
 		{
-			count = strlen(this->data) + count + 1;
+			count = (int)strlen(this->data) + count + 1;
 		}
 		if (step == 1)
 		{
