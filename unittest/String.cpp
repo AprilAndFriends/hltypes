@@ -46,22 +46,6 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(b == false, "boolean6");
 	}
 
-	HL_UT_TEST_FUNCTION(stdstrCompatibility)
-	{
-		//todo - fix this in base code
-
-		/*std::string str1, str2 = "text2";
-		hstr hs1 = "text1", hs2, hs3("text1");
-		str1 = hs1;
-		hs2 = str2;
-		HL_UT_ASSERT(hs1 == str1, "compatibility1");
-		HL_UT_ASSERT(hs1 == "text1", "compatibility2");
-		HL_UT_ASSERT(hs2 == str2, "compatibility3");
-		HL_UT_ASSERT(hs2 == "text2", "compatibility4");
-		HL_UT_ASSERT(hs1 != hs2, "compatibility5");
-		HL_UT_ASSERT(hs1 == hs3, "compatibility6");*/
-	}
-
 	HL_UT_TEST_FUNCTION(cstrCompatibility)
 	{
 		hstr s1, s2;
@@ -102,9 +86,13 @@ HL_UT_TEST_CLASS(String)
 
 	HL_UT_TEST_FUNCTION(split1)
 	{
-		hstr s = "1,2,3,4,5,6,7,8,9", s2 = "test", splitter = "!";
+		hstr s = "1,2,3,4,5,6,7,8,9";
+		hstr s2 = "test";
+		hstr delimiter1 = "!";
+		hstr delimiter2 = '!';
 		harray<hstr> ary1 = s.split(",");
 		harray<hstr> ary2 = s.split(",", 2);
+		harray<hstr> ary3 = s.split(',', 2);
 		HL_UT_ASSERT(ary1.size() == 9, "split1");
 		HL_UT_ASSERT(ary1[0] == "1", "split2");
 		HL_UT_ASSERT(ary1[1] == "2", "split3");
@@ -116,11 +104,16 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(ary1[7] == "8", "split9");
 		HL_UT_ASSERT(ary1[8] == "9", "split10");
 		HL_UT_ASSERT(s2.split(',')[0] == "test", "split11");
-		HL_UT_ASSERT(s2.split(splitter).size() == 1, "split12");
+		HL_UT_ASSERT(s2.split(delimiter1).size() == 1, "split12");
+		HL_UT_ASSERT(s2.split(delimiter2).size() == 1, "split12");
 		HL_UT_ASSERT(ary2.size() == 3, "split13");
 		HL_UT_ASSERT(ary2[0] == "1", "split14");
 		HL_UT_ASSERT(ary2[1] == "2", "split15");
 		HL_UT_ASSERT(ary2[2] == "3,4,5,6,7,8,9", "split16");
+		HL_UT_ASSERT(ary3.size() == 3, "split13");
+		HL_UT_ASSERT(ary3[0] == "1", "split14");
+		HL_UT_ASSERT(ary3[1] == "2", "split15");
+		HL_UT_ASSERT(ary3[2] == "3,4,5,6,7,8,9", "split16");
 		HL_UT_ASSERT(s.split("3,4").size() == 2, "split17");
 	}
 

@@ -1,5 +1,7 @@
 import os
+import shutil
 import sys
+import time
 
 VERSION = "1.0"
 
@@ -58,6 +60,11 @@ def process():
 	sourcePath = "../../unittest"
 	if len(sys.argv) > 2:
 		sourcePath = sys.argv[2]
+	generatedPath = os.path.join(sourcePath, GENERATED_PATH)
+	if os.path.exists(generatedPath):
+		shutil.rmtree(generatedPath)
+		time.sleep(1)
+	os.mkdir(generatedPath)
 	
 	files = []
 	print ("Seaching for files in %s" % sourcePath)
@@ -107,7 +114,7 @@ def process():
 				data += GENERATED_RUN_TEST_METHOD_TEMPLATE % (testClass, function)
 			data += GENERATED_RUN_CLASS_END
 			print ("  Saving %s" % filename)
-			_writeFile(os.path.join(os.path.join(sourcePath, GENERATED_PATH), "_" + filename), data)
+			_writeFile(os.path.join(generatedPath, "_" + filename), data)
 	print ("")
 		
 def help():
