@@ -371,7 +371,7 @@ namespace hltypes
 	void String::add(const char c)
 	{
 		int size = (int)strlen(this->data);
-		if (this->_tryIncreaseCapacity(size + 1))
+		if (this->_tryIncreaseCapacity(size + 2))
 		{
 			this->data[size] = c;
 			this->data[size + 1] = '\0';
@@ -381,7 +381,7 @@ namespace hltypes
 	void String::add(const char c, const int times)
 	{
 		int size = (int)strlen(this->data);
-		if (this->_tryIncreaseCapacity(size + times))
+		if (this->_tryIncreaseCapacity(size + times + 1))
 		{
 			memset(this->data + size, c, times);
 			this->data[size + times] = '\0';
@@ -1714,7 +1714,7 @@ namespace hltypes
 
 	String String::operator=(const String& string)
 	{
-		this->set(string);
+		this->set(string.data);
 		return *this;
 	}
 
@@ -1770,7 +1770,7 @@ namespace hltypes
 
 	void String::operator+=(char* string)
 	{
-		this->add(string);
+		this->add((const char*)string);
 	}
 	
 	void String::operator+=(const char* string)
@@ -1780,7 +1780,7 @@ namespace hltypes
 
 	void String::operator+=(const String& string)
 	{
-		this->add(string);
+		this->add(string.data);
 	}
 
 	String String::operator+(const char c) const
