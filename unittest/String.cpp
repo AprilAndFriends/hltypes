@@ -15,7 +15,6 @@ HL_UT_TEST_CLASS(String)
 		hstr floatString("5.75");
 		float f = floatString;
 		floatString = 6.75f;
-
 		HL_UT_ASSERT(f == 5.75f, "floatingPoint1");
 		HL_UT_ASSERT(floatString == 6.75f, "floatingPoint2");
 	}
@@ -46,25 +45,10 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(b == false, "boolean6");
 	}
 
-	HL_UT_TEST_FUNCTION(stdstrCompatibility)
-	{
-		//todo - fix this in base code
-
-		/*std::string str1, str2 = "text2";
-		hstr hs1 = "text1", hs2, hs3("text1");
-		str1 = hs1;
-		hs2 = str2;
-		HL_UT_ASSERT(hs1 == str1, "compatibility1");
-		HL_UT_ASSERT(hs1 == "text1", "compatibility2");
-		HL_UT_ASSERT(hs2 == str2, "compatibility3");
-		HL_UT_ASSERT(hs2 == "text2", "compatibility4");
-		HL_UT_ASSERT(hs1 != hs2, "compatibility5");
-		HL_UT_ASSERT(hs1 == hs3, "compatibility6");*/
-	}
-
 	HL_UT_TEST_FUNCTION(cstrCompatibility)
 	{
-		hstr s1, s2;
+		hstr s1;
+		hstr s2;
 		char cstr[64] = "text2";
 		s1 = "text1";
 		s2 = cstr;
@@ -75,7 +59,10 @@ HL_UT_TEST_CLASS(String)
 
 	HL_UT_TEST_FUNCTION(replace)
 	{
-		hstr s1 = "1 2 3 4 5 6 7 8 9", s2 = "101101010100011010", s3 = "test", s4 = "0";
+		hstr s1 = "1 2 3 4 5 6 7 8 9";
+		hstr s2 = "101101010100011010";
+		hstr s3 = "test";
+		hstr s4 = "0";
 		s1.replace(" ", "");		
 		HL_UT_ASSERT(s1 == "123456789", "replace1");
 		s2.replace(s4, "");
@@ -102,9 +89,13 @@ HL_UT_TEST_CLASS(String)
 
 	HL_UT_TEST_FUNCTION(split1)
 	{
-		hstr s = "1,2,3,4,5,6,7,8,9", s2 = "test", splitter = "!";
+		hstr s = "1,2,3,4,5,6,7,8,9";
+		hstr s2 = "test";
+		hstr delimiter1 = "!";
+		hstr delimiter2 = '!';
 		harray<hstr> ary1 = s.split(",");
 		harray<hstr> ary2 = s.split(",", 2);
+		harray<hstr> ary3 = s.split(',', 2);
 		HL_UT_ASSERT(ary1.size() == 9, "split1");
 		HL_UT_ASSERT(ary1[0] == "1", "split2");
 		HL_UT_ASSERT(ary1[1] == "2", "split3");
@@ -116,12 +107,17 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(ary1[7] == "8", "split9");
 		HL_UT_ASSERT(ary1[8] == "9", "split10");
 		HL_UT_ASSERT(s2.split(',')[0] == "test", "split11");
-		HL_UT_ASSERT(s2.split(splitter).size() == 1, "split12");
+		HL_UT_ASSERT(s2.split(delimiter1).size() == 1, "split12");
+		HL_UT_ASSERT(s2.split(delimiter2).size() == 1, "split12");
 		HL_UT_ASSERT(ary2.size() == 3, "split13");
 		HL_UT_ASSERT(ary2[0] == "1", "split14");
 		HL_UT_ASSERT(ary2[1] == "2", "split15");
 		HL_UT_ASSERT(ary2[2] == "3,4,5,6,7,8,9", "split16");
-		HL_UT_ASSERT(s.split("3,4").size() == 2, "split17");
+		HL_UT_ASSERT(ary3.size() == 3, "split17");
+		HL_UT_ASSERT(ary3[0] == "1", "split18");
+		HL_UT_ASSERT(ary3[1] == "2", "split19");
+		HL_UT_ASSERT(ary3[2] == "3,4,5,6,7,8,9", "split20");
+		HL_UT_ASSERT(s.split("3,4").size() == 2, "split21");
 	}
 
 	HL_UT_TEST_FUNCTION(split2)
@@ -158,7 +154,6 @@ HL_UT_TEST_CLASS(String)
 	{
 		hstr s = "1,2,3,4,5,6,7,8,9";
 		harray<hstr> ary1 = s.rsplit(",");
-
 		HL_UT_ASSERT(ary1.size() == 9, "rsplit1");
 		HL_UT_ASSERT(ary1[0] == "1", "rsplit2");
 		HL_UT_ASSERT(ary1[1] == "2", "rsplit3");
@@ -174,7 +169,8 @@ HL_UT_TEST_CLASS(String)
 	HL_UT_TEST_FUNCTION(rsplit2)
 	{
 		hstr s = "1,2,3,4,5,6,7,8,9";
-		hstr s2 = "test", splitter = "!";
+		hstr s2 = "test";
+		hstr splitter = "!";
 		harray<hstr> ary1 = s.rsplit(",", 2);
 		harray<hstr> ary2 = s2.rsplit(',');
 		HL_UT_ASSERT(ary2[0] == "test", "rsplit1");
@@ -216,6 +212,7 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s(1, 5, 2) == "246", "substrOperator4");
 		HL_UT_ASSERT(s(6) == "7", "substrOperator5");
 		HL_UT_ASSERT(s[3] == '4', "substrOperator6");
+		HL_UT_ASSERT(s(4, 0) == "", "substrOperator7");
 	}
 
 	HL_UT_TEST_FUNCTION(count)
@@ -227,11 +224,20 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s.count('5') == 0, "count4");
 	}
 
-	HL_UT_TEST_FUNCTION(caps)
+	HL_UT_TEST_FUNCTION(lowered)
 	{
-		hstr s = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
-		HL_UT_ASSERT(s.lowered() == "this t3xt w4s written in variant cap5", "caps1");
-		HL_UT_ASSERT(s.uppered() == "THIS T3XT W4S WRITTEN IN VARIANT CAP5", "caps2");
+		hstr s1 = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
+		HL_UT_ASSERT(s1.lowered() == "this t3xt w4s written in variant cap5", "lowered1");
+		hstr s2 = "";
+		HL_UT_ASSERT(s2.lowered() == "", "lowered2");
+	}
+
+	HL_UT_TEST_FUNCTION(uppered)
+	{
+		hstr s1 = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
+		HL_UT_ASSERT(s1.uppered() == "THIS T3XT W4S WRITTEN IN VARIANT CAP5", "uppered1");
+		hstr s2 = "";
+		HL_UT_ASSERT(s2.uppered() == "", "uppered2");
 	}
 
 	HL_UT_TEST_FUNCTION(reverse)
@@ -304,9 +310,34 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s4.trimmed('0') == "   123 456 789 0   ", "trim16");
 	}
 
+	HL_UT_TEST_FUNCTION(indexOf)
+	{
+		hstr s = "1,2,3,4,5";
+		HL_UT_ASSERT(s.indexOf(',') == 1, "indexOf1");
+		HL_UT_ASSERT(s.indexOf('3') == 4, "indexOf2");
+		HL_UT_ASSERT(s.indexOf(' ') == -1, "indexOf3");
+		HL_UT_ASSERT(s.indexOf("2,3") == 2, "indexOf4");
+		HL_UT_ASSERT(s.indexOf("2,3,") == 2, "indexOf5");
+		HL_UT_ASSERT(s.indexOf(",5,") == -1, "indexOf6");
+		HL_UT_ASSERT(s.indexOf("  ") == -1, "indexOf7");
+	}
+
+	HL_UT_TEST_FUNCTION(rindexOf)
+	{
+		hstr s = "1,2,3,4,5";
+		HL_UT_ASSERT(s.rindexOf(',') == 7, "rindexOf1");
+		HL_UT_ASSERT(s.rindexOf('3') == 4, "rindexOf2");
+		HL_UT_ASSERT(s.rindexOf(' ') == -1, "rindexOf3");
+		HL_UT_ASSERT(s.rindexOf("2,3") == 2, "rindexOf4");
+		HL_UT_ASSERT(s.rindexOf("2,3,") == 2, "rindexOf5");
+		HL_UT_ASSERT(s.rindexOf(",5,") == -1, "rindexOf6");
+		HL_UT_ASSERT(s.rindexOf("  ") == -1, "rindexOf7");
+	}
+
 	HL_UT_TEST_FUNCTION(formatting)
 	{
 		hstr text = hsprintf("This is a %d %s %4.2f %s.", 15, "formatted", 3.14f, "text");
 		HL_UT_ASSERT(text == "This is a 15 formatted 3.14 text.", "hsprintf");
 	}
+
 }

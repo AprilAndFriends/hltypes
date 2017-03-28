@@ -20,57 +20,61 @@ HL_UT_TEST_CLASS(Mutex)
 	hmutex mutex2;
 	hmutex mutex3;
 
-	static void thread1(hthread* t)
+	static void _thread1(hthread* t)
 	{
-		mutex1.lock();
+		hmutex::ScopeLock lock(&mutex1);
 		test3 = test1 + test2;
-		mutex1.unlock();
 	}
-	static void thread2(hthread* t)
+
+	static void _thread2(hthread* t)
 	{
-		mutex2.lock();
+		hmutex::ScopeLock lock(&mutex2);
 		testResult1 = test3 + 2;
-		mutex2.unlock();
 	}
-	static void thread3(hthread* t)
+
+	static void _thread3(hthread* t)
 	{
-		mutex3.lock();
+		hmutex::ScopeLock lock(&mutex3);
 		testResult2 = testResult2 + 1;
-		mutex3.unlock();
-	}	
+	}
+	
 	HL_UT_TEST_FUNCTION(lockRelease)
 	{		
 		testResult1 = 0;
-		hthread t1(&thread1);
-		hthread t2(&thread2);
+		hthread t1(&_thread1);
+		hthread t2(&_thread2);
 
 		t1.start();
 		t2.start();
-
-		hthread::sleep(100);
+		
+		hthread::sleep(100.0f);
 
 		t1.join();
 		t2.join();
 
 		HL_UT_ASSERT(testResult1 == 5, "");
 	}
+
 	HL_UT_TEST_FUNCTION(massLockRelease)
 	{
 		testResult2 = 0;
 
 		hthread* t[10];
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 10; ++i)
 		{
-			t[i] = new hthread(&thread3);
+			t[i] = new hthread(&_thread3);
 			t[i]->start();
 		}
 
-		for (int i = 0; i < 10; i++)
+		hthread::sleep(100.0f);
+
+		for (int i = 0; i < 10; ++i)
 		{
 			t[i]->join();
 			delete t[i];
 		}
 
-		HL_UT_ASSERT(testResult2 == 10, "");
+		HL_UT_ASSERT(testResult2 == 10, hstr(testResult2).cStr());
 	}
+
 }
