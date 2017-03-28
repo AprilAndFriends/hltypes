@@ -15,7 +15,6 @@ HL_UT_TEST_CLASS(String)
 		hstr floatString("5.75");
 		float f = floatString;
 		floatString = 6.75f;
-
 		HL_UT_ASSERT(f == 5.75f, "floatingPoint1");
 		HL_UT_ASSERT(floatString == 6.75f, "floatingPoint2");
 	}
@@ -48,7 +47,8 @@ HL_UT_TEST_CLASS(String)
 
 	HL_UT_TEST_FUNCTION(cstrCompatibility)
 	{
-		hstr s1, s2;
+		hstr s1;
+		hstr s2;
 		char cstr[64] = "text2";
 		s1 = "text1";
 		s2 = cstr;
@@ -57,10 +57,59 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s2 == "text2", "cstrCompatibility3");
 	}
 
+	HL_UT_TEST_FUNCTION(lowered)
+	{
+		hstr s1 = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
+		HL_UT_ASSERT(s1.lowered() == "this t3xt w4s written in variant cap5", "lowered1");
+		hstr s2 = "";
+		HL_UT_ASSERT(s2.lowered() == "", "lowered2");
+	}
+
+	HL_UT_TEST_FUNCTION(uppered)
+	{
+		hstr s1 = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
+		HL_UT_ASSERT(s1.uppered() == "THIS T3XT W4S WRITTEN IN VARIANT CAP5", "uppered1");
+		hstr s2 = "";
+		HL_UT_ASSERT(s2.uppered() == "", "uppered2");
+	}
+
+	HL_UT_TEST_FUNCTION(reverse)
+	{
+		hstr s = "this text will be reversed";
+		HL_UT_ASSERT(s.reversed() == "desrever eb lliw txet siht", "reverse");
+	}
+
+	HL_UT_TEST_FUNCTION(trim)
+	{
+		hstr s1 = "123 456 789 0";
+		HL_UT_ASSERT(s1.trimmedRight() == "123 456 789 0", "trim1");
+		HL_UT_ASSERT(s1.trimmedLeft() == "123 456 789 0", "trim2");
+		HL_UT_ASSERT(s1.trimmed() == "123 456 789 0", "trim3");
+		HL_UT_ASSERT(s1.trimmed('0') == "123 456 789 ", "trim4");
+		hstr s2 = "   123 456 789 0";
+		HL_UT_ASSERT(s2.trimmedRight() == "   123 456 789 0", "trim5");
+		HL_UT_ASSERT(s2.trimmedLeft() == "123 456 789 0", "trim6");
+		HL_UT_ASSERT(s2.trimmed() == "123 456 789 0", "trim7");
+		HL_UT_ASSERT(s2.trimmed('0') == "   123 456 789 ", "trim8");
+		hstr s3 = "123 456 789 0   ";
+		HL_UT_ASSERT(s3.trimmedRight() == "123 456 789 0", "trim9");
+		HL_UT_ASSERT(s3.trimmedLeft() == "123 456 789 0   ", "trim10");
+		HL_UT_ASSERT(s3.trimmed() == "123 456 789 0", "trim11");
+		HL_UT_ASSERT(s3.trimmed('0') == "123 456 789 0   ", "trim12");
+		hstr s4 = "   123 456 789 0   ";
+		HL_UT_ASSERT(s4.trimmedRight() == "   123 456 789 0", "trim13");
+		HL_UT_ASSERT(s4.trimmedLeft() == "123 456 789 0   ", "trim14");
+		HL_UT_ASSERT(s4.trimmed() == "123 456 789 0", "trim15");
+		HL_UT_ASSERT(s4.trimmed('0') == "   123 456 789 0   ", "trim16");
+	}
+
 	HL_UT_TEST_FUNCTION(replace)
 	{
-		hstr s1 = "1 2 3 4 5 6 7 8 9", s2 = "101101010100011010", s3 = "test", s4 = "0";
-		s1.replace(" ", "");		
+		hstr s1 = "1 2 3 4 5 6 7 8 9";
+		hstr s2 = "101101010100011010";
+		hstr s3 = "test";
+		hstr s4 = "0";
+		s1.replace(" ", "");
 		HL_UT_ASSERT(s1 == "123456789", "replace1");
 		s2.replace(s4, "");
 		HL_UT_ASSERT(s2 == "111111111", "replace2");
@@ -70,18 +119,22 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s3 == "this is a test", "replace4");
 	}
 
-	HL_UT_TEST_FUNCTION(startsWith)
+	HL_UT_TEST_FUNCTION(insertAt)
 	{
-		hstr s1 = "this is a test";
-		HL_UT_ASSERT(s1.startsWith("this"), "startsWith1");
-		HL_UT_ASSERT(!s1.startsWith("something"), "startsWith2");
-	}
-
-	HL_UT_TEST_FUNCTION(endsWith)
-	{
-		hstr s1 = "this is a test";
-		HL_UT_ASSERT(s1.endsWith("test"), "endsWith1");
-		HL_UT_ASSERT(!s1.endsWith("something"), "endsWith2");
+		hstr s1 = "123456789";
+		hstr s2 = "111222";
+		hstr s3 = "test";
+		hstr s4 = "0";
+		s1.insertAt(1, "");		
+		HL_UT_ASSERT(s1 == "123456789", "insertAt1");
+		s2.insertAt(2, '3');
+		HL_UT_ASSERT(s2 == "1131222", "insertAt2");
+		s3.insertAt(0, "ba");
+		HL_UT_ASSERT(s3 == "batest", "insertAt3");
+		s4.insertAt(1, '3', 3);
+		HL_UT_ASSERT(s4 == "0333", "insertAt4");
+		s4.insertAt(10, "123");
+		HL_UT_ASSERT(s4 == "0333", "insertAt5");
 	}
 
 	HL_UT_TEST_FUNCTION(split1)
@@ -151,7 +204,6 @@ HL_UT_TEST_CLASS(String)
 	{
 		hstr s = "1,2,3,4,5,6,7,8,9";
 		harray<hstr> ary1 = s.rsplit(",");
-
 		HL_UT_ASSERT(ary1.size() == 9, "rsplit1");
 		HL_UT_ASSERT(ary1[0] == "1", "rsplit2");
 		HL_UT_ASSERT(ary1[1] == "2", "rsplit3");
@@ -167,7 +219,8 @@ HL_UT_TEST_CLASS(String)
 	HL_UT_TEST_FUNCTION(rsplit2)
 	{
 		hstr s = "1,2,3,4,5,6,7,8,9";
-		hstr s2 = "test", splitter = "!";
+		hstr s2 = "test";
+		hstr splitter = "!";
 		harray<hstr> ary1 = s.rsplit(",", 2);
 		harray<hstr> ary2 = s2.rsplit(',');
 		HL_UT_ASSERT(ary2[0] == "test", "rsplit1");
@@ -200,16 +253,28 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(ary[2] == "3", "rsplit12");
 	}
 
-	HL_UT_TEST_FUNCTION(substrOperator)
+	HL_UT_TEST_FUNCTION(indexOf)
 	{
-		hstr s = "1234567890";
-		HL_UT_ASSERT(s(1, 2) == "23", "substrOperator1");
-		HL_UT_ASSERT(s(6, 4) == "7890", "substrOperator2");
-		HL_UT_ASSERT(s(0, 4, 2) == "13", "substrOperator3");
-		HL_UT_ASSERT(s(1, 5, 2) == "246", "substrOperator4");
-		HL_UT_ASSERT(s(6) == "7", "substrOperator5");
-		HL_UT_ASSERT(s[3] == '4', "substrOperator6");
-		HL_UT_ASSERT(s(4, 0) == "", "substrOperator7");
+		hstr s = "1,2,3,4,5";
+		HL_UT_ASSERT(s.indexOf(',') == 1, "indexOf1");
+		HL_UT_ASSERT(s.indexOf('3') == 4, "indexOf2");
+		HL_UT_ASSERT(s.indexOf(' ') == -1, "indexOf3");
+		HL_UT_ASSERT(s.indexOf("2,3") == 2, "indexOf4");
+		HL_UT_ASSERT(s.indexOf("2,3,") == 2, "indexOf5");
+		HL_UT_ASSERT(s.indexOf(",5,") == -1, "indexOf6");
+		HL_UT_ASSERT(s.indexOf("  ") == -1, "indexOf7");
+	}
+
+	HL_UT_TEST_FUNCTION(rindexOf)
+	{
+		hstr s = "1,2,3,4,5";
+		HL_UT_ASSERT(s.rindexOf(',') == 7, "rindexOf1");
+		HL_UT_ASSERT(s.rindexOf('3') == 4, "rindexOf2");
+		HL_UT_ASSERT(s.rindexOf(' ') == -1, "rindexOf3");
+		HL_UT_ASSERT(s.rindexOf("2,3") == 2, "rindexOf4");
+		HL_UT_ASSERT(s.rindexOf("2,3,") == 2, "rindexOf5");
+		HL_UT_ASSERT(s.rindexOf(",5,") == -1, "rindexOf6");
+		HL_UT_ASSERT(s.rindexOf("  ") == -1, "rindexOf7");
 	}
 
 	HL_UT_TEST_FUNCTION(count)
@@ -221,26 +286,31 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s.count('5') == 0, "count4");
 	}
 
-	HL_UT_TEST_FUNCTION(lowered)
+	HL_UT_TEST_FUNCTION(startsWith)
 	{
-		hstr s1 = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
-		HL_UT_ASSERT(s1.lowered() == "this t3xt w4s written in variant cap5", "lowered1");
-		hstr s2 = "";
-		HL_UT_ASSERT(s2.lowered() == "", "lowered2");
+		hstr s1 = "this is a test";
+		HL_UT_ASSERT(s1.startsWith("this"), "startsWith1");
+		HL_UT_ASSERT(!s1.startsWith("something"), "startsWith2");
 	}
 
-	HL_UT_TEST_FUNCTION(uppered)
+	HL_UT_TEST_FUNCTION(endsWith)
 	{
-		hstr s1 = "thIS T3Xt w4s wRITtEn in vARiaNT cAP5";
-		HL_UT_ASSERT(s1.uppered() == "THIS T3XT W4S WRITTEN IN VARIANT CAP5", "uppered1");
-		hstr s2 = "";
-		HL_UT_ASSERT(s2.uppered() == "", "uppered2");
+		hstr s1 = "this is a test";
+		HL_UT_ASSERT(s1.endsWith("test"), "endsWith1");
+		HL_UT_ASSERT(!s1.endsWith("something"), "endsWith2");
 	}
 
-	HL_UT_TEST_FUNCTION(reverse)
+	HL_UT_TEST_FUNCTION(contains)
 	{
-		hstr s = "this text will be reversed";
-		HL_UT_ASSERT(s.reversed() == "desrever eb lliw txet siht", "reverse");
+		hstr s1 = "this is a test";
+		HL_UT_ASSERT(s1.contains("test"), "contains1");
+		HL_UT_ASSERT(!s1.contains("notest"), "contains2");
+		HL_UT_ASSERT(s1.contains('t'), "contains3");
+		HL_UT_ASSERT(!s1.contains('x'), "contains4");
+		HL_UT_ASSERT(s1.containsAny("asdfghjkl"), "contains5");
+		HL_UT_ASSERT(!s1.containsAny("dfgjkl"), "contains6");
+		HL_UT_ASSERT(s1.containsAll("tisae"), "contains7");
+		HL_UT_ASSERT(!s1.containsAll("dfgjkl"), "contains8");
 	}
 
 	HL_UT_TEST_FUNCTION(isNumeric)
@@ -283,52 +353,27 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(text6.isHex(), "isNumeric30");
 	}
 
-	HL_UT_TEST_FUNCTION(trim)
+	HL_UT_TEST_FUNCTION(substrOperator)
 	{
-		hstr s1 = "123 456 789 0";
-		HL_UT_ASSERT(s1.trimmedRight() == "123 456 789 0", "trim1");
-		HL_UT_ASSERT(s1.trimmedLeft() == "123 456 789 0", "trim2");
-		HL_UT_ASSERT(s1.trimmed() == "123 456 789 0", "trim3");
-		HL_UT_ASSERT(s1.trimmed('0') == "123 456 789 ", "trim4");
-		hstr s2 = "   123 456 789 0";
-		HL_UT_ASSERT(s2.trimmedRight() == "   123 456 789 0", "trim5");
-		HL_UT_ASSERT(s2.trimmedLeft() == "123 456 789 0", "trim6");
-		HL_UT_ASSERT(s2.trimmed() == "123 456 789 0", "trim7");
-		HL_UT_ASSERT(s2.trimmed('0') == "   123 456 789 ", "trim8");
-		hstr s3 = "123 456 789 0   ";
-		HL_UT_ASSERT(s3.trimmedRight() == "123 456 789 0", "trim9");
-		HL_UT_ASSERT(s3.trimmedLeft() == "123 456 789 0   ", "trim10");
-		HL_UT_ASSERT(s3.trimmed() == "123 456 789 0", "trim11");
-		HL_UT_ASSERT(s3.trimmed('0') == "123 456 789 0   ", "trim12");
-		hstr s4 = "   123 456 789 0   ";
-		HL_UT_ASSERT(s4.trimmedRight() == "   123 456 789 0", "trim13");
-		HL_UT_ASSERT(s4.trimmedLeft() == "123 456 789 0   ", "trim14");
-		HL_UT_ASSERT(s4.trimmed() == "123 456 789 0", "trim15");
-		HL_UT_ASSERT(s4.trimmed('0') == "   123 456 789 0   ", "trim16");
+		hstr s = "1234567890";
+		HL_UT_ASSERT(s(1, 2) == "23", "substrOperator1");
+		HL_UT_ASSERT(s(6, 4) == "7890", "substrOperator2");
+		HL_UT_ASSERT(s(0, 4, 2) == "13", "substrOperator3");
+		HL_UT_ASSERT(s(1, 5, 2) == "246", "substrOperator4");
+		HL_UT_ASSERT(s(6) == "7", "substrOperator5");
+		HL_UT_ASSERT(s[3] == '4', "substrOperator6");
+		HL_UT_ASSERT(s(4, 0) == "", "substrOperator7");
 	}
 
-	HL_UT_TEST_FUNCTION(indexOf)
+	HL_UT_TEST_FUNCTION(hex)
 	{
-		hstr s = "1,2,3,4,5";
-		HL_UT_ASSERT(s.indexOf(',') == 1, "indexOf1");
-		HL_UT_ASSERT(s.indexOf('3') == 4, "indexOf2");
-		HL_UT_ASSERT(s.indexOf(' ') == -1, "indexOf3");
-		HL_UT_ASSERT(s.indexOf("2,3") == 2, "indexOf4");
-		HL_UT_ASSERT(s.indexOf("2,3,") == 2, "indexOf5");
-		HL_UT_ASSERT(s.indexOf(",5,") == -1, "indexOf6");
-		HL_UT_ASSERT(s.indexOf("  ") == -1, "indexOf7");
-	}
-
-	HL_UT_TEST_FUNCTION(rindexOf)
-	{
-		hstr s = "1,2,3,4,5";
-		HL_UT_ASSERT(s.rindexOf(',') == 7, "rindexOf1");
-		HL_UT_ASSERT(s.rindexOf('3') == 4, "rindexOf2");
-		HL_UT_ASSERT(s.rindexOf(' ') == -1, "rindexOf3");
-		HL_UT_ASSERT(s.rindexOf("2,3") == 2, "rindexOf4");
-		HL_UT_ASSERT(s.rindexOf("2,3,") == 2, "rindexOf5");
-		HL_UT_ASSERT(s.rindexOf(",5,") == -1, "rindexOf6");
-		HL_UT_ASSERT(s.rindexOf("  ") == -1, "rindexOf7");
+		hstr s1 = "this is a test";
+		hstr s2 = "74657374";
+		HL_UT_ASSERT(!s1.isHex(), "hex1");
+		HL_UT_ASSERT(s1.toHex().isHex(), "hex2");
+		HL_UT_ASSERT(s1.toHex() == "7468697320697320612074657374", "hex3");
+		HL_UT_ASSERT(s2.isHex(), "hex4");
+		HL_UT_ASSERT(s2.unhex() == 0x74657374, "hex5");
 	}
 
 	HL_UT_TEST_FUNCTION(formatting)
