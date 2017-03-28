@@ -156,6 +156,66 @@ namespace hltypes
 		/// @param[in] b Bool value.
 		hltypesMemberExport void set(const bool b);
 
+		/// @brief Converts char into a String and concatenates the new String at the end of this one.
+		/// @param[in] c Character value.
+		hltypesMemberExport void add(const char c);
+		/// @brief Converts char into a String and concatenates the new String at the end of this one.
+		/// @param[in] c Character value.
+		/// @param[in] times How many times the characters should be added.
+		hltypesMemberExport void add(const char c, int times);
+		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
+		/// @param[in] string C-type string value.
+		hltypesMemberExport void add(char* string);
+		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
+		/// @param[in] string C-type string value.
+		/// @param[in] length Length of the C-type string.
+		hltypesMemberExport void add(char* string, int length);
+		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
+		/// @param[in] string C-type string value.
+		hltypesMemberExport void add(const char* string);
+		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
+		/// @param[in] string C-type string value.
+		/// @param[in] length Length of the C-type string.
+		hltypesMemberExport void add(const char* string, int length);
+		/// @brief Concatenates a String at the end of this one.
+		/// @param[in] string String value.
+		hltypesMemberExport void add(const String& string);
+		/// @brief Concatenates a String at the end of this one.
+		/// @param[in] string String value.
+		/// @param[in] length Length of the String.
+		hltypesMemberExport void add(const String& string, int length);
+		/// @brief Converts short into a String and concatenates the new String at the end of this one.
+		/// @param[in] s Short value.
+		hltypesMemberExport void add(const short s);
+		/// @brief Converts unsigned short into a String and concatenates the new String at the end of this one.
+		/// @param[in] s Unsigned short value.
+		hltypesMemberExport void add(const unsigned short s);
+		/// @brief Converts int into a String and concatenates the new String at the end of this one.
+		/// @param[in] i Int value.
+		hltypesMemberExport void add(const int i);
+		/// @brief Converts unsigned int into a String and concatenates the new String at the end of this one.
+		/// @param[in] i Unsigned int value.
+		hltypesMemberExport void add(const unsigned int i);
+		/// @brief Converts 64-bit int into a String and concatenates the new String at the end of this one.
+		/// @param[in] i 64-bit int value.
+		hltypesMemberExport void add(const int64_t i);
+		/// @brief Converts unsigned 64-bit int into a String and concatenates the new String at the end of this one.
+		/// @param[in] i Unsigned 64-bit int value.
+		hltypesMemberExport void add(const uint64_t i);
+		/// @brief Converts float into a String and concatenates the new String at the end of this one.
+		/// @param[in] f Float value.
+		hltypesMemberExport void add(const float f);
+		/// @brief Converts float into a String and concatenates the new String at the end of this one.
+		/// @param[in] f Float value.
+		/// @param[in] precision The floating point precision to use.
+		hltypesMemberExport void add(const float f, int precision);
+		/// @brief Converts double into a String and concatenates the new String at the end of this one.
+		/// @param[in] d Double value.
+		hltypesMemberExport void add(const double d);
+		/// @brief Converts double into a String and concatenates the new String at the end of this one.
+		/// @param[in] d Double value.
+		/// @param[in] precision The floating point precision to use.
+		hltypesMemberExport void add(const double d, int precision);
 		/// @brief Transforms String into lower case.
 		/// @return String in lower case.
 		hltypesMemberExport String lowered() const;
