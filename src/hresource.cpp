@@ -79,13 +79,16 @@ namespace hltypes
 		ResourceDir::cacheFiles.clear();
 #endif
 		Resource::mountedArchives[normalizedPath] = normalizedArchiveFilename;
-#ifdef _ZIPRESOURCE
 		if (normalizedPath == "")
 		{
+#ifdef _ZIPRESOURCE
+			Log::write(logTag, "Mounted default path. ZIP available: yes");
 			Resource::zipMounts = zip::isZipMounts();
 			return Resource::zipMounts;
-		}
+#else
+			Log::write(logTag, "Mounted default path. ZIP available: no");
 #endif
+		}
 		return true;
 	}
 
