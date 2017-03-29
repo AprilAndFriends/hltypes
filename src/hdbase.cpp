@@ -29,7 +29,7 @@ namespace hltypes
 	String DirBase::baseName(const String& path)
 	{
 		Array<String> result = DirBase::splitPath(path);
-		return (result.size() > 0 ? result.removeLast() : String());
+		return (result.size() > 0 ? result.last() : "");
 	}
 
 	String DirBase::systemize(const String& path)
