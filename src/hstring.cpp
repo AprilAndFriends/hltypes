@@ -126,16 +126,30 @@
 namespace hltypes
 {
 	// optimizations
-	inline bool _tryIncreaseCapacity(char** data, int64_t* capacity, int size)
+	inline bool _tryIncreaseCapacity(char** data, char* staticData, int64_t* capacity, int size)
 	{
-		if (size > (int)*capacity)
+		int currentCapacity = (int)(*capacity);
+		if (size > currentCapacity && size > HLTYPES_STRING_STATIC_BUFFER_SIZE)
 		{
-			int newCapacity = hmax(MIN_STRING_CAPACITY, hpotCeil(size)); // not allowing less than MIN_STRING_CAPACITY bytes
-			if ((int)*capacity != newCapacity)
+			int newCapacity = hmax(HLTYPES_STRING_STATIC_BUFFER_SIZE, hpotCeil(size)); // not allowing less than MIN_STRING_CAPACITY bytes
+			if (newCapacity > currentCapacity)// && newCapacity > HLTYPES_STRING_STATIC_BUFFER_SIZE)
 			{
-				char* newData = (char*)realloc(*data, newCapacity);
+				//*
+				char* newData = NULL;
+				if (*data == staticData)
+				{
+					newData = (char*)malloc(newCapacity);
+					memcpy(newData, staticData, HLTYPES_STRING_STATIC_BUFFER_SIZE); // copy all the data
+				}
+				else
+				{
+					newData = (char*)realloc(*data, newCapacity);
+				}
+				//*/
+				//char* newData = (char*)realloc(*data, newCapacity);
 				if (newData == NULL) // could not reallocate enough memory
 				{
+					// TODO - maybe an OutOfMemory exception should go here
 					return false;
 				}
 				*data = newData;
@@ -145,156 +159,175 @@ namespace hltypes
 		return true;
 	}
 
-	inline void _set(char** data, int64_t* capacity, const char* string)
+	inline void _set(char** data, char* staticData, int64_t* capacity, const char* string)
 	{
 		int size = (int)strlen(string);
-		if (_tryIncreaseCapacity(data, capacity, size + 1))
+		if (_tryIncreaseCapacity(data, staticData, capacity, size + 1))
 		{
 			memcpy(*data, string, size + 1);
 		}
 	}
 
-	inline void _set(char** data, int64_t* capacity, const char* string, const int length)
+	inline void _set(char** data, char* staticData, int64_t* capacity, const char* string, const int length)
 	{
 		int size = hmin((int)strlen(string), length);
-		if (_tryIncreaseCapacity(data, capacity, size + 1))
+		if (_tryIncreaseCapacity(data, staticData, capacity, size + 1))
 		{
 			memcpy(*data, string, size);
 			(*data)[size] = '\0';
 		}
 	}
 
-	inline void _add(char** data, int64_t* capacity, const char* string)
+	inline void _add(char** data, char* staticData, int64_t* capacity, const char* string)
 	{
 		int size = (int)strlen(*data);
 		int addedSize = (int)strlen(string);
-		if (_tryIncreaseCapacity(data, capacity, size + addedSize + 1))
+		if (_tryIncreaseCapacity(data, staticData, capacity, size + addedSize + 1))
 		{
 			memcpy(*data + size, string, addedSize + 1);
 		}
 	}
 
-	inline void _add(char** data, int64_t* capacity, const char* string, const int length)
+	inline void _add(char** data, char* staticData, int64_t* capacity, const char* string, const int length)
 	{
 		int size = (int)strlen(*data);
-		if (_tryIncreaseCapacity(data, capacity, size + length + 1))
+		if (_tryIncreaseCapacity(data, staticData, capacity, size + length + 1))
 		{
 			memcpy(*data + size, string, length);
 			(*data)[size + length] = '\0';
 		}
 	}
 
-	// normal methods
-	String::String() : capacity(MIN_STRING_CAPACITY)
+	inline void _decideStaticUsage(char** data, char* staticData, int64_t* capacity)
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
+		//memset(staticData, 0, HLTYPES_STRING_STATIC_BUFFER_SIZE);
+		//*data = (char*)malloc((int)(*capacity));
+		//*
+		if (*capacity > HLTYPES_STRING_STATIC_BUFFER_SIZE)
+		{
+			*data = (char*)malloc((int)*capacity);
+		}
+		else
+		{
+			*data = staticData;
+		}
+		//*/
+	}
+
+	// normal methods
+	String::String() : data(NULL), capacity(MIN_STRING_CAPACITY)// data(NULL), capacity(MIN_STRING_CAPACITY)
+	{
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->data[0] = '\0';
 	}
 
-	String::String(const char c) : capacity(MIN_STRING_CAPACITY)
+	String::String(const char c) : data(NULL), capacity(MIN_STRING_CAPACITY)// data(NULL), capacity(MIN_STRING_CAPACITY)
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(c);
 	}
 
-	String::String(const char c, const int times) : capacity(times + 1)
+	String::String(const char c, const int times) : data(NULL), capacity(times + 1)// data(NULL), capacity(hmax(MIN_STRING_CAPACITY, hpotCeil(times + 1)))
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(c, times);
 	}
 
-	String::String(const char* string) : capacity((int)strlen(string))
+	String::String(const char* string) : data(NULL), capacity((int)strlen(string))// data(NULL), capacity(hmax(MIN_STRING_CAPACITY, hpotCeil((int)strlen(string))))
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
-		this->set(string);
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
+		_set(&this->data, (char*)this->staticData, &this->capacity, string);
 	}
 
-	String::String(const String& string) : capacity(string.capacity)
+	String::String(const String& string) : data(NULL), capacity(string.capacity)// data(NULL), capacity(string.capacity)
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
-		this->set(string);
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
+		_set(&this->data, (char*)this->staticData, &this->capacity, string.data);
 	}
 
-	String::String(const char* string, const int length) : capacity(length + 1)
+	String::String(const char* string, const int length) : data(NULL), capacity(length + 1)// data(NULL), capacity(hmax(MIN_STRING_CAPACITY, hpotCeil(length + 1)))
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(string, length);
 	}
 
-	String::String(const String& string, const int length) : capacity(length + 1)
+	String::String(const String& string, const int length) : data(NULL), capacity(length + 1)// data(NULL), capacity(hmax(MIN_STRING_CAPACITY, hpotCeil(length + 1)))
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(string, length);
 	}
 
-	String::String(const short s) : capacity(MIN_STRING_CAPACITY)
+	String::String(const short s) : data(NULL), capacity(MIN_STRING_CAPACITY)// data(NULL), capacity(MIN_STRING_CAPACITY)
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(s);
 	}
 
-	String::String(const unsigned short s) : capacity(MIN_STRING_CAPACITY)
+	String::String(const unsigned short s) : data(NULL), capacity(MIN_STRING_CAPACITY)// data(NULL), capacity(MIN_STRING_CAPACITY)
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(s);
 	}
 
-	String::String(const int i) : capacity(MIN_STRING_CAPACITY)
+	String::String(const int i) : data(NULL), capacity(MIN_STRING_CAPACITY)// data(NULL), capacity(MIN_STRING_CAPACITY)
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(i);
 	}
 
-	String::String(const unsigned int i) : capacity(MIN_STRING_CAPACITY)
+	String::String(const unsigned int i) : data(NULL), capacity(MIN_STRING_CAPACITY)// data(NULL), capacity(MIN_STRING_CAPACITY)
 	{
-		this->data = (char*)malloc((int)this->capacity * sizeof(char));
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(i);
 	}
 
-	String::String(const int64_t i) : capacity(MIN_STRING_CAPACITY * 2)
+	String::String(const int64_t i) : data(NULL), capacity(MIN_STRING_CAPACITY * 2)// data(NULL), capacity(MIN_STRING_CAPACITY * 2)
 	{
-		this->data = (char*)malloc((int)this->capacity);
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(i);
 	}
 
-	String::String(const uint64_t i) : capacity(MIN_STRING_CAPACITY * 2)
+	String::String(const uint64_t i) : data(NULL), capacity(MIN_STRING_CAPACITY * 2)// data(NULL), capacity(MIN_STRING_CAPACITY * 2)
 	{
-		this->data = (char*)malloc((int)this->capacity);
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(i);
 	}
 
-	String::String(const float f) : capacity(MIN_STRING_CAPACITY)
+	String::String(const float f) : data(NULL), capacity(MIN_STRING_CAPACITY)// data(NULL), capacity(MIN_STRING_CAPACITY)
 	{
-		this->data = (char*)malloc((int)this->capacity);
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(f);
 	}
 
-	String::String(const float f, int precision) : capacity(precision + 2)
+	String::String(const float f, int precision) : data(NULL), capacity(precision + 2)// data(NULL), capacity(hmax(MIN_STRING_CAPACITY, hpotCeil(precision + 2)))
 	{
-		this->data = (char*)malloc((int)this->capacity);
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(f, precision);
 	}
 
-	String::String(const double d) : capacity(MIN_STRING_CAPACITY * 2)
+	String::String(const double d) : data(NULL), capacity(MIN_STRING_CAPACITY * 2)// data(NULL), capacity(MIN_STRING_CAPACITY * 2)
 	{
-		this->data = (char*)malloc((int)this->capacity);
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(d);
 	}
 
-	String::String(const double d, int precision) : capacity(precision + 2)
+	String::String(const double d, int precision) : data(NULL), capacity(precision + 2)// data(NULL), capacity(hmax(MIN_STRING_CAPACITY, hpotCeil(precision + 2)))
 	{
-		this->data = (char*)malloc((int)this->capacity);
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
 		this->set(d, precision);
 	}
 
 	String::~String()
 	{
-		free(this->data);
+		if (this->data != (char*)this->staticData)
+		{
+			free(this->data);
+		}
 	}
 
 	void String::set(const char c)
 	{
-		if (_tryIncreaseCapacity(&this->data, &this->capacity, 2))
+		if (_tryIncreaseCapacity(&this->data, (char*)this->staticData, &this->capacity, 2))
 		{
 			this->data[0] = c;
 			this->data[1] = '\0';
@@ -303,7 +336,7 @@ namespace hltypes
 
 	void String::set(const char c, const int times)
 	{
-		if (_tryIncreaseCapacity(&this->data, &this->capacity, times + 1))
+		if (_tryIncreaseCapacity(&this->data, (char*)this->staticData, &this->capacity, times + 1))
 		{
 			memset(this->data, c, times);
 			this->data[times] = '\0';
@@ -312,81 +345,81 @@ namespace hltypes
 
 	void String::set(char* string)
 	{
-		_set(&this->data, &this->capacity, (const char*)string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)string);
 	}
 
 	void String::set(char* string, const int length)
 	{
-		_set(&this->data, &this->capacity, (const char*)string, length);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)string, length);
 	}
 
 	void String::set(const char* string)
 	{
-		_set(&this->data, &this->capacity, string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, string);
 	}
 
 	void String::set(const char* string, const int length)
 	{
-		_set(&this->data, &this->capacity, string, length);
+		_set(&this->data, (char*)this->staticData, &this->capacity, string, length);
 	}
 
 	void String::set(const String& string)
 	{
-		_set(&this->data, &this->capacity, string.data);
+		_set(&this->data, (char*)this->staticData, &this->capacity, string.data);
 	}
 
 	void String::set(const String& string, const int length)
 	{
-		_set(&this->data, &this->capacity, string.data, length);
+		_set(&this->data, (char*)this->staticData, &this->capacity, string.data, length);
 	}
 
 	void String::set(const short s)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%hd", s);
-		_set(&this->data, &this->capacity, (const char*)_string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::set(const unsigned short s)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%hu", s);
-		_set(&this->data, &this->capacity, (const char*)_string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::set(const int i)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%d", i);
-		_set(&this->data, &this->capacity, (const char*)_string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::set(const unsigned int i)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%u", i);
-		_set(&this->data, &this->capacity, (const char*)_string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::set(const int64_t i)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%lld", i);
-		_set(&this->data, &this->capacity, (const char*)_string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::set(const uint64_t i)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%llu", i);
-		_set(&this->data, &this->capacity, (const char*)_string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::set(const float f)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%f", f);
-		_set(&this->data, &this->capacity, (const char*)_string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::set(const float f, int precision)
@@ -395,14 +428,14 @@ namespace hltypes
 		char _string[64] = { '\0' };
 		_platformSprintf(_format, "%%.%df", precision);
 		_platformSprintf(_string, _format, f);
-		_set(&this->data, &this->capacity, (const char*)_string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::set(const double d)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%lf", d);
-		_set(&this->data, &this->capacity, (const char*)_string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::set(const double d, int precision)
@@ -411,18 +444,18 @@ namespace hltypes
 		char _string[64] = { '\0' };
 		_platformSprintf(_format, "%%.%dlf", precision);
 		_platformSprintf(_string, _format, d);
-		_set(&this->data, &this->capacity, (const char*)_string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::set(const bool b)
 	{
-		_set(&this->data, &this->capacity, (b ? "true" : "false"));
+		_set(&this->data, (char*)this->staticData, &this->capacity, (b ? "true" : "false"));
 	}
 
 	void String::add(const char c)
 	{
 		int size = (int)strlen(this->data);
-		if (_tryIncreaseCapacity(&this->data, &this->capacity, size + 2))
+		if (_tryIncreaseCapacity(&this->data, (char*)this->staticData, &this->capacity, size + 2))
 		{
 			this->data[size] = c;
 			this->data[size + 1] = '\0';
@@ -432,7 +465,7 @@ namespace hltypes
 	void String::add(const char c, const int times)
 	{
 		int size = (int)strlen(this->data);
-		if (_tryIncreaseCapacity(&this->data, &this->capacity, size + times + 1))
+		if (_tryIncreaseCapacity(&this->data, (char*)this->staticData, &this->capacity, size + times + 1))
 		{
 			memset(this->data + size, c, times);
 			this->data[size + times] = '\0';
@@ -441,81 +474,81 @@ namespace hltypes
 
 	void String::add(char* string)
 	{
-		_add(&this->data, &this->capacity, (const char*)string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)string);
 	}
 
 	void String::add(char* string, const int length)
 	{
-		_add(&this->data, &this->capacity, (const char*)string, length);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)string, length);
 	}
 
 	void String::add(const char* string)
 	{
-		_add(&this->data, &this->capacity, string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, string);
 	}
 
 	void String::add(const char* string, const int length)
 	{
-		_add(&this->data, &this->capacity, string, length);
+		_add(&this->data, (char*)this->staticData, &this->capacity, string, length);
 	}
 
 	void String::add(const String& string)
 	{
-		_add(&this->data, &this->capacity, string.data);
+		_add(&this->data, (char*)this->staticData, &this->capacity, string.data);
 	}
 
 	void String::add(const String& string, const int length)
 	{
-		_add(&this->data, &this->capacity, string.data, length);
+		_add(&this->data, (char*)this->staticData, &this->capacity, string.data, length);
 	}
 
 	void String::add(const short s)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%hd", s);
-		_add(&this->data, &this->capacity, (const char*)_string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::add(const unsigned short s)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%hu", s);
-		_add(&this->data, &this->capacity, (const char*)_string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::add(const int i)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%d", i);
-		_add(&this->data, &this->capacity, (const char*)_string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::add(const unsigned int i)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%u", i);
-		_add(&this->data, &this->capacity, (const char*)_string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::add(const int64_t i)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%lld", i);
-		_add(&this->data, &this->capacity, (const char*)_string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::add(const uint64_t i)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%llu", i);
-		_add(&this->data, &this->capacity, (const char*)_string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::add(const float f)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%f", f);
-		_add(&this->data, &this->capacity, (const char*)_string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::add(const float f, int precision)
@@ -524,14 +557,14 @@ namespace hltypes
 		char _string[64] = { '\0' };
 		_platformSprintf(_format, "%%.%df", precision);
 		_platformSprintf(_string, _format, f);
-		_add(&this->data, &this->capacity, (const char*)_string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::add(const double d)
 	{
 		char _string[64] = { '\0' };
 		_platformSprintf(_string, "%lf", d);
-		_add(&this->data, &this->capacity, (const char*)_string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	void String::add(const double d, int precision)
@@ -540,7 +573,7 @@ namespace hltypes
 		char _string[64] = { '\0' };
 		_platformSprintf(_format, "%%.%dlf", precision);
 		_platformSprintf(_string, _format, d);
-		_add(&this->data, &this->capacity, (const char*)_string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
 	String String::lowered() const
@@ -695,7 +728,7 @@ namespace hltypes
 		if (whatSize < withWhatSize)
 		{
 			int maxSizeAdded = times * (withWhatSize - whatSize);
-			if (_tryIncreaseCapacity(&this->data, &this->capacity, size + maxSizeAdded + 1))
+			if (_tryIncreaseCapacity(&this->data, (char*)this->staticData, &this->capacity, size + maxSizeAdded + 1))
 			{
 				char* oldData = NULL;
 				while (times > 0)
@@ -798,7 +831,7 @@ namespace hltypes
 		if (count < withWhatSize)
 		{
 			int maxSizeAdded = withWhatSize - count;
-			if (_tryIncreaseCapacity(&this->data, &this->capacity, size + maxSizeAdded + 1))
+			if (_tryIncreaseCapacity(&this->data, (char*)this->staticData, &this->capacity, size + maxSizeAdded + 1))
 			{
 				char* oldData = found + count;
 				memmove(found + withWhatSize, oldData, strlen(oldData) + 1);
@@ -929,7 +962,7 @@ namespace hltypes
 		{
 			return;
 		}
-		if (_tryIncreaseCapacity(&this->data, &this->capacity, size + withWhatSize + 1))
+		if (_tryIncreaseCapacity(&this->data, (char*)this->staticData, &this->capacity, size + withWhatSize + 1))
 		{
 			char* found = this->data + position;
 			memmove(found + withWhatSize, found, strlen(found) + 1);
@@ -1009,35 +1042,56 @@ namespace hltypes
 		return Array<char>(this->data, (int)strlen(this->data));
 	}
 	
-	Array<String> String::split(const char* delimiter, unsigned int n, bool removeEmpty) const
+	Array<String> String::split(const char* delimiter, int times, bool removeEmpty) const
 	{
-		Array<String> out;
-		const char* s = this->data;
-		const char* p = NULL;
-		int delimiterLength = (int)strlen(delimiter);
-		while ((p = strstr(s, delimiter)) != 0 && n > 0)
+		Array<String> result;
+		int delimiterSize = strlen(delimiter);
+		const char* string = this->data;
+		const char* found = NULL;
+		if (times < 0)
 		{
-			out += String(s, (int)(p - s));
-			s = p + delimiterLength;
-			--n;
+			while (true)
+			{
+				found = strstr(string, delimiter);
+				if (found == NULL)
+				{
+					break;
+				}
+				result += String(string, (int)(found - string));
+				string = found + delimiterSize;
+			}
 		}
-		out += String(s);
+		else
+		{
+			while (times > 0)
+			{
+				found = strstr(string, delimiter);
+				if (found == NULL)
+				{
+					break;
+				}
+				result += String(string, (int)(found - string));
+				string = found + delimiterSize;
+				--times;
+			}
+		}
+		result += String(string);
 		if (removeEmpty)
 		{
-			out.removeAll("");
+			result.removeAll("");
 		}
-		return out;
+		return result;
 	}
 	
-	Array<String> String::split(const char delimiter, unsigned int n, bool removeEmpty) const
+	Array<String> String::split(const char delimiter, int times, bool removeEmpty) const
 	{
 		const char string[2] = { delimiter, '\0'};
-		return this->split(string, n, removeEmpty);
+		return this->split(string, times, removeEmpty);
 	}
 
-	Array<String> String::split(const String& delimiter, unsigned int n, bool removeEmpty) const
+	Array<String> String::split(const String& delimiter, int times, bool removeEmpty) const
 	{
-		return this->split(delimiter.data, n, removeEmpty);
+		return this->split(delimiter.data, times, removeEmpty);
 	}
 
 	bool String::split(const char* delimiter, String& outLeft, String& outRight) const
@@ -1063,46 +1117,140 @@ namespace hltypes
 		return this->split(delimiter.data, outLeft, outRight);
 	}
 
-	Array<String> String::rsplit(const char* delimiter, unsigned int n, bool removeEmpty) const
+	Array<String> String::rsplit(const char* delimiter, int times, bool removeEmpty) const
 	{
+		/*
+		if (times < 0) // if all should be split, this makes no difference
+		{
+			return this->split(delimiter, times, removeEmpty);
+		}
+		Array<String> result;
+		int delimiterSize = (int)strlen(delimiter);
+		const char* string = this->data - delimiterSize;
+		const char* found = NULL;
+		while (string > this->data && times > 0)
+		{
+			if (strncmp(string, delimiter, delimiterSize) == 0)
+			{
+				--times;
+				//string -= delimiterSize;
+				--string;
+			}
+			else
+			{
+				--string;
+			}
+		}
+		if (string < this->data)
+		{
+			string = this->data;
+		}
+		while (true)
+		{
+			found = strstr(string, delimiter);
+			if (found == NULL)
+			{
+				break;
+			}
+			result += String(string, (int)(found - string));
+			string = found + delimiterSize;
+		}
+		result += String(string);
+		if (removeEmpty)
+		{
+			result.removeAll("");
+		}
+		return result;
+		//*/
+		//*
+		if (times < 0)
+		{
+			times = INT32_MAX;
+		}
 		Array<String> out;
 		const char* s = this->data;
 		const char* p = NULL;
-		int delimiter_len = (int)strlen(delimiter);
-		for (p = s + strlen(s) - 1; p != s && n > 0; --p)
+		int delimiterLength = (int)strlen(delimiter);
+		for (p = s + strlen(s) - 1; p != s && times > 0; --p)
 		{
-			if (strncmp(p, delimiter, delimiter_len) == 0)
+			if (strncmp(p, delimiter, delimiterLength) == 0)
 			{
-				--n;
+				--times;
 			}
 		}
 		if (s != p)
 		{
+			//out.add(s, (int)(p - s + 1));
 			out += String(s, (int)(p - s + 1));
-			s = p + 1 + delimiter_len;
+			s = p + 1 + delimiterLength;
 		}
 		while ((p = strstr(s, delimiter)) != 0)
 		{
+			//out.add(s, (int)(p - s));
 			out += String(s, (int)(p - s));
-			s = p + delimiter_len;
+			s = p + delimiterLength;
 		}
+		//out.add(s);
 		out += String(s);
 		if (removeEmpty)
 		{
 			out.removeAll("");
 		}
 		return out;
+		//*/
+
+
+
+		/*
+		Array<String> out;
+		const char* s = this->data;
+		const char* p = NULL;
+		int delimiterLength = (int)strlen(delimiter);
+		if (n < 0)
+		{
+			for (p = s + strlen(s) - 1; p != s; --p)
+			{
+				strncmp(p, delimiter, delimiterLength);
+			}
+		}
+		else
+		{
+			for (p = s + strlen(s) - 1; p != s && n > 0; --p)
+			{
+				if (strncmp(p, delimiter, delimiterLength) == 0)
+				{
+					--n;
+				}
+			}
+		}
+		if (s != p)
+		{
+			out.add(s, (int)(p - s + 1));
+			s = p + 1 + delimiterLength;
+		}
+		while ((p = strstr(s, delimiter)) != 0)
+		{
+			out.add(s, (int)(p - s));
+			s = p + delimiterLength;
+		}
+		out.add(s);
+		if (removeEmpty)
+		{
+			out.removeAll("");
+		}
+		return out;
+		*/
 	}
 
-	Array<String> String::rsplit(const char delimiter, unsigned int n, bool removeEmpty) const
+	Array<String> String::rsplit(const char delimiter, int times, bool removeEmpty) const
 	{
 		const char string[2] = { delimiter, '\0' };
-		return this->rsplit(string, n, removeEmpty);
+		return this->rsplit(string, times, removeEmpty);
 	}
 
-	Array<String> String::rsplit(const String& delimiter, unsigned int n, bool removeEmpty) const
+	Array<String> String::rsplit(const String& delimiter, int times, bool removeEmpty) const
 	{
-		return this->rsplit(delimiter.data, n, removeEmpty);
+		return this->rsplit(delimiter.data, times, removeEmpty);
 	}
 
 	bool String::rsplit(const char* delimiter, String& outLeft, String& outRight) const
@@ -1134,11 +1282,11 @@ namespace hltypes
 		return this->rsplit(delimiter.data, outLeft, outRight);
 	}
 
-	int String::indexOf(const char c, int index) const
+	int String::indexOf(const char c, int start) const
 	{
-		if (index < this->size())
+		if (start < this->size())
 		{
-			const char* found = strchr(&this->data[index], c);
+			const char* found = strchr(&this->data[start], c);
 			if (found != NULL)
 			{
 				return (found - this->data);
@@ -1147,11 +1295,11 @@ namespace hltypes
 		return -1;
 	}
 
-	int String::indexOf(const char* string, int index) const
+	int String::indexOf(const char* string, int start) const
 	{
-		if (index < this->size())
+		if (start < this->size())
 		{
-			const char* found = strstr(&this->data[index], string);
+			const char* found = strstr(&this->data[start], string);
 			if (found != NULL)
 			{
 				return (found - this->data);
@@ -1160,16 +1308,16 @@ namespace hltypes
 		return -1;
 	}
 
-	int String::indexOf(const String& string, int index) const
+	int String::indexOf(const String& string, int start) const
 	{
-		return this->indexOf(string.data, index);
+		return this->indexOf(string.data, start);
 	}
 
-	int String::rindexOf(const char c, int index) const
+	int String::rindexOf(const char c, int start) const
 	{
-		if (index < this->size())
+		if (start < this->size())
 		{
-			const char* found = strrchr(&this->data[index], c);
+			const char* found = strrchr(&this->data[start], c);
 			if (found != NULL)
 			{
 				return (found - this->data);
@@ -1178,15 +1326,15 @@ namespace hltypes
 		return -1;
 	}
 
-	int String::rindexOf(const char* string, int index) const
+	int String::rindexOf(const char* string, int start) const
 	{
-		int result = this->indexOf(string[0], index);
+		int result = this->indexOf(string[0], start);
 		if (result >= 0)
 		{
-			result -= index;
-			int size = this->size() + 1 - index;
+			result -= start;
+			int size = this->size() + 1 - start;
 			char* data = new char[size];
-			memcpy(data, &this->data[index], size);
+			memcpy(data, &this->data[start], size);
 			int stringSize = strlen(string);
 			const char* found = NULL;
 			while (true)
@@ -1207,47 +1355,40 @@ namespace hltypes
 			delete[] data;
 			if (result >= 0)
 			{
-				result += index;
+				result += start;
 			}
 		}
 		return result;
 	}
 
-	int String::rindexOf(const String& string, int index) const
+	int String::rindexOf(const String& string, int start) const
 	{
-		return this->rindexOf(string.data, index);
+		return this->rindexOf(string.data, start);
 	}
 
-	int String::indexOfAny(const char* string, int index) const
+	int String::indexOfAny(const char* string, int start) const
 	{
+		const char* found = strpbrk(&this->data[start], string);
+		return (found != NULL ? (int)(found - this->data) : -1);
+	}
+
+	int String::indexOfAny(const String& string, int start) const
+	{
+		return this->indexOfAny(string.data, start);
+	}
+
+	int String::rindexOfAny(const char* string, int start) const
+	{
+		int size = (int)strlen(this->data);
 		int stringSize = (int)strlen(string);
-		int result = -1;
-		for_iter (i, 0, stringSize)
+		for_iter (i, start, size)
 		{
-			result = this->indexOf(string[i], index);
-			if (result >= 0)
+			for_iter (j, 0, stringSize)
 			{
-				return result;
-			}
-		}
-		return -1;
-	}
-
-	int String::indexOfAny(const String& string, int index) const
-	{
-		return this->indexOfAny(string.data, index);
-	}
-
-	int String::rindexOfAny(const char* string, int index) const
-	{
-		int stringSize = (int)strlen(string);
-		int result = -1;
-		for_iter (i, 0, stringSize)
-		{
-			result = this->rindexOf(string[i], index);
-			if (result >= 0)
-			{
-				return result;
+				if (this->data[i] == string[j])
+				{
+					return i;
+				}
 			}
 		}
 		return -1;
@@ -1737,25 +1878,25 @@ namespace hltypes
 	
 	String String::operator=(const bool b)
 	{
-		_set(&this->data, &this->capacity, (b ? "true" : "false"));
+		_set(&this->data, (char*)this->staticData, &this->capacity, (b ? "true" : "false"));
 		return *this;
 	}
 
 	String String::operator=(char* string)
 	{
-		_set(&this->data, &this->capacity, (const char*)string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)string);
 		return *this;
 	}
 
 	String String::operator=(const char* string)
 	{
-		_set(&this->data, &this->capacity, string);
+		_set(&this->data, (char*)this->staticData, &this->capacity, string);
 		return *this;
 	}
 
 	String String::operator=(const String& string)
 	{
-		_set(&this->data, &this->capacity, string.data);
+		_set(&this->data, (char*)this->staticData, &this->capacity, string.data);
 		return *this;
 	}
 
@@ -1811,17 +1952,17 @@ namespace hltypes
 
 	void String::operator+=(char* string)
 	{
-		_add(&this->data, &this->capacity, (const char*)string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)string);
 	}
 	
 	void String::operator+=(const char* string)
 	{
-		_add(&this->data, &this->capacity, string);
+		_add(&this->data, (char*)this->staticData, &this->capacity, string);
 	}
 
 	void String::operator+=(const String& string)
 	{
-		_add(&this->data, &this->capacity, string.data);
+		_add(&this->data, (char*)this->staticData, &this->capacity, string.data);
 	}
 
 	String String::operator+(const char c) const

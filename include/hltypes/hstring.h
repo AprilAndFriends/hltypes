@@ -20,6 +20,8 @@
 #include "hltypesExport.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
+#define HLTYPES_STRING_STATIC_BUFFER_SIZE 20 // according to some studies, most strings are 19 characters or less (+1 for null-terminator)
+
 namespace std
 {
 	typedef std::basic_string<unsigned int, std::char_traits<unsigned int>, std::allocator<unsigned int> > ustring;
@@ -444,22 +446,22 @@ namespace hltypes
 		hltypesMemberExport Array<char> split() const;
 		/// @brief Splits the String with the delimiter.
 		/// @param[in] delimiter The character acting as splitting delimiter.
-		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] times How many times the string should be split maximally.
 		/// @param[in] removeEmpty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		hltypesMemberExport Array<String> split(const char delimiter, unsigned int n = -1, bool removeEmpty = false) const;
+		hltypesMemberExport Array<String> split(const char delimiter, int times = -1, bool removeEmpty = false) const;
 		/// @brief Splits the String with the delimiter.
 		/// @param[in] delimiter The C-type string acting as splitting delimiter.
-		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] times How many times the string should be split maximally.
 		/// @param[in] removeEmpty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		hltypesMemberExport Array<String> split(const char* delimiter, unsigned int n = -1, bool removeEmpty = false) const;
+		hltypesMemberExport Array<String> split(const char* delimiter, int times = -1, bool removeEmpty = false) const;
 		/// @brief Splits the String with the delimiter.
 		/// @param[in] delimiter The String acting as splitting delimiter.
-		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] times How many times the string should be split maximally.
 		/// @param[in] removeEmpty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		hltypesMemberExport Array<String> split(const String& delimiter, unsigned int n = -1, bool removeEmpty = false) const;
+		hltypesMemberExport Array<String> split(const String& delimiter, int times = -1, bool removeEmpty = false) const;
 		/// @brief Reverse splits the String with the delimiter once.
 		/// @param[in] delimiter The character acting as splitting delimiter.
 		/// @param[out] outLeft First portion of the split String.
@@ -480,22 +482,22 @@ namespace hltypes
 		hltypesMemberExport bool rsplit(const String& delimiter, String& outLeft, String& outRight) const;
 		/// @brief Reverse splits the String with the delimiter.
 		/// @param[in] delimiter The character acting as splitting delimiter.
-		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] times How many times the string should be split maximally.
 		/// @param[in] removeEmpty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		hltypesMemberExport Array<String> rsplit(const char delimiter, unsigned int n = -1, bool removeEmpty = false) const;
+		hltypesMemberExport Array<String> rsplit(const char delimiter, int times = -1, bool removeEmpty = false) const;
 		/// @brief Reverse splits the String with the delimiter.
 		/// @param[in] delimiter The C-type string acting as splitting delimiter.
-		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] times How many times the string should be split maximally.
 		/// @param[in] removeEmpty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		hltypesMemberExport Array<String> rsplit(const char* delimiter, unsigned int n = -1, bool removeEmpty = false) const;
+		hltypesMemberExport Array<String> rsplit(const char* delimiter, int times = -1, bool removeEmpty = false) const;
 		/// @brief Reverse splits the String with the delimiter.
 		/// @param[in] delimiter The String acting as splitting delimiter.
-		/// @param[in] n How many times the string should be split maximally.
+		/// @param[in] times How many times the string should be split maximally.
 		/// @param[in] removeEmpty Whether to remove empty strings from result.
 		/// @return Array of Strings.
-		hltypesMemberExport Array<String> rsplit(const String& delimiter, unsigned int n = -1, bool removeEmpty = false) const;
+		hltypesMemberExport Array<String> rsplit(const String& delimiter, int times = -1, bool removeEmpty = false) const;
 		/// @brief Finds the first index of a character.
 		/// @param[in] c Character to search for.
 		/// @param[in] start Starting index.
@@ -515,21 +517,21 @@ namespace hltypes
 		/// @param[in] c Character to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of the character searching from the back.
-		hltypesMemberExport int rindexOf(const char c, int start = -1) const;
+		hltypesMemberExport int rindexOf(const char c, int start = 0) const;
 		/// @brief Finds the first index of a character searching from the back.
 		/// @param[in] string C-string to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of the character searching from the back.
-		hltypesMemberExport int rindexOf(const char* string, int start = -1) const;
+		hltypesMemberExport int rindexOf(const char* string, int start = 0) const;
 		/// @brief Finds the first index of a character searching from the back.
 		/// @param[in] string String to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of the character searching from the back.
-		hltypesMemberExport int rindexOf(const String& string, int start = -1) const;
+		hltypesMemberExport int rindexOf(const String& string, int start = 0) const;
 		/// @brief Finds the first index of any character.
 		/// @param[in] string Characters as C-string to search for.
 		/// @param[in] start Starting index.
-		/// @return The index of the first occurrence of any of the characters.
+		/// @return The index of the first occurrence of any of the characters.-
 		hltypesMemberExport int indexOfAny(const char* string, int start = 0) const;
 		/// @brief Finds the first index of any character.
 		/// @param[in] string Characters as String to search for.
@@ -540,12 +542,12 @@ namespace hltypes
 		/// @param[in] string Characters as C-string to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of any of the characters searching from the back.
-		hltypesMemberExport int rindexOfAny(const char* string, int start = -1) const;
+		hltypesMemberExport int rindexOfAny(const char* string, int start = 0) const;
 		/// @brief Finds the first index of any character searching from the back.
 		/// @param[in] string Characters as String to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of any of the characters searching from the back.
-		hltypesMemberExport int rindexOfAny(const String& string, int start = -1) const;
+		hltypesMemberExport int rindexOfAny(const String& string, int start = 0) const;
 		/// @brief Counts the occurrences of a substring.
 		/// @param[in] c The character to look for.
 		/// @return Number of occurrences of the substring.
@@ -968,8 +970,10 @@ namespace hltypes
 		hltypesMemberExport static String fromUnicode(Array<unsigned char> chars);
 
 	protected:
-		/// @brief Data stream container.
+		/// @brief String data.
 		char* data;
+		/// @brief Static String data.
+		char staticData[HLTYPES_STRING_STATIC_BUFFER_SIZE];
 		/// @brief Capacity data of stream container.
 		int64_t capacity;
 

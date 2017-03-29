@@ -200,6 +200,24 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(ary[0] == "1,2,3", "split2");
 	}
 
+	HL_UT_TEST_FUNCTION(split4)
+	{
+		bool result = false;
+		hstr s = "1,,2";
+		hstr left;
+		hstr right;
+		result = s.split(',', left, right);
+		HL_UT_ASSERT(result, "split1");
+		HL_UT_ASSERT(left == "1", "split2");
+		HL_UT_ASSERT(right == ",2", "split3");
+		result = s.split(",,", left, right);
+		HL_UT_ASSERT(result, "split4");
+		HL_UT_ASSERT(left == "1", "split5");
+		HL_UT_ASSERT(right == "2", "split6");
+		result = s.split(",,,", left, right);
+		HL_UT_ASSERT(!result, "split7");
+	}
+
 	HL_UT_TEST_FUNCTION(rsplit1)
 	{
 		hstr s = "1,2,3,4,5,6,7,8,9";
@@ -251,6 +269,24 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(ary[0] == "1", "rsplit10");
 		HL_UT_ASSERT(ary[1] == "", "rsplit11");
 		HL_UT_ASSERT(ary[2] == "3", "rsplit12");
+	}
+
+	HL_UT_TEST_FUNCTION(rsplit4)
+	{
+		bool result = false;
+		hstr s = "1,,2";
+		hstr left;
+		hstr right;
+		result = s.rsplit(',', left, right);
+		HL_UT_ASSERT(result, "rsplit1");
+		HL_UT_ASSERT(left == "1,", "rsplit2");
+		HL_UT_ASSERT(right == "2", "rsplit3");
+		result = s.rsplit(",,", left, right);
+		HL_UT_ASSERT(result, "rsplit4");
+		HL_UT_ASSERT(left == "1", "rsplit5");
+		HL_UT_ASSERT(right == "2", "rsplit6");
+		result = s.rsplit(",,,", left, right);
+		HL_UT_ASSERT(!result, "rsplit7");
 	}
 
 	HL_UT_TEST_FUNCTION(indexOf)
