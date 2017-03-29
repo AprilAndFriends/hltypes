@@ -901,7 +901,10 @@ namespace hltypes
 
 		/// @brief Gets the C-string.
 		/// @return This String's C-string.
-		hltypesMemberExport const char* cStr() const;
+		hltypesMemberExport inline const char* cStr() const
+		{
+			return this->data;
+		}
 		/// @brief Creates an unicode (unsigned int) string.
 		/// @return A unicode (unsigned int) string.
 		hltypesMemberExport std::ustring uStr() const;
@@ -970,10 +973,6 @@ namespace hltypes
 		/// @brief Capacity data of stream container.
 		int64_t capacity;
 
-		/// @brief Resizes internal buffer if necessary.
-		/// @param[in,out] size New size.
-		bool _tryIncreaseCapacity(int size);
-
 	};
 }
 
@@ -986,22 +985,32 @@ typedef const hltypes::String& chstr;
 /// @param[in] string1 C-type string to merge.
 /// @param[in] string2 String to merge.
 /// @return Merged String.
-hltypes::String hltypesFnExport operator+(const char* string1, const hltypes::String& string2);
+hltypesFnExport inline hltypes::String operator+(const char* string1, const hltypes::String& string2)
+{
+	hltypes::String result(string1);
+	result.add(string2.cStr());
+	return result;
+}
 /// @brief Merges a C-type string and a String into a new String.
 /// @param[in] string1 C-type string to merge.
 /// @param[in] string2 String to merge.
 /// @return Merged String.
-hltypes::String hltypesFnExport operator+(char* string1, const hltypes::String& string2);
+hltypesFnExport inline hltypes::String operator+(char* string1, const hltypes::String& string2)
+{
+	hltypes::String result(string1);
+	result.add(string2.cStr());
+	return result;
+}
 /// @brief Applies formatting to a string.
 /// @param[in] format C-type string containing format.
 /// @param[in] args Variable argument list.
 /// @return Formatted String.
-hltypes::String hltypesFnExport hvsprintf(const char* format, va_list args);
+hltypesFnExport hltypes::String hvsprintf(const char* format, va_list args);
 /// @brief Applies formatting to a string.
 /// @param[in] format C-type string containing format.
 /// @param[in] ... Formatting arguments.
 /// @return Formatted String.
-hltypes::String hltypesFnExport hsprintf(const char* format, ...);
+hltypesFnExport hltypes::String hsprintf(const char* format, ...);
 
 #endif
 
