@@ -1272,7 +1272,7 @@ namespace hltypes
 		}
 		const char* cString = stdstr::c_str();
 		String result;
-		result.reserve((count - start + step - 1) / step);
+		result.reserve((count + step - 1) / step);
 		int size = start + count;
 		for_iter_step (i, start, size, step)
 		{
