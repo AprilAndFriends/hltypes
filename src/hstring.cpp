@@ -1493,13 +1493,13 @@ namespace hltypes
 		return d;
 	}
 
-	String String::operator=(const char* string)
+	String String::operator=(char* string)
 	{
 		stdstr::assign(string);
 		return *this;
 	}
 
-	String String::operator=(char* string)
+	String String::operator=(const char* string)
 	{
 		stdstr::assign(string);
 		return *this;
