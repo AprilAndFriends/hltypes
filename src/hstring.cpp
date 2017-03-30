@@ -22,6 +22,8 @@
 #include "hstring.h"
 #include "platform_internal.h"
 
+#define BOOL_TO_STRING(b) ((b) ? "true" : "false")
+
 // some platforms don't have this defined in this way
 #ifndef va_copy
 	#ifdef __va_copy
@@ -243,6 +245,12 @@ namespace hltypes
 		this->set(string, length);
 	}
 
+	String::String(const bool b) : data(NULL), capacity(MIN_STRING_CAPACITY)// data(NULL), capacity(MIN_STRING_CAPACITY)
+	{
+		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
+		this->set(BOOL_TO_STRING(b));
+	}
+
 	String::String(const short s) : data(NULL), capacity(MIN_STRING_CAPACITY)// data(NULL), capacity(MIN_STRING_CAPACITY)
 	{
 		_decideStaticUsage(&this->data, (char*)this->staticData, &this->capacity);
@@ -359,6 +367,11 @@ namespace hltypes
 		_set(&this->data, (char*)this->staticData, &this->capacity, string.data, length);
 	}
 
+	void String::set(const bool b)
+	{
+		_set(&this->data, (char*)this->staticData, &this->capacity, BOOL_TO_STRING(b));
+	}
+
 	void String::set(const short s)
 	{
 		char _string[64] = { '\0' };
@@ -433,11 +446,6 @@ namespace hltypes
 		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
-	void String::set(const bool b)
-	{
-		_set(&this->data, (char*)this->staticData, &this->capacity, (b ? "true" : "false"));
-	}
-
 	void String::add(const char c)
 	{
 		int size = (int)strlen(this->data);
@@ -486,6 +494,11 @@ namespace hltypes
 	void String::add(const String& string, const int length)
 	{
 		_add(&this->data, (char*)this->staticData, &this->capacity, string.data, length);
+	}
+
+	void String::add(const bool b)
+	{
+		_add(&this->data, (char*)this->staticData, &this->capacity, BOOL_TO_STRING(b));
 	}
 
 	void String::add(const short s)
@@ -560,11 +573,6 @@ namespace hltypes
 		_platformSprintf(_format, "%%.%dlf", precision);
 		_platformSprintf(_string, _format, d);
 		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
-	}
-
-	void String::add(const bool b)
-	{
-		_add(&this->data, (char*)this->staticData, &this->capacity, (b ? "true" : "false"));
 	}
 
 	String String::lowered() const
@@ -1729,6 +1737,11 @@ namespace hltypes
 		return i;
 	}
 
+	String String::operator()(int index) const
+	{
+		return String(this->data[index]);
+	}
+
 	String String::operator()(int start, int count) const
 	{
 		return this->subString(start, count);
@@ -1737,11 +1750,6 @@ namespace hltypes
 	String String::operator()(int start, int count, int step) const
 	{
 		return this->subString(start, count, step);
-	}
-	
-	String String::operator()(int index) const
-	{
-		return this->data[index];
 	}
 	
 	char& String::operator[](int index)
@@ -1754,6 +1762,11 @@ namespace hltypes
 		return this->data[index];
 	}
 	
+	String::operator bool() const
+	{
+		return (*this != "" && *this != "0" && this->lowered() != "false");
+	}
+
 	String::operator short() const
 	{
 		short s = 0;
@@ -1810,11 +1823,30 @@ namespace hltypes
 		return d;
 	}
 
-	String::operator bool() const
+	String String::operator=(char* string)
 	{
-		return (*this != "" && *this != "0" && this->lowered() != "false");
+		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)string);
+		return *this;
 	}
-	
+
+	String String::operator=(const char* string)
+	{
+		_set(&this->data, (char*)this->staticData, &this->capacity, string);
+		return *this;
+	}
+
+	String String::operator=(const String& string)
+	{
+		_set(&this->data, (char*)this->staticData, &this->capacity, string.data);
+		return *this;
+	}
+
+	String String::operator=(const bool b)
+	{
+		_set(&this->data, (char*)this->staticData, &this->capacity, BOOL_TO_STRING(b));
+		return *this;
+	}
+
 	String String::operator=(const short s)
 	{
 		this->set(s);
@@ -1863,28 +1895,29 @@ namespace hltypes
 		return *this;
 	}
 	
-	String String::operator=(const bool b)
+	void String::operator+=(const char c)
 	{
-		_set(&this->data, (char*)this->staticData, &this->capacity, (b ? "true" : "false"));
-		return *this;
+		this->add(c);
 	}
 
-	String String::operator=(char* string)
+	void String::operator+=(char* string)
 	{
-		_set(&this->data, (char*)this->staticData, &this->capacity, (const char*)string);
-		return *this;
+		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)string);
 	}
 
-	String String::operator=(const char* string)
+	void String::operator+=(const char* string)
 	{
-		_set(&this->data, (char*)this->staticData, &this->capacity, string);
-		return *this;
+		_add(&this->data, (char*)this->staticData, &this->capacity, string);
 	}
 
-	String String::operator=(const String& string)
+	void String::operator+=(const String& string)
 	{
-		_set(&this->data, (char*)this->staticData, &this->capacity, string.data);
-		return *this;
+		_add(&this->data, (char*)this->staticData, &this->capacity, string.data);
+	}
+
+	void String::operator+=(const bool b)
+	{
+		this->add(b);
 	}
 
 	void String::operator+=(const short s)
@@ -1927,31 +1960,6 @@ namespace hltypes
 		this->add(d);
 	}
 
-	void String::operator+=(const bool b)
-	{
-		this->add(b);
-	}
-
-	void String::operator+=(const char c)
-	{
-		this->add(c);
-	}
-
-	void String::operator+=(char* string)
-	{
-		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)string);
-	}
-	
-	void String::operator+=(const char* string)
-	{
-		_add(&this->data, (char*)this->staticData, &this->capacity, string);
-	}
-
-	void String::operator+=(const String& string)
-	{
-		_add(&this->data, (char*)this->staticData, &this->capacity, string.data);
-	}
-
 	String String::operator+(const char c) const
 	{
 		String result(*this);
@@ -1978,6 +1986,25 @@ namespace hltypes
 		String result(*this);
 		result.add(string.data);
 		return result;
+	}
+
+	bool String::operator==(const char* string) const
+	{
+		return (strcmp(this->data, string) == 0);
+	}
+
+	bool String::operator==(const String& string) const
+	{
+		return (strcmp(this->data, string.data) == 0);
+	}
+
+	bool String::operator==(const bool b) const
+	{
+		if (b)
+		{
+			return (strcmp(this->data, "1") == 0 || strcmp(this->data, "true") == 0);
+		}
+		return (strcmp(this->data, "0") == 0 || strcmp(this->data, "false") == 0);
 	}
 
 	bool String::operator==(const short s) const
@@ -2020,22 +2047,19 @@ namespace hltypes
 		return heqd((double)*this, d);
 	}
 
-	bool String::operator==(const bool b) const
+	bool String::operator!=(const char* string) const
 	{
-		return ((strcmp(this->data, "1") == 0 && b) ||
-				(strcmp(this->data, "0") == 0 && !b) ||
-				(strcmp(this->data, "true") == 0 && b) ||
-				(strcmp(this->data, "false") == 0 && !b));
+		return !(this->operator==(string));
 	}
 
-	bool String::operator==(const char* string) const
+	bool String::operator!=(const String& string) const
 	{
-		return (strcmp(this->data, string) == 0);
+		return !(this->operator==(string));
 	}
-	
-	bool String::operator==(const String& string) const
+
+	bool String::operator!=(const bool b) const
 	{
-		return (strcmp(this->data, string.data) == 0);
+		return !(this->operator==(b));
 	}
 
 	bool String::operator!=(const short s) const
@@ -2076,21 +2100,6 @@ namespace hltypes
 	bool String::operator!=(const double d) const
 	{
 		return !(this->operator==(d));
-	}
-
-	bool String::operator!=(const bool b) const
-	{
-		return !(this->operator==(b));
-	}
-
-	bool String::operator!=(const char* string) const
-	{
-		return !(this->operator==(string));
-	}
-
-	bool String::operator!=(const String& string) const
-	{
-		return !(this->operator==(string));
 	}
 
 	bool String::operator<(const String& string) const
