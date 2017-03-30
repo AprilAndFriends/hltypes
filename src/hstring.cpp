@@ -134,7 +134,6 @@ namespace hltypes
 			int newCapacity = hmax(HLTYPES_STRING_STATIC_BUFFER_SIZE, hpotCeil(size)); // not allowing less than MIN_STRING_CAPACITY bytes
 			if (newCapacity > currentCapacity)// && newCapacity > HLTYPES_STRING_STATIC_BUFFER_SIZE)
 			{
-				//*
 				char* newData = NULL;
 				if (*data == staticData)
 				{
@@ -145,8 +144,6 @@ namespace hltypes
 				{
 					newData = (char*)realloc(*data, newCapacity);
 				}
-				//*/
-				//char* newData = (char*)realloc(*data, newCapacity);
 				if (newData == NULL) // could not reallocate enough memory
 				{
 					// TODO - maybe an OutOfMemory exception should go here
@@ -200,18 +197,7 @@ namespace hltypes
 
 	inline void _decideStaticUsage(char** data, char* staticData, int64_t* capacity)
 	{
-		//memset(staticData, 0, HLTYPES_STRING_STATIC_BUFFER_SIZE);
-		//*data = (char*)malloc((int)(*capacity));
-		//*
-		if (*capacity > HLTYPES_STRING_STATIC_BUFFER_SIZE)
-		{
-			*data = (char*)malloc((int)*capacity);
-		}
-		else
-		{
-			*data = staticData;
-		}
-		//*/
+		*data = (*capacity > HLTYPES_STRING_STATIC_BUFFER_SIZE ? (char*)malloc((int)*capacity) : staticData);
 	}
 
 	// normal methods
@@ -854,8 +840,8 @@ namespace hltypes
 	void String::replace(int position, int count, const char character, int times)
 	{
 		char* data = new char[times + 1];
-		data[times] = '\0';
 		memset(data, character, times);
+		data[times] = '\0';
 		this->replace(position, count, data);
 		delete[] data;
 	}
@@ -1044,8 +1030,32 @@ namespace hltypes
 	
 	Array<String> String::split(const char* delimiter, int times, bool removeEmpty) const
 	{
+		if (times == 0)
+		{
+			return Array<String>(this, 1);
+		}
 		Array<String> result;
-		int delimiterSize = strlen(delimiter);
+		int delimiterSize = (int)strlen(delimiter);
+		if (delimiterSize == 0)
+		{
+			int size = (int)strlen(this->data);
+			if (times < 0 || times >= size)
+			{
+				for_iter (i, 0, size)
+				{
+					result += String(this->data[i]);
+				}
+			}
+			else
+			{
+				for_iter (i, 0, times)
+				{
+					result += String(this->data[i]);
+				}
+				result += String(&this->data[times]);
+			}
+			return result;
+		}
 		const char* string = this->data;
 		const char* found = NULL;
 		if (times < 0)
@@ -1119,22 +1129,40 @@ namespace hltypes
 
 	Array<String> String::rsplit(const char* delimiter, int times, bool removeEmpty) const
 	{
-		/*
-		if (times < 0) // if all should be split, this makes no difference
+		if (times == 0)
+		{
+			return Array<String>(this, 1);
+		}
+		if (times < 0) // if all should be split, rsplit() behaves like split()
 		{
 			return this->split(delimiter, times, removeEmpty);
 		}
 		Array<String> result;
+		int size = (int)strlen(this->data);
 		int delimiterSize = (int)strlen(delimiter);
-		const char* string = this->data - delimiterSize;
+		if (delimiterSize == 0)
+		{
+			int size = (int)strlen(this->data);
+			result += String(this->data, size - times);
+			for_iter (i, size - times, size)
+			{
+				result += String(this->data[i]);
+			}
+			return result;
+		}
+		if (size < delimiterSize)
+		{
+			return Array<String>(this, 1);
+		}
+		const char* string = this->data + (size - delimiterSize);
 		const char* found = NULL;
 		while (string > this->data && times > 0)
 		{
-			if (strncmp(string, delimiter, delimiterSize) == 0)
+			if (memcmp(string, delimiter, delimiterSize) == 0)
 			{
+				found = string;
+				string -= delimiterSize;
 				--times;
-				//string -= delimiterSize;
-				--string;
 			}
 			else
 			{
@@ -1144,6 +1172,11 @@ namespace hltypes
 		if (string < this->data)
 		{
 			string = this->data;
+		}
+		if (found != NULL)
+		{
+			result += (string != found && this->data != found ? String(this->data, (int)(found - this->data)) : "");
+			string = found + delimiterSize;
 		}
 		while (true)
 		{
@@ -1161,85 +1194,6 @@ namespace hltypes
 			result.removeAll("");
 		}
 		return result;
-		//*/
-		//*
-		if (times < 0)
-		{
-			times = INT32_MAX;
-		}
-		Array<String> out;
-		const char* s = this->data;
-		const char* p = NULL;
-		int delimiterLength = (int)strlen(delimiter);
-		for (p = s + strlen(s) - 1; p != s && times > 0; --p)
-		{
-			if (strncmp(p, delimiter, delimiterLength) == 0)
-			{
-				--times;
-			}
-		}
-		if (s != p)
-		{
-			//out.add(s, (int)(p - s + 1));
-			out += String(s, (int)(p - s + 1));
-			s = p + 1 + delimiterLength;
-		}
-		while ((p = strstr(s, delimiter)) != 0)
-		{
-			//out.add(s, (int)(p - s));
-			out += String(s, (int)(p - s));
-			s = p + delimiterLength;
-		}
-		//out.add(s);
-		out += String(s);
-		if (removeEmpty)
-		{
-			out.removeAll("");
-		}
-		return out;
-		//*/
-
-
-
-		/*
-		Array<String> out;
-		const char* s = this->data;
-		const char* p = NULL;
-		int delimiterLength = (int)strlen(delimiter);
-		if (n < 0)
-		{
-			for (p = s + strlen(s) - 1; p != s; --p)
-			{
-				strncmp(p, delimiter, delimiterLength);
-			}
-		}
-		else
-		{
-			for (p = s + strlen(s) - 1; p != s && n > 0; --p)
-			{
-				if (strncmp(p, delimiter, delimiterLength) == 0)
-				{
-					--n;
-				}
-			}
-		}
-		if (s != p)
-		{
-			out.add(s, (int)(p - s + 1));
-			s = p + 1 + delimiterLength;
-		}
-		while ((p = strstr(s, delimiter)) != 0)
-		{
-			out.add(s, (int)(p - s));
-			s = p + delimiterLength;
-		}
-		out.add(s);
-		if (removeEmpty)
-		{
-			out.removeAll("");
-		}
-		return out;
-		*/
 	}
 
 	Array<String> String::rsplit(const char delimiter, int times, bool removeEmpty) const
@@ -1337,12 +1291,8 @@ namespace hltypes
 			memcpy(data, &this->data[start], size);
 			int stringSize = strlen(string);
 			const char* found = NULL;
-			while (true)
+			while (memcmp(&data[result], string, stringSize) != 0)
 			{
-				if (memcmp(&data[result], string, stringSize) == 0)
-				{
-					break;
-				}
 				data[result] = '\0';
 				found = strrchr(data, string[0]);
 				if (found == NULL)
@@ -1381,7 +1331,7 @@ namespace hltypes
 	{
 		int size = (int)strlen(this->data);
 		int stringSize = (int)strlen(string);
-		for_iter (i, start, size)
+		for_iter_r (i, size, start)
 		{
 			for_iter (j, 0, stringSize)
 			{
@@ -1430,7 +1380,7 @@ namespace hltypes
 
 	bool String::startsWith(const char* string) const
 	{
-		return (strncmp(this->data, string, strlen(string)) == 0);
+		return (memcmp(this->data, string, (int)strlen(string)) == 0);
 	}
 
 	bool String::startsWith(const String& string) const
