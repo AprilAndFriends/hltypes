@@ -47,12 +47,12 @@ HL_UT_TEST_CLASS(Mutex)
 		t1.start();
 		t2.start();
 		
-		hthread::sleep(100.0f);
+		hthread::sleep(500.0f);
 
 		t1.join();
 		t2.join();
 
-		HL_UT_ASSERT(testResult1 == 5, "");
+		HL_UT_ASSERT(testResult1 == 5, "lockRelease");
 	}
 
 	HL_UT_TEST_FUNCTION(massLockRelease)
@@ -66,7 +66,7 @@ HL_UT_TEST_CLASS(Mutex)
 			t[i]->start();
 		}
 
-		hthread::sleep(100.0f);
+		hthread::sleep(500.0f);
 
 		for (int i = 0; i < 10; ++i)
 		{
