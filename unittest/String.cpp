@@ -357,8 +357,8 @@ HL_UT_TEST_CLASS(String)
 	HL_UT_TEST_FUNCTION(rindexOfAny)
 	{
 		hstr s = "1,2,3,4,5";
-		HL_UT_ASSERT(s.indexOfAny("3") == 4, "rindexOfAny1");
-		HL_UT_ASSERT(s.indexOfAny("2,") == 7, "rindexOfAny2");
+		HL_UT_ASSERT(s.rindexOfAny("3") == 4, "rindexOfAny1");
+		HL_UT_ASSERT(s.rindexOfAny("2,") == 7, "rindexOfAny2");
 	}
 
 	HL_UT_TEST_FUNCTION(count)
