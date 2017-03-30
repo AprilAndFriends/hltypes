@@ -218,6 +218,9 @@ namespace hltypes
 		/// @param[in] d Double value.
 		/// @param[in] precision The floating point precision to use.
 		hltypesMemberExport void add(const double d, int precision);
+		/// @brief Converts bool into a String and concatenates the new String at the end of this one.
+		/// @param[in] b Bool value.
+		hltypesMemberExport void add(const bool d);
 		/// @brief Transforms String into lower case.
 		/// @return String in lower case.
 		hltypesMemberExport String lowered() const;

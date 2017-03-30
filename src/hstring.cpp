@@ -562,6 +562,11 @@ namespace hltypes
 		_add(&this->data, (char*)this->staticData, &this->capacity, (const char*)_string);
 	}
 
+	void String::add(const bool b)
+	{
+		_add(&this->data, (char*)this->staticData, &this->capacity, (b ? "true" : "false"));
+	}
+
 	String String::lowered() const
 	{
 		std::ustring characters = this->uStr();
