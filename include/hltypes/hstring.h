@@ -31,7 +31,7 @@ namespace std
 namespace hltypes
 {
 	template <typename T> class Array;
-	
+
 	/// @brief Encapsulates std::string and adds high level methods.
 	class hltypesSpecialExport String
 	{
@@ -220,7 +220,7 @@ namespace hltypes
 		hltypesMemberExport void add(const double d, int precision);
 		/// @brief Converts bool into a String and concatenates the new String at the end of this one.
 		/// @param[in] b Bool value.
-		hltypesMemberExport void add(const bool d);
+		hltypesMemberExport void add(const bool b);
 		/// @brief Transforms String into lower case.
 		/// @return String in lower case.
 		hltypesMemberExport String lowered() const;
@@ -520,17 +520,19 @@ namespace hltypes
 		/// @param[in] c Character to search for.
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of the character searching from the back.
-		hltypesMemberExport int rindexOf(const char c, int start = 0) const;
+		hltypesMemberExport int rindexOf(const char c, int start = -1) const;
 		/// @brief Finds the first index of a character searching from the back.
 		/// @param[in] string C-string to search for.
-		/// @param[in] start Starting index.
+		/// @param[in] start Starting index from the ending of the string.
 		/// @return The index of the first occurrence of the character searching from the back.
-		hltypesMemberExport int rindexOf(const char* string, int start = 0) const;
+		/// @note Searching is done from the "start" index to the beginning of the string. If start is negative, the entire string is searched.
+		hltypesMemberExport int rindexOf(const char* string, int start = -1) const;
 		/// @brief Finds the first index of a character searching from the back.
 		/// @param[in] string String to search for.
-		/// @param[in] start Starting index.
+		/// @param[in] start Starting index from the ending of the string.
 		/// @return The index of the first occurrence of the character searching from the back.
-		hltypesMemberExport int rindexOf(const String& string, int start = 0) const;
+		/// @note Searching is done from the "start" index to the beginning of the string. If start is negative, the entire string is searched.
+		hltypesMemberExport int rindexOf(const String& string, int start = -1) const;
 		/// @brief Finds the first index of any character.
 		/// @param[in] string Characters as C-string to search for.
 		/// @param[in] start Starting index.
@@ -543,14 +545,16 @@ namespace hltypes
 		hltypesMemberExport int indexOfAny(const String& string, int start = 0) const;
 		/// @brief Finds the first index of any character searching from the back.
 		/// @param[in] string Characters as C-string to search for.
-		/// @param[in] start Starting index.
+		/// @param[in] start Starting index from the ending of the string.
 		/// @return The index of the first occurrence of any of the characters searching from the back.
-		hltypesMemberExport int rindexOfAny(const char* string, int start = 0) const;
+		/// @note Searching is done from the "start" index to the beginning of the string. If start is negative, the entire string is searched.
+		hltypesMemberExport int rindexOfAny(const char* string, int start = -1) const;
 		/// @brief Finds the first index of any character searching from the back.
 		/// @param[in] string Characters as String to search for.
-		/// @param[in] start Starting index.
+		/// @param[in] start Starting index from the ending of the string.
 		/// @return The index of the first occurrence of any of the characters searching from the back.
-		hltypesMemberExport int rindexOfAny(const String& string, int start = 0) const;
+		/// @note Searching is done from the "start" index to the beginning of the string. If start is negative, the entire string is searched.
+		hltypesMemberExport int rindexOfAny(const String& string, int start = -1) const;
 		/// @brief Counts the occurrences of a substring.
 		/// @param[in] c The character to look for.
 		/// @return Number of occurrences of the substring.
@@ -628,11 +632,17 @@ namespace hltypes
 		/// @brief Checks if string contains ASCII only characters.
 		/// @return True if String contains only ASCII-7 characters.
 		hltypesMemberExport bool isAscii() const;
-		/// @brief Creates a substring from UTF8-indexed characters.
+		/// @brief Creates a substring from this String.
 		/// @param[in] start Start index of the substring.
 		/// @param[in] count Character length of the substring (byte-length, not UT8 character count).
 		/// @return The substring.
 		hltypesMemberExport String subString(int start, int count) const;
+		/// @brief Creates a substring from this String.
+		/// @param[in] start Start index of the substring.
+		/// @param[in] count Character length of the substring (byte-length, not UT8 character count).
+		/// @param[in] step Every nth character only.
+		/// @return The substring.
+		hltypesMemberExport String subString(int start, int count, int step) const;
 		/// @brief Creates a substring from UTF8-indexed characters.
 		/// @param[in] start Start index of the substring.
 		/// @param[in] count Character length of the substring (UT8 character count, not byte-length).

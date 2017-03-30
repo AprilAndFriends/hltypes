@@ -1274,9 +1274,17 @@ namespace hltypes
 
 	int String::rindexOf(const char c, int start) const
 	{
+		int size = (int)strlen(this->data);
+		if (start < 0)
+		{
+			start = size - 1;
+		}
 		if (start < this->size())
 		{
-			const char* found = strrchr(&this->data[start], c);
+			char temp = this->data[start + 1];
+			this->data[start + 1] = '\0';
+			const char* found = strrchr(this->data, c);
+			this->data[start + 1] = temp;
 			if (found != NULL)
 			{
 				return (found - this->data);
@@ -1335,14 +1343,21 @@ namespace hltypes
 	int String::rindexOfAny(const char* string, int start) const
 	{
 		int size = (int)strlen(this->data);
-		int stringSize = (int)strlen(string);
-		for_iter_r (i, size, start)
+		if (start < 0)
 		{
-			for_iter (j, 0, stringSize)
+			start = size - 1;
+		}
+		if (start < this->size())
+		{
+			int stringSize = (int)strlen(string);
+			for_iter_r (i, start + 1, 0)
 			{
-				if (this->data[i] == string[j])
+				for_iter (j, 0, stringSize)
 				{
-					return i;
+					if (this->data[i] == string[j])
+					{
+						return i;
+					}
 				}
 			}
 		}
@@ -1557,11 +1572,44 @@ namespace hltypes
 	String String::subString(int start, int count) const
 	{
 		int size = (int)strlen(this->data);
-		if (count <= 0 || start >= size)
+		if (count < 0)
+		{
+			count = size + count + 1;
+		}
+		if (start >= size)
 		{
 			return "";
 		}
 		return String(this->data + start, hmin(count, size - start));
+	}
+
+	String String::subString(int start, int count, int step) const
+	{
+		if (step <= 1)
+		{
+			return this->subString(start, count);
+		}
+		int size = (int)strlen(this->data);
+		if (count < 0)
+		{
+			count = size + count + 1;
+		}
+		if (start >= size)
+		{
+			return "";
+		}
+		String result;
+		size = (count + step - 1) / step;
+		_tryIncreaseCapacity(&result.data, result.staticData, &result.capacity, size + 1);
+		result.data[size] = '\0';
+		size = start + count;
+		int index = 0;
+		for_iter_step (i, start, size, step)
+		{
+			result.data[index] = this->data[i];
+			++index;
+		}
+		return result;
 	}
 
 	String String::utf8SubString(int start, int count) const
@@ -1661,13 +1709,14 @@ namespace hltypes
 	
 	String String::toHex() const
 	{
-		String hex;
-		int size = this->size();
+		String result;
+		int size = (int)strlen(this->data);
+		_tryIncreaseCapacity(&result.data, result.staticData, &result.capacity, size * 2 + 1);
 		for_iter (i, 0, size)
 		{
-			hex += hsprintf("%02X", this->data[i]);
+			result.add(hsprintf("%02X", this->data[i]));
 		}
-		return hex;
+		return result;
 	}
 
 	unsigned int String::unhex() const
@@ -1682,29 +1731,12 @@ namespace hltypes
 
 	String String::operator()(int start, int count) const
 	{
-		if (count < 0)
-		{
-			count = (int)strlen(this->data) + count + 1;
-		}
 		return this->subString(start, count);
 	}
 	
 	String String::operator()(int start, int count, int step) const
 	{
-		if (count < 0)
-		{
-			count = (int)strlen(this->data) + count + 1;
-		}
-		if (step == 1)
-		{
-			return this->subString(start, count);
-		}
-		String result;
-		for_iter_step (i, start, start + count, step)
-		{
-			result += this->data[i];
-		}
-		return result;
+		return this->subString(start, count, step);
 	}
 	
 	String String::operator()(int index) const
