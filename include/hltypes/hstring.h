@@ -63,6 +63,9 @@ namespace hltypes
 		/// @param[in] length How many characters to copy.
 		hltypesMemberExport String(const String& string, const int length);
 		/// @brief Type constructor.
+		/// @param[in] b Bool to create String of.
+		hltypesMemberExport String(const bool b);
+		/// @brief Type constructor.
 		/// @param[in] s Short integer to create String of.
 		hltypesMemberExport String(const short s);
 		/// @brief Type constructor.
@@ -125,6 +128,9 @@ namespace hltypes
 		/// @param[in] string String value.
 		/// @param[in] length How many characters to copy.
 		hltypesMemberExport void set(const String& string, const int length);
+		/// @brief Sets String as bool.
+		/// @param[in] b Bool value.
+		hltypesMemberExport void set(const bool b);
 		/// @brief Sets String as short.
 		/// @param[in] s Short value.
 		hltypesMemberExport void set(const short s);
@@ -157,9 +163,6 @@ namespace hltypes
 		/// @param[in] d Double to create String of.
 		/// @param[in] precision The floating point precision to use.
 		hltypesMemberExport void set(const double d, int precision);
-		/// @brief Sets String as bool.
-		/// @param[in] b Bool value.
-		hltypesMemberExport void set(const bool b);
 
 		/// @brief Converts char into a String and concatenates the new String at the end of this one.
 		/// @param[in] c Character value.
@@ -189,6 +192,9 @@ namespace hltypes
 		/// @param[in] string String value.
 		/// @param[in] length Length of the String.
 		hltypesMemberExport void add(const String& string, int length);
+		/// @brief Converts bool into a String and concatenates the new String at the end of this one.
+		/// @param[in] b Bool value.
+		hltypesMemberExport void add(const bool b);
 		/// @brief Converts short into a String and concatenates the new String at the end of this one.
 		/// @param[in] s Short value.
 		hltypesMemberExport void add(const short s);
@@ -221,9 +227,6 @@ namespace hltypes
 		/// @param[in] d Double value.
 		/// @param[in] precision The floating point precision to use.
 		hltypesMemberExport void add(const double d, int precision);
-		/// @brief Converts bool into a String and concatenates the new String at the end of this one.
-		/// @param[in] b Bool value.
-		hltypesMemberExport void add(const bool b);
 		/// @brief Transforms String into lower case.
 		/// @return String in lower case.
 		hltypesMemberExport String lowered() const;
@@ -666,6 +669,10 @@ namespace hltypes
 		/// @note Hex strings above 0xFFFFFFFF cause undefined behavior.
 		hltypesMemberExport unsigned int unhex() const;
 
+		/// @brief Returns character at position in form of String.
+		/// @param[in] index Index of the character.
+		/// @return A String.
+		hltypesMemberExport String operator()(int index) const;
 		/// @brief Creates a substring.
 		/// @param[in] start Start index of the substring.
 		/// @param[in] count Length of the substring.
@@ -678,10 +685,6 @@ namespace hltypes
 		/// @return The substring.
 		/// @note count defines the length of the substring, step only defines which characters are used for the new String.
 		hltypesMemberExport String operator()(int start, int count, int step) const;
-		/// @brief Returns character at position in form of String.
-		/// @param[in] index Index of the character.
-		/// @return A String.
-		hltypesMemberExport String operator()(int index) const;
 		/// @brief Returns character at position.
 		/// @param[in] index Index of the character.
 		/// @return A character.
@@ -690,6 +693,9 @@ namespace hltypes
 		/// @param[in] index Index of the character.
 		/// @return A character.
 		hltypesMemberExport const char& operator[](int index) const;
+		/// @brief Casts String into bool.
+		/// @note "false", "0" and "" are regarded as false, everything else is regarded as true.
+		hltypesMemberExport operator bool() const;
 		/// @brief Casts String into short.
 		hltypesMemberExport operator short() const;
 		/// @brief Casts String into unsigned short.
@@ -706,9 +712,22 @@ namespace hltypes
 		hltypesMemberExport operator float() const;
 		/// @brief Casts String into double.
 		hltypesMemberExport operator double() const;
-		/// @brief Casts String into bool.
-		/// @note "false", "0" and "" are regarded as false, everything else is regarded as true.
-		hltypesMemberExport operator bool() const;
+		/// @brief Converts C-type string into String.
+		/// @param[in] string C-type string value.
+		/// @return This modified String.
+		hltypesMemberExport String operator=(char* string);
+		/// @brief Converts C-type string into String.
+		/// @param[in] string C-type string value.
+		/// @return This modified String.
+		hltypesMemberExport String operator=(const char* string);
+		/// @brief Assigns String to this one.
+		/// @param[in] string String value.
+		/// @return This modified String.
+		hltypesMemberExport String operator=(const String& string);
+		/// @brief Converts bool into String.
+		/// @param[in] b Bool value.
+		/// @return This modified String.
+		hltypesMemberExport String operator=(const bool b);
 		/// @brief Converts short into String.
 		/// @param[in] s Short value.
 		/// @return This modified String.
@@ -741,22 +760,21 @@ namespace hltypes
 		/// @param[in] d Double value.
 		/// @return This modified String.
 		hltypesMemberExport String operator=(const double d);
-		/// @brief Converts bool into String.
-		/// @param[in] b Bool value.
-		/// @return This modified String.
-		hltypesMemberExport String operator=(const bool b);
-		/// @brief Converts C-type string into String.
+		/// @brief Converts char into a String and concatenates the new String at the end of this one.
+		/// @param[in] c Character value.
+		hltypesMemberExport void operator+=(const char c);
+		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
 		/// @param[in] string C-type string value.
-		/// @return This modified String.
-		hltypesMemberExport String operator=(char* string);
-		/// @brief Converts C-type string into String.
+		hltypesMemberExport void operator+=(char* string);
+		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
 		/// @param[in] string C-type string value.
-		/// @return This modified String.
-		hltypesMemberExport String operator=(const char* string);
-		/// @brief Assigns String to this one.
+		hltypesMemberExport void operator+=(const char* string);
+		/// @brief Concatenates a String at the end of this one.
 		/// @param[in] string String value.
-		/// @return This modified String.
-		hltypesMemberExport String operator=(const String& string);
+		hltypesMemberExport void operator+=(const String& string);
+		/// @brief Converts bool into a String and concatenates the new String at the end of this one.
+		/// @param[in] b Bool value.
+		hltypesMemberExport void operator+=(const bool b);
 		/// @brief Converts short into a String and concatenates the new String at the end of this one.
 		/// @param[in] s Short value.
 		hltypesMemberExport void operator+=(const short s);
@@ -781,21 +799,6 @@ namespace hltypes
 		/// @brief Converts double into a String and concatenates the new String at the end of this one.
 		/// @param[in] d Double value.
 		hltypesMemberExport void operator+=(const double d);
-		/// @brief Converts bool into a String and concatenates the new String at the end of this one.
-		/// @param[in] b Bool value.
-		hltypesMemberExport void operator+=(const bool b);
-		/// @brief Converts char into a String and concatenates the new String at the end of this one.
-		/// @param[in] c Character value.
-		hltypesMemberExport void operator+=(const char c);
-		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
-		/// @param[in] string C-type string value.
-		hltypesMemberExport void operator+=(char* string);
-		/// @brief Converts C-type string into a String and concatenates the new String at the end of this one.
-		/// @param[in] string C-type string value.
-		hltypesMemberExport void operator+=(const char* string);
-		/// @brief Concatenates a String at the end of this one.
-		/// @param[in] string String value.
-		hltypesMemberExport void operator+=(const String& string);
 		/// @brief Merges String with a character converted into String first.
 		/// @param[in] c Character value.
 		/// @return New String.
@@ -812,6 +815,18 @@ namespace hltypes
 		/// @param[in] string String value.
 		/// @return New String.
 		hltypesMemberExport String operator+(const String& string) const;
+		/// @brief Compares String for equivalency.
+		/// @param[in] s C-type string value.
+		/// @return True if other String is equal to this one.
+		hltypesMemberExport bool operator==(const char* s) const;
+		/// @brief Compares String for equivalency.
+		/// @param[in] string String value.
+		/// @return True if other String is equal to this one.
+		hltypesMemberExport bool operator==(const String& string) const;
+		/// @brief Compares String for equivalency.
+		/// @param[in] b bool value.
+		/// @return True if value converted into String is equal to this one.
+		hltypesMemberExport bool operator==(const bool b) const;
 		/// @brief Compares String for equivalency.
 		/// @param[in] s Short value.
 		/// @return True if value converted into String is equal to this one.
@@ -844,18 +859,18 @@ namespace hltypes
 		/// @param[in] d Double value.
 		/// @return True if value converted into String is equal to this one.
 		hltypesMemberExport bool operator==(const double d) const;
-		/// @brief Compares String for equivalency.
-		/// @param[in] b bool value.
-		/// @return True if value converted into String is equal to this one.
-		hltypesMemberExport bool operator==(const bool b) const;
-		/// @brief Compares String for equivalency.
+		/// @brief Compares String for non-equivalency.
 		/// @param[in] s C-type string value.
-		/// @return True if other String is equal to this one.
-		hltypesMemberExport bool operator==(const char* s) const;
-		/// @brief Compares String for equivalency.
+		/// @return True if other String is not equal to this one.
+		hltypesMemberExport bool operator!=(const char* s) const;
+		/// @brief Compares String for non-equivalency.
 		/// @param[in] string String value.
-		/// @return True if other String is equal to this one.
-		hltypesMemberExport bool operator==(const String& string) const;
+		/// @return True if other String is not equal to this one.
+		hltypesMemberExport bool operator!=(const String& string) const;
+		/// @brief Compares String for non-equivalency.
+		/// @param[in] b bool value.
+		/// @return True if value converted into String is not equal to this one.
+		hltypesMemberExport bool operator!=(const bool b) const;
 		/// @brief Compares String for non-equivalency.
 		/// @param[in] s Short value.
 		/// @return True if value converted into String is not equal to this one.
@@ -888,18 +903,6 @@ namespace hltypes
 		/// @param[in] d Double value.
 		/// @return True if value converted into String is not equal to this one.
 		hltypesMemberExport bool operator!=(const double d) const;
-		/// @brief Compares String for non-equivalency.
-		/// @param[in] b bool value.
-		/// @return True if value converted into String is not equal to this one.
-		hltypesMemberExport bool operator!=(const bool b) const;
-		/// @brief Compares String for non-equivalency.
-		/// @param[in] s C-type string value.
-		/// @return True if other String is not equal to this one.
-		hltypesMemberExport bool operator!=(const char* s) const;
-		/// @brief Compares String for non-equivalency.
-		/// @param[in] string String value.
-		/// @return True if other String is not equal to this one.
-		hltypesMemberExport bool operator!=(const String& string) const;
 		/// @brief Compares String for being less than another String.
 		/// @param[in] string String value.
 		/// @return True if this String is less than other String.

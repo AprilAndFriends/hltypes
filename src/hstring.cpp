@@ -24,6 +24,8 @@
 #define FORMAT_BUFFER_SIZE 16
 #define FORMATTING_STRING_BUFFER_SIZE 64
 
+#define BOOL_TO_STRING(b) ((b) ? "true" : "false")
+
 // some platforms don't have this defined in this way
 #ifndef va_copy
 	#ifdef __va_copy
@@ -155,6 +157,12 @@ namespace hltypes
 	{
 	}
 
+	// TODObool - fix this inconsistency
+	//String::String(const bool b) : stdstr(BOOL_TO_STRING(b))
+	String::String(const bool b) : stdstr(b ? "1" : "0")
+	{
+	}
+
 	String::String(const short s) : stdstr()
 	{
 		this->set(s);
@@ -249,6 +257,11 @@ namespace hltypes
 		stdstr::assign(string.c_str(), length);
 	}
 
+	void String::set(const bool b)
+	{
+		stdstr::assign(BOOL_TO_STRING(b));
+	}
+
 	void String::set(const short s)
 	{
 		char string[FORMATTING_STRING_BUFFER_SIZE] = { '\0' };
@@ -323,11 +336,6 @@ namespace hltypes
 		stdstr::assign(string);
 	}
 
-	void String::set(const bool b)
-	{
-		stdstr::assign(b ? "true" : "false");
-	}
-
 	void String::add(const char c)
 	{
 		stdstr::append(1, c);
@@ -366,6 +374,11 @@ namespace hltypes
 	void String::add(const String& string, const int length)
 	{
 		stdstr::append(string.c_str(), length);
+	}
+
+	void String::add(const bool b)
+	{
+		stdstr::append(BOOL_TO_STRING(b));
 	}
 
 	void String::add(const short s)
@@ -440,11 +453,6 @@ namespace hltypes
 		_platformSprintf(format, "%%.%dlf", precision);
 		_platformSprintf(string, format, d);
 		stdstr::append(string);
-	}
-
-	void String::add(const bool b)
-	{
-		stdstr::append(b ? "true" : "false");
 	}
 
 	String String::lowered() const
@@ -1399,6 +1407,11 @@ namespace hltypes
 		return i;
 	}
 
+	String String::operator()(int index) const
+	{
+		return stdstr::at(index);
+	}
+
 	String String::operator()(int start, int count) const
 	{
 		return this->subString(start, count);
@@ -1407,11 +1420,6 @@ namespace hltypes
 	String String::operator()(int start, int count, int step) const
 	{
 		return this->subString(start, count, step);
-	}
-	
-	String String::operator()(int index) const
-	{
-		return stdstr::at(index);
 	}
 	
 	char& String::operator[](int index)
@@ -1424,6 +1432,11 @@ namespace hltypes
 		return stdstr::at(index);
 	}
 	
+	String::operator bool() const
+	{
+		return (*this != "" && *this != "0" && this->lowered() != "false");
+	}
+
 	String::operator short() const
 	{
 		short s = 0;
@@ -1480,11 +1493,30 @@ namespace hltypes
 		return d;
 	}
 
-	String::operator bool() const
+	String String::operator=(const char* string)
 	{
-		return (*this != "" && *this != "0" && this->lowered() != "false");
+		stdstr::assign(string);
+		return *this;
 	}
-	
+
+	String String::operator=(char* string)
+	{
+		stdstr::assign(string);
+		return *this;
+	}
+
+	String String::operator=(const String& string)
+	{
+		stdstr::assign(string.c_str());
+		return *this;
+	}
+
+	String String::operator=(const bool b)
+	{
+		stdstr::assign(BOOL_TO_STRING(b));
+		return *this;
+	}
+
 	String String::operator=(const short s)
 	{
 		this->set(s);
@@ -1533,28 +1565,31 @@ namespace hltypes
 		return *this;
 	}
 	
-	String String::operator=(const bool b)
+	void String::operator+=(const char c)
 	{
-		stdstr::assign(b ? "true" : "false");
-		return *this;
+		stdstr::append(1, c);
 	}
 
-	String String::operator=(const char* string)
+	void String::operator+=(char* string)
 	{
-		stdstr::assign(string);
-		return *this;
+		stdstr::append(string);
 	}
 
-	String String::operator=(char* string)
+	void String::operator+=(const char* string)
 	{
-		stdstr::assign(string);
-		return *this;
+		stdstr::append(string);
 	}
 
-	String String::operator=(const String& string)
+	void String::operator+=(const String& string)
 	{
-		stdstr::assign(string.c_str());
-		return *this;
+		stdstr::append(string);
+	}
+
+	void String::operator+=(const bool b)
+	{
+		// TODObool - fix this inconsistency
+		//stdstr::append(BOOL_TO_STRING(b));
+		stdstr::append(b ? "1" : "0");
 	}
 
 	void String::operator+=(const short s)
@@ -1597,31 +1632,6 @@ namespace hltypes
 		this->add(d);
 	}
 
-	void String::operator+=(const bool b)
-	{
-		stdstr::append(b ? "true" : "false");
-	}
-
-	void String::operator+=(const char c)
-	{
-		stdstr::append(1, c);
-	}
-
-	void String::operator+=(char* string)
-	{
-		stdstr::append(string);
-	}
-	
-	void String::operator+=(const char* string)
-	{
-		stdstr::append(string);
-	}
-
-	void String::operator+=(const String& string)
-	{
-		stdstr::append(string);
-	}
-
 	String String::operator+(const char c) const
 	{
 		String result(*this);
@@ -1648,6 +1658,26 @@ namespace hltypes
 		String result(*this);
 		result.append(string);
 		return result;
+	}
+
+	bool String::operator==(const char* string) const
+	{
+		return (strcmp(stdstr::c_str(), string) == 0);
+	}
+
+	bool String::operator==(const String& string) const
+	{
+		return (strcmp(stdstr::c_str(), string.c_str()) == 0);
+	}
+
+	bool String::operator==(const bool b) const
+	{
+		const char* string = stdstr::c_str();
+		if (b)
+		{
+			return (strcmp(string, "1") == 0 || strcmp(string, "true") == 0);
+		}
+		return (strcmp(string, "0") == 0 || strcmp(string, "false") == 0);
 	}
 
 	bool String::operator==(const short s) const
@@ -1690,21 +1720,19 @@ namespace hltypes
 		return heqd((double)*this, d);
 	}
 
-	bool String::operator==(const bool b) const
+	bool String::operator!=(const char* string) const
 	{
-		const char* string = stdstr::c_str();
-		return ((b && (strcmp(string, "1") == 0 || strcmp(string, "true") == 0)) ||
-				(!b && (strcmp(string, "0") == 0 || strcmp(string, "false") == 0)));
+		return !(this->operator==(string));
 	}
 
-	bool String::operator==(const char* string) const
+	bool String::operator!=(const String& string) const
 	{
-		return (strcmp(stdstr::c_str(), string) == 0);
+		return !(this->operator==(string));
 	}
-	
-	bool String::operator==(const String& string) const
+
+	bool String::operator!=(const bool b) const
 	{
-		return (strcmp(stdstr::c_str(), string.c_str()) == 0);
+		return !(this->operator==(b));
 	}
 
 	bool String::operator!=(const short s) const
@@ -1745,21 +1773,6 @@ namespace hltypes
 	bool String::operator!=(const double d) const
 	{
 		return !(this->operator==(d));
-	}
-
-	bool String::operator!=(const bool b) const
-	{
-		return !(this->operator==(b));
-	}
-
-	bool String::operator!=(const char* string) const
-	{
-		return !(this->operator==(string));
-	}
-
-	bool String::operator!=(const String& string) const
-	{
-		return !(this->operator==(string));
 	}
 
 	bool String::operator<(const String& string) const
