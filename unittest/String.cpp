@@ -142,10 +142,13 @@ HL_UT_TEST_CLASS(String)
 		hstr s = "1,2,3,4,5,6,7,8,9";
 		hstr s2 = "test";
 		hstr delimiter1 = "!";
-		hstr delimiter2 = '!';
+		char delimiter2 = '!';
 		harray<hstr> ary1 = s.split(",");
 		harray<hstr> ary2 = s.split(",", 2);
 		harray<hstr> ary3 = s.split(',', 2);
+		harray<hstr> ary4 = s2.split("");
+		harray<hstr> ary5 = s2.split("", 2);
+		harray<hstr> ary6 = s2.split("", 3);
 		HL_UT_ASSERT(ary1.size() == 9, "split1");
 		HL_UT_ASSERT(ary1[0] == "1", "split2");
 		HL_UT_ASSERT(ary1[1] == "2", "split3");
@@ -168,6 +171,20 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(ary3[1] == "2", "split19");
 		HL_UT_ASSERT(ary3[2] == "3,4,5,6,7,8,9", "split20");
 		HL_UT_ASSERT(s.split("3,4").size() == 2, "split21");
+		HL_UT_ASSERT(ary4.size() == 4, "split22");
+		HL_UT_ASSERT(ary4[0] == "t", "split23");
+		HL_UT_ASSERT(ary4[1] == "e", "split24");
+		HL_UT_ASSERT(ary4[2] == "s", "split25");
+		HL_UT_ASSERT(ary4[3] == "t", "split26");
+		HL_UT_ASSERT(ary5.size() == 3, "split27");
+		HL_UT_ASSERT(ary5[0] == "t", "split28");
+		HL_UT_ASSERT(ary5[1] == "e", "split29");
+		HL_UT_ASSERT(ary5[2] == "st", "split30");
+		HL_UT_ASSERT(ary6.size() == 4, "split31");
+		HL_UT_ASSERT(ary6[0] == "t", "split32");
+		HL_UT_ASSERT(ary6[1] == "e", "split33");
+		HL_UT_ASSERT(ary6[2] == "s", "split34");
+		HL_UT_ASSERT(ary6[3] == "t", "split35");
 	}
 
 	HL_UT_TEST_FUNCTION(split2)
@@ -241,12 +258,29 @@ HL_UT_TEST_CLASS(String)
 		hstr splitter = "!";
 		harray<hstr> ary1 = s.rsplit(",", 2);
 		harray<hstr> ary2 = s2.rsplit(',');
+		harray<hstr> ary3 = s2.rsplit("");
+		harray<hstr> ary4 = s2.rsplit("", 2);
+		harray<hstr> ary5 = s2.rsplit("", 3);
 		HL_UT_ASSERT(ary2[0] == "test", "rsplit1");
 		HL_UT_ASSERT(s2.rsplit(splitter).size() == 1, "rsplit2");
 		HL_UT_ASSERT(ary1.size() == 3, "rsplit3");
 		HL_UT_ASSERT(ary1[0] == "1,2,3,4,5,6,7", "rsplit4");
 		HL_UT_ASSERT(ary1[1] == "8", "rsplit5");
 		HL_UT_ASSERT(ary1[2] == "9", "rsplit6");
+		HL_UT_ASSERT(ary3.size() == 4, "rsplit7");
+		HL_UT_ASSERT(ary3[0] == "t", "rsplit8");
+		HL_UT_ASSERT(ary3[1] == "e", "rsplit9");
+		HL_UT_ASSERT(ary3[2] == "s", "rsplit10");
+		HL_UT_ASSERT(ary3[3] == "t", "rslpit11");
+		HL_UT_ASSERT(ary4.size() == 3, "rsplit12");
+		HL_UT_ASSERT(ary4[0] == "te", "rsplit13");
+		HL_UT_ASSERT(ary4[1] == "s", "rsplit14");
+		HL_UT_ASSERT(ary4[2] == "t", "rsplit15");
+		HL_UT_ASSERT(ary5.size() == 4, "rsplit16");
+		HL_UT_ASSERT(ary5[0] == "t", "rsplit17");
+		HL_UT_ASSERT(ary5[1] == "e", "rsplit18");
+		HL_UT_ASSERT(ary5[2] == "s", "rsplit19");
+		HL_UT_ASSERT(ary5[3] == "t", "rsplit20");
 	}
 
 	HL_UT_TEST_FUNCTION(rsplit3)
@@ -311,6 +345,20 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s.rindexOf("2,3,") == 2, "rindexOf5");
 		HL_UT_ASSERT(s.rindexOf(",5,") == -1, "rindexOf6");
 		HL_UT_ASSERT(s.rindexOf("  ") == -1, "rindexOf7");
+	}
+
+	HL_UT_TEST_FUNCTION(indexOfAny)
+	{
+		hstr s = "1,2,3,4,5";
+		HL_UT_ASSERT(s.indexOfAny(",") == 1, "indexOfAny1");
+		HL_UT_ASSERT(s.indexOfAny("2,") == 1, "indexOfAny2");
+	}
+
+	HL_UT_TEST_FUNCTION(rindexOfAny)
+	{
+		hstr s = "1,2,3,4,5";
+		HL_UT_ASSERT(s.indexOfAny("3") == 4, "rindexOfAny1");
+		HL_UT_ASSERT(s.indexOfAny("2,") == 7, "rindexOfAny2");
 	}
 
 	HL_UT_TEST_FUNCTION(count)
