@@ -133,8 +133,10 @@ HL_UT_TEST_CLASS(String)
 		HL_UT_ASSERT(s3 == "batest", "insertAt3");
 		s4.insertAt(1, '3', 3);
 		HL_UT_ASSERT(s4 == "0333", "insertAt4");
+		s4.insertAt(4, "1");
+		HL_UT_ASSERT(s4 == "03331", "insertAt5");
 		s4.insertAt(10, "123");
-		HL_UT_ASSERT(s4 == "0333", "insertAt5");
+		HL_UT_ASSERT(s4 == "03331", "insertAt6");
 	}
 
 	HL_UT_TEST_FUNCTION(split1)
