@@ -724,7 +724,7 @@ namespace hltypes
 
 	void String::insertAt(int position, const String& string)
 	{
-		if (position >= 0 && position <= stdstr::size())
+		if (position >= 0 && position <= (int)stdstr::size())
 		{
 			stdstr::insert(position, string.c_str()).c_str();
 		}
@@ -732,7 +732,7 @@ namespace hltypes
 
 	void String::insertAt(int position, const char* string)
 	{
-		if (position >= 0 && position <= stdstr::size())
+		if (position >= 0 && position <= (int)stdstr::size())
 		{
 			stdstr::insert(position, string).c_str();
 		}
@@ -740,7 +740,7 @@ namespace hltypes
 
 	void String::insertAt(int position, const char character, int times)
 	{
-		if (position >= 0 && position <= stdstr::size())
+		if (position >= 0 && position <= (int)stdstr::size())
 		{
 			stdstr::insert(position, times, character);
 		}
