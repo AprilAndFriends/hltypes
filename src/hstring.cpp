@@ -1999,7 +1999,7 @@ hltypes::String hvsprintf(const char* format, va_list args)
 	if (i >= 8)
 	{
 		delete[] c;
-		throw Exception("Resulting string for h_platformSprintf is longer than 2^16 (65536) characters!");
+		throw Exception("Resulting string for hsprintf is longer than 2^16 (65536) characters!");
 	}
 #endif
 	hltypes::String result(c);
