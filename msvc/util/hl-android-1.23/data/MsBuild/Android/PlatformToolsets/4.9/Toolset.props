@@ -12,6 +12,7 @@
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.WindowsSDK.props" Condition="Exists('$(VCTargetsPath)\Microsoft.Cpp.WindowsSDK.props')"/>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Common.props" />
 
   <PropertyGroup>
