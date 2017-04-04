@@ -478,9 +478,9 @@ namespace hltypes
 
 	String String::utf8Reversed() const
 	{
-		std::basic_string<unsigned int> result = this->uStr();
-		std::reverse(result.begin(), result.end());
-		return fromUnicode(result.c_str());
+		std::ustring ustr = this->uStr();
+		std::reverse(ustr.begin(), ustr.end());
+		return fromUnicode(ustr.c_str());
 	}
 
 	String String::trimmed(const char c) const
@@ -782,7 +782,7 @@ namespace hltypes
 
 	void String::utf8Randomize()
 	{
-		std::basic_string<unsigned int> ustr = this->uStr();
+		std::ustring ustr = this->uStr();
 		std::random_shuffle(ustr.begin(), ustr.end());
 		this->operator=(fromUnicode(ustr.c_str()));
 	}
