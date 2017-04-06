@@ -197,6 +197,7 @@
 #endif
 
 #if !defined(MINIZ_NO_TIME) && !defined(MINIZ_NO_ARCHIVE_APIS)
+  #include <stdio.h> // required to properly include time.h on Android clang for some reason
   #include <time.h>
 #endif
 
