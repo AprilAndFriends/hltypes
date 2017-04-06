@@ -26,11 +26,11 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   -->
 
-  <UsingTask TaskName="NativeCompile" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
-  <UsingTask TaskName="NativeLink" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
-  <UsingTask TaskName="NativeLib" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
-  <UsingTask TaskName="NativeStrip" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
-  <UsingTask TaskName="NativeBuildId" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
+  <UsingTask TaskName="GccCompile" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
+  <UsingTask TaskName="GccLink" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
+  <UsingTask TaskName="GccLib" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
+  <UsingTask TaskName="GccStrip" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
+  <UsingTask TaskName="GccBuildId" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\AndroidPlusPlus.MsBuild.CppTasks.dll" />
 
   <UsingTask TaskName="AntBuild" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\vs-android.MsBuild.AdbTasks.dll" />
   <UsingTask TaskName="AdbDeploy" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\bin\vs-android.MsBuild.AdbTasks.dll" />
@@ -126,7 +126,7 @@
       To mimic this we need to first process the PCH export, and then follow this with actual OBJ compilation.
     -->
 
-    <NativeCompile
+    <GccCompile
       Condition="'%(ClCompile.ExcludedFromBuild)'!='true'"
       BuildingInIDE="$(BuildingInsideVisualStudio)"
       Sources="@(ClCompilePch)"
@@ -143,15 +143,15 @@
       OutputCommandLine="%(ClCompile.OutputCommandLine)"
       ToolPath="$(PlatformToolsetCompileToolPath)"
       ToolExe="$(PlatformToolsetCompileTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\native_compile.xml">
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_compile.xml">
 
-    </NativeCompile>
+    </GccCompile>
 
     <!--
       Compile all sources, including those flagged to 'Create' PCH files (Reasoning above). 
     -->
 
-    <NativeCompile
+    <GccCompile
       Condition="'%(ClCompile.ExcludedFromBuild)'!='true'"
       BuildingInIDE="$(BuildingInsideVisualStudio)"
       Sources="@(ClCompile)"
@@ -168,9 +168,9 @@
       OutputCommandLine="%(ClCompile.OutputCommandLine)"
       ToolPath="$(PlatformToolsetCompileToolPath)"
       ToolExe="$(PlatformToolsetCompileTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\native_compile.xml">
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_compile.xml">
 
-    </NativeCompile>
+    </GccCompile>
 
   </Target>
 
@@ -201,7 +201,7 @@
       </Link>
     </ItemGroup>
 
-    <NativeLink
+    <GccLink
       BuildingInIDE="$(BuildingInsideVisualStudio)"
       Sources="@(Link)"
 
@@ -214,13 +214,13 @@
       OutputCommandLine="%(Link.OutputCommandLine)"
       ToolPath="$(PlatformToolsetLinkToolPath)"
       ToolExe="$(PlatformToolsetLinkTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\native_link.xml">
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_link.xml">
 
       <Output TaskParameter="OutputFiles" ItemName="LinkOutputFiles" />
 
       <Output TaskParameter="SkippedExecution" PropertyName="LinkSkippedExecution" />
 
-    </NativeLink>
+    </GccLink>
 
     <Message Condition="'$(LinkSkippedExecution)' == 'false'" Text="$(MSBuildProjectFile) -&gt; @(LinkOutputFiles)" Importance="High" />
 
@@ -263,7 +263,7 @@
       </LinkOutputFiles>
     </ItemGroup>
 
-    <NativeStrip
+    <GccStrip
       BuildingInIDE="$(BuildingInsideVisualStudio)"
       Condition="('@(LinkOutputFiles)' != '' and '$(_LinkStripSymbolsRequired)' == 'true')"
       Sources="@(LinkOutputFiles)"
@@ -275,7 +275,7 @@
       OutputCommandLine="%(LinkOutputFiles.OutputCommandLine)"
       ToolPath="$(PlatformToolsetStripToolPath)"
       ToolExe="$(PlatformToolsetStripTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\native_strip.xml"
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_strip.xml"
     />
 
     <Exec 
@@ -288,14 +288,14 @@
       - More info: https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html
     -->
 
-    <NativeBuildId
+    <GccBuildId
       Condition="('@(LinkOutputFiles)' != '' and '$(_LinkStripSymbolsRequired)' == 'true')"
       TargetElf="$(_DebugLinkSharedLibrary)"
       OutputCommandLine="%(LinkOutputFiles.OutputCommandLine)"
       ToolPath="$(PlatformToolsetReadElfToolPath)"
       ToolExe="$(PlatformToolsetReadElfTool)">
       <Output TaskParameter="BuildId" PropertyName="_DebugLinkSharedLibaryBuildId" />
-    </NativeBuildId>
+    </GccBuildId>
 
     <PropertyGroup Condition="'$(_DebugLinkSharedLibaryBuildId)' != ''">
       <_DebugLinkBuildIdPath>$([System.IO.Path]::GetDirectoryName('$(_DebugLinkSharedLibrary)'))\.build-id\$(_DebugLinkSharedLibaryBuildId.Substring(0,2))</_DebugLinkBuildIdPath>
@@ -376,7 +376,7 @@
       </Lib>
     </ItemGroup>
 
-    <NativeLib
+    <GccLib
       BuildingInIDE="$(BuildingInsideVisualStudio)"
       Sources="@(Lib)"
 
@@ -389,13 +389,13 @@
       OutputCommandLine="%(Lib.OutputCommandLine)"
       ToolPath="$(PlatformToolsetLibToolPath)"
       ToolExe="$(PlatformToolsetLibTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\native_lib.xml">
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_lib.xml">
 
       <Output TaskParameter="OutputFiles" ItemName="LibOutputFiles" />
 
       <Output TaskParameter="SkippedExecution" PropertyName="LibSkippedExecution" />
 
-    </NativeLib>
+    </GccLib>
 
     <Message Condition="'$(LibSkippedExecution)' == 'false'" Text="$(MSBuildProjectFile) -&gt; @(LibOutputFiles)" Importance="High" />
 
@@ -407,7 +407,7 @@
       <LibOutputFiles>
         <StripUnusedSymbols>%(Lib.StripUnusedSymbols)</StripUnusedSymbols>
         <StripDebugSymbols>%(Lib.StripDebugSymbols)</StripDebugSymbols>
-        <!-- Obviously I don't understand MSBuild, because referencing these props directly in NativeStrip doesn't work. -->
+        <!-- Obviously I don't understand MSBuild, because referencing these props directly in GccStrip doesn't work. -->
         <TrackerLogDirectory>%(Lib.TrackerLogDirectory)</TrackerLogDirectory>
         <MinimalRebuildFromTracking>%(Lib.MinimalRebuildFromTracking)</MinimalRebuildFromTracking>
         <OutputCommandLine>%(Lib.OutputCommandLine)</OutputCommandLine>
@@ -420,7 +420,7 @@
       DestinationFiles="$(OutDir)$(TargetName)$(TargetExt).unstripped" 
     />
 
-    <NativeStrip
+    <GccStrip
       BuildingInIDE="$(BuildingInsideVisualStudio)"
       Condition="('@(LibOutputFiles)' != '' and ('%(StripUnusedSymbols)' == 'true' or '%(StripDebugSymbols)' == 'true'))"
       Sources="@(LibOutputFiles)"
@@ -432,7 +432,7 @@
       OutputCommandLine="%(LibOutputFiles.OutputCommandLine)"
       ToolPath="$(PlatformToolsetStripToolPath)"
       ToolExe="$(PlatformToolsetStripTool)"
-      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\native_strip.xml"
+      PropertiesFile="$(VCTargetsPath)\Platforms\$(Platform)\$(LangID)\gcc_strip.xml"
     />
 
   </Target> 
