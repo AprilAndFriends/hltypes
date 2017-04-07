@@ -18,7 +18,7 @@
     <PlatformToolset Condition="'$(PlatformToolset)' == ''">clang</PlatformToolset>
     <DefaultPlatformToolset Condition="'$(DefaultPlatformToolset)' == ''">$(PlatformToolset)</DefaultPlatformToolset>
     <TargetArchitecture>armv7-a</TargetArchitecture>
-    <STLSupport Condition="'$(STLSupport)' == ''">gnustl_static</STLSupport>
+    <STLSupport Condition="'$(STLSupport)' == ''">c++_static</STLSupport>
 
     <!--
       Explictly disable MSBuild's fast up-to-date functionality. 
