@@ -15,6 +15,7 @@
 
 #include "hsbase.h"
 #include "hltypesExport.h"
+
 #define MIN_HSTREAM_CAPACITY 16
 
 namespace hltypes
