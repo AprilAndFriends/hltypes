@@ -145,7 +145,7 @@ namespace hltypes
 #ifdef _WIN32
 		return (_platformFile*)_wfopen(name.wStr().c_str(), accessMode.wStr().c_str());
 #else
-		return (_platformFile*)fopen(name.cStr(), accessMode.cStr()); // TODO - should be ported to Unix systems as well
+		return (_platformFile*)fopen(name.cStr(), accessMode.cStr()); // TODO - UTF-8 support should be ported to Unix systems as well
 #endif
 	}
 
@@ -198,7 +198,7 @@ namespace hltypes
 		return (GetFileAttributesExW(name.wStr().c_str(), GetFileExInfoStandard, &data) != 0 && (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0);
 #else
 		struct stat stats;
-		return (stat(name.cStr(), &stats) == 0 && (stats.st_mode & S_IFREG) != 0);
+		return (stat(name.cStr(), &stats) == 0 && S_ISREG(stats.st_mode));
 #endif
 	}
 
@@ -207,7 +207,7 @@ namespace hltypes
 #ifdef _WIN32
 		return (_wrename(oldName.wStr().c_str(), newName.wStr().c_str()) == 0);
 #else
-		return (rename(oldName.cStr(), newName.cStr()) == 0); // TODO - should be ported to Unix systems as well
+		return (rename(oldName.cStr(), newName.cStr()) == 0); // TODO - UTF-8 support should be ported to Unix systems as well
 #endif
 	}
 
@@ -216,7 +216,7 @@ namespace hltypes
 #ifdef _WIN32
 		return (_wremove(name.wStr().c_str()) == 0);
 #else
-		return (remove(name.cStr()) == 0); // TODO - should be ported to Unix systems as well
+		return (remove(name.cStr()) == 0); // TODO - UTF-8 support should be ported to Unix systems as well
 #endif
 	}
 
@@ -301,7 +301,7 @@ namespace hltypes
 		return (GetFileAttributesExW(dirName.wStr().c_str(), GetFileExInfoStandard, &data) != 0 && (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0);
 #else
 		struct stat stats;
-		return (stat(dirName.cStr(), &stats) == 0 && (stats.st_mode & S_IFDIR) != 0);
+		return (stat(dirName.cStr(), &stats) == 0 && S_ISDIR(stats.st_mode));
 #endif
 	}
 
@@ -316,7 +316,7 @@ namespace hltypes
 #endif
 		return (_wmkdir(dirName.wStr().c_str()) != 0);
 #else
-		return (mkdir(dirName.cStr(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) != 0); // TODO - should be ported to Unix systems as well
+		return (mkdir(dirName.cStr(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) != 0); // TODO - UTF-8 support should be ported to Unix systems as well
 #endif
 	}
 
@@ -325,7 +325,7 @@ namespace hltypes
 #ifdef _WIN32
 		return (_wrename(oldName.wStr().c_str(), newName.wStr().c_str()) == 0);
 #else
-		return (rename(oldName.cStr(), newName.cStr()) == 0); // TODO - should be ported to Unix systems as well
+		return (rename(oldName.cStr(), newName.cStr()) == 0); // TODO - UTF-8 support should be ported to Unix systems as well
 #endif
 	}
 
@@ -334,7 +334,7 @@ namespace hltypes
 #ifdef _WIN32
 		return (_wrmdir(dirName.wStr().c_str()) != 0);
 #else
-		return (rmdir(dirName.cStr()) != 0); // TODO - should be ported to Unix systems as well
+		return (rmdir(dirName.cStr()) != 0); // TODO - UTF-8 support should be ported to Unix systems as well
 #endif
 	}
 

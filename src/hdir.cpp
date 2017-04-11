@@ -167,20 +167,23 @@ namespace hltypes
 		if (Dir::exists(name))
 		{
 			_platformDir* dir = _platformOpenDirectory(name);
-			_platformDirEntry* entry = NULL;
-			while ((entry = _platformReadDirectory(dir)))
+			if (dir != NULL) // opening can still fail due to permissions even if directory exists
 			{
-				result += _platformGetDirEntryName(entry);
+				_platformDirEntry* entry = NULL;
+				while ((entry = _platformReadDirectory(dir)))
+				{
+					result += _platformGetDirEntryName(entry);
+				}
+				if (!result.has("."))
+				{
+					result += ".";
+				}
+				if (!result.has(".."))
+				{
+					result += "..";
+				}
+				_platformCloseDirectory(dir);
 			}
-			if (!result.has("."))
-			{
-				result += ".";
-			}
-			if (!result.has(".."))
-			{
-				result += "..";
-			}
-			_platformCloseDirectory(dir);
 		}
 		if (prependDir)
 		{
@@ -196,20 +199,23 @@ namespace hltypes
 		if (Dir::exists(name))
 		{
 			_platformDir* dir = _platformOpenDirectory(name);
-			_platformDirEntry* entry = NULL;
-			while ((entry = _platformReadDirectory(dir)))
+			if (dir != NULL) // opening can still fail due to permissions even if directory exists
 			{
-				result += _platformGetDirEntryName(entry);
+				_platformDirEntry* entry = NULL;
+				while ((entry = _platformReadDirectory(dir)))
+				{
+					result += _platformGetDirEntryName(entry);
+				}
+				if (result.has("."))
+				{
+					result.remove(".");
+				}
+				if (result.has(".."))
+				{
+					result.remove("..");
+				}
+				_platformCloseDirectory(dir);
 			}
-			if (result.has("."))
-			{
-				result.remove(".");
-			}
-			if (result.has(".."))
-			{
-				result.remove("..");
-			}
-			_platformCloseDirectory(dir);
 		}
 		if (prependDir)
 		{
@@ -225,25 +231,28 @@ namespace hltypes
 		if (Dir::exists(name))
 		{
 			_platformDir* dir = _platformOpenDirectory(name);
-			_platformDirEntry* entry = NULL;
-			String entryName;
-			while ((entry = _platformReadDirectory(dir)))
+			if (dir != NULL) // opening can still fail due to permissions even if directory exists
 			{
-				entryName = _platformGetDirEntryName(entry);
-				if (Dir::exists(Dir::joinPath(name, entryName, false)))
+				_platformDirEntry* entry = NULL;
+				String entryName;
+				while ((entry = _platformReadDirectory(dir)))
 				{
-					result += entryName;
+					entryName = _platformGetDirEntryName(entry);
+					if (Dir::exists(Dir::joinPath(name, entryName, false)))
+					{
+						result += entryName;
+					}
 				}
+				if (result.has("."))
+				{
+					result.remove(".");
+				}
+				if (result.has(".."))
+				{
+					result.remove("..");
+				}
+				_platformCloseDirectory(dir);
 			}
-			if (result.has("."))
-			{
-				result.remove(".");
-			}
-			if (result.has(".."))
-			{
-				result.remove("..");
-			}
-			_platformCloseDirectory(dir);
 		}
 		if (prependDir)
 		{
@@ -259,25 +268,28 @@ namespace hltypes
 		if (Dir::exists(name))
 		{
 			_platformDir* dir = _platformOpenDirectory(name);
-			_platformDirEntry* entry = NULL;
-			String entryName;
-			while ((entry = _platformReadDirectory(dir)))
+			if (dir != NULL) // opening can still fail due to permissions even if directory exists
 			{
-				entryName = _platformGetDirEntryName(entry);
-				if (File::exists(Dir::joinPath(name, entryName, false)))
+				_platformDirEntry* entry = NULL;
+				String entryName;
+				while ((entry = _platformReadDirectory(dir)))
 				{
-					result += entryName;
+					entryName = _platformGetDirEntryName(entry);
+					if (File::exists(Dir::joinPath(name, entryName, false)))
+					{
+						result += entryName;
+					}
 				}
+				if (result.has("."))
+				{
+					result.remove(".");
+				}
+				if (result.has(".."))
+				{
+					result.remove("..");
+				}
+				_platformCloseDirectory(dir);
 			}
-			if (result.has("."))
-			{
-				result.remove(".");
-			}
-			if (result.has(".."))
-			{
-				result.remove("..");
-			}
-			_platformCloseDirectory(dir);
 		}
 		if (prependDir)
 		{
