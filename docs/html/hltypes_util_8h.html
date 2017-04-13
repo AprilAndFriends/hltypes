@@ -106,10 +106,10 @@ Macros</h2></td></tr>
 <tr class="memitem:acd7565fbd93493986911cdb4ecec4820"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#acd7565fbd93493986911cdb4ecec4820">HL_DEFINE_IS</a>(name,  capsName)&#160;&#160;&#160;inline bool is ## capsName() const { return this-&gt;name; }</td></tr>
 <tr class="memdesc:acd7565fbd93493986911cdb4ecec4820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility macro for quick getter (with "is") definition.  <a href="#acd7565fbd93493986911cdb4ecec4820">More...</a><br /></td></tr>
 <tr class="separator:acd7565fbd93493986911cdb4ecec4820"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbc94ca82271aec790c0afef3108ad9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#abbc94ca82271aec790c0afef3108ad9b">HL_DEFINE_SET</a>(type,  name,  capsName)&#160;&#160;&#160;inline void set ## capsName(type value) { this-&gt;name = value; }</td></tr>
+<tr class="memitem:abbc94ca82271aec790c0afef3108ad9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#abbc94ca82271aec790c0afef3108ad9b">HL_DEFINE_SET</a>(type,  name,  capsName)&#160;&#160;&#160;inline void set ## capsName(type const&amp; value) { this-&gt;name = value; }</td></tr>
 <tr class="memdesc:abbc94ca82271aec790c0afef3108ad9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility macro for quick setter definition.  <a href="#abbc94ca82271aec790c0afef3108ad9b">More...</a><br /></td></tr>
 <tr class="separator:abbc94ca82271aec790c0afef3108ad9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad25d1b29b7728d16979e3107ca27d6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#aad25d1b29b7728d16979e3107ca27d6c">HL_DEFINE_SET2</a>(classe,  type1,  type2,  name,  capsName)&#160;&#160;&#160;inline void set ## capsName(classe&lt;type1, type2&gt; value) { this-&gt;name = value; }</td></tr>
+<tr class="memitem:aad25d1b29b7728d16979e3107ca27d6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#aad25d1b29b7728d16979e3107ca27d6c">HL_DEFINE_SET2</a>(classe,  type1,  type2,  name,  capsName)&#160;&#160;&#160;inline void set ## capsName(classe&lt;type1, type2&gt; const&amp; value) { this-&gt;name = value; }</td></tr>
 <tr class="memdesc:aad25d1b29b7728d16979e3107ca27d6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility macro for quick setter definition.  <a href="#aad25d1b29b7728d16979e3107ca27d6c">More...</a><br /></td></tr>
 <tr class="separator:aad25d1b29b7728d16979e3107ca27d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a605e06d09d17ae0950c82655974a4183"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hltypes_util_8h.html#a605e06d09d17ae0950c82655974a4183">HL_DEFINE_GETSET</a>(type,  name,  capsName)&#160;&#160;&#160;<a class="el" href="hltypes_util_8h.html#a910dbd9783ca03243189c10d0a905895">HL_DEFINE_GET</a>(type, name, capsName) <a class="el" href="hltypes_util_8h.html#abbc94ca82271aec790c0afef3108ad9b">HL_DEFINE_SET</a>(type, name, capsName)</td></tr>
@@ -1420,7 +1420,7 @@ The iteration variable has to be declared previously. </dd></dl>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;inline void set ## capsName(type value) { this-&gt;name = value; }</td>
+          <td></td><td>&#160;&#160;&#160;inline void set ## capsName(type const&amp; value) { this-&gt;name = value; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1474,7 +1474,7 @@ The iteration variable has to be declared previously. </dd></dl>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;inline void set ## capsName(classe&lt;type1, type2&gt; value) { this-&gt;name = value; }</td>
+          <td></td><td>&#160;&#160;&#160;inline void set ## capsName(classe&lt;type1, type2&gt; const&amp; value) { this-&gt;name = value; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1522,7 +1522,7 @@ The iteration variable has to be declared previously. </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>name \</div><div class="line">{ \</div><div class="line">public: \</div><div class="line">        static returnType lambda __HL_EXPAND_MACRO code \</div><div class="line">};</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>name \</div><div class="line">{ \</div><div class="line">public: \</div><div class="line">    static returnType lambda __HL_EXPAND_MACRO code \</div><div class="line">};</div></div><!-- fragment -->
 <p>Utility macro for local lambda classes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
