@@ -22,7 +22,7 @@ namespace hltypes
 		this->set(major, minor, revision, build);
 	}
 
-	Version::Version(Array<unsigned int> versions) : major(0), minor(0), revision(0), build(0)
+	Version::Version(const Array<unsigned int>& versions) : major(0), minor(0), revision(0), build(0)
 	{
 		this->set(versions);
 	}
@@ -49,7 +49,7 @@ namespace hltypes
 		this->build = build;
 	}
 	
-	void Version::set(Array<unsigned int> versions)
+	void Version::set(const Array<unsigned int>& versions)
 	{
 		if (versions.size() > 0)
 		{

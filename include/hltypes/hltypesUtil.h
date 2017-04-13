@@ -93,14 +93,14 @@ namespace hltypes
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_SET(type, name, capsName) inline void set ## capsName(type value) { this->name = value; }
+#define HL_DEFINE_SET(type, name, capsName) inline void set ## capsName(type const& value) { this->name = value; }
 /// @brief Utility macro for quick setter definition.
 /// @param[in] classe Template class.
 /// @param[in] type1 First template type argument.
 /// @param[in] type2 Second template type argument.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_SET2(classe, type1, type2, name, capsName) inline void set ## capsName(classe<type1, type2> value) { this->name = value; }
+#define HL_DEFINE_SET2(classe, type1, type2, name, capsName) inline void set ## capsName(classe<type1, type2> const& value) { this->name = value; }
 /// @brief Utility macro for quick getter and setter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.

@@ -991,7 +991,7 @@ namespace hltypes
 /// @brief Alias for simpler code.
 typedef hltypes::String hstr;
 /// @brief Alias for simpler code.
-typedef const hltypes::String& chstr;
+typedef hltypes::String const& chstr;
 
 /// @brief Merges a C-type string and a String into a new String.
 /// @param[in] string1 C-type string to merge.

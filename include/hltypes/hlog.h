@@ -68,7 +68,7 @@ namespace hltypes
 		/// @brief Sets the current tag filters.
 		/// @param[in] value New tag filters.
 		/// @note If value is an empty Array, the no filtering will be used.
-		static inline void setTagFilters(Array<String> value) { tagFilters = value; }
+		static inline void setTagFilters(const Array<String>& value) { tagFilters = value; }
 		/// @brief Sets all logging levels at once.
 		/// @param[in] write Value for Log level Write.
 		/// @param[in] error Value for Log level Error.

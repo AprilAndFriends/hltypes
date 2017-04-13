@@ -44,7 +44,7 @@ namespace hltypes
 		/// @brief Constructor.
 		/// @param[in] versions Array of versions.
 		/// @note Only between 1 and 4 values are used in versions.
-		Version(Array<unsigned int> versions);
+		Version(const Array<unsigned int>& versions);
 		/// @brief Constructor.
 		/// @param[in] versions Version numbers separated by period characters.
 		/// @note Only between 1 and 4 values are used in versions.
@@ -66,7 +66,7 @@ namespace hltypes
 		/// @brief Sets the version values.
 		/// @param[in] versions Array of versions.
 		/// @note Only between 1 and 4 values are used in versions.
-		void set(Array<unsigned int> versions);
+		void set(const Array<unsigned int>& versions);
 		/// @brief Sets the version values.
 		/// @param[in] versions Version numbers separated by period characters.
 		/// @note Only between 1 and 4 values are used in versions.
