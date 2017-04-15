@@ -65,8 +65,8 @@
       <SystemLibraryDependencies Condition="'$(STLSupport)' == 'stlport_shared'">stdc++;stlport_shared;%(SystemLibraryDependencies)</SystemLibraryDependencies>
       <SystemLibraryDependencies Condition="'$(STLSupport)' == 'gnustl_static'">stdc++;supc++;gnustl_static;%(SystemLibraryDependencies)</SystemLibraryDependencies>
       <SystemLibraryDependencies Condition="'$(STLSupport)' == 'gnustl_shared'">stdc++;supc++;gnustl_shared;%(SystemLibraryDependencies)</SystemLibraryDependencies>
-      <SystemLibraryDependencies Condition="'$(STLSupport)' == 'c++_static'">c++_static;c++abi;android_support;unwind;%(SystemLibraryDependencies)</SystemLibraryDependencies>
-      <SystemLibraryDependencies Condition="'$(STLSupport)' == 'c++_shared'">c++_shared;c++abi;android_support;unwind;%(SystemLibraryDependencies)</SystemLibraryDependencies>
+      <SystemLibraryDependencies Condition="'$(STLSupport)' == 'c++_static'">c++_static;c++abi;android_support;%(SystemLibraryDependencies)</SystemLibraryDependencies>
+      <SystemLibraryDependencies Condition="'$(STLSupport)' == 'c++_shared'">c++_shared;c++abi;android_support;%(SystemLibraryDependencies)</SystemLibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
 
