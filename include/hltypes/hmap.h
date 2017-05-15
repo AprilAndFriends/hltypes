@@ -29,8 +29,8 @@
 #define foreachc_m(type, name, container) for (hltypes::Map< hltypes::String, type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-#define __foreach_this_map_it(name) for (const_iterator_t name = this->begin(); name != this->end(); ++name)
-#define __foreach_other_map_it(name, other) for (const_iterator_t name = other.begin(); name != other.end(); ++name)
+#define __foreach_this_map_it(name) for (const_iterator_t name = this->begin(), name ## End = this->end(); name != name ## End; ++name)
+#define __foreach_other_map_it(name, other) for (const_iterator_t name = other.begin(), name ## End = other.end(); name != name ## End; ++name)
 #endif
 
 namespace hltypes
@@ -156,18 +156,15 @@ namespace hltypes
 			{
 				return false;
 			}
-			Array<K> keys = other.keys();
-			if (!this->hasAllKeys(keys))
-			{
-				return false;
-			}
+			const_iterator_t otherIt = other.begin();
 			__foreach_this_map_it(it)
 			{
 				// making sure operator== is used, not !=
-				if (!(it->second == other.find(it->first)->second))
+				if (!((*it) == (*otherIt)))
 				{
 					return false;
 				}
+				++otherIt;
 			}
 			return true;
 		}
@@ -180,18 +177,15 @@ namespace hltypes
 			{
 				return true;
 			}
-			Array<K> keys = other.keys();
-			if (!this->hasAllKeys(keys))
-			{
-				return true;
-			}
+			const_iterator_t otherIt = other.begin();
 			__foreach_this_map_it(it)
 			{
 				// making sure operator!= is used, not ==
-				if (it->second != other.find(it->first)->second)
+				if ((*it) != (*otherIt))
 				{
 					return true;
 				}
+				++otherIt;
 			}
 			return false;
 		}
