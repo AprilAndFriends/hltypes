@@ -42,6 +42,14 @@
 #include <dlfcn.h>
 #endif
 
+#if defined(_WIN32) && RAND_MAX == 0x7FFF
+#define HRAND() ((int64_t)(rand() | (rand() << 15)))
+#define HRAND_MAX (RAND_MAX | (RAND_MAX << 15))
+#else
+#define HRAND() rand()
+#define HRAND_MAX RAND_MAX
+#endif
+
 #define MAX_STACK_ADDRESS_NAME_SIZE 1024
 #define MAX_STACK_FRAMES 62 // WinXP has a max of 63 frames and the current frame is always skipped
 
@@ -185,7 +193,7 @@ int hrand(int min, int max)
 		return min;
 	}
 #ifdef _WIN32
-	return (int)(min + rand() * (max - min) / (RAND_MAX + 1));
+	return (int)(min + HRAND() * (max - min) / (HRAND_MAX + 1));
 #else
 	return (int)(min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min));
 #endif
@@ -198,7 +206,7 @@ int hrand(int max)
 		return 0;
 	}
 #ifdef _WIN32
-	return (rand() * max / (RAND_MAX + 1));
+	return (int)(HRAND() * max / (HRAND_MAX + 1));
 #else
 	return (int)((((double)rand()) / ((double)RAND_MAX + 1)) * max);
 #endif
@@ -211,9 +219,9 @@ float hrandf(float min, float max)
 		return min;
 	}
 #ifdef _WIN32
-	return (min + rand() * (max - min) / (RAND_MAX + 1));
+	return (float)(min + HRAND() * (max - min) / (HRAND_MAX + 1));
 #else
-	return (min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min));
+	return (float)(min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min));
 #endif
 }
 
@@ -224,9 +232,9 @@ float hrandf(float max)
 		return 0.0f;
 	}
 #ifdef _WIN32
-	return (rand() * max / (RAND_MAX + 1));
+	return (float)(HRAND() * max / (HRAND_MAX + 1));
 #else
-	return ((((double)rand()) / ((double)RAND_MAX + 1)) * max);
+	return (float)((((double)rand()) / ((double)RAND_MAX + 1)) * max);
 #endif
 }
 
@@ -237,9 +245,9 @@ double hrandd(double min, double max)
 		return min;
 	}
 #ifdef _WIN32
-	return (min + rand() * (max - min) / (RAND_MAX + 1));
+	return (double)(min + HRAND() * (max - min) / (HRAND_MAX + 1));
 #else
-	return (min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min));
+	return (double)(min + ((double)rand()) / ((double)RAND_MAX + 1) * (max - min));
 #endif
 }
 
@@ -250,9 +258,9 @@ double hrandd(double max)
 		return 0.0;
 	}
 #ifdef _WIN32
-	return (rand() * max / (RAND_MAX + 1));
+	return (double)(HRAND() * max / (HRAND_MAX + 1));
 #else
-	return ((((double)rand()) / ((double)RAND_MAX + 1)) * max);
+	return (double)((((double)rand()) / ((double)RAND_MAX + 1)) * max);
 #endif
 }
 
