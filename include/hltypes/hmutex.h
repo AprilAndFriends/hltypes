@@ -36,10 +36,28 @@ namespace hltypes
 			/// @brief Locks the Mutex.
 			/// @param[in] mutex The mutex to lock.
 			/// @return True if lock succeeded. False if there is already an assigned Mutex.
-			bool acquire(Mutex* mutex);
+			inline bool acquire(Mutex* mutex)
+			{
+				if (this->mutex == NULL && mutex != NULL)
+				{
+					this->mutex = mutex;
+					this->mutex->lock();
+					return true;
+				}
+				return false;
+			}
 			/// @brief Unlocks the Mutex.
 			/// @return True if unlock succeeded. False if there is no assigned Mutex.
-			bool release();
+			inline bool release()
+			{
+				if (this->mutex != NULL)
+				{
+					this->mutex->unlock();
+					this->mutex = NULL;
+					return true;
+				}
+				return false;
+			}
 
 		protected:
 			/// @brief The Mutex.

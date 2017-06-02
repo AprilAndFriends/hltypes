@@ -42,28 +42,6 @@ namespace hltypes
 		}
 	}
 
-	bool Mutex::ScopeLock::acquire(Mutex* mutex)
-	{
-		if (this->mutex == NULL && mutex != NULL)
-		{
-			this->mutex = mutex;
-			this->mutex->lock();
-			return true;
-		}
-		return false;
-	}
-
-	bool Mutex::ScopeLock::release()
-	{
-		if (this->mutex != NULL)
-		{
-			this->mutex->unlock();
-			this->mutex = NULL;
-			return true;
-		}
-		return false;
-	}
-
 	Mutex::Mutex(const String& name) : handle(NULL), locked(false)
 	{
 		this->name = name;
