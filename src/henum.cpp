@@ -58,8 +58,10 @@ namespace hltypes
 			throw EnumerationValueAlreadyExistsException(value);
 		}
 		instances[this->value] = name;
+#ifdef _DEBUG
 		// because of the order of global var initializations, mutexes get messed up
 		printf("[hltypes] Adding enum '%s::%s' under value '%u'.\n", className.cStr(), name.cStr(), this->value);
+#endif
 	}
 
 	bool Enumeration::operator<(const Enumeration& other) const
