@@ -204,7 +204,7 @@ namespace hltypes
 			Dir::create(filename + ".hlog");
 		}
 		String newFilename = Log::_makeFilename(filename, Log::fileIndex);
-		if (File::hinfo(newFilename).size > MAX_FILE_SIZE)
+		if (File::exists(newFilename) && File::hinfo(newFilename).size > MAX_FILE_SIZE)
 		{
 			++Log::fileIndex;
 			newFilename = Log::_makeFilename(filename, Log::fileIndex);
