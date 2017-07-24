@@ -342,7 +342,7 @@ namespace hltypes
 		/// @brief Counts occurrences of element in Container.
 		/// @param[in] element Element to search for.
 		/// @return Number of occurrences of given element.
-		inline int count(T element) const
+		inline int count(const T& element) const
 		{
 			int result = 0;
 			int size = this->size();
