@@ -57,6 +57,11 @@ namespace hltypes
 		/// @param[in] path The path.
 		/// @return Split path.
 		static Array<String> splitPath(const String& path);
+		/// @brief Creates a path relative from a source path to a destination path.
+		/// @param[in] source The source path.
+		/// @param[in] destination The destination path.
+		/// @return Created relative path.
+		static String createRelativePath(const String& source, const String& destination);
 
 	protected:
 		/// @brief Basic constructor.

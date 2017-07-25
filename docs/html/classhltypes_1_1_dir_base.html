@@ -96,6 +96,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a432d8e1dcc9b716f0ed9302f96925d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classhltypes_1_1_array.html">Array</a>&lt; <a class="el" href="classhltypes_1_1_string.html">String</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_dir_base.html#a5a432d8e1dcc9b716f0ed9302f96925d">splitPath</a> (const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;path)</td></tr>
 <tr class="memdesc:a5a432d8e1dcc9b716f0ed9302f96925d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits a non-systemized path into its segments.  <a href="#a5a432d8e1dcc9b716f0ed9302f96925d">More...</a><br /></td></tr>
 <tr class="separator:a5a432d8e1dcc9b716f0ed9302f96925d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb09164d5f45ccf5948078b0e906163b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classhltypes_1_1_string.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_dir_base.html#afb09164d5f45ccf5948078b0e906163b">createRelativePath</a> (const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;source, const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;destination)</td></tr>
+<tr class="memdesc:afb09164d5f45ccf5948078b0e906163b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a path relative from a source path to a destination path.  <a href="#afb09164d5f45ccf5948078b0e906163b">More...</a><br /></td></tr>
+<tr class="separator:afb09164d5f45ccf5948078b0e906163b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -274,6 +277,50 @@ Static Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Base filename/directory without the prepended directory path. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afb09164d5f45ccf5948078b0e906163b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classhltypes_1_1_string.html">String</a> hltypes::DirBase::createRelativePath </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhltypes_1_1_string.html">String</a> &amp;&#160;</td>
+          <td class="paramname"><em>destination</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a path relative from a source path to a destination path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">source</td><td>The source path. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">destination</td><td>The destination path. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Created relative path. </dd></dl>
 
 </div>
 </div>

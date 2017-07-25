@@ -149,6 +149,22 @@ namespace hltypes
 		return DirBase::systemize(path).trimmedRight('/').split('/');
 	}
 
+	String DirBase::createRelativePath(const String& source, const String& destination)
+	{
+		Array<String> sourceDirectories = DirBase::splitPath(source);
+		Array<String> destinationDirectories = DirBase::splitPath(destination);
+		while (sourceDirectories.size() > 0 && destinationDirectories.size() > 0 && sourceDirectories.first() == destinationDirectories.first())
+		{
+			sourceDirectories.removeFirst();
+			destinationDirectories.removeFirst();
+		}
+		if (sourceDirectories.size() > 0)
+		{
+			destinationDirectories.addFirst("..", sourceDirectories.size());
+		}
+		return DirBase::joinPaths(destinationDirectories);
+	}
+
 	void DirBase::_prependDirectory(const String& dirname, Array<String>& entries)
 	{
 		if (dirname != "")
