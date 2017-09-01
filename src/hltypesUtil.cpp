@@ -68,17 +68,17 @@ int64_t htickCount()
 {
 #ifdef _WIN32
 #ifndef _WINRT // because GetTickCount64() is not available pre-Vista
-	return GetTickCount();
+	return (int64_t)GetTickCount();
 #else
 	return (int64_t)GetTickCount64();
 #endif
 #else
-	timeval tv = {0, 0};
-	gettimeofday(&tv, NULL);
+	struct timespec ts;
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
 	// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
-	int64_t tv_sec = tv.tv_sec;
-	int64_t tv_usec = tv.tv_usec;
-	return (tv_sec * 1000 + tv_usec / 1000);
+	int64_t tv_sec = (int64_t)ts.tv_sec;
+	int64_t tv_nsec = (int64_t)ts.tv_nsec;
+	return (tv_sec * 1000LL + tv_nsec / 1000000LL);
 #endif
 }
 
