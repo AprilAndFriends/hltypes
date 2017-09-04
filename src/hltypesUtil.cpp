@@ -72,6 +72,14 @@ int64_t htickCount()
 #else
 	return (int64_t)GetTickCount64();
 #endif
+#elif defined(_IOS)
+	// iOS does not support CLOCK_MONOTONIC_RAW (before iOS 10 clock_gettime() wasn't supported at all) 
+	int64_t result = mach_absolute_time();
+	mach_timebase_info_data_t info;
+	mach_timebase_info(&info);
+	result *= info.numer;
+	result /= info.denom;
+	return (result / 1000000LL);
 #else
 	struct timespec ts;
 	clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
@@ -80,6 +88,7 @@ int64_t htickCount()
 	int64_t tv_nsec = (int64_t)ts.tv_nsec;
 	return (tv_sec * 1000LL + tv_nsec / 1000000LL);
 #endif
+
 }
 
 hltypes::String henv(const hltypes::String& name)
