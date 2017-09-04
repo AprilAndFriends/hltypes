@@ -74,7 +74,7 @@ int64_t htickCount()
 #endif
 #else
 	struct timespec ts;
-	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
+	clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
 	// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
 	int64_t tv_sec = (int64_t)ts.tv_sec;
 	int64_t tv_nsec = (int64_t)ts.tv_nsec;
