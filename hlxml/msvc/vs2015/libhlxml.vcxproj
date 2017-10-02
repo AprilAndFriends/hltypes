@@ -54,6 +54,7 @@
     <ProjectGuid>{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}</ProjectGuid>
     <RootNamespace>hlxml</RootNamespace>
   </PropertyGroup>
+  <Import Project="..\..\..\msvc\vs2015\props-generic\system.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="props\default.props" />
   <Import Project="..\..\..\msvc\vs2015\props-generic\platform-$(Platform).props" />

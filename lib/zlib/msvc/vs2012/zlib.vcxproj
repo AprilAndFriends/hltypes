@@ -22,6 +22,7 @@
     <ProjectGuid>{60F89955-91C6-3A36-8000-13C592FEC2DF}</ProjectGuid>
     <RootNamespace>zlib</RootNamespace>
   </PropertyGroup>
+  <Import Project="..\..\..\..\msvc\vs2012\props-generic\system.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="props\default.props" />
   <Import Project="..\..\..\..\msvc\vs2012\props-generic\platform-$(Platform).props" />
