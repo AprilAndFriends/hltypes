@@ -13,17 +13,25 @@
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 // split into 2 parts, because of platform header inclusion
 #ifndef HLTYPES_PLATFORM_H
-#if defined(_WIN32) && defined(_MSC_VER)
-#ifdef max
-#undef max
+	#if defined(_WIN32) && defined(_MSC_VER)
+		#ifdef max
+			#undef max
+		#endif
+		#ifdef min
+			#undef min
+		#endif
+		#ifndef NOMINMAX
+			#define NOMINMAX
+		#endif
+	#endif
 #endif
-#ifdef min
-#undef min
-#endif
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-#endif
+
+#ifndef HL_DEPRECATED
+	#if defined(_MSC_VER) && !defined(_ANDROID)
+		#define HL_DEPRECATED(message) __declspec(deprecated(message))
+	#else
+		#define HL_DEPRECATED(message) __attribute__((deprecated(message)))
+	#endif
 #endif
 
 #ifdef __HL_INCLUDE_PLATFORM_HEADERS
@@ -31,7 +39,7 @@
 #define HLTYPES_PLATFORM_H_PLATFORM_HEADERS_INCLUDED
 
 #if defined(_WIN32) && defined(_MSC_VER)
-#include <windows.h>
+	#include <windows.h>
 #endif
 
 #endif
@@ -59,22 +67,22 @@
 	}
 
 #if defined(_WIN32) && defined(_MSC_VER)
-// define _WINRT for external projects just in case
-#if !defined(_WINRT) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
-#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
-#define _WINRT
-#endif
-#endif
+	// define _WINRT for external projects just in case
+	#if !defined(_WINRT) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
+		#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+			#define _WINRT
+		#endif
+	#endif
 
-#ifdef _WINRT
-#if !defined(_WINP8) && !defined(_WINUWP) && !defined(_OPENKODE)
-#using <Windows.winmd>
-#endif
-#include <wrl.h>
-#define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).wStr().c_str())
-#define _HL_HSTR_TO_PSTR_DEF(string) Platform::String^ p ## string = _HL_HSTR_TO_PSTR(string)
-#define _HL_PSTR_TO_HSTR(string) hltypes::String::fromUnicode((string)->Data())
-#endif
+	#ifdef _WINRT
+		#if !defined(_WINP8) && !defined(_WINUWP) && !defined(_OPENKODE)
+			#using <Windows.winmd>
+		#endif
+		#include <wrl.h>
+		#define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).wStr().c_str())
+		#define _HL_HSTR_TO_PSTR_DEF(string) Platform::String^ p ## string = _HL_HSTR_TO_PSTR(string)
+		#define _HL_PSTR_TO_HSTR(string) hltypes::String::fromUnicode((string)->Data())
+	#endif
 #endif
 
 #endif
