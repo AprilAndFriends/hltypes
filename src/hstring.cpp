@@ -2008,13 +2008,16 @@ hltypes::String hvsprintf(const char* format, va_list args)
 		c = new char[size + 1];
 		c[0] = '\0';
 	}
-#ifdef _DEBUG
+
 	if (i >= 8)
 	{
+#ifdef _DEBUG
 		delete[] c;
-		throw Exception("Resulting string for hsprintf is longer than 2^16 (65536) characters!");
-	}
+		throw Exception("Resulting string for hsprintf is longer than 2^16 (65536) characters! format: " + hstr(format));
+#else
+		hlog::error(hltypes::logTag, "Resulting string for hsprintf is longer than 2^16 (65536) characters! format: " + hstr(format));
 #endif
+	}
 	hltypes::String result(c);
 	delete[] c;
 	return result;
