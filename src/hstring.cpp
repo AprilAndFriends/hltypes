@@ -109,20 +109,20 @@
 		size = 4; \
 	}
 
-// MacOS 10.9 SDK has problems linking to tolower/toupper for some reason, so this is used... sigh..
+// MacOS 10.9 SDK has problems linking to towlower/towupper for some reason, so this is used... sigh..
 #ifdef __APPLE__
-	inline int __tolower__(int c)
+	inline int __towlower__(int c)
 	{
-		return tolower(c);
+		return towlower(c);
 	}
 
-	inline int __toupper__(int c)
+	inline int __towupper__(int c)
 	{
-		return toupper(c);
+		return towupper(c);
 	}
 #else
-	#define __tolower__ tolower
-	#define __toupper__ toupper
+	#define __towlower__ towlower
+	#define __towupper__ towupper
 #endif
 
 typedef std::basic_string<char> stdstr;
@@ -457,16 +457,16 @@ namespace hltypes
 
 	String String::lowered() const
 	{
-		String result(*this);
-		std::transform(result.begin(), result.end(), result.begin(), __tolower__);
-		return result;
+		std::wstring wString = String(*this).wStr(); // requires a copy
+		std::transform(wString.begin(), wString.end(), wString.begin(), __towlower__);
+		return String::fromUnicode(wString.c_str());
 	}
 
 	String String::uppered() const
 	{
-		String result(*this);
-		std::transform(result.begin(), result.end(), result.begin(), __toupper__);
-		return result;
+		std::wstring wString = String(*this).wStr(); // requires a copy
+		std::transform(wString.begin(), wString.end(), wString.begin(), __towupper__);
+		return String::fromUnicode(wString.c_str());
 	}
 
 	String String::reversed() const
