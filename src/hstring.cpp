@@ -2008,7 +2008,6 @@ hltypes::String hvsprintf(const char* format, va_list args)
 		c = new char[size + 1];
 		c[0] = '\0';
 	}
-
 	if (i >= 8)
 	{
 #ifdef _DEBUG
