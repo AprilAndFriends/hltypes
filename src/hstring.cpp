@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <wctype.h>
+#include <tchar.h>
 
 #include "harray.h"
 #include "hexception.h"
@@ -458,6 +460,24 @@ namespace hltypes
 	String String::lowered() const
 	{
 		std::wstring wString = String(*this).wStr(); // requires a copy
+		/*
+		int size = (int)wString.size();
+		if (wString[0] > 255)
+		{
+			int a = 0;
+		}
+		//_locale_t locale("C.UTF-8");
+		//_wsetlocale(LC_ALL, L"ru-RU");
+		setlocale(LC_ALL, "");
+		//_totlower_l
+		for_iter(i, 0, size)
+		{
+			//wString[i] = _towlower_l(wString[i], );
+			wString[i] = towlower(wString[i]);
+		}
+
+		//newlocale(LC_ALL, "C.UTF-8", 0)
+		*/
 		std::transform(wString.begin(), wString.end(), wString.begin(), __towlower__);
 		return String::fromUnicode(wString.c_str());
 	}
