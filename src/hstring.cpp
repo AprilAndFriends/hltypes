@@ -12,8 +12,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <wctype.h>
-#include <tchar.h>
 
 #include "harray.h"
 #include "hexception.h"
