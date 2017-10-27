@@ -129,6 +129,16 @@ typedef std::basic_string<char> stdstr;
 
 namespace hltypes
 {
+#ifdef _IOS
+#define MAX_CASE_CONVERSION_ENTRIES 2
+	// iOS can't handle locale so it's impossible to convert this using towlower() or towupper()
+	static std::pair<unsigned int, unsigned int> _caseConversionTable[MAX_CASE_CONVERSION_ENTRIES] =
+	{
+		std::pair<unsigned int, unsigned int>(0x0410, 0x0430),
+		std::pair<unsigned int, unsigned int>(0x0411, 0x0431)
+	};
+#endif
+
 	String::String() : stdstr()
 	{
 	}
@@ -457,34 +467,64 @@ namespace hltypes
 
 	String String::lowered() const
 	{
-		std::wstring wString = String(*this).wStr(); // requires a copy
-		/*
-		int size = (int)wString.size();
-		if (wString[0] > 255)
+		std::ustring uString = this->uStr();
+#ifndef _IOS
+		std::transform(uString.begin(), uString.end(), uString.begin(), __towlower__);
+#else
+		// iOS can't handle locale so it's impossible to convert this using towlower() or towupper()
+		unsigned int value = 0;
+		for_itert (unsigned int, i, 0, uString.size())
 		{
-			int a = 0;
+			value = __towlower__(uString[i]);
+			if (value == uString[i])
+			{
+				for_iter (j, 0, MAX_CASE_CONVERSION_ENTRIES)
+				{
+					if (value == _caseConversionTable[i].first)
+					{
+						uString[i] = _caseConversionTable[i].second;
+						break;
+					}
+				}
+			}
+			else
+			{
+				uString[i] = value;
+			}
 		}
-		//_locale_t locale("C.UTF-8");
-		//_wsetlocale(LC_ALL, L"ru-RU");
-		setlocale(LC_ALL, "");
-		//_totlower_l
-		for_iter(i, 0, size)
-		{
-			//wString[i] = _towlower_l(wString[i], );
-			wString[i] = towlower(wString[i]);
-		}
-
-		//newlocale(LC_ALL, "C.UTF-8", 0)
-		*/
-		std::transform(wString.begin(), wString.end(), wString.begin(), __towlower__);
-		return String::fromUnicode(wString.c_str());
+#endif
+		return String::fromUnicode(uString.c_str());
 	}
 
 	String String::uppered() const
 	{
-		std::wstring wString = String(*this).wStr(); // requires a copy
-		std::transform(wString.begin(), wString.end(), wString.begin(), __towupper__);
-		return String::fromUnicode(wString.c_str());
+		std::ustring uString = this->uStr();
+#ifndef _IOS
+		std::transform(uString.begin(), uString.end(), uString.begin(), __towupper__);
+#else
+		// iOS can't handle locale so it's impossible to convert this using towlower() or towupper()
+		unsigned int value = 0;
+		for_itert (unsigned int, i, 0, uString.size())
+		{
+			value = __towupper__(uString[i]);
+			if (value == uString[i])
+			{
+				for_iter (j, 0, MAX_CASE_CONVERSION_ENTRIES)
+				{
+					if (value == _caseConversionTable[i].second)
+					{
+						uString[i] = _caseConversionTable[i].first;
+						break;
+					}
+				}
+			}
+			else
+			{
+				uString[i] = value;
+			}
+		}
+#endif
+		return String::fromUnicode(uString.c_str());
 	}
 
 	String String::reversed() const
@@ -496,9 +536,9 @@ namespace hltypes
 
 	String String::utf8Reversed() const
 	{
-		std::ustring ustr = this->uStr();
-		std::reverse(ustr.begin(), ustr.end());
-		return fromUnicode(ustr.c_str());
+		std::ustring uString = this->uStr();
+		std::reverse(uString.begin(), uString.end());
+		return fromUnicode(uString.c_str());
 	}
 
 	String String::trimmed(const char c) const
@@ -800,9 +840,9 @@ namespace hltypes
 
 	void String::utf8Randomize()
 	{
-		std::ustring ustr = this->uStr();
-		std::random_shuffle(ustr.begin(), ustr.end());
-		this->operator=(fromUnicode(ustr.c_str()));
+		std::ustring uString = this->uStr();
+		std::random_shuffle(uString.begin(), uString.end());
+		this->operator=(fromUnicode(uString.c_str()));
 	}
 
 	String String::randomized() const
