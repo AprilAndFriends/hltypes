@@ -130,12 +130,144 @@ typedef std::basic_string<char> stdstr;
 namespace hltypes
 {
 #ifdef _IOS
-#define MAX_CASE_CONVERSION_ENTRIES 2
+#define MAX_CASE_CONVERSION_ENTRIES 128
 	// iOS can't handle locale so it's impossible to convert this using towlower() or towupper()
 	static std::pair<unsigned int, unsigned int> _caseConversionTable[MAX_CASE_CONVERSION_ENTRIES] =
 	{
+		///Cyrillic extensions - 16 signs
+		std::pair<unsigned int, unsigned int>(0x0400, 0x0450),
+		std::pair<unsigned int, unsigned int>(0x0401, 0x0451),
+		std::pair<unsigned int, unsigned int>(0x0402, 0x0452),
+		std::pair<unsigned int, unsigned int>(0x0403, 0x0453),
+		std::pair<unsigned int, unsigned int>(0x0404, 0x0454),
+		std::pair<unsigned int, unsigned int>(0x0405, 0x0455),
+		std::pair<unsigned int, unsigned int>(0x0406, 0x0456),
+		std::pair<unsigned int, unsigned int>(0x0407, 0x0457),
+		std::pair<unsigned int, unsigned int>(0x0408, 0x0458),
+		std::pair<unsigned int, unsigned int>(0x0409, 0x0459),
+		std::pair<unsigned int, unsigned int>(0x040A, 0x045A),
+		std::pair<unsigned int, unsigned int>(0x040B, 0x045B),
+		std::pair<unsigned int, unsigned int>(0x040C, 0x045C),
+		std::pair<unsigned int, unsigned int>(0x040D, 0x045D),
+		std::pair<unsigned int, unsigned int>(0x040E, 0x045E),
+		std::pair<unsigned int, unsigned int>(0x040F, 0x045F),
+		///Basic Cyrillic alphabet - 32 signs
 		std::pair<unsigned int, unsigned int>(0x0410, 0x0430),
-		std::pair<unsigned int, unsigned int>(0x0411, 0x0431)
+		std::pair<unsigned int, unsigned int>(0x0411, 0x0431),
+		std::pair<unsigned int, unsigned int>(0x0412, 0x0432),
+		std::pair<unsigned int, unsigned int>(0x0413, 0x0433),
+		std::pair<unsigned int, unsigned int>(0x0414, 0x0434),
+		std::pair<unsigned int, unsigned int>(0x0415, 0x0435),
+		std::pair<unsigned int, unsigned int>(0x0416, 0x0436),
+		std::pair<unsigned int, unsigned int>(0x0417, 0x0437),
+		std::pair<unsigned int, unsigned int>(0x0418, 0x0438),
+		std::pair<unsigned int, unsigned int>(0x0419, 0x0439),
+		std::pair<unsigned int, unsigned int>(0x041A, 0x043A),
+		std::pair<unsigned int, unsigned int>(0x041B, 0x043B),
+		std::pair<unsigned int, unsigned int>(0x041C, 0x043C),
+		std::pair<unsigned int, unsigned int>(0x041D, 0x043D),
+		std::pair<unsigned int, unsigned int>(0x041E, 0x043E),
+		std::pair<unsigned int, unsigned int>(0x041F, 0x043F),
+		std::pair<unsigned int, unsigned int>(0x0420, 0x0440),
+		std::pair<unsigned int, unsigned int>(0x0421, 0x0441),
+		std::pair<unsigned int, unsigned int>(0x0422, 0x0442),
+		std::pair<unsigned int, unsigned int>(0x0423, 0x0443),
+		std::pair<unsigned int, unsigned int>(0x0424, 0x0444),
+		std::pair<unsigned int, unsigned int>(0x0425, 0x0445),
+		std::pair<unsigned int, unsigned int>(0x0426, 0x0446),
+		std::pair<unsigned int, unsigned int>(0x0427, 0x0447),
+		std::pair<unsigned int, unsigned int>(0x0428, 0x0448),
+		std::pair<unsigned int, unsigned int>(0x0429, 0x0449),
+		std::pair<unsigned int, unsigned int>(0x042A, 0x044A),
+		std::pair<unsigned int, unsigned int>(0x042B, 0x044B),
+		std::pair<unsigned int, unsigned int>(0x042C, 0x044C),
+		std::pair<unsigned int, unsigned int>(0x042D, 0x044D),
+		std::pair<unsigned int, unsigned int>(0x042E, 0x044E),
+		std::pair<unsigned int, unsigned int>(0x042F, 0x044F),
+		///Historic letters - in case we need it. - 17
+		std::pair<unsigned int, unsigned int>(0x0460, 0x0461),
+		std::pair<unsigned int, unsigned int>(0x0462, 0x0463),
+		std::pair<unsigned int, unsigned int>(0x0464, 0x0465),
+		std::pair<unsigned int, unsigned int>(0x0466, 0x0467),
+		std::pair<unsigned int, unsigned int>(0x0468, 0x0469),
+		std::pair<unsigned int, unsigned int>(0x046A, 0x046B),
+		std::pair<unsigned int, unsigned int>(0x046C, 0x046D),
+		std::pair<unsigned int, unsigned int>(0x046E, 0x046F),
+		std::pair<unsigned int, unsigned int>(0x0470, 0x0471),
+		std::pair<unsigned int, unsigned int>(0x0472, 0x0473),
+		std::pair<unsigned int, unsigned int>(0x0474, 0x0475),
+		std::pair<unsigned int, unsigned int>(0x0476, 0x0477),
+		std::pair<unsigned int, unsigned int>(0x0478, 0x0479),
+		std::pair<unsigned int, unsigned int>(0x047A, 0x047B),
+		std::pair<unsigned int, unsigned int>(0x047C, 0x047D),
+		std::pair<unsigned int, unsigned int>(0x047E, 0x047F),
+		std::pair<unsigned int, unsigned int>(0x0480, 0x0481),
+		///Historic miscellaneous - in case we need it - 8 signs 
+		///No conversion it is still here system understands the simbols
+		std::pair<unsigned int, unsigned int>(0x0482, 0x0482),
+		std::pair<unsigned int, unsigned int>(0x0483, 0x0483),
+		std::pair<unsigned int, unsigned int>(0x0484, 0x0484),
+		std::pair<unsigned int, unsigned int>(0x0485, 0x0485),
+		std::pair<unsigned int, unsigned int>(0x0486, 0x0486),
+		std::pair<unsigned int, unsigned int>(0x0487, 0x0487),
+		std::pair<unsigned int, unsigned int>(0x0488, 0x0488),
+		std::pair<unsigned int, unsigned int>(0x0489, 0x0489),
+		///Extended Cyrillic  - 54 signs.
+		std::pair<unsigned int, unsigned int>(0x048A, 0x048B),
+		std::pair<unsigned int, unsigned int>(0x048C, 0x048D),
+		std::pair<unsigned int, unsigned int>(0x048E, 0x048F),
+		std::pair<unsigned int, unsigned int>(0x0490, 0x0491),
+		std::pair<unsigned int, unsigned int>(0x0492, 0x0493),
+		std::pair<unsigned int, unsigned int>(0x0494, 0x0495),
+		std::pair<unsigned int, unsigned int>(0x0496, 0x0497),
+		std::pair<unsigned int, unsigned int>(0x0498, 0x0499),
+		std::pair<unsigned int, unsigned int>(0x049A, 0x049B),
+		std::pair<unsigned int, unsigned int>(0x049E, 0x049F),
+		std::pair<unsigned int, unsigned int>(0x04A0, 0x04A1),
+		std::pair<unsigned int, unsigned int>(0x04A2, 0x04A3),
+		std::pair<unsigned int, unsigned int>(0x04A4, 0x04A5),
+		std::pair<unsigned int, unsigned int>(0x04A6, 0x04A7),
+		std::pair<unsigned int, unsigned int>(0x04A8, 0x04A9),
+		std::pair<unsigned int, unsigned int>(0x04AA, 0x04AB),
+		std::pair<unsigned int, unsigned int>(0x04AC, 0x04AD),
+		std::pair<unsigned int, unsigned int>(0x04AE, 0x04AF),
+		std::pair<unsigned int, unsigned int>(0x04B0, 0x04B1),
+		std::pair<unsigned int, unsigned int>(0x04B2, 0x04B3),
+		std::pair<unsigned int, unsigned int>(0x04B4, 0x04B5),
+		std::pair<unsigned int, unsigned int>(0x04B6, 0x04B7),
+		std::pair<unsigned int, unsigned int>(0x04B8, 0x04B9),
+		std::pair<unsigned int, unsigned int>(0x04BA, 0x04BB),
+		std::pair<unsigned int, unsigned int>(0x04BC, 0x04BD),
+		std::pair<unsigned int, unsigned int>(0x04BE, 0x04BF),
+		std::pair<unsigned int, unsigned int>(0x04C0, 0x04CF),
+		std::pair<unsigned int, unsigned int>(0x04C1, 0x04C2),
+		std::pair<unsigned int, unsigned int>(0x04C3, 0x04C4),
+		std::pair<unsigned int, unsigned int>(0x04C5, 0x04C6),
+		std::pair<unsigned int, unsigned int>(0x04C7, 0x04C8),
+		std::pair<unsigned int, unsigned int>(0x04C9, 0x04CA),
+		std::pair<unsigned int, unsigned int>(0x04CB, 0x04CC),
+		std::pair<unsigned int, unsigned int>(0x04CD, 0x04CE),
+		std::pair<unsigned int, unsigned int>(0x04D0, 0x04D1),
+		std::pair<unsigned int, unsigned int>(0x04D2, 0x04D3),
+		std::pair<unsigned int, unsigned int>(0x04D4, 0x04D5),
+		std::pair<unsigned int, unsigned int>(0x04D6, 0x04D7),
+		std::pair<unsigned int, unsigned int>(0x04D8, 0x04D9),
+		std::pair<unsigned int, unsigned int>(0x04DA, 0x04DB),
+		std::pair<unsigned int, unsigned int>(0x04DC, 0x04DD),
+		std::pair<unsigned int, unsigned int>(0x04DE, 0x04DF),
+		std::pair<unsigned int, unsigned int>(0x04E0, 0x04E1),
+		std::pair<unsigned int, unsigned int>(0x04E2, 0x04E3),
+		std::pair<unsigned int, unsigned int>(0x04E4, 0x04E5),
+		std::pair<unsigned int, unsigned int>(0x04E6, 0x04E7),
+		std::pair<unsigned int, unsigned int>(0x04E8, 0x04E9),
+		std::pair<unsigned int, unsigned int>(0x04EA, 0x04EB),
+		std::pair<unsigned int, unsigned int>(0x04EC, 0x04ED),
+		std::pair<unsigned int, unsigned int>(0x04EE, 0x04EF),
+		std::pair<unsigned int, unsigned int>(0x04F0, 0x04F1),
+		std::pair<unsigned int, unsigned int>(0x04F2, 0x04F3),
+		std::pair<unsigned int, unsigned int>(0x04F4, 0x04F5),
+		std::pair<unsigned int, unsigned int>(0x04F6, 0x04F7),
+		std::pair<unsigned int, unsigned int>(0x04F8, 0x04F9)
 	};
 #endif
 
@@ -480,9 +612,9 @@ namespace hltypes
 			{
 				for_iter (j, 0, MAX_CASE_CONVERSION_ENTRIES)
 				{
-					if (value == _caseConversionTable[i].first)
+					if (value == _caseConversionTable[j].first)
 					{
-						uString[i] = _caseConversionTable[i].second;
+						uString[i] = _caseConversionTable[j].second;
 						break;
 					}
 				}
@@ -511,9 +643,9 @@ namespace hltypes
 			{
 				for_iter (j, 0, MAX_CASE_CONVERSION_ENTRIES)
 				{
-					if (value == _caseConversionTable[i].second)
+					if (value == _caseConversionTable[j].second)
 					{
-						uString[i] = _caseConversionTable[i].first;
+						uString[i] = _caseConversionTable[j].first;
 						break;
 					}
 				}
