@@ -125,11 +125,15 @@
 	#define __towupper__ towupper
 #endif
 
+#ifdef _IOS
+#define _MANUAL_CASE_CONVERSION
+#endif
+
 typedef std::basic_string<char> stdstr;
 
 namespace hltypes
 {
-#ifdef _IOS
+#ifdef _MANUAL_CASE_CONVERSION
 #define MAX_CASE_CONVERSION_ENTRIES 128
 	// iOS can't handle locale so it's impossible to convert this using towlower() or towupper()
 	static std::pair<unsigned int, unsigned int> _caseConversionTable[MAX_CASE_CONVERSION_ENTRIES] =
@@ -600,7 +604,7 @@ namespace hltypes
 	String String::lowered() const
 	{
 		std::ustring uString = this->uStr();
-#ifndef _IOS
+#ifndef _MANUAL_CASE_CONVERSION
 		std::transform(uString.begin(), uString.end(), uString.begin(), __towlower__);
 #else
 		// iOS can't handle locale so it's impossible to convert this using towlower() or towupper()
@@ -631,7 +635,7 @@ namespace hltypes
 	String String::uppered() const
 	{
 		std::ustring uString = this->uStr();
-#ifndef _IOS
+#ifndef _MANUAL_CASE_CONVERSION
 		std::transform(uString.begin(), uString.end(), uString.begin(), __towupper__);
 #else
 		// iOS can't handle locale so it's impossible to convert this using towlower() or towupper()
