@@ -126,7 +126,7 @@
 #endif
 
 #ifdef _IOS
-#define _MANUAL_CASE_CONVERSION
+	#define _MANUAL_CASE_CONVERSION
 #endif
 
 typedef std::basic_string<char> stdstr;
