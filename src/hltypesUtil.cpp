@@ -14,6 +14,8 @@
 #endif
 #ifdef _MAC
 #include <sys/sysctl.h>
+#import <AppKit/NSWindow.h>
+#import <Foundation/NSString.h>
 #endif
 #include <math.h>
 #include <stdio.h>
