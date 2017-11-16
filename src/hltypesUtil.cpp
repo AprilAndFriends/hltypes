@@ -12,6 +12,9 @@
 #ifndef _WIN32
 #include <sys/time.h>
 #endif
+#ifdef _MAC
+#include <sys/sysctl.h>
+#endif
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -82,6 +85,19 @@ int64_t htickCount()
 	result /= info.denom;
 	return (result / 1000000LL);
 #else
+#ifdef _MAC
+	SInt32 minor;
+	// Mac OSX only started supporting clock_gettime() after 10.12, can be removed when min. supported Mac version becomes 10.12
+	if (Gestalt(gestaltSystemVersionMinor, &minor) == noErr && minor < 12)
+	{
+		timeval tv = {0, 0};
+		gettimeofday(&tv, NULL);
+		// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
+		int64_t tv_sec = tv.tv_sec;
+		int64_t tv_usec = tv.tv_usec;
+		return (tv_sec * 1000LL + tv_usec / 1000LL);
+	}
+#endif
 	struct timespec ts;
 	clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
 	// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
