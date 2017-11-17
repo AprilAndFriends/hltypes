@@ -2209,6 +2209,7 @@ hltypes::String hvsprintf(const char* format, va_list args)
 		throw Exception("Resulting string for hsprintf is longer than 2^16 (65536) characters! format: " + hstr(format));
 #else
 		hlog::error(hltypes::logTag, "Resulting string for hsprintf is longer than 2^16 (65536) characters! format: " + hstr(format));
+		c[0] = '\0'; // in case sprintf corrupted c
 #endif
 	}
 	hltypes::String result(c);
