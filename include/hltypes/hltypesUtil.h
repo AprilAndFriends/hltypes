@@ -128,7 +128,7 @@ namespace hltypes
 class name \
 { \
 public: \
-	static returnType lambda __HL_EXPAND_MACRO code \
+	static inline returnType lambda __HL_EXPAND_MACRO code \
 };
 
 /// @brief Provides a simpler syntax for iteration.
