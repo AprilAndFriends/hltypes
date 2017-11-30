@@ -37,6 +37,9 @@
 #import <Foundation/Foundation.h>
 #include <mach/mach_time.h>
 #endif
+#if !defined(_WIN32) && !defined(_ANDROID)
+#include <sys/sysctl.h>
+#endif
 
 #if defined(_WIN32) && !defined(_WINRT)
 #pragma warning(disable : 4091) // MS's own headers cause warnings
@@ -70,6 +73,27 @@ int64_t htime()
 	return (int64_t)time(NULL);
 }
 
+#if !defined(_WIN32) && !defined(_ANDROID)
+static int64_t _simpleUnixTimeSinceBoot()
+{
+	struct timeval bootTime;
+	size_t size = sizeof(bootTime);
+	struct timeval now;
+	struct timezone tz;
+	gettimeofday(&now, &tz);
+	int64_t result = 0LL;
+	static int mib[2] = { CTL_KERN, KERN_BOOTTIME };
+	if (sysctl(mib, 2, &bootTime, &size, NULL, 0) != -1 && bootTime.tv_sec != 0)
+	{
+		// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
+		int64_t tv_sec = (int64_t)(now.tv_sec - bootTime.tv_sec);
+		int64_t tv_usec = (int64_t)(now.tv_usec - bootTime.tv_usec);
+		result = (tv_sec * 1000LL + tv_usec / 1000LL);
+	}
+	return result;
+}
+#endif
+
 int64_t htickCount()
 {
 #ifdef _WIN32
@@ -92,12 +116,7 @@ int64_t htickCount()
 	// Mac OSX only started supporting clock_gettime() after 10.12, can be removed when min. supported Mac version becomes 10.12
 	if (Gestalt(gestaltSystemVersionMinor, &minor) == noErr && minor < 12)
 	{
-		timeval tv = {0, 0};
-		gettimeofday(&tv, NULL);
-		// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
-		int64_t tv_sec = tv.tv_sec;
-		int64_t tv_usec = tv.tv_usec;
-		return (tv_sec * 1000LL + tv_usec / 1000LL);
+		return _simpleUnixTimeSinceBoot();
 	}
 #endif
 	struct timespec ts;
@@ -106,6 +125,15 @@ int64_t htickCount()
 	int64_t tv_sec = (int64_t)ts.tv_sec;
 	int64_t tv_nsec = (int64_t)ts.tv_nsec;
 	return (tv_sec * 1000LL + tv_nsec / 1000000LL);
+#endif
+}
+
+int64_t htimeSinceBoot()
+{
+#ifndef _IOS
+	return htickCount(); // this works perfectly fine on non-iOS platforms
+#else
+	return _simpleUnixTimeSinceBoot();
 #endif
 }
 

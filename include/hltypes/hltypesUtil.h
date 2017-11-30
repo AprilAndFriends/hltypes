@@ -222,11 +222,16 @@ public: \
 /// @return Number of seconds passed since 1970/01/01 UTC.
 /// @note Useful for rand operations, like setting the rand generator with srand().
 hltypesFnExport int64_t htime();
-/// @brief Gets the number of miliseconds passed since the system boot.
-/// @return Number of miliseconds passed since the system boot.
+/// @brief Gets the number of milliseconds passed since an arbitrary point in time.
+/// @return Number of milliseconds passed since the system boot.
 /// @note Useful for benchmarking.
 /// @note Not all platforms actually support int64 so be careful with this.
+/// @note This value does not increment on some platforms (e.g. iOS) while the CPU/device is asleep.
 hltypesFnExport int64_t htickCount();
+/// @brief Gets the number of milliseconds passed since the system boot.
+/// @return Number of milliseconds passed since the system boot.
+/// @note While this function does return milliseconds, a high resolution isn't guaranteed.
+hltypesFnExport int64_t htimeSinceBoot();
 /// @brief Gets an environment variable as String.
 /// @param[in] name Name of the environment variable.
 /// @return Environment variable as String.
