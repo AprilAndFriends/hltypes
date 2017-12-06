@@ -91,7 +91,6 @@ static int64_t _simpleUnixTimeSinceBoot()
 {
 	struct timeval bootTime;
 	size_t size = sizeof(bootTime);
-	int64_t result = 0LL;
 	static int mib[2] = { CTL_KERN, KERN_BOOTTIME };
 	if (sysctl(mib, 2, &bootTime, &size, NULL, 0) != -1 && bootTime.tv_sec != 0)
 	{
@@ -99,9 +98,9 @@ static int64_t _simpleUnixTimeSinceBoot()
 		// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
 		int64_t tv_sec = (int64_t)(now.tv_sec - bootTime.tv_sec);
 		int64_t tv_usec = (int64_t)(now.tv_usec - bootTime.tv_usec);
-		result = tv_sec * 1000LL + tv_usec / 1000LL;
+		return (tv_sec * 1000LL + tv_usec / 1000LL);
 	}
-	return result;
+	return 0LL;
 }
 #endif
 
@@ -131,27 +130,29 @@ int64_t htickCount()
 	}
 #endif
 	struct timespec ts;
-	clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
-	// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
-	int64_t tv_sec = (int64_t)ts.tv_sec;
-	int64_t tv_nsec = (int64_t)ts.tv_nsec;
-	return (tv_sec * 1000LL + tv_nsec / 1000000LL);
+	if (clock_gettime(CLOCK_MONOTONIC_RAW, &ts) == 0)
+	{
+		// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
+		int64_t tv_sec = (int64_t)ts.tv_sec;
+		int64_t tv_nsec = (int64_t)ts.tv_nsec;
+		return (tv_sec * 1000LL + tv_nsec / 1000000LL);
+	}
+	return 0LL;
 #endif
 }
 
 int64_t htimeSinceBoot()
 {
 #ifdef _ANDROID
-	int64_t result = 0LL;
-	struct sysinfo info;
-	if (sysinfo(&info) == 0)
+	struct timespec ts;
+	if (clock_gettime(CLOCK_BOOTTIME, &ts) == 0)
 	{
-		struct timeval now = _simpleUnixNowTime();
 		// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
-		int64_t tv_sec = (int64_t)now.tv_sec - (int64_t)info.uptime;
-		result = tv_sec * 1000LL + (int64_t)now.tv_usec / 1000LL;
+		int64_t tv_sec = (int64_t)ts.tv_sec;
+		int64_t tv_nsec = (int64_t)ts.tv_nsec;
+		return (tv_sec * 1000LL + tv_nsec / 1000000LL);
 	}
-	return result;
+	return 0LL;
 #elif defined(_IOS)
 	return _simpleUnixTimeSinceBoot();
 #else
