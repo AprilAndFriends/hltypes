@@ -76,18 +76,16 @@ int64_t htime()
 	return (int64_t)time(NULL);
 }
 
-#ifndef _WIN32
-struct timeval _simpleUnixNowTime()
+#if !defined(_WIN32) && !defined(_ANDROID)
+inline static struct timeval _simpleUnixNowTime()
 {
 	struct timeval result;
 	struct timezone tz;
 	gettimeofday(&result, &tz);
 	return result;
 }
-#endif
 
-#if !defined(_WIN32) && !defined(_ANDROID)
-static int64_t _simpleUnixTimeSinceBoot()
+inline static int64_t _simpleUnixTimeSinceBoot()
 {
 	struct timeval bootTime;
 	size_t size = sizeof(bootTime);
@@ -107,7 +105,7 @@ static int64_t _simpleUnixTimeSinceBoot()
 int64_t htickCount()
 {
 #ifdef _WIN32
-#ifndef _WINRT // because GetTickCount64() is not available pre-Vista
+#ifndef _WINRT // because GetTickCount64() is not available pre-Vista, but much more reliable
 	return (int64_t)GetTickCount();
 #else
 	return (int64_t)GetTickCount64();
