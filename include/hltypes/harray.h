@@ -163,11 +163,6 @@ namespace hltypes
 		{
 			return Container<std::vector<T>, T>::random();
 		}
-		/// @brief Randomizes order of elements in Array.
-		inline void randomize()
-		{
-			return this->template _randomize<Array<T> >();
-		}
 		/// @brief Gets an Array of random elements selected from this one.
 		/// @param[in] count Number of random elements.
 		/// @param[in] unique Whether to force all random values to be at unique positions.

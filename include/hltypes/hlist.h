@@ -171,22 +171,6 @@ namespace hltypes
 		{
 			return this->template _random<List<T> >(count, unique);
 		}
-		/// @brief Randomizes order of elements in Container.
-		/// @note Can't use Container::_randomize(), because std::random_shuffle doesn't support std::list.
-		/// @see Container::_randomize()
-		inline void randomize()
-		{
-			int size = this->size();
-			if (size > 0)
-			{
-				List<T> temp(*this);
-				this->clear();
-				for_iter (i, 0, size)
-				{
-					this->add(temp.removeRandom());
-				}
-			}
-		}
 		/// @brief Creates new List with reversed order of elements.
 		/// @return A new List.
 		inline List<T> reversed() const

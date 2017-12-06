@@ -717,6 +717,21 @@ namespace hltypes
 			}
 			return this->at(hrand(size));
 		}
+		/// @brief Randomizes order of elements in Container.
+		/// @note Not using std::random_shuffle() due to issues with std::srand() in some implementations.
+		inline void randomize()
+		{
+			int size = this->size();
+			if (size > 1)
+			{
+				this->add(*this);
+				for_iter (i, 0, size - 1)
+				{
+					this->at(i) = this->removeAt(size + hrand(size - i));
+				}
+				this->at(size - 1) = this->removeAt(size);
+			}
+		}
 		/// @brief Reverses order of elements.
 		inline void reverse()
 		{
@@ -1083,12 +1098,6 @@ namespace hltypes
 				}
 			}
 			return result;
-		}
-		/// @brief Randomizes order of elements in Container.
-		template <typename R>
-		inline void _randomize()
-		{
-			std::random_shuffle(STD::begin(), STD::end());
 		}
 		/// @brief Creates new Container with reversed order of elements.
 		/// @return A new Container.
