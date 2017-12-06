@@ -40,6 +40,9 @@
 #if !defined(_WIN32) && !defined(_ANDROID)
 #include <sys/sysctl.h>
 #endif
+#ifdef _ANDROID
+#include <sys/sysinfo.h>
+#endif
 
 #if defined(_WIN32) && !defined(_WINRT)
 #pragma warning(disable : 4091) // MS's own headers cause warnings
@@ -73,22 +76,30 @@ int64_t htime()
 	return (int64_t)time(NULL);
 }
 
+#ifndef _WIN32
+struct timeval _simpleUnixNowTime()
+{
+	struct timeval result;
+	struct timezone tz;
+	gettimeofday(&result, &tz);
+	return result;
+}
+#endif
+
 #if !defined(_WIN32) && !defined(_ANDROID)
 static int64_t _simpleUnixTimeSinceBoot()
 {
 	struct timeval bootTime;
 	size_t size = sizeof(bootTime);
-	struct timeval now;
-	struct timezone tz;
-	gettimeofday(&now, &tz);
 	int64_t result = 0LL;
 	static int mib[2] = { CTL_KERN, KERN_BOOTTIME };
 	if (sysctl(mib, 2, &bootTime, &size, NULL, 0) != -1 && bootTime.tv_sec != 0)
 	{
+		struct timeval now = _simpleUnixNowTime();
 		// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
 		int64_t tv_sec = (int64_t)(now.tv_sec - bootTime.tv_sec);
 		int64_t tv_usec = (int64_t)(now.tv_usec - bootTime.tv_usec);
-		result = (tv_sec * 1000LL + tv_usec / 1000LL);
+		result = tv_sec * 1000LL + tv_usec / 1000LL;
 	}
 	return result;
 }
@@ -130,10 +141,21 @@ int64_t htickCount()
 
 int64_t htimeSinceBoot()
 {
-#ifndef _IOS
-	return htickCount(); // this works perfectly fine on non-iOS platforms
-#else
+#ifdef _ANDROID
+	int64_t result = 0LL;
+	struct sysinfo info;
+	if (sysinfo(&info) == 0)
+	{
+		struct timeval now = _simpleUnixNowTime();
+		// cast first, because if we multiply by 1000 before casting we could get an overflow on 32 bit systems
+		int64_t tv_sec = (int64_t)now.tv_sec - (int64_t)info.uptime;
+		result = tv_sec * 1000LL + (int64_t)now.tv_usec / 1000LL;
+	}
+	return result;
+#elif defined(_IOS)
 	return _simpleUnixTimeSinceBoot();
+#else
+	return htickCount();
 #endif
 }
 
