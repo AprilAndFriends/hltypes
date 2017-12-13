@@ -55,6 +55,8 @@ namespace hlxml
 	protected:
 		/// @brief Raw data of the Document.
 		char* data;
+		/// @brief Line number of the Document.
+		int line;
 		/// @brief Filename of the Document.
 		hstr filename;
 		/// @brief Real filename of the Document, used for exception prints.

@@ -83,13 +83,14 @@ namespace hlxml
 			}
 		}
 		this->document = new rapidxml::xml_document<char>();
+		this->line = 0;
 		try
 		{
-			RAPIDXML_DOCUMENT->parse<rapidxml::parse_validate_closing_tags | rapidxml::parse_no_string_terminators | rapidxml::parse_no_data_nodes>(this->data);
+			RAPIDXML_DOCUMENT->parse<rapidxml::parse_validate_closing_tags | rapidxml::parse_no_string_terminators | rapidxml::parse_no_data_nodes>(this->data, this->line);
 		}
 		catch (rapidxml::parse_error& e)
 		{
-			hstr desc = e.what() + hstr(" [") + e.where<char>() + "]";
+			hstr desc = e.what() + hstr(" [") + e.where<char>() + "]\n" + "In line number: " + hstr(e.line());
 			delete RAPIDXML_DOCUMENT;
 			this->document = NULL;
 			throw XMLException(hsprintf("An error occcured parsing XML file '%s': %s", this->realFilename.cStr(), desc.cStr()), NULL);
