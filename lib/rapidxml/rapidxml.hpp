@@ -1392,7 +1392,6 @@ namespace rapidxml
             // Remove current contents
             this->remove_all_nodes();
             this->remove_all_attributes();
-			this;
             // Parse BOM, if any
             parse_bom<Flags>(text);
             
