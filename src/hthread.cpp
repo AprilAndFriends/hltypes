@@ -188,7 +188,7 @@ namespace hltypes
 			}
 			catch (hltypes::_Exception& e)
 			{
-				hltypes::_platformPrint("FATAL", "Thread: " + this->name + "\n" + e.getMessage(), Log::LevelError);
+				hltypes::_platformPrint("FATAL", "Thread: " + this->name + "\n" + e.getMessage() + "\nStack:\n" + e.getStackTrace(), Log::LevelError);
 				throw e;
 			}
 		}
