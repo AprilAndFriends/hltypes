@@ -522,6 +522,21 @@ namespace hltypes
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of the character.
 		hltypesMemberExport int indexOf(const String& string, int start = 0) const;
+		/// @brief Finds the first index of a character.
+		/// @param[in] c Character to search for.
+		/// @param[in] start Starting index.
+		/// @return The index of the first occurrence of the character.
+		hltypesMemberExport int utf8IndexOf(const char c, int start = 0) const;
+		/// @brief Finds the first index of a character.
+		/// @param[in] string C-string to search for.
+		/// @param[in] start Starting index.
+		/// @return The index of the first occurrence of the character.
+		hltypesMemberExport int utf8IndexOf(const char* string, int start = 0) const;
+		/// @brief Finds the first index of a character.
+		/// @param[in] string String to search for.
+		/// @param[in] start Starting index.
+		/// @return The index of the first occurrence of the character.
+		hltypesMemberExport int utf8IndexOf(const String& string, int start = 0) const;
 		/// @brief Finds the first index of a character searching from the back.
 		/// @param[in] c Character to search for.
 		/// @param[in] start Starting index.
@@ -539,6 +554,23 @@ namespace hltypes
 		/// @return The index of the first occurrence of the character searching from the back.
 		/// @note Searching is done from the "start" index to the beginning of the string. If start is negative, the entire string is searched.
 		hltypesMemberExport int rindexOf(const String& string, int start = -1) const;
+		/// @brief Finds the first index of a character searching from the back.
+		/// @param[in] c Character to search for.
+		/// @param[in] start Starting index.
+		/// @return The index of the first occurrence of the character searching from the back.
+		hltypesMemberExport int utf8RindexOf(const char c, int start = -1) const;
+		/// @brief Finds the first index of a character searching from the back.
+		/// @param[in] string C-string to search for.
+		/// @param[in] start Starting index from the ending of the string.
+		/// @return The index of the first occurrence of the character searching from the back.
+		/// @note Searching is done from the "start" index to the beginning of the string. If start is negative, the entire string is searched.
+		hltypesMemberExport int utf8RindexOf(const char* string, int start = -1) const;
+		/// @brief Finds the first index of a character searching from the back.
+		/// @param[in] string String to search for.
+		/// @param[in] start Starting index from the ending of the string.
+		/// @return The index of the first occurrence of the character searching from the back.
+		/// @note Searching is done from the "start" index to the beginning of the string. If start is negative, the entire string is searched.
+		hltypesMemberExport int utf8RindexOf(const String& string, int start = -1) const;
 		/// @brief Finds the first index of any character.
 		/// @param[in] string Characters as C-string to search for.
 		/// @param[in] start Starting index.
@@ -549,6 +581,16 @@ namespace hltypes
 		/// @param[in] start Starting index.
 		/// @return The index of the first occurrence of any of the characters.
 		hltypesMemberExport int indexOfAny(const String& string, int start = 0) const;
+		/// @brief Finds the first index of any character.
+		/// @param[in] string Characters as C-string to search for.
+		/// @param[in] start Starting index.
+		/// @return The index of the first occurrence of any of the characters.-
+		hltypesMemberExport int utf8IndexOfAny(const char* string, int start = 0) const;
+		/// @brief Finds the first index of any character.
+		/// @param[in] string Characters as String to search for.
+		/// @param[in] start Starting index.
+		/// @return The index of the first occurrence of any of the characters.
+		hltypesMemberExport int utf8IndexOfAny(const String& string, int start = 0) const;
 		/// @brief Finds the first index of any character searching from the back.
 		/// @param[in] string Characters as C-string to search for.
 		/// @param[in] start Starting index from the ending of the string.
@@ -561,6 +603,18 @@ namespace hltypes
 		/// @return The index of the first occurrence of any of the characters searching from the back.
 		/// @note Searching is done from the "start" index to the beginning of the string. If start is negative, the entire string is searched.
 		hltypesMemberExport int rindexOfAny(const String& string, int start = -1) const;
+		/// @brief Finds the first index of any character searching from the back.
+		/// @param[in] string Characters as C-string to search for.
+		/// @param[in] start Starting index from the ending of the string.
+		/// @return The index of the first occurrence of any of the characters searching from the back.
+		/// @note Searching is done from the "start" index to the beginning of the string. If start is negative, the entire string is searched.
+		hltypesMemberExport int utf8RindexOfAny(const char* string, int start = -1) const;
+		/// @brief Finds the first index of any character searching from the back.
+		/// @param[in] string Characters as String to search for.
+		/// @param[in] start Starting index from the ending of the string.
+		/// @return The index of the first occurrence of any of the characters searching from the back.
+		/// @note Searching is done from the "start" index to the beginning of the string. If start is negative, the entire string is searched.
+		hltypesMemberExport int utf8RindexOfAny(const String& string, int start = -1) const;
 		/// @brief Counts the occurrences of a substring.
 		/// @param[in] c The character to look for.
 		/// @return Number of occurrences of the substring.

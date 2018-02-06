@@ -1217,6 +1217,21 @@ namespace hltypes
 		return (int)stdstr::find(string, start);
 	}
 
+	int String::utf8IndexOf(const char c, int start) const
+	{
+		return (int)this->uStr().find((unsigned int)c, start);
+	}
+
+	int String::utf8IndexOf(const char* string, int start) const
+	{
+		return (int)this->uStr().find(hstr(string).uStr(), start);
+	}
+
+	int String::utf8IndexOf(const String& string, int start) const
+	{
+		return (int)this->uStr().find(string.uStr(), start);
+	}
+
 	int String::rindexOf(const char c, int start) const
 	{
 		return (int)stdstr::rfind(c, start);
@@ -1232,6 +1247,21 @@ namespace hltypes
 		return (int)stdstr::rfind(string, start);
 	}
 
+	int String::utf8RindexOf(const char c, int start) const
+	{
+		return (int)this->uStr().rfind((unsigned int)c, start);
+	}
+
+	int String::utf8RindexOf(const char* string, int start) const
+	{
+		return (int)this->uStr().rfind(hstr(string).uStr(), start);
+	}
+
+	int String::utf8RindexOf(const String& string, int start) const
+	{
+		return (int)this->uStr().rfind(string.uStr(), start);
+	}
+
 	int String::indexOfAny(const char* string, int start) const
 	{
 		return (int)stdstr::find_first_of(string, start);
@@ -1242,6 +1272,16 @@ namespace hltypes
 		return (int)stdstr::find_first_of(string.c_str(), start);
 	}
 
+	int String::utf8IndexOfAny(const char* string, int start) const
+	{
+		return (int)this->uStr().find_first_of(hstr(string).uStr(), start);
+	}
+
+	int String::utf8IndexOfAny(const String& string, int start) const
+	{
+		return (int)this->uStr().find_first_of(string.uStr(), start);
+	}
+
 	int String::rindexOfAny(const char* string, int start) const
 	{
 		return (int)stdstr::find_last_of(string, start);
@@ -1250,6 +1290,16 @@ namespace hltypes
 	int String::rindexOfAny(const String& string, int start) const
 	{
 		return (int)stdstr::find_last_of(string.c_str(), start);
+	}
+
+	int String::utf8RindexOfAny(const char* string, int start) const
+	{
+		return (int)this->uStr().find_last_of(hstr(string).uStr(), start);
+	}
+
+	int String::utf8RindexOfAny(const String& string, int start) const
+	{
+		return (int)this->uStr().find_last_of(string.uStr(), start);
 	}
 
 	int String::count(const char c) const
