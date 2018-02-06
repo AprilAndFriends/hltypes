@@ -33,10 +33,10 @@ namespace hltypes
 		Mutex* mutex = this->mutex;
 		if (this->release() && this->logUnhandledUnlocks && mutex != NULL)
 		{
-#ifdef _WIN32
-			String address = hsprintf("<0x%p>", this);
+#if defined(_WIN32) && !defined(_WINRT)
+			String address = hsprintf("<0x%p>", this); // only basic Win32 doesn't add 0x to %p
 #else
-			String address = hsprintf("<%p>", this); // on Unix %p adds the 0x
+			String address = hsprintf("<%p>", this);
 #endif
 			Log::warnf("hmutex", "'%s' has been scope-unlocked automatically!", (mutex->name != "" ? mutex->name : address).cStr());
 		}
@@ -77,7 +77,12 @@ namespace hltypes
 		EnterCriticalSection((CRITICAL_SECTION*)this->handle);
 		if (this->locked)
 		{
-			hltypes::_platformPrint("hmutex", hsprintf("'%s' is deadlocked!", (this->name != "" ? this->name : hsprintf("<0x%p>", this)).cStr()), 1000);
+#ifdef _WINRT
+			String address = hsprintf("<0x%p>", this); // only basic Win32 doesn't add 0x to %p
+#else
+			String address = hsprintf("<%p>", this);
+#endif
+			hltypes::_platformPrint("hmutex", hsprintf("'%s' is deadlocked!", (this->name != "" ? this->name : address).cStr()), 1000);
 			while (true) // simulating a deadlock
 			{
 				Thread::sleep(1.0f);
