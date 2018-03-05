@@ -21,10 +21,6 @@ namespace hltypes
 		this->value = value;
 	}
 
-	Enumeration::~Enumeration()
-	{
-	}
-
 	String Enumeration::getName() const
 	{
 		Map<unsigned int, String>& instances = this->_getInstances();

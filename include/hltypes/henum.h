@@ -29,7 +29,6 @@ public: \
 	inline classe() : henum() { } \
 	inline classe(chstr name) : henum() { this->_addNewInstance(#classe, name); } \
 	inline classe(chstr name, unsigned int value) : henum(value) { this->_addNewInstance(#classe, name, value); } \
-	inline ~classe() { } \
 	inline classe next() \
 	{ \
 		harray<classe> values = classe::getValues(); \
@@ -167,8 +166,6 @@ namespace hltypes
 		/// @brief Empty constructor.
 		/// @note This will NOT auto-generate a value in the internal index.
 		Enumeration();
-		/// @brief Destructor.
-		virtual ~Enumeration();
 
 		/// @brief Gets the String name.
 		String getName() const;
