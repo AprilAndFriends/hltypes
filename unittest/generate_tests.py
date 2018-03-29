@@ -42,6 +42,15 @@ def _readFile(filename):
 	return data
 
 def _writeFile(filename, data):
+	if os.path.exists(filename):
+		f = open(filename, "r")
+		contents = f.read()
+		f.close()
+		if contents == data:
+			print ("  %s - no changes, skipping" % filename)
+			return
+
+
 	f = open(filename, "w")
 	f.write(data)
 	f.close()
@@ -61,11 +70,16 @@ def process():
 	if len(sys.argv) > 2:
 		sourcePath = sys.argv[2]
 	generatedPath = os.path.join(sourcePath, GENERATED_PATH)
-	if os.path.exists(generatedPath):
-		shutil.rmtree(generatedPath)
-		time.sleep(1)
-	os.mkdir(generatedPath)
-	
+
+	# not clearing dir so we can detect if files need to be updated or not.
+	# if os.path.exists(generatedPath):
+	# 	shutil.rmtree(generatedPath)
+	# 	time.sleep(1)
+	# os.mkdir(generatedPath)
+
+	if not os.path.exists(generatedPath):
+		os.mkdir(generatedPath)	
+
 	files = []
 	print ("Seaching for files in %s" % sourcePath)
 	for entry in os.listdir(sourcePath):

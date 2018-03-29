@@ -9,10 +9,12 @@
 
 #ifdef __APPLE__
 
+#import <Foundation/NSString.h>
 #import <XCTest/XCTest.h>
 
+
 extern XCTestCase* testInstance;
-#define HL_UT_ASSERT(expression, msg) _XCTPrimitiveAssertTrue(testInstance, (expression), @msg)
+#define HL_UT_ASSERT(expression, msg) _XCTPrimitiveAssertTrue(testInstance, (expression), @#msg)
 
 #define HL_UT_RUN_CLASS_BEGIN(classe) \
 	@interface _test ## classe: XCTestCase \
@@ -31,7 +33,7 @@ extern XCTestCase* testInstance;
 	@end
 
 #define HL_UT_RUN_METHOD(classe, name) \
-	- (void) _ ## classe ## _ ## name \
+	- (void) test_ ## classe ## _ ## name \
 	{ \
 		_hunittest_ ## classe::name(); \
 	}

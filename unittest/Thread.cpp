@@ -13,15 +13,15 @@ HL_UT_TEST_CLASS(Thread)
 	static hstr output;
 	static hmutex mutex;
 
-	static void f1(hthread* t)
-	{
-		output += "1 ";
-	}
-
-	static void f2(hthread* t)
-	{
-		output += "2 ";
-	}
+//	static void f1(hthread* t)
+//	{
+//		output += "1 ";
+//	}
+//
+//	static void f2(hthread* t)
+//	{
+//		output += "2 ";
+//	}
 
 	static void f3(hthread* t)
 	{
