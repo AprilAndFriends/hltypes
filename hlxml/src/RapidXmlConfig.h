@@ -16,6 +16,9 @@
 #define RAPIDXML_STATIC_POOL_SIZE (1024 * 1024)
 #define RAPIDXML_DYNAMIC_POOL_SIZE (256 * 1024)
 #define RAPIDXML_NO_STDLIB
+#ifdef assert
+	#undef assert
+#endif
 #define assert(arg)
 
 #endif
