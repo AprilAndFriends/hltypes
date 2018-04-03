@@ -1,0 +1,42 @@
+android
+{
+	compileSdkVersion 26
+
+	defaultConfig
+    {
+		minSdkVersion 15
+		targetSdkVersion 26
+		versionCode 1
+		versionName "1"
+		
+		externalNativeBuild
+        {
+			cmake
+            {
+				cppFlags "-std=c++11 -frtti -fexceptions -funswitch-loops -mfpu=vfpv3-d16 -fpic -fstack-protector -x c -Wall -Wno-parentheses -Wno-overloaded-virtual -Wstrict-overflow=0 -fstrict-aliasing -ffunction-sections -fomit-frame-pointer -finline-limit=300"
+			}
+		}
+	}
+
+	buildTypes
+    {
+		release
+        {
+			minifyEnabled false
+		}
+	}
+	
+	externalNativeBuild
+    {
+		cmake
+        {
+			path "CMakeLists.txt"
+		}
+	}
+	
+}
+
+dependencies
+{
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
