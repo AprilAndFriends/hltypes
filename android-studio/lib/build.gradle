@@ -1,16 +1,20 @@
 apply plugin: 'com.android.library'
 apply from: '../generic/default.gradle'
+apply from: '../generic/native.gradle'
+apply from: '../generic/cpp.gradle'
 
 android
 {
 	defaultConfig
 	{
+		versionCode 2000
+		versionName "2.0.0"
 		externalNativeBuild
 		{
 			cmake
 			{
-				//cFlags "-funswitch-loops -mfpu=vfpv3-d16 -fpic -fstack-protector -Wall -Wno-parentheses -Wno-overloaded-virtual -Wstrict-overflow=0 -fstrict-aliasing -ffunction-sections -fomit-frame-pointer -finline-limit=300"
-				//cppFlags "-funswitch-loops -mfpu=vfpv3-d16 -fpic -fstack-protector -Wall -Wno-parentheses -Wno-overloaded-virtual -Wstrict-overflow=0 -fstrict-aliasing -ffunction-sections -fomit-frame-pointer -finline-limit=300"
+				//cFlags "-I../../include/hltypes"
+				//cppFlags "-I../../include/hltypes"
 			}
 		}
 	}

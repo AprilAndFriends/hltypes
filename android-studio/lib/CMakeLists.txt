@@ -1,17 +1,17 @@
-# For more information about using CMake with Android Studio, read the
-# documentation: https://d.android.com/studio/projects/add-native-code.html
+cmake_minimum_required(VERSION 3.4.1)
+set(CMAKE_VERBOSE_MAKEFILE on)
 
-# Sets the minimum version of CMake required to build the native library.
+project(hltypes)
 
-file (GLOB_RECURSE CppSrc
+file(
+	GLOB_RECURSE CppSrc
     "../../include/*.h"
     "../../src/*.h"
     "../../src/*.cpp"
 )
 
-add_definitions(
-	-D_ZIPRESOURCE
-)
+include_directories(AFTER "../../include/hltypes")
+include_directories(AFTER "../../src")
 
 add_library(
 	hltypes
@@ -19,9 +19,6 @@ add_library(
 	${CppSrc}
 )
 
-find_library(log-lib log)
-
 target_link_libraries(
 	hltypes
-	${log-lib}
 )
