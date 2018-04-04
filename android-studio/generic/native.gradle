@@ -1,0 +1,43 @@
+android
+{
+	defaultConfig
+    {
+		externalNativeBuild
+        {
+			cmake
+            {
+				version "3.4.1"
+				//arguments "-D_ANDROID", "-DLIB", "-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON"
+				arguments "-DANDROID_CPP_FEATURES=rtti exceptions"
+				cFlags "-D_ANDROID", "-I../..", "-I../../src", "-I../../../include", "-I../../../../include"
+				cppFlags "-D_ANDROID", "-I../..", "-I../../src", "-I../../../include", "-I../../../../include"
+				abiFilters "armeabi-v7a"//, "x86"
+			}
+		}
+	}
+	/*
+	flavorDimensions "platform"
+	productFlavors
+	{
+		x86
+		{
+			dimension "platform"
+			externalNativeBuild
+			{
+				cmake
+				{
+					cFlags "-D_X86"
+					cppFlags "-D_X86"
+				}
+			}
+		}
+	}
+	*/
+	externalNativeBuild
+    {
+		cmake
+        {
+			path "CMakeLists.txt"
+		}
+	}
+}

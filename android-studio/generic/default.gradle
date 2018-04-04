@@ -1,0 +1,24 @@
+android
+{
+	compileSdkVersion 26
+	defaultConfig
+    {
+		minSdkVersion 15
+		targetSdkVersion 26
+		versionCode 1
+		versionName "1"
+	}
+	buildTypes
+    {
+		release
+        {
+			minifyEnabled true
+		}
+	}
+}
+
+dependencies
+{
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
