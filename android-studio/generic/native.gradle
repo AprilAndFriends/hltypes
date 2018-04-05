@@ -7,10 +7,9 @@ android
 			cmake
             {
 				version "3.4.1"
-				//arguments "-D_ANDROID", "-DLIB", "-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON"
 				arguments "-DANDROID_CPP_FEATURES=rtti exceptions"
-				cFlags "-D_ANDROID", "-I../..", "-I../../src", "-I../../../include", "-I../../../../include"
-				cppFlags "-D_ANDROID", "-I../..", "-I../../src", "-I../../../include", "-I../../../../include"
+				cFlags "-D_ANDROID", "-D_LIB"
+				cppFlags "-D_ANDROID", "-D_LIB"
 				abiFilters "armeabi-v7a"//, "x86"
 			}
 		}
