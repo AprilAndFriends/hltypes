@@ -5,16 +5,11 @@ project(hltypes)
 
 file(
 	GLOB_RECURSE CppSrc
-    "../../include/*.h"
-    "../../src/*.h"
-    "../../src/*.cpp"
+	"../../src/*.c"
+	"../../src/*.cpp"
 )
 
-add_library(
-	hltypes
-	STATIC
-	${CppSrc}
-)
+add_library(hltypes STATIC ${CppSrc})
 
 include_directories(AFTER "../../include/hltypes")
 include_directories(AFTER "../../src")

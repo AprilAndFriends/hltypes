@@ -15,6 +15,7 @@ android
 			{
 				//cFlags "-I../../include/hltypes"
 				//cppFlags "-I../../include/hltypes"
+				targets "hltypes"
 			}
 		}
 	}
