@@ -1,11 +1,7 @@
-android
-{
-	defaultConfig
-	{
-		externalNativeBuild
-		{
-			cmake
-			{
+android {
+	defaultConfig {
+		externalNativeBuild {
+			cmake {
 				cppFlags "-std=c++11"
 			}
 		}

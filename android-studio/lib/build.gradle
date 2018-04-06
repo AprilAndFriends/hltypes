@@ -1,11 +1,4 @@
 apply plugin: "com.android.library"
-apply from: '../generic/default.gradle'
-
-android
-{
-	defaultConfig
-	{
-		versionCode 4000
-		versionName "4.0.0"
-	}
-}
+apply from: "../generic/default.gradle"
+apply from: "../generic/native.gradle"
+apply from: "../generic/cpp.gradle"

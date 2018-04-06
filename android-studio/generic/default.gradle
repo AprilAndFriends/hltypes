@@ -1,24 +1,19 @@
-android
-{
+android {
 	compileSdkVersion 26
-	defaultConfig
-    {
+	defaultConfig {
 		minSdkVersion 15
 		targetSdkVersion 26
 		versionCode 1
 		versionName "1"
 	}
-	buildTypes
-    {
-		release
-        {
+	buildTypes {
+		release {
 			minifyEnabled true
 		}
 	}
 }
 
-dependencies
-{
+dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
