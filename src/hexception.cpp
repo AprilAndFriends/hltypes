@@ -35,6 +35,7 @@ namespace hltypes
 
 	void _Exception::_setInternalMessage(const String& message, const char* sourceFile, int lineNumber)
 	{
+		this->rawMessage = message;
 		this->message = hsprintf("[%s:%d] %s", Dir::baseName(sourceFile).cStr(), lineNumber, message.cStr());
 		// because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
 		// because Android doesn't display register data properly if an exception is thrown

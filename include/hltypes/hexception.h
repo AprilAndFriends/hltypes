@@ -89,6 +89,9 @@ namespace hltypes
 		/// @brief Gets the exception message.
 		/// @return The exception message.
 		virtual inline String getMessage() const { return this->message; }
+		/// @brief Gets the raw exception message.
+		/// @return The exception message.
+		virtual inline String getRawMessage() const { return this->rawMessage; }
 		/// @brief Gets the stack trace.
 		/// @return The stack trace.
 		inline String getStackTrace() const { return this->stackTrace; }
@@ -99,6 +102,8 @@ namespace hltypes
 	protected:
 		/// @brief Exception message.
 		String message;
+		/// @brief Exception raw message, without source file and line number.
+		String rawMessage;
 		/// @brief Stack trace.
 		String stackTrace;
 		/// @brief Sets internal message.
