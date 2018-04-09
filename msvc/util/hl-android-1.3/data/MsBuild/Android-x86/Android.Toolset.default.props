@@ -43,7 +43,7 @@
       <OutputCommandLine Condition="'%(ClCompile.OutputCommandLine)' == ''">false</OutputCommandLine>
       <CompileAs Condition="'%(ClCompile.CompileAs)' == ''">Default</CompileAs>
       <ForcedIncludeFiles Condition="'%(ClCompile.ForcedIncludeFiles)' == ''"></ForcedIncludeFiles>
-      <PreprocessorDefinitions>ANDROID;_ANDROID;__ANDROID__;ANDROID_NDK;__ANDROID_API__=$(AndroidNdkLevel);_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ANDROID;__ANDROID__;ANDROID_NDK;__ANDROID_API__=$(AndroidNdkLevel);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UserHeaderDependenciesOnly Condition="'%(ClCompile.UserHeaderDependenciesOnly)' == ''">false</UserHeaderDependenciesOnly>
       <PositionIndependentCode Condition="'%(ClCompile.PositionIndependentCode)' == ''">$(LinkCompiled)</PositionIndependentCode>
       <NoExecutableStack Condition="'%(ClCompile.NoExecutableStack)' == ''">false</NoExecutableStack>
