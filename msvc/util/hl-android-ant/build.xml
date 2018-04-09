@@ -22,6 +22,9 @@
         - install targets,
         - help target
     -->
+    <!-- required SDK and proper path to this file -->
+    <fail unless="sdk.dir" message="sdk.dir is missing. Make sure to generate local.properties using 'android update project' or to inject it through an env var" />
+    <fail unless="ant-build.dir" message="ant-build.dir is missing." />
 
     <!-- ******************************************************* -->
     <!-- **************** Overridable Properties *************** -->
@@ -104,14 +107,14 @@
 
     <!-- jar file from where the tasks are loaded -->
     <path id="android.antlibs">
-        <pathelement path="${sdk.dir}/tools/lib/ant-tasks.jar" />
+        <pathelement path="${ant-build.dir}/lib/ant-tasks.jar" />
     </path>
 
     <!-- Custom tasks -->
     <taskdef resource="anttasks.properties" classpathref="android.antlibs" />
 
     <!-- Emma configuration -->
-    <property name="emma.dir" value="${sdk.dir}/tools/lib" />
+    <property name="emma.dir" value="${ant-build.dir}/lib" />
     <path id="emma.lib">
         <pathelement location="${emma.dir}/emma.jar" />
         <pathelement location="${emma.dir}/emma_ant.jar" />
