@@ -14,17 +14,59 @@
 #include "hstring.h"
 #include "platform_internal.h"
 
+#ifdef _DEBUG
+
+#define TAG_MAX 35
+#define TAG_MAX_FMT "35"
+
+#include <Foundation/Foundation.h>
+#include <sys/sysctl.h>
+
+bool isDebuggerAttached()
+{
+	static BOOL debuggerIsAttached = NO;
+	
+	static dispatch_once_t debuggerPredicate;
+	dispatch_once(&debuggerPredicate,
+	^{
+		struct kinfo_proc info;
+		size_t info_size = sizeof(info);
+		int name[4];
+		
+		name[0] = CTL_KERN;
+		name[1] = KERN_PROC;
+		name[2] = KERN_PROC_PID;
+		name[3] = getpid(); // from unistd.h, included by Foundation
+		
+		if (sysctl(name, 4, &info, &info_size, NULL, 0) == -1)
+		{
+			NSLog(@"ERROR: Checking for a running debugger via sysctl() failed: %s", strerror(errno));
+			debuggerIsAttached = false;
+		}
+		
+		if (!debuggerIsAttached && (info.kp_proc.p_flag & P_TRACED) != 0)
+		{
+			debuggerIsAttached = true;
+		}
+	});
+	
+	return debuggerIsAttached;
+}
+#else
+bool isDebuggerAttached()
+{
+	return false;
+}
+#endif
+
 namespace hltypes
 {
 	void _platformPrint(const String& tag, const String& message, int level)
 	{
-		// hltypes on Mac supports XCodeColors plugin to colorize output when
-		// debugging in XCode :)
-		// link: https://github.com/robbiehanson/XcodeColors
+		// detect if we're running the app in xcode and if so, format prints to look better. debug only.
+		static int xcode = -1;
 		
-		static int XCodeColorsInstalled = -1;
-		
-		if (XCodeColorsInstalled == 0)
+		if (xcode == 0)
 		{
 			if (tag != "")
 			{
@@ -37,56 +79,31 @@ namespace hltypes
 		}
 		else
 		{
-			if (XCodeColorsInstalled == -1) // put here for performance reasons
+			if (xcode == -1) // put here for performance reasons
 			{
-				const char* result = getenv("XcodeColors");
-				XCodeColorsInstalled = result != NULL && strcmp(result, "YES") == 0 ? 1 : 0;
+				xcode = isDebuggerAttached();
 				_platformPrint(tag, message, level);
 				return;
 			}
 			
 			if (tag != "")
 			{
-				int i, len = tag.size(), r, g, b;
-				unsigned int x = 0;
-				const char* s = tag.cStr();
-				for (i = 0; i < len; i++)
+				char cTag[TAG_MAX + 1];
+				memset(cTag, 0, TAG_MAX);
+				snprintf(cTag, TAG_MAX + 1, "%" TAG_MAX_FMT "s", tag.cStr());
+				if (message.contains("\n"))
 				{
-					x += s[i] * (i + 1) * (i + 2);
-				}
-				r = (x * 13) % 255;
-				g = ((x * 72) / 255) % 255;
-				b = (r + g) % 255;
-				if (r + b + g > 512) // prevent too bright colors
-				{
-					r /= 2;
-					g /= 2;
-					b /= 2;
-				}
-				
-				if      (level == Log::LevelWrite)
-				{
-					printf("\033[fg%d,%d,%d;[%s]\033[; %s\n", r, g, b, tag.cStr(), message.cStr());
-				}
-				else if (level == Log::LevelError)
-				{
-					// red background and yellow foreground
-					printf("\033[bg255,0,0;\033[fg255,255,0;[%s] %s\033[;\n", tag.cStr(), message.cStr());
-				}
-				else if (level == Log::LevelWarn)
-				{
-					// grey text and grey tag background
-					printf("\033[bg230,230,230;[%s]\033[; \033[fg128,128,128;%s\033[;\n", tag.cStr(), message.cStr());
-				}
-				else if (level == Log::LevelDebug)
-				{
-					// blue background and dark blue text
-					printf("\033[bg204,255,255;\033[fg%d,%d,%d;[%s]\033[;\033[bg153,255,255; \033[fg0,0,255;%s\033[;\n", r, g, b, tag.cStr(), message.cStr());
+					harray<hstr> lines = message.split("\n");
+					hstr first = lines.removeFirst();
+					printf("%s | %s\n", cTag, first.cStr());
+					foreach (hstr, it, lines)
+					{
+						printf("%" TAG_MAX_FMT "s | %s\n", " ", it->cStr());
+					}
 				}
 				else
 				{
-					// just in case!
-					printf("%s\n", message.cStr());
+					printf("%s | %s\n", cTag, message.cStr());
 				}
 			}
 			else
@@ -95,6 +112,5 @@ namespace hltypes
 			}
 		}
 	}
-	
 }
 #endif
