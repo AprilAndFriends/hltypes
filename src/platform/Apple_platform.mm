@@ -14,10 +14,10 @@
 #include "hstring.h"
 #include "platform_internal.h"
 
-#ifdef _DEBUG
-
 #define TAG_MAX 35
 #define TAG_MAX_FMT "35"
+
+#ifdef _DEBUG
 
 #include <Foundation/Foundation.h>
 #include <sys/sysctl.h>
