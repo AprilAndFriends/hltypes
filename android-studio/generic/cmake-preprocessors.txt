@@ -4,4 +4,28 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 add_definitions(
 	-D_ANDROID
 	-D_LIB
+	-mfloat-abi=softfp
+	-fpic
+	-fstack-protector
+	-fstrict-aliasing
+	-funwind-tables
+	-ffunction-sections
+	-fomit-frame-pointer
+	-no-canonical-prefixes
+	-g3
+	-Wall
+	-Wno-parentheses
+	-Wno-overloaded-virtual
+	-Wstrict-overflow=0
 )
+
+find_library(libandroid_support android_support)
+find_library(libunwind unwind)
+find_library(liblog log)
+find_library(libz z)
+find_library(libc c)
+find_library(libdl dl)
+find_library(libandroid android)
+find_library(libGLESv2 GLESv2)
+
+set(SYSTEM_LIBS ${liblog} ${libz} ${libc} ${libdl} ${libandroid} ${libGLESv2})
