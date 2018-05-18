@@ -27,5 +27,6 @@ find_library(libc c)
 find_library(libdl dl)
 find_library(libandroid android)
 find_library(libGLESv2 GLESv2)
+find_library(libOpenSLES OpenSLES)
 
 set(SYSTEM_LIBS ${liblog} ${libz} ${libc} ${libdl} ${libandroid} ${libGLESv2})
