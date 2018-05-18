@@ -77,6 +77,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae89fc2c2687040d2ff2d0110713d89d5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classhltypes_1_1_string.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1___exception.html#ae89fc2c2687040d2ff2d0110713d89d5">getMessage</a> () const</td></tr>
 <tr class="memdesc:ae89fc2c2687040d2ff2d0110713d89d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the exception message.  <a href="#ae89fc2c2687040d2ff2d0110713d89d5">More...</a><br /></td></tr>
 <tr class="separator:ae89fc2c2687040d2ff2d0110713d89d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadc80fceeeefd4c9a0ca39648b618d9a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classhltypes_1_1_string.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1___exception.html#aadc80fceeeefd4c9a0ca39648b618d9a">getRawMessage</a> () const</td></tr>
+<tr class="memdesc:aadc80fceeeefd4c9a0ca39648b618d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the raw exception message.  <a href="#aadc80fceeeefd4c9a0ca39648b618d9a">More...</a><br /></td></tr>
+<tr class="separator:aadc80fceeeefd4c9a0ca39648b618d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a018c9bec7e67ea50a551e6a36b36b753"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhltypes_1_1_string.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1___exception.html#a018c9bec7e67ea50a551e6a36b36b753">getStackTrace</a> () const</td></tr>
 <tr class="memdesc:a018c9bec7e67ea50a551e6a36b36b753"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the stack trace.  <a href="#a018c9bec7e67ea50a551e6a36b36b753">More...</a><br /></td></tr>
 <tr class="separator:a018c9bec7e67ea50a551e6a36b36b753"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -96,6 +99,10 @@ Protected Attributes</h2></td></tr>
 <a class="el" href="classhltypes_1_1_string.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1___exception.html#a24115f3750bd7bb474910a92c90d92ac">message</a></td></tr>
 <tr class="memdesc:a24115f3750bd7bb474910a92c90d92ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception message. <br /></td></tr>
 <tr class="separator:a24115f3750bd7bb474910a92c90d92ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a95e1bc6bb3c341d623d37c46764c88"><td class="memItemLeft" align="right" valign="top"><a id="a2a95e1bc6bb3c341d623d37c46764c88"></a>
+<a class="el" href="classhltypes_1_1_string.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1___exception.html#a2a95e1bc6bb3c341d623d37c46764c88">rawMessage</a></td></tr>
+<tr class="memdesc:a2a95e1bc6bb3c341d623d37c46764c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception raw message, without source file and line number. <br /></td></tr>
+<tr class="separator:a2a95e1bc6bb3c341d623d37c46764c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae93010d7a0554d1aa196fb7763731637"><td class="memItemLeft" align="right" valign="top"><a id="ae93010d7a0554d1aa196fb7763731637"></a>
 <a class="el" href="classhltypes_1_1_string.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1___exception.html#ae93010d7a0554d1aa196fb7763731637">stackTrace</a></td></tr>
 <tr class="memdesc:ae93010d7a0554d1aa196fb7763731637"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack trace. <br /></td></tr>
@@ -268,6 +275,34 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the exception message. </p>
+<dl class="section return"><dt>Returns</dt><dd>The exception message. </dd></dl>
+
+</div>
+</div>
+<a id="aadc80fceeeefd4c9a0ca39648b618d9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadc80fceeeefd4c9a0ca39648b618d9a">&#9670;&nbsp;</a></span>getRawMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classhltypes_1_1_string.html">String</a> hltypes::_Exception::getRawMessage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the raw exception message. </p>
 <dl class="section return"><dt>Returns</dt><dd>The exception message. </dd></dl>
 
 </div>
