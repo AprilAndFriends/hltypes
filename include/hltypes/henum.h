@@ -166,6 +166,8 @@ namespace hltypes
 		/// @brief Empty constructor.
 		/// @note This will NOT auto-generate a value in the internal index.
 		Enumeration();
+		/// @brief Destructor.
+		virtual ~Enumeration();
 
 		/// @brief Gets the String name.
 		String getName() const;
