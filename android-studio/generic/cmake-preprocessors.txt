@@ -5,6 +5,7 @@ add_definitions(
 	-D_ANDROID
 	-D_LIB
 	-mfloat-abi=softfp
+	-mimplicit-it=always
 	-fpic
 	-fstack-protector
 	-fstrict-aliasing
