@@ -13,9 +13,10 @@ file(
 
 add_library(hlxml STATIC ${CppSrc})
 
-include_directories(AFTER "../../../include")
 include_directories(AFTER "../../include/hlxml")
 include_directories(AFTER "../../src")
+include_directories(AFTER "../../../include/hltypes")
+include_directories(AFTER "../../../lib/rapidxml")
 
 add_definitions(
 	-DHLXML_EXPORTS
