@@ -94,6 +94,7 @@
     <ClCompile Include="..\..\src\zipaccess.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\hltypes\constants.h" />
     <ClInclude Include="..\..\include\hltypes\hclipboard.h" />
     <ClInclude Include="..\..\include\hltypes\hcontainer.h" />
     <ClInclude Include="..\..\include\hltypes\henum.h" />

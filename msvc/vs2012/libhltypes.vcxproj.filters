@@ -91,6 +91,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\hltypes\constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\hltypes\hexception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
