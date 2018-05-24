@@ -280,7 +280,12 @@ namespace hltypes
 #ifdef _ZIPRESOURCE
 		if (Resource::zipMounts)
 		{
-			bool result = zip::fexists(ResourceDir::normalize(filename));
+			hstr name = ResourceDir::normalize(filename);
+			if (name == "")
+			{
+				return false;
+			}
+			bool result = zip::fexists(name);
 			if (!result && !caseSensitive)
 			{
 				String name = filename;

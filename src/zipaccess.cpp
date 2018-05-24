@@ -261,14 +261,17 @@ namespace hltypes
 
 		bool fexists(const String& filename)
 		{
-			String realFilename = filename;
+			if (filename == "")
+			{
+				return false;
+			}
 			Mutex::ScopeLock lock(&accessMutex);
-			ArchiveFileHandle* archive = _aopen(realFilename);
+			ArchiveFileHandle* archive = _aopen(filename);
 			if (archive == NULL)
 			{
 				return false;
 			}
-			int index = miniz::mz_zip_reader_locate_file(archive->zipArchive, realFilename.cStr(), "", 0);
+			int index = miniz::mz_zip_reader_locate_file(archive->zipArchive, filename.cStr(), "", 0);
 			bool result = (index >= 0 && !miniz::mz_zip_reader_is_file_a_directory(archive->zipArchive, index));
 			_aclose(archive);
 			return result;

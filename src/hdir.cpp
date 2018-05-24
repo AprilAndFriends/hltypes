@@ -80,6 +80,14 @@ namespace hltypes
 	bool Dir::exists(const String& dirName, bool caseSensitive)
 	{
 		String name = Dir::normalize(dirName);
+		if (name == "")
+		{
+			return false;
+		}
+		if (name == ".")
+		{
+			return true;
+		}
 		bool result = _platformDirectoryExists(dirName);
 		if (!result && !caseSensitive)
 		{

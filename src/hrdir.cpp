@@ -24,7 +24,11 @@ namespace hltypes
 	bool ResourceDir::exists(const String& dirName, bool caseSensitive)
 	{
 		String name = ResourceDir::normalize(dirName);
-		if (name == "" || name == ".")
+		if (name == "")
+		{
+			return false;
+		}
+		if (name == ".")
 		{
 			return true;
 		}
