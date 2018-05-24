@@ -265,13 +265,14 @@ namespace hltypes
 			{
 				return false;
 			}
+			hstr realFilename = filename; // _aopen() changes this variables
 			Mutex::ScopeLock lock(&accessMutex);
-			ArchiveFileHandle* archive = _aopen(filename);
+			ArchiveFileHandle* archive = _aopen(realFilename);
 			if (archive == NULL)
 			{
 				return false;
 			}
-			int index = miniz::mz_zip_reader_locate_file(archive->zipArchive, filename.cStr(), "", 0);
+			int index = miniz::mz_zip_reader_locate_file(archive->zipArchive, realFilename.cStr(), "", 0);
 			bool result = (index >= 0 && !miniz::mz_zip_reader_is_file_a_directory(archive->zipArchive, index));
 			_aclose(archive);
 			return result;
