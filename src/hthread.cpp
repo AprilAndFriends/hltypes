@@ -76,10 +76,10 @@ namespace hltypes
 	{
 		Thread::ThreadRunner* t = (Thread::ThreadRunner*)param;
 #ifdef __APPLE__
-		hstr name = t->getThread()->getName();
-		if (name != "")
+		const char* name = t->getThreadName();
+		if (name[0] != '\0')
 		{
-			pthread_setname_np(name.cStr());
+			pthread_setname_np(name);
 		}
 #endif
 		t->execute();
@@ -103,6 +103,7 @@ namespace hltypes
 	Thread::ThreadRunner::ThreadRunner(Thread* thread)
 	{
 		this->thread = thread;
+		this->threadName = thread->getName().cStr();
 	}
 
 	Thread::ThreadRunner::~ThreadRunner()

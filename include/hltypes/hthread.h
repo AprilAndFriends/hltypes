@@ -31,6 +31,7 @@ namespace hltypes
 
 			/// @brief Destructor.
 			~ThreadRunner();
+			HL_DEFINE_GET(const char*, threadName, ThreadName);
 
 			/// @return Associated thread.
 			inline Thread* getThread() const { return this->thread; }
@@ -41,6 +42,7 @@ namespace hltypes
 		protected:
 			/// @brief Associated thread.
 			Thread* thread;
+			const char* threadName;
 
 			/// @brief Constructor.
 			/// @param[in] thread Associated thread.
