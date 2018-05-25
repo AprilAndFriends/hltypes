@@ -6,7 +6,6 @@
                                   '$(Configuration)'=='ReleaseS_ZipResource'">
     <ClCompile>
       <PreprocessorDefinitions>_ZIPRESOURCE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions Condition="'$(Platform)'=='Android' or '$(Platform)'=='Android-x86'">%(AdditionalOptions) -std=c++11</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
 </Project>
