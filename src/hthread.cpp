@@ -103,7 +103,7 @@ namespace hltypes
 	Thread::ThreadRunner::ThreadRunner(Thread* thread)
 	{
 		this->thread = thread;
-		this->threadName = thread->getName().cStr();
+		this->threadName = thread->name.cStr();
 	}
 
 	Thread::ThreadRunner::~ThreadRunner()
