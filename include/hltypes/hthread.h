@@ -42,6 +42,7 @@ namespace hltypes
 		protected:
 			/// @brief Associated thread.
 			Thread* thread;
+			/// @brief Required to avoid some memory leak warnings.
 			const char* threadName;
 
 			/// @brief Constructor.

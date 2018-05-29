@@ -40,11 +40,11 @@ namespace hltypes
 	} THREADNAME_INFO;
 #pragma pack(pop)
 
-	static void SetThreadName(DWORD id, const String& name)
+	static void SetThreadName(DWORD id, const char* name)
 	{
 		THREADNAME_INFO info;
 		info.dwType = 0x1000;
-		info.szName = (char*)name.cStr();
+		info.szName = (char*)name;
 		info.dwThreadID = id;
 		info.dwFlags = 0;
 		__try
@@ -62,8 +62,8 @@ namespace hltypes
 	{
 		Thread::ThreadRunner* t = (Thread::ThreadRunner*)param;
 #ifdef _MSC_VER
-		hstr name = t->getThread()->getName();
-		if (name != "")
+		const char* name = t->getThreadName();
+		if (name[0] != '\0')
 		{
 			SetThreadName(GetCurrentThreadId(), name);
 		}
@@ -224,7 +224,7 @@ namespace hltypes
 		{
 			if (this->name != "")
 			{
-				SetThreadName(GetCurrentThreadId(), this->name);
+				SetThreadName(GetCurrentThreadId(), this->name.cStr)());
 			}
 			this->_execute();
 		}), WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
