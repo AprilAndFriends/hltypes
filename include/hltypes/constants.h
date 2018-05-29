@@ -15,6 +15,7 @@
 
 // ctypes
 #define MAX_INT 0x7FFFFFFF
+#define MAX_BYTE 0xFF
 // time
 #define MILLISECONDS_IN_SECOND 1000
 // color
