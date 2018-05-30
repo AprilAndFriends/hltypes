@@ -1613,10 +1613,8 @@
           <LI><OBJECT type="text/sitemap"><param name="Name" value="ThreadRunner"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#afd16c7666c00a11dabe629afc57c33ab"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="execute"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#a89e82ab4bfe67ea3c3fa273575f66c05"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="getThread"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#a6b069c89f8b98d124f49deaa87b3f895"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_DEFINE_GET"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#af0c7ddd37f3b703c8c42249d654f9213"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="Thread"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#adbc148eaddd341d7ae4d07c9e9e33bfd"><param name="ImageNumber" value="11"></OBJECT>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="thread"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#ad839b368788bbcded8c54155b8df326b"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="threadName"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#ae07697b1a27f7177f8bb8fd2edd26496"><param name="ImageNumber" value="11"></OBJECT>
           </UL>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="Thread"><param name="Local" value="classhltypes_1_1_thread.html#a3abebac7d16cf1991addb3e6cd6a708c"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="~Thread"><param name="Local" value="classhltypes_1_1_thread.html#ab6d67b0d72c538b61ba1f064ecc39ba3"><param name="ImageNumber" value="11"></OBJECT>
@@ -1815,13 +1813,6 @@
       <UL>
       <LI><OBJECT type="text/sitemap"><param name="Name" value="hltypes"><param name="Local" value="dir_0781e97a24fd903fca0b44928c1aebe3.html"><param name="ImageNumber" value="1"></OBJECT>
         <UL>
-        <LI><OBJECT type="text/sitemap"><param name="Name" value="constants.h"><param name="Local" value="constants_8h.html"><param name="ImageNumber" value="1"></OBJECT>
-          <UL>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="MAX_ALPHA"><param name="Local" value="constants_8h.html#afa2a9b1e7fdb6de3cd30769d4eb3510f"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="MAX_INT"><param name="Local" value="constants_8h.html#aaa1ac5caef84256eaeb39594e58e096f"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="MAX_PERCENT"><param name="Local" value="constants_8h.html#adf328eacfd00672237efa67d2c7ae43c"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="MILLISECONDS_IN_SECOND"><param name="Local" value="constants_8h.html#a8c42cd80fc6a46821c65a20c4aa81110"><param name="ImageNumber" value="11"></OBJECT>
-          </UL>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="harray.h"><param name="Local" value="harray_8h.html"><param name="ImageNumber" value="1"></OBJECT>
           <UL>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="Array"><param name="Local" value="classhltypes_1_1_array.html"><param name="ImageNumber" value="1"></OBJECT>
@@ -4537,10 +4528,8 @@
               <LI><OBJECT type="text/sitemap"><param name="Name" value="ThreadRunner"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#afd16c7666c00a11dabe629afc57c33ab"><param name="ImageNumber" value="11"></OBJECT>
               <LI><OBJECT type="text/sitemap"><param name="Name" value="execute"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#a89e82ab4bfe67ea3c3fa273575f66c05"><param name="ImageNumber" value="11"></OBJECT>
               <LI><OBJECT type="text/sitemap"><param name="Name" value="getThread"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#a6b069c89f8b98d124f49deaa87b3f895"><param name="ImageNumber" value="11"></OBJECT>
-              <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_DEFINE_GET"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#af0c7ddd37f3b703c8c42249d654f9213"><param name="ImageNumber" value="11"></OBJECT>
               <LI><OBJECT type="text/sitemap"><param name="Name" value="Thread"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#adbc148eaddd341d7ae4d07c9e9e33bfd"><param name="ImageNumber" value="11"></OBJECT>
               <LI><OBJECT type="text/sitemap"><param name="Name" value="thread"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#ad839b368788bbcded8c54155b8df326b"><param name="ImageNumber" value="11"></OBJECT>
-              <LI><OBJECT type="text/sitemap"><param name="Name" value="threadName"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#ae07697b1a27f7177f8bb8fd2edd26496"><param name="ImageNumber" value="11"></OBJECT>
               </UL>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="Thread"><param name="Local" value="classhltypes_1_1_thread.html#a3abebac7d16cf1991addb3e6cd6a708c"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="~Thread"><param name="Local" value="classhltypes_1_1_thread.html#ab6d67b0d72c538b61ba1f064ecc39ba3"><param name="ImageNumber" value="11"></OBJECT>
@@ -4563,10 +4552,8 @@
             <LI><OBJECT type="text/sitemap"><param name="Name" value="ThreadRunner"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#afd16c7666c00a11dabe629afc57c33ab"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="execute"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#a89e82ab4bfe67ea3c3fa273575f66c05"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="getThread"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#a6b069c89f8b98d124f49deaa87b3f895"><param name="ImageNumber" value="11"></OBJECT>
-            <LI><OBJECT type="text/sitemap"><param name="Name" value="HL_DEFINE_GET"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#af0c7ddd37f3b703c8c42249d654f9213"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="Thread"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#adbc148eaddd341d7ae4d07c9e9e33bfd"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="thread"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#ad839b368788bbcded8c54155b8df326b"><param name="ImageNumber" value="11"></OBJECT>
-            <LI><OBJECT type="text/sitemap"><param name="Name" value="threadName"><param name="Local" value="classhltypes_1_1_thread_1_1_thread_runner.html#ae07697b1a27f7177f8bb8fd2edd26496"><param name="ImageNumber" value="11"></OBJECT>
             </UL>
           <LI><OBJECT type="text/sitemap"><param name="Name" value="hthread"><param name="Local" value="hthread_8h.html#a109b932d9f886d4b14a4866056bd05a2"><param name="ImageNumber" value="11"></OBJECT>
           </UL>

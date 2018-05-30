@@ -40,11 +40,11 @@ namespace hltypes
 	} THREADNAME_INFO;
 #pragma pack(pop)
 
-	static void SetThreadName(DWORD id, const char* name)
+	static void SetThreadName(DWORD id, const String& name)
 	{
 		THREADNAME_INFO info;
 		info.dwType = 0x1000;
-		info.szName = (char*)name;
+		info.szName = (char*)name.cStr();
 		info.dwThreadID = id;
 		info.dwFlags = 0;
 		__try
@@ -62,8 +62,8 @@ namespace hltypes
 	{
 		Thread::ThreadRunner* t = (Thread::ThreadRunner*)param;
 #ifdef _MSC_VER
-		const char* name = t->getThreadName();
-		if (name[0] != '\0')
+		hstr name = t->getThread()->getName();
+		if (name != "")
 		{
 			SetThreadName(GetCurrentThreadId(), name);
 		}
@@ -76,10 +76,10 @@ namespace hltypes
 	{
 		Thread::ThreadRunner* t = (Thread::ThreadRunner*)param;
 #ifdef __APPLE__
-		const char* name = t->getThreadName();
-		if (name[0] != '\0')
+		hstr name = t->getThread()->getName();
+		if (name != "")
 		{
-			pthread_setname_np(name);
+			pthread_setname_np(name.cStr());
 		}
 #endif
 		t->execute();
@@ -103,7 +103,6 @@ namespace hltypes
 	Thread::ThreadRunner::ThreadRunner(Thread* thread)
 	{
 		this->thread = thread;
-		this->threadName = thread->name.cStr();
 	}
 
 	Thread::ThreadRunner::~ThreadRunner()
@@ -224,7 +223,7 @@ namespace hltypes
 		{
 			if (this->name != "")
 			{
-				SetThreadName(GetCurrentThreadId(), this->name.cStr)());
+				SetThreadName(GetCurrentThreadId(), this->name);
 			}
 			this->_execute();
 		}), WorkItemPriority::Normal, WorkItemOptions::TimeSliced));
