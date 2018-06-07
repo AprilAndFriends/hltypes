@@ -454,7 +454,7 @@ namespace hltypes
 	{
 		char string[FORMATTING_STRING_BUFFER_SIZE] = { '\0' };
 		_platformSprintf(string, "%f", f);
-		stdstr::assign(string);
+		stdstr::assign(String(string).trimmedRight('0').trimmedRight('.').cStr());
 	}
 
 	void String::set(const float f, int precision)
@@ -470,7 +470,7 @@ namespace hltypes
 	{
 		char string[FORMATTING_STRING_BUFFER_SIZE] = { '\0' };
 		_platformSprintf(string, "%lf", d);
-		stdstr::assign(string);
+		stdstr::assign(String(string).trimmedRight('0').trimmedRight('.').cStr());
 	}
 
 	void String::set(const double d, int precision)
@@ -573,7 +573,7 @@ namespace hltypes
 	{
 		char string[FORMATTING_STRING_BUFFER_SIZE] = { '\0' };
 		_platformSprintf(string, "%f", f);
-		stdstr::append(string);
+		stdstr::append(String(string).trimmedRight('0').trimmedRight('.').cStr());
 	}
 
 	void String::add(const float f, int precision)
@@ -589,7 +589,7 @@ namespace hltypes
 	{
 		char string[FORMATTING_STRING_BUFFER_SIZE] = { '\0' };
 		_platformSprintf(string, "%lf", d);
-		stdstr::append(string);
+		stdstr::append(String(string).trimmedRight('0').trimmedRight('.').cStr());
 	}
 
 	void String::add(const double d, int precision)
