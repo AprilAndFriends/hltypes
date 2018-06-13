@@ -401,7 +401,7 @@ HL_UT_TEST_CLASS(List)
 		b = a.joined(2);
 		HL_UT_ASSERT(b == "0212223", "");
 		b = a.joined(1.5f);
-		HL_UT_ASSERT(b == "01.50000011.50000021.5000003", "");
+		HL_UT_ASSERT(b == "01.511.521.53", "");
 	}
 	static bool negative(int const& i) { return (i < 0); }
 	static bool positive(int const& i) { return (i >= 0); }
