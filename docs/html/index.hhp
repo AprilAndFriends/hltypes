@@ -12,6 +12,7 @@ Title=C++ High Level Types
 main="C++ High Level Types","index.hhc","index.hhk","index.html","index.html",,,,,0x23520,,0x10387e,,,,,,,,0
 
 [FILES]
+constants_8h_source.html
 harray_8h_source.html
 hclipboard_8h_source.html
 hcontainer_8h_source.html
@@ -36,6 +37,7 @@ hstream_8h_source.html
 hstring_8h_source.html
 hthread_8h_source.html
 hversion_8h_source.html
+constants_8h.html
 harray_8h.html
 hclipboard_8h.html
 hcontainer_8h.html
