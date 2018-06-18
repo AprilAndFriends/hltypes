@@ -4,105 +4,12 @@ android
 		externalNativeBuild {
 			cmake {
 				arguments += ["-DANDROID_CPP_FEATURES=rtti exceptions", "-DANDROID_NATIVE_API_LEVEL=15", "-DANDROID_TOOLCHAIN=clang"]
-				cFlags += ["-D_ANDROID"] //"-O3", "-fsigned-char"
-				cppFlags += ["-D_ANDROID"] //"-O3", "-fsigned-char"
-				abiFilters = ["armeabi-v7a", "x86"]
+				cFlags += ["-fsigned-char"]
+				cppFlags += ["-fsigned-char"]
+				abiFilters "armeabi-v7a", "x86"
 			}
 		}
 	}
-	/*
-	buildTypes {
-		debug_arm {
-			initWith debug
-			externalNativeBuild {
-				cmake {
-					abiFilters "armeabi-v7a"
-				}
-			}
-		}
-		debug_x86 {
-			initWith debug
-			externalNativeBuild {
-				cmake {
-					abiFilters "x86"
-				}
-			}
-		}
-		release_arm {
-			initWith release
-			externalNativeBuild {
-				cmake {
-					abiFilters "armeabi-v7a"
-				}
-			}
-		}
-		release_x86 {
-			initWith release
-			externalNativeBuild {
-				cmake {
-					abiFilters "x86"
-				}
-			}
-		}
-		debug {
-			externalNativeBuild {
-				cmake {
-					abiFilters "armeabi-v7a", "x86"
-				}
-			}
-		}
-		release {
-			externalNativeBuild {
-				cmake {
-					abiFilters "armeabi-v7a", "x86"
-				}
-			}
-		}
-	}
-	*/
-	/*
-	flavorDimensions "platform"
-	productFlavors {
-		armv7 {
-			dimension "platform"
-			externalNativeBuild {
-				cmake {
-					//cFlags += ["-D_ARM"]
-					//cppFlags += ["-D_ARM"]
-					abiFilters = ["armeabi-v7a"]
-				}
-			}
-		}
-		x86 {
-			dimension "platform"
-			externalNativeBuild {
-				cmake {
-					//cFlags += ["-D_X86"]
-					//cppFlags += ["-D_X86"]
-					abiFilters = ["x86"]
-				}
-			}
-		}
-		all {
-			dimension "platform"
-			externalNativeBuild {
-				cmake {
-					abiFilters = ["armeabi-v7a", "x86"]
-				}
-			}
-		}
-	}
-	*/
-	/*
-	splits {
-		abi {
-			enable true
-			reset()
-			include "armeabi-v7a", "x86"
-			universalApk true
-		}
-	}
-	*/
 	externalNativeBuild {
 		cmake {
 			path "CMakeLists.txt"

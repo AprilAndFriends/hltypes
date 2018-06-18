@@ -4,9 +4,6 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 add_definitions(
 	-D_ANDROID
 	-D_LIB
-	-mfloat-abi=softfp
-	-mimplicit-it=always
-	-fpic
 	-fstack-protector
 	-fstrict-aliasing
 	-funwind-tables
@@ -19,6 +16,17 @@ add_definitions(
 	-Wno-overloaded-virtual
 	-Wstrict-overflow=0
 )
+
+# these are for compatibility, will be removed later once the code base has been cleaned up
+if (__arm__)
+	add_definitions(
+		-D_ARM
+	)
+elsif (__i386__)
+	add_definitions(
+		-D_X86
+	)
+endif()
 
 find_library(libandroid_support android_support)
 find_library(libunwind unwind)
