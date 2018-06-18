@@ -18,11 +18,11 @@ add_definitions(
 )
 
 # these are for compatibility, will be removed later once the code base has been cleaned up
-if (__arm__)
+if (${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
 	add_definitions(
 		-D_ARM
 	)
-elsif (__i386__)
+else()
 	add_definitions(
 		-D_X86
 	)
