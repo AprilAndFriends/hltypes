@@ -6,7 +6,7 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
-#ifdef _ANDROID
+#ifdef __ANDROID__
 #include <android/log.h>
 #endif
 #include <stdarg.h>
@@ -23,7 +23,7 @@
 // required for Win32 only actually
 #define MAX_FILE_SIZE 131072
 
-#if defined(_ANDROID) && !defined(_DEBUG)
+#if defined(__ANDROID__) && !defined(_DEBUG)
 #define LEVEL_PLATFORM(level) ((level) == Log::LevelDebug ? Log::LevelWrite : (level))
 #else
 #define LEVEL_PLATFORM(level) (level)
@@ -40,7 +40,7 @@
 
 namespace hltypes
 {
-#ifdef _ANDROID
+#ifdef __ANDROID__
 	const int Log::LevelWrite = (int)ANDROID_LOG_INFO;
 	const int Log::LevelError = (int)ANDROID_LOG_ERROR;
 	const int Log::LevelWarn = (int)ANDROID_LOG_WARN;

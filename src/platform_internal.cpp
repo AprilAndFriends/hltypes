@@ -19,7 +19,7 @@
 	#include <sys/stat.h>
 	#include <sys/types.h>
 	#include <unistd.h>
-	#if defined(_ANDROID) || defined(__APPLE__)
+	#if defined(__ANDROID__) || defined(__APPLE__)
 		#include <errno.h>
 	#endif
 #endif

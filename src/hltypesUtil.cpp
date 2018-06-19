@@ -37,10 +37,10 @@
 #import <Foundation/Foundation.h>
 #include <mach/mach_time.h>
 #endif
-#if !defined(_WIN32) && !defined(_ANDROID)
+#if !defined(_WIN32) && !defined(__ANDROID__)
 #include <sys/sysctl.h>
 #endif
-#ifdef _ANDROID
+#ifdef __ANDROID__
 #include <sys/sysinfo.h>
 #endif
 
@@ -49,7 +49,7 @@
 // needed for stack trace functions
 #include <dbghelp.h> // has to be here after hplatform.h that includes windows.h
 #pragma comment(lib, "dbghelp.lib")
-#elif defined(_ANDROID)
+#elif defined(__ANDROID__)
 #include <unwind.h>
 #include <dlfcn.h>
 #endif
@@ -76,7 +76,7 @@ int64_t htime()
 	return (int64_t)time(NULL);
 }
 
-#if !defined(_WIN32) && !defined(_ANDROID)
+#if !defined(_WIN32) && !defined(__ANDROID__)
 inline static struct timeval _simpleUnixNowTime()
 {
 	struct timeval result;
@@ -141,7 +141,7 @@ int64_t htickCount()
 
 int64_t htimeSinceBoot()
 {
-#ifdef _ANDROID
+#ifdef __ANDROID__
 	struct timespec ts;
 	if (clock_gettime(CLOCK_BOOTTIME, &ts) == 0)
 	{
@@ -163,7 +163,7 @@ hltypes::String henv(const hltypes::String& name)
 	return hltypes::_platformEnv(name);
 }
 
-#ifdef _ANDROID
+#ifdef __ANDROID__
 struct StackFrame
 {
 	hltypes::Array<void*> addresses;
@@ -229,7 +229,7 @@ hltypes::String hstackTrace(int maxFrames)
 		}
 		SymCleanup(process);
 	}
-#elif defined(_ANDROID)
+#elif defined(__ANDROID__)
 	result = "Could not obtain stack trace!";
 	StackFrame frame;
 	frame.maxFrames = maxFrames;

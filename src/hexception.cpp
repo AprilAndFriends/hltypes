@@ -6,7 +6,7 @@
 /// This program is free software; you can redistribute it and/or modify it under
 /// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 
-#ifdef _ANDROID
+#ifdef __ANDROID__
 	#include <errno.h>
 #endif
 
@@ -39,7 +39,7 @@ namespace hltypes
 		this->message = hsprintf("[%s:%d] %s", Dir::baseName(sourceFile).cStr(), lineNumber, message.cStr());
 		// because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
 		// because Android doesn't display register data properly if an exception is thrown
-#if defined(_WIN32) || defined(_ANDROID) || defined(_IOS)
+#if defined(_WIN32) || defined(__ANDROID__) || defined(_IOS)
 		if (Log::isLevelDebug() && message != "")
 		{
 			hltypes::_platformPrint("FATAL", this->message, Log::LevelError);
@@ -50,7 +50,7 @@ namespace hltypes
 	_FileCouldNotOpenException::_FileCouldNotOpenException(const String& filename, bool isResource, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-#if defined(_WIN32) || defined(_ANDROID)
+#if defined(_WIN32) || defined(__ANDROID__)
 		int errnoValue = errno;
 #endif
 		String message = hsprintf("'%s' could not be opened!", filename.cStr());
@@ -99,7 +99,7 @@ namespace hltypes
 		catch (_Exception&) // is this inception or exception, I am confused
 		{
 		}
-#if defined(_WIN32) || defined(_ANDROID)
+#if defined(_WIN32) || defined(__ANDROID__)
 		message += " System error: " + String(strerror(errnoValue));
 #else
 		message += " File not found!";

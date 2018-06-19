@@ -316,7 +316,7 @@ namespace hltypes
 #else
 		((AsyncActionWrapper*)this->id)->asyncAction->Cancel();
 #endif
-#elif defined(_ANDROID)
+#elif defined(__ANDROID__)
 		pthread_kill(*((pthread_t*)this->id), 0);
 #else
 		pthread_cancel(*((pthread_t*)this->id));

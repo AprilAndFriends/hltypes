@@ -479,7 +479,7 @@ typedef int mz_bool;
 #define MZ_TRUE (1)
 
 // An attempt to work around MSVC's spammy "warning C4127: conditional expression is constant" message.
-#if defined(_MSC_VER) && !defined(_ANDROID)
+#if defined(_MSC_VER) && !defined(__ANDROID__)
    #define MZ_MACRO_END while (0, 0)
 #else
    #define MZ_MACRO_END while (0)
@@ -962,7 +962,7 @@ namespace miniz
   #define MZ_READ_LE32(p) ((mz_uint32)(((const mz_uint8 *)(p))[0]) | ((mz_uint32)(((const mz_uint8 *)(p))[1]) << 8U) | ((mz_uint32)(((const mz_uint8 *)(p))[2]) << 16U) | ((mz_uint32)(((const mz_uint8 *)(p))[3]) << 24U))
 #endif
 
-#if defined(_MSC_VER) && !defined(_ANDROID)
+#if defined(_MSC_VER) && !defined(__ANDROID__)
   #define MZ_FORCEINLINE __forceinline
 #elif defined(__GNUC__)
   #define MZ_FORCEINLINE inline __attribute__((__always_inline__))
@@ -2789,7 +2789,7 @@ mz_uint tdefl_create_comp_flags_from_zip_params(int level, int window_bits, int 
 }
 #endif //MINIZ_NO_ZLIB_APIS
 
-#if defined(_MSC_VER) && !defined(_ANDROID)
+#if defined(_MSC_VER) && !defined(__ANDROID__)
 #pragma warning (push)
 #pragma warning (disable:4204) // nonstandard extension used : non-constant aggregate initializer (also supported by GNU C and C99, so no big deal)
 #endif
@@ -2832,7 +2832,7 @@ void *tdefl_write_image_to_png_file_in_memory(const void *pImage, int w, int h, 
   return tdefl_write_image_to_png_file_in_memory_ex(pImage, w, h, num_chans, pLen_out, 6, MZ_FALSE);
 }
 
-#if defined(_MSC_VER) && !defined(_ANDROID)
+#if defined(_MSC_VER) && !defined(__ANDROID__)
 #pragma warning (pop)
 #endif
 
@@ -2846,7 +2846,7 @@ void *tdefl_write_image_to_png_file_in_memory(const void *pImage, int w, int h, 
   #include <stdio.h>
   #include <sys/stat.h>
 
-  #if defined(_MSC_VER) && !defined(_ANDROID) || defined(__MINGW64__)
+  #if defined(_MSC_VER) && !defined(__ANDROID__) || defined(__MINGW64__)
     static FILE *mz_fopen(const char *pFilename, const char *pMode)
     {
       FILE* pFile = NULL;
@@ -2907,7 +2907,7 @@ void *tdefl_write_image_to_png_file_in_memory(const void *pImage, int w, int h, 
     #define MZ_FFLUSH fflush
     #define MZ_FREOPEN(f, m, s) freopen(f, m, s)
     #define MZ_DELETE_FILE remove
-  #elif (defined(__GNUC__) || (_ANDROID)) && _LARGEFILE64_SOURCE
+  #elif (defined(__GNUC__) || (__ANDROID__)) && _LARGEFILE64_SOURCE
     #ifndef MINIZ_NO_TIME
       #include <utime.h>
     #endif
@@ -3037,7 +3037,7 @@ static time_t mz_zip_dos_to_time_t(int dos_time, int dos_date)
 
 static void mz_zip_time_to_dos_time(time_t time, mz_uint16 *pDOS_time, mz_uint16 *pDOS_date)
 {
-#if defined(_MSC_VER) && !defined(_ANDROID)
+#if defined(_MSC_VER) && !defined(__ANDROID__)
   struct tm tm_struct;
   struct tm *tm = &tm_struct;
   errno_t err = localtime_s(tm, &time);
@@ -3609,7 +3609,7 @@ mz_bool mz_zip_reader_extract_to_mem_no_alloc(mz_zip_archive *pZip, mz_uint file
   {
     // Temporarily allocate a read buffer.
     read_buf_size = MZ_MIN(file_stat.m_comp_size, MZ_ZIP_MAX_IO_BUF_SIZE);
-#if defined(_MSC_VER) && !defined(_ANDROID)
+#if defined(_MSC_VER) && !defined(__ANDROID__)
     if (((0, sizeof(size_t) == sizeof(mz_uint32))) && (read_buf_size > 0x7FFFFFFF))
 #else
     if (((sizeof(size_t) == sizeof(mz_uint32))) && (read_buf_size > 0x7FFFFFFF))
@@ -3689,7 +3689,7 @@ void *mz_zip_reader_extract_to_heap(mz_zip_archive *pZip, mz_uint file_index, si
   uncomp_size = MZ_READ_LE32(p + MZ_ZIP_CDH_DECOMPRESSED_SIZE_OFS);
 
   alloc_size = (flags & MZ_ZIP_FLAG_COMPRESSED_DATA) ? comp_size : uncomp_size;
-#if defined(_MSC_VER) && !defined(_ANDROID)
+#if defined(_MSC_VER) && !defined(__ANDROID__)
   if (((0, sizeof(size_t) == sizeof(mz_uint32))) && (alloc_size > 0x7FFFFFFF))
 #else
   if (((sizeof(size_t) == sizeof(mz_uint32))) && (alloc_size > 0x7FFFFFFF))
@@ -3779,7 +3779,7 @@ mz_bool mz_zip_reader_extract_to_callback(mz_zip_archive *pZip, mz_uint file_ind
     // The file is stored or the caller has requested the compressed data.
     if (pZip->m_pState->m_pMem)
     {
-#if defined(_MSC_VER) && !defined(_ANDROID)
+#if defined(_MSC_VER) && !defined(__ANDROID__)
       if (((0, sizeof(size_t) == sizeof(mz_uint32))) && (file_stat.m_comp_size > 0xFFFFFFFF))
 #else
       if (((sizeof(size_t) == sizeof(mz_uint32))) && (file_stat.m_comp_size > 0xFFFFFFFF))
@@ -3998,7 +3998,7 @@ static size_t mz_zip_heap_write_func(void *pOpaque, mz_uint64 file_ofs, const vo
   mz_zip_archive *pZip = (mz_zip_archive *)pOpaque;
   mz_zip_internal_state *pState = pZip->m_pState;
   mz_uint64 new_size = MZ_MAX(file_ofs + n, pState->m_mem_size);
-#if defined(_MSC_VER) && !defined(_ANDROID)
+#if defined(_MSC_VER) && !defined(__ANDROID__)
   if ((!n) || ((0, sizeof(size_t) == sizeof(mz_uint32)) && (new_size > 0x7FFFFFFF)))
 #else
   if ((!n) || ((sizeof(size_t) == sizeof(mz_uint32)) && (new_size > 0x7FFFFFFF)))

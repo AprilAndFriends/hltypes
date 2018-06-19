@@ -27,7 +27,7 @@
 #endif
 
 #ifndef HL_DEPRECATED
-	#if defined(_MSC_VER) && !defined(_ANDROID)
+	#if defined(_MSC_VER) && !defined(__ANDROID__)
 		#define HL_DEPRECATED(message) __declspec(deprecated(message))
 	#else
 		#define HL_DEPRECATED(message) __attribute__((deprecated(message)))
