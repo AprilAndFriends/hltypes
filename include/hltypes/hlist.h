@@ -21,13 +21,13 @@
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a List.
-#define foreach_l(type, name, container) for (hltypes::List< type >::iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreach_l(type, name, container) for (hltypes::List< type >::iterator_t name = (container).begin(), name ## End = (container).end(); name != name ## End; ++name)
 /// @brief Provides a simpler syntax to iterate through a List.
-#define foreachc_l(type, name, container) for (hltypes::List< type >::const_iterator_t name = (container).begin(); name != (container).end(); ++name)
+#define foreachc_l(type, name, container) for (hltypes::List< type >::const_iterator_t name = (container).begin(), name ## End = (container).end(); name != name ## End; ++name)
 /// @brief Provides a simpler syntax to reverse iterate through a List.
-#define foreach_lr(type, name, container) for (hltypes::List< type >::riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+#define foreach_lr(type, name, container) for (hltypes::List< type >::riterator_t name = (container).rbegin(), name ## End = (container).rend(); name != name ## End; ++name)
 /// @brief Provides a simpler syntax to reverse iterate through a List.
-#define foreachc_lr(type, name, container) for (hltypes::List< type >::const_riterator_t name = (container).rbegin(); name != (container).rend(); ++name)
+#define foreachc_lr(type, name, container) for (hltypes::List< type >::const_riterator_t name = (container).rbegin(), name ## End = (container).rend(); name != name ## End; ++name)
 
 namespace hltypes
 {
