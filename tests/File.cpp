@@ -1,18 +1,13 @@
-#define __HL_UT_LIB_NAME hltypes
-#ifdef __APPLE__
-#import "hunittest.h"
-#else
-#include "hunittest.h"
-#endif
-
+#define __HTEST_LIB_NAME hltypes
+#include "htest.h"
 #include "harray.h"
 #include "hexception.h"
 #include "hfile.h"
 #include "hstring.h"
 
-HL_UT_TEST_CLASS(File)
+HTEST_CLASS(File)
 {
-	HL_UT_TEST_FUNCTION(readWrite)
+	HTEST_FUNCTION(readWrite)
 	{
 		hstr filename = "test.txt";
 		hfile f;
@@ -20,20 +15,20 @@ HL_UT_TEST_CLASS(File)
 		f.write("This is a test.");
 		f.open(filename, hfaccess::Read);
 		hstr text = f.read();
-		HL_UT_ASSERT(text == "This is a test.", "");
+		HTEST_ASSERT(text == "This is a test.", "");
 		f.open(filename);
 		text = f.read(6);
-		HL_UT_ASSERT(text == "This i", "read()");
+		HTEST_ASSERT(text == "This i", "read()");
 		text = f.read(5);
-		HL_UT_ASSERT(text == "s a t", "read()");
+		HTEST_ASSERT(text == "s a t", "read()");
 		text = hfile::hread(filename, 69);
-		HL_UT_ASSERT(text == "This is a test.", "read");
+		HTEST_ASSERT(text == "This is a test.", "read");
 		hfile::happend(filename, "22");
 		text = hfile::hread(filename);
-		HL_UT_ASSERT(text == "This is a test.22", "write()");
+		HTEST_ASSERT(text == "This is a test.22", "write()");
 	}
 
-	HL_UT_TEST_FUNCTION(readLine)
+	HTEST_FUNCTION(readLine)
 	{
 		hstr filename = "test.txt";
 		hfile f;
@@ -43,20 +38,20 @@ HL_UT_TEST_CLASS(File)
 		f.writeLine("This is another test.");
 		f.open(filename, hfaccess::Read);
 		hstr text = f.read();
-		HL_UT_ASSERT(text == "This is a test.\nThis is also a test.\nThis is another test.\n", "");
+		HTEST_ASSERT(text == "This is a test.\nThis is also a test.\nThis is another test.\n", "");
 		f.open(filename, hfaccess::Read);
 		text = f.readLine();
-		HL_UT_ASSERT(text == "This is a test.", "");
+		HTEST_ASSERT(text == "This is a test.", "");
 		text = f.readLine();
-		HL_UT_ASSERT(text == "This is also a test.", "");
+		HTEST_ASSERT(text == "This is also a test.", "");
 		text = f.readLine();
-		HL_UT_ASSERT(text == "This is another test.", "");
+		HTEST_ASSERT(text == "This is another test.", "");
 		f.open(filename, hfaccess::Read);
 		harray<hstr> lines = f.readLines();
-		HL_UT_ASSERT(lines[0] == "This is a test." && lines[1] == "This is also a test." && lines[2] == "This is another test.", "");
+		HTEST_ASSERT(lines[0] == "This is a test." && lines[1] == "This is also a test." && lines[2] == "This is another test.", "");
 	}
 
-	HL_UT_TEST_FUNCTION(readDelimiter)
+	HTEST_FUNCTION(readDelimiter)
 	{
 		hstr filename = "test.txt";
 		hfile f;
@@ -65,10 +60,10 @@ HL_UT_TEST_CLASS(File)
 		f.write(hstr('b', 10));
 		f.open(filename, hfaccess::Read);
 		hstr text = f.read(hstr('b', 10));
-		HL_UT_ASSERT(text == hstr('a', 4090), "");
+		HTEST_ASSERT(text == hstr('a', 4090), "");
 	}
 
-	HL_UT_TEST_FUNCTION(writef)
+	HTEST_FUNCTION(writef)
 	{
 		hstr filename = "test.txt";
 		hfile f;
@@ -76,10 +71,10 @@ HL_UT_TEST_CLASS(File)
 		f.writef("This is a %d %s %4.2f %s.", 0, "formatted", 3.14f, "file");
 		f.open(filename, hfaccess::Read);
 		hstr text = f.read();
-		HL_UT_ASSERT(text == "This is a 0 formatted 3.14 file.", "");
+		HTEST_ASSERT(text == "This is a 0 formatted 3.14 file.", "");
 	}
 
-	HL_UT_TEST_FUNCTION(readWriteRaw)
+	HTEST_FUNCTION(readWriteRaw)
 	{
 		hstr filename = "raw.txt";
 		hfile f;
@@ -100,12 +95,12 @@ HL_UT_TEST_CLASS(File)
 		unsigned char b[6] = { '\0' };
 		f.readRaw(b, 5);
 		hstr str = hstr((char*)b);
-		HL_UT_ASSERT(str == "Raw t", "");
+		HTEST_ASSERT(str == "Raw t", "");
 		f.close();
 		hfile::remove(filename);
 	}
 
-	HL_UT_TEST_FUNCTION(seekPositionSize)
+	HTEST_FUNCTION(seekPositionSize)
 	{
 		hstr filename = "test.txt";
 		hfile f;
@@ -114,25 +109,25 @@ HL_UT_TEST_CLASS(File)
 		f.open(filename, hfaccess::Read);
 		f.seek(4, hseek::Start);
 		hstr text = f.read();
-		HL_UT_ASSERT(text == " is another test.", "seek()");
+		HTEST_ASSERT(text == " is another test.", "seek()");
 		f.open(filename, hfaccess::Read);
 		f.seek((int64_t)-4, hseek::End);
 		int pos = (int)f.position();
-		HL_UT_ASSERT(pos == 17, "position()");
+		HTEST_ASSERT(pos == 17, "position()");
 		text = f.read();
-		HL_UT_ASSERT(text == "est.", "");
+		HTEST_ASSERT(text == "est.", "");
 		f.open(filename, hfaccess::Read);
 		f.seek((int64_t)4, hseek::Current);
 		pos = (int)f.position();
-		HL_UT_ASSERT(pos == 4, "");
+		HTEST_ASSERT(pos == 4, "");
 		f.seek((int64_t)5, hseek::Current);
 		pos = (int)f.position();
-		HL_UT_ASSERT(pos == 9, "");
+		HTEST_ASSERT(pos == 9, "");
 		text = f.read(7);
-		HL_UT_ASSERT(f.size() == (int64_t)21, "size()");
-		HL_UT_ASSERT(text == "nother ", "");		
+		HTEST_ASSERT(f.size() == (int64_t)21, "size()");
+		HTEST_ASSERT(text == "nother ", "");		
 	}
-	HL_UT_TEST_FUNCTION(serialization)
+	HTEST_FUNCTION(serialization)
 	{
 		hstr filename = "test.txt/";
 		hfile f;
@@ -152,53 +147,53 @@ HL_UT_TEST_CLASS(File)
 		double d = f.loadDouble();
 		bool b = f.loadBool();
 		f.close();
-		HL_UT_ASSERT(i == 1234, "int32");
-		HL_UT_ASSERT(s == 4321, "int16");
-		HL_UT_ASSERT(str == "testing", "string");
-		HL_UT_ASSERT(e == 3.14f, "float");
-		HL_UT_ASSERT(d == 1.23456789999999, "double");
-		HL_UT_ASSERT(!b, "bool");
+		HTEST_ASSERT(i == 1234, "int32");
+		HTEST_ASSERT(s == 4321, "int16");
+		HTEST_ASSERT(str == "testing", "string");
+		HTEST_ASSERT(e == 3.14f, "float");
+		HTEST_ASSERT(d == 1.23456789999999, "double");
+		HTEST_ASSERT(!b, "bool");
 	}
-	HL_UT_TEST_FUNCTION(staticClear)
+	HTEST_FUNCTION(staticClear)
 	{
 		hstr filename = "test.txt";
 		hfile::hwrite(filename, "This is a clearing test.");
 		hstr text = hfile::hread(filename);
-		HL_UT_ASSERT(text == "This is a clearing test.", "");
+		HTEST_ASSERT(text == "This is a clearing test.", "");
 		hfile::clear(filename);
 		text = hfile::hread(filename);
-		HL_UT_ASSERT(text == "", "");
+		HTEST_ASSERT(text == "", "");
 	}
 
-	HL_UT_TEST_FUNCTION(staticRename)
+	HTEST_FUNCTION(staticRename)
 	{
 		hstr old_filename = "test.txt";
 		hstr new_filename = "test2.txt";
 		hfile::create(old_filename);
 		hfile::remove(new_filename);
-		HL_UT_ASSERT(hfile::exists(old_filename), "");
-		HL_UT_ASSERT(!hfile::exists(new_filename), "");
+		HTEST_ASSERT(hfile::exists(old_filename), "");
+		HTEST_ASSERT(!hfile::exists(new_filename), "");
 		hfile::rename(old_filename, new_filename);
-		HL_UT_ASSERT(!hfile::exists(old_filename), "");
-		HL_UT_ASSERT(hfile::exists(new_filename), "");
+		HTEST_ASSERT(!hfile::exists(old_filename), "");
+		HTEST_ASSERT(hfile::exists(new_filename), "");
 		hfile::remove(new_filename);
 	}
 
-	HL_UT_TEST_FUNCTION(staticMove)
+	HTEST_FUNCTION(staticMove)
 	{
 		hstr filename = "test.txt";
 		hstr path = "..";
 		hfile::create(filename);
 		hfile::remove(path + "/" + filename);
-		HL_UT_ASSERT(hfile::exists(filename), "");
-		HL_UT_ASSERT(!hfile::exists(path + "/" + filename), "");
+		HTEST_ASSERT(hfile::exists(filename), "");
+		HTEST_ASSERT(!hfile::exists(path + "/" + filename), "");
 		hfile::move(filename, path);
-		HL_UT_ASSERT(!hfile::exists(filename), "");
-		HL_UT_ASSERT(hfile::exists(path + "\\" + filename), "");
+		HTEST_ASSERT(!hfile::exists(filename), "");
+		HTEST_ASSERT(hfile::exists(path + "\\" + filename), "");
 		hfile::remove(path + "/" + filename);
 	}
 
-	HL_UT_TEST_FUNCTION(staticCopy)
+	HTEST_FUNCTION(staticCopy)
 	{
 		hstr old_filename = "test.txt";
 		hstr new_filename = "test2.txt";
@@ -206,9 +201,9 @@ HL_UT_TEST_CLASS(File)
 		hfile::remove(new_filename);
 		hfile::hwrite(old_filename, "This is a copy test.");
 		hfile::copy(old_filename, new_filename);
-		HL_UT_ASSERT(hfile::exists(new_filename), "");
+		HTEST_ASSERT(hfile::exists(new_filename), "");
 		hstr text = hfile::hread(new_filename);
-		HL_UT_ASSERT(text == "This is a copy test.", "");
+		HTEST_ASSERT(text == "This is a copy test.", "");
 		hfile f;
 		f.open(old_filename, hfaccess::Write);
 		f.dump(1234);
@@ -220,7 +215,7 @@ HL_UT_TEST_CLASS(File)
 		f.close();
 		hfile::remove(new_filename);
 		hfile::copy(old_filename, new_filename);
-		HL_UT_ASSERT(hfile::exists(new_filename), "");
+		HTEST_ASSERT(hfile::exists(new_filename), "");
 		f.open(new_filename);
 		int i = f.loadInt32();
 		short s = f.loadInt16();
@@ -231,11 +226,11 @@ HL_UT_TEST_CLASS(File)
 		f.close();
 		hfile::remove(old_filename);
 		hfile::remove(new_filename);
-		HL_UT_ASSERT(i == 1234, "");
-		HL_UT_ASSERT(s == 4321, "");
-		HL_UT_ASSERT(str == "testing", "");
-		HL_UT_ASSERT(e == 3.14f, "");
-		HL_UT_ASSERT(d == 1.23456789999999, "");
-		HL_UT_ASSERT(!b, "");
+		HTEST_ASSERT(i == 1234, "");
+		HTEST_ASSERT(s == 4321, "");
+		HTEST_ASSERT(str == "testing", "");
+		HTEST_ASSERT(e == 3.14f, "");
+		HTEST_ASSERT(d == 1.23456789999999, "");
+		HTEST_ASSERT(!b, "");
 	}
 }

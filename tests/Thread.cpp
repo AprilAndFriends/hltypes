@@ -1,14 +1,9 @@
-#define __HL_UT_LIB_NAME hltypes
-#ifdef __APPLE__
-#import "hunittest.h"
-#else
-#include "hunittest.h"
-#endif
-
+#define __HTEST_LIB_NAME hltypes
+#include "htest.h"
 #include "hthread.h"
 #include "hmutex.h"
 
-HL_UT_TEST_CLASS(Thread)
+HTEST_CLASS(Thread)
 {
 	static hstr output;
 	static hmutex mutex;
@@ -47,7 +42,7 @@ HL_UT_TEST_CLASS(Thread)
 		}
 	}
 	
-	HL_UT_TEST_FUNCTION(testThreadingBasic)
+	HTEST_FUNCTION(testThreadingBasic)
 	{
 		output = "";
 		hthread t1(&f3);
@@ -55,11 +50,11 @@ HL_UT_TEST_CLASS(Thread)
 		t1.start();
 		t2.start();
 		hthread::sleep(200);
-		HL_UT_ASSERT(output.count('1') == 10, "basic threading 1");
-		HL_UT_ASSERT(output.count('2') == 10, "basic threading 2");
+		HTEST_ASSERT(output.count('1') == 10, "basic threading 1");
+		HTEST_ASSERT(output.count('2') == 10, "basic threading 2");
 	}
 
-	HL_UT_TEST_FUNCTION(testThreadingControl)
+	HTEST_FUNCTION(testThreadingControl)
 	{
 		output = "";
 		hthread t1(&f3);
@@ -80,8 +75,8 @@ HL_UT_TEST_CLASS(Thread)
 		hthread::sleep(200);
 		t1.stop();
 		t2.stop();
-		HL_UT_ASSERT(output.count('1') == 10, "threading control 1");
-		HL_UT_ASSERT(output.count('2') == 10, "threading control 2");
+		HTEST_ASSERT(output.count('1') == 10, "threading control 1");
+		HTEST_ASSERT(output.count('2') == 10, "threading control 2");
 	}
 
 }

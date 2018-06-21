@@ -1,14 +1,9 @@
-#define __HL_UT_LIB_NAME hltypes
-#ifdef __APPLE__
-#import "hunittest.h"
-#else
-#include "hunittest.h"
-#endif
-
+#define __HTEST_LIB_NAME hltypes
+#include "htest.h"
 #include "hmutex.h"
 #include "hthread.h"
 
-HL_UT_TEST_CLASS(Mutex)
+HTEST_CLASS(Mutex)
 {
 	static int test1 = 1;
 	static int test2 = 2;
@@ -38,7 +33,7 @@ HL_UT_TEST_CLASS(Mutex)
 		testResult2 = testResult2 + 1;
 	}
 	
-	HL_UT_TEST_FUNCTION(lockRelease)
+	HTEST_FUNCTION(lockRelease)
 	{		
 		testResult1 = 0;
 		hthread t1(&_thread1);
@@ -52,10 +47,10 @@ HL_UT_TEST_CLASS(Mutex)
 		t1.join();
 		t2.join();
 
-		HL_UT_ASSERT(testResult1 == 5, "lockRelease");
+		HTEST_ASSERT(testResult1 == 5, "lockRelease");
 	}
 
-	HL_UT_TEST_FUNCTION(massLockRelease)
+	HTEST_FUNCTION(massLockRelease)
 	{
 		testResult2 = 0;
 
@@ -74,7 +69,7 @@ HL_UT_TEST_CLASS(Mutex)
 			delete t[i];
 		}
 
-		HL_UT_ASSERT(testResult2 == 10, hstr(testResult2).cStr());
+		HTEST_ASSERT(testResult2 == 10, hstr(testResult2).cStr());
 	}
 
 }
