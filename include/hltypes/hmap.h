@@ -49,12 +49,14 @@ namespace hltypes
 		/// @brief Iterator type exposure.
 		typedef typename std::vector<K>::const_iterator const_kiterator_t;
 		/// @brief Empty constructor.
-		inline Map() : std::map<K, V>()
+		inline Map() :
+			std::map<K, V>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Map to copy.
-		inline Map(const Map<K, V>& other) : std::map<K, V>(other)
+		inline Map(const Map<K, V>& other) :
+			std::map<K, V>(other)
 		{
 		}
 		/// @brief Destructor.

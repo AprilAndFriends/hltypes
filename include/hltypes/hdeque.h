@@ -37,50 +37,58 @@ namespace hltypes
 	{
 	public:
 		/// @brief Empty constructor.
-		inline Deque() : Container<std::deque<T>, T>()
+		inline Deque() :
+			Container<std::deque<T>, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Container to copy.
-		inline Deque(const Container<std::deque<T>, T>& other) : Container<std::deque<T>, T>(other)
+		inline Deque(const Container<std::deque<T>, T>& other) :
+			Container<std::deque<T>, T>(other)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @note The explicit prevents "var = element" from working.
-		inline explicit Deque(const T& element) : Container<std::deque<T>, T>(element)
+		inline explicit Deque(const T& element) :
+			Container<std::deque<T>, T>(element)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline Deque(const T& element, int times) : Container<std::deque<T>, T>(element, times)
+		inline Deque(const T& element, int times) :
+			Container<std::deque<T>, T>(element, times)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const Container<std::deque<T>, T>& other, const int count) : Container<std::deque<T>, T>(other, count)
+		inline Deque(const Container<std::deque<T>, T>& other, const int count) :
+			Container<std::deque<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const Container<std::deque<T>, T>& other, const int start, const int count) : Container<std::deque<T>, T>(other, start, count)
+		inline Deque(const Container<std::deque<T>, T>& other, const int start, const int count) :
+			Container<std::deque<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const T other[], const int count) : Container<std::deque<T>, T>(other, count)
+		inline Deque(const T other[], const int count) :
+			Container<std::deque<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Deque(const T other[], const int start, const int count) : Container<std::deque<T>, T>(other, start, count)
+		inline Deque(const T other[], const int start, const int count) :
+			Container<std::deque<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Destructor.

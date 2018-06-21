@@ -22,7 +22,8 @@
 
 namespace hltypes
 {
-	Semaphore::Semaphore(int maxCount, const String& name) : handle(NULL)
+	Semaphore::Semaphore(int maxCount, const String& name) :
+		handle(NULL)
 	{
 		this->maxCount = maxCount;
 		this->name = name;

@@ -275,86 +275,104 @@ namespace hltypes
 	};
 #endif
 
-	String::String() : stdstr()
+	String::String() :
+		stdstr()
 	{
 	}
 
-	String::String(const char c) : stdstr(1, c)
+	String::String(const char c) :
+		stdstr(1, c)
 	{
 	}
 
-	String::String(const char c, const int times) : stdstr(times, c)
+	String::String(const char c, const int times) :
+		stdstr(times, c)
 	{
 	}
 
-	String::String(const char* string) : stdstr(string)
+	String::String(const char* string) :
+		stdstr(string)
 	{
 	}
 
-	String::String(const String& string) : stdstr(string.c_str())
+	String::String(const String& string) :
+		stdstr(string.c_str())
 	{
 	}
 
-	String::String(const char* string, const int length) : stdstr(string, length)
+	String::String(const char* string, const int length) :
+		stdstr(string, length)
 	{
 	}
 
-	String::String(const String& string, const int length) : stdstr(string.c_str(), length)
+	String::String(const String& string, const int length) :
+		stdstr(string.c_str(), length)
 	{
 	}
 
-	// TODObool - fix this inconsistency
-	//String::String(const bool b) : stdstr(BOOL_TO_STRING(b))
-	String::String(const bool b) : stdstr(b ? "1" : "0")
+	String::String(const bool b) :
+		// TODObool - fix this inconsistency
+		//stdstr(BOOL_TO_STRING(b))
+		stdstr(b ? "1" : "0")
 	{
 	}
 
-	String::String(const short s) : stdstr()
+	String::String(const short s) :
+		stdstr()
 	{
 		this->set(s);
 	}
 
-	String::String(const unsigned short s) : stdstr()
+	String::String(const unsigned short s) :
+		stdstr()
 	{
 		this->set(s);
 	}
 
-	String::String(const int i) : stdstr()
+	String::String(const int i) :
+		stdstr()
 	{
 		this->set(i);
 	}
 
-	String::String(const unsigned int i) : stdstr()
+	String::String(const unsigned int i) :
+		stdstr()
 	{
 		this->set(i);
 	}
 
-	String::String(const int64_t i) : stdstr()
+	String::String(const int64_t i) :
+		stdstr()
 	{
 		this->set(i);
 	}
 
-	String::String(const uint64_t i) : stdstr()
+	String::String(const uint64_t i) :
+		stdstr()
 	{
 		this->set(i);
 	}
 
-	String::String(const float f) : stdstr()
+	String::String(const float f) :
+		stdstr()
 	{
 		this->set(f);
 	}
 
-	String::String(const float f, int precision) : stdstr()
+	String::String(const float f, int precision) :
+		stdstr()
 	{
 		this->set(f, precision);
 	}
 
-	String::String(const double d) : stdstr()
+	String::String(const double d) :
+		stdstr()
 	{
 		this->set(d);
 	}
 
-	String::String(const double d, int precision) : stdstr()
+	String::String(const double d, int precision) :
+		stdstr()
 	{
 		this->set(d, precision);
 	}

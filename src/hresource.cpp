@@ -131,7 +131,9 @@ namespace hltypes
 		return true;
 	}
 
-	Resource::Resource() : FileBase(), dataPosition(0)
+	Resource::Resource() :
+		FileBase(),
+		dataPosition(0)
 	{
 	}
 

@@ -27,13 +27,19 @@ namespace hlxml
 {
 	hstr logTag = "hlxml";
 
-	Document::Document(chstr filename, bool fromResource) : data(NULL), document(NULL), rootNode(NULL)
+	Document::Document(chstr filename, bool fromResource) :
+		data(NULL),
+		document(NULL),
+		rootNode(NULL)
 	{
 		this->filename = filename;
 		this->fromResource = fromResource;
 	}
 
-	Document::Document(hsbase& stream) : data(NULL), document(NULL), rootNode(NULL)
+	Document::Document(hsbase& stream) :
+		data(NULL),
+		document(NULL),
+		rootNode(NULL)
 	{
 		int64_t position = stream.position();
 		this->_setup(stream, "stream");

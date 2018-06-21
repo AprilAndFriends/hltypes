@@ -13,21 +13,37 @@
 
 namespace hltypes
 {
-	Version::Version() : major(0), minor(0), revision(0), build(0)
+	Version::Version() :
+		major(0),
+		minor(0),
+		revision(0),
+		build(0)
 	{
 	}
 	
-	Version::Version(unsigned int major, unsigned int minor, unsigned int revision, unsigned int build) : major(0), minor(0), revision(0), build(0)
+	Version::Version(unsigned int major, unsigned int minor, unsigned int revision, unsigned int build) :
+		major(0),
+		minor(0),
+		revision(0),
+		build(0)
 	{
 		this->set(major, minor, revision, build);
 	}
 
-	Version::Version(const Array<unsigned int>& versions) : major(0), minor(0), revision(0), build(0)
+	Version::Version(const Array<unsigned int>& versions) :
+		major(0),
+		minor(0),
+		revision(0),
+		build(0)
 	{
 		this->set(versions);
 	}
 
-	Version::Version(const String& versions) : major(0), minor(0), revision(0), build(0)
+	Version::Version(const String& versions) :
+		major(0),
+		minor(0),
+		revision(0),
+		build(0)
 	{
 		this->set(versions);
 	}

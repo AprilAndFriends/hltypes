@@ -41,7 +41,8 @@ namespace hltypes
 			Array<String> internalFiles;
 			Array<Resource*> accessingResources;
 
-			ArchiveFileHandle(const String& path, const String& filename, const String& cwd) : zipArchive(NULL)
+			ArchiveFileHandle(const String& path, const String& filename, const String& cwd) :
+				zipArchive(NULL)
 			{
 				this->path = path;
 				this->filename = filename;

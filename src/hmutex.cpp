@@ -22,7 +22,8 @@
 
 namespace hltypes
 {
-	Mutex::ScopeLock::ScopeLock(Mutex* mutex, bool logUnhandledUnlocks) : mutex(NULL)
+	Mutex::ScopeLock::ScopeLock(Mutex* mutex, bool logUnhandledUnlocks) :
+		mutex(NULL)
 	{
 		this->logUnhandledUnlocks = logUnhandledUnlocks;
 		this->acquire(mutex);
@@ -42,7 +43,9 @@ namespace hltypes
 		}
 	}
 
-	Mutex::Mutex(const String& name) : handle(NULL), locked(false)
+	Mutex::Mutex(const String& name) :
+		handle(NULL),
+		locked(false)
 	{
 		this->name = name;
 #ifdef _WIN32

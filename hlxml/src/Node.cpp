@@ -28,7 +28,8 @@ namespace hlxml
 		HL_ENUM_DEFINE(Node::Type, Text);
 	));
 
-	Node::Node(Document* document, void* node) : line(0)
+	Node::Node(Document* document, void* node) :
+		line(0)
 	{
 		rapidxml::xml_node<char>* rapidXmlNode = RAPIDXML_NODE(node);
 		this->name = hstr(rapidXmlNode->name(), (int)rapidXmlNode->name_size());

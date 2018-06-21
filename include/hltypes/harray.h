@@ -37,50 +37,58 @@ namespace hltypes
 	{
 	public:
 		/// @brief Empty constructor.
-		inline Array() : Container<std::vector<T>, T>()
+		inline Array() :
+			Container<std::vector<T>, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Container to copy.
-		inline Array(const Container<std::vector<T>, T>& other) : Container<std::vector<T>, T>(other)
+		inline Array(const Container<std::vector<T>, T>& other) :
+			Container<std::vector<T>, T>(other)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @note The explicit prevents "var = element" from working.
-		inline explicit Array(const T& element) : Container<std::vector<T>, T>(element)
+		inline explicit Array(const T& element) :
+			Container<std::vector<T>, T>(element)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline Array(const T& element, int times) : Container<std::vector<T>, T>(element, times)
+		inline Array(const T& element, int times) :
+			Container<std::vector<T>, T>(element, times)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const Container<std::vector<T>, T>& other, const int count) : Container<std::vector<T>, T>(other, count)
+		inline Array(const Container<std::vector<T>, T>& other, const int count) :
+			Container<std::vector<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const Container<std::vector<T>, T>& other, const int start, const int count) : Container<std::vector<T>, T>(other, start, count)
+		inline Array(const Container<std::vector<T>, T>& other, const int start, const int count) :
+			Container<std::vector<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const T other[], const int count) : Container<std::vector<T>, T>(other, count)
+		inline Array(const T other[], const int count) :
+			Container<std::vector<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Array(const T other[], const int start, const int count) : Container<std::vector<T>, T>(other, start, count)
+		inline Array(const T other[], const int start, const int count) :
+			Container<std::vector<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Destructor.

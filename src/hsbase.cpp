@@ -28,7 +28,8 @@ namespace hltypes
 		HL_ENUM_DEFINE(StreamBase::SeekMode, End);
 	));
 
-	StreamBase::StreamBase() : dataSize(0)
+	StreamBase::StreamBase() :
+		dataSize(0)
 	{
 	}
 	

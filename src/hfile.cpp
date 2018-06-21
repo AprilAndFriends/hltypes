@@ -20,7 +20,8 @@
 
 namespace hltypes
 {
-	File::File() : FileBase()
+	File::File() :
+		FileBase()
 	{
 	}
 	

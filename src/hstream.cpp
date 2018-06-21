@@ -18,7 +18,8 @@
 
 namespace hltypes
 {
-	Stream::Stream(int initialCapacity) : StreamBase()
+	Stream::Stream(int initialCapacity) :
+		StreamBase()
 	{
         initialCapacity = hmax(MIN_HSTREAM_CAPACITY, initialCapacity);
 		this->capacity = (int64_t)initialCapacity;
@@ -28,7 +29,8 @@ namespace hltypes
         this->stream = (unsigned char*)malloc((int)this->capacity);
 	}
 
-	Stream::Stream(unsigned char* initialData, int initialDataSize) : StreamBase()
+	Stream::Stream(unsigned char* initialData, int initialDataSize) :
+		StreamBase()
 	{
 		this->capacity = (int64_t)initialDataSize;
 		this->streamSize = (int64_t)initialDataSize;
@@ -47,7 +49,8 @@ namespace hltypes
 		this->_updateDataSize();
 	}
 
-	Stream::Stream(unsigned char* initialData, int initialDataSize, int initialCapacity) : StreamBase()
+	Stream::Stream(unsigned char* initialData, int initialDataSize, int initialCapacity) :
+		StreamBase()
 	{
 		this->capacity = (int64_t)hmax(initialCapacity, initialDataSize);
 		this->streamSize = (int64_t)initialDataSize;
@@ -66,7 +69,8 @@ namespace hltypes
 		this->_updateDataSize();
 	}
 
-	Stream::Stream(const Stream& other) : StreamBase()
+	Stream::Stream(const Stream& other) :
+		StreamBase()
 	{
 		// must not used assignement operator due to uninitialized class
 		this->capacity = other.capacity;

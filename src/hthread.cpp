@@ -114,7 +114,11 @@ namespace hltypes
 		this->thread->_execute();
 	}
 
-	Thread::Thread(void (*function)(Thread*), const String& name) : executing(false), runner(this), id(0), running(false)
+	Thread::Thread(void (*function)(Thread*), const String& name) :
+		executing(false),
+		runner(this),
+		id(0),
+		running(false)
 	{
 		this->function = function;
 		this->name = name;
@@ -336,7 +340,8 @@ namespace hltypes
 #endif
 	}
 
-	Thread::Thread(const Thread& other) : runner(this)
+	Thread::Thread(const Thread& other) :
+		runner(this)
 	{
 		throw ObjectCannotCopyException("hltypes::Thread");
 	}

@@ -14,7 +14,11 @@
 
 namespace hltypes
 {
-	FileInfo::FileInfo() : size(-1LL), creationTime(0LL), accessTime(0LL), modificationTime(0LL)
+	FileInfo::FileInfo() :
+		size(-1LL),
+		creationTime(0LL),
+		accessTime(0LL),
+		modificationTime(0LL)
 	{
 	}
 
@@ -45,12 +49,16 @@ namespace hltypes
 		FileBase::timeout = value;
 	}
 
-	FileBase::FileBase(const String& filename) : StreamBase(), cfile(NULL)
+	FileBase::FileBase(const String& filename) :
+		StreamBase(),
+		cfile(NULL)
 	{
 		this->filename = Dir::normalize(filename);
 	}
 	
-	FileBase::FileBase() : StreamBase(), cfile(NULL)
+	FileBase::FileBase() :
+		StreamBase(),
+		cfile(NULL)
 	{
 	}
 	

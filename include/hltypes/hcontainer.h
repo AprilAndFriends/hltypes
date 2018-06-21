@@ -37,33 +37,38 @@ namespace hltypes
 		/// @brief Iterator type exposure.
 		typedef typename STD::const_reverse_iterator const_riterator_t;
 		/// @brief Empty constructor.
-		inline Container() : STD()
+		inline Container() :
+			STD()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Container to copy.
-		inline Container(const Container& other) : STD()
+		inline Container(const Container& other) :
+			STD()
 		{
 			this->insertAt(0, other);
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @note The explicit prevents "var = element" from working.
-		inline explicit Container(const T& element) : STD()
+		inline explicit Container(const T& element) :
+			STD()
 		{
 			this->insertAt(0, element);
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline Container(const T& element, int times) : STD()
+		inline Container(const T& element, int times) :
+			STD()
 		{
 			this->insertAt(0, element, times);
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Container(const Container& other, const int count) : STD()
+		inline Container(const Container& other, const int count) :
+			STD()
 		{
 			this->insertAt(0, other, count);
 		}
@@ -71,14 +76,16 @@ namespace hltypes
 		/// @param[in] other Container to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Container(const Container& other, const int start, const int count) : STD()
+		inline Container(const Container& other, const int start, const int count) :
+			STD()
 		{
 			this->insertAt(0, other, start, count);
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Container(const T other[], const int count) : STD()
+		inline Container(const T other[], const int count) :
+			STD()
 		{
 			this->insertAt(0, other, count);
 		}
@@ -86,7 +93,8 @@ namespace hltypes
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline Container(const T other[], const int start, const int count) : STD()
+		inline Container(const T other[], const int start, const int count) :
+			STD()
 		{
 			this->insertAt(0, other, start, count);
 		}

@@ -37,50 +37,58 @@ namespace hltypes
 	{
 	public:
 		/// @brief Empty constructor.
-		inline List() : Container<std::list<T>, T>()
+		inline List() :
+			Container<std::list<T>, T>()
 		{
 		}
 		/// @brief Copy constructor.
 		/// @param[in] other Container to copy.
-		inline List(const Container<std::list<T>, T>& other) : Container<std::list<T>, T>(other)
+		inline List(const Container<std::list<T>, T>& other) :
+			Container<std::list<T>, T>(other)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @note The explicit prevents "var = element" from working.
-		inline explicit List(const T& element) : Container<std::list<T>, T>(element)
+		inline explicit List(const T& element) :
+			Container<std::list<T>, T>(element)
 		{
 		}
 		/// @brief Constructor from single element.
 		/// @param[in] element Element to insert.
 		/// @param[in] times Number of times to insert element.
-		inline List(const T& element, int times) : Container<std::list<T>, T>(element, times)
+		inline List(const T& element, int times) :
+			Container<std::list<T>, T>(element, times)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] count Number of elements to copy.
-		inline List(const Container<std::list<T>, T>& other, const int count) : Container<std::list<T>, T>(other, count)
+		inline List(const Container<std::list<T>, T>& other, const int count) :
+			Container<std::list<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from another Container.
 		/// @param[in] other Container to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline List(const Container<std::list<T>, T>& other, const int start, const int count) : Container<std::list<T>, T>(other, start, count)
+		inline List(const Container<std::list<T>, T>& other, const int start, const int count) :
+			Container<std::list<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] count Number of elements to copy.
-		inline List(const T other[], const int count) : Container<std::list<T>, T>(other, count)
+		inline List(const T other[], const int count) :
+			Container<std::list<T>, T>(other, count)
 		{
 		}
 		/// @brief Constructor from C-type array.
 		/// @param[in] other C-type array to copy.
 		/// @param[in] start Start index of elements to copy.
 		/// @param[in] count Number of elements to copy.
-		inline List(const T other[], const int start, const int count) : Container<std::list<T>, T>(other, start, count)
+		inline List(const T other[], const int start, const int count) :
+			Container<std::list<T>, T>(other, start, count)
 		{
 		}
 		/// @brief Destructor.
