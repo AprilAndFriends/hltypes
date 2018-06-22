@@ -3,7 +3,7 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 
 project(hlxml)
 
-include("../../../android-studio/generic/cmake-preprocessors.txt")
+include("../../../android-studio/generic/CMakeLists.txt")
 
 file(
 	GLOB_RECURSE CppSrc

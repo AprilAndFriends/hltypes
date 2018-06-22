@@ -3,7 +3,7 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 
 project(hltypes)
 
-include("../generic/cmake-preprocessors.txt")
+include("../generic/CMakeLists.txt")
 
 file(
 	GLOB_RECURSE CppSrc
