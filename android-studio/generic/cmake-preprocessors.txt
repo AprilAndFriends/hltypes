@@ -6,8 +6,6 @@ add_definitions(
 	-D_LIB
 	-fstack-protector
 	-fstrict-aliasing
-	-funwind-tables
-	-ffunction-sections
 	-fomit-frame-pointer
 	-no-canonical-prefixes
 	-g3
