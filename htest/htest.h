@@ -46,12 +46,46 @@ extern XCTestCase* testInstance;
 		}\
 		catch (hexception& e)\
 		{\
-			_XCTFailureHandler(testInstance, YES, __FILE__, __LINE__, @"Unhandled Exception", @"%s", e.getMessage().cStr()); \
+			_XCTFailureHandler(self, YES, __FILE__, __LINE__, @"Unhandled Exception", @"%s", e.getMessage().cStr()); \
 		}\
 	}
-
 #define HTEST_CLASS(classe) namespace _htest_ ## classe
 #define HTEST_FUNCTION(name) void name(chstr dataDir, chstr tempDir)
+
+// NEW
+
+#define HTEST_SUITE_BEGIN(classe) \
+	@interface test ## classe: XCTestCase \
+	@end \
+	@implementation test ## classe \
+	- (void)setUp \
+	{ \
+		[super setUp]; \
+		testInstance = self; \
+	} \
+	-(void)tearDown \
+	{ \
+		[super tearDown]; \
+	}
+
+#define HTEST_SUITE_END @end
+
+#define HTEST_CASE(name) \
+	- (void) test_ ## name \
+	{ \
+		try\
+		{\
+			hstr dataDir = [[[NSBundle bundleForClass:[self class]] resourcePath] UTF8String];\
+			hstr tempDir = hdir::joinPath([NSTemporaryDirectory() UTF8String], "htest");\
+			hdir::createNew(tempDir);\
+			[self _test_ ## name:dataDir tempDir:tempDir];\
+		}\
+		catch (hexception& e)\
+		{\
+			_XCTFailureHandler(self, YES, __FILE__, __LINE__, @"Unhandled Exception", @"%s", e.getMessage().cStr()); \
+		}\
+	}\
+	- (void) _test_ ## name:(chstr) dataDir tempDir:(chstr) tempDir
 
 #else
 
