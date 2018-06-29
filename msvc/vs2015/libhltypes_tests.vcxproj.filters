@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\tests\Array.cpp" />
+    <ClCompile Include="..\..\tests\Deque.cpp" />
+    <ClCompile Include="..\..\tests\Dir.cpp" />
+    <ClCompile Include="..\..\tests\File.cpp" />
+    <ClCompile Include="..\..\tests\List.cpp" />
+    <ClCompile Include="..\..\tests\Map.cpp" />
+    <ClCompile Include="..\..\tests\Mutex.cpp" />
+    <ClCompile Include="..\..\tests\Stream.cpp" />
+    <ClCompile Include="..\..\tests\String.cpp" />
+    <ClCompile Include="..\..\tests\Thread.cpp" />
+  </ItemGroup>
+</Project>
