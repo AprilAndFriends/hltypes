@@ -19,6 +19,7 @@
 
 	#define HTEST_ASSERT(expression, msg) if (!(expression)) XCTFail(@"%s", __assertMsg(msg))
 	#define HTEST_FAIL(msg) XCTFail(@"%s", __assertMsg(msg))
+	#define HTEST_LOG(msg) printf("%s\n", msg)
 
 	#define HTEST_SUITE_BEGIN \
 		static const char* __assertMsg(chstr msg) { return msg.cStr(); }\
@@ -46,9 +47,13 @@
 		- (void) _test_ ## name:(chstr) dataDir tempDir:(chstr) tempDir
 #else
 	#include "CppUnitTest.h"
+	#include <windows.h>
+
 	using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 	#define HTEST_ASSERT(expression, msg) Assert::IsTrue((expression), __assertMsg(msg))
+	#define HTEST_FAIL(msg) Assert::Fail(__assertMsg(msg))
+	#define HTEST_LOG(msg) Logger::WriteMessage(hstr(msg).cStr())
 
 	#define HTEST_SUITE_BEGIN \
 		namespace __EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## _htest \
@@ -61,7 +66,22 @@
 
 	#define HTEST_SUITE_END };}
 
-	#define HTEST_CASE(name) TEST_METHOD(__EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## _ ## name)
-
+	#define HTEST_CASE(name) TEST_METHOD(__EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## _ ## name)\
+		{\
+			try\
+			{\
+				hstr dataDir = hdir::baseDir(__FILE__); \
+				wchar_t winTempPath[256];\
+				GetTempPathW(256, winTempPath);\
+				hstr tempDir = hdir::joinPath(hstr::fromUnicode(winTempPath).replaced("\\", "/"), "htest"); \
+				hdir::createNew(tempDir); \
+				__EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## __ ## name(dataDir, tempDir); \
+			}\
+			catch (hexception& e)\
+			{\
+				Assert::Fail(__assertMsg(e.getMessage()));\
+			}\
+		}\
+		void __EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## __ ## name(chstr dataDir, chstr tempDir)
 	#endif
 #endif
