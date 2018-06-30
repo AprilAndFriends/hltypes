@@ -19,7 +19,7 @@
 
 	#define HTEST_ASSERT(expression, msg) if (!(expression)) XCTFail(@"%s", __assertMsg(msg))
 	#define HTEST_FAIL(msg) XCTFail(@"%s", __assertMsg(msg))
-	#define HTEST_LOG(msg) printf("%s\n", msg)
+	#define HTEST_LOG(msg) printf("%s\n", hstr(msg).cStr())
 
 	#define HTEST_SUITE_BEGIN \
 		static const char* __assertMsg(chstr msg) { return msg.cStr(); }\
