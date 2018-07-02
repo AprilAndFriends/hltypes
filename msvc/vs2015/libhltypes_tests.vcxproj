@@ -54,18 +54,13 @@
     <ProjectGuid>{A095BFF2-3ECB-401D-A3D5-7DB7CC53628E}</ProjectGuid>
     <RootNamespace>hltypes_tests</RootNamespace>
   </PropertyGroup>
-  <Import Condition="exists('props-generic\system.props')" Project="props-generic\system.props" />
-  <Import Condition="!exists('props-generic\system.props')" Project="props-generic\system.props" />
+  <Import Project="props-generic\system.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <Import Condition="exists('props-generic\platform-$(Platform).props')" Project="props-generic\platform-$(Platform).props" />
-  <Import Condition="!exists('props-generic\platform-$(Platform).props')" Project="props-generic\platform-$(Platform).props" />
-  <Import Condition="exists('props-generic\configurations.props')" Project="props-generic\configurations.props" />
-  <Import Condition="!exists('props-generic\configurations.props')" Project="props-generic\configurations.props" />
+  <Import Project="props-generic\platform-$(Platform).props" />
+  <Import Project="props-generic\configurations.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <Import Condition="exists('props-generic\build-defaults.props')" Project="props-generic\build-defaults.props" />
-  <Import Condition="!exists('props-generic\build-defaults.props')" Project="props-generic\build-defaults.props" />
+  <Import Project="props-generic\build-defaults.props" />
   <Import Project="props-generic\htest.props" />
-
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>../../include/hltypes;../../lib/miniz;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
