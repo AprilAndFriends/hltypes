@@ -34,6 +34,20 @@
 		{ \
 			try\
 			{\
+				[self _test_ ## name];\
+			}\
+			catch (hexception& e)\
+			{\
+				_XCTFailureHandler(self, YES, __FILE__, __LINE__, @"Unhandled Exception", @"%s", e.getMessage().cStr()); \
+			}\
+		}\
+		- (void) _test_ ## name
+
+	#define HTEST_CASE_WITH_DATA(name) \
+		- (void) test_ ## name \
+		{ \
+			try\
+			{\
 				hstr dataDir = [[[NSBundle bundleForClass:[self class]] resourcePath] UTF8String];\
 				hstr tempDir = hdir::joinPath([NSTemporaryDirectory() UTF8String], "htest");\
 				hdir::createNew(tempDir);\
@@ -67,6 +81,19 @@
 	#define HTEST_SUITE_END };}
 
 	#define HTEST_CASE(name) TEST_METHOD(__EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## _ ## name)\
+		{\
+			try\
+			{\
+				__EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## __ ## name(); \
+			}\
+			catch (hexception& e)\
+			{\
+				Assert::Fail(__assertMsg(e.getMessage()));\
+			}\
+		}\
+		void __EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## __ ## name()
+
+	#define HTEST_CASE_WITH_DATA(name) TEST_METHOD(__EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## _ ## name)\
 		{\
 			try\
 			{\
