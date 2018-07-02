@@ -1,6 +1,6 @@
 #define _HTEST_LIB hltypes
 #define _HTEST_CLASS List
-#include "htest.h"
+#include <htest/htest.h>
 #include "hlist.h"
 
 HTEST_SUITE_BEGIN

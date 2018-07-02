@@ -1,6 +1,6 @@
 #define _HTEST_LIB hltypes
 #define _HTEST_CLASS Deque
-#include "htest.h"
+#include <htest/htest.h>
 #include "hdeque.h"
 
 HTEST_SUITE_BEGIN

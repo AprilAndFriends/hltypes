@@ -1,6 +1,6 @@
 #define _HTEST_LIB hltypes
 #define _HTEST_CLASS Dir
-#include "htest.h"
+#include <htest/htest.h>
 #include "harray.h"
 #include "hdir.h"
 #include "hexception.h"

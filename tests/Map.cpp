@@ -1,6 +1,6 @@
 #define _HTEST_LIB hltypes
 #define _HTEST_CLASS Map
-#include "htest.h"
+#include <htest/htest.h>
 #include "hmap.h"
 #include "hstring.h"
 

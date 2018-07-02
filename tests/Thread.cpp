@@ -1,6 +1,6 @@
 #define _HTEST_LIB hltypes
 #define _HTEST_CLASS Thread
-#include "htest.h"
+#include <htest/htest.h>
 #include "hthread.h"
 #include "hmutex.h"
 
