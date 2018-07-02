@@ -54,6 +54,7 @@
     <ProjectGuid>{A095BFF2-3ECB-401D-A3D5-7DB7CC53628E}</ProjectGuid>
     <RootNamespace>hltypes_unittest</RootNamespace>
   </PropertyGroup>
+  <Import Project="props-generic\system.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="props\default.props" />
   <Import Project="props-generic\platform-$(Platform).props" />
