@@ -46,6 +46,16 @@
 		D11D1EA819E6A90200C630FA /* hsemaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = D11D1EA719E6A90200C630FA /* hsemaphore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D122D39A14AD51F200F2886F /* hsbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C014AD4FA600C78558 /* hsbase.cpp */; };
 		D122D39B14AD51F200F2886F /* hstream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C114AD4FA600C78558 /* hstream.cpp */; };
+		D13F3D7E20EA562100108E20 /* Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D18FC61120DBD14F00F85CE2 /* Array.cpp */; };
+		D13F3D7F20EA562100108E20 /* Deque.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D18FC60C20DBD14F00F85CE2 /* Deque.cpp */; };
+		D13F3D8020EA562100108E20 /* Dir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D18FC60E20DBD14F00F85CE2 /* Dir.cpp */; };
+		D13F3D8120EA562100108E20 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D18FC61220DBD14F00F85CE2 /* File.cpp */; };
+		D13F3D8220EA562100108E20 /* List.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D18FC60A20DBD14E00F85CE2 /* List.cpp */; };
+		D13F3D8320EA562100108E20 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D18FC60920DBD14E00F85CE2 /* Map.cpp */; };
+		D13F3D8420EA562100108E20 /* Mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D18FC60B20DBD14F00F85CE2 /* Mutex.cpp */; };
+		D13F3D8520EA562100108E20 /* Stream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D18FC61020DBD14F00F85CE2 /* Stream.cpp */; };
+		D13F3D8620EA562100108E20 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D18FC60D20DBD14F00F85CE2 /* String.cpp */; };
+		D13F3D8720EA562100108E20 /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D18FC60F20DBD14F00F85CE2 /* Thread.cpp */; };
 		D15CF10C1A52B131004F8DDC /* hexception.h in Headers */ = {isa = PBXBuildFile; fileRef = D15CF10B1A52B131004F8DDC /* hexception.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D15CF10E1A52B14E004F8DDC /* hexception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D15CF10D1A52B14E004F8DDC /* hexception.cpp */; };
 		D15CF10F1A52B14E004F8DDC /* hexception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D15CF10D1A52B14E004F8DDC /* hexception.cpp */; };
@@ -115,6 +125,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D13F3D7720EA558100108E20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D1522F3D140F7A310012F290;
+			remoteInfo = "hltypes (iOS)";
+		};
 		D180BCC11E15033200A554B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -155,12 +172,14 @@
 		D115F7C614AD4FB400C78558 /* hstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hstream.h; path = include/hltypes/hstream.h; sourceTree = "<group>"; };
 		D11D1EA319E6A8E900C630FA /* hsemaphore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hsemaphore.cpp; path = src/hsemaphore.cpp; sourceTree = "<group>"; };
 		D11D1EA719E6A90200C630FA /* hsemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsemaphore.h; path = include/hltypes/hsemaphore.h; sourceTree = "<group>"; };
+		D13F3D7120EA558100108E20 /* hltypesTests.ios.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hltypesTests.ios.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D13F3D7D20EA561B00108E20 /* htest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = htest.h; path = include/htest/htest.h; sourceTree = "<group>"; };
 		D1522F3E140F7A310012F290 /* libhltypes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhltypes.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D15CF10B1A52B131004F8DDC /* hexception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hexception.h; path = include/hltypes/hexception.h; sourceTree = "<group>"; };
 		D15CF10D1A52B14E004F8DDC /* hexception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hexception.cpp; path = src/hexception.cpp; sourceTree = "<group>"; };
 		D1681B7218D7612F0088FC68 /* iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = iOS.xcconfig; path = xcconfig/iOS.xcconfig; sourceTree = "<group>"; };
 		D1681B7318D7612F0088FC68 /* Mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Mac.xcconfig; path = xcconfig/Mac.xcconfig; sourceTree = "<group>"; };
-		D180BCBB1E15033200A554B6 /* hltypesTests (Mac).xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "hltypesTests (Mac).xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D180BCBB1E15033200A554B6 /* hltypesTests.mac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hltypesTests.mac.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D18FC60920DBD14E00F85CE2 /* Map.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Map.cpp; path = tests/Map.cpp; sourceTree = "<group>"; };
 		D18FC60A20DBD14E00F85CE2 /* List.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = List.cpp; path = tests/List.cpp; sourceTree = "<group>"; };
 		D18FC60B20DBD14F00F85CE2 /* Mutex.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Mutex.cpp; path = tests/Mutex.cpp; sourceTree = "<group>"; };
@@ -171,7 +190,6 @@
 		D18FC61020DBD14F00F85CE2 /* Stream.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Stream.cpp; path = tests/Stream.cpp; sourceTree = "<group>"; };
 		D18FC61120DBD14F00F85CE2 /* Array.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Array.cpp; path = tests/Array.cpp; sourceTree = "<group>"; };
 		D18FC61220DBD14F00F85CE2 /* File.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = File.cpp; path = tests/File.cpp; sourceTree = "<group>"; };
-		D18FC63420DBD2FF00F85CE2 /* htest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = htest.h; path = htest/htest.h; sourceTree = "<group>"; };
 		D193C09420B463B30039BDB9 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = constants.h; path = include/hltypes/constants.h; sourceTree = "<group>"; };
 		D1BAE0F1183B91D100BC2434 /* hdbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hdbase.h; path = include/hltypes/hdbase.h; sourceTree = "<group>"; };
 		D1BAE0F2183B91D100BC2434 /* hrdir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hrdir.h; path = include/hltypes/hrdir.h; sourceTree = "<group>"; };
@@ -217,7 +235,8 @@
 				8DC2EF5B0486A6940098B216 /* hltypes.framework */,
 				D1522F3E140F7A310012F290 /* libhltypes.a */,
 				D1F27A9F177A2D0E00E5C131 /* libhltypes.a */,
-				D180BCBB1E15033200A554B6 /* hltypesTests (Mac).xctest */,
+				D180BCBB1E15033200A554B6 /* hltypesTests.mac.xctest */,
+				D13F3D7120EA558100108E20 /* hltypesTests.ios.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -312,7 +331,7 @@
 		D18FC63220DBD2F000F85CE2 /* htest */ = {
 			isa = PBXGroup;
 			children = (
-				D18FC63420DBD2FF00F85CE2 /* htest.h */,
+				D13F3D7D20EA561B00108E20 /* htest.h */,
 			);
 			name = htest;
 			sourceTree = "<group>";
@@ -407,6 +426,22 @@
 			productReference = 8DC2EF5B0486A6940098B216 /* hltypes.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		D13F3D7020EA558100108E20 /* hltypesTests (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D13F3D7C20EA558100108E20 /* Build configuration list for PBXNativeTarget "hltypesTests (iOS)" */;
+			buildPhases = (
+				D13F3D6D20EA558100108E20 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D13F3D7820EA558100108E20 /* PBXTargetDependency */,
+			);
+			name = "hltypesTests (iOS)";
+			productName = "hltypesTests (iOS)";
+			productReference = D13F3D7120EA558100108E20 /* hltypesTests.ios.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D1522F3D140F7A310012F290 /* hltypes (iOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D1522F48140F7A310012F290 /* Build configuration list for PBXNativeTarget "hltypes (iOS)" */;
@@ -435,7 +470,7 @@
 			);
 			name = "hltypesTests (Mac)";
 			productName = hltypesUT;
-			productReference = D180BCBB1E15033200A554B6 /* hltypesTests (Mac).xctest */;
+			productReference = D180BCBB1E15033200A554B6 /* hltypesTests.mac.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D1F27A8A177A2D0E00E5C131 /* hltypes (Mac) */ = {
@@ -461,6 +496,9 @@
 			attributes = {
 				LastUpgradeCheck = 0940;
 				TargetAttributes = {
+					D13F3D7020EA558100108E20 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
 					D180BCBA1E15033200A554B6 = {
 						CreatedOnToolsVersion = 8.0;
 						ProvisioningStyle = Automatic;
@@ -486,6 +524,7 @@
 				D1F27A8A177A2D0E00E5C131 /* hltypes (Mac) */,
 				D1522F3D140F7A310012F290 /* hltypes (iOS) */,
 				D180BCBA1E15033200A554B6 /* hltypesTests (Mac) */,
+				D13F3D7020EA558100108E20 /* hltypesTests (iOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -517,6 +556,23 @@
 				D1E909E71636911B00EB27EE /* hlog.cpp in Sources */,
 				D1E909F7163693BC00EB27EE /* Mac_platform.mm in Sources */,
 				D1DC28F61B972E9000DBEB75 /* henum.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D13F3D6D20EA558100108E20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D13F3D8520EA562100108E20 /* Stream.cpp in Sources */,
+				D13F3D8620EA562100108E20 /* String.cpp in Sources */,
+				D13F3D7E20EA562100108E20 /* Array.cpp in Sources */,
+				D13F3D7F20EA562100108E20 /* Deque.cpp in Sources */,
+				D13F3D8220EA562100108E20 /* List.cpp in Sources */,
+				D13F3D8720EA562100108E20 /* Thread.cpp in Sources */,
+				D13F3D8020EA562100108E20 /* Dir.cpp in Sources */,
+				D13F3D8420EA562100108E20 /* Mutex.cpp in Sources */,
+				D13F3D8320EA562100108E20 /* Map.cpp in Sources */,
+				D13F3D8120EA562100108E20 /* File.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +654,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D13F3D7820EA558100108E20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D1522F3D140F7A310012F290 /* hltypes (iOS) */;
+			targetProxy = D13F3D7720EA558100108E20 /* PBXContainerItemProxy */;
+		};
 		D180BCC21E15033200A554B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D1F27A8A177A2D0E00E5C131 /* hltypes (Mac) */;
@@ -743,6 +804,57 @@
 			};
 			name = Release;
 		};
+		D13F3D7920EA558100108E20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/include";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lhltypes",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.hltypesTests;
+				PRODUCT_NAME = hltypesTests.ios;
+			};
+			name = Debug;
+		};
+		D13F3D7A20EA558100108E20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/include";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lhltypes",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.hltypesTests;
+				PRODUCT_NAME = hltypesTests.ios;
+			};
+			name = Release;
+		};
+		D13F3D7B20EA558100108E20 /* App Store */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/include";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lhltypes",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.hltypesTests;
+				PRODUCT_NAME = hltypesTests.ios;
+			};
+			name = "App Store";
+		};
 		D1522F4A140F7A310012F290 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
@@ -793,6 +905,7 @@
 		};
 		D180BCC41E15033200A554B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -827,13 +940,14 @@
 					"-framework",
 					CoreServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.hltypesUT;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.hltypesTests;
+				PRODUCT_NAME = hltypesTests.mac;
 			};
 			name = Debug;
 		};
 		D180BCC51E15033200A554B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -863,13 +977,14 @@
 					"-framework",
 					CoreServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.hltypesUT;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.hltypesTests;
+				PRODUCT_NAME = hltypesTests.mac;
 			};
 			name = Release;
 		};
 		D180BCC61E15033200A554B6 /* App Store */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -899,8 +1014,8 @@
 					"-framework",
 					CoreServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.hltypesUT;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.hltypesTests;
+				PRODUCT_NAME = hltypesTests.mac;
 			};
 			name = "App Store";
 		};
@@ -972,6 +1087,16 @@
 				C981CCAD132AE98F0072B5A9 /* Debug */,
 				C981CCAF132AE9960072B5A9 /* Release */,
 				7F7A5603129D435000E0ED12 /* App Store */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D13F3D7C20EA558100108E20 /* Build configuration list for PBXNativeTarget "hltypesTests (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D13F3D7920EA558100108E20 /* Debug */,
+				D13F3D7A20EA558100108E20 /* Release */,
+				D13F3D7B20EA558100108E20 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
