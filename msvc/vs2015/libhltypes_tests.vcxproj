@@ -52,49 +52,40 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A095BFF2-3ECB-401D-A3D5-7DB7CC53628E}</ProjectGuid>
-    <RootNamespace>hltypes_unittest</RootNamespace>
+    <RootNamespace>hltypes_tests</RootNamespace>
   </PropertyGroup>
-  <Import Project="props-generic\system.props" />
+  <Import Condition="exists('props-generic\system.props')" Project="props-generic\system.props" />
+  <Import Condition="!exists('props-generic\system.props')" Project="props-generic\system.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <Import Project="props\default.props" />
-  <Import Project="props-generic\platform-$(Platform).props" />
-  <Import Project="props-generic\unittest.props" />
-  <Import Project="props-generic\configurations-unittest.props" />
+  <Import Condition="exists('props-generic\platform-$(Platform).props')" Project="props-generic\platform-$(Platform).props" />
+  <Import Condition="!exists('props-generic\platform-$(Platform).props')" Project="props-generic\platform-$(Platform).props" />
+  <Import Condition="exists('props-generic\configurations.props')" Project="props-generic\configurations.props" />
+  <Import Condition="!exists('props-generic\configurations.props')" Project="props-generic\configurations.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <Import Project="props-generic\build-defaults.props" />
+  <Import Condition="exists('props-generic\build-defaults.props')" Project="props-generic\build-defaults.props" />
+  <Import Condition="!exists('props-generic\build-defaults.props')" Project="props-generic\build-defaults.props" />
+  <Import Project="props-generic\htest.props" />
+
   <ItemDefinitionGroup>
     <ClCompile>
-      <UndefinePreprocessorDefinitions>HLTYPES_EXPORTS;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../include/hltypes;../../lib/miniz;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>libhltypes.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
     <PostBuildEvent>
       <Command>xcopy $(OutDir)..\..\..\*.dll $(OutDir) /d /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\unittest\Array.cpp" />
-    <ClCompile Include="..\..\unittest\Deque.cpp" />
-    <ClCompile Include="..\..\unittest\Dir.cpp" />
-    <ClCompile Include="..\..\unittest\File.cpp" />
-    <ClCompile Include="..\..\unittest\generated\_Array.cpp" />
-    <ClCompile Include="..\..\unittest\generated\_Deque.cpp" />
-    <ClCompile Include="..\..\unittest\generated\_Dir.cpp" />
-    <ClCompile Include="..\..\unittest\generated\_File.cpp" />
-    <ClCompile Include="..\..\unittest\generated\_List.cpp" />
-    <ClCompile Include="..\..\unittest\generated\_Map.cpp" />
-    <ClCompile Include="..\..\unittest\generated\_Mutex.cpp" />
-    <ClCompile Include="..\..\unittest\generated\_Stream.cpp" />
-    <ClCompile Include="..\..\unittest\generated\_String.cpp" />
-    <ClCompile Include="..\..\unittest\generated\_Thread.cpp" />
-    <ClCompile Include="..\..\unittest\List.cpp" />
-    <ClCompile Include="..\..\unittest\Map.cpp" />
-    <ClCompile Include="..\..\unittest\Mutex.cpp" />
-    <ClCompile Include="..\..\unittest\Stream.cpp" />
-    <ClCompile Include="..\..\unittest\String.cpp" />
-    <ClCompile Include="..\..\unittest\Thread.cpp" />
+    <ClCompile Include="..\..\tests\Array.cpp" />
+    <ClCompile Include="..\..\tests\Deque.cpp" />
+    <ClCompile Include="..\..\tests\Dir.cpp" />
+    <ClCompile Include="..\..\tests\File.cpp" />
+    <ClCompile Include="..\..\tests\List.cpp" />
+    <ClCompile Include="..\..\tests\Map.cpp" />
+    <ClCompile Include="..\..\tests\Mutex.cpp" />
+    <ClCompile Include="..\..\tests\Stream.cpp" />
+    <ClCompile Include="..\..\tests\String.cpp" />
+    <ClCompile Include="..\..\tests\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="libhltypes.vcxproj">
