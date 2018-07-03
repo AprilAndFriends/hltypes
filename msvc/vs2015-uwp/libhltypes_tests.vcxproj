@@ -60,6 +60,12 @@
     <AppContainerApplication>true</AppContainerApplication>
     <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+    <AppxPackageDir>$(SolutionDir)bin\AppPackages\$(ProjectName)</AppxPackageDir>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+    <AppxBundle>Always</AppxBundle>
+    <PackageCertificateKeyFile>tests-util\TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>5C0325FF07C989645829124D88F1E67437BC946A</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">14.0</UnitTestPlatformVersion>
   </PropertyGroup>
   <Import Project="props-generic\system.props" />
@@ -107,6 +113,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="tests-util\pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -120,6 +131,8 @@
   </ItemGroup>
   <PropertyGroup>
     <PackageCertificateKeyFile>tests-util\TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>5C0325FF07C989645829124D88F1E67437BC946A</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
   <ItemGroup>
     <SDKReference Include="CppUnitTestFramework.Universal, Version=$(UnitTestPlatformVersion)" />
@@ -134,11 +147,6 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
