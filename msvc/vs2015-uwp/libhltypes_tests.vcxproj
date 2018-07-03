@@ -63,9 +63,6 @@
     <AppxPackageDir>$(SolutionDir)bin\AppPackages\$(ProjectName)</AppxPackageDir>
     <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
     <AppxBundle>Always</AppxBundle>
-    <PackageCertificateKeyFile>tests-util\TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>5C0325FF07C989645829124D88F1E67437BC946A</PackageCertificateThumbprint>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">14.0</UnitTestPlatformVersion>
   </PropertyGroup>
   <Import Project="props-generic\system.props" />
@@ -133,6 +130,7 @@
     <PackageCertificateKeyFile>tests-util\TemporaryKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>5C0325FF07C989645829124D88F1E67437BC946A</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundlePlatforms>x86|arm</AppxBundlePlatforms>
   </PropertyGroup>
   <ItemGroup>
     <SDKReference Include="CppUnitTestFramework.Universal, Version=$(UnitTestPlatformVersion)" />
