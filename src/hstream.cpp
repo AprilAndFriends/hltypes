@@ -21,12 +21,12 @@ namespace hltypes
 	Stream::Stream(int initialCapacity) :
 		StreamBase()
 	{
-        initialCapacity = hmax(MIN_HSTREAM_CAPACITY, initialCapacity);
+		initialCapacity = hmax(MIN_HSTREAM_CAPACITY, initialCapacity);
 		this->capacity = (int64_t)initialCapacity;
 		this->streamSize = 0;
 		this->streamPosition = 0;
 		// using malloc because realloc is used later
-        this->stream = (unsigned char*)malloc((int)this->capacity);
+		this->stream = (unsigned char*)malloc((int)this->capacity);
 	}
 
 	Stream::Stream(unsigned char* initialData, int initialDataSize) :
@@ -38,14 +38,14 @@ namespace hltypes
 		// using malloc because realloc is used later
 		if (initialDataSize > 0)
 		{
-            this->stream = (unsigned char*)malloc((int)this->capacity);
+			this->stream = (unsigned char*)malloc((int)this->capacity);
 			memcpy(this->stream, initialData, initialDataSize);
 		}
-        else
-        {
-            this->capacity = MIN_HSTREAM_CAPACITY;
-            this->stream = (unsigned char*)malloc(MIN_HSTREAM_CAPACITY);
-        }
+		else
+		{
+			this->capacity = MIN_HSTREAM_CAPACITY;
+			this->stream = (unsigned char*)malloc(MIN_HSTREAM_CAPACITY);
+		}
 		this->_updateDataSize();
 	}
 
@@ -58,14 +58,14 @@ namespace hltypes
 		// using malloc because realloc is used later
 		if (initialDataSize > 0)
 		{
-            this->stream = (unsigned char*)malloc((int)this->capacity);
+			this->stream = (unsigned char*)malloc((int)this->capacity);
 			memcpy(this->stream, initialData, initialDataSize);
 		}
-        else
-        {
-            this->capacity = MIN_HSTREAM_CAPACITY;
-            this->stream = (unsigned char*)malloc(MIN_HSTREAM_CAPACITY);
-        }
+		else
+		{
+			this->capacity = MIN_HSTREAM_CAPACITY;
+			this->stream = (unsigned char*)malloc(MIN_HSTREAM_CAPACITY);
+		}
 		this->_updateDataSize();
 	}
 
@@ -79,14 +79,14 @@ namespace hltypes
 		// using malloc because realloc is used later
 		if (this->streamSize > 0LL)
 		{
-            this->stream = (unsigned char*)malloc((int)this->capacity);
+			this->stream = (unsigned char*)malloc((int)this->capacity);
 			memcpy(this->stream, (unsigned char*)other, (int)this->streamSize);
 		}
-        else
-        {
-            this->capacity = MIN_HSTREAM_CAPACITY;
-            this->stream = (unsigned char*)malloc(MIN_HSTREAM_CAPACITY);
-        }
+		else
+		{
+			this->capacity = MIN_HSTREAM_CAPACITY;
+			this->stream = (unsigned char*)malloc(MIN_HSTREAM_CAPACITY);
+		}
 		this->_updateDataSize();
 	}
 
@@ -95,7 +95,7 @@ namespace hltypes
 		if (this->stream != NULL)
 		{
 			free(this->stream);
-            this->stream = NULL;
+			this->stream = NULL;
 		}
 	}
 	
@@ -239,21 +239,21 @@ namespace hltypes
 
 	Stream& Stream::operator=(const Stream& other)
 	{
-        int64_t otherDataSize = other.dataSize;
+		int64_t otherDataSize = other.dataSize;
 		this->streamSize = other.streamSize;
 		this->streamPosition = other.streamPosition;
 		this->setCapacity((int)other.capacity);
 		// using malloc because realloc is used later
 		if (otherDataSize > 0)
 		{
-            if (this->capacity >= otherDataSize)
-            {
-                memcpy(this->stream, (unsigned char*)other.stream, (int)otherDataSize);
-            }
-            else
-            {
-                hlog::errorf(logTag, "Failed cloning stream, capacity < otherDataSize. This is either a realloc failure, or a thread race condition.");
-            }
+			if (this->capacity >= otherDataSize)
+			{
+				memcpy(this->stream, (unsigned char*)other.stream, (int)otherDataSize);
+			}
+			else
+			{
+				hlog::errorf(logTag, "Failed cloning stream, capacity < otherDataSize. This is either a realloc failure, or a thread race condition.");
+			}
 		}
 		this->_updateDataSize();
 		return (*this);
