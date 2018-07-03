@@ -128,7 +128,7 @@
   </ItemGroup>
   <PropertyGroup>
     <PackageCertificateKeyFile>tests-util\TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>5C0325FF07C989645829124D88F1E67437BC946A</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>E6F24C9E8895423185944F6315AFAC5104764646</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86</AppxBundlePlatforms>
   </PropertyGroup>

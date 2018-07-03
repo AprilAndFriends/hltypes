@@ -62,6 +62,7 @@
     <None Include="tests-util\TemporaryKey.pfx">
       <Filter>uwp</Filter>
     </None>
+    <None Include="libhltypes_tests_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

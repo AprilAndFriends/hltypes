@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="libhltypes-tests" Publisher="CN=HLTypes" Version="1.0.0.0" />
+  <Identity Name="libhltypes-tests" Publisher="CN=HTest" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="ce9981fc-d1a4-47f7-907e-ff9e805175a3" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>libhltypes_tests</DisplayName>
-    <PublisherDisplayName>HLTypes</PublisherDisplayName>
+    <PublisherDisplayName>HTest</PublisherDisplayName>
     <Logo>tests-util\Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -16,7 +16,7 @@
   <Applications>
     <Application Id="vstest.executionengine.universal.App" Executable="$targetnametoken$.exe" EntryPoint="libhltypes_tests.App">
       <uap:VisualElements DisplayName="libhltypes_tests" Square150x150Logo="tests-util\Assets\Square150x150Logo.png" Square44x44Logo="tests-util\Assets\Square44x44Logo.png" Description="libhltypes_tests" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="tests-util\Assets\Wide310x150Logo.png"/>
+        <uap:DefaultTile Wide310x150Logo="tests-util\Assets\Wide310x150Logo.png" />
         <uap:SplashScreen Image="tests-util\Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
