@@ -64,11 +64,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="tests-util\App.rd.xml">
-      <Filter>uwp</Filter>
-    </Xml>
-  </ItemGroup>
-  <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Filter>uwp</Filter>
     </ApplicationDefinition>

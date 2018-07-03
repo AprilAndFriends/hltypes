@@ -113,9 +113,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="tests-util\App.rd.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AppxManifest Include="tests-util\Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
