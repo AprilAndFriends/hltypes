@@ -68,4 +68,9 @@
       <Filter>uwp</Filter>
     </ApplicationDefinition>
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="tests-util\App.rd.xml">
+      <Filter>uwp</Filter>
+    </Xml>
+  </ItemGroup>
 </Project>
