@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "UnitTestApp.g.h"
+#include "App.g.h"
 
 namespace libhltypes_tests
 {

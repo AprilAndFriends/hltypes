@@ -2,6 +2,7 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemDefinitionGroup>
     <ClCompile>
+      <PreprocessorDefinitions Condition="'$(Configuration)'=='DebugS' or '$(Configuration)'=='ReleaseS'">_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include\UWP;..\..\..\hltypes\include;..\..\tests;tests-util;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

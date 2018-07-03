@@ -11,18 +11,16 @@
     <ClCompile Include="..\..\tests\Stream.cpp" />
     <ClCompile Include="..\..\tests\String.cpp" />
     <ClCompile Include="..\..\tests\Thread.cpp" />
-    <ClCompile Include="tests-util\UnitTestApp.xaml.cpp" />
     <ClCompile Include="tests-util\pch.cpp">
       <Filter>uwp</Filter>
     </ClCompile>
+    <ClCompile Include="App.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests-util\pch.h">
       <Filter>uwp</Filter>
     </ClInclude>
-    <ClInclude Include="tests-util\UnitTestApp.xaml.h">
-      <Filter>uwp</Filter>
-    </ClInclude>
+    <ClInclude Include="App.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="tests-util\Assets\LockScreenLogo.scale-200.png">
@@ -66,12 +64,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="tests-util\UnitTestApp.rd.xml">
+    <Xml Include="tests-util\App.rd.xml">
       <Filter>uwp</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="tests-util\UnitTestApp.xaml">
+    <ApplicationDefinition Include="App.xaml">
       <Filter>uwp</Filter>
     </ApplicationDefinition>
   </ItemGroup>

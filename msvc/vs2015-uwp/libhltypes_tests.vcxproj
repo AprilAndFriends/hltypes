@@ -52,7 +52,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A095BFF2-3ECB-401D-A3D5-7DB7CC53628E}</ProjectGuid>
-    <RootNamespace>hltypes_tests</RootNamespace>
+    <RootNamespace>libhltypes_tests</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <ApplicationType>Windows Store</ApplicationType>
@@ -65,7 +65,7 @@
   <Import Project="props-generic\system.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="props-generic\platform-$(Platform).props" />
-  <Import Project="props-generic\configurations.props" />
+  <Import Project="props-generic\configurations-htest.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="props-generic\build-defaults.props" />
   <Import Project="props-generic\htest.props" />
@@ -88,6 +88,9 @@
     <ClCompile Include="..\..\tests\Stream.cpp" />
     <ClCompile Include="..\..\tests\String.cpp" />
     <ClCompile Include="..\..\tests\Thread.cpp" />
+    <ClCompile Include="App.xaml.cpp">
+      <DependentUpon>App.xaml</DependentUpon>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="tests-util\Assets\LockScreenLogo.scale-200.png" />
@@ -99,26 +102,18 @@
     <Image Include="tests-util\Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tests-util\UnitTestApp.xaml.cpp">
-      <DependentUpon>tests-util\UnitTestApp.xaml</DependentUpon>
-    </ClCompile>
     <ClCompile Include="tests-util\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests-util\pch.h" />
-    <ClInclude Include="tests-util\UnitTestApp.xaml.h">
-      <DependentUpon>UnitTestApp.xaml</DependentUpon>
+    <ClInclude Include="App.xaml.h">
+      <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="tests-util\UnitTestApp.xaml">
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="tests-util\UnitTestApp.rd.xml" />
+    <Xml Include="tests-util\App.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="tests-util\Package.appxmanifest">
@@ -142,6 +137,11 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
