@@ -1,23 +1,4 @@
-﻿"""
-import os
-import sys
-import subprocess
-
-binPath = sys.argv[1]
-testDlls = {}
-
-for root, dirs, files in os.walk(binPath):
-	for file in files:
-		if file.endswith("_tests.exe") and root.endswith("AppX"):
-			testDlls[file] = os.path.join(root, file)
-
-for name, path in testDlls.items():
-	print "*", name
-	if subprocess.call([path]) != 0:
-		print "UNIT TEST ERROR, aborting further tests"
-		sys.exit(1)
-"""
-import os
+﻿import os
 import sys
 import subprocess
 
