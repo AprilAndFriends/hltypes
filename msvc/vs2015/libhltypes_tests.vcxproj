@@ -57,7 +57,7 @@
   <Import Project="props-generic\system.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="props-generic\platform-$(Platform).props" />
-  <Import Project="props-generic\configurations.props" />
+  <Import Project="props-generic\configurations-htest.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="props-generic\build-defaults.props" />
   <Import Project="props-generic\htest.props" />

@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "lib\zlib\msvc\vs201
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhltypes_tests", "msvc\vs2015-uwp\libhltypes_tests.vcxproj", "{A095BFF2-3ECB-401D-A3D5-7DB7CC53628E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7C6DA4AE-6072-49F4-B31B-159118B572A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -126,5 +128,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A095BFF2-3ECB-401D-A3D5-7DB7CC53628E} = {7C6DA4AE-6072-49F4-B31B-159118B572A5}
 	EndGlobalSection
 EndGlobal
