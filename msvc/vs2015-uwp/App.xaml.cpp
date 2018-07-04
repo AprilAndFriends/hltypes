@@ -28,7 +28,7 @@ namespace libhltypes_tests
 		Microsoft::VisualStudio::TestPlatform::TestExecutor::WinRTCore::UnitTestClient::Run(e->Arguments);
 	}
 
-	void App::OnNavigationFailed(Platform::Object ^sender, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs ^e)
+	void App::OnNavigationFailed(Platform::Object^ sender, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs^ e)
 	{
 		throw ref new FailureException("Failed to load Page " + e->SourcePageType.Name);
 	}
