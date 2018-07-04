@@ -8,9 +8,9 @@
 
 HTEST_SUITE_BEGIN
 
-HTEST_CASE(readWrite)
+HTEST_CASE_WITH_DATA(readWrite)
 {
-	hstr filename = "test.txt";
+	hstr filename = tempDir + "/test.txt";
 	hfile f;
 	f.open(filename, hfaccess::Write);
 	f.write("This is a test.");
@@ -29,9 +29,9 @@ HTEST_CASE(readWrite)
 	HTEST_ASSERT(text == "This is a test.22", "write()");
 }
 
-HTEST_CASE(readLine)
+HTEST_CASE_WITH_DATA(readLine)
 {
-	hstr filename = "test.txt";
+	hstr filename = tempDir + "/test.txt";
 	hfile f;
 	f.open(filename, hfaccess::Write);
 	f.writeLine("This is a test.");
@@ -52,9 +52,9 @@ HTEST_CASE(readLine)
 	HTEST_ASSERT(lines[0] == "This is a test." && lines[1] == "This is also a test." && lines[2] == "This is another test.", "");
 }
 
-HTEST_CASE(readDelimiter)
+HTEST_CASE_WITH_DATA(readDelimiter)
 {
-	hstr filename = "test.txt";
+	hstr filename = tempDir + "/test.txt";
 	hfile f;
 	f.open(filename, hfaccess::Write);
 	f.write(hstr('a', 4090));
@@ -64,9 +64,9 @@ HTEST_CASE(readDelimiter)
 	HTEST_ASSERT(text == hstr('a', 4090), "");
 }
 
-HTEST_CASE(writef)
+HTEST_CASE_WITH_DATA(writef)
 {
-	hstr filename = "test.txt";
+	hstr filename = tempDir + "/test.txt";
 	hfile f;
 	f.open(filename, hfaccess::Write);
 	f.writef("This is a %d %s %4.2f %s.", 0, "formatted", 3.14f, "file");
@@ -75,9 +75,9 @@ HTEST_CASE(writef)
 	HTEST_ASSERT(text == "This is a 0 formatted 3.14 file.", "");
 }
 
-HTEST_CASE(readWriteRaw)
+HTEST_CASE_WITH_DATA(readWriteRaw)
 {
-	hstr filename = "raw.txt";
+	hstr filename = tempDir + "/raw.txt";
 	hfile f;
 	f.open(filename, hfaccess::Write);
 	unsigned char a[10] = { '\0' };
@@ -101,9 +101,9 @@ HTEST_CASE(readWriteRaw)
 	hfile::remove(filename);
 }
 
-HTEST_CASE(seekPositionSize)
+HTEST_CASE_WITH_DATA(seekPositionSize)
 {
-	hstr filename = "test.txt";
+	hstr filename = tempDir + "/test.txt";
 	hfile f;
 	f.open(filename, hfaccess::Write);
 	f.write("This is another test.");
@@ -128,9 +128,9 @@ HTEST_CASE(seekPositionSize)
 	HTEST_ASSERT(f.size() == (int64_t)21, "size()");
 	HTEST_ASSERT(text == "nother ", "");
 }
-HTEST_CASE(serialization)
+HTEST_CASE_WITH_DATA(serialization)
 {
-	hstr filename = "test.txt/";
+	hstr filename = tempDir + "/test.txt/";
 	hfile f;
 	f.open(filename, hfaccess::Write);
 	f.dump(1234);
@@ -155,9 +155,9 @@ HTEST_CASE(serialization)
 	HTEST_ASSERT(d == 1.23456789999999, "double");
 	HTEST_ASSERT(!b, "bool");
 }
-HTEST_CASE(staticClear)
+HTEST_CASE_WITH_DATA(staticClear)
 {
-	hstr filename = "test.txt";
+	hstr filename = tempDir + "/test.txt";
 	hfile::hwrite(filename, "This is a clearing test.");
 	hstr text = hfile::hread(filename);
 	HTEST_ASSERT(text == "This is a clearing test.", "");
@@ -166,47 +166,48 @@ HTEST_CASE(staticClear)
 	HTEST_ASSERT(text == "", "");
 }
 
-HTEST_CASE(staticRename)
+HTEST_CASE_WITH_DATA(staticRename)
 {
-	hstr old_filename = "test.txt";
-	hstr new_filename = "test2.txt";
-	hfile::create(old_filename);
-	hfile::remove(new_filename);
-	HTEST_ASSERT(hfile::exists(old_filename), "");
-	HTEST_ASSERT(!hfile::exists(new_filename), "");
-	hfile::rename(old_filename, new_filename);
-	HTEST_ASSERT(!hfile::exists(old_filename), "");
-	HTEST_ASSERT(hfile::exists(new_filename), "");
-	hfile::remove(new_filename);
+	hstr oldFilename = tempDir + "/test.txt";
+	hstr newFilename = tempDir + "/test2.txt";
+	hfile::create(oldFilename);
+	hfile::remove(newFilename);
+	HTEST_ASSERT(hfile::exists(oldFilename), "");
+	HTEST_ASSERT(!hfile::exists(newFilename), "");
+	hfile::rename(oldFilename, newFilename);
+	HTEST_ASSERT(!hfile::exists(oldFilename), "");
+	HTEST_ASSERT(hfile::exists(newFilename), "");
+	hfile::remove(newFilename);
 }
 
-HTEST_CASE(staticMove)
+HTEST_CASE_WITH_DATA(staticMove)
 {
 	hstr filename = "test.txt";
-	hstr path = "..";
-	hfile::create(filename);
+	hstr filepath = tempDir + "/" + filename;
+	hstr path = tempDir + "/..";
+	hfile::create(filepath);
 	hfile::remove(path + "/" + filename);
-	HTEST_ASSERT(hfile::exists(filename), "");
+	HTEST_ASSERT(hfile::exists(filepath), "");
 	HTEST_ASSERT(!hfile::exists(path + "/" + filename), "");
-	hfile::move(filename, path);
-	HTEST_ASSERT(!hfile::exists(filename), "");
+	hfile::move(filepath, path);
+	HTEST_ASSERT(!hfile::exists(filepath), "");
 	HTEST_ASSERT(hfile::exists(path + "\\" + filename), "");
 	hfile::remove(path + "/" + filename);
 }
 
-HTEST_CASE(staticCopy)
+HTEST_CASE_WITH_DATA(staticCopy)
 {
-	hstr old_filename = "test.txt";
-	hstr new_filename = "test2.txt";
-	hfile::remove(old_filename);
-	hfile::remove(new_filename);
-	hfile::hwrite(old_filename, "This is a copy test.");
-	hfile::copy(old_filename, new_filename);
-	HTEST_ASSERT(hfile::exists(new_filename), "");
-	hstr text = hfile::hread(new_filename);
+	hstr oldFilename = tempDir + "/test.txt";
+	hstr newFilename = tempDir + "/test2.txt";
+	hfile::remove(oldFilename);
+	hfile::remove(newFilename);
+	hfile::hwrite(oldFilename, "This is a copy test.");
+	hfile::copy(oldFilename, newFilename);
+	HTEST_ASSERT(hfile::exists(newFilename), "");
+	hstr text = hfile::hread(newFilename);
 	HTEST_ASSERT(text == "This is a copy test.", "");
 	hfile f;
-	f.open(old_filename, hfaccess::Write);
+	f.open(oldFilename, hfaccess::Write);
 	f.dump(1234);
 	f.dump((short)4321);
 	f.dump(hstr("testing"));
@@ -214,10 +215,10 @@ HTEST_CASE(staticCopy)
 	f.dump(1.23456789999999);
 	f.dump(false);
 	f.close();
-	hfile::remove(new_filename);
-	hfile::copy(old_filename, new_filename);
-	HTEST_ASSERT(hfile::exists(new_filename), "");
-	f.open(new_filename);
+	hfile::remove(newFilename);
+	hfile::copy(oldFilename, newFilename);
+	HTEST_ASSERT(hfile::exists(newFilename), "");
+	f.open(newFilename);
 	int i = f.loadInt32();
 	short s = f.loadInt16();
 	hstr str = f.loadString();
@@ -225,8 +226,8 @@ HTEST_CASE(staticCopy)
 	double d = f.loadDouble();
 	bool b = f.loadBool();
 	f.close();
-	hfile::remove(old_filename);
-	hfile::remove(new_filename);
+	hfile::remove(oldFilename);
+	hfile::remove(newFilename);
 	HTEST_ASSERT(i == 1234, "");
 	HTEST_ASSERT(s == 4321, "");
 	HTEST_ASSERT(str == "testing", "");
