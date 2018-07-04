@@ -13,23 +13,22 @@ static int testResult2 = 0;
 
 hmutex mutex1;
 hmutex mutex2;
-hmutex mutex3;
 
-static void _thread1(hthread* t)
+static void _thread1a(hthread* t)
 {
 	hmutex::ScopeLock lock(&mutex1);
 	test3 = test1 + test2;
 }
 
-static void _thread2(hthread* t)
+static void _thread1b(hthread* t)
 {
-	hmutex::ScopeLock lock(&mutex2);
+	hmutex::ScopeLock lock(&mutex1);
 	testResult1 = test3 + 2;
 }
 
-static void _thread3(hthread* t)
+static void _thread2(hthread* t)
 {
-	hmutex::ScopeLock lock(&mutex3);
+	hmutex::ScopeLock lock(&mutex2);
 	testResult2 = testResult2 + 1;
 }
 
@@ -39,8 +38,8 @@ HTEST_CASE(lockRelease)
 {
 	test3 = 5;
 	testResult1 = 0;
-	hthread t1(&_thread1);
-	hthread t2(&_thread2);
+	hthread t1(&_thread1a);
+	hthread t2(&_thread1b);
 
 	t1.start();
 	t2.start();
@@ -60,7 +59,7 @@ HTEST_CASE(massLockRelease)
 	hthread* t[10];
 	for (int i = 0; i < 10; ++i)
 	{
-		t[i] = new hthread(&_thread3);
+		t[i] = new hthread(&_thread2);
 		t[i]->start();
 	}
 
