@@ -37,6 +37,7 @@ HTEST_SUITE_BEGIN
 
 HTEST_CASE(lockRelease)
 {
+	test3 = 5;
 	testResult1 = 0;
 	hthread t1(&_thread1);
 	hthread t2(&_thread2);
@@ -49,7 +50,7 @@ HTEST_CASE(lockRelease)
 	t1.join();
 	t2.join();
 
-	HTEST_ASSERT(testResult1 == 5, "lockRelease");
+	HTEST_ASSERT(testResult1 == 5 || testResult1 == 7, "lockRelease");
 }
 
 HTEST_CASE(massLockRelease)
