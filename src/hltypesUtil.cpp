@@ -202,8 +202,8 @@ hltypes::String hstackTrace(int maxFrames)
 	hltypes::Mutex::ScopeLock lock(&stackMutex);
 	// get stack trace
 	hltypes::String result = "Stack trace not available on this platform!";
-	maxFrames = hclamp(maxFrames, 1, MAX_STACK_FRAMES);
 #if defined(_WIN32) && !defined(_WINRT) // doesn't work on WinRT
+	maxFrames = hclamp(maxFrames, 1, MAX_STACK_FRAMES);
 	result = "Could not obtain stack trace!";
 	HANDLE process = GetCurrentProcess();
 	if (process != NULL)
@@ -230,6 +230,7 @@ hltypes::String hstackTrace(int maxFrames)
 		SymCleanup(process);
 	}
 #elif defined(__ANDROID__)
+	maxFrames = hclamp(maxFrames, 1, MAX_STACK_FRAMES);
 	result = "Could not obtain stack trace!";
 	StackFrame frame;
 	frame.maxFrames = maxFrames;

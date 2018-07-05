@@ -473,8 +473,9 @@ HTEST_CASE(cast)
 
 HTEST_CASE(incorrectNegativeIndex)
 {
+#ifndef __clang_analyzer__ // disable analyzer here since it complains about invalid access
 	harray<int> test;
-	int value;
+	int value = 0;
 
 	try
 	{
@@ -494,6 +495,7 @@ HTEST_CASE(incorrectNegativeIndex)
 
 	printf("ERROR: negative out of bounds harray indexing test didn't throw any exceptions!\n");
 	HTEST_ASSERT(false, "");
+#endif
 }
 
 HTEST_CASE(correctNegativeIndex)
@@ -527,7 +529,6 @@ HTEST_CASE(correctNegativeIndex)
 HTEST_CASE(positiveIndex)
 {
 	harray<int> test;
-	int value;
 	test += 1;
 	test += 2;
 	test += 3;
@@ -536,7 +537,7 @@ HTEST_CASE(positiveIndex)
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			value = test[i];
+			test[i]; // try to invoke an exception
 		}
 	}
 	catch (hexception)

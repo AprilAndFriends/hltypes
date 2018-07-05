@@ -57,9 +57,9 @@
 		D197C48115ED02E40017452F /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C47915ED02E40017452F /* gzlib.c */; };
 		D197C48215ED02E40017452F /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C47915ED02E40017452F /* gzlib.c */; };
 		D197C48315ED02E40017452F /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C47A15ED02E40017452F /* gzread.c */; };
-		D197C48415ED02E40017452F /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C47A15ED02E40017452F /* gzread.c */; };
+		D197C48415ED02E40017452F /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C47A15ED02E40017452F /* gzread.c */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks"; }; };
 		D197C48515ED02E40017452F /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C47B15ED02E40017452F /* gzwrite.c */; };
-		D197C48615ED02E40017452F /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C47B15ED02E40017452F /* gzwrite.c */; };
+		D197C48615ED02E40017452F /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C47B15ED02E40017452F /* gzwrite.c */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks"; }; };
 		D197C48715ED02E40017452F /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C47C15ED02E40017452F /* uncompr.c */; };
 		D197C48815ED02E40017452F /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C47C15ED02E40017452F /* uncompr.c */; };
 		D1F2787F1779FFF000E5C131 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = D197C42615ED025A0017452F /* adler32.c */; };
@@ -444,6 +444,9 @@
 				OTHER_CFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-ffast-math",
+					"-w",
+					"-Xanalyzer",
+					"-analyzer-disable-all-checks",
 				);
 				WARNING_CFLAGS = "-w";
 			};
@@ -501,6 +504,9 @@
 				OTHER_CFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-ffast-math",
+					"-w",
+					"-Xanalyzer",
+					"-analyzer-disable-all-checks",
 				);
 				WARNING_CFLAGS = "-w";
 			};
@@ -557,6 +563,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-w",
+					"-Xanalyzer",
+					"-analyzer-disable-all-checks",
+				);
 				WARNING_CFLAGS = "-w";
 			};
 			name = Debug;
