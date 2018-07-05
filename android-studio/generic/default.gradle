@@ -1,15 +1,51 @@
 android {
 	compileSdkVersion 26
+	
 	defaultConfig {
 		minSdkVersion 15
 		targetSdkVersion 26
 		versionCode 1
 		versionName "1"
 	}
+	
 	sourceSets.main.jni.srcDirs = []
+	/*
+	task ("create"+ currentFlavor.name.substring(0, 1).toUpperCase() + currentFlavor.name.substring(1)+"Obb", type:Zip){
+		archiveName = "main.${defaultConfig.versionCode}.${currentFlavor.applicationId}.obb"
+
+		ext.destDir = new File(buildDir, "obb/${currentFlavor.name}")
+		ext.destFile = new File(destDir, archiveName)
+		duplicatesStrategy  DuplicatesStrategy.EXCLUDE
+		doFirst {
+				destDir.mkdirs()
+		}
+		description = "Creates expansion file for APK flavour ${currentFlavor.name}"    
+		destinationDir = new File(buildDir, "obb/${currentFlavor.name}");
+		entryCompression = ZipEntryCompression.STORED
+		from "flavors/${currentFlavor.name}/obb", "obb"
+		tasks.createObb.dependsOn("create"+ currentFlavor.name.substring(0, 1).toUpperCase() + currentFlavor.name.substring(1)+"Obb")
+	}
+	*/
+}
+
+task createObb(type: Zip) {
+	destinationDir = file("$buildDir/outputs/obb")
+	entryCompression = ZipEntryCompression.STORED
 }
 
 dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
+/*
+def createOBB(def assetsFolder, def obbFile, def secretKey, def packageName) {
+    def stdout = new ByteArrayOutputStream(), stderr = new ByteArrayOutputStream()
+    exec {
+        // jobb -d /temp/assets/ -o my-app-assets.obb -k secret-key -pn com.my.app.package -pv 11
+        commandLine 'jobb', '-d', assetsFolder, '-o', obbFile, '-k', secretKey, '-pn', packageName, '-pv', '11'
+        standardOutput = stdout
+        errorOutput = stderr
+        ignoreExitValue true // remove this if you want to crash if fail
+    }
+}
+*/
