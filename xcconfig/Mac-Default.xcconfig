@@ -8,3 +8,4 @@ CLANG_CXX_LIBRARY = libc++;
 MACOSX_DEPLOYMENT_TARGET = 10.7;
 GCC_C_LANGUAGE_STANDARD = gnu99;
 STRINGS_FILE_OUTPUT_ENCODING = UTF-8;
+CLANG_ENABLE_CODE_COVERAGE = NO; // temp for now, until all unit tests for all april & friends are done
