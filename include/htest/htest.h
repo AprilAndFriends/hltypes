@@ -38,7 +38,7 @@
 			} \
 			catch (hexception& e) \
 			{ \
-				_XCTFailureHandler(self, YES, __FILE__, __LINE__, @"Unhandled Exception", @"%s", e.getMessage().cStr()); \
+				_XCTFailureHandler(self, YES, __FILE__, __LINE__, @"Unhandled Exception", @"%s", __assertMsg(e.getMessage())); \
 			} \
 		} \
 		- (void) _test_ ## name
@@ -55,7 +55,7 @@
 			} \
 			catch (hexception& e) \
 			{ \
-				_XCTFailureHandler(self, YES, __FILE__, __LINE__, @"Unhandled Exception", @"%s", e.getMessage().cStr()); \
+				_XCTFailureHandler(self, YES, __FILE__, __LINE__, @"Unhandled Exception", @"%s", __assertMsg(e.getMessage())); \
 			} \
 		} \
 		- (void) _test_ ## name:(chstr) dataDir tempDir:(chstr) tempDir
