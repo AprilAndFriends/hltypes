@@ -389,6 +389,22 @@ namespace hltypes
 			}
 			return result;
 		}
+		/// @brief Counts on how many elements match the condition.
+		/// @param[in] conditionFunction Function pointer with condition function that takes one element of type T and returns bool.
+		/// @return Number of matches.
+		inline int count(bool (*conditionFunction)(T const&)) const
+		{
+			int result = 0;
+			int size = this->size();
+			for_iter (i, 0, size)
+			{
+				if (conditionFunction(this->at(i)))
+				{
+					++result;
+				}
+			}
+			return result;
+		}
 		/// @brief Inserts new element at specified position n times.
 		/// @param[in] index Position where to insert the new element.
 		/// @param[in] element Element to insert.
