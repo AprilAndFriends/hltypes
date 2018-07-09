@@ -19,7 +19,7 @@
 
 	#define HTEST_ASSERT(expression, msg) if (!(expression)) XCTFail(@"%s", __assertMsg(msg))
 	#define HTEST_FAIL(msg) XCTFail(@"%s", __assertMsg(msg))
-	#define HTEST_LOG(msg) printf("%s\n", hstr(msg).cStr())
+	#define HTEST_LOG(msg) printf("    [htest] %s\n", hstr(msg).cStr())
 
 	#define HTEST_SUITE_BEGIN \
 		static const char* __assertMsg(chstr msg) { return msg.cStr(); } \
@@ -67,7 +67,7 @@
 
 	#define HTEST_ASSERT(expression, msg) Assert::IsTrue((expression), __assertMsg(msg))
 	#define HTEST_FAIL(msg) Assert::Fail(__assertMsg(msg))
-	#define HTEST_LOG(msg) Logger::WriteMessage(hstr(msg).cStr())
+	#define HTEST_LOG(msg) Logger::WriteMessage(("[htest] " + hstr(msg)).cStr())
 
 	#define HTEST_SUITE_BEGIN \
 		namespace __EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## _htest \
