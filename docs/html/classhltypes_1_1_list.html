@@ -357,6 +357,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a952f7ec19ff389acfc8dfb22836f8a5f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a952f7ec19ff389acfc8dfb22836f8a5f">count</a> (const T other[], int count) const</td></tr>
 <tr class="memdesc:a952f7ec19ff389acfc8dfb22836f8a5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts occurrences of elements in Container.  <a href="#a952f7ec19ff389acfc8dfb22836f8a5f">More...</a><br /></td></tr>
 <tr class="separator:a952f7ec19ff389acfc8dfb22836f8a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aaf25cc64bc30e3752cb4ea5558863a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#a6aaf25cc64bc30e3752cb4ea5558863a">count</a> (bool(*conditionFunction)(T const &amp;)) const</td></tr>
+<tr class="memdesc:a6aaf25cc64bc30e3752cb4ea5558863a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts on how many elements match the condition.  <a href="#a6aaf25cc64bc30e3752cb4ea5558863a">More...</a><br /></td></tr>
+<tr class="separator:a6aaf25cc64bc30e3752cb4ea5558863a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac16b07d1e30913196dc607ed6caec617"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhltypes_1_1_container.html#ac16b07d1e30913196dc607ed6caec617">insertAt</a> (const int index, const T &amp;element, const int times=1)</td></tr>
 <tr class="memdesc:ac16b07d1e30913196dc607ed6caec617"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts new element at specified position n times.  <a href="#ac16b07d1e30913196dc607ed6caec617">More...</a><br /></td></tr>
 <tr class="separator:ac16b07d1e30913196dc607ed6caec617"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2409,7 +2412,7 @@ template&lt;typename S &gt; </div>
 </div>
 </div>
 <a id="a4e064b81db273c1673ad167d9fb8d28d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e064b81db273c1673ad167d9fb8d28d">&#9670;&nbsp;</a></span>count() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e064b81db273c1673ad167d9fb8d28d">&#9670;&nbsp;</a></span>count() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2444,7 +2447,7 @@ template&lt;typename S &gt; </div>
 </div>
 </div>
 <a id="a3c3edac51d014a2a968ff2912cfe2820"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c3edac51d014a2a968ff2912cfe2820">&#9670;&nbsp;</a></span>count() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c3edac51d014a2a968ff2912cfe2820">&#9670;&nbsp;</a></span>count() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2479,7 +2482,7 @@ template&lt;typename S &gt; </div>
 </div>
 </div>
 <a id="a952f7ec19ff389acfc8dfb22836f8a5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a952f7ec19ff389acfc8dfb22836f8a5f">&#9670;&nbsp;</a></span>count() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a952f7ec19ff389acfc8dfb22836f8a5f">&#9670;&nbsp;</a></span>count() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2521,6 +2524,41 @@ template&lt;typename S &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of occurrences of given elements. </dd></dl>
+
+</div>
+</div>
+<a id="a6aaf25cc64bc30e3752cb4ea5558863a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aaf25cc64bc30e3752cb4ea5558863a">&#9670;&nbsp;</a></span>count() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classhltypes_1_1_container.html">hltypes::Container</a>&lt; std::list&lt; T &gt; , T &gt;::count </td>
+          <td>(</td>
+          <td class="paramtype">bool(*)(T const &amp;)&#160;</td>
+          <td class="paramname"><em>conditionFunction</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Counts on how many elements match the condition. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">conditionFunction</td><td>Function pointer with condition function that takes one element of type T and returns bool. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of matches. </dd></dl>
 
 </div>
 </div>
