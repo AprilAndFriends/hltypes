@@ -15,7 +15,6 @@ file(
 add_library(hltypes STATIC ${CppSrc})
 
 include_directories(AFTER "../../include/hltypes")
-include_directories(AFTER "../../src")
 include_directories(AFTER "../../lib/miniz")
 
 add_definitions(
