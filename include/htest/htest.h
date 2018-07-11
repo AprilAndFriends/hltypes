@@ -29,7 +29,23 @@
 
 	#define HTEST_SUITE_END @end
 
-	#define HTEST_SUITE_INIT() + (void) setUp
+	#define HTEST_SUITE_INIT()\
+		+ (void) setUp\
+		{\
+			try \
+			{ \
+				hstr dataDir = [[[NSBundle bundleForClass:[self class]] resourcePath] UTF8String]; \
+				hstr tempDir = hdir::joinPath([NSTemporaryDirectory() UTF8String], "htest"); \
+				[__EXPAND(_HTEST_CLASS) _setUp:dataDir tempDir:tempDir];\
+			}\
+			catch (hexception& e) \
+			{ \
+				printf("    [htest::ERROR] Error initialising test suite: %s\n", hstr(e.getMessage()).cStr());\
+				exit(1);\
+			} \
+		}\
+		+ (void) _setUp:(chstr) dataDir tempDir:(chstr) tempDir
+
 	#define HTEST_SUITE_DESTROY() + (void) tearDown
 
 	#define HTEST_CASE(name) \
@@ -83,7 +99,24 @@
 
 	#define HTEST_SUITE_END };}
 
-	#define HTEST_SUITE_INIT() TEST_CLASS_INITIALIZE(initTestSuite)
+	#define HTEST_SUITE_INIT() TEST_CLASS_INITIALIZE(initTestSuite)\
+		{ \
+			try \
+			{ \
+				hstr dataDir = hdir::baseDir(__FILE__); \
+				wchar_t winTempPath[256]; \
+				GetTempPathW(256, winTempPath); \
+				hstr tempDir = hdir::joinPath(hstr::fromUnicode(winTempPath).replaced("\\", "/"), "htest"); \
+				hdir::createNew(tempDir); \
+				_initTestSuite(dataDir, tempDir); \
+			} \
+			catch (hexception& e) \
+			{ \
+				Assert::Fail(__assertMsg(e.getMessage())); \
+			} \
+		} \
+		static void _initTestSuite(chstr dataDir, chstr tempDir)
+
 	#define HTEST_SUITE_DESTROY() TEST_CLASS_CLEANUP(destroyTestSuite)
 
 	#define HTEST_CASE(name) TEST_METHOD(__EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## _ ## name) \
