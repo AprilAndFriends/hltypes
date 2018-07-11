@@ -29,6 +29,9 @@
 
 	#define HTEST_SUITE_END @end
 
+	#define HTEST_SUITE_INIT() + (void) setUp
+	#define HTEST_SUITE_DESTROY() + (void) tearDown
+
 	#define HTEST_CASE(name) \
 		- (void) test_ ## name \
 		{ \
@@ -79,6 +82,9 @@
 			public:
 
 	#define HTEST_SUITE_END };}
+
+	#define HTEST_SUITE_INIT() TEST_CLASS_INITIALIZE(initTestSuite)
+	#define HTEST_SUITE_DESTROY() TEST_CLASS_CLEANUP(destroyTestSuite)
 
 	#define HTEST_CASE(name) TEST_METHOD(__EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## _ ## name) \
 		{ \
