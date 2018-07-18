@@ -75,7 +75,7 @@
 	#endif
 
 	#ifdef _WINRT
-		#if !defined(_WINP8) && !defined(_WINUWP) && !defined(_OPENKODE)
+		#if !defined(_WINP8) && !defined(_UWP) && !defined(_OPENKODE)
 			#using <Windows.winmd>
 		#endif
 		#include <wrl.h>
