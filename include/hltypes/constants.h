@@ -18,6 +18,12 @@
 #define MAX_BYTE 0xFF
 // time
 #define MILLISECONDS_IN_SECOND 1000
+#define SECONDS_IN_MINUTE 60
+#define SECONDS_IN_HOUR 86400
+#define MINUTES_IN_HOUR 60
+#define SECONDS_IN_DAY 3600
+#define MINUTES_IN_DAY 1440
+#define HOURS_IN_DAY 24
 // color
 #define MAX_ALPHA 255
 // misc
