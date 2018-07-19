@@ -36,7 +36,7 @@ namespace hltypes
 	void _Exception::_setInternalMessage(const String& message, const char* sourceFile, int lineNumber)
 	{
 		this->rawMessage = message;
-		this->message = hsprintf("[%s:%d] %s", Dir::baseName(sourceFile).cStr(), lineNumber, message.cStr());
+		this->message = "[" + Dir::baseName(sourceFile) + ":" + hstr(lineNumber) + "] " + message;
 		// because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
 		// because Android doesn't display register data properly if an exception is thrown
 #if defined(_WIN32) || defined(__ANDROID__) || defined(_IOS)
@@ -53,7 +53,7 @@ namespace hltypes
 #if defined(_WIN32) || defined(__ANDROID__)
 		int errnoValue = errno;
 #endif
-		String message = hsprintf("'%s' could not be opened!", filename.cStr());
+		String message = "'" + filename + "' could not be opened!";
 		try
 		{
 			String baseDir = DirBase::baseDir(filename);
@@ -113,7 +113,7 @@ namespace hltypes
 	_FileNotOpenException::_FileNotOpenException(const String& filename, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("'%s' is not open!", filename.cStr()), sourceFile, lineNumber);
+		this->_setInternalMessage("'" + filename + "' is not open!", sourceFile, lineNumber);
 	}
 	_FileNotOpenException::~_FileNotOpenException()
 	{
@@ -122,7 +122,7 @@ namespace hltypes
 	_FileNotWriteableException::_FileNotWriteableException(const String& filename, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("'%s' is not writeable!", filename.cStr()), sourceFile, lineNumber);
+		this->_setInternalMessage("'" + filename + "' is not writeable!", sourceFile, lineNumber);
 	}
 	_FileNotWriteableException::~_FileNotWriteableException()
 	{
@@ -131,7 +131,7 @@ namespace hltypes
 	_ResourceNotExistsException::_ResourceNotExistsException(const String& type, const String& name, const String& container, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("'%s' '%s' does not exist in '%s'", name.cStr(), type.cStr(), container.cStr()), sourceFile, lineNumber);
+		this->_setInternalMessage("'" + name + "' '" + type + "' does not exist in '" + container + "'", sourceFile, lineNumber);
 	}
 	_ResourceNotExistsException::~_ResourceNotExistsException()
 	{
@@ -140,7 +140,7 @@ namespace hltypes
 	_ResourceAlreadyExistsException::_ResourceAlreadyExistsException(const String& type, const String& name, const String& container, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("'%s' '%s' already exists in '%s'", name.cStr(), type.cStr(), container.cStr()), sourceFile, lineNumber);
+		this->_setInternalMessage("'" + name + "' '" + type + "' already exists in '" + container + "'", sourceFile, lineNumber);
 	}
 	_ResourceAlreadyExistsException::~_ResourceAlreadyExistsException()
 	{
@@ -149,7 +149,7 @@ namespace hltypes
 	_ContainerIndexException::_ContainerIndexException(int index, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("index '%d' out of range", index), sourceFile, lineNumber);
+		this->_setInternalMessage("index '" + hstr(lineNumber) + "' out of range", sourceFile, lineNumber);
 	}
 	_ContainerIndexException::~_ContainerIndexException()
 	{
@@ -158,7 +158,7 @@ namespace hltypes
 	_ContainerEmptyException::_ContainerEmptyException(const String& functionName, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("'%s' cannot be used on a container with size = 0", functionName.cStr()), sourceFile, lineNumber);
+		this->_setInternalMessage("'" + functionName + "' cannot be used on a container with size = 0", sourceFile, lineNumber);
 	}
 	_ContainerEmptyException::~_ContainerEmptyException()
 	{
@@ -167,7 +167,7 @@ namespace hltypes
 	_ContainerElementNotFoundException::_ContainerElementNotFoundException(const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage("element not found in container ", sourceFile, lineNumber);
+		this->_setInternalMessage("element not found in container", sourceFile, lineNumber);
 	}
 	_ContainerElementNotFoundException::~_ContainerElementNotFoundException()
 	{
@@ -176,7 +176,7 @@ namespace hltypes
 	_ContainerRangeException::_ContainerRangeException(int start, int count, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("range 'at %d for %d' out of range", start, count), sourceFile, lineNumber);
+		this->_setInternalMessage("range 'at " + hstr(start) + " for " + hstr(count) + "' out of range", sourceFile, lineNumber);
 	}
 	_ContainerRangeException::~_ContainerRangeException()
 	{
@@ -185,7 +185,7 @@ namespace hltypes
 	_ContainerKeyException::_ContainerKeyException(const String& key, const String& container, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("key '%s' not found in '%s'", key.cStr(), container.cStr()), sourceFile, lineNumber);
+		this->_setInternalMessage("key '" + key + "' not found in '" + container + "'", sourceFile, lineNumber);
 	}
 	_ContainerKeyException::~_ContainerKeyException()
 	{
@@ -194,7 +194,7 @@ namespace hltypes
 	_ObjectCannotCopyException::_ObjectCannotCopyException(const String& name, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("cannot create copy of object of class '%s'", name.cStr()), sourceFile, lineNumber);
+		this->_setInternalMessage("cannot create copy of object of class '" + name + "'", sourceFile, lineNumber);
 	}
 	_ObjectCannotCopyException::~_ObjectCannotCopyException()
 	{
@@ -203,7 +203,7 @@ namespace hltypes
 	_ObjectCannotAssignException::_ObjectCannotAssignException(const String& name, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("cannot assign object of class '%s'", name.cStr()), sourceFile, lineNumber);
+		this->_setInternalMessage("cannot assign object of class '" + name + "'", sourceFile, lineNumber);
 	}
 	_ObjectCannotAssignException::~_ObjectCannotAssignException()
 	{
@@ -212,7 +212,7 @@ namespace hltypes
 	_EnumerationValueNotExistsException::_EnumerationValueNotExistsException(unsigned int value, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("enum value does not exist: %d", value), sourceFile, lineNumber);
+		this->_setInternalMessage("enum value does not exist: " + hstr(value), sourceFile, lineNumber);
 	}
 	_EnumerationValueNotExistsException::~_EnumerationValueNotExistsException()
 	{
@@ -221,7 +221,7 @@ namespace hltypes
 	_EnumerationValueAlreadyExistsException::_EnumerationValueAlreadyExistsException(unsigned int value, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage(hsprintf("enum value already exists: %d", value), sourceFile, lineNumber);
+		this->_setInternalMessage("enum value already exists: " + hstr(value), sourceFile, lineNumber);
 	}
 	_EnumerationValueAlreadyExistsException::~_EnumerationValueAlreadyExistsException()
 	{
