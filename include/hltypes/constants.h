@@ -26,6 +26,8 @@
 #define HOURS_IN_DAY 24
 // color
 #define MAX_ALPHA 255
+#define HALF_ALPHA 128
+#define MIN_ALPHA 0
 // misc
 #define MAX_PERCENT 100.0f
 
