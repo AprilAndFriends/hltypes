@@ -48,6 +48,23 @@
 
 	#define HTEST_SUITE_DESTROY() + (void) tearDown
 
+	#define HTEST_INIT()\
+		- (void) setUp\
+		{\
+			try \
+			{ \
+				[self __setUp]; \
+			}\
+			catch (hexception& e) \
+			{ \
+				printf("    [htest::ERROR] Error initialising test: %s\n", hstr(e.getMessage()).cStr());\
+				exit(1);\
+			} \
+		}\
+		- (void) __setUp
+
+	#define HTEST_DESTROY() - (void) tearDown
+
 	#define HTEST_CASE(name) \
 		- (void) test_ ## name \
 		{ \
@@ -99,25 +116,20 @@
 
 	#define HTEST_SUITE_END };}
 
-	#define HTEST_SUITE_INIT() TEST_CLASS_INITIALIZE(initTestSuite)\
+	#define HTEST_INIT() TEST_METHOD_INITIALIZE(initTestMethod)\
 		{ \
 			try \
 			{ \
-				hstr dataDir = hdir::baseDir(__FILE__); \
-				wchar_t winTempPath[256]; \
-				GetTempPathW(256, winTempPath); \
-				hstr tempDir = hdir::joinPath(hstr::fromUnicode(winTempPath).replaced("\\", "/"), "htest"); \
-				hdir::createNew(tempDir); \
-				_initTestSuite(dataDir, tempDir); \
+				_initTestMethod(); \
 			} \
 			catch (hexception& e) \
 			{ \
 				Assert::Fail(__assertMsg(e.getMessage())); \
 			} \
 		} \
-		static void _initTestSuite(chstr dataDir, chstr tempDir)
+		static void _initTestMethod()
 
-	#define HTEST_SUITE_DESTROY() TEST_CLASS_CLEANUP(destroyTestSuite)
+	#define HTEST_DESTROY() TEST_METHOD_CLEANUP(destroyTestSuite)
 
 	#define HTEST_CASE(name) TEST_METHOD(__EXPAND(_HTEST_LIB) ## __EXPAND(_) ## __EXPAND(_HTEST_CLASS) ## _ ## name) \
 		{ \
