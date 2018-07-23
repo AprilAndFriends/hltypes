@@ -12,6 +12,9 @@
 #include <hltypes/hdir.h>
 
 #define __EXPAND(x) x
+#define MM_CONCAT__( a, b )     a ## b
+#define MM_CONCAT_( a, b )      MM_CONCAT__( a, b )
+#define MM_CONCAT( a, b )       MM_CONCAT_( a, b )
 
 #ifdef __APPLE__
 	#import <Foundation/NSString.h>
@@ -23,9 +26,9 @@
 
 	#define HTEST_SUITE_BEGIN \
 		static const char* __assertMsg(chstr msg) { return msg.cStr(); } \
-		@interface __EXPAND(_HTEST_CLASS) : XCTestCase \
+		@interface MM_CONCAT(_, _HTEST_CLASS) : XCTestCase \
 		@end \
-		@implementation __EXPAND(_HTEST_CLASS)
+		@implementation MM_CONCAT(_, _HTEST_CLASS)
 
 	#define HTEST_SUITE_END @end
 
@@ -36,7 +39,7 @@
 			{ \
 				hstr dataDir = [[[NSBundle bundleForClass:[self class]] resourcePath] UTF8String]; \
 				hstr tempDir = hdir::joinPath([NSTemporaryDirectory() UTF8String], "htest"); \
-				[__EXPAND(_HTEST_CLASS) _setUp:dataDir tempDir:tempDir];\
+				[MM_CONCAT(_, _HTEST_CLASS) _setUp:dataDir tempDir:tempDir];\
 			}\
 			catch (hexception& e) \
 			{ \
@@ -110,7 +113,7 @@
 		{ \
 			static wchar_t __assertMessage[2048]; \
 			static const wchar_t* __assertMsg(chstr msg) { const char* s = msg.cStr(); int i; for (i = 0; s[i] != 0; ++i) { __assertMessage[i] = s[i]; }; __assertMessage[i] = 0; return __assertMessage; } \
-			TEST_CLASS(__EXPAND(_HTEST_CLASS)) \
+			TEST_CLASS(MM_CONCAT(_, _HTEST_CLASS)) \
 			{ \
 			public:
 
