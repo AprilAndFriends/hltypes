@@ -15,18 +15,25 @@
 
 namespace hltypes
 {
+	static HANDLE _consoleHandle = NULL;
+	static int _consoleColor = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE; // white
+
 	void _setLevelColor(int level)
 	{
-		static HANDLE consoleHandle = NULL;
-		if (consoleHandle == NULL)
+		if (_consoleHandle == NULL)
 		{
-			consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-			if (consoleHandle == NULL)
+			_consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+			if (_consoleHandle == NULL)
 			{
 				return;
 			}
+			// remember the initial console color
+			CONSOLE_SCREEN_BUFFER_INFO info;
+			if (GetConsoleScreenBufferInfo(_consoleHandle, &info) != 0)
+			{
+				_consoleColor = (info.wAttributes & 0xFF);
+			}
 		}
-		static int lastColor = 0;
 		int color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE; // white
 		if (level == Log::LevelError)
 		{
@@ -40,10 +47,15 @@ namespace hltypes
 		{
 			color = FOREGROUND_GREEN; // green
 		}
-		if (lastColor != color)
+		SetConsoleTextAttribute(_consoleHandle, color | FOREGROUND_INTENSITY);
+	}
+
+	void _resetColor()
+	{
+		// reset the console color after finished printing
+		if (_consoleHandle == NULL)
 		{
-			SetConsoleTextAttribute(consoleHandle, color | FOREGROUND_INTENSITY);
-			lastColor = color;
+			SetConsoleTextAttribute(_consoleHandle, _consoleColor | FOREGROUND_INTENSITY);
 		}
 	}
 
@@ -64,6 +76,7 @@ namespace hltypes
 			OutputDebugStringW((message + "\n").wStr().c_str());
 #endif
 		}
+		_resetColor();
 	}
 
 	bool _platformClipboardClear()
