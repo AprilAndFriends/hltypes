@@ -18,10 +18,12 @@ namespace hltypes
 	{
 		if (tag != "")
 		{
+			printf("[%s] %s\n", tag.cStr(), message.cStr());
 			OutputDebugStringW(("[" + tag + "] " + message + "\n").wStr().c_str());
 		}
 		else
 		{
+			printf("%s\n", message.cStr());
 			OutputDebugStringW((message + "\n").wStr().c_str());
 		}
 	}
