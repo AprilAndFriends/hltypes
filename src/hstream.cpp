@@ -39,12 +39,23 @@ namespace hltypes
 		if (initialDataSize > 0)
 		{
 			this->stream = (unsigned char*)malloc((int)this->capacity);
-			memcpy(this->stream, initialData, initialDataSize);
+			if (this->stream != NULL)
+			{
+				memcpy(this->stream, initialData, initialDataSize);
+			}
+			else
+			{
+				hlog::errorf(logTag, "Could not allocate %d bytes of memory for hstream!", this->capacity);
+			}
 		}
 		else
 		{
 			this->capacity = MIN_HSTREAM_CAPACITY;
 			this->stream = (unsigned char*)malloc(MIN_HSTREAM_CAPACITY);
+			if (this->stream == NULL)
+			{
+				hlog::errorf(logTag, "Could not allocate %d bytes of memory for hstream!", this->capacity);
+			}
 		}
 		this->_updateDataSize();
 	}
@@ -59,12 +70,23 @@ namespace hltypes
 		if (initialDataSize > 0)
 		{
 			this->stream = (unsigned char*)malloc((int)this->capacity);
-			memcpy(this->stream, initialData, initialDataSize);
+			if (this->stream != NULL)
+			{
+				memcpy(this->stream, initialData, initialDataSize);
+			}
+			else
+			{
+				hlog::errorf(logTag, "Could not allocate %d bytes of memory for hstream!", this->capacity);
+			}
 		}
 		else
 		{
 			this->capacity = MIN_HSTREAM_CAPACITY;
 			this->stream = (unsigned char*)malloc(MIN_HSTREAM_CAPACITY);
+			if (this->stream == NULL)
+			{
+				hlog::errorf(logTag, "Could not allocate %d bytes of memory for hstream!", this->capacity);
+			}
 		}
 		this->_updateDataSize();
 	}
@@ -80,12 +102,23 @@ namespace hltypes
 		if (this->streamSize > 0LL)
 		{
 			this->stream = (unsigned char*)malloc((int)this->capacity);
-			memcpy(this->stream, (unsigned char*)other, (int)this->streamSize);
+			if (this->stream != NULL)
+			{
+				memcpy(this->stream, (unsigned char*)other, (int)this->streamSize);
+			}
+			else
+			{
+				hlog::errorf(logTag, "Could not allocate %d bytes of memory for hstream!", this->capacity);
+			}
 		}
 		else
 		{
 			this->capacity = MIN_HSTREAM_CAPACITY;
 			this->stream = (unsigned char*)malloc(MIN_HSTREAM_CAPACITY);
+			if (this->stream == NULL)
+			{
+				hlog::errorf(logTag, "Could not allocate %d bytes of memory for hstream!", this->capacity);
+			}
 		}
 		this->_updateDataSize();
 	}

@@ -50,13 +50,20 @@ namespace hltypes
 		this->name = name;
 #ifdef _WIN32
 		this->handle = (CRITICAL_SECTION*)malloc(sizeof(CRITICAL_SECTION));
+		if (this->handle != 0)
+		{
 #ifndef _WINRT // WinXP does not have InitializeCriticalSectionEx()
-		InitializeCriticalSection((CRITICAL_SECTION*)this->handle);
+			InitializeCriticalSection((CRITICAL_SECTION*)this->handle);
 #elif !defined(_DEBUG)
-		InitializeCriticalSectionEx((CRITICAL_SECTION*)this->handle, 0, 0);
+			InitializeCriticalSectionEx((CRITICAL_SECTION*)this->handle, 0, 0);
 #else
-		InitializeCriticalSectionEx((CRITICAL_SECTION*)this->handle, 0, CRITICAL_SECTION_NO_DEBUG_INFO);
+			InitializeCriticalSectionEx((CRITICAL_SECTION*)this->handle, 0, CRITICAL_SECTION_NO_DEBUG_INFO);
 #endif
+		}
+		else
+		{
+			hlog::error(logTag, "Could not allocate enough memory mutex handle!");
+		}
 #else
 		this->handle = (pthread_mutex_t*)malloc(sizeof(pthread_mutex_t));
 		pthread_mutex_init((pthread_mutex_t*)this->handle, 0);

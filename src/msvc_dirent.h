@@ -184,7 +184,7 @@ static dirent* _readdir(DIR* dirp)
 		}
 	}
 	// copy as a multibyte character string
-	WCSNCPY(dirp->current.d_name, dirp->current.data.cFileName, (MAX_PATH + 2) * sizeof(wchar_t));
+	memcpy(dirp->current.d_name, dirp->current.data.cFileName, MAX_PATH * sizeof(wchar_t));
 	dirp->current.d_name[MAX_PATH] = '\0';
 	return &dirp->current;
 }
