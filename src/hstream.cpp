@@ -19,22 +19,23 @@
 namespace hltypes
 {
 	Stream::Stream(int initialCapacity) :
-		StreamBase()
+		StreamBase(),
+		stream(NULL),
+		streamSize(0LL),
+		streamPosition(0LL),
+		capacity((int64_t)hmax(MIN_HSTREAM_CAPACITY, initialCapacity))
 	{
-		initialCapacity = hmax(MIN_HSTREAM_CAPACITY, initialCapacity);
-		this->capacity = (int64_t)initialCapacity;
-		this->streamSize = 0;
-		this->streamPosition = 0;
 		// using malloc because realloc is used later
 		this->stream = (unsigned char*)malloc((int)this->capacity);
 	}
 
 	Stream::Stream(unsigned char* initialData, int initialDataSize) :
-		StreamBase()
+		StreamBase(),
+		stream(NULL),
+		streamSize((int64_t)initialDataSize),
+		streamPosition(0LL),
+		capacity((int64_t)initialDataSize)
 	{
-		this->capacity = (int64_t)initialDataSize;
-		this->streamSize = (int64_t)initialDataSize;
-		this->streamPosition = 0;
 		// using malloc because realloc is used later
 		if (initialDataSize > 0)
 		{
@@ -61,11 +62,12 @@ namespace hltypes
 	}
 
 	Stream::Stream(unsigned char* initialData, int initialDataSize, int initialCapacity) :
-		StreamBase()
+		StreamBase(),
+		stream(NULL),
+		streamSize((int64_t)initialDataSize),
+		streamPosition(0LL),
+		capacity((int64_t)hmax(initialCapacity, initialDataSize))
 	{
-		this->capacity = (int64_t)hmax(initialCapacity, initialDataSize);
-		this->streamSize = (int64_t)initialDataSize;
-		this->streamPosition = 0;
 		// using malloc because realloc is used later
 		if (initialDataSize > 0)
 		{
@@ -92,12 +94,13 @@ namespace hltypes
 	}
 
 	Stream::Stream(const Stream& other) :
-		StreamBase()
+		StreamBase(),
+		stream(NULL),
+		streamSize(other.streamSize),
+		streamPosition(other.streamPosition),
+		capacity(other.capacity)
 	{
-		// must not used assignement operator due to uninitialized class
-		this->capacity = other.capacity;
-		this->streamSize = other.streamSize;
-		this->streamPosition = other.streamPosition;
+		// must not used assignment operator here due to internally uninitialized class
 		// using malloc because realloc is used later
 		if (this->streamSize > 0LL)
 		{
