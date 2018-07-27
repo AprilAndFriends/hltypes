@@ -29,13 +29,13 @@ public: \
 	inline classe() : henum() { } \
 	inline classe(chstr name) : henum() { this->_addNewInstance(#classe, name); } \
 	inline classe(chstr name, unsigned int value) : henum(value) { this->_addNewInstance(#classe, name, value); } \
-	inline classe next() \
+	inline classe next() const \
 	{ \
 		harray<classe> values = classe::getValues(); \
 		values.sort(); \
 		return values[(values.indexOf(*this) + 1) % values.size()]; \
 	} \
-	inline classe previous() \
+	inline classe previous() const \
 	{ \
 		harray<classe> values = classe::getValues(); \
 		values.sort(); \
@@ -47,6 +47,21 @@ public: \
 	inline bool operator>=(const classe& other) const { return (this->value >= other.value); } \
 	inline bool operator==(const classe& other) const { return (this->value == other.value); } \
 	inline bool operator!=(const classe& other) const { return (this->value != other.value); } \
+	inline static int getCount() \
+	{ \
+		return _instances.size(); \
+	} \
+	inline static harray<classe> getValues() \
+	{ \
+		harray<classe> result; \
+		foreach_map (unsigned int, hstr, it, _instances) \
+		{ \
+			result += classe::fromUint(it->first); \
+		} \
+		return result; \
+	} \
+	inline static hstr getEnumName() { return #classe; } \
+	inline static hmap<unsigned int, hstr> getAsMap() { return _instances; } \
 	inline static classe fromInt(int value) \
 	{ \
 		return fromUint((unsigned int)value); \
@@ -87,17 +102,6 @@ public: \
 	{ \
 		return _instances.hasKey(value); \
 	} \
-	inline static harray<classe> getValues() \
-	{ \
-		harray<classe> result; \
-		foreach_map (unsigned int, hstr, it, _instances) \
-		{ \
-			result += classe::fromUint(it->first); \
-		} \
-		return result; \
-	} \
-	inline static hstr getEnumName() { return #classe; } \
-	inline static hmap<unsigned int, hstr> getAsMap() { return _instances; } \
 	__HL_EXPAND_MACRO code \
 protected: \
 	inline classe(unsigned int value) : henum(value) { } \
