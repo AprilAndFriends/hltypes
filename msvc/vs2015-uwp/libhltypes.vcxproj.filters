@@ -56,9 +56,6 @@
     <ClCompile Include="..\..\src\hlog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\platform\Win32_platform.cpp">
-      <Filter>Source Files\platform</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\platform\UWP_platform.cpp">
       <Filter>Source Files\platform</Filter>
     </ClCompile>

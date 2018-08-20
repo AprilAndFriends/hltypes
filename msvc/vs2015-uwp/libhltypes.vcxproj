@@ -88,7 +88,6 @@
     <ClCompile Include="..\..\src\hthread.cpp" />
     <ClCompile Include="..\..\src\hltypesUtil.cpp" />
     <ClCompile Include="..\..\src\hversion.cpp" />
-    <ClCompile Include="..\..\src\platform\Win32_platform.cpp" />
     <ClCompile Include="..\..\src\platform\UWP_platform.cpp" />
     <ClCompile Include="..\..\src\platform_internal.cpp" />
     <ClCompile Include="..\..\src\zipaccess.cpp" />
