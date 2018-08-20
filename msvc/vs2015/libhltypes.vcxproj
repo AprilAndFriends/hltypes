@@ -174,7 +174,6 @@
     <ClCompile Include="..\..\src\hversion.cpp" />
     <ClCompile Include="..\..\src\platform\Android_platform.cpp" />
     <ClCompile Include="..\..\src\platform\Win32_platform.cpp" />
-    <ClCompile Include="..\..\src\platform\WinRT_platform.cpp" />
     <ClCompile Include="..\..\src\platform_internal.cpp" />
     <ClCompile Include="..\..\src\zipaccess.cpp" />
   </ItemGroup>

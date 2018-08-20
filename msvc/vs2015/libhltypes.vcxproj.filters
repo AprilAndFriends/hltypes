@@ -62,9 +62,6 @@
     <ClCompile Include="..\..\src\platform\Win32_platform.cpp">
       <Filter>Source Files\platform</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\platform\WinRT_platform.cpp">
-      <Filter>Source Files\platform</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\zipaccess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
