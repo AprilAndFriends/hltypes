@@ -290,8 +290,8 @@ namespace hltypes
 #ifndef _UWP
 		ResumeThread(this->id);
 #else
-		// not available in WinRT
-		Log::warn(logTag, "Thread::resume() is not available on WinRT.");
+		// not available in UWP
+		Log::warn(logTag, "Thread::resume() is not available on UWP.");
 #endif
 #endif
 	}
@@ -302,8 +302,8 @@ namespace hltypes
 #ifndef _UWP
 		SuspendThread(this->id);
 #else
-		// not available in WinRT
-		Log::warn(logTag, "Thread::pause() is not available on WinRT.");
+		// not available in UWP
+		Log::warn(logTag, "Thread::pause() is not available on UWP.");
 #endif
 #endif
 	}

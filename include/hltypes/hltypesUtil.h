@@ -235,7 +235,7 @@ hltypesFnExport int64_t htimeSinceBoot();
 /// @brief Gets an environment variable as String.
 /// @param[in] name Name of the environment variable.
 /// @return Environment variable as String.
-/// @note May not be available on all platforms (e.g. WinRT does not support it).
+/// @note May not be available on all platforms (e.g. UWP does not support it).
 hltypesFnExport hltypes::String henv(const hltypes::String& name);
 /// @brief Gets the current stack trace.
 /// @param[in] maxFrames How many frames.

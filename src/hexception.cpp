@@ -37,7 +37,7 @@ namespace hltypes
 	{
 		this->rawMessage = message;
 		this->message = "[" + Dir::baseName(sourceFile) + ":" + hstr(lineNumber) + "] " + message;
-		// because Visual Studio on WinRT cannot properly display exceptions and stack traces for some reason even though it should
+		// because Visual Studio on UWP cannot properly display exceptions and stack traces for some reason even though it should
 		// because Android doesn't display register data properly if an exception is thrown
 #if defined(_WIN32) || defined(__ANDROID__) || defined(_IOS)
 		if (Log::isLevelDebug() && message != "")

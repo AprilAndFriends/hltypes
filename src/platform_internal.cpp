@@ -127,7 +127,7 @@ namespace hltypes
 #ifndef _UWP
 		return String::fromUnicode(_wgetenv(name.wStr().c_str()));
 #else
-		return ""; // WinRT does not support environment variables
+		return ""; // UWP does not support environment variables
 #endif
 #else
 		return String(getenv(name.cStr()));
