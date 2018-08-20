@@ -74,9 +74,6 @@
 		#endif
 	#endif
 	#ifdef _UWP
-		#if !defined(_WINPHONE) && !defined(_OPENKODE)
-			#using <Windows.winmd>
-		#endif
 		#include <wrl.h>
 		#define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).wStr().c_str())
 		#define _HL_HSTR_TO_PSTR_DEF(string) Platform::String^ p ## string = _HL_HSTR_TO_PSTR(string)
