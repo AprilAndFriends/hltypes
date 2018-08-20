@@ -67,15 +67,14 @@
 	}
 
 #if defined(_WIN32) && defined(_MSC_VER)
-	// define _WINRT for external projects just in case
-	#if !defined(_WINRT) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
+	// define _UWP for external projects just in case
+	#if !defined(_UWP) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
 		#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
-			#define _WINRT
+			#define _UWP
 		#endif
 	#endif
-
-	#ifdef _WINRT
-		#if !defined(_WINP8) && !defined(_UWP) && !defined(_OPENKODE)
+	#ifdef _UWP
+		#if !defined(_WINPHONE) && !defined(_OPENKODE)
 			#using <Windows.winmd>
 		#endif
 		#include <wrl.h>

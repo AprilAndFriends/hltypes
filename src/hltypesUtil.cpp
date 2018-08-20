@@ -44,7 +44,7 @@
 #include <sys/sysinfo.h>
 #endif
 
-#if defined(_WIN32) && !defined(_WINRT)
+#if defined(_WIN32) && !defined(_UWP)
 #pragma warning(disable : 4091) // MS's own headers cause warnings
 // needed for stack trace functions
 #include <dbghelp.h> // has to be here after hplatform.h that includes windows.h
@@ -105,7 +105,7 @@ inline static int64_t _simpleUnixTimeSinceBoot()
 int64_t htickCount()
 {
 #ifdef _WIN32
-#ifndef _WINRT // because GetTickCount64() is not available pre-Vista, but much more reliable
+#ifndef _UWP // because GetTickCount64() is not available pre-Vista, but much more reliable
 	return (int64_t)GetTickCount();
 #else
 	return (int64_t)GetTickCount64();
@@ -202,7 +202,7 @@ hltypes::String hstackTrace(int maxFrames)
 	hltypes::Mutex::ScopeLock lock(&stackMutex);
 	// get stack trace
 	hltypes::String result = "Stack trace not available on this platform!";
-#if defined(_WIN32) && !defined(_WINRT) // doesn't work on WinRT
+#if defined(_WIN32) && !defined(_UWP) // doesn't work on UWP
 	maxFrames = hclamp(maxFrames, 1, MAX_STACK_FRAMES);
 	result = "Could not obtain stack trace!";
 	HANDLE process = GetCurrentProcess();

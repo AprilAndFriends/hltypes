@@ -33,7 +33,7 @@
 #include "hstring.h"
 #include "platform_internal.h"
 
-#if defined(_WIN32) && defined(_MSC_VER) && !defined(_WINRT)
+#if defined(_WIN32) && defined(_MSC_VER) && !defined(_UWP)
 	#define _WIN32_MKDIR_FULL_PERMISSIONS
 #endif
 #ifdef _WIN32_MKDIR_FULL_PERMISSIONS
@@ -42,7 +42,7 @@
 
 namespace hltypes
 {
-#ifdef _WINRT
+#ifdef _UWP
 	static hltypes::String winrtcwd = ".";
 #endif
 
@@ -124,7 +124,7 @@ namespace hltypes
 	String _platformEnv(const String& name)
 	{
 #ifdef _WIN32
-#ifndef _WINRT
+#ifndef _UWP
 		return String::fromUnicode(_wgetenv(name.wStr().c_str()));
 #else
 		return ""; // WinRT does not support environment variables
@@ -308,7 +308,7 @@ namespace hltypes
 	bool _platformCreateDirectory(const String& dirName)
 	{
 #ifdef _WIN32
-#if defined(_MSC_VER) && !defined(_WINRT)
+#if defined(_MSC_VER) && !defined(_UWP)
 		if (Dir::isWin32FullDirectoryPermissions() && _mkdirWin32FullPermissions(dirName))
 		{
 			return true;
@@ -341,7 +341,7 @@ namespace hltypes
 	void _platformChdir(const String& dirName)
 	{
 #ifdef _WIN32
-#ifndef _WINRT
+#ifndef _UWP
 		_wchdir(dirName.wStr().c_str());
 #else
 		winrtcwd = dirName;
@@ -354,7 +354,7 @@ namespace hltypes
 	String _platformCwd()
 	{
 #ifdef _WIN32
-#ifndef _WINRT
+#ifndef _UWP
 		char dir[FILENAME_MAX + 1] = { '\0' };
 		_getcwd(dir, FILENAME_MAX);
 		return Dir::systemize(dir);

@@ -34,7 +34,7 @@ namespace hltypes
 		Mutex* mutex = this->mutex;
 		if (this->release() && this->logUnhandledUnlocks && mutex != NULL)
 		{
-#if defined(_WIN32) && !defined(_WINRT)
+#if defined(_WIN32) && !defined(_UWP)
 			String address = hsprintf("<0x%p>", this); // only basic Win32 doesn't add 0x to %p
 #else
 			String address = hsprintf("<%p>", this);
@@ -52,7 +52,7 @@ namespace hltypes
 		this->handle = (CRITICAL_SECTION*)malloc(sizeof(CRITICAL_SECTION));
 		if (this->handle != 0)
 		{
-#ifndef _WINRT // WinXP does not have InitializeCriticalSectionEx()
+#ifndef _UWP // WinXP does not have InitializeCriticalSectionEx()
 			InitializeCriticalSection((CRITICAL_SECTION*)this->handle);
 #elif !defined(_DEBUG)
 			InitializeCriticalSectionEx((CRITICAL_SECTION*)this->handle, 0, 0);
@@ -87,7 +87,7 @@ namespace hltypes
 		EnterCriticalSection((CRITICAL_SECTION*)this->handle);
 		if (this->locked)
 		{
-#ifdef _WINRT
+#ifdef _UWP
 			String address = hsprintf("<0x%p>", this); // only basic Win32 doesn't add 0x to %p
 #else
 			String address = hsprintf("<%p>", this);

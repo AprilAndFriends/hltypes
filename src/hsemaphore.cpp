@@ -28,7 +28,7 @@ namespace hltypes
 		this->maxCount = maxCount;
 		this->name = name;
 #ifdef _WIN32
-#ifndef _WINRT // WinXP does not have CreateSemaphoreEx()
+#ifndef _UWP // WinXP does not have CreateSemaphoreEx()
 		this->handle = CreateSemaphoreW(NULL, this->maxCount, this->maxCount, L""); // this->name is NOT a system name!
 #else
 		this->handle = CreateSemaphoreExW(NULL, this->maxCount, this->maxCount, L"", 0, 0); // this->name is NOT a system name!

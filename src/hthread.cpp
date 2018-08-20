@@ -22,7 +22,7 @@
 #include "hthread.h"
 #include "platform_internal.h"
 
-#ifdef _WINRT
+#ifdef _UWP
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
 #endif
@@ -88,7 +88,7 @@ namespace hltypes
 	}
 #endif
 
-#ifdef _WINRT
+#ifdef _UWP
 	struct AsyncActionWrapper
 	{
 	public:
@@ -205,7 +205,7 @@ namespace hltypes
 		if (this->id != NULL)
 		{
 #ifdef _WIN32
-#ifndef _WINRT
+#ifndef _UWP
 			CloseHandle(this->id);
 #else
 			delete this->id;
@@ -220,7 +220,7 @@ namespace hltypes
 	void Thread::_platformStart()
 	{
 #ifdef _WIN32
-#ifndef _WINRT
+#ifndef _UWP
 		this->id = CreateThread(0, 0, &_asyncCall, &this->runner, 0, 0);
 #else
 		this->id = new AsyncActionWrapper(ThreadPool::RunAsync(ref new WorkItemHandler([&](IAsyncAction^ workItem)
@@ -252,7 +252,7 @@ namespace hltypes
 			return;
 		}
 #ifdef _WIN32
-#ifndef _WINRT
+#ifndef _UWP
 		WaitForSingleObject(this->id, INFINITE);
 #else
 		IAsyncAction^ action = ((AsyncActionWrapper*)this->id)->asyncAction;
@@ -287,7 +287,7 @@ namespace hltypes
 	void Thread::_platformResume()
 	{
 #ifdef _WIN32
-#ifndef _WINRT
+#ifndef _UWP
 		ResumeThread(this->id);
 #else
 		// not available in WinRT
@@ -299,7 +299,7 @@ namespace hltypes
 	void Thread::_platformPause()
 	{
 #ifdef _WIN32
-#ifndef _WINRT
+#ifndef _UWP
 		SuspendThread(this->id);
 #else
 		// not available in WinRT
@@ -315,7 +315,7 @@ namespace hltypes
 			return;
 		}
 #ifdef _WIN32
-#ifndef _WINRT
+#ifndef _UWP
 		TerminateThread(this->id, 0);
 #else
 		((AsyncActionWrapper*)this->id)->asyncAction->Cancel();
@@ -330,7 +330,7 @@ namespace hltypes
 	void Thread::sleep(float milliseconds)
 	{
 #ifdef _WIN32
-#ifndef _WINRT
+#ifndef _UWP
 		Sleep((int)milliseconds);
 #else
 		WaitForSingleObjectEx(GetCurrentThread(), (int)milliseconds, 0);
