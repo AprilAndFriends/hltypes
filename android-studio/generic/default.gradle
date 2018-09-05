@@ -1,5 +1,5 @@
 android {
-	compileSdkVersion 26
+	compileSdkVersion 28
 	
 	defaultConfig {
 		minSdkVersion 15
@@ -12,6 +12,6 @@ android {
 }
 
 dependencies {
-	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation fileTree(dir: "libs", include: ["*.jar"])
 }
 
