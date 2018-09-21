@@ -99,6 +99,9 @@ namespace hltypes
 		catch (_Exception&) // is this inception or exception, I am confused
 		{
 		}
+#if defined(_WINRT) || defined(_IOS) || defined(_MAC)
+		message += " The current platform might use a sandboxed environment and may not be able to access files outside of it.";
+#endif
 #if defined(_WIN32) || defined(__ANDROID__)
 		message += " System error: " + String(strerror(errnoValue));
 #else
