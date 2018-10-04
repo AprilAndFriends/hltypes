@@ -592,7 +592,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7B18D763470088FC68 /* iOS.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -616,7 +615,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7B18D763470088FC68 /* iOS.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -640,7 +638,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7B18D763470088FC68 /* iOS.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -664,7 +661,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7C18D763470088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
@@ -680,7 +676,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7C18D763470088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
@@ -696,7 +691,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7C18D763470088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;

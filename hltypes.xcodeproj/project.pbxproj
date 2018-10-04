@@ -697,7 +697,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
 					"$(inherited)",
@@ -745,7 +744,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
@@ -790,7 +788,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
 					"$(inherited)",
@@ -808,7 +805,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/include";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -825,7 +821,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/include";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -842,7 +837,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/include";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -907,7 +901,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -949,7 +942,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -986,7 +978,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1023,7 +1014,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1041,7 +1031,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
@@ -1058,7 +1047,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
