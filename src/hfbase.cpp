@@ -199,23 +199,23 @@ namespace hltypes
 		{
 			return false;
 		}
-		bool result = _platformFileExists(name);
-		if (!result && !caseSensitive)
+		if (_platformFileExists(name))
 		{
-			String baseDir = Dir::baseDir(name);
-			String baseName = Dir::baseName(name);
-			Array<String> files = Dir::files(baseDir);
+			return true;
+		}
+		if (!caseSensitive)
+		{
+			String baseName = Dir::baseName(name).lowered();
+			Array<String> files = Dir::files(Dir::baseDir(name));
 			foreach (String, it, files)
 			{
-				if ((*it).lowered() == baseName.lowered())
+				if ((*it).lowered() == baseName)
 				{
-					name = Dir::joinPath(baseDir, (*it));
-					result = true;
-					break;
+					return true;
 				}
 			}
 		}
-		return result;
+		return false;
 	}
 	
 	FileBase::FileBase(const FileBase& other)

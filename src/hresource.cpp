@@ -20,7 +20,6 @@
 
 namespace hltypes
 {
-	bool Resource::zipMounts = false;
 	Map<String, String> Resource::mountedArchives;
 
 	bool Resource::mountArchive(const String& path, const String& archiveFilename, const String& cwd)
@@ -33,11 +32,6 @@ namespace hltypes
 		if (normalizedPath != "" && !normalizedPath.endsWith("/"))
 		{
 			normalizedPath += "/";
-		}
-		if (normalizedPath != "" && !Resource::zipMounts)
-		{
-			Log::errorf(logTag, "Cannot mount archive filename '%s' to path '%s', a default path archive required first!", archiveFilename.cStr(), path.cStr());
-			return false;
 		}
 		if (Resource::mountedArchives.hasKey(normalizedPath))
 		{
@@ -79,14 +73,14 @@ namespace hltypes
 		ResourceDir::cacheFiles.clear();
 #endif
 		Resource::mountedArchives[normalizedPath] = normalizedArchiveFilename;
-		if (normalizedPath == "")
+		static bool firstMount = true;
+		if (firstMount)
 		{
+			firstMount = false;
 #ifdef _ZIPRESOURCE
-			Log::write(logTag, "Mounted default path. ZIP available: yes");
-			Resource::zipMounts = zip::isZipMounts();
-			return Resource::zipMounts;
+			Log::write(logTag, "Mounted archive. ZIP available: yes");
 #else
-			Log::write(logTag, "Mounted default path. ZIP available: no");
+			Log::write(logTag, "Mounted archive. ZIP available: no");
 #endif
 		}
 		return true;
@@ -108,20 +102,11 @@ namespace hltypes
 			Log::errorf(logTag, "Cannot unmount path '%s', the path is not mounted!", path.cStr());
 			return false;
 		}
-		if (normalizedPath == "" && Resource::mountedArchives.size() > 1)
-		{
-			Log::error(logTag, "Cannot unmount default path, other paths are still mounted!");
-			return false;
-		}
 #ifdef _ZIPRESOURCE
 		if (!zip::unmountArchive(normalizedPath))
 		{
 			Log::errorf(logTag, "Cannot unmount path '%s', internal ZIP error!", path.cStr());
 			return false;
-		}
-		if (normalizedPath == "")
-		{
-			Resource::zipMounts = false;
 		}
 		// unmounting has to clear directory / file caches
 		ResourceDir::cacheDirectories.clear();
@@ -133,7 +118,8 @@ namespace hltypes
 
 	Resource::Resource() :
 		FileBase(),
-		dataPosition(0)
+		dataPosition(0LL),
+		zipResource(false)
 	{
 	}
 
@@ -148,34 +134,20 @@ namespace hltypes
 	void Resource::open(const String& filename)
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (Resource::mountedArchives.size() > 0)
 		{
 			if (this->_isOpen())
 			{
 				this->close();
 			}
 			this->filename = this->resourceFilename = ResourceDir::normalize(filename);
-			int attempts = Resource::repeats + 1;
-			while (true)
+			this->cfile = zip::fopen(this, this->filename);
+			if (this->cfile != NULL)
 			{
-				this->cfile = zip::fopen(this, this->filename);
-				if (this->cfile != NULL)
-				{
-					break;
-				}
-				--attempts;
-				if (attempts <= 0)
-				{
-					break;
-				}
-				Thread::sleep(Resource::timeout);
+				this->zipResource = true;
+				this->_updateDataSize();
+				return;
 			}
-			if (this->cfile == NULL)
-			{
-				throw ResourceFileCouldNotOpenException(this->_descriptor());
-			}
-			this->_updateDataSize();
-			return;
 		}
 #endif
 		this->_fopen(Resource::_makeNonZipPath(filename), AccessMode::Read, FileBase::repeats, FileBase::timeout);
@@ -186,7 +158,7 @@ namespace hltypes
 	void Resource::close()
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (this->zipResource)
 		{
 			this->_validate();
 			if (this->cfile != NULL)
@@ -196,6 +168,7 @@ namespace hltypes
 			}
 			this->dataSize = 0;
 			this->dataPosition = 0;
+			this->zipResource = false;
 			return;
 		}
 #endif
@@ -215,7 +188,7 @@ namespace hltypes
 	void Resource::_updateDataSize()
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (this->zipResource)
 		{
 			this->dataSize = zip::fsize(this->cfile);
 			return;
@@ -228,7 +201,7 @@ namespace hltypes
 	int Resource::_read(void* buffer, int count)
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (this->zipResource)
 		{
 			this->dataPosition += count;
 			return zip::fread(this->cfile, buffer, count);
@@ -245,7 +218,7 @@ namespace hltypes
 	bool Resource::_isOpen() const
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (this->zipResource)
 		{
 			return (this->cfile != NULL);
 		}
@@ -256,7 +229,7 @@ namespace hltypes
 	int64_t Resource::_position() const
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (this->zipResource)
 		{
 			return zip::fposition(this->cfile);
 		}
@@ -267,7 +240,7 @@ namespace hltypes
 	bool Resource::_seek(int64_t offset, SeekMode seekMode)
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (this->zipResource)
 		{
 			bool result = zip::fseek(this->cfile, offset, seekMode);
 			this->dataPosition = zip::fposition(this->cfile);
@@ -280,34 +253,42 @@ namespace hltypes
 	bool Resource::exists(const String& filename, bool caseSensitive)
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (Resource::_zipExists(filename, caseSensitive))
 		{
-			hstr name = ResourceDir::normalize(filename);
-			if (name == "")
-			{
-				return false;
-			}
-			bool result = zip::fexists(name);
-			if (!result && !caseSensitive)
-			{
-				String name = filename;
-				String baseDir = ResourceDir::baseDir(name);
-				String baseName = ResourceDir::baseName(name);
-				Array<String> files = ResourceDir::files(baseDir);
-				foreach (String, it, files)
-				{
-					if ((*it).lowered() == baseName.lowered())
-					{
-						name = ResourceDir::joinPath(baseDir, (*it));
-						result = true;
-						break;
-					}
-				}
-			}
-			return result;
+			return true;
 		}
 #endif
 		return FileBase::_fexists(Resource::_makeNonZipPath(filename), caseSensitive);
+	}
+
+	bool Resource::_zipExists(const String& filename, bool caseSensitive)
+	{
+#ifdef _ZIPRESOURCE
+		if (Resource::mountedArchives.size() > 0)
+		{
+			String name = ResourceDir::normalize(filename);
+			if (name != "")
+			{
+				if (zip::fexists(name))
+				{
+					return true;
+				}
+				if (!caseSensitive)
+				{
+					String baseName = ResourceDir::baseName(name).lowered();
+					Array<String> files = ResourceDir::files(ResourceDir::baseDir(name));
+					foreach (String, it, files)
+					{
+						if ((*it).lowered() == baseName)
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+#endif
+		return false;
 	}
 	
 	String Resource::hread(const String& filename, int count)
@@ -327,7 +308,7 @@ namespace hltypes
 	FileInfo Resource::hinfo(const String& filename)
 	{
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (Resource::_zipExists(filename))
 		{
 			return zip::finfo(ResourceDir::normalize(filename));
 		}

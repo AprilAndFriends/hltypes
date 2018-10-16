@@ -81,13 +81,13 @@ namespace hltypes
 	protected:
 		/// @brief Data position;
 		int64_t dataPosition;
-		/// internal filename
+		/// @brief Internal filename
 		hstr resourceFilename;
+		/// @brief Whether this resource uses a ZIP file as provider
+		bool zipResource;
 
 		/// @brief Defines currently mounted archive filenames and mount paths.
 		static Map<String, String> mountedArchives;
-		/// @brief Defines whether the archive is set to an actual file.
-		static bool zipMounts;
 
 		/// @brief Updates internal data size.
 		void _updateDataSize();
@@ -112,7 +112,13 @@ namespace hltypes
 		/// @param[in] offset Seeking offset in bytes.
 		/// @param[in] seekMode Seeking mode.
 		bool _seek(int64_t offset, SeekMode seekMode = SeekMode::Current);
-		
+		/// @brief Checks if a resource file exists in a ZIP file.
+		/// @param[in] filename Name of the resource file.
+		/// @param[in] caseSensitive Whether to check case sensitive files if file was not found.
+		/// @return True if resource file exists.
+		/// @note Disabling caseSensitive is somewhat costly if the given file is not found at first.
+		static bool _zipExists(const String& filename, bool caseSensitive = true);
+
 		/// @brief Create a filename that is outside of the ZIP file system.
 		/// @param[in] filename Original filename.
 		/// @return Filename that is outside of the ZIP file system.

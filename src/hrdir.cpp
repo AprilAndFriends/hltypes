@@ -33,26 +33,25 @@ namespace hltypes
 			return true;
 		}
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (Resource::mountedArchives.size() > 0)
 		{
 			// this approach is used, because sometimes ZIP files don't enumerate their directories
-			bool result = ResourceDir::directories(ResourceDir::baseDir(name)).has(ResourceDir::baseName(name));
-			if (!result && !caseSensitive)
+			if (ResourceDir::directories(ResourceDir::baseDir(name)).has(ResourceDir::baseName(name)))
 			{
-				String baseDir = ResourceDir::baseDir(name);
-				String baseName = ResourceDir::baseName(name);
-				Array<String> directories = ResourceDir::directories(baseDir);
+				return true;
+			}
+			if (!caseSensitive)
+			{
+				String baseName = ResourceDir::baseName(name).lowered();
+				Array<String> directories = ResourceDir::directories(ResourceDir::baseDir(name));
 				foreach (String, it, directories)
 				{
-					if ((*it).lowered() == baseName.lowered())
+					if ((*it).lowered() == baseName)
 					{
-						name = ResourceDir::joinPath(baseDir, (*it));
-						result = true;
-						break;
+						return true;
 					}
 				}
 			}
-			return result;
 		}
 #endif
 		return Dir::exists(Resource::_makeNonZipPath(name), caseSensitive);
@@ -76,7 +75,7 @@ namespace hltypes
 		String name = ResourceDir::normalize(dirName);
 		Array<String> result;
 		result = ResourceDir::directories(name, false) + ResourceDir::files(name, false);
-		if (!Resource::zipMounts)
+		if (Resource::mountedArchives.size() == 0)
 		{
 			result.removeDuplicates();
 		}
@@ -92,7 +91,7 @@ namespace hltypes
 		String name = ResourceDir::normalize(dirName);
 		Array<String> result;
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (Resource::mountedArchives.size() > 0)
 		{
 			if (ResourceDir::cacheDirectories.hasKey(name))
 			{
@@ -131,7 +130,7 @@ namespace hltypes
 		String name = ResourceDir::normalize(dirName);
 		Array<String> result;
 #ifdef _ZIPRESOURCE
-		if (Resource::zipMounts)
+		if (Resource::mountedArchives.size() > 0)
 		{
 			if (ResourceDir::cacheFiles.hasKey(name))
 			{
@@ -153,8 +152,8 @@ namespace hltypes
 				ResourceDir::cacheFiles[name] = result;
 			}
 		}
-		else
 #endif
+		if (result.size() == 0)
 		{
 			result = Dir::files(Resource::_makeNonZipPath(name), false).removedDuplicates();
 		}

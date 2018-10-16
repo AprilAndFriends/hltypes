@@ -88,23 +88,23 @@ namespace hltypes
 		{
 			return true;
 		}
-		bool result = _platformDirectoryExists(dirName);
-		if (!result && !caseSensitive)
+		if (_platformDirectoryExists(dirName))
 		{
-			String baseDir = Dir::baseDir(name);
-			String baseName = Dir::baseName(name);
-			Array<String> directories = Dir::directories(baseDir);
+			return true;
+		}
+		if (!caseSensitive)
+		{
+			String baseName = Dir::baseName(name).lowered();
+			Array<String> directories = Dir::directories(Dir::baseDir(name));
 			foreach (String, it, directories)
 			{
-				if ((*it).lowered() == baseName.lowered())
+				if ((*it).lowered() == baseName)
 				{
-					name = Dir::joinPath(baseDir, (*it));
-					result = true;
-					break;
+					return true;
 				}
 			}
 		}
-		return result;
+		return false;
 	}
 	
 	bool Dir::clear(const String& dirName)

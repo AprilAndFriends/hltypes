@@ -289,8 +289,12 @@ namespace hltypes
 			String realFilename = filename;
 			Mutex::ScopeLock lock(&accessMutex);
 			ArchiveFileHandle* archive = _aopen(realFilename);
-			FileInfo info = _finfo(archive, realFilename);
-			_aclose(archive);
+			FileInfo info;
+			if (archive != NULL)
+			{
+				info = _finfo(archive, realFilename);
+				_aclose(archive);
+			}
 			return info;
 		}
 
