@@ -815,12 +815,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -845,6 +853,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
 					"$(inherited)",
@@ -862,6 +871,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_IOS,
@@ -879,6 +889,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_IOS,
@@ -896,6 +907,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_IOS,
@@ -913,6 +925,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -931,6 +944,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
@@ -948,6 +962,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
@@ -965,12 +980,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -999,6 +1022,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
@@ -1017,12 +1041,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1047,6 +1079,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
 					"$(inherited)",
@@ -1064,6 +1097,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/include";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1080,6 +1114,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/include";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1096,6 +1131,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/include";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1112,6 +1148,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_IOS,
@@ -1128,6 +1165,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_IOS,
@@ -1144,6 +1182,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_IOS,
@@ -1273,6 +1312,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1290,6 +1330,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
@@ -1306,6 +1347,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MAC,
