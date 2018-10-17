@@ -19,6 +19,52 @@
 		7FAB23551291377B0035EDF5 /* hthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23531291377B0035EDF5 /* hthread.cpp */; };
 		7FAB23561291377B0035EDF5 /* hmutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23541291377B0035EDF5 /* hmutex.cpp */; };
 		7FAB235A1291378A0035EDF5 /* hmutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FAB23581291378A0035EDF5 /* hmutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		846A51F121772F28005DC5F2 /* hsbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C014AD4FA600C78558 /* hsbase.cpp */; };
+		846A51F221772F28005DC5F2 /* hstream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C114AD4FA600C78558 /* hstream.cpp */; };
+		846A51F321772F28005DC5F2 /* hthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23531291377B0035EDF5 /* hthread.cpp */; };
+		846A51F421772F28005DC5F2 /* hlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E909E61636911B00EB27EE /* hlog.cpp */; };
+		846A51F521772F28005DC5F2 /* zipaccess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F7183B91FC00BC2434 /* zipaccess.cpp */; };
+		846A51F621772F28005DC5F2 /* hmutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23541291377B0035EDF5 /* hmutex.cpp */; };
+		846A51F721772F28005DC5F2 /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
+		846A51F821772F28005DC5F2 /* hrdir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F6183B91FC00BC2434 /* hrdir.cpp */; };
+		846A51F921772F28005DC5F2 /* hdbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F5183B91FC00BC2434 /* hdbase.cpp */; };
+		846A51FA21772F28005DC5F2 /* hdir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F79A50F125CB34400B22DA2 /* hdir.cpp */; };
+		846A51FB21772F28005DC5F2 /* hfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69611EB0B9400B1C1DF /* hfile.cpp */; };
+		846A51FC21772F28005DC5F2 /* hexception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D15CF10D1A52B14E004F8DDC /* hexception.cpp */; };
+		846A51FD21772F28005DC5F2 /* hsemaphore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D11D1EA319E6A8E900C630FA /* hsemaphore.cpp */; };
+		846A51FE21772F28005DC5F2 /* hclipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */; };
+		846A51FF21772F28005DC5F2 /* hversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1D63AE11AA9978B00F72096 /* hversion.cpp */; };
+		846A520021772F28005DC5F2 /* hstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69711EB0B9500B1C1DF /* hstring.cpp */; };
+		846A520121772F28005DC5F2 /* hltypesUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9313F14DA88B400954F90 /* hltypesUtil.cpp */; };
+		846A520221772F28005DC5F2 /* Apple_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1D34303186250360040AA7F /* Apple_platform.mm */; };
+		846A520321772F28005DC5F2 /* hresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C965F5BA14F3897B009F0EE5 /* hresource.cpp */; };
+		846A520421772F28005DC5F2 /* hfbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C981D01B14FFC5FE0032F321 /* hfbase.cpp */; };
+		846A520521772F28005DC5F2 /* iOS_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F4163693B600EB27EE /* iOS_platform.mm */; };
+		846A520621772F28005DC5F2 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; };
+		846A520E21772F2A005DC5F2 /* hsbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C014AD4FA600C78558 /* hsbase.cpp */; };
+		846A520F21772F2A005DC5F2 /* hstream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D115F7C114AD4FA600C78558 /* hstream.cpp */; };
+		846A521021772F2A005DC5F2 /* hthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23531291377B0035EDF5 /* hthread.cpp */; };
+		846A521121772F2A005DC5F2 /* zipaccess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F7183B91FC00BC2434 /* zipaccess.cpp */; };
+		846A521221772F2A005DC5F2 /* hmutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB23541291377B0035EDF5 /* hmutex.cpp */; };
+		846A521321772F2A005DC5F2 /* hrdir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F6183B91FC00BC2434 /* hrdir.cpp */; };
+		846A521421772F2A005DC5F2 /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
+		846A521521772F2A005DC5F2 /* hdbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BAE0F5183B91FC00BC2434 /* hdbase.cpp */; };
+		846A521621772F2A005DC5F2 /* hdir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F79A50F125CB34400B22DA2 /* hdir.cpp */; };
+		846A521721772F2A005DC5F2 /* hfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69611EB0B9400B1C1DF /* hfile.cpp */; };
+		846A521821772F2A005DC5F2 /* hstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F42F69711EB0B9500B1C1DF /* hstring.cpp */; };
+		846A521921772F2A005DC5F2 /* hexception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D15CF10D1A52B14E004F8DDC /* hexception.cpp */; };
+		846A521A21772F2A005DC5F2 /* hsemaphore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D11D1EA319E6A8E900C630FA /* hsemaphore.cpp */; };
+		846A521B21772F2A005DC5F2 /* hclipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */; };
+		846A521C21772F2A005DC5F2 /* hversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1D63AE11AA9978B00F72096 /* hversion.cpp */; };
+		846A521D21772F2A005DC5F2 /* hltypesUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F9313F14DA88B400954F90 /* hltypesUtil.cpp */; };
+		846A521E21772F2A005DC5F2 /* Mac_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1E909F6163693BC00EB27EE /* Mac_platform.mm */; };
+		846A521F21772F2A005DC5F2 /* Apple_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D1D34303186250360040AA7F /* Apple_platform.mm */; };
+		846A522021772F2A005DC5F2 /* hresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C965F5BA14F3897B009F0EE5 /* hresource.cpp */; };
+		846A522121772F2A005DC5F2 /* hfbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C981D01B14FFC5FE0032F321 /* hfbase.cpp */; };
+		846A522221772F2A005DC5F2 /* hlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E909E61636911B00EB27EE /* hlog.cpp */; };
+		846A522321772F2A005DC5F2 /* henum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DC28F51B972E9000DBEB75 /* henum.cpp */; };
+		84FDA1EB217731EE00A827A2 /* miniz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84FDA1EA217731EE00A827A2 /* miniz.cpp */; };
+		84FDA1EC217731EE00A827A2 /* miniz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84FDA1EA217731EE00A827A2 /* miniz.cpp */; };
 		B43262901C21686200F9DDDF /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
 		B43262911C21686200F9DDDF /* platform_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B432628F1C21686200F9DDDF /* platform_internal.h */; };
 		B43262921C21686800F9DDDF /* platform_internal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B432628E1C21686200F9DDDF /* platform_internal.cpp */; };
@@ -155,6 +201,9 @@
 		7FAB23531291377B0035EDF5 /* hthread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hthread.cpp; path = src/hthread.cpp; sourceTree = "<group>"; };
 		7FAB23541291377B0035EDF5 /* hmutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hmutex.cpp; path = src/hmutex.cpp; sourceTree = "<group>"; };
 		7FAB23581291378A0035EDF5 /* hmutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hmutex.h; path = include/hltypes/hmutex.h; sourceTree = "<group>"; };
+		846A520B21772F28005DC5F2 /* libhltypes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhltypes.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		846A522821772F2A005DC5F2 /* libhltypes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhltypes.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		84FDA1EA217731EE00A827A2 /* miniz.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = miniz.cpp; path = lib/miniz/miniz.cpp; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* hltypes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hltypes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B432628E1C21686200F9DDDF /* platform_internal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform_internal.cpp; path = src/platform_internal.cpp; sourceTree = "<group>"; };
 		B432628F1C21686200F9DDDF /* platform_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform_internal.h; path = src/platform_internal.h; sourceTree = "<group>"; };
@@ -237,6 +286,8 @@
 				D1F27A9F177A2D0E00E5C131 /* libhltypes.a */,
 				D180BCBB1E15033200A554B6 /* hltypesTests.mac.xctest */,
 				D13F3D7120EA558100108E20 /* hltypesTests.ios.xctest */,
+				846A520B21772F28005DC5F2 /* libhltypes.a */,
+				846A522821772F2A005DC5F2 /* libhltypes.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -257,6 +308,7 @@
 		7F42F69511EB0B8500B1C1DF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				84FDA1EA217731EE00A827A2 /* miniz.cpp */,
 				D1E909F0163693A500EB27EE /* platform */,
 				B44A3E7E1C7C738100F42C49 /* hclipboard.cpp */,
 				B432628F1C21686200F9DDDF /* platform_internal.h */,
@@ -408,6 +460,36 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		846A51EF21772F28005DC5F2 /* hltypes (iOS ZIP) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 846A520721772F28005DC5F2 /* Build configuration list for PBXNativeTarget "hltypes (iOS ZIP)" */;
+			buildPhases = (
+				846A51F021772F28005DC5F2 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "hltypes (iOS ZIP)";
+			productName = "libhltypes-ios";
+			productReference = 846A520B21772F28005DC5F2 /* libhltypes.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		846A520C21772F2A005DC5F2 /* hltypes (Mac ZIP) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 846A522421772F2A005DC5F2 /* Build configuration list for PBXNativeTarget "hltypes (Mac ZIP)" */;
+			buildPhases = (
+				846A520D21772F2A005DC5F2 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "hltypes (Mac ZIP)";
+			productName = "libhltypes-ios";
+			productReference = 846A522821772F2A005DC5F2 /* libhltypes.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		8DC2EF4F0486A6940098B216 /* hltypes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "hltypes" */;
@@ -523,6 +605,8 @@
 				8DC2EF4F0486A6940098B216 /* hltypes */,
 				D1F27A8A177A2D0E00E5C131 /* hltypes (Mac) */,
 				D1522F3D140F7A310012F290 /* hltypes (iOS) */,
+				846A520C21772F2A005DC5F2 /* hltypes (Mac ZIP) */,
+				846A51EF21772F28005DC5F2 /* hltypes (iOS ZIP) */,
 				D180BCBA1E15033200A554B6 /* hltypesTests (Mac) */,
 				D13F3D7020EA558100108E20 /* hltypesTests (iOS) */,
 			);
@@ -530,6 +614,66 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		846A51F021772F28005DC5F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				846A51F121772F28005DC5F2 /* hsbase.cpp in Sources */,
+				846A51F221772F28005DC5F2 /* hstream.cpp in Sources */,
+				846A51F321772F28005DC5F2 /* hthread.cpp in Sources */,
+				846A51F421772F28005DC5F2 /* hlog.cpp in Sources */,
+				846A51F521772F28005DC5F2 /* zipaccess.cpp in Sources */,
+				846A51F621772F28005DC5F2 /* hmutex.cpp in Sources */,
+				84FDA1EC217731EE00A827A2 /* miniz.cpp in Sources */,
+				846A51F721772F28005DC5F2 /* platform_internal.cpp in Sources */,
+				846A51F821772F28005DC5F2 /* hrdir.cpp in Sources */,
+				846A51F921772F28005DC5F2 /* hdbase.cpp in Sources */,
+				846A51FA21772F28005DC5F2 /* hdir.cpp in Sources */,
+				846A51FB21772F28005DC5F2 /* hfile.cpp in Sources */,
+				846A51FC21772F28005DC5F2 /* hexception.cpp in Sources */,
+				846A51FD21772F28005DC5F2 /* hsemaphore.cpp in Sources */,
+				846A51FE21772F28005DC5F2 /* hclipboard.cpp in Sources */,
+				846A51FF21772F28005DC5F2 /* hversion.cpp in Sources */,
+				846A520021772F28005DC5F2 /* hstring.cpp in Sources */,
+				846A520121772F28005DC5F2 /* hltypesUtil.cpp in Sources */,
+				846A520221772F28005DC5F2 /* Apple_platform.mm in Sources */,
+				846A520321772F28005DC5F2 /* hresource.cpp in Sources */,
+				846A520421772F28005DC5F2 /* hfbase.cpp in Sources */,
+				846A520521772F28005DC5F2 /* iOS_platform.mm in Sources */,
+				846A520621772F28005DC5F2 /* henum.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		846A520D21772F2A005DC5F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				846A520E21772F2A005DC5F2 /* hsbase.cpp in Sources */,
+				846A520F21772F2A005DC5F2 /* hstream.cpp in Sources */,
+				846A521021772F2A005DC5F2 /* hthread.cpp in Sources */,
+				846A521121772F2A005DC5F2 /* zipaccess.cpp in Sources */,
+				846A521221772F2A005DC5F2 /* hmutex.cpp in Sources */,
+				846A521321772F2A005DC5F2 /* hrdir.cpp in Sources */,
+				84FDA1EB217731EE00A827A2 /* miniz.cpp in Sources */,
+				846A521421772F2A005DC5F2 /* platform_internal.cpp in Sources */,
+				846A521521772F2A005DC5F2 /* hdbase.cpp in Sources */,
+				846A521621772F2A005DC5F2 /* hdir.cpp in Sources */,
+				846A521721772F2A005DC5F2 /* hfile.cpp in Sources */,
+				846A521821772F2A005DC5F2 /* hstring.cpp in Sources */,
+				846A521921772F2A005DC5F2 /* hexception.cpp in Sources */,
+				846A521A21772F2A005DC5F2 /* hsemaphore.cpp in Sources */,
+				846A521B21772F2A005DC5F2 /* hclipboard.cpp in Sources */,
+				846A521C21772F2A005DC5F2 /* hversion.cpp in Sources */,
+				846A521D21772F2A005DC5F2 /* hltypesUtil.cpp in Sources */,
+				846A521E21772F2A005DC5F2 /* Mac_platform.mm in Sources */,
+				846A521F21772F2A005DC5F2 /* Apple_platform.mm in Sources */,
+				846A522021772F2A005DC5F2 /* hresource.cpp in Sources */,
+				846A522121772F2A005DC5F2 /* hfbase.cpp in Sources */,
+				846A522221772F2A005DC5F2 /* hlog.cpp in Sources */,
+				846A522321772F2A005DC5F2 /* henum.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DC2EF540486A6940098B216 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -689,6 +833,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/lib/miniz",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = hltypes;
 			};
 			name = "App Store";
@@ -707,6 +855,109 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.googlecode.${PRODUCT_NAME:rfc1034Identifier}";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
+			};
+			name = "App Store";
+		};
+		846A520821772F28005DC5F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_IOS,
+					_ZIPRESOURCE,
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				PRODUCT_NAME = hltypes;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		846A520921772F28005DC5F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_IOS,
+					_ZIPRESOURCE,
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				PRODUCT_NAME = hltypes;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		846A520A21772F28005DC5F2 /* App Store */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7218D7612F0088FC68 /* iOS.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_IOS,
+					_ZIPRESOURCE,
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				PRODUCT_NAME = hltypes;
+				SKIP_INSTALL = YES;
+			};
+			name = "App Store";
+		};
+		846A522521772F2A005DC5F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_MAC,
+					_ZIPRESOURCE,
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				PRODUCT_NAME = hltypes;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		846A522621772F2A005DC5F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_MAC,
+					_ZIPRESOURCE,
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				PRODUCT_NAME = hltypes;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		846A522721772F2A005DC5F2 /* App Store */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1681B7318D7612F0088FC68 /* Mac.xcconfig */;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_MAC,
+					_ZIPRESOURCE,
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				PRODUCT_NAME = hltypes;
+				SKIP_INSTALL = YES;
 			};
 			name = "App Store";
 		};
@@ -735,6 +986,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/lib/miniz",
+					"$(inherited)",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = hltypes;
 			};
@@ -780,6 +1035,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/lib/miniz",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = hltypes;
 			};
 			name = Release;
@@ -1078,6 +1337,26 @@
 				C981CCAD132AE98F0072B5A9 /* Debug */,
 				C981CCAF132AE9960072B5A9 /* Release */,
 				7F7A5603129D435000E0ED12 /* App Store */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		846A520721772F28005DC5F2 /* Build configuration list for PBXNativeTarget "hltypes (iOS ZIP)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				846A520821772F28005DC5F2 /* Debug */,
+				846A520921772F28005DC5F2 /* Release */,
+				846A520A21772F28005DC5F2 /* App Store */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		846A522421772F2A005DC5F2 /* Build configuration list for PBXNativeTarget "hltypes (Mac ZIP)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				846A522521772F2A005DC5F2 /* Debug */,
+				846A522621772F2A005DC5F2 /* Release */,
+				846A522721772F2A005DC5F2 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
