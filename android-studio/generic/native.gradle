@@ -6,13 +6,39 @@ android
 				arguments += ["-DANDROID_TOOLCHAIN=clang", "-DANDROID_NATIVE_API_LEVEL=15", "-DANDROID_PLATFORM=android-15", "-DANDROID_CPP_FEATURES=rtti exceptions", "-DANDROID_STL=c++_static"]
 				cFlags += ["-fsigned-char"]
 				cppFlags += ["-fsigned-char"]
-				abiFilters "armeabi-v7a", "x86"
 			}
 		}
 	}
 	externalNativeBuild {
 		cmake {
 			path "CMakeLists.txt"
+		}
+	}
+	flavorDimensions "architecture"
+	productFlavors {
+		univ {
+			dimension "architecture"
+			externalNativeBuild {
+				cmake {
+					abiFilters "armeabi-v7a", "x86"
+				}
+			}
+		}
+		armv7a {
+			dimension "architecture"
+			externalNativeBuild {
+				cmake {
+					abiFilters "armeabi-v7a"
+				}
+			}
+		}
+		x86 {
+			dimension "architecture"
+			externalNativeBuild {
+				cmake {
+					abiFilters "x86"
+				}
+			}
 		}
 	}
 }
