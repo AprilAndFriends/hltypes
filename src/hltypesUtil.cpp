@@ -403,32 +403,27 @@ double hroundd(double value)
 
 int habs(int value)
 {
-	return value >= 0 ? value : -value;
+	return (value >= 0 ? value : -value);
 }
 
 int64_t habs(int64_t value)
 {
-	return value >= 0 ? value : -value;
-}
-
-long habs(long value)
-{
-	return value >= 0 ? value : -value;
+	return (value >= 0 ? value : -value);
 }
 
 float habs(float value)
 {
-	return value >= 0.0f ? value : -value;
+	return (value >= 0.0f ? value : -value);
 }
 
 double habs(double value)
 {
-	return value >= 0.0 ? value : -value;
+	return (value >= 0.0 ? value : -value);
 }
 
 long double habs(long double value)
 {
-	return value >= 0.0 ? value : -value;
+	return (value >= 0.0 ? value : -value);
 }
 
 int hmod(int i, int m)

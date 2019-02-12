@@ -21,8 +21,8 @@ namespace hltypes
 	Stream::Stream(int initialCapacity) :
 		StreamBase(),
 		stream(NULL),
-		streamSize(0LL),
-		streamPosition(0LL),
+		streamSize((int64_t)0),
+		streamPosition((int64_t)0),
 		capacity((int64_t)hmax(MIN_HSTREAM_CAPACITY, initialCapacity))
 	{
 		// using malloc because realloc is used later
@@ -33,7 +33,7 @@ namespace hltypes
 		StreamBase(),
 		stream(NULL),
 		streamSize((int64_t)initialDataSize),
-		streamPosition(0LL),
+		streamPosition((int64_t)0),
 		capacity((int64_t)initialDataSize)
 	{
 		// using malloc because realloc is used later
@@ -65,7 +65,7 @@ namespace hltypes
 		StreamBase(),
 		stream(NULL),
 		streamSize((int64_t)initialDataSize),
-		streamPosition(0LL),
+		streamPosition((int64_t)0),
 		capacity((int64_t)hmax(initialCapacity, initialDataSize))
 	{
 		// using malloc because realloc is used later
@@ -102,7 +102,7 @@ namespace hltypes
 	{
 		// must not used assignment operator here due to internally uninitialized class
 		// using malloc because realloc is used later
-		if (this->streamSize > 0LL)
+		if (this->streamSize > (int64_t)0)
 		{
 			this->stream = (unsigned char*)malloc((int)this->capacity);
 			if (this->stream != NULL)
@@ -322,7 +322,7 @@ namespace hltypes
 	
 	int Stream::_read(void* buffer, int count)
 	{
-		int readSize = (int)hclamp((int64_t)count, 0LL, this->streamSize - this->streamPosition);
+		int readSize = (int)hclamp((int64_t)count, (int64_t)0, this->streamSize - this->streamPosition);
 		if (readSize > 0)
 		{
 			memcpy(buffer, &this->stream[this->streamPosition], readSize);
@@ -362,15 +362,15 @@ namespace hltypes
 	{
 		if (seekMode == SeekMode::Current)
 		{
-			this->streamPosition = hclamp(this->streamPosition + offset, 0LL, this->streamSize);
+			this->streamPosition = hclamp(this->streamPosition + offset, (int64_t)0, this->streamSize);
 		}
 		else if (seekMode == SeekMode::Start)
 		{
-			this->streamPosition = hclamp(offset, 0LL, this->streamSize);
+			this->streamPosition = hclamp(offset, (int64_t)0, this->streamSize);
 		}
 		else if (seekMode == SeekMode::End)
 		{
-			this->streamPosition = hclamp(this->streamSize + offset, 0LL, this->streamSize);
+			this->streamPosition = hclamp(this->streamSize + offset, (int64_t)0, this->streamSize);
 		}
 		return true;
 	}
@@ -380,7 +380,7 @@ namespace hltypes
 		if (write_size > this->capacity - this->streamPosition && !this->setCapacity(hpotCeil((int)(write_size + this->streamPosition))))
 		{
 			// could not reallocate enough memory, reduce write_size
-			write_size = (int)hmax(this->capacity - this->streamPosition, 0LL);
+			write_size = (int)hmax(this->capacity - this->streamPosition, (int64_t)0);
 			return false;
 		}
 		return true;

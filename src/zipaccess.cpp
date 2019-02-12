@@ -313,7 +313,7 @@ namespace hltypes
 					if (it->second->ensureCreatedZipArchive())
 					{
 						count = miniz::mz_zip_reader_get_num_files(it->second->zipArchive);
-						memset(filename, FILENAME_BUFFER, 0);
+						memset(filename, 0, FILENAME_BUFFER);
 						for_iter (i, 0, count)
 						{
 							size = miniz::mz_zip_reader_get_filename(it->second->zipArchive, i, filename, FILENAME_BUFFER - 1);
