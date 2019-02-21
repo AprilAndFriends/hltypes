@@ -20,7 +20,7 @@ android
 			externalNativeBuild {
 				cmake {
 					cFlags += ["-DDEBUG", "-D_DEBUG"]
-					cppFlags += ["-DDDEBUG", "-D_DEBUG"]
+					cppFlags += ["-DDEBUG", "-D_DEBUG"]
 				}
 			}
 		}
