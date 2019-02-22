@@ -158,9 +158,6 @@ namespace hltypes
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
 		inline Log() { }
-		/// @brief Basic constructor.
-		/// @note Forces this to be a static class.
-		inline ~Log() { }
 
 		/// @brief Executes the actual message loggging.
 		/// @param[in] tag The message tag.

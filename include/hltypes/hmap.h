@@ -59,10 +59,6 @@ namespace hltypes
 			std::map<K, V>(other)
 		{
 		}
-		/// @brief Destructor.
-		inline ~Map()
-		{
-		}
 		/// @brief Returns value with specified key.
 		/// @param[in] key Key of the value.
 		/// @return Value with specified key.

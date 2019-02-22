@@ -91,10 +91,6 @@ namespace hltypes
 			Container<std::list<T>, T>(other, start, count)
 		{
 		}
-		/// @brief Destructor.
-		inline ~List()
-		{
-		}
 		/// @brief Gets all indices.
 		/// @return All indices.
 		inline List<int> indices() const

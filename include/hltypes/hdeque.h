@@ -91,10 +91,6 @@ namespace hltypes
 			Container<std::deque<T>, T>(other, start, count)
 		{
 		}
-		/// @brief Destructor.
-		inline ~Deque()
-		{
-		}
 		/// @brief Gets all indices.
 		/// @return All indices.
 		inline Deque<int> indices() const

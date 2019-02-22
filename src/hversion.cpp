@@ -48,10 +48,6 @@ namespace hltypes
 		this->set(versions);
 	}
 
-	Version::~Version()
-	{
-	}
-	
 	bool Version::isValid() const
 	{
 		return (*this > Version(0, 0, 0, 0));

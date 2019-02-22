@@ -49,8 +49,6 @@ namespace hltypes
 		/// @param[in] versions Version numbers separated by period characters.
 		/// @note Only between 1 and 4 values are used in versions.
 		Version(const String& versions);
-		/// @brief Destructor.
-		~Version();
 		
 		/// @brief Checks validity of version.
 		/// @return True if version is valid.

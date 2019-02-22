@@ -29,9 +29,6 @@ namespace hltypes
 		public:
 			friend class Thread;
 
-			/// @brief Destructor.
-			~ThreadRunner();
-
 			/// @return Associated thread.
 			inline Thread* getThread() const { return this->thread; }
 

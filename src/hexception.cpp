@@ -109,17 +109,11 @@ namespace hltypes
 #endif
 		this->_setInternalMessage(message, sourceFile, lineNumber);
 	}
-	_FileCouldNotOpenException::~_FileCouldNotOpenException()
-	{
-	}
 	
 	_FileNotOpenException::_FileNotOpenException(const String& filename, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
 		this->_setInternalMessage("'" + filename + "' is not open!", sourceFile, lineNumber);
-	}
-	_FileNotOpenException::~_FileNotOpenException()
-	{
 	}
 	
 	_FileNotWriteableException::_FileNotWriteableException(const String& filename, const char* sourceFile, int lineNumber) :
@@ -127,17 +121,11 @@ namespace hltypes
 	{
 		this->_setInternalMessage("'" + filename + "' is not writeable!", sourceFile, lineNumber);
 	}
-	_FileNotWriteableException::~_FileNotWriteableException()
-	{
-	}
 	
 	_ResourceNotExistsException::_ResourceNotExistsException(const String& type, const String& name, const String& container, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
 		this->_setInternalMessage("'" + name + "' '" + type + "' does not exist in '" + container + "'", sourceFile, lineNumber);
-	}
-	_ResourceNotExistsException::~_ResourceNotExistsException()
-	{
 	}
 
 	_ResourceAlreadyExistsException::_ResourceAlreadyExistsException(const String& type, const String& name, const String& container, const char* sourceFile, int lineNumber) :
@@ -145,17 +133,11 @@ namespace hltypes
 	{
 		this->_setInternalMessage("'" + name + "' '" + type + "' already exists in '" + container + "'", sourceFile, lineNumber);
 	}
-	_ResourceAlreadyExistsException::~_ResourceAlreadyExistsException()
-	{
-	}
 
 	_ContainerIndexException::_ContainerIndexException(int index, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
 		this->_setInternalMessage("index '" + hstr(lineNumber) + "' out of range", sourceFile, lineNumber);
-	}
-	_ContainerIndexException::~_ContainerIndexException()
-	{
 	}
 	
 	_ContainerEmptyException::_ContainerEmptyException(const String& functionName, const char* sourceFile, int lineNumber) :
@@ -163,17 +145,11 @@ namespace hltypes
 	{
 		this->_setInternalMessage("'" + functionName + "' cannot be used on a container with size = 0", sourceFile, lineNumber);
 	}
-	_ContainerEmptyException::~_ContainerEmptyException()
-	{
-	}
 	
 	_ContainerElementNotFoundException::_ContainerElementNotFoundException(const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
 		this->_setInternalMessage("element not found in container", sourceFile, lineNumber);
-	}
-	_ContainerElementNotFoundException::~_ContainerElementNotFoundException()
-	{
 	}
 	
 	_ContainerRangeException::_ContainerRangeException(int start, int count, const char* sourceFile, int lineNumber) :
@@ -181,17 +157,11 @@ namespace hltypes
 	{
 		this->_setInternalMessage("range 'at " + hstr(start) + " for " + hstr(count) + "' out of range", sourceFile, lineNumber);
 	}
-	_ContainerRangeException::~_ContainerRangeException()
-	{
-	}
 	
 	_ContainerKeyException::_ContainerKeyException(const String& key, const String& container, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
 		this->_setInternalMessage("key '" + key + "' not found in '" + container + "'", sourceFile, lineNumber);
-	}
-	_ContainerKeyException::~_ContainerKeyException()
-	{
 	}
 	
 	_ObjectCannotCopyException::_ObjectCannotCopyException(const String& name, const char* sourceFile, int lineNumber) :
@@ -199,17 +169,11 @@ namespace hltypes
 	{
 		this->_setInternalMessage("cannot create copy of object of class '" + name + "'", sourceFile, lineNumber);
 	}
-	_ObjectCannotCopyException::~_ObjectCannotCopyException()
-	{
-	}
 
 	_ObjectCannotAssignException::_ObjectCannotAssignException(const String& name, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
 		this->_setInternalMessage("cannot assign object of class '" + name + "'", sourceFile, lineNumber);
-	}
-	_ObjectCannotAssignException::~_ObjectCannotAssignException()
-	{
 	}
 
 	_EnumerationValueNotExistsException::_EnumerationValueNotExistsException(unsigned int value, const char* sourceFile, int lineNumber) :
@@ -217,17 +181,11 @@ namespace hltypes
 	{
 		this->_setInternalMessage("enum value does not exist: " + hstr(value), sourceFile, lineNumber);
 	}
-	_EnumerationValueNotExistsException::~_EnumerationValueNotExistsException()
-	{
-	}
 
 	_EnumerationValueAlreadyExistsException::_EnumerationValueAlreadyExistsException(unsigned int value, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
 		this->_setInternalMessage("enum value already exists: " + hstr(value), sourceFile, lineNumber);
-	}
-	_EnumerationValueAlreadyExistsException::~_EnumerationValueAlreadyExistsException()
-	{
 	}
 
 }
