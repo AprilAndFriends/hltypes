@@ -42,7 +42,11 @@ namespace hltypes
 #if defined(_WIN32) || defined(__ANDROID__) || defined(_IOS)
 		if (Log::isLevelDebug() && message != "")
 		{
+#ifndef __ANDROID__
 			hltypes::_platformPrint("FATAL", this->message, Log::LevelError);
+#else
+			hltypes::_platformPrint("FATAL", this->message + "\n" + this->stackTrace, Log::LevelError);
+#endif
 		}
 #endif
 	}
