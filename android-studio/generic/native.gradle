@@ -15,4 +15,57 @@ android
 			path "CMakeLists.txt"
 		}
 	}
+	buildTypes {
+		debug {
+			externalNativeBuild {
+				cmake {
+					cFlags += ["-DDEBUG", "-D_DEBUG"]
+					cppFlags += ["-DDDEBUG", "-D_DEBUG"]
+				}
+			}
+		}
+	}
+	flavorDimensions "architecture"
+	productFlavors {
+		univ {
+			dimension "architecture"
+			externalNativeBuild {
+				cmake {
+					abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+				}
+			}
+		}
+		armv7a {
+			dimension "architecture"
+			externalNativeBuild {
+				cmake {
+					abiFilters "armeabi-v7a"
+				}
+			}
+		}
+		arm64 {
+			dimension "architecture"
+			externalNativeBuild {
+				cmake {
+					abiFilters "arm64-v8a"
+				}
+			}
+		}
+		x86 {
+			dimension "architecture"
+			externalNativeBuild {
+				cmake {
+					abiFilters "x86"
+				}
+			}
+		}
+		x64 {
+			dimension "architecture"
+			externalNativeBuild {
+				cmake {
+					abiFilters "x86_64"
+				}
+			}
+		}
+	}
 }

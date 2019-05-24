@@ -337,10 +337,6 @@ hltypesFnExport int64_t habs(int64_t value);
 /// @brief Gets absolute value.
 /// @param[in] value The value to be absoluted.
 /// @return Absoluted value.
-hltypesFnExport long habs(long value);
-/// @brief Gets absolute value.
-/// @param[in] value The value to be absoluted.
-/// @return Absoluted value.
 hltypesFnExport float habs(float value);
 /// @brief Gets absolute value.
 /// @param[in] value The value to be absoluted.
