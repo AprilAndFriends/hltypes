@@ -105,10 +105,6 @@ namespace hltypes
 		this->thread = thread;
 	}
 
-	Thread::ThreadRunner::~ThreadRunner()
-	{
-	}
-
 	void Thread::ThreadRunner::execute()
 	{
 		this->thread->_execute();

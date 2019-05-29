@@ -589,11 +589,10 @@
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "hltypes" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = en;
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				Base,
-				en,
+				English,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* libhltypes */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;

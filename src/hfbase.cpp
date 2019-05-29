@@ -22,10 +22,6 @@ namespace hltypes
 	{
 	}
 
-	FileInfo::~FileInfo()
-	{
-	}
-
 	HL_ENUM_CLASS_DEFINE(FileBase::AccessMode,
 	(
 		HL_ENUM_DEFINE(FileBase::AccessMode, Read);

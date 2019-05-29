@@ -38,8 +38,6 @@ namespace hltypes
 
 		/// @brief Constructor.
 		FileInfo();
-		/// @brief Destructor.
-		~FileInfo();
 
 	};
 	

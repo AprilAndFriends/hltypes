@@ -321,11 +321,10 @@
 			};
 			buildConfigurationList = 730F235809181A3A00AB638C /* Build configuration list for PBXProject "zlib" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = en;
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				Base,
-				en,
+				English,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* zlib */;
 			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;

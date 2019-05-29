@@ -24,7 +24,6 @@
 	{ \
 	public: \
 		_ ## classe(const char* file, int line); \
-		inline ~_ ## classe() { } \
 		inline hstr getType() const { return #classe; } \
 	};
 
@@ -37,7 +36,6 @@
 	{ \
 	public: \
 		_ ## classe(chstr arg0, const char* file, int line); \
-		inline ~_ ## classe() { } \
 		inline hstr getType() const { return #classe; } \
 	};
 
@@ -51,7 +49,6 @@
 	{ \
 	public: \
 		_ ## classe(chstr arg0, chstr arg1, const char* file, int line); \
-		inline ~_ ## classe() { } \
 		inline hstr getType() const { return #classe; } \
 	};
 
@@ -66,7 +63,6 @@
 	{ \
 	public: \
 		_ ## classe(chstr arg0, chstr arg1, chstr arg2, const char* file, int line); \
-		inline ~_ ## classe() { } \
 		inline hstr getType() const { return #classe; } \
 	};
 
@@ -127,7 +123,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_FileCouldNotOpenException(const String& filename, bool isResource, const char* sourceFile, int lineNumber);
-		~_FileCouldNotOpenException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "FileCouldNotOpenException"; }
@@ -147,7 +142,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_FileNotOpenException(const String& filename, const char* sourceFile, int lineNumber);
-		~_FileNotOpenException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "FileNotOpenException"; }
@@ -165,7 +159,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_FileNotWriteableException(const String& filename, const char* sourceFile, int lineNumber);
-		~_FileNotWriteableException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "FileNotWriteableException"; }
@@ -185,7 +178,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_ResourceNotExistsException(const String& type, const String& name, const String& container, const char* sourceFile, int lineNumber);
-		~_ResourceNotExistsException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "ResourceNotExistsException"; }
@@ -205,7 +197,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_ResourceAlreadyExistsException(const String& type, const String& name, const String& container, const char* sourceFile, int lineNumber);
-		~_ResourceAlreadyExistsException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "ResourceAlreadyExistsException"; }
@@ -223,7 +214,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_ContainerIndexException(int index, const char* sourceFile, int lineNumber);
-		~_ContainerIndexException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "ContainerIndexException"; }
@@ -241,7 +231,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_ContainerEmptyException(const String& functionName, const char* sourceFile, int lineNumber);
-		~_ContainerEmptyException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "ContainerEmptyException"; }
@@ -258,7 +247,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_ContainerElementNotFoundException(const char* sourceFile, int lineNumber);
-		~_ContainerElementNotFoundException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "ContainerElementNotFoundException"; }
@@ -277,7 +265,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_ContainerRangeException(int start, int count, const char* sourceFile, int lineNumber);
-		~_ContainerRangeException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "ContainerRangeException"; }
@@ -296,7 +283,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_ContainerKeyException(const String& key, const String& container, const char* sourceFile, int lineNumber);
-		~_ContainerKeyException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "ContainerKeyException"; }
@@ -314,7 +300,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_ObjectCannotCopyException(const String& name, const char* sourceFile, int lineNumber);
-		~_ObjectCannotCopyException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "ObjectCannotCopyException"; }
@@ -332,7 +317,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_ObjectCannotAssignException(const String& name, const char* sourceFile, int lineNumber);
-		~_ObjectCannotAssignException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "ObjectCannotAssignException"; }
@@ -347,7 +331,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_EnumerationValueNotExistsException(unsigned int value, const char* sourceFile, int lineNumber);
-		~_EnumerationValueNotExistsException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "EnumerationValueNotExistsException"; }
@@ -368,7 +351,6 @@ namespace hltypes
 		/// @param[in] sourceFile Name of the source file.
 		/// @param[in] lineNumber Number of the line.
 		_EnumerationValueAlreadyExistsException(unsigned int value, const char* sourceFile, int lineNumber);
-		~_EnumerationValueAlreadyExistsException();
 		/// @brief Gets the exception type.
 		/// @return The exception type.
 		inline String getType() const { return "EnumerationValueAlreadyExistsException"; }

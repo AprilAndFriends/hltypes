@@ -377,7 +377,7 @@ namespace hltypes
 		this->set(d, precision);
 	}
 
-	String::~String()
+	String::~String() // do not remove this, the superclass doesn't have a virtual destructor
 	{
 	}
 

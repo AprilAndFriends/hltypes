@@ -91,10 +91,6 @@ namespace hltypes
 			Container<std::vector<T>, T>(other, start, count)
 		{
 		}
-		/// @brief Destructor.
-		inline ~Array()
-		{
-		}
 		/// @brief Gets all indices.
 		/// @return All indices.
 		inline Array<int> indices() const

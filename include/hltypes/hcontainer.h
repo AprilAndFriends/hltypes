@@ -98,10 +98,6 @@ namespace hltypes
 		{
 			this->insertAt(0, other, start, count);
 		}
-		/// @brief Destructor.
-		inline ~Container()
-		{
-		}
 		/// @brief Returns the number of elements in the Container.
 		/// @return The number of elements in the Container.
 		inline int size() const

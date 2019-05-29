@@ -107,9 +107,6 @@ namespace hltypes
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
 		inline Dir() : DirBase() { }
-		/// @brief Basic constructor.
-		/// @note Forces this to be a static class.
-		inline ~Dir() { }
 
 		/// @brief Flag for creating directories with full access permissions on Win32 (Vista and later).
 		static bool win32FullDirectoryPermissions;

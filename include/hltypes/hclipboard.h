@@ -41,9 +41,6 @@ namespace hltypes
 		/// @brief Basic constructor.
 		/// @note Forces this to be a static class.
 		inline Clipboard() { }
-		/// @brief Basic constructor.
-		/// @note Forces this to be a static class.
-		inline ~Clipboard() { }
 
 	};
 }
