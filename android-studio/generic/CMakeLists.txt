@@ -20,9 +20,9 @@ add_definitions(
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG -D_DEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -D_DEBUG")
 set(CMAKE_ASM_FLAGS_DEBUG "${CMAKE_ASM_FLAGS_DEBUG} -DDEBUG -D_DEBUG")
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DNDEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
-set(CMAKE_ASM_FLAGS_RELEASE "${CMAKE_ASM_FLAGS_RELEASE} -DNDEBUG")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fuse-ld=lld -Wl,--no-threads") # -Wl,--no-threads may be removed later once LLD works properly with multi-threads
+set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fuse-ld=lld -Wl,--no-threads") # -Wl,--no-threads may be removed later once LLD works properly with multi-threads
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fuse-ld=lld -Wl,--no-threads") # -Wl,--no-threads may be removed later once LLD works properly with multi-threads
 
 # forcing integrated assembler
 string(REPLACE " -fno-integrated-as" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
@@ -73,9 +73,8 @@ link_directories(
 # some default libraries
 find_library(liblog log)
 find_library(libz z)
-find_library(libc c)
-find_library(libandroid android)
 find_library(libGLESv2 GLESv2)
+find_library(libandroid android)
 find_library(libOpenSLES OpenSLES)
 
-set(SYSTEM_LIBS ${liblog} ${libz} ${libc} ${libandroid} ${libGLESv2})
+set(SYSTEM_LIBS ${liblog} ${libz} ${libGLESv2} ${libandroid})
