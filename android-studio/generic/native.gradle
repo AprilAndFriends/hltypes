@@ -31,7 +31,7 @@ android
 			dimension "architecture"
 			externalNativeBuild {
 				cmake {
-					abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+					abiFilters "armeabi-v7a", "arm64-v8a"
 				}
 			}
 		}
@@ -48,22 +48,6 @@ android
 			externalNativeBuild {
 				cmake {
 					abiFilters "arm64-v8a"
-				}
-			}
-		}
-		x86 {
-			dimension "architecture"
-			externalNativeBuild {
-				cmake {
-					abiFilters "x86"
-				}
-			}
-		}
-		x64 {
-			dimension "architecture"
-			externalNativeBuild {
-				cmake {
-					abiFilters "x86_64"
 				}
 			}
 		}
