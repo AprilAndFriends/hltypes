@@ -44,28 +44,54 @@ namespace hltypes
 /// @param[in] degrees Angle in degrees.
 /// @return sin(degrees).
 #define hsin(degrees) sin((degrees) * __HL_DEG_TO_RAD_RATIO)
+/// @brief Calculates sin from angle given in degrees as float.
+/// @param[in] degrees Angle in degrees.
+/// @return sin(degrees).
+#define hsinf(degrees) ((float)hsin(degrees))
 /// @brief Calculates cos from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
 /// @return cos(degrees).
 #define hcos(degrees) cos((degrees) * __HL_DEG_TO_RAD_RATIO)
+/// @brief Calculates cos from angle given in degrees as float.
+/// @param[in] degrees Angle in degrees.
+/// @return cos(degrees).
+#define hcosf(degrees) ((float)hcos(degrees))
 /// @brief Calculates tan from angle given in degrees.
 /// @param[in] degrees Angle in degrees.
 /// @return tan(degrees).
 #define htan(degrees) tan((degrees) * __HL_DEG_TO_RAD_RATIO)
+/// @brief Calculates tan from angle given in degrees as float.
+/// @param[in] degrees Angle in degrees.
+/// @return tan(degrees).
+#define htanf(degrees) ((float)htan(degrees))
 /// @brief Calculates asin in degrees.
 /// @param[in] value sin value.
 /// @return asin in degrees.
 #define hasin(value) (asin(value) * __HL_RAD_TO_DEG_RATIO)
+/// @brief Calculates asin in degrees as float.
+/// @param[in] value sin value.
+/// @return asin in degrees.
+#define hasinf(value) ((float)hasin(value))
 /// @brief Calculates acos in degrees.
 /// @param[in] value cos value.
 /// @return acos in degrees.
 #define hacos(value) (acos(value) * __HL_RAD_TO_DEG_RATIO)
+/// @brief Calculates acos in degrees as float.
+/// @param[in] value cos value.
+/// @return acos in degrees.
+#define hacosf(value) ((float)hacos(value))
 /// @brief Calculates atan in degrees.
 /// @param[in] x X value.
 /// @param[in] y Y value.
 /// @return atan in degrees.
 /// @note This uses atan2.
-#define hatan(x, y) (atan2(x, y) * __HL_RAD_TO_DEG_RATIO)
+#define hatan(x, y) (atan2((x), (y)) * __HL_RAD_TO_DEG_RATIO)
+/// @brief Calculates atan in degrees as float.
+/// @param[in] x X value.
+/// @param[in] y Y value.
+/// @return atan in degrees.
+/// @note This uses atan2.
+#define hatanf(x, y) ((float)hatan((x), (y)))
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.0001
 /// @brief Calculates const C-array size.
