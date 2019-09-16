@@ -641,7 +641,11 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("removeRandom()");
 			}
-			int index = hrand(size);
+			int index = 0;
+			if (size > 1)
+			{
+				index = hrand(size);
+			}
 			T result = this->at(index);
 			this->removeAt(index);
 			return result;
@@ -735,10 +739,11 @@ namespace hltypes
 			{
 				throw ContainerEmptyException("random()");
 			}
-			return this->at(hrand(size));
+			return this->at(size > 1 ? hrand(size) : 0);
 		}
 		/// @brief Randomizes order of elements in Container.
 		/// @note Not using std::random_shuffle() due to issues with std::srand() in some implementations.
+		/// @note This implementation is done in-place in order to avoid creating another object.
 		inline void randomize()
 		{
 			int size = this->size();
