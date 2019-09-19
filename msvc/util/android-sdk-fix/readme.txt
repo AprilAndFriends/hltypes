@@ -1,1 +1,0 @@
-At some point find_java stopped working in Android SDK so use these instead. Overwrite the original files in ${ANDROID_SDK}/tools/lib.
