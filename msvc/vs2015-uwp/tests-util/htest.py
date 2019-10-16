@@ -12,17 +12,17 @@ for root, dirs, files in os.walk(binPath):
 			testApps[file] = os.path.join(root, file)
 
 for name, path in testApps.items():
-	print "*", name
+	print("*", name)
 	certificateName = path.replace(".appx", ".cer")
 	if not os.path.exists(certificateName):
-		print "CERTIFICATE DOES NOT EXIST, aborting further tests"
+		print("CERTIFICATE DOES NOT EXIST, aborting further tests")
 		sys.exit(1)
 	if subprocess.call(["certutil.exe", "-verify", certificateName]) != 0:
-		print "CERTIFICATE INVALID, aborting further tests"
+		print("CERTIFICATE INVALID, aborting further tests")
 		sys.exit(1)
 	if subprocess.call(["certutil.exe", "-addstore", "TrustedPeople", certificateName]) != 0:
-		print "CERTIFICATE COULD NOT BE INSTALLED, aborting further tests"
+		print("CERTIFICATE COULD NOT BE INSTALLED, aborting further tests")
 		sys.exit(1)
 	if subprocess.call([VSTEST_PATH, "/Platform:x86", "/InIsolation", path]) != 0:
-		print "UNIT TEST ERROR, aborting further tests"
+		print("UNIT TEST ERROR, aborting further tests")
 		sys.exit(1)

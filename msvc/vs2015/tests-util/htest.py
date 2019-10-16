@@ -12,7 +12,7 @@ for root, dirs, files in os.walk(binPath):
 			testDlls[file] = os.path.join(root, file)
 
 for name, path in testDlls.items():
-	print "*", name
+	print("*", name)
 	if subprocess.call([VSTEST_PATH, "/Platform:x86", path]) != 0:
-		print "UNIT TEST ERROR, aborting further tests"
+		print("UNIT TEST ERROR, aborting further tests")
 		sys.exit(1)
