@@ -141,7 +141,7 @@ namespace hltypes
 	_ContainerIndexException::_ContainerIndexException(int index, const char* sourceFile, int lineNumber) :
 		_Exception("", sourceFile, lineNumber)
 	{
-		this->_setInternalMessage("index '" + hstr(lineNumber) + "' out of range", sourceFile, lineNumber);
+		this->_setInternalMessage("index '" + hstr(index) + "' out of range", sourceFile, lineNumber);
 	}
 	
 	_ContainerEmptyException::_ContainerEmptyException(const String& functionName, const char* sourceFile, int lineNumber) :
